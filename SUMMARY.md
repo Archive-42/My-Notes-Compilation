@@ -1,5 +1,5 @@
 # Table of contents
 
-* [Introduction](README.md)
-* [index](scope-and-closures.md)
+* [Scope-n-Closure](README.md)
+* [Website-Checklist](website-checklist.md)
 
