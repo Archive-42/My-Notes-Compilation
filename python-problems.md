@@ -161,7 +161,60 @@ unittest.main()
 \*\*\*\*
 
 ```python
+def find_top_ip_address(lines):
+    """ Given an Apache log file, return IP address(es) which accesses the site most often.
+    Our log is in this format (Common Log Format). One entry per line and it starts with an IP address which accessed the site,
+    followed by a whitespace.
+  
+    10.0.0.1 - frank [10/Dec/2000:12:34:56 -0500] &quot;GET /a.gif HTTP/1.0&quot; 200 234
 
+    Log file entries are passed as a list.
+     
+    NOTE: In case of tie, this returns a comma-separated list of IP addresses. Tie is not mentioned explicitly in the exercise
+    on purpose.
+&quot;&quot;&quot;
+
+access_list = {}
+for line in lines:
+    ip_address = line.split()[0]
+    access_list[ip_address] = access_list.get(ip_address, 0) + 1
+ip_addresses = [key for key, val in access_list.items()
+    if val == max(access_list.values())]
+return &#39;,&#39;.join(sorted(ip_addresses))
+
+def do_tests_pass():
+"""Returns True if the test passes. Otherwise returns False."""
+tests_passed = True
+lines = [&quot;10.0.0.1 - frank [10/Dec/2000:12:34:56 -0500] \&quot;GET /a.gif HTTP/1.0\&quot; 200 234&quot;,
+         &quot;10.0.0.1 - frank [10/Dec/2000:12:34:57 -0500] \&quot;GET /b.gif HTTP/1.0\&quot; 200 234&quot;,
+         &quot;10.0.0.2 - nancy [10/Dec/2000:12:34:58 -0500] \&quot;GET /c.gif HTTP/1.0\&quot; 200 234&quot;
+         ]
+
+result = find_top_ip_address(lines)
+if result != &quot;10.0.0.1&quot;:
+    tests_passed = False
+
+# tie case
+lines = [&quot;10.0.0.1 - frank [10/Dec/2000:12:34:56 -0500] \&quot;GET /a.gif HTTP/1.0\&quot; 200 234&quot;,
+         &quot;10.0.0.1 - frank [10/Dec/2000:12:34:57 -0500] \&quot;GET /b.gif HTTP/1.0\&quot; 200 234&quot;,
+         &quot;10.0.0.2 - nancy [10/Dec/2000:12:34:58 -0500] \&quot;GET /c.gif HTTP/1.0\&quot; 200 234&quot;,
+         &quot;10.0.0.2 - nancy [10/Dec/2000:12:34:59 -0500] \&quot;GET /c.gif HTTP/1.0\&quot; 200 234&quot;,
+         &quot;10.0.0.3 - logan [10/Dec/2000:12:34:59 -0500] \&quot;GET /d.gif HTTP/1.0\&quot; 200 234&quot;
+         ]
+
+result = find_top_ip_address(lines)
+if result != &quot;10.0.0.1,10.0.0.2&quot;:
+    tests_passed = False
+
+if tests_passed:    
+    print(&quot;test passed&quot;)
+else:
+    print(&quot;test failed&quot;)
+return tests_passed
+
+if name == "main":
+
+do_tests_pass()
 ```
 
 ## 
@@ -173,7 +226,58 @@ unittest.main()
 \*\*\*\*
 
 ```python
+"""
+  You are shipwrecked on an island. You have lost all your possessions
+  save a single standard chess board (8x8) and two soggy playing
+  pieces - a bishop and a seashell.
+Recall that the bishop is limited to diagonal movement, but has
+no restrictions in 1-d distance traveled for each move.
+The seashell cannot move once placed. To pass the time you invent
+a new chess-like game that works as follows:
 
+Place the seashell at any location on the board.
+The shell does not move after being placed.
+Place the bishop at any location on the board.
+Using only legal moves, capture the seashell using the bishop.
+
+Write a function that takes as input the coordinates of the
+seashell and the bishop, with 1-8 labeling rows and A-H labeling columns
+and returns the number of moves { 0, 1, 2, ... } it takes to capture
+the seashell using the bishop. Return -1 if this is not possible.
+"""
+def bishop_moves(src, dest):
+if( src == dest ):
+return 0
+if(abs(ord(src[0])-ord(dest[0]))==abs(ord(src[1])-ord(dest[1]))):
+return 1
+if((ord(src[0])+ord(src[1]))%2 ==(ord(dest[0])+ord(dest[1]))%2):
+return 2
+return -1
+""" Returns True if all tests pass. Otherwise returns False """
+def doTestsPass():
+test = [
+[ "A1", "C3" ],
+[ "A1", "D6" ]
+]
+solutions = [ 1, 2 ]
+allTestsPass = True;
+for i in range(len(test)):
+print("Running test", i+1 )
+actual = solutions[i]
+expected = bishop_moves(test[i][0], test[i][1])
+allTestsPass = allTestsPass and (actual == expected)
+if actual != expected:
+print("Failed on test", i+1)
+return allTestsPass
+if name == "main":
+
+if(doTestsPass()):
+
+print("All tests pass")
+
+else:
+
+print("There are test failures")
 ```
 
 ## 
@@ -185,7 +289,58 @@ unittest.main()
 \*\*\*\*
 
 ```python
+"""
+countLengthOfCycle(arr, start_index)
+You are given an integer array of size N.
+Every element of the array is greater than or equal to 0.
+Starting from arr[start_index], follow each element to the index it points to.
+Continue to do this until you find a cycle.
+Return the length of the cycle. If no cycle is found return -1
+Examples:
+countLengthOfCycle([1, 0], 0) == 2
+countLengthOfCycle([1, 2, 0], 0) == 3
+"""
+def count_length_of_cycle(arr, start_index):
+visited = {}
+count = 1
+index = start_index
+while(visited.get(index) is None):
+if(arr[index] > len(arr)):
+return -1
+visited[index] = count;
+count+=1
+index = arr[index];
+return count - visited[index];
+def do_tests_pass():
+""" Returns True if all tests pass. Otherwise returns False.
+TODO: We&#39;ve implement a simple test harness here. Feel free to add
+more tests and improve.
+&quot;&quot;&quot;
 
+test_cases = [
+    [[1, 0], 0, 2],
+    [[1, 2, 0], 0,  3],
+    #additional test cases
+    # [[1, 1], 0, 1 ],
+    # [[1, 3, 0, 1], 0, 2],
+    # [[7], 0, -1],
+    # [[1, 2, 4], 0, -1]
+]
+tests_passed = True
+ 
+for test_case in test_cases:
+    tests_passed &amp;= count_length_of_cycle(test_case[0], test_case[1]) == test_case[2]
+ 
+if tests_passed:
+    print(&quot;Test passed.&quot;)
+    return True
+else:
+    print(&quot;Test failed.&quot;)
+    return False
+
+if name == "main":
+
+do_tests_pass()
 ```
 
 ## 
@@ -197,7 +352,133 @@ unittest.main()
 \*\*\*\*
 
 ```python
+import traceback
+class Node:
+def init(self, data):
+self.data = data
+self.next = None
+self.prev = None
+class Deque:
+def init(self):
+self.first = None
+self.last = None
+self.size = 0
+def addFirst(self, data):
+    oldFirst = self.first
+    self.first = Node(data)
+    if oldFirst == None:
+        self.last = self.first
+    else:
+        self.first.prev = None
+        self.first.next = oldFirst
+        oldFirst.prev = self.first
+    self.size += 1
+         
+def addLast(self, data):
+    oldLast = self.last
+    self.last = Node(data)
+    if oldLast == None:
+        self.first = self.last
+    else:
+        self.last.prev = oldLast
+        self.last.next = None
+        oldLast.next = self.last                         
+    self.size += 1
+     
+def removeFirst(self):
+    oldFirst = self.first
+    if oldFirst == None:
+        return None
+    else:
+        self.first = oldFirst.next
+        if self.first == None:
+            self.last = self.first
+        else:
+            self.first.prev = None
+         
+    self.size -= 1
+    return oldFirst.data
+  
+def removeLast(self):
+    oldLast = self.last
+    if oldLast == None:
+        return None
+    else:
+        self.last = self.last.prev
+        if self.last == None:
+            self.first = self.last
+        else:
+            self.last.next = None
+             
+    self.size -= 1
+    return oldLast.data
+ 
+def peekFirst(self):
+    if self.first == None:
+        return None
+    else:
+        return self.first.data
+ 
+def peekLast(self):
+    if self.last == None:
+        return None
+    else:
+        return self.last.data
+     
+def getSize(self):
+    return self.size
 
+def assertTrue(condition, message):
+if not condition:
+raise Exception(message)
+def doTestsPass():
+#TODO: implement more tests
+ 
+deque=Deque()
+ 
+# enqueue
+deque.addLast(&quot;a&quot;)
+deque.addLast(&quot;b&quot;)
+
+assertTrue(deque.getSize() == 2, &quot;Test failed, getSize should be 2&quot;)
+
+assertTrue(&quot;a&quot; == deque.peekFirst(), &quot;First element should be &#39;a&#39;&quot;)
+assertTrue(&quot;b&quot; == deque.peekLast(), &quot;Last element should be &#39;b&#39;&quot;)
+
+# dequeue
+assertTrue(&quot;a&quot; == deque.removeFirst(), &quot;Expected element is &#39;a&#39;&quot;)
+assertTrue(&quot;b&quot; == deque.removeFirst(), &quot;Expected element is &#39;b&#39;&quot;)
+
+assertTrue(deque.getSize() == 0, &quot;Test failed, getSize should be 0&quot;)
+assertTrue(deque.peekFirst() == None, &quot;List is empty, peekFirst() should return null&quot;)
+assertTrue(deque.peekLast() == None, &quot;List is empty, peekLast() should return null&quot;)
+
+# push
+deque.addFirst(&quot;a&quot;)
+deque.addFirst(&quot;b&quot;)
+
+assertTrue(deque.getSize() == 2, &quot;Test failed, getSize should be 2&quot;)
+
+assertTrue(&quot;b&quot; == deque.peekFirst(), &quot;Expected element is &#39;b&#39;&quot;)
+assertTrue(&quot;a&quot; == deque.peekLast(), &quot;Expected element is &#39;a&#39;&quot;)
+
+# pop
+assertTrue(&quot;b&quot; == deque.removeFirst(), &quot;Expected element is &#39;b&#39;&quot;)
+assertTrue(&quot;a&quot; == deque.removeFirst(), &quot;Expected element is &#39;a&#39;&quot;)
+
+assertTrue(deque.getSize() == 0, &quot;Test failed, getSize should be 0&quot;)
+
+try:
+
+doTestsPass()
+
+print("All tests passed")
+
+except:
+
+print("Test failed")
+
+traceback.print_exc()
 ```
 
 ## 
@@ -206,11 +487,147 @@ unittest.main()
 
 \*\*\*\*
 
+\*\*\*\*
+
+```python
+""" Given two arrays of integers, returns the dot product of the arrays """
+def dotProduct( array1, array2 ):
+    """ TODO: Implement solution"""
+    sum = 0
+if( array1 == None or array2 == None ) :
+    print( &quot;Null array is not a valid input.&quot; )
+    return sum   
+        
+if( len( array1 ) == 0 or len( array2 ) == 0 ) :
+    print( &quot;Empty array is not a valid input.&quot; )
+    return sum
+     
+if( len( array1 ) != len( array2 ) ) :
+    print( &quot;Input arrays should be of equal length.&quot; )
+    return sum
+     
+for i in range( len( array1 ) ) :
+    sum += array1[ i ] * array2[ i ]
+return sum
+
+""" Returns 1 if all tests pass. Otherwise returns 0. """
+def doTestsPass():
+"""# TODO: implement some tests, please
+# we've included a trivial boilerplate """
+testPassed  = True
+array1      = [ 2, 3, 4, 1]
+array2      = [ 1, 3, 4, 5]
+
+ 
+print( &quot;Running Test #1.&quot; )
+result = dotProduct( array1, array2 )
+if( result != 32 ):
+    print( &quot;Test #1 failed&quot; )
+    testPassed = False
+ 
+print( &quot;Running Test #2.&quot; )
+array2 = [ 1, 3, 4, 5, 6, 7 ]
+result = dotProduct( array1, array2 )
+if( result != 0 ):
+    print( &quot;Test #2 failed.&quot; )
+    testPassed = False
+     
+print( &quot;Running Test #3.&quot; )
+array2 = []
+result = dotProduct( array1, array2 )
+if ( result != 0 ):
+    print( &quot;Test #3 failed.&quot; )
+    testPassed = False
+     
+print( &quot;Running Test #4.&quot; )
+array2 = None
+result = dotProduct( array1, array2 )
+if ( result != 0 ):
+    print( &quot;Test #4 failed.&quot; )
+    testPassed = False  
+     
+print( &quot;Running Test #5.&quot; )
+array2 = [ -1, 0, 2, -1 ]
+result = dotProduct( array1, array2 )
+if( result != 5 ):
+    print( &quot;Test #5 failed.&quot; )
+    testPassed = False       
+     
+print( &quot;All tests pass.&quot; ) if( testPassed ) else print( &quot;There are test failures.&quot; )
+     
+return testPassed
+
+if name == "main":
+
+doTestsPass()
+```
+
 ## 
 
 **Election**
 
 \*\*\*\*
+
+\*\*\*\*
+
+```python
+def whoIsElected(n, k):
+        """
+        A group of students are sitting in a circle. The teacher is electing a new class president.
+        The teacher does this by singing a song while walking around the circle. After the song is
+        finished the student at which the teacher stopped is removed from the circle.
+    Starting at the student next to the one that was just removed, the teacher resumes singing and walking around the circle.
+    After the teacher is done singing, the next student is removed. The teacher repeats this until only one student is left.
+
+    A song of length k will result in the teacher walking past k students on each round. The students are numbered 1 to n. The teacher starts at student 1.
+
+    For example, suppose the song length is two (k=2). And there are four students to start with (1,2,3,4). The first
+    student to go would be `2`, after that `4`, and after that `3`. Student `1` would be the next president in this example.
+  
+    @param n:   the number of students sitting in a circle.
+    @param k:   the length (in students) of each song.
+    @return:    the number of the student that is elected.
+    &quot;&quot;&quot;
+    if n == 1:
+        return 1;
+    return ( whoIsElected(n-1, k) + k - 1) % n +1
+
+def whoIsElected2(n, k):
+l = list(range(1, n+1))
+while(len(l)>1):
+for i in range(1, k):
+l.append(l.pop(0))
+l.pop(0)
+return l.pop()
+def doTestsPass():
+""" Returns 1 if all tests pass. Otherwise returns 0. """
+# todo: implement more tests, please
+# feel free to make testing more elegant
+testCases = [
+[1, 1, 1],
+[2, 2, 1],
+[4, 2, 1],
+[100, 2, 73],
+[5, 3, 4],
+[6, 4, 5],
+[1000, 5, 763]]
+    doPass = True
+
+    for [n, k, expected] in testCases:
+        answer = whoIsElected(n, k)
+        if answer != expected:
+            print( &quot;test failed!&quot;)
+            doPass = False;
+
+    if doPass:
+            print(&quot;All tests pass\n&quot;)
+
+    return doPass
+
+if name == "main":
+
+doTestsPass()
+```
 
 ## 
 
@@ -218,11 +635,23 @@ unittest.main()
 
 \*\*\*\*
 
+\*\*\*\*
+
+```python
+
+```
+
 ## 
 
 **Group Anagrams**
 
 \*\*\*\*
+
+\*\*\*\*
+
+```python
+
+```
 
 ## 
 
@@ -230,11 +659,23 @@ unittest.main()
 
 \*\*\*\*
 
+\*\*\*\*
+
+```python
+
+```
+
 ## 
 
 **Longest Uniform String**
 
 \*\*\*\*
+
+\*\*\*\*
+
+```python
+
+```
 
 ## 
 
@@ -242,11 +683,23 @@ unittest.main()
 
 \*\*\*\*
 
+\*\*\*\*
+
+```python
+
+```
+
 ## 
 
 **Pangram Detector**
 
 \*\*\*\*
+
+\*\*\*\*
+
+```python
+
+```
 
 ## 
 
@@ -254,11 +707,23 @@ unittest.main()
 
 \*\*\*\*
 
+\*\*\*\*
+
+```python
+
+```
+
 ## 
 
 **Power**
 
 \*\*\*\*
+
+\*\*\*\*
+
+```python
+
+```
 
 ## 
 
@@ -266,11 +731,23 @@ unittest.main()
 
 \*\*\*\*
 
+\*\*\*\*
+
+```python
+
+```
+
 ## 
 
 **Reverse String**
 
 \*\*\*\*
+
+\*\*\*\*
+
+```python
+
+```
 
 ## 
 
@@ -278,11 +755,23 @@ unittest.main()
 
 \*\*\*\*
 
+\*\*\*\*
+
+```python
+
+```
+
 ## 
 
 **Run Length Encoding**
 
 \*\*\*\*
+
+\*\*\*\*
+
+```python
+
+```
 
 ## 
 
@@ -290,11 +779,23 @@ unittest.main()
 
 \*\*\*\*
 
+\*\*\*\*
+
+```python
+
+```
+
 ## 
 
 **Second Smallest**
 
 \*\*\*\*
+
+\*\*\*\*
+
+```python
+
+```
 
 ## 
 
@@ -302,11 +803,23 @@ unittest.main()
 
 \*\*\*\*
 
+\*\*\*\*
+
+```python
+
+```
+
 ## 
 
-**Sqaure Root**
+**Square Root**
 
 \*\*\*\*
+
+\*\*\*\*
+
+```python
+
+```
 
 ## 
 
@@ -314,83 +827,206 @@ unittest.main()
 
 \*\*\*\*
 
+\*\*\*\*
+
+```python
+
+```
+
 ## 
 
 **Walking Robot**
 
 \*\*\*\*
 
+\*\*\*\*
+
+```python
+
+```
+
 
 
 ```python
-<!------------------------------------------------------------------------------------->
+<========================================()===========================================>
 ```
 
 ## Medium
 
 **Best Average Grade**
 
+\*\*\*\*
+
+```python
+
+```
+
+
+
 ## 
 
 **Decimal Conversion**
+
+\*\*\*\*
+
+```python
+
+```
+
+
 
 ## 
 
 **Distance between strings**
 
+\*\*\*\*
+
+```python
+
+```
+
+
+
 ## 
 
 **Largest Tree**
+
+\*\*\*\*
+
+```python
+
+```
+
+
 
 ## 
 
 **Longest Word**
 
+\*\*\*\*
+
+```python
+
+```
+
+
+
 ## 
 
 **Optimal Path**
+
+\*\*\*\*
+
+```python
+
+```
+
+
 
 ## 
 
 **Snow Pack**
 
+\*\*\*\*
+
+```python
+
+```
+
+
+
 ## 
 
 **Subarray exceeding sum**
 
+\*\*\*\*
+
+```python
+
+```
+
+
+
 ## 
 
 **Train Map**
+
+\*\*\*\*
+
+```python
+
+```
+
+
 
 ## 
 
 \*\*\*\*
 
 ```python
-<!------------------------------------------------------------------------------------->
-```
+<========================================()===========================================>
 
-## 
+```
 
 ## Hard
 
 **HashMap**
 
+\*\*\*\*
+
+```python
+
+```
+
+
+
 ## 
 
 **KnightProbability**
+
+\*\*\*\*
+
+```python
+
+```
+
+
 
 ## 
 
 **Lowest Price**
 
+\*\*\*\*
+
+```python
+
+```
+
+
+
 ## 
 
 **Prefix Search**
 
+\*\*\*\*
+
+```python
+
+```
+
+
+
 ## 
 
 **Sort Segments**
+
+\*\*\*\*
+
+```python
+
+```
+
+
 
 ## **END**
 
