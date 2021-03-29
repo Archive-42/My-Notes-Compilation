@@ -638,6 +638,43 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+"""
+Finds the first character that does not repeat anywhere in the input string
+If all characters are repeated, return 0
+Given "apple", the answer is "a"
+Given "racecars", the answer is "e"
+Given "ababdc", the answer is "d"
+"""
+def findFirst(input):
+charFrequency = {}
+
+for c in input:
+    charFrequency[c] = charFrequency.pop(c, 0) + 1.
+
+for c in input:
+    if(charFrequency[c] == 1):
+        return c
+
+return 0
+
+"""
+Returns true if all tests pass. Otherwise returns false
+"""
+def doTestsPass():
+tests = {"racecar":'e', "apple":'a', "ababdc":'d', "xxyyzz":0 }
+for test in tests.items():
+result = findFirst(test[0])
+if result != test[1]:
+print("Test Failed: " + test[0] + " expected:" + test[1] + " actual: " + result + "\n")
+return False
+return True
+
+if name == "main":
+result = doTestsPass()
+if result:
+        print(&quot;All tests pass\n&quot;);
+else:
+        print(&quot;Tests fail\n&quot;);</code></pre></td>
 
 ```
 
@@ -650,7 +687,46 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+"""
+Returns a list of sets of anagrams
+Args:
+words - list of words to process
+Example:
+Input: ['cat', 'dog', 'god']
+Output: [{'cat'}, {'dog', 'god'}]
+"""
+def group(words):
+word_index = {}
+for word in words:
+    word_key = &quot;&quot;.join(sorted(list(word)))
+    word_index.setdefault(word_key, set()).add(word)
 
+anagram_sets = list(word_index.values())
+return anagram_sets
+
+""" Returns True if all tests pass. Otherwise returns False. """
+def doTestsPass():
+words = ['cat', 'dog', 'cat', 'god']
+anagram_sets = [{'cat'}, {'dog', 'god'}]
+result = group(words)
+print(&quot;Result: {}&quot;.format(result))
+
+allTestsPass = True
+for anagram_set in anagram_sets:
+    if anagram_set not in result:
+        allTestsPass = False
+        print(&quot;Test Failed! Result missing anagram set: {}&quot;.format(anagram_set))
+
+if( allTestsPass ):
+    print( &quot;All tests pass.&quot; )
+else:
+    print( &quot;There are test failures.&quot; )
+
+return( allTestsPass )
+
+if name == "main":
+
+doTestsPass()
 ```
 
 ## 
@@ -662,7 +738,46 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+def isPowerOf10(x):
+        """ Returns 1 if x is a power-of-10. Otherwise returns 0. """
+        # todo: implement here
+        i = 1
+        if x > 1:
+            while i < x:
+                i *= 10
+        elif x > 0:
+            while i > x:
+                i /= 10.
+    if i == x:
+        return True
+    return False
 
+def doTestsPass():
+""" Returns 1 if all tests pass. Otherwise returns 0. """
+# todo: implement more tests, please
+# feel free to make testing more elegant
+doPass        = True
+powersOf10    = [1,10,100,100000, .1, .001]
+notPowersOf10 = [5,0,-10,20,110,10100,42]
+    for n in powersOf10:
+        if not isPowerOf10(n):
+            print(&quot;Failed for &quot; + str(n) + &quot;\n&quot;)
+            doPass = False
+
+
+    for n in notPowersOf10:
+        if isPowerOf10(n):
+            print(&quot;Failed for &quot; + str(n) + &quot;\n&quot;)
+            doPass = False
+
+    if doPass:
+        print(&quot;All tests pass\n&quot;)
+
+    return doPass
+
+if name == "main":
+
+doTestsPass()
 ```
 
 ## 
@@ -674,7 +789,59 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+"""
+This function should return a tuple that correctly identifies the location
+     of the longest uniform substring within the input string.
+ e.g.
+     - for the input: &quot;abbbccda&quot; the longest uniform substring is &quot;bbb&quot; (which starts at index 1 and is 3 characters long).
+     - the tuple returned from the function call would be (1, 3)
+"""
+def longest_uniform_substring(input):
+longest_start = -1
+longest = 0
 
+ix = 1
+length = len(input)
+while ix &lt; length:
+    start = ix - 1
+    current_length = 1
+    while ix &lt; length and input[ix] == input[ix - 1]:
+        ix += 1
+        current_length += 1
+
+    if current_length &gt; longest:
+        longest_start = start
+        longest = current_length
+
+    ix += 1
+
+return (longest_start, longest)
+
+def do_tests_pass():
+"""Returns True if the test passes. Otherwise returns False."""
+# todo: implement more tests
+test_cases = {
+    &quot;&quot;: (-1, 0 ),
+    &quot;10000111&quot;: (1, 4),
+    &quot;aabbbbbCdAA&quot;: (2, 5)
+}
+
+passed = True
+for input, result in test_cases.items():
+    start, length = longest_uniform_substring(input)
+    passed = passed and start == result[0] and length == result[1]
+
+return passed
+
+if name == "main":
+
+if do_tests_pass():
+
+print("All tests pass!")
+
+else:
+
+print("At least one failure!")
 ```
 
 ## 
@@ -686,6 +853,50 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+"""
+Question:
+Hermione is preparing a cheat-sheet for her final exam in Potions class.
+To create a potion, one must combine ingredients in a specific order, any of which may be repeated.
+As an example, consider the following potion which uses 4 distinct ingredients
+(A,B,C,D) in 11 steps: A, B, A, B, C, A, B, A, B, C, D
+Hermione realizes she can save tremendous space on her cheat-sheet by introducing a
+special instruction, '*', which means "repeat from the beginning".
+Using these optimizations, Hermione is able to encode the potion above using only 6 characters: A,B,,C,,D
+Your job is to write a function that takes as input an un-encoded potion and returns the
+minimum number of characters required to encode the potion on Hermione's Cheat Sheet.
+
+"""
+import sys
+Function to return the minimal number of steps
+def minimal_steps( ingredients ):
+n = len( ingredients )
+if n == 0:
+return 0
+dp = [ sys.maxsize ] * n   
+dp[0] = 1
+for i in range(1, n):
+    dp[ i ] = min(dp[ i ], dp[ i - 1 ] + 1)
+     
+    # If the string can be replicated, we need to update at (2*i + 1)
+    if ingredients[ 0: i + 1 ] == ingredients[ i + 1: 2*i + 2 ]:
+        dp[ 2*i + 1 ] = dp[ i ] + 1
+         
+return dp[ n - 1 ]
+
+"""
+Returns true if all tests pass. Otherwise returns false.
+TODO: implement some tests. We've included a trivial boilerplate
+"""
+def do_tests_pass():
+return minimal_steps( "ABCDABCE" ) == 8 and minimal_steps( "ABCABCE" ) == 5 and 
+minimal_steps("AAAAAA") == 4 and minimal_steps("AAAABBBB") == 7 and 
+minimal_steps("ABABCABABCD") == 6
+if name == "main":
+result = do_tests_pass()
+if result:
+    print( &quot;All tests passed&quot; )
+else:
+    print( &quot;Tests failed&quot; )</code></pre></td>
 
 ```
 
@@ -698,7 +909,43 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+"""
+Pangram Detector
+The sentence "The quick brown fox jumps over the lazy dog" contains
+every single letter in the alphabet. Such sentences are called pangrams.
+Write a function findMissingLetters, which takes a string sentence,
+and returns all the letters it is missing (which prevent it from
+being a pangram). You should ignore the case of the letters in sentence,
+and your return should be all lower case letters, in alphabetical order.
+You should also ignore all non US-ASCII characters.
+"""
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+TODO: complete this function stub
+def FindMissingLetters(sentence):
+alphabet = set(ALPHABET)
+s = set(sentence.lower())
+missing = alphabet - s
+return &#39;&#39;.join(sorted(missing))
 
+Test Cases
+def runTests():
+success = (
+'' == FindMissingLetters("The quick brown fox jumps over the lazy dog") and
+'bfgjkvz' == FindMissingLetters("The slow purple oryx meanders past the quiescent canine") and
+'cdfjklmopqruvxyz' == FindMissingLetters("We hates Bagginses!") and
+'abcdefghijklmnopqrstuvwxyz' == FindMissingLetters("")
+)
+return success
+
+if name == "main":
+
+if runTests():
+
+print("All tests passed")
+
+else:
+
+print("At least one test failed.")
 ```
 
 ## 
