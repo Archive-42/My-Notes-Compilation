@@ -2169,7 +2169,83 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+"""
+ 1) You are an avid rock collector who lives in southern California. Some rare
+     and desirable rocks just became available in New York, so you are planning
+     a cross-country road trip. There are several other rare rocks that you could
+     pick up along the way.
+ You have been given a grid filled with numbers, representing the number of
+ rare rocks available in various cities across the country.  Your objective
+ is to find the optimal path from So_Cal to New_York that would allow you to
+ accumulate the most rocks along the way.
 
+ Note: You can only travel either north (up) or east (right).
+
+
+Consider adding some additional tests in doTestsPass().
+Implement optimalPath() correctly.
+Here is an example:
+^
+[[0,0,0,0,5], New_York (finish)           N
+[0,1,1,1,0],                         < W   E >
+So_Cal (start) [2,0,0,0,0]]                             S
+v
+The total for this example would be 10 (2+0+1+1+1+0+5).
+"""
+
+def optimal_path(grid):
+if len(grid) == 0 or len(grid[0]) == 0:
+return 0
+for row in range(len(grid)-1, -1, -1):
+for col in range(0, len(grid[0])):
+if row < len(grid)-1 and col > 0:
+grid[row][col] += max(grid[row+1][col], grid[row][col-1])
+elif row < len(grid)-1:
+grid[row][col] += grid[row+1][col]
+elif col > 0:
+grid[row][col] += grid[row][col-1]
+result = grid[0][len(grid[0])-1]
+print(result)
+return result
+def do_tests_pass():
+""" Returns True if all tests pass. Otherwise returns False. """
+test_inputs = [# Base test case
+[[0, 0, 0, 0, 5],
+[0, 1, 1, 1, 0],
+[2, 0, 0, 0, 0]],
+# Random numbers
+[[1, 3, 2, 0, 2, 1, 8],
+[3, 4, 1, 2, 0, 1, 1],
+[1, 1, 1, 2, 3, 2, 1],
+[1, 0, 1, 1, 4, 2, 1]],
+# All 0's
+[[0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0]],
+# Many optimal paths
+[[1, 1, 1, 1, 1],
+[1, 0, 1, 0, 1],
+[1, 0, 1, 0, 1],
+[1, 1, 1, 1, 1]],
+# Empty grid
+[[]]]
+test_answers = [10, 25, 0, 8, 0]
+for test_input, test_answer in zip(test_inputs, test_answers):
+    if optimal_path(test_input) != test_answer:
+        return False
+
+return True
+
+if name == "main":
+
+if do_tests_pass():
+
+print("All tests pass")
+
+else:
+
+print("Not all tests pass")
 ```
 
 
@@ -2181,7 +2257,75 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+"""
+ Instructions to candidate.
+  1) Given an array of non-negative integers representing the elevations
+     from the vertical cross section of a range of hills, determine how
+     many units of snow could be captured between the hills.
+ See the example array and elevation map below.
+                             ___
+         ___                |   |        ___
+        |   |        ___    |   |___    |   |
+     ___|   |    ___|   |   |   |   |   |   |
+ ___|___|___|___|___|___|___|___|___|___|___|___
+ [0,  1,  3,  0,  1,  2,  0,  4,  2,  0,  3,  0]
+                             ___
+         ___                |   |        ___
+        |   | *   *  _*_  * |   |_*_  * |   |
+     ___|   | *  _*_|   | * |   |   | * |   |
+ ___|___|___|_*_|___|___|_*_|___|___|_*_|___|___
+ [0,  1,  3,  0,  1,  2,  0,  4,  2,  0,  3,  0]
 
+ Solution: In this example 13 units of snow (*) could be captured.
+
+
+Consider adding some additional tests in doTestsPass().
+Implement computeSnowpack() correctly.
+"""
+
+def computeSnowpack(arr):
+# Check for empty array
+if(len(arr) == 0):
+return 0;
+total = 0
+left_highest = [0 for i in range(len(arr))]
+left_max = 0
+for i in range(len(arr)):
+    if arr[i] &gt; left_max:
+        left_max = arr[i]
+    left_highest[i] = left_max
+ 
+right_max = 0
+for i in reversed(range(len(arr))):
+    if arr[i] &gt; right_max:
+        right_max = arr[i]
+    if min(right_max, left_highest[i]) &gt; arr[i]:
+        total += min(right_max, left_highest[i]) - arr[i]
+print(arr, total)
+return total
+
+def doTestsPass():
+""" Returns True if all tests pass. Otherwise returns False. """
+tests = [[[0,1,3,0,1,2,0,4,2,0,3,0], 13],
+[[1,0,0,0,0,0,0,0,0,0,0,1], 10],
+[[0,0,0,0,0], 0],
+[[0,0,1,0,0], 0],
+[[1], 0],
+[[], 0]]
+for test in tests:
+    if not (computeSnowpack(test[0]) == test[1]):
+        return False
+return True
+
+if name == "main":
+
+if( doTestsPass() ):
+
+print( "All tests pass" )
+
+else:
+
+print( "Not all tests pass" )
 ```
 
 
@@ -2193,7 +2337,60 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+1) Your task is ultimately to implement a function that takes in an array and a integer.
+     You want to return the *LENGTH* of the shortest subarray whose sum is at least the integer,
+     and -1 if no such sum exists.
+  2) Run this code in the REPL to observe its behaviour. The
+     execution entry point is main().
+  3) Consider adding some additional tests in doTestsPass().
+  4) Implement subArrayExceedsSum() correctly.
+  5) If time permits, some possible follow-ups.
+"""
+def subArrayExceedsSum(arr, target):
+i = j = 0
+length = float('inf')
+if target &lt;= 0:
+    return 0
+if len(arr) &lt; 1:
+    return -1
+ 
+currsum = arr[ 0 ]
+while True:
+    if currsum &gt;= target:
+        if i == j:
+            return 1
+        else:
+            length = min(length, j - i + 1)
+            currsum -= arr[i]
+            i = i + 1
+    else:
+        j = j + 1
+        if j == len(arr):
+            break
+        else:
+            currsum += arr[j]
 
+return -1 if length == float(&#39;inf&#39;) else length
+
+def doTestsPass():
+""" Returns 1 if all tests pass. Otherwise returns 0. """
+testArrays    = [[[ 1, 2, 3, 4 ], 6], [[1, 2 , 3, 4], 12], [[1, 2, 3, 4], 10], [[1, 2 , 3, 4], 4], [[], 1], [[], 0]]
+testAnswers   = [2, -1, 4, 1, -1, 0]
+for i in range( len( testArrays ) ):
+    if not ( subArrayExceedsSum( testArrays[i][ 0 ], testArrays[i][ 1 ] ) == testAnswers[i] ):
+        return False
+ 
+return True
+
+if name == "main":
+
+if( doTestsPass() ):
+
+print( "All tests pass" )
+
+else:
+
+print( "Not all tests pass" )
 ```
 
 
@@ -2205,7 +2402,157 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+/**
+ *      Visual representation of the Train map used
+ * 
+ *      King's Cross St Pancras --- Angel ---- Old Street
+ *      |                   \                            |
+ *      |                    \                            |
+ *      |                     \                            |
+ *      Russell Square         Farringdon --- Barbican --- Moorgate
+ *      |                                                  /
+ *      |                                                 /
+ *      |                                                /
+ *      Holborn --- Chancery Lane --- St Paul's --- Bank
+ */
+"""
+from functools import reduce
+from collections import deque
+"""
+/**
 
+
+class Station
+
+
+
+Respresents Station in the rail network. Each station is identified by
+
+
+unique name. Station is connected with other stations - this information
+
+
+is stored in the 'neighbours' field. Two station objects with the same name are
+
+
+equal therefore they are considered to be same station.
+*/
+"""
+class Station:
+def init(self, name):
+self._name = name
+self._neighbours = []
+def getName(self):
+return self._name
+def addNeighbour(self, station):
+self._neighbours.append(station)
+def getNeighbours(self):
+return self._neighbours
+def eq(self, other):
+return isinstance(other, Station) and self._name == other.getName()
+def hash(self):
+return hash((self._name))
+
+
+"""
+/**
+
+
+class TrainMap
+
+
+
+Respresents whole rail network - consists of number of the Station objects.
+
+
+Stations in the map are bi-directionally connected. Distance between any 2 stations
+
+
+is of same constant distance unit. This implies that shortest distance between any
+
+
+2 stations depends only on number of stations in between
+*/
+"""
+class TrainMap:
+def init(self):
+self._stations = {}
+def addStation(self, stationName):
+self._stations[stationName] = Station(stationName)
+return self
+def getStation(self, stationName):
+return self._stations[stationName]
+def connectStations(self, fromStation, toStation):
+fromStation.addNeighbour(toStation)
+toStation.addNeighbour(fromStation)
+return self
+def convertPathToString(self, path):
+if(len(path) == 0):
+return ""
+else:
+return reduce(lambda s1, s2: s1 + "->" + s2, map(lambda station: station.getName(), path))
+def shortestPath(self, fromStationName, toStationName):
+fromStation = self.getStation(fromStationName)
+toStation = self.getStation(toStationName)
+searchSpace = deque()
+parentOfNode = {}
+visited = set()
+searchSpace.append(fromStation)
+
+while(len(searchSpace) != 0):
+    curr = searchSpace.popleft()
+    if(curr not in visited):
+        visited.add(curr)
+        if(curr == toStation):
+            break
+        else:
+            for neighbour in curr.getNeighbours():
+                searchSpace.append(neighbour)
+                if (neighbour not in parentOfNode):
+                    parentOfNode[neighbour] = curr
+
+parent = parentOfNode[toStation]
+path = [toStation, parent]
+while(parent != fromStation):
+    parent = parentOfNode[parent]
+    path.append(parent)
+path.reverse()
+return path
+
+
+
+def doTestsPass():
+# todo: implement more tests, please
+# feel free to make testing more elegant
+trainMap = TrainMap()
+trainMap.addStation("King's Cross St Pancras").addStation("Angel").addStation("Old Street").addStation("Moorgate")
+.addStation("Farringdon").addStation("Barbican").addStation("Russel Square").addStation("Holborn")
+.addStation("Chancery Lane").addStation("St Paul's").addStation("Bank")
+trainMap.connectStations(trainMap.getStation(&quot;King&#39;s Cross St Pancras&quot;), trainMap.getStation(&quot;Angel&quot;))\
+.connectStations(trainMap.getStation(&quot;King&#39;s Cross St Pancras&quot;), trainMap.getStation(&quot;Farringdon&quot;))\
+.connectStations(trainMap.getStation(&quot;King&#39;s Cross St Pancras&quot;), trainMap.getStation(&quot;Russel Square&quot;))\
+.connectStations(trainMap.getStation(&quot;Russel Square&quot;), trainMap.getStation(&quot;Holborn&quot;))\
+.connectStations(trainMap.getStation(&quot;Holborn&quot;), trainMap.getStation(&quot;Chancery Lane&quot;))\
+.connectStations(trainMap.getStation(&quot;Chancery Lane&quot;), trainMap.getStation(&quot;St Paul&#39;s&quot;))\
+.connectStations(trainMap.getStation(&quot;St Paul&#39;s&quot;), trainMap.getStation(&quot;Bank&quot;))\
+.connectStations(trainMap.getStation(&quot;Angel&quot;), trainMap.getStation(&quot;Old Street&quot;))\
+.connectStations(trainMap.getStation(&quot;Old Street&quot;), trainMap.getStation(&quot;Moorgate&quot;))\
+.connectStations(trainMap.getStation(&quot;Moorgate&quot;), trainMap.getStation(&quot;Bank&quot;))\
+.connectStations(trainMap.getStation(&quot;Farringdon&quot;), trainMap.getStation(&quot;Barbican&quot;))\
+.connectStations(trainMap.getStation(&quot;Barbican&quot;), trainMap.getStation(&quot;Moorgate&quot;))
+
+solution = &quot;King&#39;s Cross St Pancras-&gt;Russel Square-&gt;Holborn-&gt;Chancery Lane-&gt;St Paul&#39;s&quot;
+return solution == trainMap.convertPathToString(trainMap.shortestPath(&quot;King&#39;s Cross St Pancras&quot;, &quot;St Paul&#39;s&quot;))
+
+if name == "main":
+
+if(doTestsPass()):
+
+print("All Tests Pass")
+
+else:
+
+print("Some tests fail")
 ```
 
 
@@ -2226,7 +2573,112 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+/**
+ * class MyHashMap
+ *
+ * Associates a key-value pair in memory such that lookups
+ * and inserts can be performed in O(1) time for a reasonably
+ * small set of data, and scales linearly (at worst) for larger
+ * sets of key-value pairs.
+ *
+ * Each unique key is associated with one single value.
+ */
+"""
+"""
+/**
 
+Instructions to candidate.
+
+
+Run this code in the REPL to observe its behaviour. The
+
+
+
+execution entry point is main().
+
+
+
+
+Consider adding some additional tests in doTestsPass().
+
+
+
+
+Implement MyHashMap correctly.
+
+
+
+
+If time permits, some possible follow-ups.
+*/
+
+
+
+/**
+
+class MyHashMap
+
+Associates a key-value pair in memory such that lookups
+and inserts can be performed in O(1) time for a reasonably
+small set of data, and scales linearly (at worst) for larger
+sets of key-value pairs.
+
+Each unique key is associated with one single value.
+*/
+
+"""
+class Hashmap:
+buckets = []
+def init(self):
+# poulate the buckets, start with an initial size of 10
+for i in range(10):
+self.buckets.append([])
+def put(self, key, val):
+    hashIdx = hash(key) % len(self.buckets)
+    bucket = self.buckets[hashIdx]
+
+    for i, b in enumerate(bucket):
+        if b[0] == key:
+            bucket[i] = (key, val)
+            return None
+
+    bucket.append((key, val))
+
+def get(self, key):
+    hashIdx = hash(key) % len(self.buckets)
+    bucket = self.buckets[hashIdx]
+
+    for i, b in enumerate(bucket):
+        if b[0] == key:
+            return b[1]
+
+def doTestsPass():
+intList = [(1,2), (3,4), (5,6), (1,8)]
+strList = [("one", "two"), ("three", "four"), ("one", "five")]
+passed = True
+
+intMap = Hashmap()
+for key, value in intList:
+    intMap.put(key, value)
+
+    if intMap.get(key) != value:
+        passed = False
+        print(&quot;Test case failed [&quot;, key, &quot;,&quot;, value, &quot;]&quot;)
+
+strMap = Hashmap()
+for key, value in strList:
+    strMap.put(key, value)
+
+    if strMap.get(key) != value:
+        passed = False
+        print(&quot;Test case failed [&quot;, key, &quot;,&quot;, value, &quot;]&quot;)
+
+if (passed):
+    print(&quot;All tests passed.&quot;)
+
+if name == "main":
+
+doTestsPass()
 ```
 
 
@@ -2238,7 +2690,81 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+Given an empty chessboard (8x8 grid), a knight is placed
+ on one of the squares. The knight 'K' at position (3, 3)
+ and it's possible movements 'X' are shown in the example
+ below:
+* * * * * * * *
+* * X * X * * *
+* X * * * X * *
+* * * K * * * *
+* X * * * X * *
+* * X * X * * *
+* * * * * * * *
+* * * * * * * *           
 
+Depending on the knight's position on the board, 0-6 of
+the 8 possible movements may cause the knight to leave
+the chess board.
+If the knight moves n times, each time choosing one of
+the 8 possible moves uniformly at random, determine the
+probability that the knight is still on the board after
+making n random moves. After the knight has left the
+board, it may not reenter.
+Please implement the method probability which given a
+start position x, y, and a number of moves n,
+returns the probability a knight remains on the board
+as described above.
+"""
+def probability(x, y, n):
+board_size = 8
+#Define an 8x8 grid
+board = [[0.0 for r in range(board_size)] for r in range(board_size)]
+#Set the starting position
+board[x][y] = 1.0
+for i in range(n):
+next_board = [[0.0 for r in range(board_size)] for r in range(board_size)]
+#Fill in probabilties for every square on the previous board
+for current_x in range(board_size):
+for current_y in range(board_size):
+#Check all the board positions that could have lead here
+for move in [(-2, -1), (-2, 1), (2, -1), (2, 1),
+(-1, -2), (-1, 2), (1, -2), (1, 2)]:
+previous_x = current_x + move[0]
+previous_y = current_y + move[1]
+if 0 <= previous_x < board_size and 0 <= previous_y < board_size:
+#Probability of getting to x, y is 1/8 * probability it was on previous square
+if board[previous_x][previous_y] > 0:
+next_board[current_x][current_y] += board[previous_x][previous_y] / 8
+board = next_board
+#Returns sum of all probabilities on the board
+return sum(sum(s) for s in board)
+def do_tests_pass():
+#Returns True if the tests pass. Otherwise, returns False
+test_cases = {
+#Start in a corner, no moves
+(0, 0, 0): 1.0,
+#Start in the middle, one move
+(3, 3, 1): 1.0,
+#Start in a corner, one move
+(0, 0, 1): 0.25,
+(0, 0, 2): 0.1875,
+(1, 2, 10): 0.0522148497402668,
+}
+#todo: feel free to enhance or add more test cases
+for case, expected in test_cases.items():
+if probability(case[0], case[1], case[2]) != expected:
+return False
+return True
+if name == "main":
+
+if do_tests_pass():
+
+print("All tests pass")
+
+else:
+
+print("Tests fail")
 ```
 
 
@@ -2250,7 +2776,127 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+Question:
+A popular online retailer allows vendors to specify different prices in advance
+for the same item throughout the day. We now need to design an algorithm that
+helps identify the lowest price for the item at any point of the day.
+Assumptions:
 
+
+For the algorithm, assume all vendors are selling the same product
+and there is only one product being sold. Given a list that has
+vendor information - ( start_time, end_time, price ) of the deal,
+return a sorted list with different possible intervals and
+the least price of the product during the interval.
+
+
+The interval is inclusive of start and end time.
+
+
+All the 3 values passed by the vendor are integers.
+"""
+
+
+from collections import namedtuple
+Interval = namedtuple( "Interval", "start_time end_time price" )
+Class to store node level data in the binary search tree
+class Node( object ):
+def init( self, data ):
+self.data = data
+self.left = self.right = None  # left and right pointers
+Binary Search Tree implementation
+class BinarySearchTree( object ):
+def init( self ):
+self._root = None
+self._sorted_intervals = []
+# Actual function to insert node into the tree
+def _insert( self, node, interval ):   
+    # Excess to the left - trim and push
+    if interval.start_time &lt; node.data.start_time:
+        new_interval = Interval( interval.start_time,
+                                 min( interval.end_time, node.data.start_time ),
+                                 interval.price )
+        if node.left:
+            self._insert( node.left, new_interval )
+        else:
+            node.left = Node( new_interval )
+
+    # Excess to the right - trim and push
+    if interval.end_time &gt; node.data.end_time:
+        new_interval = Interval( max( interval.start_time, node.data.end_time ),
+                                 interval.end_time,
+                                 interval.price )
+        if node.right:
+            self._insert( node.right, new_interval )
+        else:
+            node.right = Node( new_interval )
+     
+# Actual recursive function to do inorder traversal
+def _inorder( self, node ):
+    if not node:
+        return()
+     
+    if node.left:
+        self._inorder( node.left )           
+    self._sorted_intervals.append( node.data )       
+    if node.right:
+        self._inorder( node.right )   
+               
+# Public function to insert node into the tree
+def add_to_node( self, interval ):
+    if not self._root:
+        self._root = Node( interval )
+    else:
+        self._insert( self._root, interval )
+         
+# Public function to return all non-overlapping intervals (sorted on start )
+def start_inorder( self ):
+    self._sorted_intervals = []
+    self._inorder( self._root )
+    return( self._sorted_intervals )
+
+def get_lowest_prices( input_intervals ):
+if not input_intervals:
+raise Exception( "input_intervals has 0 elements" )
+for each_interval in input_intervals:
+    if not each_interval:
+        raise Exception( &quot;input_intervals has a Null element&quot; )
+    if each_interval.start_time &gt;= each_interval.end_time:
+        raise Exception( &quot;start_time greater than or equal to end_time for an interval&quot; )
+    if each_interval.start_time &lt; 0 or each_interval.end_time &lt; 0 or each_interval.price &lt; 0:
+        raise Exception( &quot;vendor information has negative values&quot; )
+         
+input_intervals = sorted( input_intervals, key = lambda x: x.price )
+bst = BinarySearchTree()
+for each_interval in input_intervals:
+    bst.add_to_node( each_interval )
+     
+return( bst.start_inorder() )
+
+"""
+Prints Success if all tests pass. Otherwise returns Failure.
+TODO: implement some tests. We've included a trivial boilerplate
+Additional Test Cases:
+Input : ( 1, 20 13 ), ( 7, 10, 8 ), ( 3, 8, 15 ), ( 1, 5, 20 )
+Output: ( 1, 7, 13 ), ( 7, 10, 8 ), ( 10, 20, 13 )
+Input : ( 7, 10, 8 ), ( 3, 8, 15 ), ( 1, 5, 20 ), ( 1, 20, 4 )
+Output: ( 1, 20, 4 )
+Input : ( 3, 6, 2 ), ( 1, 9, 3 ), ( 5, 8, 1 )
+Output: ( 1, 3, 3 ), ( 3, 5, 2 ), ( 5, 8, 1 ), ( 8, 9, 3 )
+"""
+def do_tests_pass():
+input_intervals = [ Interval( 1, 5, 20 ), Interval( 3, 8, 15 ), Interval( 7, 10, 8 ) ]
+expected_output = [ Interval( 1, 3, 20 ), Interval( 3, 7, 15 ), Interval( 7, 10, 8 ) ]
+output_intervals = get_lowest_prices( input_intervals )
+ 
+if output_intervals == expected_output:
+    print( &quot;All tests passed&quot; )
+else:
+    print( &quot;Tests failed&quot; )
+
+if name == "main":
+
+do_tests_pass()
 ```
 
 
@@ -2262,7 +2908,106 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+class MyTrie:
+    def __init__(self, char):
+        self.char = char
+        self.nodes = {}
+        self.data = []
+def add(self, word, loc):
+    if self.char is not None:
+        self.data.append(loc);
+    if len(word) &gt; 0:
+        c = word[0]
+        if c not in self.nodes:
+            self.nodes[c] = MyTrie(c)
+        node = self.nodes[c]
+        node.add(word[1:], loc)
 
+def get(self, prefix):
+    if len(prefix) == 0:
+        ret = self.data
+    else:
+        c = prefix[0]
+        if c in self.nodes:
+            ret =  self.nodes[c].get(prefix[1:])
+        else:
+            ret =  []
+    return ret
+
+def pprint(self, level=0):
+    print(&#39;-&#39; * level + str(self.char))
+    for c, node in self.nodes.items():
+        node.pprint(level+1)
+
+class MyPrefixSearch:
+"""
+Note: Any indexed solution should be more performant on repeat calls.
+Trade-offs arise on how to store the index efficiently while maintaining fast lookup.
+This solution is indexed using a trie, which is also space efficient for certain use cases.
+For a light discussion on tries and other alternative implementations see:
+https://www.toptal.com/java/the-trie-a-neglected-data-structure
+"""
+def init(self, document):
+self.index = MyTrie(None)
+self.build_index(document)
+def build_index(self, document):
+    words = document.lower().split();
+    loc = 0
+    for word in words:
+        clean = &#39;&#39;.join(ch for ch in word if ch.isalnum())
+        self.index.add(clean, loc)
+        loc += len(word) + 1
+    #self.index.pprint()
+
+def find_all(self, prefix):
+    return self.index.get(prefix)
+
+###########  Tests  ###########
+DOCUMENT = ("In publishing and graphic design, lorem ipsum is a "
+"filler text commonly used to demonstrate the graphic elements of a "
+"document or visual presentation. Replacing meaningful content that "
+"could be distracting with placeholder text may allow viewers to focus "
+"on graphic aspects such as font, typography, and page layout. It also "
+"reduces the need for the designer to come up with meaningful text, as "
+"they can instead use hastily generated lorem ipsum text. The lorem "
+"ipsum text is typically a scrambled section of De finibus bonorum et "
+"malorum, a 1st-century BC Latin text by Cicero, with words altered, "
+"added, and removed to make it nonsensical, improper Latin. A variation "
+"of the ordinary lorem ipsum text has been used in typesetting since "
+"the 1960s or earlier, when it was popularized by advertisements for "
+"Letraset transfer sheets. It was introduced to the Information Age in "
+"the mid-1980s by Aldus Corporation, which employed it in graphics and "
+"word processing templates for its desktop publishing program, "
+"PageMaker, for the Apple Macintosh. A common form of lorem ipsum "
+"reads: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do "
+"eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad "
+"minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
+"aliquip ex ea commodo consequat. Duis aute irure dolor in "
+"reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
+"pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
+"culpa qui officia deserunt mollit anim id est laborum.")
+"""
+Validate that the prefix search returns the correct results for the sample document.
+"""
+def do_tests_pass():
+prefix_search = MyPrefixSearch(DOCUMENT);
+if (prefix_search.find_all(&quot;demonstrate&quot;)  == [ 80 ]
+  and prefix_search.find_all(&quot;pub&quot;)        == [ 3, 988 ]
+  and prefix_search.find_all(&quot;publishing&quot;) == [ 3, 988 ]
+  and prefix_search.find_all(&quot;lab&quot;)     == [ 1173, 1263, 1517 ]
+  and prefix_search.find_all(&quot;laborum&quot;) == [ 1517 ]
+  and prefix_search.find_all(&quot;in&quot;) == [ 0, 404, 717, 839, 857, 873, 930, 1159, 1334, 1351, 1468]
+  and prefix_search.find_all(&quot;lor&quot;)== [ 34, 434, 456, 686, 1061, 1080 ]
+  and prefix_search.find_all(&quot;l&quot;)  == [ 34, 309, 434, 456, 557, 651, 686, 806, 1061, 1080, 1173, 1263, 1517]
+  and prefix_search.find_all(&quot;hamburger&quot;)   == []
+  and prefix_search.find_all(&quot;&quot;)   == []):
+    print(&quot;All Tests Pass&quot;)
+else:
+    print(&quot;Test Fails&quot;)
+
+if name == "main":
+
+do_tests_pass()
 ```
 
 
@@ -2274,7 +3019,136 @@ doTestsPass()
 \*\*\*\*
 
 ```python
+import unittest
+from collections import deque
+from random import shuffle
+def sort_segments(segments):
+"""
+Given a jumbled collection of segments, each of which is represented as
+a tuple (start_point, end_point), this function sorts the segments to
+make a continuous path.
+A few assumptions you can make:
+1. Each particular segment goes in one direction only, i.e.: if you
+   see (1, 2), you will not see (2, 1).
+2. Each starting point only have one way to the end point, i.e.: if
+   you see (6, 5), you will not see (6, 10), (6, 3), etc.
 
+&gt;&gt;&gt; jumbled_segments = [(4, 5), (9, 4), (5, 1), (11, 9)]
+&gt;&gt;&gt; continuous_path = sort_segments(jumbled_segments)
+&gt;&gt;&gt; print(continuous_path)
+[(11, 9), (9, 4), (4, 5), (5, 1)]
+
+Args:
+    segments: collection of segments, each represented by a tuple (m, n).
+
+Returns:
+    The sorted segments such that they form a continuous path.
+
+Raises:
+    ValueError: if there is no way to create one continuous path from all
+    the segments passed into this function.
+&quot;&quot;&quot;
+
+# naive solution - will fail the complexity test before 10000 segments
+# if not segments:
+#     return []
+#
+# # make defensive shallow copy of the list
+# copied_segments = list(segments)
+#
+# sorted_segments = deque()
+# sorted_segments.append(copied_segments.pop(0))
+#
+# while len(copied_segments):
+#     seg_size = len(copied_segments)
+#     for i in range(seg_size - 1, -1, -1):
+#         start_point = sorted_segments[0]
+#         end_point = sorted_segments[-1]
+#         segment = copied_segments[i]
+#         if start_point[0] == segment[1]:
+#             sorted_segments.appendleft(segment)
+#             del copied_segments[i]
+#         elif end_point[1] == segment[0]:
+#             sorted_segments.append(segment)
+#             del copied_segments[i]
+#     if seg_size == len(copied_segments):
+#         raise ValueError(&quot;Could not use all segments to form a continuous path&quot;)
+#
+# return list(sorted_segments)
+
+# much faster solution - can pass complexity test with 1 million segments
+if not segments:
+    return []
+
+start_dict = {segment[0]: segment for segment in segments}
+end_dict = {segment[1]: segment for segment in segments}
+sorted_segments = deque()
+
+segment = segments[0]
+sorted_segments.append(segment)
+start_point = segment[0]
+end_point = segment[1]
+
+while True:
+    next_segment = start_dict.get(end_point)
+    if next_segment:
+        sorted_segments.append(next_segment)
+    prev_segment = end_dict.get(start_point)
+    if prev_segment:
+        sorted_segments.appendleft(prev_segment)
+    if not next_segment and not prev_segment:
+        break
+    start_point = sorted_segments[0][0]
+    end_point = sorted_segments[-1][1]
+
+if len(segments) != len(sorted_segments):
+    raise ValueError(&quot;Could not use all segments to form a continuous path&quot;)
+
+return list(sorted_segments)
+
+def generate_random_segments(n):
+points = list(range(n + 1))
+shuffle(points)
+segments = [pair for pair in zip(points[:-1], points[1:])]
+continuous_segments = list(segments)
+shuffle(segments)
+return continuous_segments, segments
+class TestSortSegments(unittest.TestCase):
+def test_basic_sort(self):
+jumbled_segments = [(4, 5), (9, 4), (5, 1), (11, 9)]
+continuous_path = sort_segments(jumbled_segments)
+self.assertEqual(continuous_path, [(11, 9), (9, 4), (4, 5), (5, 1)])
+def test_sort_complexity(self):
+    from time import process_time
+    continuous_segs, jumbled_segments = generate_random_segments(1000000)
+    start = process_time()
+    sorted_segs = sort_segments(jumbled_segments)
+    sort_time = process_time() - start
+    self.assertEqual(continuous_segs, sorted_segs)
+    # without CoderPad support for timeout, we have to resort to
+    # picking a timeout value that probably will be enough for
+    # a fast algorithm, but not too large that a slow algorithm
+    # can complete anyway within the time limit.
+    self.assertLessEqual(sort_time, 2)
+
+def test_empty(self):
+    empty_segments = []
+    continuous_path = sort_segments(empty_segments)
+    self.assertEqual(continuous_path, [])
+
+def test_none(self):
+    continuous_path = sort_segments(None)
+    self.assertEqual(continuous_path, [])
+
+def test_missing_segment(self):
+    missing_segments = [(1, 2), (2, 3), (4, 5), (5, 6)]
+    self.assertRaises(ValueError, sort_segments, missing_segments)
+
+def test_duplicate(self):
+    duplicate_segments = [(1, 2), (2, 3), (1, 2)]
+    self.assertRaises(ValueError, sort_segments, duplicate_segments)
+
+unittest.main(exit=False)
 ```
 
 
