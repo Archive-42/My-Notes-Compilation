@@ -5,6 +5,7 @@
 **Add Fractions**
 
 ```python
+"""
 Task:
     Given two fractions, return the fraction which is the result of adding
     the two input fractions. The returned fraction has to be in its simplest form.
