@@ -1,4 +1,5 @@
 # Table of contents
 
-* [Scope & Closures](README.md)
+* [Introduction](README.md)
+* [index](scope-and-closures.md)
 
