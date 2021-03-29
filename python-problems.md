@@ -957,7 +957,54 @@ print("At least one test failed.")
 \*\*\*\*
 
 ```python
+/*
+**  The below pattern of numbers are called Pascals Triangle.
+** 
+**  Pascals Triangle exhibits the following behaviour:
+** 
+**  The first and last numbers of each row in the triangle are 1
+**  Each number in the triangle is the sum of the two numbers above it.
+** 
+**  Example:
+**    1
+**    1 1
+**    1 2 1
+**    1 3 3 1
+** 
+**  Please Complete the 'pascal' function below so that given a
+**  col and a row it will return the value in that positon.
+** 
+**  Example, pascal(1,2) should return 2
+** 
+*/
+"""
+pascalDictionary = {}
+def pascal(col, row):
+if col == 0 or col == row:
+return 1
+elif (col, row ) in pascalDictionary:
+return pascalDictionary[col, row]
+else:
+pascalValue = (pascal(col, row-1) + pascal(col-1, row-1))
+pascalDictionary[col,row] = pascalValue
+return pascalValue
+def doTestsPass():
+""" Returns 1 if all tests pass. Otherwise returns 0. """
+doPass = True
+pascalColRowValues = {(0,0):1, (1,2): 2, (5,6): 6, (6,6):1, (4,8): 70, (6,6):1}
+for key, val in pascalColRowValues.items():  
+    if pascal(key[0],key[1]) != val:
+        doPass = False
+        print(&quot;Failed for %s and %s \n&quot;, key, val)
+                
+if doPass:
+    print(&quot;All tests pass\n&quot;)
+     
+return doPass
 
+if name == "main":
+
+doTestsPass()
 ```
 
 ## 
@@ -969,7 +1016,40 @@ print("At least one test failed.")
 \*\*\*\*
 
 ```python
+""" Given base and integer exponent, compute value of base raised to the power of exponent.
+    Can you implement a solution faster than O(exp)? """
+def power(base, exp):
+    if base == 0:
+        return 0
+    if exp == 0:
+        return 1
+    if exp == 1:
+        return base
+    positiveExp = exp * (-1) if exp < 0 else exp
+    result = power(base * base, positiveExp / 2) if (positiveExp % 2 == 0) else (base * power(base * base, (positiveExp - 1) / 2))
+    return 1.0 / result if exp < 0 else result
+""" Returns True if all tests pass. Otherwise returns False """
+def doTestsPass():
+testBase = [ 6, 5, 0, 2, 2.2 ]
+testExp =  [0, 1, 2, -3, 30 ]
+tolerance = 0.0001
+allTestsPass = True;
+for i in range(len(testBase)):
+actual = power(testBase[i], testExp[i])
+expected = pow(testBase[i], testExp[i])
+if not (abs(actual - expected) < tolerance):
+print("Test failed for power(" + str(testBase[i]) + "," + str(testExp[i]) + ") expected:" + str(expected) + " actual:" + str(actual));
+allTestsPass = False
+return allTestsPass
+if name == "main":
 
+if(doTestsPass()):
+
+print("All tests pass")
+
+else:
+
+print("There are test failures")
 ```
 
 ## 
