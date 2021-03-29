@@ -1054,14 +1054,55 @@ print("There are test failures")
 
 ## 
 
-**Prime Fatrorization**
+**Prime Factorization**
 
 \*\*\*\*
 
 \*\*\*\*
 
 ```python
+"""
+ Return an array containing prime numbers whose product is x
+  Examples:
+  primeFactorization(6) == [2,3]
+  primeFactorization(5) == [5]
+  primeFactorization(12) == [2,2,3]
+"""
+def primeFactorization(x):
+if x < 1:
+return
+factors = []
 
+i = 2
+while i &lt;= x:
+    while x % i == 0:
+        x /= i
+        factors.append(i)
+
+    i += 1
+
+return factors
+
+def doTestsPass():
+""" Returns True if all tests pass. Otherwise returns False. """
+testVals = [6, 5, 12, 1, -1]
+testAnswers = [[2, 3], [5], [2, 2, 3], [], None]
+for value, answer in zip(testVals, testAnswers):
+    if primeFactorization(value) != answer:
+        print (&quot;Test failed for %d&quot; % value)
+        return False
+
+return True
+
+if name == "main":
+
+if doTestsPass():
+
+print ("All tests pass")
+
+else:
+
+print ("Not all tests pass")
 ```
 
 ## 
@@ -1073,6 +1114,46 @@ print("There are test failures")
 \*\*\*\*
 
 ```python
+"""
+Takes str and returns a string such that the characters
+are in reversed order.
+Example: reverseStr(str) where str is "abcd" returns "dcba".
+"""
+def reverseStr(str):
+    revStr = ""
+    for i in range(len(str)-1,-1,-1):
+        revStr += str[i]
+    return revStr
+#more pythonic approach
+#return str[::-1]
+
+"""
+Returns true if all tests pass. Otherwise returns false
+"""
+def doTestsPass():
+# todo: implement more tests
+if reverseStr("abcd") != "dcba":
+return False
+if reverseStr(&quot;odd abcde&quot;) != &quot;edcba ddo&quot;:
+    return False
+
+if reverseStr(&quot;even abcde&quot;) != &quot;edcba neve&quot;:
+    return False
+
+if reverseStr(reverseStr(&quot;no change&quot;)) != &quot;no change&quot;:
+    return False
+
+if reverseStr(&quot;&quot;) != &quot;&quot;:
+    return False
+
+return True
+
+if name == "main":
+result = doTestsPass()
+if result:
+        print(&quot;All tests pass\n&quot;);
+else:
+        print(&quot;Tests fail\n&quot;);</code></pre></td>
 
 ```
 
@@ -1085,6 +1166,46 @@ print("There are test failures")
 \*\*\*\*
 
 ```python
+"""
+Takes str and returns a string such that the characters
+are in reversed order.
+Example: reverseStr(str) where str is "abcd" returns "dcba".
+"""
+def reverseStr(str):
+    revStr = ""
+    for i in range(len(str)-1,-1,-1):
+        revStr += str[i]
+    return revStr
+#more pythonic approach
+#return str[::-1]
+
+"""
+Returns true if all tests pass. Otherwise returns false
+"""
+def doTestsPass():
+# todo: implement more tests
+if reverseStr("abcd") != "dcba":
+return False
+if reverseStr(&quot;odd abcde&quot;) != &quot;edcba ddo&quot;:
+    return False
+
+if reverseStr(&quot;even abcde&quot;) != &quot;edcba neve&quot;:
+    return False
+
+if reverseStr(reverseStr(&quot;no change&quot;)) != &quot;no change&quot;:
+    return False
+
+if reverseStr(&quot;&quot;) != &quot;&quot;:
+    return False
+
+return True
+
+if name == "main":
+result = doTestsPass()
+if result:
+        print(&quot;All tests pass\n&quot;);
+else:
+        print(&quot;Tests fail\n&quot;);</code></pre></td>
 
 ```
 
@@ -1097,7 +1218,44 @@ print("There are test failures")
 \*\*\*\*
 
 ```python
+"""
+   Implement a run length encoding function.
+For a string input the function returns output encoded as follows:
+"a"     -> "a1"
+"aa"    -> "a2"
+"aabbb" -> "a2b3"
+"aabbbaa" -> "a2b3a2"
+"""
+def rle(testString):
+if(len(testString) == 0):
+return ""
+lastseen = &quot;&quot;
+result = &quot;&quot;
+counter = 1
+for let in testString:
+    if( lastseen == let):
+        counter += 1
+    else:
+        if lastseen != &quot;&quot;:
+            result = &quot;%s%s%d&quot; % (result, lastseen, counter)
+        counter = 1
+        lastseen = let
+result = &quot;%s%s%d&quot; % (result, lastseen, counter)
+return result
 
+def Assert(actual,expected, message):
+if(actual ==  expected):
+print("PASSED: ", message, "Actual %s == Expected %s" % (actual, expected));
+else:
+print("FAILED: ", message, "Actual %s != Expected %s" % (actual, expected));
+def doTestsPass():
+Assert(rle(""),           "",                  "Example 1" );
+Assert(rle("a"),          "a1",                "Example 2" );
+Assert(rle("aaa"),        "a3",                "Example 3" );
+Assert(rle("aaabbbaad"),  "a3b3a2d1",          "Example 3" );
+if name == "main":
+
+doTestsPass()
 ```
 
 ## 
@@ -1106,10 +1264,110 @@ print("There are test failures")
 
 \*\*\*\*
 
-\*\*\*\*
-
 ```python
+import unittest
+class BST(object):
+def init(self):
+self.root = Node()
+def put(self, value):
+    self._put(value, self.root)
 
+def _put(self, value, node):
+    if node.value is None:
+        node.value = value
+    else:
+        if value &lt; node.value:
+            if node.left is None:
+                node.left = Node()
+            self._put(value, node.left)
+        else:
+            if node.right is None:
+                node.right = Node()
+            self._put(value, node.right)
+
+def contains(self, value):
+    return self._contains(value, self.root)
+
+def _contains(self, value, node):
+    if node is None or node.value is None:
+        return False
+    else:
+        if value == node.value:
+            return True
+        elif value &lt; node.value:
+            return self._contains(value, node.left)
+        else:
+            return self._contains(value, node.right)
+
+def in_order_traversal(self):
+    acc = list()
+    self._in_order_traversal(self.root, acc)
+    return acc
+
+def _in_order_traversal(self, node, acc):
+    if node is None or node.value is None:
+        return
+    self._in_order_traversal(node.left, acc)
+    acc.append(node.value)
+    self._in_order_traversal(node.right, acc)
+
+class Node(object):
+def init(self, value=None, left=None, right=None):
+self.value = value
+self.left = left
+self.right = right
+class TestBST(unittest.TestCase):
+def setUp(self):
+self.search_tree = BST()
+def test_bst(self):
+    self.search_tree.put(3)
+    self.search_tree.put(1)
+    self.search_tree.put(2)
+    self.search_tree.put(5)
+    self.assertFalse(self.search_tree.contains(0))
+    self.assertTrue(self.search_tree.contains(1))
+    self.assertTrue(self.search_tree.contains(2))
+    self.assertTrue(self.search_tree.contains(3))
+    self.assertFalse(self.search_tree.contains(4))
+    self.assertTrue(self.search_tree.contains(5))
+    self.assertFalse(self.search_tree.contains(6))
+
+    self.assertEqual(self.search_tree.in_order_traversal(), [1,2,3,5])
+
+def test_empty(self):
+    self.assertEqual(self.search_tree.in_order_traversal(), [])
+
+def test_negative(self):
+    self.search_tree.put(-1)
+    self.search_tree.put(11)
+    self.search_tree.put(-10)
+    self.search_tree.put(50)
+    self.assertTrue(self.search_tree.contains(-1))
+    self.assertTrue(self.search_tree.contains(11))
+    self.assertTrue(self.search_tree.contains(-10))
+    self.assertTrue(self.search_tree.contains(50))
+
+    self.assertEqual(self.search_tree.in_order_traversal(), [-10,-1,11,50])
+
+def test_dupes(self):
+    self.search_tree.put(1)
+    self.search_tree.put(2)
+    self.search_tree.put(1)
+    self.search_tree.put(2)
+    self.assertTrue(self.search_tree.contains(1))
+    self.assertTrue(self.search_tree.contains(2))
+
+    self.assertEqual(self.search_tree.in_order_traversal(), [1,1,2,2])
+
+def test_none(self):
+    self.search_tree.put(None)
+    self.assertFalse(self.search_tree.contains(None))
+
+    self.assertEqual(self.search_tree.in_order_traversal(), [])
+
+if name == 'main':
+
+unittest.main()
 ```
 
 ## 
@@ -1121,7 +1379,41 @@ print("There are test failures")
 \*\*\*\*
 
 ```python
+def secondSmallest(x):
+        """ Returns second smallest integer in the array x. Returns nothing if array has less than 2 elements. """     
+        # First check if array is large enough
+        if len( x ) < 2:
+            return
+    Smallest = float(&quot;inf&quot;)
+    SecSmallest = float(&quot;inf&quot;)
+    for i in x:
+        if i &lt; Smallest:
+            SecSmallest = Smallest
+            Smallest = i
+        elif i &lt; SecSmallest:
+            SecSmallest = i
+             
+    return SecSmallest
 
+def doTestsPass():
+""" Returns 1 if all tests pass. Otherwise returns 0. """
+testArrays    = [ [], [0], [0,1], [-1,0,1,-2,2], [1,1,2] ]
+testAnswers   = [ None, None, 1, -1, 1 ]
+    for i in range( len( testArrays ) ):
+        if not ( secondSmallest( testArrays[i] ) == testAnswers[i] ):
+            return False
+     
+    return True
+
+if name == "main":
+
+if( doTestsPass() ):
+
+print( "All tests pass" )
+
+else:
+
+print( "Not all tests pass" )
 ```
 
 ## 
@@ -1133,6 +1425,62 @@ print("There are test failures")
 \*\*\*\*
 
 ```python
+"""
+ Given an array of integers that is sorted but rotated find the smallest element in the array
+ For example {3, 5, 6, 1, 2} returns 1.
+ Assume that the array does not have any duplicates.
+"""
+def findMin(input):
+    if len(input) < 1:
+        return
+return findMinInArray(input,0,len(input)-1)
+
+def findMinInArray(input,left,right):
+if left == right:
+return input[left]
+if left &gt; right:
+    return input[0]
+
+mid = int((left + right)/2)
+
+if mid&lt;right and input[mid]&gt;input[mid+1]:
+    return input[mid+1]
+if mid&gt;left and input[mid-1]&gt;input[mid]:
+    return input[mid]
+
+if input[right]&gt;input[mid]:
+    return findMinInArray(input,left,mid-1)
+
+return findMinInArray(input,mid+1,right)
+
+"""
+Returns true if all tests pass. Otherwise returns false
+"""
+def doTestsPass():
+ok = True
+tests = [
+(1, [3,4,5,6,2,1]),
+(1, [2,1]),
+(1, [1]),
+(1, [1,2,3,4,5,6]),
+(1, [4,1,2,3]),
+(None,[])
+]
+for (expected,testInput) in tests:
+    result = findMin(testInput)
+    if result == expected:
+        print(&quot;Test passed for&quot;, testInput, &quot;got&quot;, result, &quot;for&quot;, expected,&quot;\n&quot;)
+    else:
+        print(&quot;Test failed for&quot;, testInput, &quot;got&quot;, result, &quot;instead of&quot;, expected, &quot;\n&quot;)
+        ok = False
+return ok
+
+if name == "main":
+result = doTestsPass()
+if result:
+    print(&quot;All tests pass\n&quot;)
+else:
+    print(&quot;Tests fail\n&quot;)</code></pre></td>
 
 ```
 
@@ -1145,7 +1493,43 @@ print("There are test failures")
 \*\*\*\*
 
 ```python
+ * This is **NOT** a math problem. You are required to code up a simple mathematical technique to find the square root of a number.
+  * The Newton-Raphson method can be used to find the square root of a number N as follows
+      ** Make an initial guess
+      ** Update the guess using the below formula
+      ** New Estimate = Current Estimate - ( F(Current Estimate) / F'(Current Estimate) ), where
+         F(Current Estimate) = Current Estimate * Current Estimate - N
+         F'(Current Estimate) = 2*Current Estimate
+      ** Repeat till you are close enough
+  * Run this code in the REPL to observe its behaviour. The
+     execution entry point is main().
+  * Consider adding some additional tests in doTestsPass
+"""
+def squareRoot(x):
+""" Returns the square root of x """
+max_iter = 1000
+threshold = 0.001
+guess = x/2.0
+while( max_iter > 0 and abs(guessguess-x) > threshold ):
+guess = guess - ((guessguess - x )/(2.0*guess ))
+max_iter -= 1
+return guess
+def doTestsPass():
+""" Returns True if all tests pass. Otherwise returns False """
+doPass = True
+inputs = [ 4, 100, 2 ]
+expected_values = [ 2, 10, 1.41421 ]
+threshold = 0.001
+for i in range(0, len( inputs ) ) :
+if abs( squareRoot( inputs[i] ) - expected_values[i] ) > threshold:
+print( "Failed for %f - expected = %f, found = %f" % ( inputs[i], expected_values[i], squareRoot( inputs[i] ) ) )
+doPass = False
+if doPass:
+print( "All tests pass\n" )
+return doPass
+if name == "main":
 
+doTestsPass()
 ```
 
 ## 
@@ -1157,7 +1541,84 @@ print("There are test failures")
 \*\*\*\*
 
 ```python
+"""Given a string and size of the tuples, extracts all unique tuples(substrings) of the given size."""
+def uniqueTuples( input, size ):
+    """ TODO: Implement solution"""
+if( input == None or len( input ) == 0 ):
+    print( &quot;Input string cannot be null or of zero length.&quot; )
+    return None
+ 
+if( size &lt;= 0 ):
+    print( &quot;Length of tuples must be greater than zero. &quot;)
+    return None
+ 
+inputLength = len(input)
+if( size &gt; inputLength ):
+    print( &quot;Length of the tuple cannot be more than the length of the source string.&quot; )
+    return None
+     
+result = set()   
+for i in range( inputLength - size + 1 ):
+    result.add( input[ i : i + size ] )
+     
+return result
 
+""" Returns 1 if all tests pass. Otherwise returns 0. """
+def doTestsPass():
+"""# TODO: implement some tests, please
+# we've included a trivial boilerplate """
+testPassed  = True
+result      = set()
+
+ 
+print( &quot;Running Test #1.&quot; )
+result = uniqueTuples( &quot;&quot;, 2 )
+if( result != None ):
+    print( &quot;Test #1 failed&quot; )
+    testPassed = False
+ 
+print( &quot;Running Test #2.&quot; )
+result = uniqueTuples( None, 2 )
+if( result != None ):
+    print( &quot;Test #2 failed.&quot; )
+    testPassed = False
+     
+print( &quot;Running Test #3.&quot; )
+result = uniqueTuples( &quot;Anything&quot;, 0 )
+if( result != None ):
+    print( &quot;Test #3 failed.&quot; )
+    testPassed = False
+     
+print( &quot;Running Test #4.&quot; )
+result = uniqueTuples( &quot;1234&quot;, 5)
+if( result != None ):
+    print( &quot;Test #4 failed.&quot; )
+    testPassed = False 
+           
+print( &quot;Running Test #5.&quot; )
+result     = uniqueTuples( &quot;abbccde&quot;, 2 )
+goodResult = set()
+goodResult.add( &quot;ab&quot; )
+goodResult.add( &quot;bb&quot; )
+goodResult.add( &quot;bc&quot; )
+goodResult.add( &quot;cc&quot; )
+goodResult.add( &quot;cd&quot; )
+goodResult.add( &quot;de&quot; )
+
+if( result == None  or
+    len( result ) != 6 or
+    result.symmetric_difference_update( goodResult ) != None ):
+    print( &quot;Test #5 failed.&quot; )
+    testPassed = False
+
+     
+print( &quot;All tests pass.&quot; ) if( testPassed ) else print( &quot;There are test failures.&quot; )
+     
+return testPassed
+
+if name == "main":
+
+doTestsPass()
 ```
 
 ## 
@@ -1169,7 +1630,53 @@ print("There are test failures")
 \*\*\*\*
 
 ```python
+# 2. Implement the 'walk' method. This method takes in a string, path,
+#    where each character in the string corresponds to a potential movement
+#    of the robot. The robot can move up, down, left, and right represented
+#    by the characters 'U', 'D', 'L', and 'R' respectively. All other
+#    characters may be ignored. Assume the robot's initial position
+#    is at (0,0). The output of this method is the robot's final x and y
+#    coordinates relative to the initial position.
+# 3. Consider adding more test cases
+def walk( path ):
+ret = [0,0]
+directions = { &quot;U&quot; : [ 0, 1],
+               &quot;D&quot; : [ 0,-1],
+               &quot;L&quot; : [-1, 0],
+               &quot;R&quot; : [ 1, 0]
+             }
+ 
+for char in path:
+    ret = [ a + b for a, b in zip( ret, directions.get( char, [0,0] ) ) ]
+ 
+return( ret )
 
+def do_tests_pass():
+""" Returns True if all tests pass. Otherwise returns False. """
+"""# TODO: implement some tests, please
+# we've included a trivial boilerplate """
+#   path, expected
+test_cases = [
+    [ &quot;UUU&quot;,            [0, 3] ],
+    [ &quot;ULDR&quot;,           [0, 0] ],
+    [ &quot;ULLLDUDUURLRLR&quot;, [-2,2] ],
+    [ &quot;UP LEFT 2xDOWN DOWN RIGHT RIGHT UP UP&quot;, [1,1] ],
+]
+ 
+result = True
+for test in test_cases:
+    result = result and ( walk( test[0] ) == test[1] )       
+
+if result:
+    print(&quot;Test passed.&quot;)
+    return True
+else:
+    print(&quot;Test failed.&quot;)
+    return False
+
+if name == "main":
+
+do_tests_pass()
 ```
 
 
@@ -1185,7 +1692,118 @@ print("There are test failures")
 \*\*\*\*
 
 ```python
+"""
+  Instructions:
+Given a list of student test scores, find the best average grade.
+Each student may have more than one test score in the list.
+Complete the bestAverageGrade function in the editor below.
+It has one parameter, scores, which is an array of student test scores.
+Each element in the array is a two-element array of the form [student name, test score]
+e.g. [ "Bobby", "87" ].
+Test scores may be positive or negative integers.
+If you end up with an average grade that is not an integer, you should
+use a floor function to return the largest integer less than or equal to the average.
+Return 0 for an empty input.
+Example:
+Input:
+[ [ "Bobby", "87" ],
+[ "Charles", "100" ],
+[ "Eric", "64" ],
+[ "Charles", "22" ] ].
+Expected output: 87
+Explanation: The average scores are 87, 61, and 64 for Bobby, Charles, and Eric,
+respectively. 87 is the highest.
+"""
+import math
+""" Find the best average grade. """
+def bestAverageGrade(scores):
+# check for empty list
+if(len(scores) == 0):
+return 0
+# Build dictionary of students to tuple of running average and count
+scoresByStudent = {}
+for scoreRow in scores:
+    # check for well formed entry
+    if len(scoreRow) != 2:
+        return 0
 
+    student = scoreRow[0]
+    score   = int(scoreRow[1])
+
+    currentAvg = scoresByStudent.get(student,(0, 0))
+    newAvg = (currentAvg[0] * currentAvg[1] + score) / (currentAvg[1] + 1)
+    scoresByStudent[student] = (newAvg, currentAvg[1] + 1)
+
+scoresOnly = scoresByStudent.values()
+
+averages = map(lambda x: x[0], scoresOnly)
+
+return int(math.floor(max(averages)))
+
+def doTestsPass():
+""" Returns true if the tests pass. Otherwise, returns false """
+testCases = [
+    # example
+    ([ [ &quot;Bobby&quot;, &quot;87&quot; ],
+        [ &quot;Charles&quot;, &quot;100&quot; ],
+        [ &quot;Eric&quot;, &quot;64&quot; ],
+        [ &quot;Charles&quot;, &quot;22&quot; ] ],
+     87),
+    # empty
+    ([],
+     0),
+    # multiple scores each
+    ([ [ &quot;Sarah&quot;, &quot;91&quot; ],
+       [ &quot;Goldie&quot;, &quot;92&quot; ],
+       [ &quot;Elaine&quot;, &quot;93&quot; ],
+       [ &quot;Elaine&quot;, &quot;95&quot; ],
+       [ &quot;Goldie&quot;, &quot;94&quot; ],
+       [ &quot;Sarah&quot;, &quot;93&quot; ] ],
+     94),
+    # negatives and zeros
+    ([ [ &quot;Janie&quot;, &quot;-66&quot; ],
+       [ &quot;Janie&quot;, &quot;0&quot; ],
+       [ &quot;Gina&quot;, &quot;-88&quot; ],
+       [ &quot;Bobby&quot;, &quot;0&quot; ],
+       [ &quot;Gina&quot;, &quot;44&quot; ],
+       [ &quot;Bobby&quot;, &quot;0&quot; ],
+       [ &quot;Bobby&quot;, &quot;-6&quot; ] ],
+     -2),
+    # same value and average
+    ([ [ &quot;Alpha&quot;, &quot;99&quot; ],
+       [ &quot;Bravo&quot;, &quot;99&quot; ],
+       [ &quot;Charlie&quot;, &quot;99&quot; ],
+       [ &quot;Delta&quot;, &quot;99&quot; ],
+       [ &quot;Echo&quot;, &quot;99&quot; ],
+       [ &quot;Foxtrot&quot;, &quot;99&quot; ],
+       [ &quot;Foxtrot&quot;, &quot;99&quot; ] ],
+     99),
+    # non-integer average
+    ([ [ &quot;Gerald&quot;, &quot;91&quot; ],
+       [ &quot;Gerald&quot;, &quot;92&quot; ] ],
+     91),
+    # negative non-integer average
+    ([ [ &quot;Barry&quot;, &quot;-66&quot; ],
+       [ &quot;Barry&quot;, &quot;-65&quot; ],
+       [ &quot;Alfred&quot;, &quot;-122&quot;] ],
+     -66),
+]
+
+passed = True
+for tc, expected in testCases:
+    actual = bestAverageGrade(tc)
+    if actual != expected:
+        passed = False
+        print(&quot;Failed for case &quot;, tc, &quot;\n  expected &quot;, expected, &quot;, actual &quot;, actual)
+
+return passed
+
+if name == "main":
+result = doTestsPass()
+if result:
+    print(&quot;All tests pass\n&quot;);
+else:
+    print(&quot;Tests fail\n&quot;);</code></pre></td>
 ```
 
 
@@ -1197,7 +1815,56 @@ print("There are test failures")
 \*\*\*\*
 
 ```python
+def vulgarToDecimal(numerator, denominator) :
+    if denominator == 0:
+        return "NaN"
+    integer = str(int(numerator / denominator))
+    rest = int(numerator) % denominator
+    if rest == 0: return integer
+afterDot = &quot;&quot;
+numeratorToPos = dict()
+cyclePos = int(-1)
+while rest != 0:
+    numerator = rest * 10
+    if numerator in numeratorToPos:
+        cyclePos = numeratorToPos[numerator] - 1
+        break
 
+    digit = str(int(numerator / denominator))
+    afterDot += digit
+    numeratorToPos[numerator] = len(afterDot)
+    rest = numerator % denominator
+
+if cyclePos &gt; -1:
+    afterDot = afterDot[:cyclePos] + &quot;(&quot; + afterDot[cyclePos:] + &quot;)&quot;
+return integer + &quot;.&quot; + afterDot
+
+Implement the method that provided numerator and denominator will return a string representing fraction's decimal form.
+Some fractions in decimal form have cyclic decimal points.
+
+Examples:
+1/2 = 0.5
+1/3 = 0.(3)
+def doTestsPass():
+testsPassed = True
+testsPassed &= vulgarToDecimal(1, 0) == "NaN"
+testsPassed &= vulgarToDecimal(1, 2) == "0.5"
+testsPassed &= vulgarToDecimal(1, 3) == "0.(3)"
+testsPassed &= vulgarToDecimal(1, 56) == "0.017(857142)"
+if testsPassed:
+    print(&quot;Tests passed&quot;)
+    return 0
+
+print(&quot;Tests failed&quot;)
+return 1
+
+doTestsPass()
+Returns 0 if all tests pass. Otherwise 1
+
+Consider adding more tests.
+if name == "main":
+
+doTestsPass()
 ```
 
 
@@ -1209,7 +1876,91 @@ print("There are test failures")
 \*\*\*\*
 
 ```python
+import math
+import re
+"""
+== Instructions ==
+Debug why the included test cases aren&#39;t succeeding and account for them in the code
 
+A description of the expected behaviour is given below
+
+Missing enhancements:
+ *  Support case insensitivity (comparing word to word1 or word2)
+ *  Account for punctuation (allow multiple separators in the split)
+ *  Account for the split char in the total length between words (i.e. index += word.length() + 1 )
+ *  Allow for words in either order (math.fabs(word1Loc - word2Loc))
+ *  Handle case where either word is not present
+
+"""
+def shortestDistance(document, word1, word2):
+""" Given two words returns the shortest distance between their two midpoints in number of characters.
+Words can appear multiple times in any order and should be case insensitive.
+        E.g. for the document=&quot;This is a sample document we just made up&quot;
+        shortestDistance( document, &quot;we&quot;, &quot;just&quot; ) == 4
+        shortestDistance( document, &quot;is&quot;, &quot;a&quot; ) == 2.5
+        shortestDistance( document, &quot;is&quot;, &quot;not&quot; ) == -1
+    &quot;&quot;&quot;
+    # todo: determine why tests are failing
+
+    words = re.split(&quot;[,. ]&quot;, document)
+    index = 0
+    shortest = len(document)
+    word1Loc = 0
+    word2Loc = 0
+    for word in words:
+        if word.lower() == word1.lower():
+            word1Loc = index + (len(word)/2.0)
+        elif word.lower() == word2.lower():
+            word2Loc = index + (len(word)/2.0)
+
+        if word1Loc &gt; 0 and word2Loc &gt; 0:
+            current = math.fabs(word1Loc - word2Loc)
+            if current &lt; shortest:
+                shortest = current
+
+        index += len(word) + 1
+
+    if word1Loc == 0 or word2Loc == 0:
+        return -1
+
+
+    return shortest;
+
+def doTestsPass():
+""" Returns 1 if all tests pass. Otherwise returns 0. """
+# todo: implement more tests, please
+# feel free to make testing more elegant
+doPass = shortestDistance(document, "and", "graphic") == 6;
+doPass = doPass and shortestDistance(document, "transfer", "it") == 14;
+doPass = doPass and shortestDistance(document, "layout", "It" ) == 6;
+doPass = doPass and shortestDistance(document, "Design", "filler" ) == 25;
+doPass = doPass and shortestDistance(document, "It", "transfer") == 14;
+doPass = doPass and math.fabs(shortestDistance(document, "of", "lorem") - 4.5) < 0.000001;
+doPass = doPass and shortestDistance(document, "thiswordisnotthere", "lorem") == -1;
+if doPass:
+        print(&quot;All tests pass\n&quot;)
+else:
+        print(&quot;There are test failures\n&quot;)
+
+return doPass
+
+document =  "In publishing and graphic design, lorem ipsum is a filler text commonly used to demonstrate the graphic elements";
+document += " of a document or visual presentation. Replacing meaningful content that could be distracting with placeholder text";
+document += " may allow viewers to focus on graphic aspects such as font, typography, and page layout. It also reduces the need";
+document += " for the designer to come up with meaningful text, as they can instead use hastily generated lorem ipsum text. The";
+document += " lorem ipsum text is typically a scrambled section of De finibus bonorum et malorum, a 1st-century BC Latin text by";
+document += " Cicero, with words altered, added, and removed to make it nonsensical, improper Latin. A variation of the ordinary";
+document += " lorem ipsum text has been used in typesetting since the 1960s or earlier, when it was popularized by advertisements";
+document += " for Letraset transfer sheets. It was introduced to the Information Age in the mid-1980s by Aldus Corporation, which";
+document += " employed it in graphics and word processing templates for its desktop publishing program, PageMaker, for the Apple";
+document += " Macintosh. A common form of lorem ipsum reads: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do";
+document += " eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation";
+document += " ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit";
+document += " esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui";
+document += " officia deserunt mollit anim id est laborum.";
+if name == "main":
+
+doTestsPass()
 ```
 
 
@@ -1221,6 +1972,109 @@ print("There are test failures")
 \*\*\*\*
 
 ```python
+"""
+**  Instructions:
+**
+**  Given a forest ( one or more disconnected trees ), find the root of largest tree
+**  and return its Id. If there are multiple such roots, return the smallest Id of them.
+**
+**  Complete the largestTree function in the editor below.
+**  It has one parameter, immediateParent, which is a map containing key-value pair indicating
+**  child -> parent relationship. The key is child and value is the corresponding
+**  immediate parent.
+**  Constraints
+**    - Child cannot have more than one immediate parent.
+**    - Parent can have more than one immediate child.
+**    - The given key-value pair forms a well-formed forest ( a tree of n nodes will have n-1 edges )
+**
+**  Example:
+**
+**  Input:
+**  { { 1 -> 2 }, { 3 -> 4} }  
+**
+**  Expected output: 2
+**  Explanation: There are two trees one having root of Id 2 and another having root of Id 4.
+**  Both trees have size 2. The smaller number of 2 and 4 is 2. Hence the answer is 2.
+"""
+def getTreeSize(parentToChild, rootIndex):
+result = 0
+stack = []
+stack.append(rootIndex)
+while(len(stack)>0):
+index = stack.pop()
+result = result + 1
+if index in parentToChild:
+for childIndex in parentToChild[index]:
+stack.append(childIndex)
+return result
+""" Find the largest tree. """
+def largestTree(immediateParent):
+maxTreeSize = 0
+minRootId = 0
+rootIndexes = []
+parentToChild = dict()
+for childIndex, parentIndex in immediateParent.items():
+parentToChild.setdefault(parentIndex, []).append(childIndex)
+if not parentIndex in immediateParent:
+rootIndexes.append(parentIndex)
+for rootIndex in rootIndexes:
+treeSize = getTreeSize(parentToChild, rootIndex)
+if treeSize > maxTreeSize:
+maxTreeSize = treeSize
+minRootId = rootIndex
+elif treeSize == maxTreeSize:
+minRootId = min (minRootId, rootIndex)
+return minRootId
+
+def doTestsPass():
+""" Returns true if the tests pass. Otherwise, returns false """
+testCases = [
+    # example
+    (dict({1:2, 3:4}),
+     2),
+
+    # More than two trees
+    (dict({2:3, 7:8, 12:15, 3:1, 13:15, 11:15, 9:8, 5:12}),
+     15),
+
+    # really large index values
+    (dict({
+      200000000:300000000,
+      500000000:200000000,
+      700000000:300000000,
+      600000000:700000000,
+      900000000:400000000,
+      100000000:400000000,
+      800000000:400000000,
+      1000000000:400000000}),
+     300000000),
+      
+   # two trees of same size
+   ( dict( {
+     9:4, 1:4, 5:2, 8:4, 7:3, 2:3, 6:7, 10:4 
+   } ), 3 ), 
+ 
+   # tree sizes differ by one
+   ( dict( {
+     35:33, 33:28, 31:22, 28:25, 34:31, 29:27, 21:23, 25:21, 22:29 
+   } ), 23 ),
+]
+
+passed = True
+for tc, expected in testCases:
+    actual = largestTree(tc)
+    if actual != expected:
+        passed = False
+        print(&quot;Failed for case &quot;, tc, &quot;\n  expected &quot;, expected, &quot;, actual &quot;, actual)
+
+return passed
+
+if name == "main":
+result = doTestsPass()
+if result:
+    print(&quot;All tests pass\n&quot;);
+else:
+    print(&quot;Tests fail\n&quot;);</code></pre></td>
 
 ```
 
@@ -1233,7 +2087,77 @@ print("There are test failures")
 \*\*\*\*
 
 ```python
+"""
+Instructions to candidate.
+ 1) Given a a string of letters and a dictionary, the function longestWord should
+    find the longest word or words in the dictionary that can be made from the letters
+    Input: letters = "oet", dictionary = {"to","toe","toes"}
+    Output: {"toe"}
+    Only lowercase letters will occur in the dictionary and the letters
+    The length of letters will be between 1 and 10 characters
+    The solution should work well for a dictionary of over 100,000 words
+ 2) Run this code in the REPL to observe its behaviour. The
+    execution entry point is main.
+ 3) Consider adding some additional tests in doTestsPass().
+ 4) Implement the longestWord() method correctly.
+ 5) If time permits, introduce '?' which can represent any letter.  "to?" could match to "toe", "ton" etc
+"""
+class Dictionary:
+# Pre-process dictionary so we have list of dictionary entries stored against a sorted string
+# e.g. "dgo"-> {"dog", "god"}
+def init(self, entries):
+self.sortedLetters2Words = {}
+for word in entries:
+sortedLetters = ''.join(sorted(word))
+self.sortedLetters2Words.setdefault(sortedLetters, [])
+self.sortedLetters2Words[sortedLetters].append(word)
+def getEntriesForSortedLetters(self, sortedLetters):
+    return self.sortedLetters2Words.get(sortedLetters, None);
 
+For each string in set return a new set with all possibilities with 1 char dropped from lettersCombinations
+def combinationsDroppingOneLetter(letterCombinations):
+oneLetterLessSet = set()
+for letters in letterCombinations:
+if (len(letters) > 1):
+for i in range(len(letters)):
+oneLetterLessSet.add(letters[0:i] + letters[i+1:])
+return oneLetterLessSet
+def longestWord(letters, dictionary):
+# To support ? wild card could expand all possibilites here.  A better solution would be Tree/Trie based
+# Set with one entry of letters sorted
+considerLettersSet = {''.join(sorted(letters))}
+while len(considerLettersSet) > 0:
+# Get list of words in dictionary that match any of the set of sorted letters
+allFoundInDict = [dictionary.getEntriesForSortedLetters(item) for item in considerLettersSet]
+allFoundInDict = [word for sublist in allFoundInDict if sublist for word in sublist]
+if (len(allFoundInDict)>0):
+return allFoundInDict
+#Next time round loop will consider combinations of sorted letters with one less character
+considerLettersSet = combinationsDroppingOneLetter(considerLettersSet)
+return []
+words = ('to', 'toe', 'toes', 'doe', 'dog', 'god', 'dogs', 'book', 'banana')
+dictionary = Dictionary(words)
+def doTestsPass():
+result = {'ab', 'bc', 'ac'} == combinationsDroppingOneLetter({'abc'})
+result = result and {'ab', 'bb'} == combinationsDroppingOneLetter({'abb'})
+result = result and {'a', 'b'} == combinationsDroppingOneLetter({'ab','bb'})
+result = result and set() == combinationsDroppingOneLetter({'a','b'})
+result = result and set() == combinationsDroppingOneLetter({})
+result = result and [&#39;toe&#39;] == longestWord(&#39;toe&#39;, dictionary)
+result = result and {&#39;toes&#39;,&#39;dogs&#39;} == set(longestWord(&#39;osetdg&#39;, dictionary))
+result = result and {&quot;doe&quot;,&#39;toe&#39;,&#39;dog&#39;,&#39;god&#39;} == set(longestWord(&#39;oetdg&#39;, dictionary))
+result = result and [&#39;book&#39;] == longestWord(&#39;obokt&#39;, dictionary)
+result = result and [&#39;banana&#39;] == longestWord(&#39;nanabaook&#39;, dictionary)
+result = result and [] == longestWord(&#39;a&#39;, dictionary)
+
+if(result):
+    print(&#39;All tests pass&#39;)
+else:
+    print(&#39;There are test failures&#39;)
+
+if name == "main":
+
+doTestsPass()
 ```
 
 
