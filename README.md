@@ -348,7 +348,3 @@ If you define any inner function within another function, this inner function is
 
 Feel free to pop by and ask any questions you have. I’ll get back to you as soon as I can.
 
-If you liked this article, you may also like other front-end-related articles I write on my [blog](https://zellwk.com/blog/) and my [newsletter](https://zellwk.com/newsletter/css-tricks/). I also have a brand new \(and free!\) email course: [JavaScript Roadmap](https://jsroadmap.com/).
-
-[Source](https://css-tricks.com/javascript-scope-closures/)
-
