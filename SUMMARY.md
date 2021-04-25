@@ -8,6 +8,7 @@
 ## Github-Rest-API
 
 * [Intro](github-rest-api/intro.md)
+* [Libraries](github-rest-api/libraries.md)
 
 ---
 
