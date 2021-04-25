@@ -7,10 +7,9 @@
 
 ## Github-Rest-API
 
+* [Git API Resources](github-rest-api/git-api-resources.md)
+* [Search API](github-rest-api/search-api/README.md)
+  * [Docs](github-rest-api/search-api/untitled.md)
 * [Intro](github-rest-api/intro.md)
 * [Libraries](github-rest-api/libraries.md)
-
----
-
-* [Git API Resources](git-api-resources.md)
 
