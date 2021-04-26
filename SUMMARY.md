@@ -13,3 +13,7 @@
 * [Intro](github-rest-api/intro.md)
 * [Libraries](github-rest-api/libraries.md)
 
+## Medium
+
+* [What makes a good read](medium/what-makes-a-good-read.md)
+
