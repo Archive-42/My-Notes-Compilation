@@ -1,50 +1,169 @@
 # index
 
+## Animations
+
+* [Web Animation Essentials: CSS Animations and Transitions](https://courses.rachelnabors.com/courses/16861)
+* [Website Deconstructions - Ihatetomatoes](https://www.youtube.com/playlist?list=PLkEZWD8wbltl7OXS1CipiXZ0QjYEl5bL2)
+* [Why CSS ::before doesn't work on inputs and images](https://webplatform.news/issues/2020-08-26)
+* [https://css-tricks.com/a-complete-guide-to-dark-mode-on-the-web](https://css-tricks.com/a-complete-guide-to-dark-mode-on-the-web)
+* [https://ferrumpipe.com](https://ferrumpipe.com)
+* [https://jeremenichelli.io/2016/04/always-animate-translate-instead-of-positions](https://jeremenichelli.io/2016/04/always-animate-translate-instead-of-positions)
+* [https://thewholesome.dev/p/8-frontend-coding-ideas-that-will](https://thewholesome.dev/p/8-frontend-coding-ideas-that-will)
+* [https://github.com/argyleink/transition.css](https://github.com/argyleink/transition.css)
+* [A reference for the render impact of mutating CSS properties.](https://github.com/GoogleChromeLabs/css-triggers)
+* [https://shud.in/posts/on-ui-animations](https://shud.in/posts/on-ui-animations)
+
+## Approach
+
+* [https://calibreapp.com/blog/css-performance](https://calibreapp.com/blog/css-performance)
+* [https://css-tricks.com/building-a-scalable-css-architecture-with-bem-and-utility-classes](https://css-tricks.com/building-a-scalable-css-architecture-with-bem-and-utility-classes)
+
 ## Book
 
-* [The design and evolution of C++ by Bjarne Stroustrup](https://twitter.com/oznova_/status/1214971707863101440)
-* [Modern OpenGL guide](https://github.com/Overv/Open.GL)
+* [https://debuggingcss.com](https://debuggingcss.com)
+* [https://leanpub.com/css-optimization-basics](https://leanpub.com/css-optimization-basics) + [https://github.com/j9t/css-optimization-basics](https://github.com/j9t/css-optimization-basics)
+
+## Color
+
+* [https://colornamer.netlify.com](https://colornamer.netlify.com)
+* [https://www.w3.org/TR/css-color-4/\#valdef-color-aliceblue](https://www.w3.org/TR/css-color-4/#valdef-color-aliceblue)
+* [Overly descriptive color palettes.](https://colors.lol) inspired by [https://github.com/joemfox/colorschemer](https://github.com/joemfox/colorschemer)
+* [Calico is a small utility written in Haskell which is cat but for colors.](https://github.com/ix/calico)
+* [A Short History of Color Theory](https://news.ycombinator.com/item?id=23164709)
+* [A tool to sort the named CSS colors in a way that it shows related colors together](https://enes.in/sorted-colors)
+* [https://contrast-triangle.com](https://contrast-triangle.com)
+* [https://adamschwartz.co/magic-of-css/chapters/4-color](https://adamschwartz.co/magic-of-css/chapters/4-color)
+* [https://twitter.com/bucciblog/status/1325851426527080448](https://twitter.com/bucciblog/status/1325851426527080448)
+* [https://www.amazon.com/Color-David-Kastan/dp/0300171870](https://www.amazon.com/Color-David-Kastan/dp/0300171870)
+* [https://twitter.com/JaimeeBanksOS/status/1333274992067436546](https://twitter.com/JaimeeBanksOS/status/1333274992067436546)
+* [A color palette generator for design systems.](https://twitter.com/lokesh/status/1206591284908969984) + [https://lokeshdhakar.com/projects/color-stacks](https://lokeshdhakar.com/projects/color-stacks)
+* [https://www.freecodecamp.org/news/designing-in-color-abd358660a7b](https://www.freecodecamp.org/news/designing-in-color-abd358660a7b)
+* [Math & data behind color spaces and color conversions.](https://github.com/colorjs/color-space)
+* [https://www.benbenandblue.com/episodes/2018/4/17/bbb-14-color](https://www.benbenandblue.com/episodes/2018/4/17/bbb-14-color)
+* [https://www.sarasoueidan.com/blog/hex-rgb-to-hsl](https://www.sarasoueidan.com/blog/hex-rgb-to-hsl)
+* [Color: A Visual History From Newton to Modern Color Matching Guides](https://www.fastcompany.com/90310951/the-secret-history-of-color)
 
 ## Community
 
-* [https://twitter.com/merni\_/status/1359781105931583488](https://twitter.com/merni_/status/1359781105931583488)
-* [https://increment.com/software-architecture/primer-on-functional-architecture](https://increment.com/software-architecture/primer-on-functional-architecture)
-* [Yacob \(Kobi\) Cohen-Arazi](https://twitter.com/kobi_ca)
+* [https://twitter.com/zehf/status/1310664033234808833](https://twitter.com/zehf/status/1310664033234808833)
+* [Kevin Powell](https://www.youtube.com/kepowob/playlists)
+* [https://github.com/micromata/awesome-css-learning](https://github.com/micromata/awesome-css-learning)
+
+## Measurement units
+
+* [http://www.gregoryschmidt.ca/writing/when-is-a-pixel-not-a-pixel-pixels-points-dps](http://www.gregoryschmidt.ca/writing/when-is-a-pixel-not-a-pixel-pixels-points-dps)
+* [https://shkspr.mobi/blog/2021/02/just-because-i-have-a-vertical-screen-doesnt-mean-im-on-a-phone](https://shkspr.mobi/blog/2021/02/just-because-i-have-a-vertical-screen-doesnt-mean-im-on-a-phone) + [https://news.ycombinator.com/item?id=26000405](https://news.ycombinator.com/item?id=26000405)
+* [https://wattenberger.com/blog/css-percents](https://wattenberger.com/blog/css-percents)
+
+## Properties explained
+
+* [min-content, max-content, fit-content](https://twitter.com/tunetheweb/status/1238753219574202369)
+* [use the box-shadow property to created a layered component.](https://fossheim.io/writing/posts/css-box-shadow-animation)
+* [How They Fit Together: Transform, Translate, Rotate, Scale, and Offset](https://danielcwilson.com/blog/2020/02/motion-path-transforms)
+* [https://justmarkup.com/articles/2020-04-15-css-property-in-a-tweet](https://justmarkup.com/articles/2020-04-15-css-property-in-a-tweet)
+* [https://www.stefanjudis.com/today-i-learned/defined-can-be-used-to-target-not-yet-defined-custom-elements](https://www.stefanjudis.com/today-i-learned/defined-can-be-used-to-target-not-yet-defined-custom-elements)
+* [https://ishadeed.com/article/finding-the-root-cause](https://ishadeed.com/article/finding-the-root-cause)
+* [https://css-tricks.com/a-complete-guide-to-css-gradients](https://css-tricks.com/a-complete-guide-to-css-gradients)
+* [https://dev.opera.com/articles/css-will-change-property](https://dev.opera.com/articles/css-will-change-property) + [https://aerotwist.com/blog/bye-bye-layer-hacks](https://aerotwist.com/blog/bye-bye-layer-hacks)
+* [https://www.bram.us/2020/11/30/native-aspect-ratio-boxes-in-css-thanks-to-aspect-ratio](https://www.bram.us/2020/11/30/native-aspect-ratio-boxes-in-css-thanks-to-aspect-ratio)
+* [https://kilianvalkhof.com/2021/css-html/you-want-overflow-auto-not-overflow-scroll](https://kilianvalkhof.com/2021/css-html/you-want-overflow-auto-not-overflow-scroll)
+* [https://schepp.dev/posts/smooth-scrolling-and-page-search](https://schepp.dev/posts/smooth-scrolling-and-page-search)
+* [https://www.bram.us/2021/01/11/nested-media-queries](https://www.bram.us/2021/01/11/nested-media-queries)
+* [https://www.zachleat.com/web/fluid-images](https://www.zachleat.com/web/fluid-images)
+* [@scroll-timeline](https://www.bram.us/2021/02/23/the-future-of-css-scroll-linked-animations-part-1)
+* [https://justmarkup.com/articles/2020-04-15-css-property-in-a-tweet](https://justmarkup.com/articles/2020-04-15-css-property-in-a-tweet)
+
+## Selector
+
+* [https://jeremenichelli.io/2015/11/the-first-child-reset](https://jeremenichelli.io/2015/11/the-first-child-reset)
+* [https://jaketracey.com/styling-accessible-html-file-inputs](https://jaketracey.com/styling-accessible-html-file-inputs)
+* [Giving users and developers more control over focus](https://blog.chromium.org/2020/09/giving-users-and-developers-more.html)
+* [https://matthiasott.com/notes/focus-visible-is-here](https://matthiasott.com/notes/focus-visible-is-here) + [https://twitter.com/m\_ott/status/1314917091523342338](https://twitter.com/m_ott/status/1314917091523342338)
+* [https://www.bram.us/2021/04/15/identify-and-extract-pseudo-element-selectors-from-built-in-html-elements-using-devtools](https://www.bram.us/2021/04/15/identify-and-extract-pseudo-element-selectors-from-built-in-html-elements-using-devtools) 
+
+## CSS variables
+
+* [https://increment.com/frontend/a-users-guide-to-css-variables](https://increment.com/frontend/a-users-guide-to-css-variables)
+* [https://www.sarasoueidan.com/blog/style-settings-with-css-variables](https://www.sarasoueidan.com/blog/style-settings-with-css-variables)
+* [https://github.com/notoriousb1t/awesome-css-variables](https://github.com/notoriousb1t/awesome-css-variables)
+* [CSS Vars + HSL colors = a powerful color system.](https://blog.maximeheckel.com/posts/the-power-of-composition-with-css-variables)
+* [Dark mode in 5 minutes, with inverted lightness variables](https://lea.verou.me/2021/03/inverted-lightness-variables)
+
+## CSS grid
+
+* [https://www.hsablonniere.com/prevent-layout-shifts-with-css-grid-stacks--qcj5jo](https://www.hsablonniere.com/prevent-layout-shifts-with-css-grid-stacks--qcj5jo)
+* [https://www.learnwithjason.dev/let-s-learn-css-grid](https://www.learnwithjason.dev/let-s-learn-css-grid)
+* [Grid by example, Rachael Andrew](https://www.youtube.com/playlist?list=PLQkVA6z3dFvbnBJetfYDAF3-cG_ubgdZR)
+* [https://piccalil.li/tutorial/build-a-responsive-media-browser-with-css](https://piccalil.li/tutorial/build-a-responsive-media-browser-with-css)
+* [https://frontend.horse/articles/thinking-outside-the-box-with-css-grid](https://frontend.horse/articles/thinking-outside-the-box-with-css-grid)
+* [https://calendartricks.com/a-calendar-in-three-lines-of-css](https://calendartricks.com/a-calendar-in-three-lines-of-css)
+* [https://melanie-richards.com/blog/css-grid-sticky](https://melanie-richards.com/blog/css-grid-sticky)
+* [https://www.jayfreestone.com/writing/bulletproof-flag](https://www.jayfreestone.com/writing/bulletproof-flag)
+* [https://polypane.app/blog/faking-container-queries-with-css-grid](https://polypane.app/blog/faking-container-queries-with-css-grid)
+* [https://fjolt.com/article/a-guide-to-css-grid](https://fjolt.com/article/a-guide-to-css-grid)
+* [https://noti.st/rachelandrew/Mny9Vg/grid-content-re-ordering-and-accessibility](https://noti.st/rachelandrew/Mny9Vg/grid-content-re-ordering-and-accessibility)
+
+## FlexBox
+
+* [https://github.com/philipwalton/flexbugs](https://github.com/philipwalton/flexbugs)
+* [My incomplete mental model for flexbox's main axis](https://twitter.com/pomber/status/1281339741682753542)
+
+## Demo
+
+* [https://csslayout.io/patterns](https://csslayout.io/patterns)
+* [Basic todo app functionality without using JavaScript.](https://github.com/mattzeunert/CSS-Todo-App)
+* [https://github.com/trueskawka/css-drawings](https://github.com/trueskawka/css-drawings)
+* [Styled input range \(slider/progress\) by Mihai-Cristian Voinea](https://codepen.io/mihai-cristian-voinea/pen/RwPgxeG)
+* [WICKEDBLOCKS are a growing collection of more than 120 layout blocks and components built with Tailwind CSS V2 ready to copy paste on your Tailwind project.](https://blocks.wickedtemplates.com)
+* [https://twitter.com/search?q=\(from%3Akevinjpowell\) %23csstipoftheday](https://twitter.com/search?q=%28from%3Akevinjpowell%29%20%23csstipoftheday) + [https://codepen.io/collection/nJzQBY](https://codepen.io/collection/nJzQBY)
+* [https://codepen.io/2020/popular/pens/10](https://codepen.io/2020/popular/pens/10)
+* [13 Tips to improve Landing Page Design.](https://twitter.com/IndieHackers/status/1358746146508845058)
+* [https://dev.to/karmasakshi/make-your-pwas-look-handsome-on-ios-1o08](https://dev.to/karmasakshi/make-your-pwas-look-handsome-on-ios-1o08)
+* [https://github.com/l-hammer/You-need-to-know-css](https://github.com/l-hammer/You-need-to-know-css)
+* [https://github.com/alexcican/lab](https://github.com/alexcican/lab)
+* [Full Screen Vertical Scroll Snap](https://codepen.io/tobias_buschor/pen/OJWzXQN)
+* [https://github.com/PuruVJ/macos-web](https://github.com/PuruVJ/macos-web) + [https://twitter.com/leeerob/status/1382422353787817985](https://twitter.com/leeerob/status/1382422353787817985)
+
+## Layout
+
+* [https://courses.kevinpowell.co/courses/conquering-responsive-layouts](https://courses.kevinpowell.co/courses/conquering-responsive-layouts)
+* [https://moderncss.dev](https://moderncss.dev)
+* [https://kilianvalkhof.com/2020/css-html/full-bleed-layout-using-simple-css](https://kilianvalkhof.com/2020/css-html/full-bleed-layout-using-simple-css)
+* [https://blog.benestudio.co/custom-file-upload-button-with-pure-css-5aacf39aa0a](https://blog.benestudio.co/custom-file-upload-button-with-pure-css-5aacf39aa0a) + [https://codepen.io/adambene/pen/xRWrXN](https://codepen.io/adambene/pen/xRWrXN)
+* [https://responsibleweb.app](https://responsibleweb.app) + [https://github.com/joyheron/responsible-web-apps](https://github.com/joyheron/responsible-web-apps)
+* [Minimal snippets for modern CSS layouts and components](https://smolcss.dev)
+* [Your cheat sheet for float, clear and defer](https://www.princexml.com/howcome/2021/guides/float/index.html)
+* [Minimal snippets for modern CSS layouts and components](https://github.com/5t3ph/smolcss)
+
+## Tools
+
+* [Creating tiny zines using HTML/CSS layout.](https://github.com/trueskawka/css-zines)
+* [An extensive list of CSS/JS browserhacks from all over the interwebs.](https://github.com/4ae9b8/browserhacks)
+* [https://www.magicpattern.design/tools/css-backgrounds](https://www.magicpattern.design/tools/css-backgrounds)
+* [https://patrickbrosset.com/articles/2016-05-27-visual-Tools--Prototyping-in-the-browser](https://patrickbrosset.com/articles/2016-05-27-visual-Tools--Prototyping-in-the-browser)
+* [https://www.swyx.io/why-tailwind](https://www.swyx.io/why-tailwind) + [https://markus.oberlehner.net/blog/tailwind-css-the-antifragile-css-framework](https://markus.oberlehner.net/blog/tailwind-css-the-antifragile-css-framework)
+* [https://github.com/creativetimofficial/tailwind-starter-kit](https://github.com/creativetimofficial/tailwind-starter-kit)
+* [Grab the color palette from an image using just Javascript. Works in the browser and in Node.](https://github.com/lokesh/color-thief)
+* [Visualize Sass HSL color functions in real-time without compiling.](https://sassme.jim-nielsen.com) + [https://github.com/jimniels/sassme](https://github.com/jimniels/sassme)
+* [A design tool for comparing colors.](https://bl.ocks.org/curran/c130b1d3d68a375c8eb41371f2c2a75b)
+* [A generator to create the "frosted glass aesthetic" which combines a partially transparent background with backdrop-filter to create the effect.](https://glassmorphism.com)
+* [VS Code extension that lets you open a CSS Flexbox cheatsheet directly in the editor.](https://github.com/dzhavat/css-flexbox-cheatsheet)
+* [Conic.css - nice, simple conic gradients](https://conic.style)
+* [amazing generators](https://twitter.com/Prathkum/status/1374726453649100809)
+* [What's the best \(simple\) tool for creating animations?](https://twitter.com/kylemathews/status/1203140798302154752)
+* [https://davidwalsh.name/detect-overflow-elements](https://davidwalsh.name/detect-overflow-elements)
 
 ## Cinema
 
-* [https://github.com/hellerve/programming-talks\#c-1](https://github.com/hellerve/programming-talks#c-1)
-* [C++ for Hackers](https://twitter.com/jalospinoso/status/1216416792635232256)
-* [https://media.ccc.de/v/34c3-8848-type\_confusion\_discovery\_abuse\_and\_protection](https://media.ccc.de/v/34c3-8848-type_confusion_discovery_abuse_and_protection)
-* [https://www.freecodecamp.org/news/understand-data-structures-in-c-and-cpp](https://www.freecodecamp.org/news/understand-data-structures-in-c-and-cpp)
-* [Serenity OS](https://www.youtube.com/channel/UC3ts8coMP645hZw9JSD3pqQ/playlists)
-* [https://www.freecodecamp.org/news/how-to-create-3d-and-2d-graphics-with-opengl-and-cpp](https://www.freecodecamp.org/news/how-to-create-3d-and-2d-graphics-with-opengl-and-cpp)
+* ["Making Things Better: Redefining the Technical Possibilities of CSS" by Rachel Andrew](https://aneventapart.com/news/post/making-things-better-aea-video)
+* [Know a good "CSS from Scratch" course you can recommend?](https://twitter.com/adamwathan/status/1244795112691060736)
+* [https://www.twitch.tv/kevinpowellcss](https://www.twitch.tv/kevinpowellcss)
+* [Apple Music on macOS](https://twitter.com/freetonik/status/1322144670886100992)
+* [https://www.liviuvasilescu.ro/blog/ziua-vignelli](https://www.liviuvasilescu.ro/blog/ziua-vignelli)
+* [Tailwind CSS: From Zero to Production \| Tailwind Labs](https://www.youtube.com/playlist?list=PL5f_mz_zU5eXWYDXHUDOLBE0scnuJofO0)
+* [https://github.com/tailwindlabs/tailwindcss-from-zero-to-production](https://github.com/tailwindlabs/tailwindcss-from-zero-to-production)
 
-## Course
+## Security
 
-* [https://www.udemy.com/course/free-learn-c-tutorial-beginners](https://www.udemy.com/course/free-learn-c-tutorial-beginners)
-* [https://github.com/harrisrobin/Udacity-CPlusPlus-Nanodegree](https://github.com/harrisrobin/Udacity-CPlusPlus-Nanodegree)
-
-## Tool
-
-* [HNTerm is a small console application written in C++ for browsing Hacker News. ](https://github.com/ggerganov/imtui/tree/master/examples/hnterm)
-* [https://gourav.io/blog/setup-vscode-to-run-debug-c-cpp-code](https://gourav.io/blog/setup-vscode-to-run-debug-c-cpp-code)
-* [Easy to use C++17 HTTP Server with no compromise on performances.](https://github.com/matt-42/lithium)
-
-## Reference
-
-* [https://github.com/AnthonyCalandra/modern-cpp-features](https://github.com/AnthonyCalandra/modern-cpp-features)
-* [https://github.com/danbev/learning-cpp](https://github.com/danbev/learning-cpp)
-* [C++ Internals](https://www.avabodh.com/cxxin/cxx.html)
-* [https://github.com/changkun/modern-cpp-tutorial](https://github.com/changkun/modern-cpp-tutorial)
-* [How can I detect which C++ compiler is used?](https://twitter.com/foonathan/status/1351251411779133440) + [https://quuxplusone.github.io/blog/2021/01/13/conversion-operator-lookup](https://quuxplusone.github.io/blog/2021/01/13/conversion-operator-lookup)
-* [https://huangxuan.me/2020/06/21/data-rep-float](https://huangxuan.me/2020/06/21/data-rep-float)
-
-## Implementations
-
-* [https://github.com/ssloy/tinyrenderer/wiki](https://github.com/ssloy/tinyrenderer/wiki)
-
-## Opinions
-
-* [https://levelup.gitconnected.com/want-to-be-a-software-developer-learn-c-first-and-thank-me-later-30a447f32037](https://levelup.gitconnected.com/want-to-be-a-software-developer-learn-c-first-and-thank-me-later-30a447f32037)
+* [http://www.irongeek.com/i.php?page=videos/bsidestampa2020/track-e-09-http-covert-channel-using-only-htmlcss-thomas-slota-william-york](http://www.irongeek.com/i.php?page=videos/bsidestampa2020/track-e-09-http-covert-channel-using-only-htmlcss-thomas-slota-william-york)
 
