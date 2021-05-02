@@ -1,0 +1,627 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>dataviz</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="bb5a3d40-9e40-48d4-9085-def12d3a83c9" class="page sans"><header><h1 class="page-title">dataviz</h1></header><div class="page-body"><h3 id="617f9bf9-0a63-49df-af25-8753a7455a7c" class="">Books</h3><ul id="c5a5de2f-ae96-4f9d-9ad4-54d0d5fc15c4" class="bulleted-list"><li>https://blas.com/tag/edward-tufte</li></ul><ul id="58b8eb80-ede6-478c-bcad-26636e80a976" class="bulleted-list"><li>https://learning.oreilly.com/library/view/visualization-analysis-and/9781466508910</li></ul><ul id="604bcb7b-7c03-4bc4-81a3-eba5eefc3f13" class="bulleted-list"><li>https://learning.oreilly.com/library/view/storytelling-with-data/9781119002253 + https://learning.oreilly.com/library/view/storytelling-with-data/9781119621492</li></ul><ul id="20623486-aa5e-477d-826a-36103254ccf2" class="bulleted-list"><li>https://learning.oreilly.com/library/view/pro-d3js-use/9781484252031</li></ul><ul id="bcbb7b97-a7fa-458f-82db-5970d7d04b19" class="bulleted-list"><li><a href="https://serialmentor.com/dataviz">Fundamentals of Data Visualization by Claus O. Wilke</a></li></ul><ul id="19af7fd3-01e8-4058-9a14-9a37c8c1d605" class="bulleted-list"><li>http://www.thefunctionalart.com</li></ul><ul id="76b276f8-21cf-432d-873b-56686397abbb" class="bulleted-list"><li>https://www.amazon.com/Data-Visualisation-Handbook-Driven-Design/dp/1526468921</li></ul><ul id="70a2731c-cf1c-4c3a-9dd5-1f134b464114" class="bulleted-list"><li><a href="https://twitter.com/ramiroaznar/status/1210269334830026755">Thread of books I have used and referenced when preparing and giving a #cartography and #GIS</a></li></ul><ul id="cc3bd2c1-5901-49b1-9aca-f1c96d450a6d" class="bulleted-list"><li>https://github.com/pshrmn/notes/tree/master/d3</li></ul><ul id="f4b63c3d-2fa2-4dd2-a227-ee10b65014cc" class="bulleted-list"><li>https://speakerdeck.com/ashleydzick/modern-data-visualization-at-thatconference</li></ul><ul id="6a7133fb-3481-4577-a804-9d9ef53e3cf0" class="bulleted-list"><li><a href="https://modelingwithdata.org/front.pdf">Modeling With Data</a></li></ul><ul id="b8516646-763b-41e9-8c06-2b4fce108cdf" class="bulleted-list"><li><a href="https://twitter.com/PonceCampuzano/status/1214850688506716160">COMPLEX ANALYSIS. A Visual and Interactive Introduction</a></li></ul><ul id="eb129b38-5647-4e06-90ae-3098fd18113f" class="bulleted-list"><li>http://blog.yasiv.com/2016/04/storytelling-with-data-graph-analysis.html</li></ul><ul id="3c70cd4c-b657-4904-af31-4e103915a68d" class="bulleted-list"><li>https://www.evelina-judeikyte.com/home/2019-a-year-of-data-viz</li></ul><ul id="578c7273-441d-4cf7-86c0-4c2b6fd1ab6a" class="bulleted-list"><li>https://www.amazon.co.uk/Observe-Collect-Draw-Visual-Journal/dp/1616897147</li></ul><ul id="97ab8cc1-db5e-4068-bcce-0fcb4875fb02" class="bulleted-list"><li>https://blog.codinghorror.com/reading-with-edward-tufte + https://medium.com/@karlsluis/beyond-tufte-fd93cbcec6af</li></ul><ul id="87c84b04-afca-4067-b98c-28eac83387a7" class="bulleted-list"><li><a href="https://www.jstor.org/stable/j.ctvzgb8c7">Data Visualization in Society by Martin Engebretsen and Helen Kennedy</a></li></ul><ul id="e24e3383-28ac-423a-9b97-a41eaa7e69a6" class="bulleted-list"><li>https://antonz.org/dataviz-guide</li></ul><h3 id="11b26d62-c3ff-41a8-89e8-d8662a91c025" class="">Courses</h3><ul id="9918f28b-3a92-4d34-afd2-bbc52ee7ab1e" class="bulleted-list"><li>https://observablehq.com/@d3/learn-d3</li></ul><ul id="73612c14-6696-461c-ab4d-c046db612ebd" class="bulleted-list"><li>https://www.skillshare.com/classes/Data-Visualization-Customizing-Charts-for-Beauty-Impact/84030568</li></ul><ul id="7e3625c6-6f41-4393-80ea-2c4c0565a4f1" class="bulleted-list"><li><a href="https://www.youtube.com/watch?v=_8V5o2UHG0E&amp;t=18606s">Data Visualization with D3.js - Full Tutorial Course</a></li></ul><ul id="dd866811-b581-4ca2-ba2b-f8b17a16945d" class="bulleted-list"><li>https://www.udemy.com/course/masteringd3js</li></ul><ul id="bca6f685-acd4-4aa8-8b1d-4a176b2a3533" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLDZ4p-ENjbiPo4WH7KdHjh_EMI7Ic8b2B">Using React (Hooks) with D3</a></li></ul><ul id="e4f13efd-f8d8-49be-82b2-d0a0757bbc5e" class="bulleted-list"><li>https://reactfordataviz.com/articles/corona-simulation</li></ul><ul id="579becbb-3650-470f-ad27-a23401bc4479" class="bulleted-list"><li><a href="https://journalismcourses.org/resource/DATA0819.html">Data Journalism and Visualization with Free Tools</a></li></ul><ul id="af263863-9dbe-4f67-ab32-344b551c03d3" class="bulleted-list"><li>https://www.freecodecamp.org/news/learn-data-visualization-in-this-free-17-hour-course</li></ul><h3 id="3216baee-d505-49c5-b859-8d9a327abe71" class="">Best practices</h3><ul id="3b5a86e9-ea27-4371-b561-bf712755d435" class="bulleted-list"><li>https://github.com/amycesal/dataviz-style-guide/blob/master/Sunlight-StyleGuide-DataViz.pdf</li></ul><h3 id="12f6e04e-d40b-4921-a989-2b136bb34bde" class="">Tools</h3><ul id="ad4f2de5-cf2e-47f8-a46f-c73631ee0f34" class="bulleted-list"><li><a href="https://github.com/esnet/react-timeseries-charts">Declarative and modular timeseries charting components for React.</a></li></ul><ul id="fb27cf1f-9bbf-4b42-b553-a04e64d95448" class="bulleted-list"><li><a href="https://github.com/esnet/react-network-diagrams">Contains ESnet network mapping and circuit rendering code, as used in the ESnet portal.</a></li></ul><ul id="2539c8a8-9013-48c9-b578-3cc1c3f67c57" class="bulleted-list"><li><a href="https://twitter.com/KiriCarini/status/1222196646957633537">Everyone is doing storytelling apps, scrollytelling, storymaps type apps.</a></li></ul><ul id="69007286-80bc-465d-9c48-439982672597" class="bulleted-list"><li>https://github.com/Lemoncode/d3js-typescript-examples</li></ul><ul id="343821c6-70c7-441c-8371-f98bf13976c0" class="bulleted-list"><li>https://github.com/willianjusten/awesome-audio-visualization</li></ul><ul id="f4a05a18-17d6-4ea3-85e8-f70f1c5519fe" class="bulleted-list"><li><a href="https://github.com/uwdata/visualization-curriculum">A data visualization curriculum of interactive notebooks.</a></li></ul><ul id="b1518398-5cc1-4cc1-98c3-6bd9ada02c1d" class="bulleted-list"><li><a href="https://stripe.com/blog/globe">To design and develop an interactive globe</a> + https://news.ycombinator.com/item?id=24350546</li></ul><ul id="25b1d7fd-703b-4422-8dcd-fcc17e15e203" class="bulleted-list"><li>https://jsvine.github.io/intro-to-visidata/the-big-picture/visidata-in-60-seconds + https://news.ycombinator.com/item?id=25322091</li></ul><ul id="61f70ace-1da0-4927-94e6-0ab47fbca41a" class="bulleted-list"><li><a href="https://github.com/bkrem/react-d3-tree">React component to create interactive D3 tree graphs</a></li></ul><ul id="d6516cec-8364-4742-ae0b-75d547230840" class="bulleted-list"><li>https://github.com/anvaka/graph-drawing-libraries</li></ul><h3 id="e6023628-d653-4a78-9794-783b3015d012" class="">Talks</h3><ul id="1318354a-d9e0-4bcf-8e4c-cbd5e48f8684" class="bulleted-list"><li>https://www.youtube.com/playlist?list=PLWIcRrPLCdUeao8hSw3tegcabrp8vV55t</li></ul><ul id="b49f5c09-77c5-490f-9230-2162d715242e" class="bulleted-list"><li>https://www.youtube.com/user/currankelleher/playlists</li></ul><ul id="92a2b88b-1ea7-48a4-9ddc-8a879c284237" class="bulleted-list"><li>https://www.serendipidata.com/posts/data-visualization-video-inspiration</li></ul><h3 id="874bb232-5f38-437c-ba70-0c6fe4b8a891" class="">Radio</h3><ul id="e25ea264-87e2-450f-82e0-98cbf86e6b67" class="bulleted-list"><li>https://www.visualisingdata.com/2020/01/explore-explain-a-new-video-and-podcast-series</li></ul><ul id="a0fba9f2-07b1-48f2-9376-eb8eaf985c7c" class="bulleted-list"><li>http://www.storytellingwithdata.com/podcast</li></ul><h3 id="78f18253-2c13-497f-8073-f1445bed598c" class="">Demos</h3><ul id="4a36b72e-9bfc-4825-8ac7-c6daa1950015" class="bulleted-list"><li><a href="https://twitter.com/AlexanderVar7/status/1215763711496990722">Japanese Architectural Heritage</a></li></ul><ul id="d56f8de2-2d89-4fb6-913b-b80e0e73ddb4" class="bulleted-list"><li><a href="https://twitter.com/hashtag/dataviz">#dataviz</a></li></ul><ul id="37569ea9-d2e5-4684-94cc-459b5493768d" class="bulleted-list"><li><a href="https://twitter.com/hashtag/MakeoverMonday">#MakeoverMonday</a></li></ul><ul id="4e2b49fe-8777-4d81-a597-bb793c57bed8" class="bulleted-list"><li>https://observablehq.com/explore</li></ul><ul id="610365a0-5991-4368-99f6-87f9ff661967" class="bulleted-list"><li>https://blockbuilder.org/search?thumb=true</li></ul><ul id="00cc3894-703d-4d45-b7b3-9b534263ec97" class="bulleted-list"><li>https://www.informationisbeautifulawards.com</li></ul><ul id="15ec39ec-40ee-4160-bc2a-08da3021761d" class="bulleted-list"><li>https://qz.com/re/data-visualization</li></ul><ul id="28f63ac7-a27b-4c81-8f5a-aa7a5510f922" class="bulleted-list"><li><a href="https://github.com/aaronpenne/data_visualization">A collection of my data visualizations, mostly in Python.</a></li></ul><ul id="b8440a25-941e-4f95-b279-331d74473515" class="bulleted-list"><li><a href="https://github.com/monicawoj/react-advanced-london-d3-react-deck">Creating Animated Ch(art)s using D3 and React Hooks</a></li></ul><ul id="4d3b9603-31b1-401f-aa77-c6b7fca3bfb8" class="bulleted-list"><li>https://www.peterbe.com/plog/mdn-documents-size-tree-map</li></ul><ul id="97b466b9-e701-47e6-be78-cee937e0fcab" class="bulleted-list"><li>https://verekia.com/cities</li></ul><ul id="620357f0-1144-4c7a-96c9-2de6c8002f62" class="bulleted-list"><li><a href="https://www.levels.fyi/2019">Highest Paying Companies of 2019</a></li></ul><ul id="bc7a810f-d7a4-4a25-b821-0b05adf6dd00" class="bulleted-list"><li><a href="https://github.com/cheeaun/life">Life - a timeline of important events in my life</a></li></ul><ul id="0d053fd9-7ccb-45d4-a6ca-def2d63144a7" class="bulleted-list"><li>https://blog.datawrapper.de/best-hip-hop-songs-of-all-time-visualized + https://twitter.com/sjockers/status/1206937996806754304 + https://github.com/sjockers/bbc-best-rapmusic</li></ul><ul id="f0cfabd2-709c-490b-9527-f31db951f3d5" class="bulleted-list"><li>https://www.visualcapitalist.com/history-of-pandemics-deadliest</li></ul><ul id="4f18a7f1-b798-4eb8-8172-0da9750bd84b" class="bulleted-list"><li>https://github.com/danburzo/rocoviz + https://github.com/wokalski/covid-19charts.com</li></ul><ul id="7ad6f731-e168-4eaf-8b67-e35bafe3c38f" class="bulleted-list"><li><a href="https://github.com/madnight/githut">Github Language Statistics</a></li></ul><ul id="96127eb6-f046-49dc-878c-009dc4b9d9d4" class="bulleted-list"><li>https://observablehq.com/collection/@mkfreeman/building-art-tools</li></ul><ul id="83586e2d-7b31-4e15-a7a7-ca17eaff416e" class="bulleted-list"><li>https://adambard.com/blog/plotting-reddit-post-frequencies-with-d3</li></ul><ul id="6c9a58b7-dc31-451d-a406-d21eec394260" class="bulleted-list"><li>https://github.com/Wattenberger/Wattenberger-2019/tree/master/src/components/Blog/posts/D3AndReact + https://twitter.com/Wattenberger/status/1375063666840772615</li></ul><ul id="34187c7a-35ef-40f8-830b-43d2b9b215ac" class="bulleted-list"><li><a href="https://github.com/ciocan/sicap-explorer">Tablou de vizualizare a licitatiilor publice si achizitiilor directe</a></li></ul><ul id="02504177-aed7-4bfe-af84-36626affa810" class="bulleted-list"><li>https://observablehq.com/@philschatz/united-states-coronavirus-daily-cases-map-covid-19</li></ul><ul id="1ee07712-b888-43c7-86c6-052370caa619" class="bulleted-list"><li><a href="https://huangxuan.me/2020/05/05/pl-chart">My Programming Languages Spectrum</a></li></ul><h3 id="e9225c8c-6257-460e-83fd-858ac8fc37eb" class="">Miscellaneous</h3><ul id="af3d852b-4131-44f4-bc71-366d1a400825" class="bulleted-list"><li>https://github.com/ivanreese/visual-programming-codex</li></ul><ul id="714d7076-53dc-4057-954d-5c01477eb569" class="bulleted-list"><li><a href="https://alignedleft.com/resources/process-blogs">Data Visualization and Art Process Blogs</a></li></ul></div></article></body></html>
