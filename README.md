@@ -1,87 +1,50 @@
 # index
 
-## Books
+## Book
 
-* [http://astocko.com/post/c-resources](http://astocko.com/post/c-resources)
-* [https://nostarch.com/Effective\_C](https://nostarch.com/Effective_C)
-* [Angrave's Crowd-Sourced System Programming Book used at UIUC](https://github.com/angrave/SystemProgramming/wiki)
-* [Computer Science from the Bottom Up.](https://www.bottomupcs.com/index.xhtml)
-* [Free System Programming Textbook \(Illinois CS241\)](http://cs241.cs.illinois.edu/coursebook/index.html) + [https://news.ycombinator.com/item?id=22798616](https://news.ycombinator.com/item?id=22798616)
-* [Think OS: A Brief Introduction to Operating Systems](https://greenteapress.com/wp/think-os)
-* [The C Programming Language by Brian Kernighan and Dennis Ritchie](https://twitter.com/oznova_/status/1214971707863101440)
-* [https://nostarch.com/Effective\_C](https://nostarch.com/Effective_C) + [C Experts Panel – Ask us anything about C](https://news.ycombinator.com/item?id=22865357)
-* [https://blog.dpc.dev/writing-solid-code-steve-maguire](https://blog.dpc.dev/writing-solid-code-steve-maguire)
-* [https://modernc.gforge.inria.fr](https://modernc.gforge.inria.fr) + [https://news.ycombinator.com/item?id=24361469](https://news.ycombinator.com/item?id=24361469) + [https://gustedt.wordpress.com/2019/09/18/modern-c-second-edition](https://gustedt.wordpress.com/2019/09/18/modern-c-second-edition)
-* [https://github.com/preslavmihaylov/booknotes/tree/master/architecture/clean-architecture](https://github.com/preslavmihaylov/booknotes/tree/master/architecture/clean-architecture)
-* [Pointers on C by Kenneth Reek](https://twitter.com/EigenPuff/status/1376223216310444037)
-* [What should a systems/low-level software engineer know?](https://news.ycombinator.com/item?id=18881649)
-* [Markdown source for Michael Abrash's Graphics Programming Black Book](https://github.com/jagregory/abrash-black-book)
+* [The design and evolution of C++ by Bjarne Stroustrup](https://twitter.com/oznova_/status/1214971707863101440)
+* [Modern OpenGL guide](https://github.com/Overv/Open.GL)
+
+## Community
+
+* [https://twitter.com/merni\_/status/1359781105931583488](https://twitter.com/merni_/status/1359781105931583488)
+* [https://increment.com/software-architecture/primer-on-functional-architecture](https://increment.com/software-architecture/primer-on-functional-architecture)
+* [Yacob \(Kobi\) Cohen-Arazi](https://twitter.com/kobi_ca)
 
 ## Cinema
 
-* [https://www.youtube.com/playlist?list=PLWIcRrPLCdUeCP-KM-pekj30JVzmSKhpK](https://www.youtube.com/playlist?list=PLWIcRrPLCdUeCP-KM-pekj30JVzmSKhpK)
-* [https://github.com/hellerve/programming-talks\#c](https://github.com/hellerve/programming-talks#c)
-* [Modern Memory Safety: C/C++ Vulnerability Discovery, Exploitation, Hardening](https://github.com/struct/mms)
-* [Write your own Operating System](https://www.youtube.com/playlist?list=PLHh55M_Kq4OApWScZyPl5HhgsTJS9MZ6M)
-* [Buffer Overflows - Code with Nick ](https://www.youtube.com/playlist?list=PLLTI453cNzfn2_9Q9KXb9lbF233gvsQOJ)
-* [https://www.deconstructconf.com/2017/joe-damato-all-programmers-must-learn-c-and-assembly](https://www.deconstructconf.com/2017/joe-damato-all-programmers-must-learn-c-and-assembly)
-* [FreeDOS programming](https://www.youtube.com/playlist?list=PLzuACU-W7Omo3VEnMKuM0IPupdOHFDzL3) + [https://www.freedos.org/books/cprogramming](https://www.freedos.org/books/cprogramming)
-* [OpenGL Screencasts and Tutorials - David Parker](https://www.youtube.com/playlist?list=PL2330214740B33712) + [https://www.programmingtil.com/topics/opengl](https://www.programmingtil.com/topics/opengl)
-* [Quantifying Memory Unsafety and Reactions to It](https://www.usenix.org/conference/enigma2021/presentation/gaynor)
+* [https://github.com/hellerve/programming-talks\#c-1](https://github.com/hellerve/programming-talks#c-1)
+* [C++ for Hackers](https://twitter.com/jalospinoso/status/1216416792635232256)
+* [https://media.ccc.de/v/34c3-8848-type\_confusion\_discovery\_abuse\_and\_protection](https://media.ccc.de/v/34c3-8848-type_confusion_discovery_abuse_and_protection)
+* [https://www.freecodecamp.org/news/understand-data-structures-in-c-and-cpp](https://www.freecodecamp.org/news/understand-data-structures-in-c-and-cpp)
+* [Serenity OS](https://www.youtube.com/channel/UC3ts8coMP645hZw9JSD3pqQ/playlists)
+* [https://www.freecodecamp.org/news/how-to-create-3d-and-2d-graphics-with-opengl-and-cpp](https://www.freecodecamp.org/news/how-to-create-3d-and-2d-graphics-with-opengl-and-cpp)
 
-## Articles
+## Course
 
-* [Reading files the hard way - Part 1 \(node.js, C, rust, strace\)](https://fasterthanli.me/blog/2019/reading-files-the-hard-way/)
-* [Zip Files: History, Explanation and Implementation](https://www.hanshq.net/zip.html)
-* [Pros and cons of dynamic linking versus static linking](https://distrowatch.com/weekly.php?issue=20200810#qa)
+* [https://www.udemy.com/course/free-learn-c-tutorial-beginners](https://www.udemy.com/course/free-learn-c-tutorial-beginners)
+* [https://github.com/harrisrobin/Udacity-CPlusPlus-Nanodegree](https://github.com/harrisrobin/Udacity-CPlusPlus-Nanodegree)
 
-## Radio
+## Tool
 
-* [Program in C \(Parody song\)](https://fasterthanli.me/blog/2019/program-in-c)
+* [HNTerm is a small console application written in C++ for browsing Hacker News. ](https://github.com/ggerganov/imtui/tree/master/examples/hnterm)
+* [https://gourav.io/blog/setup-vscode-to-run-debug-c-cpp-code](https://gourav.io/blog/setup-vscode-to-run-debug-c-cpp-code)
+* [Easy to use C++17 HTTP Server with no compromise on performances.](https://github.com/matt-42/lithium)
 
-## Compilers
+## Reference
 
-* [A Compiler Writing Journey.](https://github.com/DoctorWkt/acwj) + [https://twitter.com/binitamshah/status/1312760842119569409](https://twitter.com/binitamshah/status/1312760842119569409)
-* [https://github.com/seven1m/malcc](https://github.com/seven1m/malcc)
-* [https://godbolt.org](https://godbolt.org)
+* [https://github.com/AnthonyCalandra/modern-cpp-features](https://github.com/AnthonyCalandra/modern-cpp-features)
+* [https://github.com/danbev/learning-cpp](https://github.com/danbev/learning-cpp)
+* [C++ Internals](https://www.avabodh.com/cxxin/cxx.html)
+* [https://github.com/changkun/modern-cpp-tutorial](https://github.com/changkun/modern-cpp-tutorial)
+* [How can I detect which C++ compiler is used?](https://twitter.com/foonathan/status/1351251411779133440) + [https://quuxplusone.github.io/blog/2021/01/13/conversion-operator-lookup](https://quuxplusone.github.io/blog/2021/01/13/conversion-operator-lookup)
+* [https://huangxuan.me/2020/06/21/data-rep-float](https://huangxuan.me/2020/06/21/data-rep-float)
 
-## Virtual machines
+## Implementations
 
-* [https://github.com/trimstray/the-book-of-secret-knowledge\#build-your-own-systemvirtual-machine](https://github.com/trimstray/the-book-of-secret-knowledge#build-your-own-systemvirtual-machine)
-* [Codecast C learning platform \(formerly fioi-recorder\).](https://github.com/France-ioi/codecast)
+* [https://github.com/ssloy/tinyrenderer/wiki](https://github.com/ssloy/tinyrenderer/wiki)
 
 ## Opinions
 
-* [How to C in 2016](https://matt.sh/howto-c)
-* [https://github.com/mkirchner/linked-list-good-taste](https://github.com/mkirchner/linked-list-good-taste) + [Linus Torvalds' linked list argument for good taste, explained](https://news.ycombinator.com/item?id=25326552)
-* [https://skeeto.s3.amazonaws.com/share/onward17-essays2.pdf](https://skeeto.s3.amazonaws.com/share/onward17-essays2.pdf)
-* [It's not OK to ship software in memory-unsafe languages.](https://twitter.com/tqbf/status/1354170650806657024)
-
-## References
-
-* [https://www.learn-c.org](https://www.learn-c.org)
-* [C Internals](https://www.avabodh.com/cin/cin.html)
-* [https://github.com/tuhdo/os01](https://github.com/tuhdo/os01)
-* [https://github.com/rby90/Project-Based-Tutorials-in-C](https://github.com/rby90/Project-Based-Tutorials-in-C)
-* [https://thesquareplanet.com/blog/smashing-the-stack-21st-century](https://thesquareplanet.com/blog/smashing-the-stack-21st-century)
-* [C in four functions.](https://github.com/rswier/c4)
-* [https://github.com/reberhardt7/cplayground](https://github.com/reberhardt7/cplayground)
-* [https://github.com/h0mbre/Learning-C](https://github.com/h0mbre/Learning-C)
-* [https://github.com/lk-geimfari/awesomo/blob/master/languages/C.md](https://github.com/lk-geimfari/awesomo/blob/master/languages/C.md)
-* [Operating Systems Fall 2020 \(CS 301\)](https://nipunbatra.github.io/os2020)
-* [https://github.com/danbev/learning-c](https://github.com/danbev/learning-c)
-* [Why JavaScript months start from 0](https://www.hillelwayne.com/post/always-more-history)
-* [Minimalist C Libraries](https://nullprogram.com/blog/2018/06/10)
-* [Build Your Own Text Editor](https://viewsourcecode.org/snaptoken/kilo) + [https://news.ycombinator.com/item?id=25712949](https://news.ycombinator.com/item?id=25712949)
-* [https://www.freecodecamp.org/news/boost-programming-skills-read-git-code](https://www.freecodecamp.org/news/boost-programming-skills-read-git-code)
-* [The Success and Failure of Ninja](http://neugierig.org/software/blog/2020/05/ninja.html)
-* [An open source kernel and OS for music production](https://github.com/Morpheu5/tOfuS)
-* [Test the speed of common mathematical operations](https://github.com/elgw/math_ops_speed)
-* [A curated list of awesome bitwise operations and tricks](https://github.com/keon/awesome-bits)
-* [https://huangxuan.me/2020/06/19/data-rep-int](https://huangxuan.me/2020/06/19/data-rep-int)
-* [https://github.com/cfenollosa/os-tutorial](https://github.com/cfenollosa/os-tutorial)
-
-## Security
-
-* [Baron Samedit: Heap-based buffer overflow in Sudo \(CVE-2021-3156\)](https://www.openwall.com/lists/oss-security/2021/01/26/3)
+* [https://levelup.gitconnected.com/want-to-be-a-software-developer-learn-c-first-and-thank-me-later-30a447f32037](https://levelup.gitconnected.com/want-to-be-a-software-developer-learn-c-first-and-thank-me-later-30a447f32037)
 
