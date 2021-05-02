@@ -1,123 +1,66 @@
 # index
 
-## Social platforms
+## Book
 
-* [https://github.com/JMPerez/linkedin-to-json-resume](https://github.com/JMPerez/linkedin-to-json-resume) + [So I have 1,825 LinkedIn connection requests... and no way to batch approve or deny them...](https://twitter.com/kentcdodds/status/1251865245133365250)
-* [https://github.com/jamiebuilds/havetheybeenpwned](https://github.com/jamiebuilds/havetheybeenpwned)
-* [Python library to interact with Google Sheets V4 API](https://github.com/socialpoint-labs/sheetfu)
-* [An unofficial client library for Google Music.](https://github.com/simon-weber/gmusicapi)
-* [https://thisisnotlinkedin.com](https://thisisnotlinkedin.com)
-* [A twitter unfollower for stale accounts.](https://github.com/wesbos/twitter-unfollower)
-* [https://github.com/mathdroid/twitter-dev-salaries-scraper](https://github.com/mathdroid/twitter-dev-salaries-scraper)
-* [https://github.com/vintagesucks/instagram-export](https://github.com/vintagesucks/instagram-export)
-* [Google Drive API Library](https://github.com/terence410/ts-google-drive)
-* [github\(dot\)com/USERNAME.png](https://twitter.com/mtliendo/status/1234911134932709376)
-* [An app script that will filter your email from where in the world it was sent from](https://github.com/benjojo/Gmail_GeoIPTagger)
-* [https://blog.filippo.io/gmail-bot-with-apps-script-and-typescript](https://blog.filippo.io/gmail-bot-with-apps-script-and-typescript)
-* [Scrape the Twitter Frontend API without authentication.](https://github.com/bisguzar/twitter-scraper)
-* [GMail tasks over OAuth2 API using Google's API Client](https://github.com/abhishekkr/gmail-helper)
-* [Instant lyrics for your current Spotify track!](https://github.com/gedrick/SpotifyKaraoke)
-* [Backup your Slack chat messages \(direct messages, group messages, joined channels\) to your local computer without any extra permissions or apps.](https://github.com/t-tran/slack-chat-backup)
-* [Find books from Google Play Books](https://github.com/liyasthomas/books)
-* [This app uses the API of other websites and gives you an RSS feed in return.](https://github.com/stefansundin/rssbox)
-* [https://github.com/adyz/youtube-parse-history](https://github.com/adyz/youtube-parse-history)
-* [Google Play Unofficial Python API](https://github.com/NoMore201/googleplay-api)
-* [https://github.com/weskerfoot/DeleteFB](https://github.com/weskerfoot/DeleteFB)
-* [Generates a simple text list of your availability from your Google Calendar](https://github.com/raineorshine/simplifiedavailability)
-* [Amazon Scraper. Scrape products from the amazon search result or reviews from the specific product ](https://github.com/drawrowfly/amazon-product-api)
-* [Collection of Stoic Wisdom](https://github.com/TomFrink/StoicPage)
-* [Hacker News daily top 10 posts](https://github.com/headllines/hackernews-daily)
+* [https://legacy.gitbook.com/book/learnbyexample/command-line-text-processing/details](https://legacy.gitbook.com/book/learnbyexample/command-line-text-processing/details)
+* [An example driven introduction to bioinformatics using shell scripting by Francisco M. Couto](http://labs.rd.ciencias.ulisboa.pt/book)
+* [https://github.com/bobbyiliev/introduction-to-bash-scripting](https://github.com/bobbyiliev/introduction-to-bash-scripting)
+* [https://github.com/miguelmota/bash-streams-handbook](https://github.com/miguelmota/bash-streams-handbook)
+* [https://github.com/denysdovhan/bash-handbook](https://github.com/denysdovhan/bash-handbook)
 
-## GraphQL
+## TIL
 
-* [https://www.musumeche.com/fishing](https://www.musumeche.com/fishing) + [https://github.com/stevenmusumeche/salty-solutions](https://github.com/stevenmusumeche/salty-solutions)
-* [https://tldrsec.com/blog/appsec-cali-2019/\#an-attackers-view-of-serverless-and-graphql-apps](https://tldrsec.com/blog/appsec-cali-2019/#an-attackers-view-of-serverless-and-graphql-apps)
-* [GraphQL: The future of API's is here](https://youtu.be/mj850EuHQHs) + [http://files.lifely.nl/graphql-the-future-of-apis-is-here.pdf](http://files.lifely.nl/graphql-the-future-of-apis-is-here.pdf)
-* [https://twitter.com/sarah\_edo/status/1220381789165719553](https://twitter.com/sarah_edo/status/1220381789165719553)
-* [https://twitter.com/HivarekarPranav/status/1231979599401078784](https://twitter.com/HivarekarPranav/status/1231979599401078784)
-* [Find all GraphQL queries in your codebase that use a certain field.](https://gist.github.com/stubailo/7a2071c4e568a185726c583073695bc0)
-* [https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696](https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696)
-* [https://lab.wallarm.com/graphql-batching-attack](https://lab.wallarm.com/graphql-batching-attack)
-* [https://gitlab.com/dee-see/graphql-path-enum](https://gitlab.com/dee-see/graphql-path-enum) + [https://blog.deesee.xyz/graphql/security/2020/04/13/graphql-permission-testing.html](https://blog.deesee.xyz/graphql/security/2020/04/13/graphql-permission-testing.html)
-* [https://github.com/APIs-guru/graphql-apis](https://github.com/APIs-guru/graphql-apis)
-* [https://github.com/sibelius/relay-workshop/tree/master/solutions](https://github.com/sibelius/relay-workshop/tree/master/solutions)
-* [https://netflixtechblog.com/how-netflix-scales-its-api-with-graphql-federation-part-2-bbe71aaec44a](https://netflixtechblog.com/how-netflix-scales-its-api-with-graphql-federation-part-2-bbe71aaec44a)
-* [https://cult.honeypot.io/originals/graphql-the-documentary](https://cult.honeypot.io/originals/graphql-the-documentary)
-* [https://github.com/dolevf/Damn-Vulnerable-GraphQL-Application](https://github.com/dolevf/Damn-Vulnerable-GraphQL-Application)
-* [GRANDcase.FM is a podcast application built using GRANDstack \(GraphQL, React, Apollo, Neo4j Database\)](https://github.com/johnymontana/grandcast.fm)
-* [https://github.com/Shopify/graphql-design-tutorial](https://github.com/Shopify/graphql-design-tutorial)
-* [Coherent, zero-dependency, lazy, simple, GraphQL over WebSocket Protocol compliant server and client.](https://github.com/enisdenjo/graphql-ws)
-* [Want to learn about GraphQL hacking?](https://twitter.com/drunkrhin0/status/1375038146409271300)
-* [https://github.com/devknoll/graphql-resources](https://github.com/devknoll/graphql-resources)
+* [Running a user script through cron](http://www.federicopereiro.com/script-cron)
+* [How big is your node\_modules? \(du -sh node\_modules\)](https://twitter.com/cpojer/status/1231602883759616000)
+* [http://aleph.nu/blog/2011/refresh-browser-when-html-or-css-changes](http://aleph.nu/blog/2011/refresh-browser-when-html-or-css-changes)
+* [Get the size of a file using curl](https://twitter.com/WebReflection/status/1231278323487080449)
+* [https://badshah.io/experiment/faster-nmap-scanning-with-the-help-of-gnu-parallel](https://badshah.io/experiment/faster-nmap-scanning-with-the-help-of-gnu-parallel)
+* [https://www.linuxjournal.com/content/job-control-bash-feature-you-only-think-you-dont-need](https://www.linuxjournal.com/content/job-control-bash-feature-you-only-think-you-dont-need)
+* [https://serversuit.com/community/blog/view/why-are-there-single-and-double-brackets-in-bash-what-s-the-difference.html](https://serversuit.com/community/blog/view/why-are-there-single-and-double-brackets-in-bash-what-s-the-difference.html)
+* [https://tomnomnom.com/talks/bug-bounties-with-bash-virsec.pdf](https://tomnomnom.com/talks/bug-bounties-with-bash-virsec.pdf)
+* [Moving efficiently in the CLI](https://clementc.github.io/blog/2018/01/25/moving_cli)
+* [Put your previously typed command into clipboard.](https://twitter.com/chaignc/status/1199670722211254273)
+* [Useful bash one-liners for bio-informatics](https://github.com/stephenturner/oneliners)
+* [PC with Windows 10 embedded product key and wanna get it from within Linux](https://twitter.com/grufwub/status/1204511341219848194)
+* [https://github.com/jgm/scripts](https://github.com/jgm/scripts)
+* [Clear the line.](https://twitter.com/chaignc/status/1213412331876732928)
+* [Check all gzip files in a directory tree.](https://twitter.com/rotnroll666/status/1211951342492753920)
+* [Get the number of cores on a machine.](https://twitter.com/ReplicaJune/status/1212645946867228672)
+* [You can get a site's html and all of the page's dependencies with a single wget command.](https://twitter.com/philhawksworth/status/1214942635300982785)
+* [A command that will copy files from one directory to another and if there are two files with the same name it will rename it.](https://twitter.com/kentcdodds/status/1215744921287589888)
+* wget -m -np -c -U "gimme" -R "index.html\*" "[http://index-of.es/EBooks/](http://index-of.es/EBooks/)"
+* [Rename files in linux / bash using mv command without typing the full name two times](https://gist.github.com/premek/6e70446cfc913d3c929d7cdbfe896fef)
+* [https://redandblack.io/blog/2020/bash-prompt-with-updating-time](https://redandblack.io/blog/2020/bash-prompt-with-updating-time)
+* [https://blog.haschek.at/2020/stopping-phishing-campaigns-with-bash.html](https://blog.haschek.at/2020/stopping-phishing-campaigns-with-bash.html)
+* [https://github.com/qazbnm456/awesome-security-trivia/blob/master/Ways-to-list-or-cat-directories-and-files.md](https://github.com/qazbnm456/awesome-security-trivia/blob/master/Ways-to-list-or-cat-directories-and-files.md)
+* [https://work.lisk.in/2020/11/20/even-faster-bash-startup.html](https://work.lisk.in/2020/11/20/even-faster-bash-startup.html)
+* [https://iandunn.name/2020/05/08/use-z-to-quickly-cd-to-frequent-recent-folders](https://iandunn.name/2020/05/08/use-z-to-quickly-cd-to-frequent-recent-folders)
+* [https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet\#lbwh-anchor](https://github.com/hackerschoice/thc-tips-tricks-hacks-cheat-sheet#lbwh-anchor)
+* [https://www.twilio.com/blog/zsh-tricks-to-blow-your-mind](https://www.twilio.com/blog/zsh-tricks-to-blow-your-mind) + [https://news.ycombinator.com/item?id=26175894](https://news.ycombinator.com/item?id=26175894)
+* [https://lanziani.com/blog/read-file-in-chunks-in-bash.html](https://lanziani.com/blog/read-file-in-chunks-in-bash.html)
+* Clean up all node\_modules in projects - [tweet](https://twitter.com/swyx/status/1064672618450579457) + [gist](https://gist.github.com/zephraph/9169b9de4568b858f4b0e45fc41218b7)
+* [I have node\_modules folders clogging up my system.](https://twitter.com/dolearning/status/1372481620259770373)
+* [Opt + click to place your cursor wherever in Terminal](https://twitter.com/leonte_dev/status/1264140864751878144)
 
-## gRPC
+## Tools
 
-* [GraphQL, gRPC or REST? Resolving the API Developer's Dilemma - Rob Crowley](https://youtu.be/l_P6m3JTyp0)
+* [Resource monitor that shows usage and stats for processor, memory, disks, network and processes.](https://github.com/aristocratos/bashtop)
+* [Feed the hundreds of millions of domains in the Common Crawl to zgrab.](https://github.com/lsb/zgrab-the-web)
+* [https://github.com/stefanjudis/extract-media](https://github.com/stefanjudis/extract-media) + [https://twitter.com/mathias/status/1332251741602111488](https://twitter.com/mathias/status/1332251741602111488)
+* [Shell script downloading videos embedded in tweets](https://gist.github.com/ngregoire/43891d80fde3c6cbb1a52a5a6468fe41)
+* [Pure bash script to test and wait on the availability of a TCP host and port](https://github.com/vishnubob/wait-for-it)
 
-## Health
+## References
 
-* [https://github.com/Cazaimi/circadian-api](https://github.com/Cazaimi/circadian-api)
-* [FoodData Central \(FDC\)](https://fdc.nal.usda.gov/about-us.html) + [https://github.com/USDA/USDA-APIs/issues/92](https://github.com/USDA/USDA-APIs/issues/92)
-* [https://github.com/ChickenKyiv/awesome-food-open-source](https://github.com/ChickenKyiv/awesome-food-open-source)
-
-## Weather
-
-* Get the weather from terminal
-
-```text
-curl v2.wttr.in/Bucharest
-```
-
-## Chemistry
-
-* [https://github.com/darekkay/tip-of-the-day/tree/master/src/data-sources/chemical-elements-en](https://github.com/darekkay/tip-of-the-day/tree/master/src/data-sources/chemical-elements-en)
-
-## Geography
-
-* [City data repository for mapnificent.net](https://github.com/mapnificent/mapnificent_cities) + [https://stefanwehrmeyer.com/projects/mapnificent](https://stefanwehrmeyer.com/projects/mapnificent)
-* [Dear map people,](https://twitter.com/tmcw/status/1133165834677866496)
-* [ISO 3166-1 alpha-2 country code to country name conversion with a simple Javascript implementation, an array and a function.](https://gist.github.com/maephisto/9228207)
-* [https://github.com/darekkay/tip-of-the-day/tree/master/src/data-sources/countries-en](https://github.com/darekkay/tip-of-the-day/tree/master/src/data-sources/countries-en)
-* [https://github.com/oldboyxx/Mapped-Country-Language-Codes](https://github.com/oldboyxx/Mapped-Country-Language-Codes)
-* [Full list of timezones.](https://github.com/dmfilipenko/timezones.json)
-* [A PHP client for Apple's Find My iPhone service.](https://github.com/tylerhall/sosumi)
-* [https://github.com/eveporcello/simple-strava-sample](https://github.com/eveporcello/simple-strava-sample) + [https://moonhighway.com/incorporating-rest-data](https://moonhighway.com/incorporating-rest-data)
-* [https://github.com/apilayer/restcountries](https://github.com/apilayer/restcountries)
-
-## Shopping
-
-* [https://twitter.com/ryanflorence/status/1332403896208146433](https://twitter.com/ryanflorence/status/1332403896208146433)
-* [curl cryptocurrencies exchange rates](https://github.com/chubin/rate.sx)
-
-## Languages
-
-* [Microsoft Translator Text API v3.](https://github.com/MicrosoftTranslator/Text-Translation-API-V3-NodeJS)
-* [https://github.com/cortexlabs/cortex/tree/translator-example/examples/model-caching/python/translator](https://github.com/cortexlabs/cortex/tree/translator-example/examples/model-caching/python/translator)
-* [A simple front-end for OCR with Google Vision API.](https://github.com/llll-org/vizor)
-
-## Miscellaneous
-
-* [What is the single best book any of y'all have ever read about API design?](https://twitter.com/ShortJared/status/1377331662275534848)
-* [https://github.com/vicziani/learnwebservices](https://github.com/vicziani/learnwebservices)
-* [https://github.com/n0shake/Public-APIs](https://github.com/n0shake/Public-APIs)
-* [http://algermissen.io/classification\_of\_http\_apis.html](http://algermissen.io/classification_of_http_apis.html) + [http://algermissen.io/2019/03/rest-design-essentials](http://algermissen.io/2019/03/rest-design-essentials)
-* [https://github.com/algermissen/rest-discuss-archive](https://github.com/algermissen/rest-discuss-archive)
-* [https://dontkillmyapp.com/apidoc](https://dontkillmyapp.com/apidoc)
-* [https://tldrsec.com/blog/appsec-cali-2019/\#preventing-mobile-app-and-api-abuse](https://tldrsec.com/blog/appsec-cali-2019/#preventing-mobile-app-and-api-abuse)
-* [https://phil.tech/2018/05/21/picking-an-api-paradigm-implementation](https://phil.tech/2018/05/21/picking-an-api-paradigm-implementation)
-* [https://plus.codes](https://plus.codes)
-* [https://shkspr.mobi/blog/2020/01/why-api-responses-should-be-signed](https://shkspr.mobi/blog/2020/01/why-api-responses-should-be-signed)
-* [https://vasco3.gitbooks.io/hacks-n-notes/content/apis.html](https://vasco3.gitbooks.io/hacks-n-notes/content/apis.html)
-* [https://github.com/danburzo/toolbox\#apis](https://github.com/danburzo/toolbox#apis)
-* [https://github.com/smodnix/31-days-of-API-Security-Tips](https://github.com/smodnix/31-days-of-API-Security-Tips) + [https://docs.google.com/spreadsheets/d/1jn3JnWzQFZW41gKo5Fhxwf2ke2w-pvrpCGhBmKhyIBE](https://docs.google.com/spreadsheets/d/1jn3JnWzQFZW41gKo5Fhxwf2ke2w-pvrpCGhBmKhyIBE) + [https://drive.google.com/file/d/1iMGqUUpaiQrEys4IOETwgxti8AiShomZ/view](https://drive.google.com/file/d/1iMGqUUpaiQrEys4IOETwgxti8AiShomZ/view)
-* [A simple node.js module that uses Google Books API to find books by ISBN.](https://github.com/palmerabollo/node-isbn)
-* [Bible API](https://news.ycombinator.com/item?id=23737601)
-* [https://github.com/jswest/kiss-list-refresh/blob/master/public/data.json.js](https://github.com/jswest/kiss-list-refresh/blob/master/public/data.json.js)
-* [A demo app that showcases some of Typesense's features using the MusicBrainz songs database.](https://github.com/typesense/showcase-songs-search) + [Instantly search 2M cooking recipes using Typesense Search \(an open source alternative to Algolia / ElasticSearch\)](https://news.ycombinator.com/item?id=25365397) + [Instantly search 28M books from OpenLibrary](https://news.ycombinator.com/item?id=25414389)
-* [https://github.com/francescocarlucci/job-offers-http-headers](https://github.com/francescocarlucci/job-offers-http-headers)
-* [https://blog.idrisolubisi.com/35-free-public-apis-to-improve-productivity](https://blog.idrisolubisi.com/35-free-public-apis-to-improve-productivity)
-* [https://github.com/Rolstenhouse/unofficial-apis](https://github.com/Rolstenhouse/unofficial-apis)
-* [https://paperswithcode.com/api/v1/docs](https://paperswithcode.com/api/v1/docs) + [https://github.com/paperswithcode/paperswithcode-data](https://github.com/paperswithcode/paperswithcode-data) + [https://paperswithcode.com/datasets](https://paperswithcode.com/datasets)
-* [Wikipedia Interface for Node.js](https://github.com/dijs/wiki)
-* [https://blog.webpagetest.org/posts/the-webpagetest-api-has-gone-public](https://blog.webpagetest.org/posts/the-webpagetest-api-has-gone-public)
+* [https://github.com/dylanaraps/pure-bash-bible](https://github.com/dylanaraps/pure-bash-bible)
+* [https://www.grymoire.com/Unix/Awk.html](https://www.grymoire.com/Unix/Awk.html)
+* [Bash Quick References](https://shellmagic.xyz)
+* [https://wiki.bash-hackers.org](https://wiki.bash-hackers.org)
+* [https://elder.dev/posts/safer-bash](https://elder.dev/posts/safer-bash)
+* [https://betterdev.blog/minimal-safe-bash-script-template](https://betterdev.blog/minimal-safe-bash-script-template) + [https://news.ycombinator.com/item?id=25428621](https://news.ycombinator.com/item?id=25428621)
+* [https://drewdevault.com/2020/12/12/Shell-literacy.html](https://drewdevault.com/2020/12/12/Shell-literacy.html) + [https://news.ycombinator.com/item?id=25399058](https://news.ycombinator.com/item?id=25399058)
+* [https://github.com/alexcoman/labs/tree/master/bash](https://github.com/alexcoman/labs/tree/master/bash)
+* [https://lucasfcosta.com/2019/04/07/streams-introduction.html](https://lucasfcosta.com/2019/04/07/streams-introduction.html)
+* [https://github.com/rothgar/mastering-zsh](https://github.com/rothgar/mastering-zsh)
+* [https://github.com/NARKOZ/hacker-scripts](https://github.com/NARKOZ/hacker-scripts)
 
