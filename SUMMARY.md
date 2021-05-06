@@ -18,3 +18,7 @@
 
 * [What makes a good read](medium/what-makes-a-good-read.md)
 
+---
+
+* [\| bgoonz \| GistLog - Your dev blog delivered](untitled.md)
+
