@@ -20,5 +20,5 @@
 
 ---
 
-* [\| bgoonz \| GistLog - Your dev blog delivered](untitled.md)
+* [ES6-Cheat-Sheet](untitled.md)
 
