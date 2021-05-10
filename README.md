@@ -1,4 +1,4 @@
-# index
+# Technical Interview Prep
 
 ## Table of Contents
 

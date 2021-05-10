@@ -1,6 +1,6 @@
 # Table of contents
 
-* [index](README.md)
+* [Technical Interview Prep](README.md)
 * [Website-Checklist](website-checklist.md)
 * [Python Problems](python-problems.md)
 * [FREE BOOKS](free-books.md)
