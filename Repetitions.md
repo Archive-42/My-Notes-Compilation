@@ -1,5 +1,3 @@
 Repeated character, n-times:
 
-```
-(\w)\1+
-```
+    (\w)\1+

@@ -1,24 +1,21 @@
-## Comma-separated values, semi-colon when not surrounded by single or double quotes
+Comma-separated values, semi-colon when not surrounded by single or double quotes
+---------------------------------------------------------------------------------
 
-```
-[^,"']+|"([^"]*)"|'([^']*)'
-[^,"']+|"([^"]*)"|'([^']*)'
-```
+    [^,"']+|"([^"]*)"|'([^']*)'
+    [^,"']+|"([^"]*)"|'([^']*)'
 
 ..
 
-## Tab-separated values when not surrounded by single or double quotes
+Tab-separated values when not surrounded by single or double quotes
+-------------------------------------------------------------------
 
-```
-[^\t"']+|"([^"]*)"|'([^']*)'
+    [^\t"']+|"([^"]*)"|'([^']*)'
 
-[^\s"']+|"([^"]*)"|'([^']*)'
-```
+    [^\s"']+|"([^"]*)"|'([^']*)'
 
-## Drop-in csv/tsv pattern
+Drop-in csv/tsv pattern
+-----------------------
 
-```
-/\t(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/gm;
-```
+    /\t(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/gm;
 
 Just replace the first character, that acts as a separator (here, a tab).

@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>untitled</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<h1 id="es6-cheat-sheet">ES6-Cheat-Sheet</h1>
+<p>A cheatsheet containing ES2015 [ES6] tips, tricks, best practices and code<br />
+snippet examples for your day to day workflow. Contributions are welcome!</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="">var versus let / const</a></li>
+<li><a href="">Replacing IIFEs with Blocks</a></li>
+<li><a href="">Arrow Functions</a></li>
+<li><a href="">Strings</a></li>
+<li><a href="">Destructuring</a></li>
+<li><a href="">Modules</a></li>
+<li><a href="">Parameters</a></li>
+<li><a href="">Classes</a></li>
+<li><a href="">Symbols</a></li>
+<li><a href="">Maps</a></li>
+<li><a href="">WeakMaps</a></li>
+<li><a href="">Promises</a></li>
+<li><a href="">Generators</a></li>
+<li><a href="">Async Await</a></li>
+<li><a href="">Getter/Setter functions</a></li>
+<li><a href="">License</a></li>
+</ul>
+<h2 id="var-versus-let-const">var versus let / const</h2>
+<blockquote>
+<p>Besides <code>var</code>, we now have access to two new identifiers for storing values<br />
+—<code>let</code> and <code>const</code>. Unlike <code>var</code>, <code>let</code> and <code>const</code> statements are not hoisted<br />
+to the top of their enclosing scope.</p>
+</blockquote>
+<p>An example of using <code>var</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">var</span> snack <span class="op">=</span> <span class="st">&quot;Meow Mix&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">function</span> <span class="at">getFood</span>(food) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  <span class="cf">if</span> (food) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-5" title="5">    <span class="kw">var</span> snack <span class="op">=</span> <span class="st">&quot;Friskies&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">    <span class="cf">return</span> snack<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-7" title="7">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-8" title="8">  <span class="cf">return</span> snack<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="op">}</span></a>
+<a class="sourceLine" id="cb1-10" title="10"></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="at">getFood</span>(<span class="kw">false</span>)<span class="op">;</span> <span class="co">// undefined</span></a></code></pre></div>
+<p>However, observe what happens when we replace <code>var</code> using <code>let</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">let</span> snack <span class="op">=</span> <span class="st">&quot;Meow Mix&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw">function</span> <span class="at">getFood</span>(food) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">  <span class="cf">if</span> (food) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-5" title="5">    <span class="kw">let</span> snack <span class="op">=</span> <span class="st">&quot;Friskies&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="cf">return</span> snack<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-7" title="7">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-8" title="8">  <span class="cf">return</span> snack<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="op">}</span></a>
+<a class="sourceLine" id="cb2-10" title="10"></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="at">getFood</span>(<span class="kw">false</span>)<span class="op">;</span> <span class="co">// &#39;Meow Mix&#39;</span></a></code></pre></div>
+<p>This change in behavior highlights that we need to be careful when refactoring<br />
+legacy code which uses <code>var</code>. Blindly replacing instances of <code>var</code> with <code>let</code><br />
+may lead to unexpected behavior.</p>
+<blockquote>
+<p><strong>Note</strong>: <code>let</code> and <code>const</code> are block scoped. Therefore, referencing<br />
+block-scoped identifiers before they are defined will produce<br />
+a <code>ReferenceError</code>.</p>
+</blockquote>
+<div class="sourceCode" id="cb3"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">console</span>.<span class="at">log</span>(x)<span class="op">;</span> <span class="co">// ReferenceError: x is not defined</span></a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw">let</span> x <span class="op">=</span> <span class="st">&quot;hi&quot;</span><span class="op">;</span></a></code></pre></div>
+<blockquote>
+<p><strong>Best Practice</strong>: Leave <code>var</code> declarations inside of legacy code to denote<br />
+that it needs to be carefully refactored. When working on a new codebase, use<br />
+<code>let</code> for variables that will change their value over time, and <code>const</code> for<br />
+variables which cannot be reassigned.</p>
+</blockquote>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="replacing-iifes-with-blocks">Replacing IIFEs with Blocks</h2>
+<blockquote>
+<p>A common use of <strong>Immediately Invoked Function Expressions</strong> is to enclose<br />
+values within its scope. In ES6, we now have the ability to create block-based<br />
+scopes and therefore are not limited purely to function-based scope.</p>
+</blockquote>
+<div class="sourceCode" id="cb4"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1">(<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">var</span> food <span class="op">=</span> <span class="st">&quot;Meow Mix&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="op">}</span>)()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="va">console</span>.<span class="at">log</span>(food)<span class="op">;</span> <span class="co">// Reference Error</span></a></code></pre></div>
+<p>Using ES6 Blocks:</p>
+<pre class="text"><code>{
+    let food = &#39;Meow Mix&#39;;
+};
+
+console.log(food); // Reference Error</code></pre>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="arrow-functions">Arrow Functions</h2>
+<p>Often times we have nested functions in which we would like to preserve the<br />
+context of <code>this</code> from its lexical scope. An example is shown below:</p>
+<pre class="text"><code>function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.prefixName = function (arr) {
+    return arr.map(function (character) {
+        return this.name + character; // Cannot read property &#39;name&#39; of undefined
+    });
+};</code></pre>
+<p>One common solution to this problem is to store the context of <code>this</code> using<br />
+a variable:</p>
+<pre class="text"><code>function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.prefixName = function (arr) {
+    var that = this; // Store the context of this
+    return arr.map(function (character) {
+        return that.name + character;
+    });
+};</code></pre>
+<p>We can also pass in the proper context of <code>this</code>:</p>
+<pre class="text"><code>function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.prefixName = function (arr) {
+    return arr.map(function (character) {
+        return this.name + character;
+    }, this);
+};</code></pre>
+<p>As well as bind the context:</p>
+<pre class="text"><code>function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.prefixName = function (arr) {
+    return arr.map(function (character) {
+        return this.name + character;
+    }.bind(this));
+};</code></pre>
+<p>Using <strong>Arrow Functions</strong>, the lexical value of <code>this</code> isn’t shadowed and we<br />
+can re-write the above as shown:</p>
+<pre class="text"><code>function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.prefixName = function (arr) {
+    return arr.map(character =&gt; this.name + character);
+};</code></pre>
+<blockquote>
+<p><strong>Best Practice</strong>: Use <strong>Arrow Functions</strong> whenever you need to preserve the<br />
+lexical value of <code>this</code>.</p>
+</blockquote>
+<p>Arrow Functions are also more concise when used in function expressions which<br />
+simply return a value:</p>
+<pre class="text"><code>var squares = arr.map(function (x) { return x * x }); // Function Expression</code></pre>
+<pre class="text"><code>const arr = [1, 2, 3, 4, 5];
+const squares = arr.map(x =&gt; x * x); // Arrow Function for terser implementation</code></pre>
+<blockquote>
+<p><strong>Best Practice</strong>: Use <strong>Arrow Functions</strong> in place of function expressions<br />
+when possible.</p>
+</blockquote>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="strings">Strings</h2>
+<p>With ES6, the standard library has grown immensely. Along with these changes<br />
+are new methods which can be used on strings, such as <code>.includes()</code> and<br />
+<code>.repeat()</code>.</p>
+<h3 id="includes">.includes( )</h3>
+<pre class="text"><code>var string = &#39;food&#39;;
+var substring = &#39;foo&#39;;
+
+console.log(string.indexOf(substring) &gt; -1);</code></pre>
+<p>Instead of checking for a return value <code>&gt; -1</code> to denote string containment,<br />
+we can simply use <code>.includes()</code> which will return a boolean:</p>
+<pre class="text"><code>const string = &#39;food&#39;;
+const substring = &#39;foo&#39;;
+
+console.log(string.includes(substring)); // true</code></pre>
+<h3 id="repeat">.repeat( )</h3>
+<pre class="text"><code>function repeat(string, count) {
+    var strings = [];
+    while(strings.length &lt; count) {
+        strings.push(string);
+    }
+    return strings.join(&#39;&#39;);
+}</code></pre>
+<p>In ES6, we now have access to a terser implementation:</p>
+<pre class="text"><code>// String.repeat(numberOfRepetitions)
+&#39;meow&#39;.repeat(3); // &#39;meowmeowmeow&#39;</code></pre>
+<h3 id="template-literals">Template Literals</h3>
+<p>Using <strong>Template Literals</strong>, we can now construct strings that have special<br />
+characters in them without needing to escape them explicitly.</p>
+<pre class="text"><code>var text = &quot;This string contains \&quot;double quotes\&quot; which are escaped.&quot;;</code></pre>
+<pre class="text"><code>let text = `This string contains &quot;double quotes&quot; which don&#39;t need to be escaped anymore.`;</code></pre>
+<p><strong>Template Literals</strong> also support interpolation, which makes the task of<br />
+concatenating strings and values:</p>
+<pre class="text"><code>var name = &#39;Tiger&#39;;
+var age = 13;
+
+console.log(&#39;My cat is named &#39; + name + &#39; and is &#39; + age + &#39; years old.&#39;);</code></pre>
+<p>Much simpler:</p>
+<pre class="text"><code>const name = &#39;Tiger&#39;;
+const age = 13;
+
+console.log(`My cat is named ${name} and is ${age} years old.`);</code></pre>
+<p>In ES5, we handled new lines as follows:</p>
+<pre class="text"><code>var text = (
+    &#39;cat\n&#39; +
+    &#39;dog\n&#39; +
+    &#39;nickelodeon&#39;
+);</code></pre>
+<p>Or:</p>
+<pre class="text"><code>var text = [
+    &#39;cat&#39;,
+    &#39;dog&#39;,
+    &#39;nickelodeon&#39;
+].join(&#39;\n&#39;);</code></pre>
+<p><strong>Template Literals</strong> will preserve new lines for us without having to<br />
+explicitly place them in:</p>
+<pre class="text"><code>let text = ( `cat
+dog
+nickelodeon`
+);</code></pre>
+<p><strong>Template Literals</strong> can accept expressions, as well:</p>
+<pre class="text"><code>let today = new Date();
+let text = `The time and date is ${today.toLocaleString()}`;</code></pre>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="destructuring">Destructuring</h2>
+<p>Destructuring allows us to extract values from arrays and objects (even deeply<br />
+nested) and store them in variables with a more convenient syntax.</p>
+<h3 id="destructuring-arrays">Destructuring Arrays</h3>
+<pre class="text"><code>var arr = [1, 2, 3, 4];
+var a = arr[0];
+var b = arr[1];
+var c = arr[2];
+var d = arr[3];</code></pre>
+<pre class="text"><code>let [a, b, c, d] = [1, 2, 3, 4];
+
+console.log(a); // 1
+console.log(b); // 2</code></pre>
+<h3 id="destructuring-objects">Destructuring Objects</h3>
+<pre class="text"><code>var luke = { occupation: &#39;jedi&#39;, father: &#39;anakin&#39; };
+var occupation = luke.occupation; // &#39;jedi&#39;
+var father = luke.father; // &#39;anakin&#39;</code></pre>
+<pre class="text"><code>let luke = { occupation: &#39;jedi&#39;, father: &#39;anakin&#39; };
+let {occupation, father} = luke;
+
+console.log(occupation); // &#39;jedi&#39;
+console.log(father); // &#39;anakin&#39;</code></pre>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="modules">Modules</h2>
+<p>Prior to ES6, we used libraries such as <a href="http://browserify.org/">Browserify</a><br />
+to create modules on the client-side, and <a href="https://nodejs.org/api/modules.html#modules_module_require_id">require</a><br />
+in <strong>Node.js</strong>. With ES6, we can now directly use modules of all types<br />
+(AMD and CommonJS).</p>
+<h3 id="exporting-in-commonjs">Exporting in CommonJS</h3>
+<pre class="text"><code>module.exports = 1;
+module.exports = { foo: &#39;bar&#39; };
+module.exports = [&#39;foo&#39;, &#39;bar&#39;];
+module.exports = function bar () {};</code></pre>
+<h3 id="exporting-in-es6">Exporting in ES6</h3>
+<p>With ES6, we have various flavors of exporting. We can perform<br />
+<strong>Named Exports</strong>:</p>
+<pre class="text"><code>export let name = &#39;David&#39;;
+export let age  = 25;​​</code></pre>
+<p>As well as <strong>exporting a list</strong> of objects:</p>
+<pre class="text"><code>function sumTwo(a, b) {
+    return a + b;
+}
+
+function sumThree(a, b, c) {
+    return a + b + c;
+}
+
+export { sumTwo, sumThree };</code></pre>
+<p>We can also export functions, objects and values (etc.) simply by using the <code>export</code> keyword:</p>
+<pre class="text"><code>export function sumTwo(a, b) {
+    return a + b;
+}
+
+export function sumThree(a, b, c) {
+    return a + b + c;
+}</code></pre>
+<p>And lastly, we can <strong>export default bindings</strong>:</p>
+<pre class="text"><code>function sumTwo(a, b) {
+    return a + b;
+}
+
+function sumThree(a, b, c) {
+    return a + b + c;
+}
+
+let api = {
+    sumTwo,
+    sumThree
+};
+
+export default api;
+
+/* Which is the same as
+ * export { api as default };
+ */</code></pre>
+<blockquote>
+<p><strong>Best Practices</strong>: Always use the <code>export default</code> method at <strong>the end</strong> of<br />
+the module. It makes it clear what is being exported, and saves time by having<br />
+to figure out what name a value was exported as. More so, the common practice<br />
+in CommonJS modules is to export a single value or object. By sticking to this<br />
+paradigm, we make our code easily readable and allow ourselves to interpolate<br />
+between CommonJS and ES6 modules.</p>
+</blockquote>
+<h3 id="importing-in-es6">Importing in ES6</h3>
+<p>ES6 provides us with various flavors of importing. We can import an entire file:</p>
+<blockquote>
+<p>It is important to note that simply <strong>importing an entire file will execute<br />
+all code at the top level of that file</strong>.</p>
+</blockquote>
+<p>Similar to Python, we have named imports:</p>
+<pre class="text"><code>import { sumTwo, sumThree } from &#39;math/addition&#39;;</code></pre>
+<p>We can also rename the named imports:</p>
+<pre class="text"><code>import {
+    sumTwo as addTwoNumbers,
+    sumThree as sumThreeNumbers
+} from &#39;math/addition&#39;;</code></pre>
+<p>In addition, we can <strong>import all the things</strong> (also called namespace import):</p>
+<pre class="text"><code>import * as util from &#39;math/addition&#39;;</code></pre>
+<p>Lastly, we can import a list of values from a module:</p>
+<pre class="text"><code>import * as additionUtil from &#39;math/addition&#39;;
+const { sumTwo, sumThree } = additionUtil;</code></pre>
+<p>Importing from the default binding like this:</p>
+<pre class="text"><code>import api from &#39;math/addition&#39;;
+// Same as: import { default as api } from &#39;math/addition&#39;;</code></pre>
+<p>While it is better to keep the exports simple, but we can sometimes mix default import and mixed import if needed.<br />
+When we are exporting like this:</p>
+<pre class="text"><code>// foos.js
+export { foo as default, foo1, foo2 };</code></pre>
+<p>We can import them like the following:</p>
+<pre class="text"><code>import foo, { foo1, foo2 } from &#39;foos&#39;;</code></pre>
+<p>When importing a module exported using commonjs syntax (such as React) we can do:</p>
+<pre class="text"><code>import React from &#39;react&#39;;
+const { Component, PropTypes } = React;</code></pre>
+<p>This can also be simplified further, using:</p>
+<pre class="text"><code>import React, { Component, PropTypes } from &#39;react&#39;;</code></pre>
+<blockquote>
+<p><strong>Note</strong>: Values that are exported are <strong>bindings</strong>, not references.<br />
+Therefore, changing the binding of a variable in one module will affect the<br />
+value within the exported module. Avoid changing the public interface of these<br />
+exported values.</p>
+</blockquote>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="parameters">Parameters</h2>
+<p>In ES5, we had varying ways to handle functions which needed <strong>default values</strong>,<br />
+<strong>indefinite arguments</strong>, and <strong>named parameters</strong>. With ES6, we can accomplish<br />
+all of this and more using more concise syntax.</p>
+<h3 id="default-parameters">Default Parameters</h3>
+<pre class="text"><code>function addTwoNumbers(x, y) {
+    x = x || 0;
+    y = y || 0;
+    return x + y;
+}</code></pre>
+<p>In ES6, we can simply supply default values for parameters in a function:</p>
+<pre class="text"><code>function addTwoNumbers(x=0, y=0) {
+    return x + y;
+}</code></pre>
+<pre class="text"><code>addTwoNumbers(2, 4); // 6
+addTwoNumbers(2); // 2
+addTwoNumbers(); // 0</code></pre>
+<h3 id="rest-parameters">Rest Parameters</h3>
+<p>In ES5, we handled an indefinite number of arguments like so:</p>
+<pre class="text"><code>function logArguments() {
+    for (var i=0; i &lt; arguments.length; i++) {
+        console.log(arguments[i]);
+    }
+}</code></pre>
+<p>Using the <strong>rest</strong> operator, we can pass in an indefinite amount of arguments:</p>
+<pre class="text"><code>function logArguments(...args) {
+    for (let arg of args) {
+        console.log(arg);
+    }
+}</code></pre>
+<h3 id="named-parameters">Named Parameters</h3>
+<p>One of the patterns in ES5 to handle named parameters was to use the <strong>options<br />
+object</strong> pattern, adopted from jQuery.</p>
+<pre class="text"><code>function initializeCanvas(options) {
+    var height = options.height || 600;
+    var width  = options.width  || 400;
+    var lineStroke = options.lineStroke || &#39;black&#39;;
+}</code></pre>
+<p>We can achieve the same functionality using destructuring as a formal parameter<br />
+to a function:</p>
+<pre class="text"><code>function initializeCanvas(
+    { height=600, width=400, lineStroke=&#39;black&#39;}) {
+        // Use variables height, width, lineStroke here
+    }</code></pre>
+<p>If we want to make the entire value optional, we can do so by destructuring an<br />
+empty object:</p>
+<pre class="text"><code>function initializeCanvas(
+    { height=600, width=400, lineStroke=&#39;black&#39;} = {}) {
+        // ...
+    }</code></pre>
+<h3 id="spread-operator">Spread Operator</h3>
+<p>In ES5, we could find the max of values in an array by using the <code>apply</code> method on <code>Math.max</code> like this:</p>
+<pre class="text"><code>Math.max.apply(null, [-1, 100, 9001, -32]); // 9001</code></pre>
+<p>In ES6, we can now use the spread operator to pass an array of values to be used as<br />
+parameters to a function:</p>
+<pre class="text"><code>Math.max(...[-1, 100, 9001, -32]); // 9001</code></pre>
+<p>We can concat array literals easily with this intuitive syntax:</p>
+<pre class="text"><code>let cities = [&#39;San Francisco&#39;, &#39;Los Angeles&#39;];
+let places = [&#39;Miami&#39;, ...cities, &#39;Chicago&#39;]; // [&#39;Miami&#39;, &#39;San Francisco&#39;, &#39;Los Angeles&#39;, &#39;Chicago&#39;]</code></pre>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="classes">Classes</h2>
+<p>Prior to ES6, we implemented Classes by creating a constructor function and<br />
+adding properties by extending the prototype:</p>
+<pre class="text"><code>function Person(name, age, gender) {
+    this.name   = name;
+    this.age    = age;
+    this.gender = gender;
+}
+
+Person.prototype.incrementAge = function () {
+    return this.age += 1;
+};</code></pre>
+<p>And created extended classes by the following:</p>
+<pre class="text"><code>function Personal(name, age, gender, occupation, hobby) {
+    Person.call(this, name, age, gender);
+    this.occupation = occupation;
+    this.hobby = hobby;
+}
+
+Personal.prototype = Object.create(Person.prototype);
+Personal.prototype.constructor = Personal;
+Personal.prototype.incrementAge = function () {
+    Person.prototype.incrementAge.call(this);
+    this.age += 20;
+    console.log(this.age);
+};</code></pre>
+<p>ES6 provides much needed syntactic sugar for doing this under the hood. We can<br />
+create Classes directly:</p>
+<pre class="text"><code>class Person {
+    constructor(name, age, gender) {
+        this.name   = name;
+        this.age    = age;
+        this.gender = gender;
+    }
+
+    incrementAge() {
+      this.age += 1;
+    }
+}</code></pre>
+<p>And extend them using the <code>extends</code> keyword:</p>
+<pre class="text"><code>class Personal extends Person {
+    constructor(name, age, gender, occupation, hobby) {
+        super(name, age, gender);
+        this.occupation = occupation;
+        this.hobby = hobby;
+    }
+
+    incrementAge() {
+        super.incrementAge();
+        this.age += 20;
+        console.log(this.age);
+    }
+}</code></pre>
+<blockquote>
+<p><strong>Best Practice</strong>: While the syntax for creating classes in ES6 obscures how<br />
+implementation and prototypes work under the hood, it is a good feature for<br />
+beginners and allows us to write cleaner code.</p>
+</blockquote>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="symbols">Symbols</h2>
+<p>Symbols have existed prior to ES6, but now we have a public interface to using<br />
+them directly. Symbols are immutable and unique and can be used as keys in any hash.</p>
+<h3 id="symbol">Symbol( )</h3>
+<p>Calling <code>Symbol()</code> or <code>Symbol(description)</code> will create a unique symbol that cannot be looked up<br />
+globally. A Use case for <code>Symbol()</code> is to patch objects or namespaces from third parties with your own<br />
+logic, but be confident that you won’t collide with updates to that library. For example,<br />
+if you wanted to add a method <code>refreshComponent</code> to the <code>React.Component</code> class, and be certain that<br />
+you didn’t trample a method they add in a later update:</p>
+<pre class="text"><code>const refreshComponent = Symbol();
+
+React.Component.prototype[refreshComponent] = () =&gt; {
+    // do something
+}</code></pre>
+<h3 id="symbol.forkey">Symbol.for(key)</h3>
+<p><code>Symbol.for(key)</code> will create a Symbol that is still immutable and unique, but can be looked up globally.<br />
+Two identical calls to <code>Symbol.for(key)</code> will return the same Symbol instance. NOTE: This is not true for<br />
+<code>Symbol(description)</code>:</p>
+<pre class="text"><code>Symbol(&#39;foo&#39;) === Symbol(&#39;foo&#39;) // false
+Symbol.for(&#39;foo&#39;) === Symbol(&#39;foo&#39;) // false
+Symbol.for(&#39;foo&#39;) === Symbol.for(&#39;foo&#39;) // true</code></pre>
+<p>A common use case for Symbols, and in particular with <code>Symbol.for(key)</code> is for interoperability. This can be<br />
+achieved by having your code look for a Symbol member on object arguments from third parties that contain some<br />
+known interface. For example:</p>
+<pre class="text"><code>function reader(obj) {
+    const specialRead = Symbol.for(&#39;specialRead&#39;);
+    if (obj[specialRead]) {
+        const reader = obj[specialRead]();
+        // do something with reader
+    } else {
+        throw new TypeError(&#39;object cannot be read&#39;);
+    }
+}</code></pre>
+<p>And then in another library:</p>
+<pre class="text"><code>const specialRead = Symbol.for(&#39;specialRead&#39;);
+
+class SomeReadableType {
+    [specialRead]() {
+        const reader = createSomeReaderFrom(this);
+        return reader;
+    }
+}</code></pre>
+<blockquote>
+<p>A notable example of Symbol use for interoperability is <code>Symbol.iterator</code> which exists on all iterable<br />
+types in ES6: Arrays, strings, generators, etc. When called as a method it returns an object with an Iterator<br />
+interface.</p>
+</blockquote>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="maps">Maps</h2>
+<p><strong>Maps</strong> is a much needed data structure in JavaScript. Prior to ES6, we created<br />
+<strong>hash</strong> maps through objects:</p>
+<pre class="text"><code>var map = new Object();
+map[key1] = &#39;value1&#39;;
+map[key2] = &#39;value2&#39;;</code></pre>
+<p>However, this does not protect us from accidentally overriding functions with<br />
+specific property names:</p>
+<pre class="text"><code>&gt; getOwnProperty({ hasOwnProperty: &#39;Hah, overwritten&#39;}, &#39;Pwned&#39;);
+&gt; TypeError: Property &#39;hasOwnProperty&#39; is not a function</code></pre>
+<p>Actual <strong>Maps</strong> allow us to <code>set</code>, <code>get</code> and <code>search</code> for values (and much more).</p>
+<pre class="text"><code>let map = new Map();
+&gt; map.set(&#39;name&#39;, &#39;david&#39;);
+&gt; map.get(&#39;name&#39;); // david
+&gt; map.has(&#39;name&#39;); // true</code></pre>
+<p>The most amazing part of Maps is that we are no longer limited to just using<br />
+strings. We can now use any type as a key, and it will not be type-cast to<br />
+a string.</p>
+<pre class="text"><code>let map = new Map([
+    [&#39;name&#39;, &#39;david&#39;],
+    [true, &#39;false&#39;],
+    [1, &#39;one&#39;],
+    [{}, &#39;object&#39;],
+    [function () {}, &#39;function&#39;]
+]);
+
+for (let key of map.keys()) {
+    console.log(typeof key);
+    // &gt; string, boolean, number, object, function
+}</code></pre>
+<blockquote>
+<p><strong>Note</strong>: Using non-primitive values such as functions or objects won’t work<br />
+when testing equality using methods such as <code>map.get()</code>. As such, stick to<br />
+primitive values such as Strings, Booleans and Numbers.</p>
+</blockquote>
+<p>We can also iterate over maps using <code>.entries()</code>:</p>
+<pre class="text"><code>for (let [key, value] of map.entries()) {
+    console.log(key, value);
+}</code></pre>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="weakmaps">WeakMaps</h2>
+<p>In order to store private data versions &lt; ES6, we had various ways of doing this.<br />
+One such method was using naming conventions:</p>
+<pre class="text"><code>class Person {
+    constructor(age) {
+        this._age = age;
+    }
+
+    _incrementAge() {
+        this._age += 1;
+    }
+}</code></pre>
+<p>But naming conventions can cause confusion in a codebase and are not always<br />
+going to be upheld. Instead, we can use WeakMaps to store our values:</p>
+<pre class="text"><code>let _age = new WeakMap();
+class Person {
+    constructor(age) {
+        _age.set(this, age);
+    }
+
+    incrementAge() {
+        let age = _age.get(this) + 1;
+        _age.set(this, age);
+        if (age &gt; 50) {
+            console.log(&#39;Midlife crisis&#39;);
+        }
+    }
+}</code></pre>
+<p>The cool thing about using WeakMaps to store our private data is that their<br />
+keys do not give away the property names, which can be seen by using<br />
+<code>Reflect.ownKeys()</code>:</p>
+<pre class="text"><code>&gt; const person = new Person(50);
+&gt; person.incrementAge(); // &#39;Midlife crisis&#39;
+&gt; Reflect.ownKeys(person); // []</code></pre>
+<p>A more practical example of using WeakMaps is to store data which is associated<br />
+to a DOM element without having to pollute the DOM itself:</p>
+<pre class="text"><code>let map = new WeakMap();
+let el  = document.getElementById(&#39;someElement&#39;);
+
+// Store a weak reference to the element with a key
+map.set(el, &#39;reference&#39;);
+
+// Access the value of the element
+let value = map.get(el); // &#39;reference&#39;
+
+// Remove the reference
+el.parentNode.removeChild(el);
+el = null;
+
+// map is empty, since the element is destroyed</code></pre>
+<p>As shown above, once the object is destroyed by the garbage collector,<br />
+the WeakMap will automatically remove the key-value pair which was identified<br />
+by that object.</p>
+<blockquote>
+<p><strong>Note</strong>: To further illustrate the usefulness of this example, consider how<br />
+jQuery stores a cache of objects corresponding to DOM elements which have<br />
+references. Using WeakMaps, jQuery can automatically free up any memory that<br />
+was associated with a particular DOM element once it has been removed from the<br />
+document. In general, WeakMaps are very useful for any library that wraps DOM<br />
+elements.</p>
+</blockquote>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="promises">Promises</h2>
+<p>Promises allow us to turn our horizontal code (callback hell):</p>
+<pre class="text"><code>func1(function (value1) {
+    func2(value1, function (value2) {
+        func3(value2, function (value3) {
+            func4(value3, function (value4) {
+                func5(value4, function (value5) {
+                    // Do something with value 5
+                });
+            });
+        });
+    });
+});</code></pre>
+<p>Into vertical code:</p>
+<pre class="text"><code>func1(value1)
+    .then(func2)
+    .then(func3)
+    .then(func4)
+    .then(func5, value5 =&gt; {
+        // Do something with value 5
+    });</code></pre>
+<p>Prior to ES6, we used <a href="https://github.com/petkaantonov/bluebird">bluebird</a> or<br />
+<a href="https://github.com/kriskowal/q">Q</a>. Now we have Promises natively:</p>
+<pre class="text"><code>new Promise((resolve, reject) =&gt;
+    reject(new Error(&#39;Failed to fulfill Promise&#39;)))
+        .catch(reason =&gt; console.log(reason));</code></pre>
+<p>Where we have two handlers, <strong>resolve</strong> (a function called when the Promise is<br />
+<strong>fulfilled</strong>) and <strong>reject</strong> (a function called when the Promise is <strong>rejected</strong>).</p>
+<blockquote>
+<p><strong>Benefits of Promises</strong>: Error Handling using a bunch of nested callbacks<br />
+can get chaotic. Using Promises, we have a clear path to bubbling errors up<br />
+and handling them appropriately. Moreover, the value of a Promise after it has<br />
+been resolved/rejected is immutable - it will never change.</p>
+</blockquote>
+<p>Here is a practical example of using Promises:</p>
+<pre class="text"><code>var request = require(&#39;request&#39;);
+
+return new Promise((resolve, reject) =&gt; {
+  request.get(url, (error, response, body) =&gt; {
+    if (body) {
+        resolve(JSON.parse(body));
+      } else {
+        resolve({});
+      }
+  });
+});</code></pre>
+<p>We can also <strong>parallelize</strong> Promises to handle an array of asynchronous<br />
+operations by using <code>Promise.all()</code>:</p>
+<pre class="text"><code>let urls = [
+  &#39;/api/commits&#39;,
+  &#39;/api/issues/opened&#39;,
+  &#39;/api/issues/assigned&#39;,
+  &#39;/api/issues/completed&#39;,
+  &#39;/api/issues/comments&#39;,
+  &#39;/api/pullrequests&#39;
+];
+
+let promises = urls.map((url) =&gt; {
+  return new Promise((resolve, reject) =&gt; {
+    $.ajax({ url: url })
+      .done((data) =&gt; {
+        resolve(data);
+      });
+  });
+});
+
+Promise.all(promises)
+  .then((results) =&gt; {
+    // Do something with results of all our promises
+ });</code></pre>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="generators">Generators</h2>
+<p>Similar to how <a href="https://github.com/DrkSephy/es6-cheatsheet#promises">Promises</a> allow us to avoid<br />
+<a href="http://callbackhell.com/">callback hell</a>, Generators allow us to flatten our code - giving our<br />
+asynchronous code a synchronous feel. Generators are essentially functions which we can<br />
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield">pause their execution</a><br />
+and subsequently return the value of an expression.</p>
+<p>A simple example of using generators is shown below:</p>
+<pre class="text"><code>function* sillyGenerator() {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+}
+
+var generator = sillyGenerator();
+&gt; console.log(generator.next()); // { value: 1, done: false }
+&gt; console.log(generator.next()); // { value: 2, done: false }
+&gt; console.log(generator.next()); // { value: 3, done: false }
+&gt; console.log(generator.next()); // { value: 4, done: false }</code></pre>
+<p>Where <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next">next</a><br />
+will allow us to push our generator forward and evaluate a new expression. While the above example is extremely<br />
+contrived, we can utilize Generators to write asynchronous code in a synchronous manner:</p>
+<pre class="text"><code>// Hiding asynchronousity with Generators
+
+function request(url) {
+    getJSON(url, function(response) {
+        generator.next(response);
+    });
+}</code></pre>
+<p>And here we write a generator function that will return our data:</p>
+<pre class="text"><code>function* getData() {
+    var entry1 = yield request(&#39;http://some_api/item1&#39;);
+    var data1  = JSON.parse(entry1);
+    var entry2 = yield request(&#39;http://some_api/item2&#39;);
+    var data2  = JSON.parse(entry2);
+}</code></pre>
+<p>By the power of <code>yield</code>, we are guaranteed that <code>entry1</code> will have the data needed to be parsed and stored<br />
+in <code>data1</code>.</p>
+<p>While generators allow us to write asynchronous code in a synchronous manner, there is no clear<br />
+and easy path for error propagation. As such, as we can augment our generator with Promises:</p>
+<pre class="text"><code>function request(url) {
+    return new Promise((resolve, reject) =&gt; {
+        getJSON(url, resolve);
+    });
+}</code></pre>
+<p>And we write a function which will step through our generator using <code>next</code> which in turn will utilize our<br />
+<code>request</code> method above to yield a Promise:</p>
+<pre class="text"><code>function iterateGenerator(gen) {
+    var generator = gen();
+    (function iterate(val) {
+        var ret = generator.next();
+        if(!ret.done) {
+            ret.value.then(iterate);
+        }
+    })();
+}</code></pre>
+<p>By augmenting our Generator with Promises, we have a clear way of propagating errors through the use of our<br />
+Promise <code>.catch</code> and <code>reject</code>. To use our newly augmented Generator, it is as simple as before:</p>
+<pre class="text"><code>iterateGenerator(function* getData() {
+    var entry1 = yield request(&#39;http://some_api/item1&#39;);
+    var data1  = JSON.parse(entry1);
+    var entry2 = yield request(&#39;http://some_api/item2&#39;);
+    var data2  = JSON.parse(entry2);
+});</code></pre>
+<p>We were able to reuse our implementation to use our Generator as before, which shows their power. While Generators<br />
+and Promises allow us to write asynchronous code in a synchronous manner while retaining the ability to propagate<br />
+errors in a nice way, we can actually begin to utilize a simpler construction that provides the same benefits:<br />
+<a href="https://github.com/DrkSephy/es6-cheatsheet#async-await">async-await</a>.</p>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="async-await">Async Await</h2>
+<p>While this is actually an upcoming ES2016 feature, <code>async await</code> allows us to perform the same thing we accomplished<br />
+using Generators and Promises with less effort:</p>
+<pre class="text"><code>var request = require(&#39;request&#39;);
+
+function getJSON(url) {
+  return new Promise(function(resolve, reject) {
+    request(url, function(error, response, body) {
+      resolve(body);
+    });
+  });
+}
+
+async function main() {
+  var data = await getJSON();
+  console.log(data); // NOT undefined!
+}
+
+main();</code></pre>
+<p>Under the hood, it performs similarly to Generators. I highly recommend using them over Generators + Promises. A great resource<br />
+for getting up and running with ES7 and Babel can be found <a href="http://masnun.com/2015/11/11/using-es7-asyncawait-today-with-babel.html">here</a>.</p>
+<p><a href="">(back to table of contents)</a></p>
+<h2 id="getter-and-setter-functions">Getter and setter functions</h2>
+<p>ES6 has started supporting getter and setter functions within classes. Using the following example:</p>
+<pre class="text"><code>class Employee {
+
+    constructor(name) {
+        this._name = name;
+    }
+
+    get name() {
+      if(this._name) {
+        return &#39;Mr. &#39; + this._name.toUpperCase();
+      } else {
+        return undefined;
+      }
+    }
+
+    set name(newName) {
+      if (newName == this._name) {
+        console.log(&#39;I already have this name.&#39;);
+      } else if (newName) {
+        this._name = newName;
+      } else {
+        return false;
+      }
+    }
+}
+
+var emp = new Employee(&quot;James Bond&quot;);
+
+// uses the get method in the background
+if (emp.name) {
+  console.log(emp.name);  // Mr. JAMES BOND
+}
+
+// uses the setter in the background
+emp.name = &quot;Bond 007&quot;;
+console.log(emp.name);  // Mr. BOND 007</code></pre>
+<p>Latest browsers are also supporting getter/setter functions in Objects and we can use them for computed properties, adding listeners and preprocessing before setting/getting:</p>
+<pre class="text"><code>var person = {
+  firstName: &#39;James&#39;,
+  lastName: &#39;Bond&#39;,
+  get fullName() {
+      console.log(&#39;Getting FullName&#39;);
+      return this.firstName + &#39; &#39; + this.lastName;
+  },
+  set fullName (name) {
+      console.log(&#39;Setting FullName&#39;);
+      var words = name.toString().split(&#39; &#39;);
+      this.firstName = words[0] || &#39;&#39;;
+      this.lastName = words[1] || &#39;&#39;;
+  }
+}
+
+person.fullName; // James Bond
+person.fullName = &#39;Bond 007&#39;;
+person.fullName; // Bond 007</code></pre>
+<p><a href="">(back to table of contents)</a></p>
+<p>Created 1 minute ago | Updated 1 minute ago</p>
+</body>
+</html>

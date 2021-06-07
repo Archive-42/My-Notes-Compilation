@@ -1,18 +1,21 @@
-# Personal Home
+Personal Home
+=============
 
 Organize everything in your life in one place.
 
-## Daily
+Daily
+-----
 
----
+------------------------------------------------------------------------
 
 [Movie List](Personal%20Home%20e865906a5adc4510a33c69e97cb4a82d/Movie%20List%20e2d37dc3b1234e0498ceef82071510de.md)
 
 [Recipes](Personal%20Home%20e865906a5adc4510a33c69e97cb4a82d/Recipes%20fb64bdb8df6d4cd2a90b6a34b096196d.csv)
 
-## Life
+Life
+----
 
----
+------------------------------------------------------------------------
 
 [Yearly Goals](Personal%20Home%20e865906a5adc4510a33c69e97cb4a82d/Yearly%20Goals%2025bcdb95c3a74df08faeaee6ab0ce6cc.md)
 

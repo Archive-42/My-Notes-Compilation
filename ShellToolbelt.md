@@ -2,15 +2,11 @@ Transform every second line
 
 using awk
 
-```
-awk 'ORS=NR%2?" ":"\n"'
-```
+    awk 'ORS=NR%2?" ":"\n"'
 
 And the same in `sed`
 
-```
-sed ':a;N;$!ba;s/\nGroup/ Group/g'
-```
+    sed ':a;N;$!ba;s/\nGroup/ Group/g'
 
 If the line number is evenly divisible by 2, end with a new line, otherwise, end with a space.
 

@@ -1,32 +1,24 @@
----
-id: adding-a-stylesheet
-title: Adding a Stylesheet
-sidebar_label: Adding Stylesheets
----
-
 This project setup uses [webpack](https://webpack.js.org/) for handling all assets. webpack offers a custom way of “extending” the concept of `import` beyond JavaScript. To express that a JavaScript file depends on a CSS file, you need to **import the CSS from the JavaScript file**:
 
-## `Button.css`
+`Button.css`
+------------
 
-```css
-.Button {
-  padding: 20px;
-}
-```
+    .Button {
+      padding: 20px;
+    }
 
-## `Button.js`
+`Button.js`
+-----------
 
-```js
-import React, { Component } from "react";
-import "./Button.css"; // Tell webpack that Button.js uses these styles
+    import React, { Component } from "react";
+    import "./Button.css"; // Tell webpack that Button.js uses these styles
 
-class Button extends Component {
-  render() {
-    // You can use them as regular CSS styles
-    return <div className="Button" />;
-  }
-}
-```
+    class Button extends Component {
+      render() {
+        // You can use them as regular CSS styles
+        return <div className="Button" />;
+      }
+    }
 
 **This is not required for React** but many people find this feature convenient. You can read about the benefits of this approach [here](https://medium.com/seek-blog/block-element-modifying-your-javascript-components-d7f99fcab52b). However you should be aware that this makes your code less portable to other build tools and environments than webpack.
 

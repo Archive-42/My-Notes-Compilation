@@ -1,14 +1,9 @@
-# Who Will Teach Silicon Valley to Be Ethical?
+Who Will Teach Silicon Valley to Be Ethical?
+============================================
 
-Author: Kara Swisher
-Link: https://www.nytimes.com/2018/10/21/opinion/who-will-teach-silicon-valley-to-be-ethical.html
-Publisher: NYT
-Publishing/Release Date: Oct 21, 2018
-Status: Ready to Start
-Summary: Some think chief ethics officers could help technology companies navigate political and social questions.
-Type: Article
+Author: Kara Swisher Link: https://www.nytimes.com/2018/10/21/opinion/who-will-teach-silicon-valley-to-be-ethical.html Publisher: NYT Publishing/Release Date: Oct 21, 2018 Status: Ready to Start Summary: Some think chief ethics officers could help technology companies navigate political and social questions. Type: Article
 
-![Who%20Will%20Teach%20Silicon%20Valley%20to%20Be%20Ethical%2064c0547690a24dbaa5bc243b31160d1f/22swisher-articleLarge.jpg](Who%20Will%20Teach%20Silicon%20Valley%20to%20Be%20Ethical%2064c0547690a24dbaa5bc243b31160d1f/22swisher-articleLarge.jpg)
+![](Who%20Will%20Teach%20Silicon%20Valley%20to%20Be%20Ethical%2064c0547690a24dbaa5bc243b31160d1f/22swisher-articleLarge.jpg)
 
 Cristina Spanò
 
@@ -22,11 +17,11 @@ It’s probably no surprise, considering the complex problems the tech industry 
 
 As a journalist is beheaded and dismembered at the direction of Saudi Arabian leaders (allegedly, but the killers did bring a bone saw), Silicon Valley is swimming in oceans of money from the kingdom’s Public Investment Fund. Saudi funding includes hundreds of millions for Magic Leap, and huge investments in hot public companies like Tesla. Most significantly: Saudis have invested about $45 billion in SoftBank’s giant Vision Fund, which has in turn doused the tech landscape — $4.4 billion to WeWork, $250 million to Slack, and $300 million to the dog-walking app Wag. In total Uber has gotten almost $14 billion, either through direct investments from the Public Investment Fund or through the Saudis’ funding of the Vision Fund. A billion here, a billion there and it all adds up.
 
-[_Kara Swisher answered your questions about her column [on Twitter](https://twitter.com/karaswisher/status/1054842303922298880)._]
+\[*Kara Swisher answered your questions about her column [on Twitter](https://twitter.com/karaswisher/status/1054842303922298880).*\]
 
-Facebook introduced a new home video device called Portal, and promised that what could be seen as a surveillance tool would not share data for the sake of ad targeting. Soon after, as [reported by Recode](https://www.recode.net/2018/10/16/17966102/facebook-portal-ad-targeting-data-collection), Facebook admitted that “data about who you call and data about which apps you use on Portal _can_ be used to target you with ads on other Facebook-owned properties.” Oh. Um. That’s awkward.
+Facebook introduced a new home video device called Portal, and promised that what could be seen as a surveillance tool would not share data for the sake of ad targeting. Soon after, as [reported by Recode](https://www.recode.net/2018/10/16/17966102/facebook-portal-ad-targeting-data-collection), Facebook admitted that “data about who you call and data about which apps you use on Portal *can* be used to target you with ads on other Facebook-owned properties.” Oh. Um. That’s awkward.
 
-After agreeing to pay $20 million to the Securities and Exchange Commission for an ill-advised tweet about possible funding (from the Saudis, by the way), the Tesla co-founder Elon Musk proceeded to troll the regulatory agency on, you got it, Twitter. And even though the [settlement called for some kind of control of his communications](https://www.sec.gov/news/press-release/2018-226), it appears that Mr. Musk will continue tweeting until someone steals his phone.
+After agreeing to pay $20 million to the Securities and Exchange Commission for an ill-advised tweet about possible funding (from the Saudis, by the way), the Tesla co-founder Elon Musk proceeded to troll the regulatory agency on, you got it, Twitter. And even though the [settlement called for some kind of control of his communications](https://www.sec.gov/news/press-release/2018-226), it appears that Mr. Musk will continue tweeting until someone steals his phone.
 
 Finally, Google took six months to make public that user data on its social network, Google Plus, [had been exposed](https://www.nytimes.com/2018/10/08/technology/google-plus-security-disclosure.html?module=inline) and that profiles of up to 500,000 users may have been compromised. While the service failed long ago, because it was pretty much designed by antisocial people, this lack of concern for privacy was profound.
 
@@ -34,7 +29,7 @@ Grappling with what to say and do about the disasters they themselves create is 
 
 That’s why, in a recent interview, Marc Benioff, the co-chief executive and a founder of Salesforce, told me he was in the process of hiring a chief ethical officer to help anticipate and address any thorny conundrums it might encounter as a business — like the decision it had to make a few months back about whether it should stop providing recruitment software for Customs and Border Protection because of the government’s policy of separating immigrant families at the border.
 
-Amid much criticism, Mr. Benioff decided to keep the contract, but said he would focus more on social and political issues.
+Amid much criticism, Mr. Benioff decided to keep the contract, but said he would focus more on social and political issues.
 
 At a recent company event, he elaborated: “We can have a structured conversation not just with our own employees myopically, but by bringing in the key advisers, supporters and pundits and philosophers and everybody necessary to ask the question if what we are doing today is ethical and humane.”
 
@@ -52,4 +47,4 @@ And how do you put an official ethical system in place without it seeming like y
 
 Like I said, adult supervision. Or maybe, better still, Silicon Valley itself has to grow up.
 
-_Follow The New York Times Opinion section on [Facebook](https://www.facebook.com/nytopinion), [Twitter (@NYTopinion)](http://twitter.com/NYTOpinion) and [Instagram](https://www.instagram.com/nytopinion/), and sign up for the [Opinion Today newsletter](http://www.nytimes.com/newsletters/opiniontoday/)._
+*Follow The New York Times Opinion section on [Facebook](https://www.facebook.com/nytopinion), <span class="citation" data-cites="NYTopinion">\[Twitter (@NYTopinion)\]</span>(http://twitter.com/NYTOpinion) and [Instagram](https://www.instagram.com/nytopinion/), and sign up for the [Opinion Today newsletter](http://www.nytimes.com/newsletters/opiniontoday/).*

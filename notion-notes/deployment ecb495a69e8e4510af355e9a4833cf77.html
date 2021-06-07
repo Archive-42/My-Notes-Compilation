@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>deployment ecb495a69e8e4510af355e9a4833cf77</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+</head>
+<body>
+<h1 id="deployment">deployment</h1>
+<p><code>npm run build</code> creates a <code>build</code> directory with a production build of your app. Set up your favorite HTTP server so that a visitor to your site is served <code>index.html</code>, and requests to static paths like <code>/static/js/main.&lt;hash&gt;.js</code> are served with the contents of the <code>/static/js/main.&lt;hash&gt;.js</code> file. For more information see the <a href="production-build.md">production build</a> section.</p>
+<h2 id="static-server">Static Server</h2>
+<p>For environments using <a href="https://nodejs.org/">Node</a>, the easiest way to handle this would be to install <a href="https://github.com/zeit/serve">serve</a> and let it handle the rest:</p>
+<pre><code>npm install -g serveserve -s build</code></pre>
+<p>The last command shown above will serve your static site on the port <strong>5000</strong>. Like many of <a href="https://github.com/zeit/serve">serve</a>’s internal settings, the port can be adjusted using the <code>-l</code> or <code>--listen</code> flags:</p>
+<pre><code>serve -s build -l 4000</code></pre>
+<p>Run this command to get a full list of the options available:</p>
+<pre><code>serve -h</code></pre>
+<h2 id="other-solutions">Other Solutions</h2>
+<p>You don’t necessarily need a static server in order to run a Create React App project in production. It also works well when integrated into an existing server side app.</p>
+<p>Here’s a programmatic example using <a href="https://nodejs.org/">Node</a> and <a href="https://expressjs.com/">Express</a>:</p>
+<pre><code>const express = require(&#39;express&#39;);const path = require(&#39;path&#39;);const app = express();app.use(express.static(path.join(__dirname, &#39;build&#39;)));app.get(&#39;/&#39;, function (req, res) {  res.sendFile(path.join(__dirname, &#39;build&#39;, &#39;index.html&#39;));});app.listen(9000);</code></pre>
+<p>The choice of your server software isn’t important either. Since Create React App is completely platform-agnostic, there’s no need to explicitly use Node.</p>
+<p>The <code>build</code> folder with static assets is the only output produced by Create React App.</p>
+<p>However this is not quite enough if you use client-side routing. Read the next section if you want to support URLs like <code>/todos/42</code> in your single-page app.</p>
+<h2 id="serving-apps-with-client-side-routing">Serving Apps with Client-Side Routing</h2>
+<p>If you use routers that use the HTML5 <code>[pushState</code> history API](https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries) under the hood (for example, <a href="https://github.com/ReactTraining/react-router">React Router</a> with <code>browserHistory</code>), many static file servers will fail. For example, if you used React Router with a route for <code>/todos/42</code>, the development server will respond to <code>localhost:3000/todos/42</code> properly, but an Express serving a production build as above will not.</p>
+<p>This is because when there is a fresh page load for a <code>/todos/42</code>, the server looks for the file <code>build/todos/42</code> and does not find it. The server needs to be configured to respond to a request to <code>/todos/42</code> by serving <code>index.html</code>. For example, we can amend our Express example above to serve <code>index.html</code> for any unknown paths:</p>
+<pre><code> app.use(express.static(path.join(__dirname, &#39;build&#39;)));-app.get(&#39;/&#39;, function (req, res) {+app.get(&#39;/*&#39;, function (req, res) {   res.sendFile(path.join(__dirname, &#39;build&#39;, &#39;index.html&#39;)); });</code></pre>
+<p>If you’re using <a href="https://httpd.apache.org/">Apache HTTP Server</a>, you need to create a <code>.htaccess</code> file in the <code>public</code> folder that looks like this:</p>
+<pre><code>    Options -MultiViews
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.html [QSA,L]</code></pre>
+<p>It will get copied to the <code>build</code> folder when you run <code>npm run build</code>.</p>
+<p>If you’re using <a href="https://tomcat.apache.org/">Apache Tomcat</a>, you need to follow <a href="https://stackoverflow.com/a/41249464/4878474">this Stack Overflow answer</a>.</p>
+<p>Now requests to <code>/todos/42</code> will be handled correctly both in development and in production.</p>
+<p>On a production build, and when you’ve <a href="making-a-progressive-web-app.md#why-opt-in">opted-in</a>, a <a href="https://developers.google.com/web/fundamentals/primers/service-workers/">service worker</a> will automatically handle all navigation requests, like for <code>/todos/42</code>, by serving the cached copy of your <code>index.html</code>. This service worker navigation routing can be configured or disabled by <code>[eject</code>ing](available-scripts.md#npm-run-eject) and then modifying the <code>[navigateFallback](https://github.com/GoogleChrome/sw-precache#navigatefallback-string)</code> and <code>[navigateFallbackWhitelist](https://github.com/GoogleChrome/sw-precache#navigatefallbackwhitelist-arrayregexp)</code> options of the <code>SWPrecachePlugin</code> configuration.</p>
+<p>When users install your app to the homescreen of their device the default configuration will make a shortcut to <code>/index.html</code>. This may not work for client-side routers which expect the app to be served from <code>/</code>. Edit the web app manifest at <code>public/manifest.json</code> and change <code>start_url</code> to match the required URL scheme, for example:</p>
+<pre><code>  &quot;start_url&quot;: &quot;.&quot;,</code></pre>
+<h2 id="building-for-relative-paths">Building for Relative Paths</h2>
+<p>By default, Create React App produces a build assuming your app is hosted at the server root.</p>
+<p>To override this, specify the <code>homepage</code> in your <code>package.json</code>, for example:</p>
+<pre><code>  &quot;homepage&quot;: &quot;http://mywebsite.com/relativepath&quot;,</code></pre>
+<p>This will let Create React App correctly infer the root path to use in the generated HTML file.</p>
+<p><strong>Note</strong>: If you are using <code>react-router@^4</code>, you can root <code>&lt;Link&gt;</code>s using the <code>basename</code> prop on any <code>&lt;Router&gt;</code>.</p>
+<p>More information <a href="https://reacttraining.com/react-router/web/api/BrowserRouter/basename-string">here</a>.</p>
+<p>For example:</p>
+<pre><code>&lt;BrowserRouter basename=&quot;/calendar&quot;/&gt;&lt;Link to=&quot;/today&quot;/&gt; // renders &lt;a href=&quot;/calendar/today&quot;&gt;</code></pre>
+<h3 id="serving-the-same-build-from-different-paths">Serving the Same Build from Different Paths</h3>
+<blockquote>
+<p>Note: this feature is available with react-scripts@0.9.0 and higher.</p>
+</blockquote>
+<p>If you are not using the HTML5 <code>pushState</code> history API or not using client-side routing at all, it is unnecessary to specify the URL from which your app will be served. Instead, you can put this in your <code>package.json</code>:</p>
+<pre><code>  &quot;homepage&quot;: &quot;.&quot;,</code></pre>
+<p>This will make sure that all the asset paths are relative to <code>index.html</code>. You will then be able to move your app from <code>http://mywebsite.com</code> to <code>http://mywebsite.com/relativepath</code> or even <code>http://mywebsite.com/relative/path</code> without having to rebuild it.</p>
+<h2 id="customizing-environment-variables-for-arbitrary-build-environments">Customizing Environment Variables for Arbitrary Build Environments</h2>
+<p>You can create an arbitrary build environment by creating a custom <code>.env</code> file and loading it using <a href="https://www.npmjs.com/package/env-cmd">env-cmd</a>.</p>
+<p>For example, to create a build environment for a staging environment:</p>
+<ol type="1">
+<li>Create a file called <code>.env.staging</code></li>
+<li>Set environment variables as you would any other <code>.env</code> file (e.g. <code>REACT_APP_API_URL=http://api-staging.example.com</code>)</li>
+<li><p>Install <a href="https://www.npmjs.com/package/env-cmd">env-cmd</a></p>
+<pre><code>$ npm install env-cmd --save$ # or$ yarn add env-cmd</code></pre></li>
+<li><p>Add a new script to your <code>package.json</code>, building with your new environment:</p>
+<pre><code>{  &quot;scripts&quot;: {    &quot;build:staging&quot;: &quot;env-cmd -f .env.staging npm run build&quot;  }}</code></pre></li>
+</ol>
+<p>Now you can run <code>npm run build:staging</code> to build with the staging environment config. You can specify other environments in the same way.</p>
+<p>Variables in <code>.env.production</code> will be used as fallback because <code>NODE_ENV</code> will always be set to <code>production</code> for a build.</p>
+<h2 id="aws-amplify"><a href="https://console.amplify.aws/">AWS Amplify</a></h2>
+<p>The AWS Amplify Console provides continuous deployment and hosting for modern web apps (single page apps and static site generators) with serverless backends. The Amplify Console offers globally available CDNs, custom domain setup, feature branch deployments, and password protection.</p>
+<ol type="1">
+<li>Login to the Amplify Console <a href="https://console.aws.amazon.com/amplify/home">here</a>.</li>
+<li>Connect your Create React App repo and pick a branch. If you’re looking for a Create React App+Amplify starter, try the <a href="https://github.com/swaminator/create-react-app-auth-amplify">create-react-app-auth-amplify starter</a> that demonstrates setting up auth in 10 minutes with Create React App.</li>
+<li>The Amplify Console automatically detects the build settings. Choose Next.</li>
+<li>Choose <em>Save and deploy</em>.</li>
+</ol>
+<p>If the build succeeds, the app is deployed and hosted on a global CDN with an amplifyapp.com domain. You can now continuously deploy changes to your frontend or backend. Continuous deployment allows developers to deploy updates to their frontend and backend on every code commit to their Git repository.</p>
+<h2 id="azure"><a href="https://azure.microsoft.com/">Azure</a></h2>
+<p>Azure Static Web Apps creates an automated build and deploy pipeline for your React app powered by GitHub Actions. Applications are geo-distributed by default with multiple points of presence. PR’s are built automatically for staging environment previews.</p>
+<ol type="1">
+<li>Create a new Static Web App <a href="https://ms.portal.azure.com/#create/Microsoft.StaticApp">here</a>.</li>
+<li>Add in the details and connect to your GitHub repo.</li>
+<li>Make sure the build folder is set correctly on the “build” tab and create the resource.</li>
+</ol>
+<p>Azure Static Web Apps will automatically configure a GitHub Action in your repo and begin the deployment.</p>
+<p>See the <a href="https://aka.ms/swadocs">Azure Static Web Apps documentation</a> for more information on routing, APIs, authentication and authorization, custom domains and more.</p>
+<h2 id="firebase"><a href="https://firebase.google.com/">Firebase</a></h2>
+<p>Install the Firebase CLI if you haven’t already by running <code>npm install -g firebase-tools</code>. Sign up for a <a href="https://console.firebase.google.com/">Firebase account</a> and create a new project. Run <code>firebase login</code> and login with your previous created Firebase account.</p>
+<p>Then run the <code>firebase init</code> command from your project’s root. You need to choose the <strong>Hosting: Configure and deploy Firebase Hosting sites</strong> and choose the Firebase project you created in the previous step. You will need to agree with <code>database.rules.json</code> being created, choose <code>build</code> as the public directory, and also agree to <strong>Configure as a single-page app</strong> by replying with <code>y</code>.</p>
+<pre><code>    === Project Setup    First, let&#39;s associate this project directory with a Firebase project.    You can create multiple project aliases by running firebase use --add,    but for now we&#39;ll set up a default project.    ? What Firebase project do you want to associate as default? Example app (example-app-fd690)    === Database Setup    Firebase Realtime Database Rules allow you to define how your data should be    structured and when your data can be read from and written to.    ? What file should be used for Database Rules? database.rules.json    ✔  Database Rules for example-app-fd690 have been downloaded to database.rules.json.    Future modifications to database.rules.json will update Database Rules when you run    firebase deploy.    === Hosting Setup    Your public directory is the folder (relative to your project directory) that    will contain Hosting assets to uploaded with firebase deploy. If you    have a build process for your assets, use your build&#39;s output directory.    ? What do you want to use as your public directory? build    ? Configure as a single-page app (rewrite all urls to /index.html)? Yes    ✔  Wrote build/index.html    i  Writing configuration info to firebase.json...    i  Writing project information to .firebaserc...    ✔  Firebase initialization complete!</code></pre>
+<p>IMPORTANT: you need to set proper HTTP caching headers for <code>service-worker.js</code> file in <code>firebase.json</code> file or you will not be able to see changes after first deployment (<a href="https://github.com/facebook/create-react-app/issues/2440">issue #2440</a>). It should be added inside <code>"hosting"</code> key like next:</p>
+<pre><code>{  &quot;hosting&quot;: {    ...    &quot;headers&quot;: [      {&quot;source&quot;: &quot;/service-worker.js&quot;, &quot;headers&quot;: [{&quot;key&quot;: &quot;Cache-Control&quot;, &quot;value&quot;: &quot;no-cache&quot;}]}    ]    ...</code></pre>
+<p>Now, after you create a production build with <code>npm run build</code>, you can deploy it by running <code>firebase deploy</code>.</p>
+<pre><code>    === Deploying to &#39;example-app-fd690&#39;...    i  deploying database, hosting    ✔  database: rules ready to deploy.    i  hosting: preparing build directory for upload...    Uploading: [==============================          ] 75%✔  hosting: build folder uploaded successfully    ✔  hosting: 8 files uploaded successfully    i  starting release process (may take several minutes)...    ✔  Deploy complete!    Project Console: https://console.firebase.google.com/project/example-app-fd690/overview    Hosting URL: https://example-app-fd690.firebaseapp.com</code></pre>
+<p>For more information see <a href="https://firebase.google.com/docs/hosting">Firebase Hosting</a>.</p>
+<h2 id="github-pages"><a href="https://pages.github.com/">GitHub Pages</a></h2>
+<blockquote>
+<p>Note: this feature is available with react-scripts@0.2.0 and higher.</p>
+</blockquote>
+<h3 id="step-1-add-homepage-to-package.json">Step 1: Add <code>homepage</code> to <code>package.json</code></h3>
+<p><strong>The step below is important!</strong></p>
+<p><strong>If you skip it, your app will not deploy correctly.</strong></p>
+<p>Open your <code>package.json</code> and add a <code>homepage</code> field for your project:</p>
+<pre><code>  &quot;homepage&quot;: &quot;https://myusername.github.io/my-app&quot;,</code></pre>
+<p>or for a GitHub user page:</p>
+<pre><code>  &quot;homepage&quot;: &quot;https://myusername.github.io&quot;,</code></pre>
+<p>or for a custom domain page:</p>
+<pre><code>  &quot;homepage&quot;: &quot;https://mywebsite.com&quot;,</code></pre>
+<p>Create React App uses the <code>homepage</code> field to determine the root URL in the built HTML file.</p>
+<h3 id="step-2-install-gh-pages-and-add-deploy-to-scripts-in-package.json">Step 2: Install <code>gh-pages</code> and add <code>deploy</code> to <code>scripts</code> in <code>package.json</code></h3>
+<p>Now, whenever you run <code>npm run build</code>, you will see a cheat sheet with instructions on how to deploy to GitHub Pages.</p>
+<p>To publish it at <a href="https://myusername.github.io/my-app">https://myusername.github.io/my-app</a>, run:</p>
+<pre><code>npm install --save gh-pages</code></pre>
+<p>Alternatively you may use <code>yarn</code>:</p>
+<pre><code>yarn add gh-pages</code></pre>
+<p>Add the following scripts in your <code>package.json</code>:</p>
+<pre><code>  &quot;scripts&quot;: {+   &quot;predeploy&quot;: &quot;npm run build&quot;,+   &quot;deploy&quot;: &quot;gh-pages -d build&quot;,    &quot;start&quot;: &quot;react-scripts start&quot;,    &quot;build&quot;: &quot;react-scripts build&quot;,</code></pre>
+<p>The <code>predeploy</code> script will run automatically before <code>deploy</code> is run.</p>
+<p>If you are deploying to a GitHub user page instead of a project page you’ll need to make one additional modification:</p>
+<ol type="1">
+<li>Tweak your <code>package.json</code> scripts to push deployments to <strong>master</strong>:</li>
+</ol>
+<pre><code>  &quot;scripts&quot;: {    &quot;predeploy&quot;: &quot;npm run build&quot;,-   &quot;deploy&quot;: &quot;gh-pages -d build&quot;,+   &quot;deploy&quot;: &quot;gh-pages -b master -d build&quot;,</code></pre>
+<h3 id="step-3-deploy-the-site-by-running-npm-run-deploy">Step 3: Deploy the site by running <code>npm run deploy</code></h3>
+<p>Then run:</p>
+<pre><code>npm run deploy</code></pre>
+<h3 id="step-4-for-a-project-page-ensure-your-projects-settings-use-gh-pages">Step 4: For a project page, ensure your project’s settings use <code>gh-pages</code></h3>
+<p>Finally, make sure <strong>GitHub Pages</strong> option in your GitHub project settings is set to use the <code>gh-pages</code> branch:</p>
+<figure>
+<img src="https://i.imgur.com/HUjEr9l.png" alt="https://i.imgur.com/HUjEr9l.png" /><figcaption>https://i.imgur.com/HUjEr9l.png</figcaption>
+</figure>
+<h3 id="step-5-optionally-configure-the-domain">Step 5: Optionally, configure the domain</h3>
+<p>You can configure a custom domain with GitHub Pages by adding a <code>CNAME</code> file to the <code>public/</code> folder.</p>
+<p>Your CNAME file should look like this:</p>
+<pre><code>mywebsite.com</code></pre>
+<h3 id="notes-on-client-side-routing">Notes on client-side routing</h3>
+<p>GitHub Pages doesn’t support routers that use the HTML5 <code>pushState</code> history API under the hood (for example, React Router using <code>browserHistory</code>). This is because when there is a fresh page load for a url like <code>http://user.github.io/todomvc/todos/42</code>, where <code>/todos/42</code> is a frontend route, the GitHub Pages server returns 404 because it knows nothing of <code>/todos/42</code>. If you want to add a router to a project hosted on GitHub Pages, here are a couple of solutions:</p>
+<ul>
+<li>You could switch from using HTML5 history API to routing with hashes. If you use React Router, you can switch to <code>hashHistory</code> for this effect, but the URL will be longer and more verbose (for example, <code>http://user.github.io/todomvc/#/todos/42?_k=yknaj</code>). <a href="https://reacttraining.com/react-router/web/api/Router">Read more</a> about different history implementations in React Router.</li>
+<li>Alternatively, you can use a trick to teach GitHub Pages to handle 404s by redirecting to your <code>index.html</code> page with a custom redirect parameter. You would need to add a <code>404.html</code> file with the redirection code to the <code>build</code> folder before deploying your project, and you’ll need to add code handling the redirect parameter to <code>index.html</code>. You can find a detailed explanation of this technique <a href="https://github.com/rafrex/spa-github-pages">in this guide</a>.</li>
+</ul>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<h3 id="devtty-no-such-a-device-or-address">“/dev/tty: No such a device or address”</h3>
+<p>If, when deploying, you get <code>/dev/tty: No such a device or address</code> or a similar error, try the following:</p>
+<ol type="1">
+<li>Create a new <a href="https://github.com/settings/tokens">Personal Access Token</a></li>
+<li><code>git remote set-url origin https://&lt;user&gt;:&lt;token&gt;@github.com/&lt;user&gt;/&lt;repo&gt;</code> .</li>
+<li>Try <code>npm run deploy</code> again</li>
+</ol>
+<h3 id="cannot-read-property-email-of-null">“Cannot read property ‘email’ of null”</h3>
+<p>If, when deploying, you get <code>Cannot read property 'email' of null</code>, try the following:</p>
+<ol type="1">
+<li><code>git config --global user.name '&lt;your_name&gt;'</code></li>
+<li><code>git config --global user.email '&lt;your_email&gt;'</code></li>
+<li>Try <code>npm run deploy</code> again</li>
+</ol>
+<h2 id="heroku"><a href="https://www.heroku.com/">Heroku</a></h2>
+<p>Use the <a href="https://github.com/mars/create-react-app-buildpack">Heroku Buildpack for Create React App</a>.</p>
+<p>You can find instructions in <a href="https://blog.heroku.com/deploying-react-with-zero-configuration">Deploying React with Zero Configuration</a>.</p>
+<h3 id="resolving-heroku-deployment-errors">Resolving Heroku Deployment Errors</h3>
+<p>Sometimes <code>npm run build</code> works locally but fails during deploy via Heroku. Following are the most common cases.</p>
+<h3 id="module-not-found-error-cannot-resolve-file-or-directory">“Module not found: Error: Cannot resolve ‘file’ or ‘directory’”</h3>
+<p>If you get something like this:</p>
+<pre><code>remote: Failed to create a production build. Reason:
+remote: Module not found: Error: Cannot resolve &#39;file&#39; or &#39;directory&#39;
+MyDirectory in /tmp/build_1234/src</code></pre>
+<p>It means you need to ensure that the lettercase of the file or directory you <code>import</code> matches the one you see on your filesystem or on GitHub.</p>
+<p>This is important because Linux (the operating system used by Heroku) is case sensitive. So <code>MyDirectory</code> and <code>mydirectory</code> are two distinct directories and thus, even though the project builds locally, the difference in case breaks the <code>import</code> statements on Heroku remotes.</p>
+<h3 id="could-not-find-a-required-file.">“Could not find a required file.”</h3>
+<p>If you exclude or ignore necessary files from the package you will see a error similar this one:</p>
+<pre><code>remote: Could not find a required file.
+remote:   Name: `index.html`
+remote:   Searched in: /tmp/build_a2875fc163b209225122d68916f1d4df/public
+remote:
+remote: npm ERR! Linux 3.13.0-105-generic
+remote: npm ERR! argv &quot;/tmp/build_a2875fc163b209225122d68916f1d4df/.heroku/node/bin/node&quot; &quot;/tmp/build_a2875fc163b209225122d68916f1d4df/.heroku/node/bin/npm&quot; &quot;run&quot; &quot;build&quot;</code></pre>
+<p>In this case, ensure that the file is there with the proper lettercase and that’s not ignored on your local <code>.gitignore</code> or <code>~/.gitignore_global</code>.</p>
+<h2 id="netlify"><a href="https://www.netlify.com/">Netlify</a></h2>
+<p><strong>To do a manual deploy to Netlify’s CDN:</strong></p>
+<pre><code>npm install netlify-cli -gnetlify deploy</code></pre>
+<p>Choose <code>build</code> as the path to deploy.</p>
+<p><strong>To setup continuous delivery:</strong></p>
+<p>With this setup Netlify will build and deploy when you push to git or open a pull request:</p>
+<ol type="1">
+<li><a href="https://app.netlify.com/signup">Start a new netlify project</a></li>
+<li>Pick your Git hosting service and select your repository</li>
+<li>Click <code>Build your site</code></li>
+</ol>
+<p><strong>Support for client-side routing:</strong></p>
+<p>To support <code>pushState</code>, make sure to create a <code>public/_redirects</code> file with the following rewrite rules:</p>
+<pre><code>/*  /index.html  200</code></pre>
+<p>When you build the project, Create React App will place the <code>public</code> folder contents into the build output.</p>
+<h2 id="vercel"><a href="https://vercel.com/">Vercel</a></h2>
+<p><a href="https://vercel.com/home">Vercel</a> is a cloud platform that enables developers to host Jamstack websites and web services that deploy instantly, scale automatically, and requires no supervision, all with zero configuration. They provide a global edge network, SSL encryption, asset compression, cache invalidation, and more.</p>
+<h3 id="step-1-deploying-your-react-project-to-vercel">Step 1: Deploying your React project to Vercel</h3>
+<p>To deploy your React project with a <a href="https://vercel.com/docs/git-integrations">Vercel for Git Integration</a>, make sure it has been pushed to a Git repository.</p>
+<p>Import the project into Vercel using the <a href="https://vercel.com/import/git">Import Flow</a>. During the import, you will find all relevant <a href="https://vercel.com/docs/build-step#build-&amp;-development-settings">options</a> preconfigured for you with the ability to change as needed.</p>
+<p>After your project has been imported, all subsequent pushes to branches will generate <a href="https://vercel.com/docs/platform/deployments#preview">Preview Deployments</a>, and all changes made to the <a href="https://vercel.com/docs/git-integrations#production-branch">Production Branch</a> (commonly “master” or “main”) will result in a <a href="https://vercel.com/docs/platform/deployments#production">Production Deployment</a>.</p>
+<p>Once deployed, you will get a URL to see your app live, such as the following: https://create-react-app-example.vercel.app/.</p>
+<h3 id="step-2-optional-using-a-custom-domain">Step 2 (optional): Using a Custom Domain</h3>
+<p>If you want to use a Custom Domain with your Vercel deployment, you can <strong>Add</strong> or <strong>Transfer in</strong> your domain via your Vercel <a href="https://vercel.com/dashboard/domains">account Domain settings.</a></p>
+<p>To add your domain to your project, navigate to your <a href="https://vercel.com/docs/platform/projects">Project</a> from the Vercel Dashboard. Once you have selected your project, click on the “Settings” tab, then select the <strong>Domains</strong> menu item. From your projects <strong>Domain</strong> page, enter the domain you wish to add to your project.</p>
+<p>Once the domain as been added, you will be presented with different methods for configuring it.</p>
+<h3 id="deploying-a-fresh-react-project">Deploying a fresh React project</h3>
+<p>You can deploy a fresh React project, with a Git repository set up for you, with the following Deploy Button:</p>
+<p><a href="https://vercel.com/button">https://vercel.com/button</a></p>
+<h3 id="vercel-references">Vercel References:</h3>
+<ul>
+<li><a href="https://github.com/vercel/vercel/tree/master/examples/create-react-app">Example Source</a></li>
+<li><a href="https://vercel.com/guides/deploying-react-with-vercel-cra">Official Vercel Guide</a></li>
+<li><a href="https://vercel.com/docs">Vercel Deployment Docs</a></li>
+<li><a href="https://vercel.com/docs/custom-domains">Vercel Custom Domain Docs</a></li>
+</ul>
+<h2 id="render"><a href="https://render.com/">Render</a></h2>
+<p>Render offers free <a href="https://render.com/docs/static-sites">static site</a> hosting with fully managed SSL, a global CDN and continuous auto deploys from GitHub.</p>
+<p>Deploy your app in only a few minutes by following the <a href="https://render.com/docs/deploy-create-react-app">Create React App deployment guide</a>.</p>
+<p>Use invite code <code>cra</code> to sign up or use <a href="https://render.com/i/cra">this link</a>.</p>
+<h2 id="s3-and-cloudfront"><a href="https://aws.amazon.com/s3">S3</a> and <a href="https://aws.amazon.com/cloudfront/">CloudFront</a></h2>
+<p>See this <a href="https://medium.com/@omgwtfmarc/deploying-create-react-app-to-s3-or-cloudfront-48dae4ce0af">blog post</a> on how to deploy your React app to Amazon Web Services S3 and CloudFront. If you are looking to add a custom domain, HTTPS and continuous deployment see this <a href="https://medium.com/dailyjs/a-guide-to-deploying-your-react-app-with-aws-s3-including-https-a-custom-domain-a-cdn-and-58245251f081">blog post</a>.</p>
+<h2 id="surge"><a href="https://surge.sh/">Surge</a></h2>
+<p>Install the Surge CLI if you haven’t already by running <code>npm install -g surge</code>. Run the <code>surge</code> command and log in you or create a new account.</p>
+<p>When asked about the project path, make sure to specify the <code>build</code> folder, for example:</p>
+<pre><code>       project path: /path/to/project/build</code></pre>
+<p>Note that in order to support routers that use HTML5 <code>pushState</code> API, you may want to rename the <code>index.html</code> in your build folder to <code>200.html</code> before deploying to Surge. This <a href="https://surge.sh/help/adding-a-200-page-for-client-side-routing">ensures that every URL falls back to that file</a>.</p>
+<h2 id="publishing-components-to-npm">Publishing Components To npm</h2>
+<p>Create React App doesn’t provide any built-in functionality to publish a component to npm. If you’re ready to extract a component from your project so other people can use it, we recommend moving it to a separate directory outside of your project and then using a tool like <a href="https://github.com/insin/nwb#react-components-and-libraries">nwb</a> to prepare it for publishing.</p>
+</body>
+</html>

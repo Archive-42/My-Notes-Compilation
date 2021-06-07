@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>loading-graphql-files e019c8c1f62847dfb855a5a7296f9ec8</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+</head>
+<body>
+<h1 id="loading-graphql-files">loading-graphql-files</h1>
+<p>To load <code>.gql</code> and <code>.graphql</code> files, first install the <code>[graphql](https://www.npmjs.com/package/graphql)</code> and <code>[graphql.macro](https://www.npmjs.com/package/graphql.macro)</code> packages by running:</p>
+<pre><code>npm install --save graphql graphql.macro</code></pre>
+<p>Alternatively you may use <code>yarn</code>:</p>
+<pre><code>yarn add graphql graphql.macro</code></pre>
+<p>Then, whenever you want to load <code>.gql</code> or <code>.graphql</code> files, import the <code>loader</code> from the macro package:</p>
+<pre><code>import { loader } from &#39;graphql.macro&#39;;const query = loader(&#39;./foo.graphql&#39;);</code></pre>
+<p>And your results get automatically inlined! This means that if the file above, <code>foo.graphql</code>, contains the following:</p>
+<pre><code>query {
+  hello {
+    world
+  }
+}</code></pre>
+<p>The previous example turns into:</p>
+<pre><code>const query = {  &#39;kind&#39;: &#39;Document&#39;,  &#39;definitions&#39;: [{    ...  }],  &#39;loc&#39;: {    ...    &#39;source&#39;: {      &#39;body&#39;: &#39;\\\\n  query {\\\\n    hello {\\\\n      world\\\\n    }\\\\n  }\\\\n&#39;,      &#39;name&#39;: &#39;GraphQL request&#39;,      ...    }  }};</code></pre>
+<p>You can also use the <code>gql</code> template tag the same way you would use the non-macro version from <code>graphql-tag</code> package with the added benefit of inlined parsing results.</p>
+<pre><code>import { gql } from &#39;graphql.macro&#39;;const query = gql`  query User {    user(id: 5) {      lastName      ...UserEntry1    }  }`;</code></pre>
+</body>
+</html>

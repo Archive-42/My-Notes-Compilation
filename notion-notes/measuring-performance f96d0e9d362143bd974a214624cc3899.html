@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>measuring-performance f96d0e9d362143bd974a214624cc3899</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+</head>
+<body>
+<h1 id="measuring-performance">measuring-performance</h1>
+<p>By default, Create React App includes a performance relayer that allows you to measure and analyze the performance of your application using different metrics.</p>
+<p>To measure any of the supported metrics, you only need to pass a function into the <code>reportWebVitals</code> function in <code>index.js</code>:</p>
+<pre><code>reportWebVitals(console.log);</code></pre>
+<p>This function is fired when the final values for any of the metrics have finished calculating on the page. You can use it to log any of the results to the console or send to a particular endpoint.</p>
+<h2 id="web-vitals">Web Vitals</h2>
+<p><a href="https://web.dev/vitals/">Web Vitals</a> are a set of useful metrics that aim to capture the user experience of a web page. In Create React App, a third-party library is used to measure these metrics (<a href="https://github.com/GoogleChrome/web-vitals">web-vitals</a>).</p>
+<p>To understand more about the object returned to the function when a metric value is calculated, refer to the <a href="https://github.com/GoogleChrome/web-vitals/#types">documentation</a>. The <a href="https://github.com/GoogleChrome/web-vitals/#browser-support">Browser Support</a> section also explains which browsers are supported.</p>
+<h2 id="sending-results-to-analytics">Sending results to analytics</h2>
+<p>With the <code>reportWebVitals</code> function, you can send any of results to an analytics endpoint to measure and track real user performance on your site. For example:</p>
+<pre><code>function sendToAnalytics(metric) {  const body = JSON.stringify(metric);  const url = &#39;https://example.com/analytics&#39;;  // Use `navigator.sendBeacon()` if available, falling back to `fetch()`  if (navigator.sendBeacon) {    navigator.sendBeacon(url, body);  } else {    fetch(url, { body, method: &#39;POST&#39;, keepalive: true });  }}reportWebVitals(sendToAnalytics);</code></pre>
+<blockquote>
+<p>Note: If you use Google Analytics, use the id value to make it easier to construct metric distributions manually (to calculate percentiles, etc…).function sendToAnalytics({ id, name, value }) { ga(‘send’, ‘event’, { eventCategory: ‘Web Vitals’, eventAction: name, eventValue: Math.round(name === ‘CLS’ ? value * 1000 : value), // values must be integers eventLabel: id, // id unique to current page load nonInteraction: true, // avoids affecting bounce rate });}reportWebVitals(sendToAnalytics);Read more about sending results to Google Analytics here.</p>
+</blockquote>
+</body>
+</html>

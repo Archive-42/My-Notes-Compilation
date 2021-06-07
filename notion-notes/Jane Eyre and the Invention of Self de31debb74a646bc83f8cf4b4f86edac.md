@@ -1,14 +1,9 @@
-# Jane Eyre and the Invention of Self
+Jane Eyre and the Invention of Self
+===================================
 
-Author: Karen Swallow Prior
-Link: https://www.theatlantic.com/entertainment/archive/2016/03/how-jane-eyre-created-the-modern-self/460461/
-Publisher: The Atlantic
-Publishing/Release Date: Oct 3, 2016
-Score /5: ⭐️⭐️
-Status: Reading
-Type: Essay Resource
+Author: Karen Swallow Prior Link: https://www.theatlantic.com/entertainment/archive/2016/03/how-jane-eyre-created-the-modern-self/460461/ Publisher: The Atlantic Publishing/Release Date: Oct 3, 2016 Score /5: ⭐️⭐️ Status: Reading Type: Essay Resource
 
-![Jane%20Eyre%20and%20the%20Invention%20of%20Self%20de31debb74a646bc83f8cf4b4f86edac/Untitled.png](Jane%20Eyre%20and%20the%20Invention%20of%20Self%20de31debb74a646bc83f8cf4b4f86edac/Untitled.png)
+![](Jane%20Eyre%20and%20the%20Invention%20of%20Self%20de31debb74a646bc83f8cf4b4f86edac/Untitled.png)
 
 The actress Joan Fontaine as Jane Eyre in the 1943 film 20TH CENTURY FOX
 
@@ -34,6 +29,6 @@ But Jane’s resistance is not the empty rebellion of nihilism or self-absorptio
 
 > Conventionality is not morality. Self-righteousness is not religion. To attack the first is not to assail the last … These things and deeds are diametrically opposed: they are as distinct as is vice from virtue. Men too often confound them: they should not be confounded: appearance should not be mistaken for truth; narrow human doctrines, that only tend to elate and magnify a few, should not be substituted for the world.
 
-In a [letter](https://books.google.com/books?id=ESH22a2yaWoC&pg=PA118&lpg=PA118&dq=Unless+I+have+the+courage+to+use+the+language+of+Truth+in+preference+to+the+jargon+of+Conventionality,+I+ought+to+be+silent+%E2%80%A6.%E2%80%9D&source=bl&ots=Qh_xHA_GrR&sig=b_HT0kFcgyC1YvH_pgHLp5Q_I6I&hl=en&sa=X&ved=0ahUKEwjt47WCj-HKAhUBeT4KHctWASoQ6AEIOTAI#v=onepage&q=Unless%20I%20have%20the%20courage%20to%20use%20the%20language%20of%20Truth%20in%20preference%20to%20the%20jargon%20of%20Conventionality%2C%20I%20ought%20to%20be%20silent%20%E2%80%A6.%E2%80%9D&f=false) to a friend, Bronte responded to her critics’ objections by declaring, “Unless I have the courage to use the language of Truth in preference to the jargon of Conventionality, I ought to be silent ...”
+In a [letter](https://books.google.com/books?id=ESH22a2yaWoC&pg=PA118&lpg=PA118&dq=Unless+I+have+the+courage+to+use+the+language+of+Truth+in+preference+to+the+jargon+of+Conventionality,+I+ought+to+be+silent+%E2%80%A6.%E2%80%9D&source=bl&ots=Qh_xHA_GrR&sig=b_HT0kFcgyC1YvH_pgHLp5Q_I6I&hl=en&sa=X&ved=0ahUKEwjt47WCj-HKAhUBeT4KHctWASoQ6AEIOTAI#v=onepage&q=Unless%20I%20have%20the%20courage%20to%20use%20the%20language%20of%20Truth%20in%20preference%20to%20the%20jargon%20of%20Conventionality%2C%20I%20ought%20to%20be%20silent%20%E2%80%A6.%E2%80%9D&f=false) to a friend, Bronte responded to her critics’ objections by declaring, “Unless I have the courage to use the language of Truth in preference to the jargon of Conventionality, I ought to be silent …”
 
 The refusal of such a woman, who lived in such a time, to be silent created a new mold for the self—one apparent not only in today’s Instagram photos, but also more importantly in the collective modern sense that a person’s inner life can allow her to effect change from the inside out.

@@ -1,9 +1,10 @@
-# updating-to-new-releases
+updating-to-new-releases
+========================
 
 Create React App is divided into two packages:
 
-- `create-react-app` is a global command-line utility that you use to create new projects.
-- `react-scripts` is a development dependency in the generated projects (including this one).
+-   `create-react-app` is a global command-line utility that you use to create new projects.
+-   `react-scripts` is a development dependency in the generated projects (including this one).
 
 When you run `npx create-react-app my-app` it automatically installs the latest version of Create React App.
 

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>git-api-resources</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+</head>
+<body>
+<h1 id="git-api-resources">Git API Resources</h1>
+<h2 id="resources-in-the-rest-api">Resources in the REST API</h2>
+<p>Learn how to navigate the resources provided by the GitHub API.</p>
+<h3 id="in-this-article"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#in-this-article">In this article</a> <a id="in-this-article"></a></h3>
+<ul>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#current-version">Current version</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#schema">Schema</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#authentication">Authentication</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#parameters">Parameters</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#root-endpoint">Root endpoint</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#graphql-global-node-ids">GraphQL global node IDs</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#client-errors">Client errors</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#http-redirects">HTTP redirects</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#http-verbs">HTTP verbs</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#hypermedia">Hypermedia</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#pagination">Pagination</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting">Rate limiting</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required">User agent required</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#conditional-requests">Conditional requests</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#cross-origin-resource-sharing">Cross origin resource sharing</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#json-p-callbacks">JSON-P callbacks</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#timezones">Timezones</a></li>
+</ul>
+<p>This describes the resources that make up the official GitHub REST API. If you have any problems or requests, please contact <a href="https://support.github.com/contact">GitHub Support</a> or <a href="https://premium.githubsupport.com/">GitHub Premium Support</a>.</p>
+<h4 id="current-version"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#current-version">Current version</a> <a id="current-version"></a></h4>
+<p>By default, all requests to <code>https://api.github.com</code> receive the <strong>v3</strong> <a href="https://docs.github.com/en/developers/overview/about-githubs-apis">version</a> of the REST API. We encourage you to <a href="https://docs.github.com/en/rest/overview/media-types#request-specific-version">explicitly request this version via the <code>Accept</code> header</a>.</p>
+<pre class="text"><code>Accept: application/vnd.github.v3+json</code></pre>
+<p>For information about GitHub’s GraphQL API, see the <a href="https://docs.github.com/en/graphql">v4 documentation</a>. For information about migrating to GraphQL, see “<a href="https://docs.github.com/en/graphql/guides/migrating-from-rest-to-graphql">Migrating from REST</a>.”</p>
+<h4 id="schema"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#schema">Schema</a> <a id="schema"></a></h4>
+<p>All API access is over HTTPS, and accessed from <code>https://api.github.com</code>. All data is sent and received as JSON.</p>
+<pre class="text"><code>$ curl -I https://api.github.com/users/octocat/orgs
+
+&gt; HTTP/1.1 200 OK
+&gt; Server: nginx
+&gt; Date: Fri, 12 Oct 2012 23:33:14 GMT
+&gt; Content-Type: application/json; charset=utf-8
+&gt; Status: 200 OK
+&gt; ETag: &quot;a00049ba79152d03380c34652f2cb612&quot;
+&gt; X-GitHub-Media-Type: github.v3
+&gt; X-RateLimit-Limit: 5000
+&gt; X-RateLimit-Remaining: 4987
+&gt; X-RateLimit-Reset: 1350085394
+&gt; Content-Length: 5
+&gt; Cache-Control: max-age=0, private, must-revalidate
+&gt; X-Content-Type-Options: nosniff</code></pre>
+<p>Blank fields are included as <code>null</code> instead of being omitted.</p>
+<p>All timestamps return in ISO 8601 format:</p>
+<pre class="text"><code>YYYY-MM-DDTHH:MM:SSZ</code></pre>
+<p>For more information about timezones in timestamps, see <a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#timezones">this section</a>.</p>
+<p><strong>Summary representations</strong></p>
+<p>When you fetch a list of resources, the response includes a <em>subset</em> of the attributes for that resource. This is the “summary” representation of the resource. (Some attributes are computationally expensive for the API to provide. For performance reasons, the summary representation excludes those attributes. To obtain those attributes, fetch the “detailed” representation.)</p>
+<p><strong>Example</strong>: When you get a list of repositories, you get the summary representation of each repository. Here, we fetch the list of repositories owned by the <a href="https://github.com/octokit">octokit</a> organization:</p>
+<pre class="text"><code>GET /orgs/octokit/repos</code></pre>
+<p><strong>Detailed representations</strong></p>
+<p>When you fetch an individual resource, the response typically includes <em>all</em> attributes for that resource. This is the “detailed” representation of the resource. (Note that authorization sometimes influences the amount of detail included in the representation.)</p>
+<p><strong>Example</strong>: When you get an individual repository, you get the detailed representation of the repository. Here, we fetch the <a href="https://github.com/octokit/octokit.rb">octokit/octokit.rb</a> repository:</p>
+<pre class="text"><code>GET /repos/octokit/octokit.rb</code></pre>
+<p>The documentation provides an example response for each API method. The example response illustrates all attributes that are returned by that method.</p>
+<h4 id="authentication"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#authentication">Authentication</a> <a id="authentication"></a></h4>
+<p>There are two ways to authenticate through GitHub REST API. Requests that require authentication will return <code>404 Not Found</code>, instead of <code>403 Forbidden</code>, in some places. This is to prevent the accidental leakage of private repositories to unauthorized users.</p>
+<p><strong>Basic authentication</strong></p>
+<pre class="text"><code>$ curl -u &quot;username&quot; https://api.github.com</code></pre>
+<p><strong>OAuth2 token (sent in a header)</strong></p>
+<pre class="text"><code>$ curl -H &quot;Authorization: token OAUTH-TOKEN&quot; https://api.github.com</code></pre>
+<p>Note: GitHub recommends sending OAuth tokens using the Authorization header.</p>
+<p>Read <a href="https://docs.github.com/en/apps/building-oauth-apps">more about OAuth2</a>. Note that OAuth2 tokens can be acquired using the <a href="https://docs.github.com/en/developers/apps/authorizing-oauth-apps#web-application-flow">web application flow</a> for production applications.</p>
+<p><strong>OAuth2 key/secret</strong></p>
+<p><strong>Deprecation Notice:</strong> GitHub will discontinue authentication to the API using query parameters. Authenticating to the API should be done with <a href="https://docs.github.com/en/rest/overview/other-authentication-methods#via-oauth-and-personal-access-tokens">HTTP basic authentication</a>. Using query parameters to authenticate to the API will no longer work on May 5, 2021. For more information, including scheduled brownouts, see the <a href="https://developer.github.com/changes/2020-02-10-deprecating-auth-through-query-param/">blog post</a>.</p>
+<pre class="text"><code>curl -u my_client_id:my_client_secret &#39;https://api.github.com/user/repos&#39;</code></pre>
+<p>Using your <code>client_id</code> and <code>client_secret</code> does <em>not</em> authenticate as a user, it will only identify your OAuth application to increase your rate limit. Permissions are only granted to users, not applications, and you will only get back data that an unauthenticated user would see. For this reason, you should only use the OAuth2 key/secret in server-to-server scenarios. Don’t leak your OAuth application’s client secret to your users.</p>
+<p>You will be unable to authenticate using your OAuth2 key and secret while in private mode, and trying to authenticate will return <code>401 Unauthorized</code>. For more information, see “<a href="https://docs.github.com/en/enterprise-server@3.0/admin/installation/enabling-private-mode">Enabling private mode</a>”.</p>
+<p>Read <a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#increasing-the-unauthenticated-rate-limit-for-oauth-applications">more about unauthenticated rate limiting</a>.</p>
+<p><strong>Failed login limit</strong></p>
+<p>Authenticating with invalid credentials will return <code>401 Unauthorized</code>:</p>
+<pre class="text"><code>$ curl -I https://api.github.com -u foo:bar
+&gt; HTTP/1.1 401 Unauthorized
+
+&gt; {
+&gt;   &quot;message&quot;: &quot;Bad credentials&quot;,
+&gt;   &quot;documentation_url&quot;: &quot;https://docs.github.com/rest&quot;
+&gt; }</code></pre>
+<p>After detecting several requests with invalid credentials within a short period, the API will temporarily reject all authentication attempts for that user (including ones with valid credentials) with <code>403 Forbidden</code>:</p>
+<pre class="text"><code>$ curl -i https://api.github.com -u
+-u valid_username:valid_token
+&gt; HTTP/1.1 403 Forbidden
+&gt; {
+&gt;   &quot;message&quot;: &quot;Maximum number of login attempts exceeded. Please try again later.&quot;,
+&gt;   &quot;documentation_url&quot;: &quot;https://docs.github.com/rest&quot;
+&gt; }</code></pre>
+<h4 id="parameters"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#parameters">Parameters</a> <a id="parameters"></a></h4>
+<p>Many API methods take optional parameters. For <code>GET</code> requests, any parameters not specified as a segment in the path can be passed as an HTTP query string parameter:</p>
+<pre class="text"><code>$ curl -i &quot;https://api.github.com/repos/vmg/redcarpet/issues?state=closed&quot;</code></pre>
+<p>In this example, the ‘vmg’ and ‘redcarpet’ values are provided for the <code>:owner</code> and <code>:repo</code> parameters in the path while <code>:state</code> is passed in the query string.</p>
+<p>For <code>POST</code>, <code>PATCH</code>, <code>PUT</code>, and <code>DELETE</code> requests, parameters not included in the URL should be encoded as JSON with a Content-Type of ‘application/json’:</p>
+<pre class="text"><code>$ curl -i -u username -d &#39;{&quot;scopes&quot;:[&quot;repo_deployment&quot;]}&#39; https://api.github.com/authorizations</code></pre>
+<h4 id="root-endpoint"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#root-endpoint">Root endpoint</a> <a id="root-endpoint"></a></h4>
+<p>You can issue a <code>GET</code> request to the root endpoint to get all the endpoint categories that the REST API supports:</p>
+<pre class="text"><code>$ curl
+-u username:token https://api.github.com</code></pre>
+<h4 id="graphql-global-node-ids"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#graphql-global-node-ids">GraphQL global node IDs</a> <a id="graphql-global-node-ids"></a></h4>
+<p>See the guide on “<a href="https://docs.github.com/en/graphql/guides/using-global-node-ids">Using Global Node IDs</a>” for detailed information about how to find <code>node_id</code>s via the REST API and use them in GraphQL operations.</p>
+<h4 id="client-errors"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#client-errors">Client errors</a> <a id="client-errors"></a></h4>
+<p>There are three possible types of client errors on API calls that receive request bodies:</p>
+<ol type="1">
+<li><p>Sending invalid JSON will result in a <code>400 Bad Request</code> response.</p>
+<pre class="text"><code>HTTP/1.1 400 Bad Request
+Content-Length: 35
+
+{&quot;message&quot;:&quot;Problems parsing JSON&quot;}</code></pre></li>
+<li><p>Sending the wrong type of JSON values will result in a <code>400 Bad Request</code> response.</p>
+<pre class="text"><code> HTTP/1.1 400 Bad Request
+ Content-Length: 40
+
+ {&quot;message&quot;:&quot;Body should be a JSON object&quot;}</code></pre></li>
+<li><p>Sending invalid fields will result in a <code>422 Unprocessable Entity</code> response.</p>
+<pre class="text"><code> HTTP/1.1 422 Unprocessable Entity
+ Content-Length: 149
+
+ {
+   &quot;message&quot;: &quot;Validation Failed&quot;,
+   &quot;errors&quot;: [
+     {
+       &quot;resource&quot;: &quot;Issue&quot;,
+       &quot;field&quot;: &quot;title&quot;,
+       &quot;code&quot;: &quot;missing_field&quot;
+     }
+   ]
+ }</code></pre></li>
+</ol>
+<p>All error objects have resource and field properties so that your client can tell what the problem is. There’s also an error code to let you know what is wrong with the field. These are the possible validation error codes:</p>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 89%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Error code name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>missing</code></td>
+<td style="text-align: left;">A resource does not exist.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>missing_field</code></td>
+<td style="text-align: left;">A required field on a resource has not been set.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>invalid</code></td>
+<td style="text-align: left;">The formatting of a field is invalid. Review the documentation for more specific information.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>already_exists</code></td>
+<td style="text-align: left;">Another resource has the same value as this field. This can happen in resources that must have some unique key (such as label names).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>unprocessable</code></td>
+<td style="text-align: left;">The inputs provided were invalid.</td>
+</tr>
+</tbody>
+</table>
+<p>Resources may also send custom validation errors (where <code>code</code> is <code>custom</code>). Custom errors will always have a <code>message</code> field describing the error, and most errors will also include a <code>documentation_url</code> field pointing to some content that might help you resolve the error.</p>
+<h4 id="http-redirects"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#http-redirects">HTTP redirects</a> <a id="http-redirects"></a></h4>
+<p>API v3 uses HTTP redirection where appropriate. Clients should assume that any request may result in a redirection. Receiving an HTTP redirection is <em>not</em> an error and clients should follow that redirect. Redirect responses will have a <code>Location</code> header field which contains the URI of the resource to which the client should repeat the requests.</p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 94%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Status Code</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>301</code></td>
+<td style="text-align: left;">Permanent redirection. The URI you used to make the request has been superseded by the one specified in the <code>Location</code> header field. This and all future requests to this resource should be directed to the new URI.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>302</code>, <code>307</code></td>
+<td style="text-align: left;">Temporary redirection. The request should be repeated verbatim to the URI specified in the <code>Location</code> header field but clients should continue to use the original URI for future requests.</td>
+</tr>
+</tbody>
+</table>
+<p>Other redirection status codes may be used in accordance with the HTTP 1.1 spec.</p>
+<h4 id="http-verbs"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#http-verbs">HTTP verbs</a> <a id="http-verbs"></a></h4>
+<p>Where possible, API v3 strives to use appropriate HTTP verbs for each action.</p>
+<table>
+<colgroup>
+<col style="width: 3%" />
+<col style="width: 96%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Verb</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>HEAD</code></td>
+<td style="text-align: left;">Can be issued against any resource to get just the HTTP header info.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>GET</code></td>
+<td style="text-align: left;">Used for retrieving resources.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>POST</code></td>
+<td style="text-align: left;">Used for creating resources.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>PATCH</code></td>
+<td style="text-align: left;">Used for updating resources with partial JSON data. For instance, an Issue resource has <code>title</code> and <code>body</code> attributes. A <code>PATCH</code> request may accept one or more of the attributes to update the resource.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>PUT</code></td>
+<td style="text-align: left;">Used for replacing resources or collections. For <code>PUT</code> requests with no <code>body</code> attribute, be sure to set the <code>Content-Length</code> header to zero.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>DELETE</code></td>
+<td style="text-align: left;">Used for deleting resources.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="hypermedia"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#hypermedia">Hypermedia</a> <a id="hypermedia"></a></h4>
+<p>All resources may have one or more <code>*_url</code> properties linking to other resources. These are meant to provide explicit URLs so that proper API clients don’t need to construct URLs on their own. It is highly recommended that API clients use these. Doing so will make future upgrades of the API easier for developers. All URLs are expected to be proper <a href="http://tools.ietf.org/html/rfc6570">RFC 6570</a> URI templates.</p>
+<p>You can then expand these templates using something like the <a href="https://github.com/hannesg/uri_template">uri_template</a> gem:</p>
+<pre class="text"><code>&gt;&gt; tmpl = URITemplate.new(&#39;/notifications{?since,all,participating}&#39;)
+&gt;&gt; tmpl.expand
+=&gt; &quot;/notifications&quot;
+
+&gt;&gt; tmpl.expand :all =&gt; 1
+=&gt; &quot;/notifications?all=1&quot;
+
+&gt;&gt; tmpl.expand :all =&gt; 1, :participating =&gt; 1
+=&gt; &quot;/notifications?all=1&amp;participating=1&quot;</code></pre>
+<h4 id="pagination"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#pagination">Pagination</a> <a id="pagination"></a></h4>
+<p>Requests that return multiple items will be paginated to 30 items by default. You can specify further pages with the <code>page</code> parameter. For some resources, you can also set a custom page size up to 100 with the <code>per_page</code> parameter. Note that for technical reasons not all endpoints respect the <code>per_page</code> parameter, see <a href="https://docs.github.com/en/rest/reference/activity#events">events</a> for example.</p>
+<pre class="text"><code>$ curl &#39;https://api.github.com/user/repos?page=2&amp;per_page=100&#39;</code></pre>
+<p>Note that page numbering is 1-based and that omitting the <code>page</code> parameter will return the first page.</p>
+<p>Some endpoints use cursor-based pagination. A cursor is a string that points to a location in the result set. With cursor-based pagination, there is no fixed concept of “pages” in the result set, so you can’t navigate to a specific page. Instead, you can traverse the results by using the <code>before</code> or <code>after</code> parameters.</p>
+<p>For more information on pagination, check out our guide on <a href="https://docs.github.com/en/guides/traversing-with-pagination">Traversing with Pagination</a>.</p>
+<p><strong>Link header</strong></p>
+<p><strong>Note:</strong> It’s important to form calls with Link header values instead of constructing your own URLs.</p>
+<p>The <a href="http://tools.ietf.org/html/rfc5988">Link header</a> includes pagination information. For example:</p>
+<pre class="text"><code>Link: &lt;https://api.github.com/user/repos?page=3&amp;per_page=100&gt;; rel=&quot;next&quot;,
+  &lt;https://api.github.com/user/repos?page=50&amp;per_page=100&gt;; rel=&quot;last&quot;</code></pre>
+<p><em>The example includes a line break for readability.</em></p>
+<p>Or, if the endpoint uses cursor-based pagination:</p>
+<pre class="text"><code>Link: &lt;https://api.github.com/orgs/ORG/audit-log?after=MTYwMTkxOTU5NjQxM3xZbGI4VE5EZ1dvZTlla09uWjhoZFpR&amp;before=&gt;; rel=&quot;next&quot;,</code></pre>
+<p>This <code>Link</code> response header contains one or more <a href="https://docs.github.com/en/rest#hypermedia">Hypermedia</a> link relations, some of which may require expansion as <a href="http://tools.ietf.org/html/rfc6570">URI templates</a>.</p>
+<p>The possible <code>rel</code> values are:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>next</code></td>
+<td style="text-align: left;">The link relation for the immediate next page of results.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>last</code></td>
+<td style="text-align: left;">The link relation for the last page of results.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>first</code></td>
+<td style="text-align: left;">The link relation for the first page of results.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>prev</code></td>
+<td style="text-align: left;">The link relation for the immediate previous page of results.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="rate-limiting"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting">Rate limiting</a> <a id="rate-limiting"></a></h4>
+<p>For API requests using Basic Authentication or OAuth, you can make up to 5,000 requests per hour. Authenticated requests are associated with the authenticated user, regardless of whether <a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#basic-authentication">Basic Authentication</a> or <a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#oauth2-token-sent-in-a-header">an OAuth token</a> was used. This means that all OAuth applications authorized by a user share the same quota of 5,000 requests per hour when they authenticate with different tokens owned by the same user.</p>
+<p>For users that belong to a GitHub Enterprise Cloud account, requests made using an OAuth token to resources owned by the same GitHub Enterprise Cloud account have an increased limit of 15,000 requests per hour.</p>
+<p>When using the built-in <code>GITHUB_TOKEN</code> in GitHub Actions, the rate limit is 1,000 requests per hour per repository. For organizations that belong to a GitHub Enterprise Cloud account, this limit is 15,000 requests per hour per repository.</p>
+<p>For unauthenticated requests, the rate limit allows for up to 60 requests per hour. Unauthenticated requests are associated with the originating IP address, and not the user making requests.</p>
+<p>Note that <a href="https://docs.github.com/en/rest/reference/search#rate-limit">the Search API has custom rate limit rules</a>.</p>
+<p>The returned HTTP headers of any API request show your current rate limit status:</p>
+<pre class="text"><code>$ curl -I https://api.github.com/users/octocat
+&gt; HTTP/1.1 200 OK
+&gt; Date: Mon, 01 Jul 2013 17:27:06 GMT
+&gt; Status: 200 OK
+&gt; X-RateLimit-Limit: 60
+&gt; X-RateLimit-Remaining: 56
+&gt; X-RateLimit-Reset: 1372700873</code></pre>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Header Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>X-RateLimit-Limit</code></td>
+<td style="text-align: left;">The maximum number of requests you’re permitted to make per hour.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>X-RateLimit-Remaining</code></td>
+<td style="text-align: left;">The number of requests remaining in the current rate limit window.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>X-RateLimit-Reset</code></td>
+<td style="text-align: left;">The time at which the current rate limit window resets in <a href="http://en.wikipedia.org/wiki/Unix_time">UTC epoch seconds</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>If you need the time in a different format, any modern programming language can get the job done. For example, if you open up the console on your web browser, you can easily get the reset time as a JavaScript Date object.</p>
+<pre class="text"><code>new Date(1372700873 * 1000)
+// =&gt; Mon Jul 01 2013 13:47:53 GMT-0400 (EDT)</code></pre>
+<p>If you exceed the rate limit, an error response returns:</p>
+<pre class="text"><code>&gt; HTTP/1.1 403 Forbidden
+&gt; Date: Tue, 20 Aug 2013 14:50:41 GMT
+&gt; Status: 403 Forbidden
+&gt; X-RateLimit-Limit: 60
+&gt; X-RateLimit-Remaining: 0
+&gt; X-RateLimit-Reset: 1377013266
+
+&gt; {
+&gt;    &quot;message&quot;: &quot;API rate limit exceeded for xxx.xxx.xxx.xxx. (But here&#39;s the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)&quot;,
+&gt;    &quot;documentation_url&quot;: &quot;https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting&quot;
+&gt; }</code></pre>
+<p>You can <a href="https://docs.github.com/en/rest/reference/rate-limit">check your rate limit status</a> without incurring an API hit.</p>
+<p><strong>Increasing the unauthenticated rate limit for OAuth applications</strong></p>
+<p>If your OAuth application needs to make unauthenticated calls with a higher rate limit, you can pass your app’s client ID and secret before the endpoint route.</p>
+<pre class="text"><code>$ curl -u my_client_id:my_client_secret https://api.github.com/user/repos
+&gt; HTTP/1.1 200 OK
+&gt; Date: Mon, 01 Jul 2013 17:27:06 GMT
+&gt; Status: 200 OK
+&gt; X-RateLimit-Limit: 5000
+&gt; X-RateLimit-Remaining: 4966
+&gt; X-RateLimit-Reset: 1372700873</code></pre>
+<p><strong>Note:</strong> Never share your client secret with anyone or include it in client-side browser code. Use the method shown here only for server-to-server calls.</p>
+<p><strong>Staying within the rate limit</strong></p>
+<p>If you exceed your rate limit using Basic Authentication or OAuth, you can likely fix the issue by caching API responses and using <a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#conditional-requests">conditional requests</a>.</p>
+<p><strong>Abuse rate limits</strong></p>
+<p>In order to provide quality service on GitHub, additional rate limits may apply to some actions when using the API. For example, using the API to rapidly create content, poll aggressively instead of using webhooks, make multiple concurrent requests, or repeatedly request data that is computationally expensive may result in abuse rate limiting.</p>
+<p>Abuse rate limits are not intended to interfere with legitimate use of the API. Your normal rate limits should be the only limit you target. To ensure you’re acting as a good API citizen, check out our <a href="https://docs.github.com/en/guides/best-practices-for-integrators">Best Practices guidelines</a>.</p>
+<p>If your application triggers this rate limit, you’ll receive an informative response:</p>
+<pre class="text"><code>&gt; HTTP/1.1 403 Forbidden
+&gt; Content-Type: application/json; charset=utf-8
+&gt; Connection: close
+
+&gt; {
+&gt;   &quot;message&quot;: &quot;You have triggered an abuse detection mechanism and have been temporarily blocked from content creation. Please retry your request again later.&quot;,
+&gt;   &quot;documentation_url&quot;: &quot;https://docs.github.com/rest/overview/resources-in-the-rest-api#abuse-rate-limits&quot;
+&gt; }</code></pre>
+<h4 id="user-agent-required"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required">User agent required</a> <a id="user-agent-required"></a></h4>
+<p>All API requests MUST include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value. This allows us to contact you if there are problems.</p>
+<p>Here’s an example:</p>
+<pre class="text"><code>User-Agent: Awesome-Octocat-App</code></pre>
+<p>cURL sends a valid <code>User-Agent</code> header by default. If you provide an invalid <code>User-Agent</code> header via cURL (or via an alternative client), you will receive a <code>403 Forbidden</code> response:</p>
+<pre class="text"><code>$ curl -IH &#39;User-Agent: &#39; https://api.github.com/meta
+&gt; HTTP/1.0 403 Forbidden
+&gt; Connection: close
+&gt; Content-Type: text/html
+
+&gt; Request forbidden by administrative rules.
+&gt; Please make sure your request has a User-Agent header.
+&gt; Check  for other possible causes.</code></pre>
+<h4 id="conditional-requests"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#conditional-requests">Conditional requests</a> <a id="conditional-requests"></a></h4>
+<p>Most responses return an <code>ETag</code> header. Many responses also return a <code>Last-Modified</code> header. You can use the values of these headers to make subsequent requests to those resources using the <code>If-None-Match</code> and <code>If-Modified-Since</code> headers, respectively. If the resource has not changed, the server will return a <code>304 Not Modified</code>.</p>
+<p><strong>Note</strong>: Making a conditional request and receiving a 304 response does not count against your <a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting">Rate Limit</a>, so we encourage you to use it whenever possible.</p>
+<pre class="text"><code>$ curl -I https://api.github.com/user
+&gt; HTTP/1.1 200 OK
+&gt; Cache-Control: private, max-age=60
+&gt; ETag: &quot;644b5b0155e6404a9cc4bd9d8b1ae730&quot;
+&gt; Last-Modified: Thu, 05 Jul 2012 15:31:30 GMT
+&gt; Status: 200 OK
+&gt; Vary: Accept, Authorization, Cookie
+&gt; X-RateLimit-Limit: 5000
+&gt; X-RateLimit-Remaining: 4996
+&gt; X-RateLimit-Reset: 1372700873
+
+$ curl -I https://api.github.com/user -H &#39;If-None-Match: &quot;644b5b0155e6404a9cc4bd9d8b1ae730&quot;&#39;
+&gt; HTTP/1.1 304 Not Modified
+&gt; Cache-Control: private, max-age=60
+&gt; ETag: &quot;644b5b0155e6404a9cc4bd9d8b1ae730&quot;
+&gt; Last-Modified: Thu, 05 Jul 2012 15:31:30 GMT
+&gt; Status: 304 Not Modified
+&gt; Vary: Accept, Authorization, Cookie
+&gt; X-RateLimit-Limit: 5000
+&gt; X-RateLimit-Remaining: 4996
+&gt; X-RateLimit-Reset: 1372700873
+
+$ curl -I https://api.github.com/user -H &quot;If-Modified-Since: Thu, 05 Jul 2012 15:31:30 GMT&quot;
+&gt; HTTP/1.1 304 Not Modified
+&gt; Cache-Control: private, max-age=60
+&gt; Last-Modified: Thu, 05 Jul 2012 15:31:30 GMT
+&gt; Status: 304 Not Modified
+&gt; Vary: Accept, Authorization, Cookie
+&gt; X-RateLimit-Limit: 5000
+&gt; X-RateLimit-Remaining: 4996
+&gt; X-RateLimit-Reset: 1372700873</code></pre>
+<h4 id="cross-origin-resource-sharing"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#cross-origin-resource-sharing">Cross origin resource sharing</a> <a id="cross-origin-resource-sharing"></a></h4>
+<p>The API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. You can read the <a href="http://www.w3.org/TR/cors/">CORS W3C Recommendation</a>, or <a href="https://code.google.com/archive/p/html5security/wikis/CrossOriginRequestSecurity.wiki">this intro</a> from the HTML 5 Security Guide.</p>
+<p>Here’s a sample request sent from a browser hitting <code>http://example.com</code>:</p>
+<pre class="text"><code>$ curl -I https://api.github.com -H &quot;Origin: http://example.com&quot;
+HTTP/1.1 302 Found
+Access-Control-Allow-Origin: *
+Access-Control-Expose-Headers: ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval</code></pre>
+<p>This is what the CORS preflight request looks like:</p>
+<pre class="text"><code>$ curl -I https://api.github.com -H &quot;Origin: http://example.com&quot; -X OPTIONS
+HTTP/1.1 204 No Content
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, X-GitHub-OTP, X-Requested-With
+Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE
+Access-Control-Expose-Headers: ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+Access-Control-Max-Age: 86400</code></pre>
+<h4 id="json-p-callbacks"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#json-p-callbacks">JSON-P callbacks</a> <a id="json-p-callbacks"></a></h4>
+<p>You can send a <code>?callback</code> parameter to any GET call to have the results wrapped in a JSON function. This is typically used when browsers want to embed GitHub content in web pages by getting around cross domain issues. The response includes the same data output as the regular API, plus the relevant HTTP Header information.</p>
+<pre class="text"><code>$ curl https://api.github.com?callback=foo
+
+&gt; /**/foo({
+&gt;   &quot;meta&quot;: {
+&gt;     &quot;status&quot;: 200,
+&gt;     &quot;X-RateLimit-Limit&quot;: &quot;5000&quot;,
+&gt;     &quot;X-RateLimit-Remaining&quot;: &quot;4966&quot;,
+&gt;     &quot;X-RateLimit-Reset&quot;: &quot;1372700873&quot;,
+&gt;     &quot;Link&quot;: [ // pagination headers and other links
+&gt;       [&quot;https://api.github.com?page=2&quot;, {&quot;rel&quot;: &quot;next&quot;}]
+&gt;     ]
+&gt;   },
+&gt;   &quot;data&quot;: {
+&gt;     // the data
+&gt;   }
+&gt; })</code></pre>
+<p>You can write a JavaScript handler to process the callback. Here’s a minimal example you can try out:</p>
+<pre class="text"><code>&lt;html&gt;
+&lt;head&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function foo(response) {
+  var meta = response.meta;
+  var data = response.data;
+  console.log(meta);
+  console.log(data);
+}
+
+var script = document.createElement(&#39;script&#39;);
+script.src = &#39;https://api.github.com?callback=foo&#39;;
+
+document.getElementsByTagName(&#39;head&#39;)[0].appendChild(script);
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p&gt;Open up your browser&#39;s console.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>All of the headers are the same String value as the HTTP Headers with one notable exception: Link. Link headers are pre-parsed for you and come through as an array of <code>[url, options]</code> tuples.</p>
+<p>A link that looks like this:</p>
+<pre class="text"><code>Link: &lt;url1&gt;; rel=&quot;next&quot;, &lt;url2&gt;; rel=&quot;foo&quot;; bar=&quot;baz&quot;</code></pre>
+<p>… will look like this in the Callback output:</p>
+<pre class="text"><code>{
+  &quot;Link&quot;: [
+    [
+      &quot;url1&quot;,
+      {
+        &quot;rel&quot;: &quot;next&quot;
+      }
+    ],
+    [
+      &quot;url2&quot;,
+      {
+        &quot;rel&quot;: &quot;foo&quot;,
+        &quot;bar&quot;: &quot;baz&quot;
+      }
+    ]
+  ]
+}</code></pre>
+<h4 id="timezones"><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#timezones">Timezones</a> <a id="timezones"></a></h4>
+<p>Some requests that create new data, such as creating a new commit, allow you to provide time zone information when specifying or generating timestamps. We apply the following rules, in order of priority, to determine timezone information for API calls.</p>
+<ul>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#explicitly-providing-an-iso-8601-timestamp-with-timezone-information">Explicitly providing an ISO 8601 timestamp with timezone information</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#using-the-time-zone-header">Using the <code>Time-Zone</code> header</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#using-the-last-known-timezone-for-the-user">Using the last known timezone for the user</a></li>
+<li><a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#defaulting-to-utc-without-other-timezone-information">Defaulting to UTC without other timezone information</a></li>
+</ul>
+<p><strong>Explicitly providing an ISO 8601 timestamp with timezone information</strong></p>
+<p>For API calls that allow for a timestamp to be specified, we use that exact timestamp. An example of this is the <a href="https://docs.github.com/en/rest/reference/git#commits">Commits API</a>.</p>
+<p>These timestamps look something like <code>2014-02-27T15:05:06+01:00</code>. Also see <a href="https://docs.github.com/en/rest/reference/git#example-input">this example</a> for how these timestamps can be specified.</p>
+<p><strong>Using the Time-Zone header</strong></p>
+<p>It is possible to supply a <code>Time-Zone</code> header which defines a timezone according to the <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">list of names from the Olson database</a>.</p>
+<pre class="text"><code>$ curl -H &quot;Time-Zone: Europe/Amsterdam&quot; -X POST https://api.github.com/repos/github/linguist/contents/new_file.md</code></pre>
+<p>This means that we generate a timestamp for the moment your API call is made in the timezone this header defines. For example, the <a href="https://docs.github.com/en/rest/reference/repos#contents">Contents API</a> generates a git commit for each addition or change and uses the current time as the timestamp. This header will determine the timezone used for generating that current timestamp.</p>
+<p><strong>Using the last known timezone for the user</strong></p>
+<p>If no <code>Time-Zone</code> header is specified and you make an authenticated call to the API, we use the last known timezone for the authenticated user. The last known timezone is updated whenever you browse the GitHub website.</p>
+<p><strong>Defaulting to UTC without other timezone information</strong></p>
+<p>If the steps above don’t result in any information, we use UTC as the timezone to create the git commit.</p>
+</body>
+</html>
