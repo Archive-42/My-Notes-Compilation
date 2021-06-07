@@ -1,28 +1,22 @@
-Parenthesis and other nested structures
-=======================================
+# Parenthesis and other nested structures
 
-Get everything between parenthesis
-----------------------------------
+## Get everything between parenthesis
 
     \[(.*?)\]
 
-Get everything between C/C++ multiline comments /\* \*/
--------------------------------------------------------
+## Get everything between C/C++ multiline comments /\* \*/
 
     \/\*[\S\s]*?\*\/
 
-Get everything between single quotes allowing inline escaping using the rolling loop technique
-----------------------------------------------------------------------------------------------
+## Get everything between single quotes allowing inline escaping using the rolling loop technique
 
     '((?:[^\\']|\\.)*)'
 
-Check that string CONTAINS a valid hierarchy of parenthesis or not
-------------------------------------------------------------------
+## Check that string CONTAINS a valid hierarchy of parenthesis or not
 
     \(((?>[^()]+)|(?R))*\)
 
-Get everything between braces not enclosed by quotes
-----------------------------------------------------
+## Get everything between braces not enclosed by quotes
 
     ("|').*?\1(*SKIP)(*FAIL)|\{(?:[^{}]|(?R))*\}
 
@@ -30,13 +24,11 @@ Get everything between braces not enclosed by quotes
 
     ("|').*?\1(*SKIP)(*FAIL)|{(?>[^{}\\]++|\\.|(?R))*+}
 
-Get everything between parenthesis allowing escaping special characters
------------------------------------------------------------------------
+## Get everything between parenthesis allowing escaping special characters
 
     (\((?>[^()\\]++|\\.|(?1))*+\))
 
-Matching 3 different types of balanced parentheses with .NET balancing groups
------------------------------------------------------------------------------
+## Matching 3 different types of balanced parentheses with .NET balancing groups
 
     (
         [^(){}\[\]]+
@@ -72,8 +64,7 @@ https://regex101.com/r/bX8yH4/6
 
 https://stackoverflow.com/a/27828040/8291949
 
-Get everything between double quotes
-------------------------------------
+## Get everything between double quotes
 
     "[^"]+"
 
@@ -107,7 +98,7 @@ Optimized version
 
     (['"])(?:(?!\1|\\).|\\.)*\1
 
-------------------------------------------------------------------------
+---
 
 JavaScript/ECMAScript can’t make use of Regex Recursion to match nested constructs. Still, given that there is a known maximum amount of recursion that needs to be accounted for, it’s quite possible. The solution below works just fine with JavaScript and does not require any advanced regex features):
 
@@ -115,8 +106,8 @@ JavaScript/ECMAScript can’t make use of Regex Recursion to match nested constr
 
 However, this works only if:
 
--   braces are always balanced, and
--   the level of brace nesting is no more than one.
+- braces are always balanced, and
+- the level of brace nesting is no more than one.
 
 This logic is easy to extend to support more levels of recursion, up to a **known maximum**. Here’s a simple example of matching HTML elements and their contents
 

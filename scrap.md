@@ -1,9 +1,7 @@
 ---
-
 # ✋<span style="color:red;">Lambda Networking Links📕</span>
 
 # 💻💽🖱️⌨️🖨️ 💾💿👨‍💻👩‍💻📁🤖🔥🌳 🚧
-
 ---
 
 - \[ \] 1. [Bryan Guner Portfolio](https://portfolio42.netlify.app/)

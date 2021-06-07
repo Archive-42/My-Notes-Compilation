@@ -1,7 +1,6 @@
-`\G`
-====
+# `\G`
 
-E.G: [line\_start 1 abc 2 def 4](https://stackoverflow.com/questions/51127479/regex-match-all-possibilities)
+E.G: [line_start 1 abc 2 def 4](https://stackoverflow.com/questions/51127479/regex-match-all-possibilities)
 
     (?:\G(?!^)|^line_start)\D*\K\d+
 
@@ -21,9 +20,9 @@ Smart use of `\K` can help to preserve some format, e.g.: https://regex101.com/r
 
     (?:\[#\d+\K,|(?<!^)\G,)(#\d+)
 
-substituting `_$1` in `#2335, IFCRELASSOCIATESMATERIAL, '2ON6$yXXD1GAAH8whbdZmc', #5,$,$,         [#40,#221,#268,#281],#2334`
+substituting `_$1` in `#2335, IFCRELASSOCIATESMATERIAL, '2ON6$yXXD1GAAH8whbdZmc', #5,$,$, [#40,#221,#268,#281],#2334`
 
-Yields: `#2335, IFCRELASSOCIATESMATERIAL, '2ON6$yXXD1GAAH8whbdZmc', #5,$,$,         [#40_#221_#268_#281],#2334`
+Yields: `#2335, IFCRELASSOCIATESMATERIAL, '2ON6$yXXD1GAAH8whbdZmc', #5,$,$, [#40_#221_#268_#281],#2334`
 
 See also: [Contiguous Matches: `\G` in .NET](https://docs.microsoft.com/en-us/dotnet/standard/base-types/anchors-in-regular-expressions#Contiguous) which shows a kind of useless example since the .NET Regex engine is able to match repeated capture groups also without `\G`.
 
