@@ -1,9 +1,3 @@
----
-title: Typography - MDN Minimalist
-keywords: typography, font, type, mdn minimalist, mdn, sass, library
-description: The MDN Web Docs typography styles
----
-
 # Typography
 
 Below is the default styling for headings level 1-5 with their default margins. There are no special class names to use. Font sizes will also decrease appropriately on mobile devices but still follow a defined typescale.
@@ -26,12 +20,8 @@ Desktop and tablet typescale is based on [major third typescale](https://type-sc
 
 Any heading level can be set to use the ZillaSlab Highlight style by adding the class `slab-highlight`, for example:
 
-<div class="sample">
     <h2 class="slab-highlight">Slab Highlighted</h2>
-</div>
 
 ### Code example
 
-```html
-<h2 class="slab-highlight">Slab Highlighted</h2>
-```
+    <h2 class="slab-highlight">Slab Highlighted</h2>
