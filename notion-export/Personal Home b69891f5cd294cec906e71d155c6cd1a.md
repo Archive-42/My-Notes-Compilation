@@ -2,19 +2,15 @@
 
 <span class="icon">🏡</span>
 
-Personal Home
-=============
+# Personal Home
 
 Organize everything in your life in one place.
 
--   
+- <span class="to-do-children-unchecked"></span>
 
-    <span class="to-do-children-unchecked"></span>
+## Daily
 
-Daily
------
-
-------------------------------------------------------------------------
+---
 
 [<span class="icon">🎬</span>Movie List](Personal%20Home%20b69891f5cd294cec906e71d155c6cd1a/Movie%20List%20908fc06ddb5c43b5bcddb8d9b760bb56.html)
 
@@ -22,10 +18,9 @@ Daily
 
 [<span class="icon">🎒</span>To-Do](Personal%20Home%20b69891f5cd294cec906e71d155c6cd1a/To-Do%202bda9e521ccd478dbb9123cb601288e5.html)
 
-Life
-----
+## Life
 
-------------------------------------------------------------------------
+---
 
 [<span class="icon">🌅</span>Yearly Goals](Personal%20Home%20b69891f5cd294cec906e71d155c6cd1a/Yearly%20Goals%20cc326504ad1b47f195ed017be1558672.html)
 

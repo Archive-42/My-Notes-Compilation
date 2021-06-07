@@ -1,7 +1,6 @@
 <span class="icon">📃</span>
 
-GitFlow - step by step
-======================
+# GitFlow - step by step
 
 ### Theses are the steps that you will be doing DAILY for your projects here at Lambda school.
 
@@ -43,45 +42,45 @@ GitFlow - step by step
 
 9. To add and commit changes on your branch you can do the following
 
--   **git add .** will add the repo changes and make them ready for committing
+- **git add .** will add the repo changes and make them ready for committing
 
 <!-- -->
 
--   **git commit -m "Your helpful commit message here"** will commit the changes with your specified commit message (commit message should explain what changes you've added to the repo that you are committing)
+- **git commit -m "Your helpful commit message here"** will commit the changes with your specified commit message (commit message should explain what changes you've added to the repo that you are committing)
 
 10. Push your changes back up to your Github repo
 
--   **git push -u origin branch-name** will push all of your commits from your local machine up onto github
+- **git push -u origin branch-name** will push all of your commits from your local machine up onto github
 
 <!-- -->
 
--   Remember that **branch-name** here will be whatever name you specified when you did **git checkout -b** (in the case it should be your firstname-lastname)
+- Remember that **branch-name** here will be whatever name you specified when you did **git checkout -b** (in the case it should be your firstname-lastname)
 
 11. Now that the changes are on github you can submit a PR (Pull Request)
 
 12. Go back to your forked Project repo on github (make sure you are on YOUR FORKED copy NOT the original Lambda one)
 
--   Click on the **Branch:master** button on the left side (see picture)
+- Click on the **Branch:master** button on the left side (see picture)
 
 ![](GitFlow%20-%20step%20by%20step%20a5dcb946b01f4d66be259ba33733763b/screencapture-github-MileyWright-Git-for-Web-Development-Project-2019-12-01-00_24_10%202.png)
 
--   This will create a dropdown where you should be able to select your name-branch now
+- This will create a dropdown where you should be able to select your name-branch now
 
 <!-- -->
 
--   Click your name-branch and then click the **New pull request** button to make a pull request on your name branch
+- Click your name-branch and then click the **New pull request** button to make a pull request on your name branch
 
 ![](GitFlow%20-%20step%20by%20step%20a5dcb946b01f4d66be259ba33733763b/screencapture-github-MileyWright-Git-for-Web-Development-Project-tree-Miley-Wright-2019-12-02-01_39_48.png)
 
--   After you click new pull request it should redirect you to the pull request page
+- After you click new pull request it should redirect you to the pull request page
 
 <!-- -->
 
--   IT IS IMPORTANT THAT YOU DO NOT CLICK THE **Create pull request** BUTTON UNTIL AFTER YOU'VE COMPLETED THE NEXT STEP
+- IT IS IMPORTANT THAT YOU DO NOT CLICK THE **Create pull request** BUTTON UNTIL AFTER YOU'VE COMPLETED THE NEXT STEP
 
 ![](GitFlow%20-%20step%20by%20step%20a5dcb946b01f4d66be259ba33733763b/screencapture-github-LambdaSchool-Git-for-Web-Development-Project-compare-master-MileyWright-Miley-Wright-2019-12-02-01_46_10.png)
 
--   When you get to the PR page, make sure to click the dropdown button that says **base repository** and CHANGE it to be your FORKED REPO instead of the original Lambda repo (when submitting PR it will default to the original Repo this is why it needs to be changed)
+- When you get to the PR page, make sure to click the dropdown button that says **base repository** and CHANGE it to be your FORKED REPO instead of the original Lambda repo (when submitting PR it will default to the original Repo this is why it needs to be changed)
 
 ![Make sure to change to base repository before Creating the pull request](GitFlow%20-%20step%20by%20step%20a5dcb946b01f4d66be259ba33733763b/screencapture-github-LambdaSchool-Git-for-Web-Development-Project-compare-master-MileyWright-Miley-Wright-2019-12-02-01_46_38.png)
 

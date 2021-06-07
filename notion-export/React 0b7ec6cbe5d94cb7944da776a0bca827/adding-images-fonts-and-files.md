@@ -34,8 +34,7 @@ Please be advised that this is also a custom feature of webpack.
 
 An alternative way of handling static assets is described in the next section.
 
-Adding SVGs
------------
+## Adding SVGs
 
 > Note: this feature is available with `react-scripts@2.0.0` and higher, and `react@16.3.0` and higher.
 

@@ -2,17 +2,14 @@
 
 <span class="icon">🎬</span>
 
-Movie List
-==========
+# Movie List
 
-Want to Watch
--------------
+## Want to Watch
 
-------------------------------------------------------------------------
+---
 
 <figure><img src="https://images-na.ssl-images-amazon.com/images/G/01/imdb/images/desktop-favicon-2165806970._CB522736561_.ico" class="icon bookmark-icon" /></figure>
 
-Watched
--------
+## Watched
 
-------------------------------------------------------------------------
+---

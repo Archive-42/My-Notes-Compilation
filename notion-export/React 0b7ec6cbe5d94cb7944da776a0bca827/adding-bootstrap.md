@@ -14,8 +14,7 @@ Import Bootstrap CSS and optionally Bootstrap theme CSS in the beginning of your
     // Put any other imports below so that CSS from your
     // components takes precedence over default styles.
 
-Using a Custom Theme
---------------------
+## Using a Custom Theme
 
 > Note: this feature is available with `react-scripts@2.0.0` and higher.
 
@@ -31,7 +30,7 @@ Alternatively you may use `yarn`:
 
     yarn add sass
 
-To customize Bootstrap, create a file called `src/custom.scss` (or similar) and import the Bootstrap source stylesheet. Add any overrides *before* the imported file(s). You can reference [Bootstrap’s documentation](https://getbootstrap.com/docs/4.6/getting-started/theming/#variable-defaults) for the names of the available variables.
+To customize Bootstrap, create a file called `src/custom.scss` (or similar) and import the Bootstrap source stylesheet. Add any overrides _before_ the imported file(s). You can reference [Bootstrap’s documentation](https://getbootstrap.com/docs/4.6/getting-started/theming/#variable-defaults) for the names of the available variables.
 
     // Override default variables before the import
     $body-bg: #000;

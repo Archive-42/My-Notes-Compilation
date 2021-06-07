@@ -1,5 +1,4 @@
-React
-=====
+# React
 
 [React.Component – React](React%200b7ec6cbe5d94cb7944da776a0bca827/React%20Component%20%E2%80%93%20React%20f996f0e46f33466d997b9e165629f63d.html)
 
