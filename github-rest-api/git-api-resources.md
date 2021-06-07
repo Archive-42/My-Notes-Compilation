@@ -1,30 +1,28 @@
-Git API Resources
-=================
+# Git API Resources
 
-Resources in the REST API
--------------------------
+## Resources in the REST API
 
 Learn how to navigate the resources provided by the GitHub API.
 
 ### [In this article](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#in-this-article) <span id="in-this-article"></span>
 
--   [Current version](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#current-version)
--   [Schema](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#schema)
--   [Authentication](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#authentication)
--   [Parameters](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#parameters)
--   [Root endpoint](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#root-endpoint)
--   [GraphQL global node IDs](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#graphql-global-node-ids)
--   [Client errors](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#client-errors)
--   [HTTP redirects](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#http-redirects)
--   [HTTP verbs](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#http-verbs)
--   [Hypermedia](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#hypermedia)
--   [Pagination](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#pagination)
--   [Rate limiting](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting)
--   [User agent required](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required)
--   [Conditional requests](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#conditional-requests)
--   [Cross origin resource sharing](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#cross-origin-resource-sharing)
--   [JSON-P callbacks](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#json-p-callbacks)
--   [Timezones](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#timezones)
+- [Current version](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#current-version)
+- [Schema](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#schema)
+- [Authentication](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#authentication)
+- [Parameters](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#parameters)
+- [Root endpoint](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#root-endpoint)
+- [GraphQL global node IDs](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#graphql-global-node-ids)
+- [Client errors](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#client-errors)
+- [HTTP redirects](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#http-redirects)
+- [HTTP verbs](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#http-verbs)
+- [Hypermedia](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#hypermedia)
+- [Pagination](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#pagination)
+- [Rate limiting](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting)
+- [User agent required](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required)
+- [Conditional requests](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#conditional-requests)
+- [Cross origin resource sharing](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#cross-origin-resource-sharing)
+- [JSON-P callbacks](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#json-p-callbacks)
+- [Timezones](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#timezones)
 
 This describes the resources that make up the official GitHub REST API. If you have any problems or requests, please contact [GitHub Support](https://support.github.com/contact) or [GitHub Premium Support](https://premium.githubsupport.com/).
 
@@ -66,7 +64,7 @@ For more information about timezones in timestamps, see [this section](https://d
 
 **Summary representations**
 
-When you fetch a list of resources, the response includes a *subset* of the attributes for that resource. This is the “summary” representation of the resource. (Some attributes are computationally expensive for the API to provide. For performance reasons, the summary representation excludes those attributes. To obtain those attributes, fetch the “detailed” representation.)
+When you fetch a list of resources, the response includes a _subset_ of the attributes for that resource. This is the “summary” representation of the resource. (Some attributes are computationally expensive for the API to provide. For performance reasons, the summary representation excludes those attributes. To obtain those attributes, fetch the “detailed” representation.)
 
 **Example**: When you get a list of repositories, you get the summary representation of each repository. Here, we fetch the list of repositories owned by the [octokit](https://github.com/octokit) organization:
 
@@ -74,7 +72,7 @@ When you fetch a list of resources, the response includes a *subset* of the attr
 
 **Detailed representations**
 
-When you fetch an individual resource, the response typically includes *all* attributes for that resource. This is the “detailed” representation of the resource. (Note that authorization sometimes influences the amount of detail included in the representation.)
+When you fetch an individual resource, the response typically includes _all_ attributes for that resource. This is the “detailed” representation of the resource. (Note that authorization sometimes influences the amount of detail included in the representation.)
 
 **Example**: When you get an individual repository, you get the detailed representation of the repository. Here, we fetch the [octokit/octokit.rb](https://github.com/octokit/octokit.rb) repository:
 
@@ -104,7 +102,7 @@ Read [more about OAuth2](https://docs.github.com/en/apps/building-oauth-apps). N
 
     curl -u my_client_id:my_client_secret 'https://api.github.com/user/repos'
 
-Using your `client_id` and `client_secret` does *not* authenticate as a user, it will only identify your OAuth application to increase your rate limit. Permissions are only granted to users, not applications, and you will only get back data that an unauthenticated user would see. For this reason, you should only use the OAuth2 key/secret in server-to-server scenarios. Don’t leak your OAuth application’s client secret to your users.
+Using your `client_id` and `client_secret` does _not_ authenticate as a user, it will only identify your OAuth application to increase your rate limit. Permissions are only granted to users, not applications, and you will only get back data that an unauthenticated user would see. For this reason, you should only use the OAuth2 key/secret in server-to-server scenarios. Don’t leak your OAuth application’s client secret to your users.
 
 You will be unable to authenticate using your OAuth2 key and secret while in private mode, and trying to authenticate will return `401 Unauthorized`. For more information, see “[Enabling private mode](https://docs.github.com/en/enterprise-server@3.0/admin/installation/enabling-private-mode)”.
 
@@ -197,7 +195,7 @@ Resources may also send custom validation errors (where `code` is `custom`). Cus
 
 #### [HTTP redirects](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#http-redirects) <span id="http-redirects"></span>
 
-API v3 uses HTTP redirection where appropriate. Clients should assume that any request may result in a redirection. Receiving an HTTP redirection is *not* an error and clients should follow that redirect. Redirect responses will have a `Location` header field which contains the URI of the resource to which the client should repeat the requests.
+API v3 uses HTTP redirection where appropriate. Clients should assume that any request may result in a redirection. Receiving an HTTP redirection is _not_ an error and clients should follow that redirect. Redirect responses will have a `Location` header field which contains the URI of the resource to which the client should repeat the requests.
 
 <table style="width:99%;"><colgroup><col style="width: 5%" /><col style="width: 94%" /></colgroup><thead><tr class="header"><th style="text-align: left;">Status Code</th><th style="text-align: left;">Description</th></tr></thead><tbody><tr class="odd"><td style="text-align: left;"><code>301</code></td><td style="text-align: left;">Permanent redirection. The URI you used to make the request has been superseded by the one specified in the <code>Location</code> header field. This and all future requests to this resource should be directed to the new URI.</td></tr><tr class="even"><td style="text-align: left;"><code>302</code>, <code>307</code></td><td style="text-align: left;">Temporary redirection. The request should be repeated verbatim to the URI specified in the <code>Location</code> header field but clients should continue to use the original URI for future requests.</td></tr></tbody></table>
 
@@ -213,7 +211,7 @@ Where possible, API v3 strives to use appropriate HTTP verbs for each action.
 
 All resources may have one or more `*_url` properties linking to other resources. These are meant to provide explicit URLs so that proper API clients don’t need to construct URLs on their own. It is highly recommended that API clients use these. Doing so will make future upgrades of the API easier for developers. All URLs are expected to be proper [RFC 6570](http://tools.ietf.org/html/rfc6570) URI templates.
 
-You can then expand these templates using something like the [uri\_template](https://github.com/hannesg/uri_template) gem:
+You can then expand these templates using something like the [uri_template](https://github.com/hannesg/uri_template) gem:
 
     >> tmpl = URITemplate.new('/notifications{?since,all,participating}')
     >> tmpl.expand
@@ -246,7 +244,7 @@ The [Link header](http://tools.ietf.org/html/rfc5988) includes pagination inform
     Link: <https://api.github.com/user/repos?page=3&per_page=100>; rel="next",
       <https://api.github.com/user/repos?page=50&per_page=100>; rel="last"
 
-*The example includes a line break for readability.*
+_The example includes a line break for readability._
 
 Or, if the endpoint uses cursor-based pagination:
 
@@ -491,10 +489,10 @@ A link that looks like this:
 
 Some requests that create new data, such as creating a new commit, allow you to provide time zone information when specifying or generating timestamps. We apply the following rules, in order of priority, to determine timezone information for API calls.
 
--   [Explicitly providing an ISO 8601 timestamp with timezone information](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#explicitly-providing-an-iso-8601-timestamp-with-timezone-information)
--   [Using the `Time-Zone` header](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#using-the-time-zone-header)
--   [Using the last known timezone for the user](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#using-the-last-known-timezone-for-the-user)
--   [Defaulting to UTC without other timezone information](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#defaulting-to-utc-without-other-timezone-information)
+- [Explicitly providing an ISO 8601 timestamp with timezone information](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#explicitly-providing-an-iso-8601-timestamp-with-timezone-information)
+- [Using the `Time-Zone` header](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#using-the-time-zone-header)
+- [Using the last known timezone for the user](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#using-the-last-known-timezone-for-the-user)
+- [Defaulting to UTC without other timezone information](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#defaulting-to-utc-without-other-timezone-information)
 
 **Explicitly providing an ISO 8601 timestamp with timezone information**
 

@@ -1,25 +1,23 @@
-Search API
-==========
+# Search API
 
-Search
-------
+## Search
 
 ### [In this article](https://docs.github.com/en/rest/reference/search#in-this-article) <span id="in-this-article"></span>
 
--   [Ranking search results](https://docs.github.com/en/rest/reference/search#ranking-search-results)
--   [Rate limit](https://docs.github.com/en/rest/reference/search#rate-limit)
--   [Constructing a search query](https://docs.github.com/en/rest/reference/search#constructing-a-search-query)
--   [Limitations on query length](https://docs.github.com/en/rest/reference/search#limitations-on-query-length)
--   [Timeouts and incomplete results](https://docs.github.com/en/rest/reference/search#timeouts-and-incomplete-results)
--   [Access errors or missing search results](https://docs.github.com/en/rest/reference/search#access-errors-or-missing-search-results)
--   [Search code](https://docs.github.com/en/rest/reference/search#search-code)
--   [Search commits](https://docs.github.com/en/rest/reference/search#search-commits)
--   [Search issues and pull requests](https://docs.github.com/en/rest/reference/search#search-issues-and-pull-requests)
--   [Search labels](https://docs.github.com/en/rest/reference/search#search-labels)
--   [Search repositories](https://docs.github.com/en/rest/reference/search#search-repositories)
--   [Search topics](https://docs.github.com/en/rest/reference/search#search-topics)
--   [Search users](https://docs.github.com/en/rest/reference/search#search-users)
--   [Text match metadata](https://docs.github.com/en/rest/reference/search#text-match-metadata)
+- [Ranking search results](https://docs.github.com/en/rest/reference/search#ranking-search-results)
+- [Rate limit](https://docs.github.com/en/rest/reference/search#rate-limit)
+- [Constructing a search query](https://docs.github.com/en/rest/reference/search#constructing-a-search-query)
+- [Limitations on query length](https://docs.github.com/en/rest/reference/search#limitations-on-query-length)
+- [Timeouts and incomplete results](https://docs.github.com/en/rest/reference/search#timeouts-and-incomplete-results)
+- [Access errors or missing search results](https://docs.github.com/en/rest/reference/search#access-errors-or-missing-search-results)
+- [Search code](https://docs.github.com/en/rest/reference/search#search-code)
+- [Search commits](https://docs.github.com/en/rest/reference/search#search-commits)
+- [Search issues and pull requests](https://docs.github.com/en/rest/reference/search#search-issues-and-pull-requests)
+- [Search labels](https://docs.github.com/en/rest/reference/search#search-labels)
+- [Search repositories](https://docs.github.com/en/rest/reference/search#search-repositories)
+- [Search topics](https://docs.github.com/en/rest/reference/search#search-topics)
+- [Search users](https://docs.github.com/en/rest/reference/search#search-users)
+- [Text match metadata](https://docs.github.com/en/rest/reference/search#text-match-metadata)
 
 The Search API helps you search for the specific item you want to find. For example, you can find a user or a specific file in a repository. Think of it the way you think of performing a search on Google. It’s designed to help you find the one result you’re looking for (or maybe the few results you’re looking for). Just like searching on Google, you sometimes want to see a few pages of search results so that you can find the item that best meets your needs. To satisfy that need, the GitHub Search API provides **up to 1,000 results for each search**.
 
@@ -43,7 +41,7 @@ A query can contain any combination of search qualifiers supported on GitHub. Th
 
     SEARCH_KEYWORD_1 SEARCH_KEYWORD_N QUALIFIER_1 QUALIFIER_N
 
-For example, if you wanted to search for all *repositories* owned by `defunkt` that contained the word `GitHub` and `Octocat` in the README file, you would use the following query with the *search repositories* endpoint:
+For example, if you wanted to search for all _repositories_ owned by `defunkt` that contained the word `GitHub` and `Octocat` in the README file, you would use the following query with the _search repositories_ endpoint:
 
     GitHub Octocat in:readme user:defunkt
 
@@ -58,8 +56,8 @@ See “[Searching on GitHub](https://docs.github.com/en/articles/searching-on-gi
 
 The Search API does not support queries that:
 
--   are longer than 256 characters (not including operators or qualifiers).
--   have more than five `AND`, `OR`, or `NOT` operators.
+- are longer than 256 characters (not including operators or qualifiers).
+- have more than five `AND`, `OR`, or `NOT` operators.
 
 These search queries will return a “Validation failed” error message.
 
@@ -93,9 +91,9 @@ This query searches for the keyword `addClass` within a file’s contents. The q
 
 Due to the complexity of searching code, there are a few restrictions on how searches are performed:
 
--   Only the *default branch* is considered. In most cases, this will be the `master` branch.
--   Only files smaller than 384 KB are searchable.
--   You must always include at least one search term when searching source code. For example, searching for [`language:go`](https://github.com/search?utf8=%E2%9C%93&q=language%3Ago&type=Code) is not valid, while [`amazing language:go`](https://github.com/search?utf8=%E2%9C%93&q=amazing+language%3Ago&type=Code) is.
+- Only the _default branch_ is considered. In most cases, this will be the `master` branch.
+- Only files smaller than 384 KB are searchable.
+- You must always include at least one search term when searching source code. For example, searching for [`language:go`](https://github.com/search?utf8=%E2%9C%93&q=language%3Ago&type=Code) is not valid, while [`amazing language:go`](https://github.com/search?utf8=%E2%9C%93&q=amazing+language%3Ago&type=Code) is.
 
 <!-- -->
 
@@ -224,7 +222,7 @@ Due to the complexity of searching code, there are a few restrictions on how sea
 
 **Notes**
 
--   [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 #### [Search commits](https://docs.github.com/en/rest/reference/search#search-commits) <span id="search-commits"></span>
 
@@ -404,7 +402,7 @@ For example, if you want to find commits related to CSS in the [octocat/Spoon-Kn
 
 **Notes**
 
--   [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 **Preview notice**
 
@@ -573,7 +571,7 @@ This query searches for the keyword `windows`, within any open issue that is lab
 
 **Notes**
 
--   [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 #### [Search labels](https://docs.github.com/en/rest/reference/search#search-labels) <span id="search-labels"></span>
 
@@ -657,7 +655,7 @@ The labels that best match the query appear first in the search results.
 
 **Notes**
 
--   [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 #### [Search repositories](https://docs.github.com/en/rest/reference/search#search-repositories) <span id="search-repositories"></span>
 
@@ -823,7 +821,7 @@ When you include the `mercy` preview header, you can also search for multiple to
 
 **Notes**
 
--   [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 **Preview notice**
 
@@ -835,7 +833,7 @@ The `topics` property for repositories on GitHub is currently available for deve
 
 Find topics via various criteria. Results are sorted by best match. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination). See “[Searching topics](https://help.github.com/articles/searching-topics/)” for a detailed list of qualifiers.
 
-When searching for topics, you can get text match metadata for the topic’s **short\_description**, **description**, **name**, or **display\_name** field when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/reference/search#text-match-metadata).
+When searching for topics, you can get text match metadata for the topic’s **short_description**, **description**, **name**, or **display_name** field when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/reference/search#text-match-metadata).
 
 For example, if you want to search for topics related to Ruby that are featured on <https://github.com/topics>. Your query might look like this:
 
@@ -967,7 +965,7 @@ This query searches for topics with the keyword `ruby` and limits the results to
 
 **Notes**
 
--   [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 **Preview notice**
 
@@ -1055,7 +1053,7 @@ This query searches for users with the name `tom`. The results are restricted to
 
 **Notes**
 
--   [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 #### [Text match metadata](https://docs.github.com/en/rest/reference/search#text-match-metadata) <span id="text-match-metadata"></span>
 

@@ -1,6 +1,5 @@
-furniture
-=========
+# furniture
 
 ### Chair
 
--   https://www.workspaces.ro/ro/herman-miller/scaunul-embody
+- https://www.workspaces.ro/ro/herman-miller/scaunul-embody

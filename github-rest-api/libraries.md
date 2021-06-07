@@ -1,44 +1,40 @@
-Libraries
-=========
+# Libraries
 
-Libraries
----------
+## Libraries
 
 You can use the official Octokit library and other third-party libraries to extend and simplify how you use the GitHub API.
 
 ### [In this article](https://docs.github.com/en/rest/overview/libraries#in-this-article) <span id="in-this-article"></span>
 
--   [Clojure](https://docs.github.com/en/rest/overview/libraries#clojure)
--   [Dart](https://docs.github.com/en/rest/overview/libraries#dart)
--   [Emacs Lisp](https://docs.github.com/en/rest/overview/libraries#emacs-lisp)
--   [Erlang](https://docs.github.com/en/rest/overview/libraries#erlang)
--   [Go](https://docs.github.com/en/rest/overview/libraries#go)
--   [Haskell](https://docs.github.com/en/rest/overview/libraries#haskell)
--   [Java](https://docs.github.com/en/rest/overview/libraries#java)
--   [JavaScript](https://docs.github.com/en/rest/overview/libraries#javascript)
--   [Julia](https://docs.github.com/en/rest/overview/libraries#julia)
--   [OCaml](https://docs.github.com/en/rest/overview/libraries#ocaml)
--   [Perl](https://docs.github.com/en/rest/overview/libraries#perl)
--   [PHP](https://docs.github.com/en/rest/overview/libraries#php)
--   [PowerShell](https://docs.github.com/en/rest/overview/libraries#powershell)
--   [Python](https://docs.github.com/en/rest/overview/libraries#python)
--   [Ruby](https://docs.github.com/en/rest/overview/libraries#ruby)
--   [Rust](https://docs.github.com/en/rest/overview/libraries#rust)
--   [Scala](https://docs.github.com/en/rest/overview/libraries#scala)
--   [Shell](https://docs.github.com/en/rest/overview/libraries#shell)
+- [Clojure](https://docs.github.com/en/rest/overview/libraries#clojure)
+- [Dart](https://docs.github.com/en/rest/overview/libraries#dart)
+- [Emacs Lisp](https://docs.github.com/en/rest/overview/libraries#emacs-lisp)
+- [Erlang](https://docs.github.com/en/rest/overview/libraries#erlang)
+- [Go](https://docs.github.com/en/rest/overview/libraries#go)
+- [Haskell](https://docs.github.com/en/rest/overview/libraries#haskell)
+- [Java](https://docs.github.com/en/rest/overview/libraries#java)
+- [JavaScript](https://docs.github.com/en/rest/overview/libraries#javascript)
+- [Julia](https://docs.github.com/en/rest/overview/libraries#julia)
+- [OCaml](https://docs.github.com/en/rest/overview/libraries#ocaml)
+- [Perl](https://docs.github.com/en/rest/overview/libraries#perl)
+- [PHP](https://docs.github.com/en/rest/overview/libraries#php)
+- [PowerShell](https://docs.github.com/en/rest/overview/libraries#powershell)
+- [Python](https://docs.github.com/en/rest/overview/libraries#python)
+- [Ruby](https://docs.github.com/en/rest/overview/libraries#ruby)
+- [Rust](https://docs.github.com/en/rest/overview/libraries#rust)
+- [Scala](https://docs.github.com/en/rest/overview/libraries#scala)
+- [Shell](https://docs.github.com/en/rest/overview/libraries#shell)
 
 ![The Gundamcat](https://docs.github.com/assets/images/gundamcat.png)
 
-Octokit comes in many flavors
------------------------------
+## Octokit comes in many flavors
 
 Use the official Octokit library, or choose between any of the available third party libraries.  
 Ruby → [octokit.rb](https://github.com/octokit/octokit.rb)  
 .NET → [octokit.net](https://github.com/octokit/octokit.net)  
 JavaScript → [octokit/rest.js](https://github.com/octokit/rest.js)
 
-[Third-party libraries](https://docs.github.com/en/rest/overview/libraries#third-party-libraries) <span id="third-party-libraries"></span>
-------------------------------------------------------------------------------------------------------------------------------------------
+## [Third-party libraries](https://docs.github.com/en/rest/overview/libraries#third-party-libraries) <span id="third-party-libraries"></span>
 
 #### [Clojure](https://docs.github.com/en/rest/overview/libraries#clojure) <span id="clojure"></span>
 

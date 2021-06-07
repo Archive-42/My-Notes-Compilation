@@ -1,5 +1,4 @@
-Intro
-=====
+# Intro
 
 #### [Overview](https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api#overview) <span id="overview"></span>
 
@@ -62,12 +61,12 @@ There are a few interesting bits in the response headers. As expected, the `Cont
 
 Any headers beginning with `X-` are custom headers, and are not included in the HTTP spec. For example:
 
--   `X-GitHub-Media-Type` has a value of `github.v3`. This lets us know the [media type](https://docs.github.com/en/rest/overview/media-types) for the response. Media types have helped us version our output in API v3. We’ll talk more about that later.
--   Take note of the `X-RateLimit-Limit` and `X-RateLimit-Remaining` headers. This pair of headers indicate [how many requests a client can make](https://docs.github.com/en/rest#rate-limiting) in a rolling time period (typically an hour) and how many of those requests the client has already spent.
+- `X-GitHub-Media-Type` has a value of `github.v3`. This lets us know the [media type](https://docs.github.com/en/rest/overview/media-types) for the response. Media types have helped us version our output in API v3. We’ll talk more about that later.
+- Take note of the `X-RateLimit-Limit` and `X-RateLimit-Remaining` headers. This pair of headers indicate [how many requests a client can make](https://docs.github.com/en/rest#rate-limiting) in a rolling time period (typically an hour) and how many of those requests the client has already spent.
 
 #### [Authentication](https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api#authentication) <span id="authentication"></span>
 
-Unauthenticated clients can make 60 requests per hour. To get more requests per hour, we’ll need to *authenticate*. In fact, doing anything interesting with the GitHub API requires [authentication](https://docs.github.com/en/rest#authentication).
+Unauthenticated clients can make 60 requests per hour. To get more requests per hour, we’ll need to _authenticate_. In fact, doing anything interesting with the GitHub API requires [authentication](https://docs.github.com/en/rest#authentication).
 
 **Using personal access tokens**
 
@@ -112,10 +111,10 @@ This time, in addition to the same set of public information we retrieved for <s
 
 Apps that need to read or write private information using the API on behalf of another user should use [OAuth](https://docs.github.com/en/apps/building-integrations/setting-up-and-registering-oauth-apps).
 
-OAuth uses *tokens*. Tokens provide two big features:
+OAuth uses _tokens_. Tokens provide two big features:
 
--   **Revokable access**: users can revoke authorization to third party apps at any time
--   **Limited access**: users can review the specific access that a token will provide before authorizing a third party app
+- **Revokable access**: users can revoke authorization to third party apps at any time
+- **Limited access**: users can review the specific access that a token will provide before authorizing a third party app
 
 Tokens should be created via a [web flow](https://docs.github.com/en/apps/building-oauth-apps/authorizing-oauth-apps). An application sends users to GitHub to log in. GitHub then presents a dialog indicating the name of the app, as well as the level of access the app has once it’s authorized by the user. After a user authorizes access, GitHub redirects the user back to the application:
 
@@ -146,8 +145,8 @@ Or, we can [list repositories for an organization](https://docs.github.com/en/re
 
 The information returned from these calls will depend on which scopes our token has when we authenticate:
 
--   A token with `public_repo` [scope](https://docs.github.com/en/apps/building-oauth-apps/understanding-scopes-for-oauth-apps) returns a response that includes all public repositories we have access to see on github.com.
--   A token with `repo` [scope](https://docs.github.com/en/apps/building-oauth-apps/understanding-scopes-for-oauth-apps) returns a response that includes all public and private repositories we have access to see on GitHub.
+- A token with `public_repo` [scope](https://docs.github.com/en/apps/building-oauth-apps/understanding-scopes-for-oauth-apps) returns a response that includes all public repositories we have access to see on github.com.
+- A token with `repo` [scope](https://docs.github.com/en/apps/building-oauth-apps/understanding-scopes-for-oauth-apps) returns a response that includes all public and private repositories we have access to see on GitHub.
 
 As the [docs](https://docs.github.com/en/rest/reference/repos) indicate, these methods take a `type` parameter that can filter the repositories returned based on what type of access the user has for the repository. In this way, we can fetch only directly-owned repositories, organization repositories, or repositories the user collaborates on via a team.
 
@@ -182,7 +181,7 @@ Next, let’s fetch our newly created repository:
     >    "message": "Not Found"
     > }
 
-Oh noes! Where did it go? Since we created the repository as *private*, we need to authenticate in order to see it. If you’re a grizzled HTTP user, you might expect a `403` instead. Since we don’t want to leak information about private repositories, the GitHub API returns a `404` in this case, as if to say “we can neither confirm nor deny the existence of this repository.”
+Oh noes! Where did it go? Since we created the repository as _private_, we need to authenticate in order to see it. If you’re a grizzled HTTP user, you might expect a `403` instead. Since we don’t want to leak information about private repositories, the GitHub API returns a `404` in this case, as if to say “we can neither confirm nor deny the existence of this repository.”
 
 #### [Issues](https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api#issues) <span id="issues"></span>
 

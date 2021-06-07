@@ -1,6 +1,7 @@
 Common
 
-## IP, Hostnames, DNS
+IP, Hostnames, DNS
+------------------
 
 ### Valid IPs
 
