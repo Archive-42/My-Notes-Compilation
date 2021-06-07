@@ -1,627 +1,1301 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>effectiveness</title><style>
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	text-indent: -1.7em;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.highlight-default {
-}
-.highlight-gray {
-	color: rgb(155,154,151);
-}
-.highlight-brown {
-	color: rgb(100,71,58);
-}
-.highlight-orange {
-	color: rgb(217,115,13);
-}
-.highlight-yellow {
-	color: rgb(223,171,1);
-}
-.highlight-teal {
-	color: rgb(15,123,108);
-}
-.highlight-blue {
-	color: rgb(11,110,153);
-}
-.highlight-purple {
-	color: rgb(105,64,165);
-}
-.highlight-pink {
-	color: rgb(173,26,114);
-}
-.highlight-red {
-	color: rgb(224,62,62);
-}
-.highlight-gray_background {
-	background: rgb(235,236,237);
-}
-.highlight-brown_background {
-	background: rgb(233,229,227);
-}
-.highlight-orange_background {
-	background: rgb(250,235,221);
-}
-.highlight-yellow_background {
-	background: rgb(251,243,219);
-}
-.highlight-teal_background {
-	background: rgb(221,237,234);
-}
-.highlight-blue_background {
-	background: rgb(221,235,241);
-}
-.highlight-purple_background {
-	background: rgb(234,228,242);
-}
-.highlight-pink_background {
-	background: rgb(244,223,235);
-}
-.highlight-red_background {
-	background: rgb(251,228,228);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(55, 53, 47, 0.6);
-	fill: rgba(55, 53, 47, 0.6);
-}
-.block-color-brown {
-	color: rgb(100,71,58);
-	fill: rgb(100,71,58);
-}
-.block-color-orange {
-	color: rgb(217,115,13);
-	fill: rgb(217,115,13);
-}
-.block-color-yellow {
-	color: rgb(223,171,1);
-	fill: rgb(223,171,1);
-}
-.block-color-teal {
-	color: rgb(15,123,108);
-	fill: rgb(15,123,108);
-}
-.block-color-blue {
-	color: rgb(11,110,153);
-	fill: rgb(11,110,153);
-}
-.block-color-purple {
-	color: rgb(105,64,165);
-	fill: rgb(105,64,165);
-}
-.block-color-pink {
-	color: rgb(173,26,114);
-	fill: rgb(173,26,114);
-}
-.block-color-red {
-	color: rgb(224,62,62);
-	fill: rgb(224,62,62);
-}
-.block-color-gray_background {
-	background: rgb(235,236,237);
-}
-.block-color-brown_background {
-	background: rgb(233,229,227);
-}
-.block-color-orange_background {
-	background: rgb(250,235,221);
-}
-.block-color-yellow_background {
-	background: rgb(251,243,219);
-}
-.block-color-teal_background {
-	background: rgb(221,237,234);
-}
-.block-color-blue_background {
-	background: rgb(221,235,241);
-}
-.block-color-purple_background {
-	background: rgb(234,228,242);
-}
-.block-color-pink_background {
-	background: rgb(244,223,235);
-}
-.block-color-red_background {
-	background: rgb(251,228,228);
-}
-.select-value-color-default { background-color: rgba(206,205,202,0.5); }
-.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
-.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
-.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
-.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
-.select-value-color-green { background-color: rgba(0,135,107,0.2); }
-.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
-.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
-.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
-.select-value-color-red { background-color: rgba(255,0,26,0.2); }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="220dd4a4-b530-4150-865a-10ccf6b093ef" class="page sans"><header><h1 class="page-title">effectiveness</h1></header><div class="page-body"><h3 id="da13308f-096a-4927-a363-f981431c1f4b" class="">Typing</h3><ul id="95a3cd41-f036-49d8-8d2e-2357af3f3d0e" class="bulleted-list"><li><a href="https://mmazzarolo.com/blog/2019-08-30-about-the-space-bar">About the space bar.</a></li></ul><ul id="62a72878-23bc-4813-91d2-5db23748035b" class="bulleted-list"><li>https://github.com/dwyl/start-here#touch-typing</li></ul><ul id="6d6ccbce-0dea-4a89-b53a-f0a34705d208" class="bulleted-list"><li><a href="https://didoesdigital.com/typey-type">Typey Type for Stenographers.</a></li></ul><ul id="4ea4e512-9cf5-4ebe-86c9-26a78e6b3b05" class="bulleted-list"><li>https://github.com/manfredschulenburg/rasyti</li></ul><ul id="d941f177-282a-442a-90f9-fde865fd32bf" class="bulleted-list"><li>https://www.artofchording.com + https://news.ycombinator.com/item?id=24182336</li></ul><ul id="165ec766-0051-4fb2-a72a-37f99a044fbc" class="bulleted-list"><li>https://vasilishynkarenka.com/how-to-type-3x-faster</li></ul><h3 id="e852f0ba-1892-49ed-9647-69b2649a1474" class="">Searching</h3><ul id="7a85dfe0-ab8a-47eb-8f52-848ce270e4f5" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLP91MtCof9klPenCxTzBTfRctceWYNN9t">Recon Lab: Ethical Google Hacking - Securing The Stack</a></li></ul><h3 id="b47c5a63-dc36-4a36-aedf-847606f7b25d" class="">tmux</h3><ul id="e25fe366-1abf-4ac7-b8c5-17fb0ca5361b" class="bulleted-list"><li>https://nicknisi.com/posts/2015-11-02-tmux-for-presentation</li></ul><h3 id="149f51ba-45ed-4c16-aa8a-8604e2cd19cd" class="">LaTeX</h3><ul id="835e17f1-1287-4323-afb4-b217a8a67569" class="bulleted-list"><li><a href="https://github.com/James-Yu/LaTeX-Workshop">Boost LaTeX typesetting efficiency with preview, compile, autocomplete, colorize, and more.</a></li></ul><h3 id="1475c020-4534-415d-9bcc-8bec0dd933a5" class="">Tools</h3><ul id="34595983-1cb9-4c97-b172-d946e6652727" class="bulleted-list"><li>https://github.com/cjbarber/ToolsOfTheTrade</li></ul><ul id="ce0aa478-480e-4e96-8da0-afbd23b16f5d" class="bulleted-list"><li>https://speakerdeck.com/ladybenko/improving-as-developers?slide=31</li></ul><ul id="1b27d421-984c-45ff-b9b1-b9cfb7496007" class="bulleted-list"><li><a href="https://www.putorius.net/5-cool-command-line-tools.html">5 Command Line Tools to Break Your Dependence on the GUI</a></li></ul><ul id="0ae1bca2-727d-461d-bd26-f9688275f9ee" class="bulleted-list"><li><a href="https://github.com/tmcw/big">presentations for busy messy hackers</a></li></ul><ul id="98f8e2d8-9908-4154-8871-e8490b26319d" class="bulleted-list"><li><a href="https://twitter.com/adulau/status/1195820269388148738">Joplin for notes taking</a></li></ul><ul id="ba3469db-68ef-4a59-b4d4-d168428b3a3d" class="bulleted-list"><li><a href="https://twitter.com/dan_abramov/status/1209920644462366720">An online graph editor that..</a></li></ul><ul id="43e124c9-3be9-4e13-a834-28e56d615f10" class="bulleted-list"><li><a href="https://devforum.ro/t/ce-scule-folositi-pentru-crearea-de-content-video/12089">Ce scule folosiți pentru crearea de content video?</a></li></ul><ul id="96c3c107-e097-42aa-815f-798d5fdfce5f" class="bulleted-list"><li><a href="https://twitter.com/vysecurity/status/1210661290785402880">What software do they use to make this diagram?</a></li></ul><ul id="d5ad32df-e45b-4f6e-ba5a-8c8ce7a5ea94" class="bulleted-list"><li><a href="https://twitter.com/TejasKumar_/status/1211314304953307136">So you’ve done some talks/presentations and used software for your slides.</a></li></ul><ul id="f36ecc63-a8a4-43df-9c43-4bebf9a28e55" class="bulleted-list"><li><a href="https://gist.github.com/Vestride/278e13915894821e1d6f">Encoding video for the web</a></li></ul><ul id="806cff9c-fc37-4dcd-abd4-8039c536aa53" class="bulleted-list"><li>https://haasn.xyz/posts/2016-12-25-falsehoods-programmers-believe-about-%5Bvideo-stuff%5D.html</li></ul><ul id="fc2e2749-0595-4cc5-8a94-0e6906649755" class="bulleted-list"><li>https://devonzuegel.com/post/memex-my-personal-knowledge-base</li></ul><ul id="dc476408-e156-4684-a13d-e52e58c15166" class="bulleted-list"><li>outline - The fastest wiki and knowledge base for growing teams (Beautiful, feature rich, markdown compatible and open source): <a href="https://twitter.com/binitamshah/status/1210950621131493377">tweet</a> + <a href="https://github.com/outline/outline">repo</a></li></ul><ul id="5c2ff5eb-de4d-4739-a802-f74bc577674b" class="bulleted-list"><li><a href="https://github.com/sissbruecker/linkding">Self-hosted bookmark service.</a></li></ul><ul id="4ff04c24-8646-488e-8993-240ca3c9d6d6" class="bulleted-list"><li><a href="https://youtu.be/0nbkaYsR94c">You Suck at Excel with Joel Spolsky</a></li></ul><ul id="eecab451-6126-43be-94d4-d01050d0d59f" class="bulleted-list"><li><a href="https://twitter.com/devonzuegel/status/1213576043694632963">One of my favorite features of Evernote is its mobile document “scanner”.</a></li></ul><ul id="40b8e175-cb75-4018-9eef-d7c4279b7105" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL9gfSIdua13hRbXvsJAgBWZOGrqeI0_ul">CFCC - CTS 130 - Spreadsheets</a></li></ul><ul id="0a78adec-bdd4-427b-9a59-7bf6b6225efb" class="bulleted-list"><li><a href="https://twitter.com/kelseymwhelan/status/1080544082139795456">Google Excel for accountability</a></li></ul><ul id="3739217e-7c10-4e61-8249-b5b6f22587c7" class="bulleted-list"><li><a href="https://twitter.com/tannerlinsley/status/1217607012416020480">I need to build a presentation ..</a></li></ul><ul id="02cecc61-22a2-4be5-bdbf-c2c80ef31809" class="bulleted-list"><li><a href="https://github.com/ksky521/nodeppt">This is probably the best web presentation tool so far!</a></li></ul><ul id="c79f04e8-6abf-4ea4-8cfc-2ab2dab6dc40" class="bulleted-list"><li><a href="https://github.com/yyx990803/build-your-own-mint">Build your own personal finance analytics using Plaid, Google Sheets and CircleCI.</a></li></ul><ul id="e2bd3e7d-f438-4d30-9a45-070b16764322" class="bulleted-list"><li>https://hashrocket.com/blog/posts/generate-images-for-instagram</li></ul><ul id="3c97b934-8345-43b1-8bbb-490f9b6c2faa" class="bulleted-list"><li>Crop a single image to a certain aspect ratio in ImageMagick (7.0+): <a href="https://twitter.com/danburzo/status/1222441121051267073">tweet</a> + <a href="https://github.com/danburzo/toolbox/blob/master/imagemagick.md">repo</a></li></ul><ul id="59099621-0b4d-4406-a9d1-7d77906520fc" class="bulleted-list"><li>https://github.com/aviaryan/awesome-no-login-web-apps</li></ul><ul id="01890cf6-bf3e-45b7-96c1-7fe690c73dfa" class="bulleted-list"><li><a href="https://www.filingdb.com/pdf-text-extraction">What’s so hard about PDF text extraction?</a></li></ul><ul id="5af1b15f-d556-4b2b-8eda-b7af2f1e38ce" class="bulleted-list"><li><a href="https://geshan.com.np/blog/2020/10/free-productivity-software-increase-efficiency">I love PDF</a></li></ul><ul id="98118079-0bec-4286-a036-910db769fa23" class="bulleted-list"><li><a href="https://lifehacker.com/the-best-hidden-features-of-vlc-1654434241">How to Enable VLC’s Best Hidden Features</a></li></ul><ul id="5f2eba01-3db1-4271-9163-b5403b4d83bb" class="bulleted-list"><li>https://www.toolboxtoolbox.com</li></ul><ul id="e7b8174d-dd3c-409f-b2eb-fd440be27d8c" class="bulleted-list"><li>https://www.metabeta.com/articles/starter-kit-for-startups-looking-to-automate-operations</li></ul><ul id="293f2aeb-80b3-4357-8a3f-8c375431fbc2" class="bulleted-list"><li>https://www.freecodecamp.org/news/learn-microsoft-excel</li></ul><h3 id="2da543ff-f52d-4422-a700-46f5193b54de" class="">Books</h3><ul id="812eec56-fa2c-458a-9083-2e8a5c7b12ef" class="bulleted-list"><li>https://dottedsquirrel.com/everything-else/2020-reading-list-for-developers/</li></ul><ul id="1b2b5a0b-e91b-408e-979f-bd76e2c78b55" class="bulleted-list"><li><a href="https://github.com/hugo53/awesome-ProductManager">A curated list of awesome book, tool and other resource for Product Managers.</a></li></ul><h3 id="d8daa09a-041e-464b-a986-c94f0d7baebd" class="">Minimalism</h3><ul id="5ed4680e-be9c-434c-b8e5-a19927b2dd34" class="bulleted-list"><li>https://www.notion.so/Inventory-872bc0d28938412daa772b1544a5dfdc</li></ul><ul id="800d5b85-06bf-402b-8137-af910779b5b9" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLFtln-0KmkcMOAqDP4SF3Acd1t081neiu">Cédric Waldburger</a></li></ul><h3 id="b77af6b0-7123-4b30-8a8f-b375403852da" class="">Writing</h3><ul id="486a983f-3785-4dff-bcb5-85b9685bff64" class="bulleted-list"><li><a href="https://github.com/jlevy/on-books">Readings and notes on the past, present, and future of books</a></li></ul><ul id="9c8e68d4-8843-4338-bf4a-590f5b4472a5" class="bulleted-list"><li>https://yosai.world/process</li></ul><ul id="e7baf1cd-45ee-45e4-925b-472935f3d9ad" class="bulleted-list"><li>https://divu.in/writing-effective-software-137ac3c3c7c1</li></ul><ul id="70dff1c3-c420-46e2-bf8a-f91d613c50aa" class="bulleted-list"><li>http://timharford.com/2020/01/book-of-the-week-2-dreyers-english</li></ul><ul id="09c2e58c-8c70-43fa-8237-f6a8d09c2130" class="bulleted-list"><li><a href="https://twitter.com/aweary/status/1206763785777754117">Don’t waste your time on file structure, use an editor with a good fuzzy search and move on.</a></li></ul><ul id="425d2977-0e3e-4e43-a413-8a43968c63c9" class="bulleted-list"><li>https://awesometalks.party/category/documentation</li></ul><ul id="c34ac068-4791-4538-9d70-9d402975bf16" class="bulleted-list"><li>https://devonzuegel.com/post/comparison-of-text-editing-methods</li></ul><ul id="f44582de-f75c-45ec-bf38-97dd9e18e3da" class="bulleted-list"><li>https://devonzuegel.com/post/advice-on-writing</li></ul><ul id="76669b01-fb5d-4b8d-951e-30388cee046e" class="bulleted-list"><li>https://lethain.com/learned-writing-book</li></ul><ul id="a49f20f2-9104-408f-9c2e-c8ce8674192c" class="bulleted-list"><li><a href="https://www.amazon.com/gp/customer-reviews/R2P9ZQ6EDF7WF6/ref=cm_cr_dp_d_rvw_ttl?ie=UTF8&amp;ASIN=0804171637">What We See When We Read - Peter Mendelsund</a></li></ul><ul id="39182551-a2e5-4bfc-b471-8618d8101ccc" class="bulleted-list"><li><a href="https://news.ycombinator.com/item?id=21905423">Solo devs, how do you plan your development?</a></li></ul><ul id="b4ed67bb-091e-4273-887a-91dd21879af2" class="bulleted-list"><li><a href="https://twitter.com/jlongster/status/1214259525072642049">What’s the right name for a document that projects costs &amp; income over time given conversation/churn rates, growth etc?</a></li></ul><ul id="409ab666-8338-497b-ad4a-550e858287c5" class="bulleted-list"><li>https://github.com/hackerkid/Mind-Expanding-Books#writing</li></ul><ul id="f86b4dee-a237-412d-b2ac-25c75a2514a1" class="bulleted-list"><li>https://elenawrites.online/writing</li></ul><ul id="7cf1a462-dee9-4530-81e7-7e87930e4dfe" class="bulleted-list"><li>https://github.com/ocean1/awesome-thesis</li></ul><ul id="27b46d03-a541-42a0-8590-d516a91f75b6" class="bulleted-list"><li>https://github.com/springernature/frontend-playbook/blob/master/writing/README.md</li></ul><ul id="b54b366b-f8d5-4dc9-850e-41f668b8a031" class="bulleted-list"><li>https://twitter.com/TaylorPearsonMe/status/1217845217757483008</li></ul><ul id="d87fde8c-caa0-420c-9b22-520aba1e8598" class="bulleted-list"><li>https://mkaz.blog/misc/notes-on-technical-writing</li></ul><ul id="0eea30f7-d546-41b8-b1d4-4139df596b93" class="bulleted-list"><li>https://www.quora.com/What-is-the-best-way-to-take-notes/answer/S%C3%B6nke-Ahrens + https://vimeo.com/275530205 + https://strengejacke.wordpress.com/2015/10/07/introduction-to-luhmanns-zettelkasten-thinking-and-its-technical-implementation + https://clerestory.netlify.com/zk + https://clerestory.netlify.com/zk1 + https://www.goodreads.com/book/show/34507927-how-to-take-smart-notes + https://zettelkasten.de/posts/overview + https://www.amazon.com/Make-Stick-Peter-C-Brown-ebook/dp/B00JQ3FN7M + https://takesmartnotes.com/tools + https://www.amazon.com/review/create-review/ref=cm_cr_dp_d_wr_but_top?ie=UTF8&amp;channel=glance-detail&amp;asin=1542866502</li></ul><ul id="106a1c16-3e7d-4972-9b67-890280c5fbbd" class="bulleted-list"><li>https://www.amazon.com/Bird-Some-Instructions-Writing-Life/dp/0385480016 + https://youtu.be/NNuG5xb4K_8</li></ul><ul id="cfe0bad8-191a-44a1-9e03-0a3f050d5b1f" class="bulleted-list"><li>https://github.com/James-Yu/LaTeX-Workshop</li></ul><ul id="fc3aa775-efdb-4b8c-a0c3-8e461c1b4dd8" class="bulleted-list"><li><a href="https://twitter.com/david_perell/status/1228165158876282882">If you could read only one writer — and one writer only — for the rest of your life, who would it be?</a></li></ul><ul id="3fb337b8-2429-4b35-8d0d-3a9bf11a8a6c" class="bulleted-list"><li><a href="https://www.cs.tufts.edu/~nr/pubs/learn.pdf">Learning Technical Writing Using the Engineering Method by Norman Ramsey</a></li></ul><ul id="a5a16c3e-e413-4c6a-81f7-f7be463368ad" class="bulleted-list"><li><a href="https://casual-effects.com/markdeep">Markdeep is a technology for writing plain text documents that will look good in any web browser, whether local or remote. It supports diagrams, calendars, equations, and other features as extensions of Markdown syntax.</a></li></ul><ul id="53e9551c-3a10-4907-b2b8-c41521dca9ef" class="bulleted-list"><li>https://blog.jethro.dev/posts/how_to_take_smart_notes_org</li></ul><ul id="d276b448-e4e7-49fa-be5c-92e4b4011e15" class="bulleted-list"><li><a href="https://developers.google.com/tech-writing">Technical Writing Courses</a></li></ul><ul id="e3c2204c-df46-4861-8988-40ae8be429b2" class="bulleted-list"><li>https://medium.com/@gregsramblings/how-i-tamed-gmail-at-work-a0bd66a17a63</li></ul><ul id="9a291d71-018f-4c0a-b829-c81b33558abc" class="bulleted-list"><li><a href="https://keleshev.com/my-book-writing-setup">Writing a Book with Pandoc, Make, and Vim</a> + https://news.ycombinator.com/item?id=22854332</li></ul><ul id="d97476b2-e008-4503-b66b-b3fa66fc8d4f" class="bulleted-list"><li><a href="https://www.producthunt.com/posts/write-md">Write.md - Sharable, distraction free markdown editor.</a></li></ul><ul id="e657c833-7688-467d-a76f-c9c53a008bea" class="bulleted-list"><li>https://github.com/sixhobbits/technical-writing</li></ul><ul id="fd926727-d227-4ff0-bd18-288734d8cf15" class="bulleted-list"><li><a href="https://news.ycombinator.com/item?id=23324598">Obsidian – A knowledge base that works on local Markdown files</a></li></ul><ul id="21a82600-c0e9-4ea9-9432-502aa6854dfa" class="bulleted-list"><li>https://www.garron.blog/posts/typora-markdown-editor.html</li></ul><ul id="d131f1be-8405-45a5-a29d-9dce22a5205e" class="bulleted-list"><li>https://jonathanbuys.com/Setting_Up_Webster’s_Dictionary + https://www.websters1913.com</li></ul><ul id="e05ba7ae-aa99-4969-ac73-f6d580ae5d2f" class="bulleted-list"><li>https://www.dschapman.com/notes/reading-and-writing-parallel</li></ul><ul id="d3ab5bdb-243e-459e-af20-2e8c1d29fb84" class="bulleted-list"><li><a href="https://ianlee1521.com/2020/03/13/wwhf-how-to-howto">Notes on WWHF Workshop ‘How To How-To’</a></li></ul><ul id="d24ee4d9-1130-46ba-8760-14317a774762" class="bulleted-list"><li>https://github.com/mnielsen/notes-on-writing</li></ul><ul id="78381419-27a3-406d-beb5-a11486dca358" class="bulleted-list"><li>https://www.freecodecamp.org/news/how-to-improve-your-cover-letter</li></ul><ul id="8b052a7c-2bd9-4ce6-b1f6-b1233b5d26d7" class="bulleted-list"><li>https://writingcooperative.com/zettelkasten-how-one-german-scholar-was-so-freakishly-productive-997e4e0ca125</li></ul><ul id="f26d428f-b148-4123-9721-a4ddd86579b1" class="bulleted-list"><li><a href="https://github.com/dannguyen/journalism-syllabi">Computer-Assisted Reporting and Data Journalism Syllabuses, compiled by Dan Nguyen</a></li></ul><ul id="8514cfd2-3f0d-421a-bc96-bc952036d6fb" class="bulleted-list"><li>https://melanie-richards.com/blog/art-of-brevity</li></ul><ul id="9b172b6e-42b2-4938-82f2-a78495312993" class="bulleted-list"><li><a href="https://www.amazon.com/gp/product/B08J7B9Y7H">This Book Was Self-Published: A Technical Guide by Michael Bazzell</a></li></ul><ul id="dba68aa4-04e2-4c1d-8848-51876f4c944e" class="bulleted-list"><li>https://hachibu.net/posts/2020/how-i-manage-my-random-daily-notes</li></ul><ul id="750f0e80-3d1a-4f54-b4af-8adf2f4bb574" class="bulleted-list"><li><a href="https://twitter.com/jsjoeio/status/1354518287980371970">simplenoteapp First Impressions</a></li></ul><ul id="ee757caa-a5bc-4130-b778-a044fe7655c6" class="bulleted-list"><li><a href="https://github.com/malgamves/CommunityWriterPrograms">A list of Developer Community Writer Programs</a></li></ul><ul id="d7c812fc-1470-4dda-acd7-5ac12a0f0c48" class="bulleted-list"><li>https://blacusens.ro/2020/12/de-ce-sa-faci-un-curs-de-scris-si-cateva-recomandari</li></ul><ul id="9801d055-b42b-462c-af3b-441b74b6cbe3" class="bulleted-list"><li>http://theroadchoseme.com/how-i-self-published-a-professional-paperback-and-ebook-using-latex-and-pandoc + https://news.ycombinator.com/item?id=26394564</li></ul><ul id="b293e924-19da-40ca-8cc2-61050c302bc8" class="bulleted-list"><li>https://github.com/rubymorillo/pocket-tech-writing-list</li></ul><h3 id="b995efe4-6194-41a7-a695-7bceab344bd3" class="">Learning</h3><ul id="f6d6caea-3de6-46e2-8352-a97d54b52e6b" class="bulleted-list"><li>https://ncase.me/remember</li></ul><ul id="b882ac93-82e2-47ad-89a9-231363c350f8" class="bulleted-list"><li>https://www.gwern.net/Spaced-repetition</li></ul><ul id="a897270f-6d4f-430c-aa43-b69474365337" class="bulleted-list"><li><a href="https://clementc.github.io/blog/2018/08/15/anki_setup">Anki setup for code and math cards</a></li></ul><ul id="3df961d9-bc79-490c-87c7-53b9d4561001" class="bulleted-list"><li>https://devonzuegel.com/post/thoughts-on-spaced-repetition</li></ul><ul id="9b6d2672-53e6-457f-af64-1749fdc7d1da" class="bulleted-list"><li><a href="https://twitter.com/housecor/status/1206567954906800128">Make it stick</a></li></ul><ul id="72c39989-b1ba-4b9d-bfc7-f7dfd554b80e" class="bulleted-list"><li>https://slatestarcodex.com/2017/07/31/book-review-raise-a-genius</li></ul><ul id="7a9cccdb-8302-4bed-9e6c-768fb23e538f" class="bulleted-list"><li>https://quanticdev.com/articles/most-valuable-thing-to-learn-in-one-hour</li></ul><ul id="70848dbd-d2e7-4795-a5e4-1ace542c5e2d" class="bulleted-list"><li>https://superorganizers.substack.com/p/how-to-build-a-learning-machine</li></ul><h3 id="75bfafe6-6666-4e51-ad5e-8257760c20f5" class="">Websites/Newsletters</h3><ul id="a3b12c1a-b936-4b37-8c29-0b37878dd917" class="bulleted-list"><li>https://github.com/sdmg15/Best-websites-a-programmer-should-visit</li></ul><ul id="86f1e783-cbc3-4eb8-bb02-b8d796405287" class="bulleted-list"><li>https://buttondown.email/swap/archive</li></ul><ul id="7e299ba5-583b-486c-982a-798d24db6e40" class="bulleted-list"><li>https://buttondown.email/devon/archive</li></ul><ul id="49e948c9-8c08-4b36-9947-cea311ad9f08" class="bulleted-list"><li><a href="https://github.com/mezod/awesome-indie">Resources for independent developers to make money</a></li></ul><h3 id="22dcc89c-152b-4969-a790-8bacae84bf90" class="">Remote working</h3><ul id="3d1f5fa2-c5f2-40e3-abd5-b80673688bbb" class="bulleted-list"><li><a href="https://about.gitlab.com/company/culture/all-remote/guide">GitLab’s Guide to All-Remote</a></li></ul></div></article></body></html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>effectiveness</title>
+    <style>
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 3px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        text-indent: -1.7em;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC",
+          "Noto Sans CJK KR";
+      }
+
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Consolas,
+          "Liberation Mono", Menlo, Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC", "Noto Sans Mono CJK KR";
+      }
+
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif,
+          "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC", "Noto Sans CJK KR";
+      }
+
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC",
+          "Noto Sans Mono CJK KR";
+      }
+
+      .highlight-default {
+      }
+      .highlight-gray {
+        color: rgb(155, 154, 151);
+      }
+      .highlight-brown {
+        color: rgb(100, 71, 58);
+      }
+      .highlight-orange {
+        color: rgb(217, 115, 13);
+      }
+      .highlight-yellow {
+        color: rgb(223, 171, 1);
+      }
+      .highlight-teal {
+        color: rgb(15, 123, 108);
+      }
+      .highlight-blue {
+        color: rgb(11, 110, 153);
+      }
+      .highlight-purple {
+        color: rgb(105, 64, 165);
+      }
+      .highlight-pink {
+        color: rgb(173, 26, 114);
+      }
+      .highlight-red {
+        color: rgb(224, 62, 62);
+      }
+      .highlight-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .highlight-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .highlight-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .highlight-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .highlight-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .highlight-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .highlight-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .highlight-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .highlight-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+      }
+      .block-color-brown {
+        color: rgb(100, 71, 58);
+        fill: rgb(100, 71, 58);
+      }
+      .block-color-orange {
+        color: rgb(217, 115, 13);
+        fill: rgb(217, 115, 13);
+      }
+      .block-color-yellow {
+        color: rgb(223, 171, 1);
+        fill: rgb(223, 171, 1);
+      }
+      .block-color-teal {
+        color: rgb(15, 123, 108);
+        fill: rgb(15, 123, 108);
+      }
+      .block-color-blue {
+        color: rgb(11, 110, 153);
+        fill: rgb(11, 110, 153);
+      }
+      .block-color-purple {
+        color: rgb(105, 64, 165);
+        fill: rgb(105, 64, 165);
+      }
+      .block-color-pink {
+        color: rgb(173, 26, 114);
+        fill: rgb(173, 26, 114);
+      }
+      .block-color-red {
+        color: rgb(224, 62, 62);
+        fill: rgb(224, 62, 62);
+      }
+      .block-color-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .block-color-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .block-color-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .block-color-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .block-color-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .block-color-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .block-color-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .block-color-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .block-color-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .select-value-color-default {
+        background-color: rgba(206, 205, 202, 0.5);
+      }
+      .select-value-color-gray {
+        background-color: rgba(155, 154, 151, 0.4);
+      }
+      .select-value-color-brown {
+        background-color: rgba(140, 46, 0, 0.2);
+      }
+      .select-value-color-orange {
+        background-color: rgba(245, 93, 0, 0.2);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(233, 168, 0, 0.2);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 135, 107, 0.2);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 120, 223, 0.2);
+      }
+      .select-value-color-purple {
+        background-color: rgba(103, 36, 222, 0.2);
+      }
+      .select-value-color-pink {
+        background-color: rgba(221, 0, 129, 0.2);
+      }
+      .select-value-color-red {
+        background-color: rgba(255, 0, 26, 0.2);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="220dd4a4-b530-4150-865a-10ccf6b093ef" class="page sans">
+      <header><h1 class="page-title">effectiveness</h1></header>
+      <div class="page-body">
+        <h3 id="da13308f-096a-4927-a363-f981431c1f4b" class="">Typing</h3>
+        <ul id="95a3cd41-f036-49d8-8d2e-2357af3f3d0e" class="bulleted-list">
+          <li>
+            <a href="https://mmazzarolo.com/blog/2019-08-30-about-the-space-bar"
+              >About the space bar.</a
+            >
+          </li>
+        </ul>
+        <ul id="62a72878-23bc-4813-91d2-5db23748035b" class="bulleted-list">
+          <li>https://github.com/dwyl/start-here#touch-typing</li>
+        </ul>
+        <ul id="6d6ccbce-0dea-4a89-b53a-f0a34705d208" class="bulleted-list">
+          <li>
+            <a href="https://didoesdigital.com/typey-type"
+              >Typey Type for Stenographers.</a
+            >
+          </li>
+        </ul>
+        <ul id="4ea4e512-9cf5-4ebe-86c9-26a78e6b3b05" class="bulleted-list">
+          <li>https://github.com/manfredschulenburg/rasyti</li>
+        </ul>
+        <ul id="d941f177-282a-442a-90f9-fde865fd32bf" class="bulleted-list">
+          <li>
+            https://www.artofchording.com +
+            https://news.ycombinator.com/item?id=24182336
+          </li>
+        </ul>
+        <ul id="165ec766-0051-4fb2-a72a-37f99a044fbc" class="bulleted-list">
+          <li>https://vasilishynkarenka.com/how-to-type-3x-faster</li>
+        </ul>
+        <h3 id="e852f0ba-1892-49ed-9647-69b2649a1474" class="">Searching</h3>
+        <ul id="7a85dfe0-ab8a-47eb-8f52-848ce270e4f5" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLP91MtCof9klPenCxTzBTfRctceWYNN9t"
+              >Recon Lab: Ethical Google Hacking - Securing The Stack</a
+            >
+          </li>
+        </ul>
+        <h3 id="b47c5a63-dc36-4a36-aedf-847606f7b25d" class="">tmux</h3>
+        <ul id="e25fe366-1abf-4ac7-b8c5-17fb0ca5361b" class="bulleted-list">
+          <li>https://nicknisi.com/posts/2015-11-02-tmux-for-presentation</li>
+        </ul>
+        <h3 id="149f51ba-45ed-4c16-aa8a-8604e2cd19cd" class="">LaTeX</h3>
+        <ul id="835e17f1-1287-4323-afb4-b217a8a67569" class="bulleted-list">
+          <li>
+            <a href="https://github.com/James-Yu/LaTeX-Workshop"
+              >Boost LaTeX typesetting efficiency with preview, compile,
+              autocomplete, colorize, and more.</a
+            >
+          </li>
+        </ul>
+        <h3 id="1475c020-4534-415d-9bcc-8bec0dd933a5" class="">Tools</h3>
+        <ul id="34595983-1cb9-4c97-b172-d946e6652727" class="bulleted-list">
+          <li>https://github.com/cjbarber/ToolsOfTheTrade</li>
+        </ul>
+        <ul id="ce0aa478-480e-4e96-8da0-afbd23b16f5d" class="bulleted-list">
+          <li>
+            https://speakerdeck.com/ladybenko/improving-as-developers?slide=31
+          </li>
+        </ul>
+        <ul id="1b27d421-984c-45ff-b9b1-b9cfb7496007" class="bulleted-list">
+          <li>
+            <a href="https://www.putorius.net/5-cool-command-line-tools.html"
+              >5 Command Line Tools to Break Your Dependence on the GUI</a
+            >
+          </li>
+        </ul>
+        <ul id="0ae1bca2-727d-461d-bd26-f9688275f9ee" class="bulleted-list">
+          <li>
+            <a href="https://github.com/tmcw/big"
+              >presentations for busy messy hackers</a
+            >
+          </li>
+        </ul>
+        <ul id="98f8e2d8-9908-4154-8871-e8490b26319d" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/adulau/status/1195820269388148738"
+              >Joplin for notes taking</a
+            >
+          </li>
+        </ul>
+        <ul id="ba3469db-68ef-4a59-b4d4-d168428b3a3d" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/dan_abramov/status/1209920644462366720"
+              >An online graph editor that..</a
+            >
+          </li>
+        </ul>
+        <ul id="43e124c9-3be9-4e13-a834-28e56d615f10" class="bulleted-list">
+          <li>
+            <a
+              href="https://devforum.ro/t/ce-scule-folositi-pentru-crearea-de-content-video/12089"
+              >Ce scule folosiți pentru crearea de content video?</a
+            >
+          </li>
+        </ul>
+        <ul id="96c3c107-e097-42aa-815f-798d5fdfce5f" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/vysecurity/status/1210661290785402880"
+              >What software do they use to make this diagram?</a
+            >
+          </li>
+        </ul>
+        <ul id="d5ad32df-e45b-4f6e-ba5a-8c8ce7a5ea94" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/TejasKumar_/status/1211314304953307136"
+              >So you’ve done some talks/presentations and used software for
+              your slides.</a
+            >
+          </li>
+        </ul>
+        <ul id="f36ecc63-a8a4-43df-9c43-4bebf9a28e55" class="bulleted-list">
+          <li>
+            <a href="https://gist.github.com/Vestride/278e13915894821e1d6f"
+              >Encoding video for the web</a
+            >
+          </li>
+        </ul>
+        <ul id="806cff9c-fc37-4dcd-abd4-8039c536aa53" class="bulleted-list">
+          <li>
+            https://haasn.xyz/posts/2016-12-25-falsehoods-programmers-believe-about-%5Bvideo-stuff%5D.html
+          </li>
+        </ul>
+        <ul id="fc2e2749-0595-4cc5-8a94-0e6906649755" class="bulleted-list">
+          <li>https://devonzuegel.com/post/memex-my-personal-knowledge-base</li>
+        </ul>
+        <ul id="dc476408-e156-4684-a13d-e52e58c15166" class="bulleted-list">
+          <li>
+            outline - The fastest wiki and knowledge base for growing teams
+            (Beautiful, feature rich, markdown compatible and open source):
+            <a href="https://twitter.com/binitamshah/status/1210950621131493377"
+              >tweet</a
+            >
+            + <a href="https://github.com/outline/outline">repo</a>
+          </li>
+        </ul>
+        <ul id="5c2ff5eb-de4d-4739-a802-f74bc577674b" class="bulleted-list">
+          <li>
+            <a href="https://github.com/sissbruecker/linkding"
+              >Self-hosted bookmark service.</a
+            >
+          </li>
+        </ul>
+        <ul id="4ff04c24-8646-488e-8993-240ca3c9d6d6" class="bulleted-list">
+          <li>
+            <a href="https://youtu.be/0nbkaYsR94c"
+              >You Suck at Excel with Joel Spolsky</a
+            >
+          </li>
+        </ul>
+        <ul id="eecab451-6126-43be-94d4-d01050d0d59f" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/devonzuegel/status/1213576043694632963"
+              >One of my favorite features of Evernote is its mobile document
+              “scanner”.</a
+            >
+          </li>
+        </ul>
+        <ul id="40b8e175-cb75-4018-9eef-d7c4279b7105" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL9gfSIdua13hRbXvsJAgBWZOGrqeI0_ul"
+              >CFCC - CTS 130 - Spreadsheets</a
+            >
+          </li>
+        </ul>
+        <ul id="0a78adec-bdd4-427b-9a59-7bf6b6225efb" class="bulleted-list">
+          <li>
+            <a
+              href="https://twitter.com/kelseymwhelan/status/1080544082139795456"
+              >Google Excel for accountability</a
+            >
+          </li>
+        </ul>
+        <ul id="3739217e-7c10-4e61-8249-b5b6f22587c7" class="bulleted-list">
+          <li>
+            <a
+              href="https://twitter.com/tannerlinsley/status/1217607012416020480"
+              >I need to build a presentation ..</a
+            >
+          </li>
+        </ul>
+        <ul id="02cecc61-22a2-4be5-bdbf-c2c80ef31809" class="bulleted-list">
+          <li>
+            <a href="https://github.com/ksky521/nodeppt"
+              >This is probably the best web presentation tool so far!</a
+            >
+          </li>
+        </ul>
+        <ul id="c79f04e8-6abf-4ea4-8cfc-2ab2dab6dc40" class="bulleted-list">
+          <li>
+            <a href="https://github.com/yyx990803/build-your-own-mint"
+              >Build your own personal finance analytics using Plaid, Google
+              Sheets and CircleCI.</a
+            >
+          </li>
+        </ul>
+        <ul id="e2bd3e7d-f438-4d30-9a45-070b16764322" class="bulleted-list">
+          <li>
+            https://hashrocket.com/blog/posts/generate-images-for-instagram
+          </li>
+        </ul>
+        <ul id="3c97b934-8345-43b1-8bbb-490f9b6c2faa" class="bulleted-list">
+          <li>
+            Crop a single image to a certain aspect ratio in ImageMagick (7.0+):
+            <a href="https://twitter.com/danburzo/status/1222441121051267073"
+              >tweet</a
+            >
+            +
+            <a
+              href="https://github.com/danburzo/toolbox/blob/master/imagemagick.md"
+              >repo</a
+            >
+          </li>
+        </ul>
+        <ul id="59099621-0b4d-4406-a9d1-7d77906520fc" class="bulleted-list">
+          <li>https://github.com/aviaryan/awesome-no-login-web-apps</li>
+        </ul>
+        <ul id="01890cf6-bf3e-45b7-96c1-7fe690c73dfa" class="bulleted-list">
+          <li>
+            <a href="https://www.filingdb.com/pdf-text-extraction"
+              >What’s so hard about PDF text extraction?</a
+            >
+          </li>
+        </ul>
+        <ul id="5af1b15f-d556-4b2b-8eda-b7af2f1e38ce" class="bulleted-list">
+          <li>
+            <a
+              href="https://geshan.com.np/blog/2020/10/free-productivity-software-increase-efficiency"
+              >I love PDF</a
+            >
+          </li>
+        </ul>
+        <ul id="98118079-0bec-4286-a036-910db769fa23" class="bulleted-list">
+          <li>
+            <a
+              href="https://lifehacker.com/the-best-hidden-features-of-vlc-1654434241"
+              >How to Enable VLC’s Best Hidden Features</a
+            >
+          </li>
+        </ul>
+        <ul id="5f2eba01-3db1-4271-9163-b5403b4d83bb" class="bulleted-list">
+          <li>https://www.toolboxtoolbox.com</li>
+        </ul>
+        <ul id="e7b8174d-dd3c-409f-b2eb-fd440be27d8c" class="bulleted-list">
+          <li>
+            https://www.metabeta.com/articles/starter-kit-for-startups-looking-to-automate-operations
+          </li>
+        </ul>
+        <ul id="293f2aeb-80b3-4357-8a3f-8c375431fbc2" class="bulleted-list">
+          <li>https://www.freecodecamp.org/news/learn-microsoft-excel</li>
+        </ul>
+        <h3 id="2da543ff-f52d-4422-a700-46f5193b54de" class="">Books</h3>
+        <ul id="812eec56-fa2c-458a-9083-2e8a5c7b12ef" class="bulleted-list">
+          <li>
+            https://dottedsquirrel.com/everything-else/2020-reading-list-for-developers/
+          </li>
+        </ul>
+        <ul id="1b2b5a0b-e91b-408e-979f-bd76e2c78b55" class="bulleted-list">
+          <li>
+            <a href="https://github.com/hugo53/awesome-ProductManager"
+              >A curated list of awesome book, tool and other resource for
+              Product Managers.</a
+            >
+          </li>
+        </ul>
+        <h3 id="d8daa09a-041e-464b-a986-c94f0d7baebd" class="">Minimalism</h3>
+        <ul id="5ed4680e-be9c-434c-b8e5-a19927b2dd34" class="bulleted-list">
+          <li>
+            https://www.notion.so/Inventory-872bc0d28938412daa772b1544a5dfdc
+          </li>
+        </ul>
+        <ul id="800d5b85-06bf-402b-8137-af910779b5b9" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLFtln-0KmkcMOAqDP4SF3Acd1t081neiu"
+              >Cédric Waldburger</a
+            >
+          </li>
+        </ul>
+        <h3 id="b77af6b0-7123-4b30-8a8f-b375403852da" class="">Writing</h3>
+        <ul id="486a983f-3785-4dff-bcb5-85b9685bff64" class="bulleted-list">
+          <li>
+            <a href="https://github.com/jlevy/on-books"
+              >Readings and notes on the past, present, and future of books</a
+            >
+          </li>
+        </ul>
+        <ul id="9c8e68d4-8843-4338-bf4a-590f5b4472a5" class="bulleted-list">
+          <li>https://yosai.world/process</li>
+        </ul>
+        <ul id="e7baf1cd-45ee-45e4-925b-472935f3d9ad" class="bulleted-list">
+          <li>https://divu.in/writing-effective-software-137ac3c3c7c1</li>
+        </ul>
+        <ul id="70dff1c3-c420-46e2-bf8a-f91d613c50aa" class="bulleted-list">
+          <li>
+            http://timharford.com/2020/01/book-of-the-week-2-dreyers-english
+          </li>
+        </ul>
+        <ul id="09c2e58c-8c70-43fa-8237-f6a8d09c2130" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/aweary/status/1206763785777754117"
+              >Don’t waste your time on file structure, use an editor with a
+              good fuzzy search and move on.</a
+            >
+          </li>
+        </ul>
+        <ul id="425d2977-0e3e-4e43-a413-8a43968c63c9" class="bulleted-list">
+          <li>https://awesometalks.party/category/documentation</li>
+        </ul>
+        <ul id="c34ac068-4791-4538-9d70-9d402975bf16" class="bulleted-list">
+          <li>
+            https://devonzuegel.com/post/comparison-of-text-editing-methods
+          </li>
+        </ul>
+        <ul id="f44582de-f75c-45ec-bf38-97dd9e18e3da" class="bulleted-list">
+          <li>https://devonzuegel.com/post/advice-on-writing</li>
+        </ul>
+        <ul id="76669b01-fb5d-4b8d-951e-30388cee046e" class="bulleted-list">
+          <li>https://lethain.com/learned-writing-book</li>
+        </ul>
+        <ul id="a49f20f2-9104-408f-9c2e-c8ce8674192c" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.amazon.com/gp/customer-reviews/R2P9ZQ6EDF7WF6/ref=cm_cr_dp_d_rvw_ttl?ie=UTF8&amp;ASIN=0804171637"
+              >What We See When We Read - Peter Mendelsund</a
+            >
+          </li>
+        </ul>
+        <ul id="39182551-a2e5-4bfc-b471-8618d8101ccc" class="bulleted-list">
+          <li>
+            <a href="https://news.ycombinator.com/item?id=21905423"
+              >Solo devs, how do you plan your development?</a
+            >
+          </li>
+        </ul>
+        <ul id="b4ed67bb-091e-4273-887a-91dd21879af2" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/jlongster/status/1214259525072642049"
+              >What’s the right name for a document that projects costs &amp;
+              income over time given conversation/churn rates, growth etc?</a
+            >
+          </li>
+        </ul>
+        <ul id="409ab666-8338-497b-ad4a-550e858287c5" class="bulleted-list">
+          <li>https://github.com/hackerkid/Mind-Expanding-Books#writing</li>
+        </ul>
+        <ul id="f86b4dee-a237-412d-b2ac-25c75a2514a1" class="bulleted-list">
+          <li>https://elenawrites.online/writing</li>
+        </ul>
+        <ul id="7cf1a462-dee9-4530-81e7-7e87930e4dfe" class="bulleted-list">
+          <li>https://github.com/ocean1/awesome-thesis</li>
+        </ul>
+        <ul id="27b46d03-a541-42a0-8590-d516a91f75b6" class="bulleted-list">
+          <li>
+            https://github.com/springernature/frontend-playbook/blob/master/writing/README.md
+          </li>
+        </ul>
+        <ul id="b54b366b-f8d5-4dc9-850e-41f668b8a031" class="bulleted-list">
+          <li>
+            https://twitter.com/TaylorPearsonMe/status/1217845217757483008
+          </li>
+        </ul>
+        <ul id="d87fde8c-caa0-420c-9b22-520aba1e8598" class="bulleted-list">
+          <li>https://mkaz.blog/misc/notes-on-technical-writing</li>
+        </ul>
+        <ul id="0eea30f7-d546-41b8-b1d4-4139df596b93" class="bulleted-list">
+          <li>
+            https://www.quora.com/What-is-the-best-way-to-take-notes/answer/S%C3%B6nke-Ahrens
+            + https://vimeo.com/275530205 +
+            https://strengejacke.wordpress.com/2015/10/07/introduction-to-luhmanns-zettelkasten-thinking-and-its-technical-implementation
+            + https://clerestory.netlify.com/zk +
+            https://clerestory.netlify.com/zk1 +
+            https://www.goodreads.com/book/show/34507927-how-to-take-smart-notes
+            + https://zettelkasten.de/posts/overview +
+            https://www.amazon.com/Make-Stick-Peter-C-Brown-ebook/dp/B00JQ3FN7M
+            + https://takesmartnotes.com/tools +
+            https://www.amazon.com/review/create-review/ref=cm_cr_dp_d_wr_but_top?ie=UTF8&amp;channel=glance-detail&amp;asin=1542866502
+          </li>
+        </ul>
+        <ul id="106a1c16-3e7d-4972-9b67-890280c5fbbd" class="bulleted-list">
+          <li>
+            https://www.amazon.com/Bird-Some-Instructions-Writing-Life/dp/0385480016
+            + https://youtu.be/NNuG5xb4K_8
+          </li>
+        </ul>
+        <ul id="cfe0bad8-191a-44a1-9e03-0a3f050d5b1f" class="bulleted-list">
+          <li>https://github.com/James-Yu/LaTeX-Workshop</li>
+        </ul>
+        <ul id="fc3aa775-efdb-4b8c-a0c3-8e461c1b4dd8" class="bulleted-list">
+          <li>
+            <a
+              href="https://twitter.com/david_perell/status/1228165158876282882"
+              >If you could read only one writer — and one writer only — for the
+              rest of your life, who would it be?</a
+            >
+          </li>
+        </ul>
+        <ul id="3fb337b8-2429-4b35-8d0d-3a9bf11a8a6c" class="bulleted-list">
+          <li>
+            <a href="https://www.cs.tufts.edu/~nr/pubs/learn.pdf"
+              >Learning Technical Writing Using the Engineering Method by Norman
+              Ramsey</a
+            >
+          </li>
+        </ul>
+        <ul id="a5a16c3e-e413-4c6a-81f7-f7be463368ad" class="bulleted-list">
+          <li>
+            <a href="https://casual-effects.com/markdeep"
+              >Markdeep is a technology for writing plain text documents that
+              will look good in any web browser, whether local or remote. It
+              supports diagrams, calendars, equations, and other features as
+              extensions of Markdown syntax.</a
+            >
+          </li>
+        </ul>
+        <ul id="53e9551c-3a10-4907-b2b8-c41521dca9ef" class="bulleted-list">
+          <li>https://blog.jethro.dev/posts/how_to_take_smart_notes_org</li>
+        </ul>
+        <ul id="d276b448-e4e7-49fa-be5c-92e4b4011e15" class="bulleted-list">
+          <li>
+            <a href="https://developers.google.com/tech-writing"
+              >Technical Writing Courses</a
+            >
+          </li>
+        </ul>
+        <ul id="e3c2204c-df46-4861-8988-40ae8be429b2" class="bulleted-list">
+          <li>
+            https://medium.com/@gregsramblings/how-i-tamed-gmail-at-work-a0bd66a17a63
+          </li>
+        </ul>
+        <ul id="9a291d71-018f-4c0a-b829-c81b33558abc" class="bulleted-list">
+          <li>
+            <a href="https://keleshev.com/my-book-writing-setup"
+              >Writing a Book with Pandoc, Make, and Vim</a
+            >
+            + https://news.ycombinator.com/item?id=22854332
+          </li>
+        </ul>
+        <ul id="d97476b2-e008-4503-b66b-b3fa66fc8d4f" class="bulleted-list">
+          <li>
+            <a href="https://www.producthunt.com/posts/write-md"
+              >Write.md - Sharable, distraction free markdown editor.</a
+            >
+          </li>
+        </ul>
+        <ul id="e657c833-7688-467d-a76f-c9c53a008bea" class="bulleted-list">
+          <li>https://github.com/sixhobbits/technical-writing</li>
+        </ul>
+        <ul id="fd926727-d227-4ff0-bd18-288734d8cf15" class="bulleted-list">
+          <li>
+            <a href="https://news.ycombinator.com/item?id=23324598"
+              >Obsidian – A knowledge base that works on local Markdown files</a
+            >
+          </li>
+        </ul>
+        <ul id="21a82600-c0e9-4ea9-9432-502aa6854dfa" class="bulleted-list">
+          <li>https://www.garron.blog/posts/typora-markdown-editor.html</li>
+        </ul>
+        <ul id="d131f1be-8405-45a5-a29d-9dce22a5205e" class="bulleted-list">
+          <li>
+            https://jonathanbuys.com/Setting_Up_Webster’s_Dictionary +
+            https://www.websters1913.com
+          </li>
+        </ul>
+        <ul id="e05ba7ae-aa99-4969-ac73-f6d580ae5d2f" class="bulleted-list">
+          <li>https://www.dschapman.com/notes/reading-and-writing-parallel</li>
+        </ul>
+        <ul id="d3ab5bdb-243e-459e-af20-2e8c1d29fb84" class="bulleted-list">
+          <li>
+            <a href="https://ianlee1521.com/2020/03/13/wwhf-how-to-howto"
+              >Notes on WWHF Workshop ‘How To How-To’</a
+            >
+          </li>
+        </ul>
+        <ul id="d24ee4d9-1130-46ba-8760-14317a774762" class="bulleted-list">
+          <li>https://github.com/mnielsen/notes-on-writing</li>
+        </ul>
+        <ul id="78381419-27a3-406d-beb5-a11486dca358" class="bulleted-list">
+          <li>
+            https://www.freecodecamp.org/news/how-to-improve-your-cover-letter
+          </li>
+        </ul>
+        <ul id="8b052a7c-2bd9-4ce6-b1f6-b1233b5d26d7" class="bulleted-list">
+          <li>
+            https://writingcooperative.com/zettelkasten-how-one-german-scholar-was-so-freakishly-productive-997e4e0ca125
+          </li>
+        </ul>
+        <ul id="f26d428f-b148-4123-9721-a4ddd86579b1" class="bulleted-list">
+          <li>
+            <a href="https://github.com/dannguyen/journalism-syllabi"
+              >Computer-Assisted Reporting and Data Journalism Syllabuses,
+              compiled by Dan Nguyen</a
+            >
+          </li>
+        </ul>
+        <ul id="8514cfd2-3f0d-421a-bc96-bc952036d6fb" class="bulleted-list">
+          <li>https://melanie-richards.com/blog/art-of-brevity</li>
+        </ul>
+        <ul id="9b172b6e-42b2-4938-82f2-a78495312993" class="bulleted-list">
+          <li>
+            <a href="https://www.amazon.com/gp/product/B08J7B9Y7H"
+              >This Book Was Self-Published: A Technical Guide by Michael
+              Bazzell</a
+            >
+          </li>
+        </ul>
+        <ul id="dba68aa4-04e2-4c1d-8848-51876f4c944e" class="bulleted-list">
+          <li>
+            https://hachibu.net/posts/2020/how-i-manage-my-random-daily-notes
+          </li>
+        </ul>
+        <ul id="750f0e80-3d1a-4f54-b4af-8adf2f4bb574" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/jsjoeio/status/1354518287980371970"
+              >simplenoteapp First Impressions</a
+            >
+          </li>
+        </ul>
+        <ul id="ee757caa-a5bc-4130-b778-a044fe7655c6" class="bulleted-list">
+          <li>
+            <a href="https://github.com/malgamves/CommunityWriterPrograms"
+              >A list of Developer Community Writer Programs</a
+            >
+          </li>
+        </ul>
+        <ul id="d7c812fc-1470-4dda-acd7-5ac12a0f0c48" class="bulleted-list">
+          <li>
+            https://blacusens.ro/2020/12/de-ce-sa-faci-un-curs-de-scris-si-cateva-recomandari
+          </li>
+        </ul>
+        <ul id="9801d055-b42b-462c-af3b-441b74b6cbe3" class="bulleted-list">
+          <li>
+            http://theroadchoseme.com/how-i-self-published-a-professional-paperback-and-ebook-using-latex-and-pandoc
+            + https://news.ycombinator.com/item?id=26394564
+          </li>
+        </ul>
+        <ul id="b293e924-19da-40ca-8cc2-61050c302bc8" class="bulleted-list">
+          <li>https://github.com/rubymorillo/pocket-tech-writing-list</li>
+        </ul>
+        <h3 id="b995efe4-6194-41a7-a695-7bceab344bd3" class="">Learning</h3>
+        <ul id="f6d6caea-3de6-46e2-8352-a97d54b52e6b" class="bulleted-list">
+          <li>https://ncase.me/remember</li>
+        </ul>
+        <ul id="b882ac93-82e2-47ad-89a9-231363c350f8" class="bulleted-list">
+          <li>https://www.gwern.net/Spaced-repetition</li>
+        </ul>
+        <ul id="a897270f-6d4f-430c-aa43-b69474365337" class="bulleted-list">
+          <li>
+            <a href="https://clementc.github.io/blog/2018/08/15/anki_setup"
+              >Anki setup for code and math cards</a
+            >
+          </li>
+        </ul>
+        <ul id="3df961d9-bc79-490c-87c7-53b9d4561001" class="bulleted-list">
+          <li>https://devonzuegel.com/post/thoughts-on-spaced-repetition</li>
+        </ul>
+        <ul id="9b6d2672-53e6-457f-af64-1749fdc7d1da" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/housecor/status/1206567954906800128"
+              >Make it stick</a
+            >
+          </li>
+        </ul>
+        <ul id="72c39989-b1ba-4b9d-bfc7-f7dfd554b80e" class="bulleted-list">
+          <li>
+            https://slatestarcodex.com/2017/07/31/book-review-raise-a-genius
+          </li>
+        </ul>
+        <ul id="7a9cccdb-8302-4bed-9e6c-768fb23e538f" class="bulleted-list">
+          <li>
+            https://quanticdev.com/articles/most-valuable-thing-to-learn-in-one-hour
+          </li>
+        </ul>
+        <ul id="70848dbd-d2e7-4795-a5e4-1ace542c5e2d" class="bulleted-list">
+          <li>
+            https://superorganizers.substack.com/p/how-to-build-a-learning-machine
+          </li>
+        </ul>
+        <h3 id="75bfafe6-6666-4e51-ad5e-8257760c20f5" class="">
+          Websites/Newsletters
+        </h3>
+        <ul id="a3b12c1a-b936-4b37-8c29-0b37878dd917" class="bulleted-list">
+          <li>
+            https://github.com/sdmg15/Best-websites-a-programmer-should-visit
+          </li>
+        </ul>
+        <ul id="86f1e783-cbc3-4eb8-bb02-b8d796405287" class="bulleted-list">
+          <li>https://buttondown.email/swap/archive</li>
+        </ul>
+        <ul id="7e299ba5-583b-486c-982a-798d24db6e40" class="bulleted-list">
+          <li>https://buttondown.email/devon/archive</li>
+        </ul>
+        <ul id="49e948c9-8c08-4b36-9947-cea311ad9f08" class="bulleted-list">
+          <li>
+            <a href="https://github.com/mezod/awesome-indie"
+              >Resources for independent developers to make money</a
+            >
+          </li>
+        </ul>
+        <h3 id="22dcc89c-152b-4969-a790-8bacae84bf90" class="">
+          Remote working
+        </h3>
+        <ul id="3d1f5fa2-c5f2-40e3-abd5-b80673688bbb" class="bulleted-list">
+          <li>
+            <a href="https://about.gitlab.com/company/culture/all-remote/guide"
+              >GitLab’s Guide to All-Remote</a
+            >
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

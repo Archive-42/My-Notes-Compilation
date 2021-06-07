@@ -1,627 +1,1060 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>cloud</title><style>
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	text-indent: -1.7em;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.highlight-default {
-}
-.highlight-gray {
-	color: rgb(155,154,151);
-}
-.highlight-brown {
-	color: rgb(100,71,58);
-}
-.highlight-orange {
-	color: rgb(217,115,13);
-}
-.highlight-yellow {
-	color: rgb(223,171,1);
-}
-.highlight-teal {
-	color: rgb(15,123,108);
-}
-.highlight-blue {
-	color: rgb(11,110,153);
-}
-.highlight-purple {
-	color: rgb(105,64,165);
-}
-.highlight-pink {
-	color: rgb(173,26,114);
-}
-.highlight-red {
-	color: rgb(224,62,62);
-}
-.highlight-gray_background {
-	background: rgb(235,236,237);
-}
-.highlight-brown_background {
-	background: rgb(233,229,227);
-}
-.highlight-orange_background {
-	background: rgb(250,235,221);
-}
-.highlight-yellow_background {
-	background: rgb(251,243,219);
-}
-.highlight-teal_background {
-	background: rgb(221,237,234);
-}
-.highlight-blue_background {
-	background: rgb(221,235,241);
-}
-.highlight-purple_background {
-	background: rgb(234,228,242);
-}
-.highlight-pink_background {
-	background: rgb(244,223,235);
-}
-.highlight-red_background {
-	background: rgb(251,228,228);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(55, 53, 47, 0.6);
-	fill: rgba(55, 53, 47, 0.6);
-}
-.block-color-brown {
-	color: rgb(100,71,58);
-	fill: rgb(100,71,58);
-}
-.block-color-orange {
-	color: rgb(217,115,13);
-	fill: rgb(217,115,13);
-}
-.block-color-yellow {
-	color: rgb(223,171,1);
-	fill: rgb(223,171,1);
-}
-.block-color-teal {
-	color: rgb(15,123,108);
-	fill: rgb(15,123,108);
-}
-.block-color-blue {
-	color: rgb(11,110,153);
-	fill: rgb(11,110,153);
-}
-.block-color-purple {
-	color: rgb(105,64,165);
-	fill: rgb(105,64,165);
-}
-.block-color-pink {
-	color: rgb(173,26,114);
-	fill: rgb(173,26,114);
-}
-.block-color-red {
-	color: rgb(224,62,62);
-	fill: rgb(224,62,62);
-}
-.block-color-gray_background {
-	background: rgb(235,236,237);
-}
-.block-color-brown_background {
-	background: rgb(233,229,227);
-}
-.block-color-orange_background {
-	background: rgb(250,235,221);
-}
-.block-color-yellow_background {
-	background: rgb(251,243,219);
-}
-.block-color-teal_background {
-	background: rgb(221,237,234);
-}
-.block-color-blue_background {
-	background: rgb(221,235,241);
-}
-.block-color-purple_background {
-	background: rgb(234,228,242);
-}
-.block-color-pink_background {
-	background: rgb(244,223,235);
-}
-.block-color-red_background {
-	background: rgb(251,228,228);
-}
-.select-value-color-default { background-color: rgba(206,205,202,0.5); }
-.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
-.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
-.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
-.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
-.select-value-color-green { background-color: rgba(0,135,107,0.2); }
-.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
-.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
-.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
-.select-value-color-red { background-color: rgba(255,0,26,0.2); }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="f309506b-990b-40ad-9435-faeb3fcd8204" class="page sans"><header><h1 class="page-title">cloud</h1></header><div class="page-body"><h3 id="5e71206e-8a77-4cfd-8546-8ed7d3b683f2" class="">AWS</h3><ul id="4f60c57f-6f30-401f-afef-6925cdc9ed4a" class="bulleted-list"><li><a href="https://cloudcraft.co/">Cloudcraft – Draw AWS diagrams</a></li></ul><ul id="506b3bce-1441-4fb7-9655-7ad5e4254aae" class="bulleted-list"><li>Build your first Serverless app using AWS Lambda and React - https://serverless-stack.com + https://mail.google.com/mail/u/0/#inbox/FMfcgxwHMjvMVHPvTZpzHSbNcxZgnvjx</li></ul><ul id="786c1afb-9e26-443e-a3a5-5bb5af4c46ec" class="bulleted-list"><li><a href="https://github.com/open-guides/og-aws">📙 Amazon Web Services — a practical guide.</a></li></ul><ul id="31b95061-a220-4731-902d-1d873f39dba1" class="bulleted-list"><li>https://www.freecodecamp.org/news/learn-the-basics-of-amazon-web-services</li></ul><ul id="7859589d-0da5-41da-864b-6d6690faeaef" class="bulleted-list"><li>https://github.com/toniblyx/my-arsenal-of-aws-security-tools + https://twitter.com/ToniBlyx/status/1207073852968316928 + https://blyx.com/2018/07/18/my-arsenal-of-aws-security-tools</li></ul><ul id="f6f6f064-8c75-4e9d-b40f-c01d906c8434" class="bulleted-list"><li>https://gumroad.com/l/aws-good-parts + https://hassenchaieb.com/aws-good-parts</li></ul><ul id="035cdc4c-353f-4858-819c-d0aa0f96f831" class="bulleted-list"><li>https://www.freecodecamp.org/news/pass-the-aws-certified-solutions-architect-exam-with-this-free-10-hour-course + https://www.freecodecamp.org/news/pass-the-aws-developer-associate-exam-with-this-free-16-hour-course</li></ul><ul id="79ceedca-3538-4267-bc46-3ca1418b82b8" class="bulleted-list"><li>https://gameanalytics.com/blog/reduce-costs-https-api-aws.html</li></ul><ul id="5b231b68-6a26-44d9-b428-61eedcc76285" class="bulleted-list"><li>A serverless email server on AWS using S3 and SES: <a href="https://twitter.com/brianleroux/status/1214236551032393731">tweet</a> + <a href="https://github.com/0x4447/0x4447_product_s3_email">repo</a></li></ul><ul id="89a661d2-bab1-4d6e-bc1a-2466dfe7a73e" class="bulleted-list"><li>https://m.signalvnoise.com/aws-s3-youre-out-of-order</li></ul><ul id="3d1921b5-921e-445a-a824-a814c02745e7" class="bulleted-list"><li><a href="https://twitter.com/brianleroux/status/1218252704348172288">DNS on AWS</a></li></ul><ul id="bd589a2f-35b7-419b-b816-ae0ec47a351c" class="bulleted-list"><li>https://nathandavison.com/blog/exploiting-email-address-parsing-with-aws-ses</li></ul><ul id="3271c5d1-fd40-45e4-a62f-5202f48477c5" class="bulleted-list"><li><a href="https://twitter.com/eastdakota/status/1224555855493746688">Understanding Isolates: The Future of Programming</a></li></ul><ul id="8483e5bc-beed-4af2-a1d1-5f09c10a3903" class="bulleted-list"><li><a href="https://www.hackster.io/claudiuivan1/mqtt-broker-for-real-time-data-db28d4">How to run up an IoT MQTT cloud based system, including sensors, database and a website, in a short time.</a></li></ul><ul id="3c1c0ca1-6d1a-4ed1-afe2-1f5675e23b65" class="bulleted-list"><li>https://www.marcolancini.it/2020/blog-mapping-moving-clouds-with-cartography + https://eng.lyft.com/iam-whatever-you-say-iam-febce59d1e3b + https://www.youtube.com/watch?v=ZukUmZSKSek + https://www.slideshare.net/ErkangZheng/overcoming-the-old-ways-of-working-with-devsecops-culture-data-graph-and-query</li></ul><ul id="9f538415-f829-4ed2-8f1f-fb7baaddf356" class="bulleted-list"><li><a href="https://www.freecodecamp.org/news/auto-updating-excel-python-aws">Build an auto-updating Excel spreadsheet with stock market data using Python, AWS, and the API for the IEX stock exchange.</a></li></ul><ul id="ec3d7bd9-7be6-46c6-b9b7-71e53137a9ef" class="bulleted-list"><li><a href="https://www.jarv.org/building-cmdchallenge.html">Building cmdchallenge using Lambda and API Gateway in the AWS free-tier with Docker and Go</a></li></ul><ul id="6af1edd6-deb6-4597-9ce2-6d8357decc87" class="bulleted-list"><li>https://research.nccgroup.com/2020/04/24/the-extended-aws-security-ramp-up-guide</li></ul><ul id="c5dda524-91bd-4a4f-b75c-61511dcd38b6" class="bulleted-list"><li><a href="https://news.ycombinator.com/item?id=23798347">How can I quickly trim my AWS bill?</a></li></ul><ul id="d554fcf5-2296-4dd5-a93f-d288563b7edb" class="bulleted-list"><li>https://www.freecodecamp.org/news/how-to-make-a-store-in-one-day-aws-react-stripe</li></ul><ul id="fa9e6d4a-43f5-4a45-892c-ba4deb1efa1e" class="bulleted-list"><li>https://frantic.im/back-to-rails + https://news.ycombinator.com/item?id=25100397</li></ul><ul id="b1a9ae87-50ba-4ae1-a7b2-59c721fe7bd9" class="bulleted-list"><li>https://summitroute.com/blog/2020/11/24/setting_up_personal_gsuite_backups_on_aws</li></ul><ul id="69978ab6-cb42-4c65-bd75-1714443de9f7" class="bulleted-list"><li><a href="https://github.com/Netflix/consoleme">ConsoleMe consolidates the management of multiple AWS accounts into a single interface.</a></li></ul><ul id="6390cd42-2079-4494-bcde-91a0de9ca982" class="bulleted-list"><li>https://oliverwainwright.io/backup-wordpress-to-aws-s3</li></ul><ul id="325f8606-0cd1-49e5-8b99-0dc127b1c72c" class="bulleted-list"><li>https://oliverwainwright.io/aws-cert-resources</li></ul><ul id="4f4df491-636a-4a96-98a1-9c8649d01cfb" class="bulleted-list"><li>https://github.com/awslabs/aws-well-architected-labs</li></ul><ul id="817937af-a541-49c4-a9a4-a70939c3f6e5" class="bulleted-list"><li>https://github.com/mykter/aws-security-cert-service-notes</li></ul><ul id="86c06d62-7a1c-4967-9a15-8685db25adf3" class="bulleted-list"><li><a href="https://github.com/wolfeidau/website-openid-proxy">OpenID authenticated access to a static website hosted in an s3 bucket.</a></li></ul><ul id="34933751-56f4-49d1-a28b-d7eaed18be57" class="bulleted-list"><li>https://d1.awsstatic.com/whitepapers/Overview-AWS-Lambda-Security.pdf</li></ul><ul id="6c861757-96de-40f1-8f91-b55dd31b44e4" class="bulleted-list"><li>https://scalesec.com/aws-series/best-practices-for-serverless-endpoints-on-aws</li></ul><ul id="a86bb5c3-16c6-41d6-8736-53bc13aad907" class="bulleted-list"><li>https://wellarchitectedlabs.com</li></ul><ul id="3ad8aced-f5c3-46bf-aa28-ce952ab55cef" class="bulleted-list"><li>https://aws.amazon.com/blogs/security/essential-security-for-everyone-building-a-secure-aws-foundation</li></ul><ul id="22b48a14-a626-4c43-b754-fe12f99133b7" class="bulleted-list"><li>https://github.com/llSourcell/Build-a-Cybersecurity-Startup</li></ul><h3 id="075d7286-f47e-4a8a-8282-e4eab6086ca1" class="">Google Cloud</h3><ul id="c197f3c3-724a-4401-af5a-79c21056b5a1" class="bulleted-list"><li>https://github.com/gregsramblings/google-cloud-4-words</li></ul><ul id="acc064bd-57c3-42e5-be4c-31df057651d6" class="bulleted-list"><li><a href="https://twitter.com/s0md3v/status/1212115426697547777">Set up a free server</a> + https://dev.to/phocks/how-to-get-a-free-google-server-forever-1fpf</li></ul><ul id="62398428-4af6-4723-8374-8b3c7cefe022" class="bulleted-list"><li><a href="https://github.com/jthegedus/firebase-gcp-examples">Firebase app architectures, languages, tools &amp; some GCP things!</a></li></ul><ul id="58118e02-4b47-41ea-9e2b-a3ff6a1f4a08" class="bulleted-list"><li>https://medium.com/@Philmod/npm-release-automation-adb970e49066</li></ul><ul id="97cbe884-2476-4112-9bce-651ed9b78d4c" class="bulleted-list"><li>https://medium.com/google-cloud/code-coverage-on-google-cloud-build-7fcf1b67f182</li></ul><ul id="ee35ab73-8de7-40cc-a929-acf6af713853" class="bulleted-list"><li><a href="https://github.com/asrivas/work-less-do-more">.. Github API to collect metrics on the Node.js runtime to correlate it with survey in a Google Form. It is hosted on a Google Cloud Function.</a></li></ul><ul id="9de78678-681e-4336-8e4a-90c944876864" class="bulleted-list"><li>https://medium.com/google-cloud/no-localhost-no-problem-using-google-cloud-shell-as-my-full-time-development-environment-22d5a1942439</li></ul><ul id="992abdc5-16bf-45a5-b05c-5be9d2d7256f" class="bulleted-list"><li>https://medium.com/python-for-the-utopian/how-to-setup-gsuite-when-your-domain-is-at-zeit-co-600f98801e6b</li></ul><ul id="c50b562b-3061-463c-b874-f1cc2e23eb74" class="bulleted-list"><li>https://www.freecodecamp.org/news/google-cloud-platform-from-zero-to-hero</li></ul><ul id="f51f1aed-ff24-41a8-9f87-8d6e24925e8b" class="bulleted-list"><li><a href="https://geshan.com.np/blog/2020/10/start-tech-startup">How to start a tech startup for $0 with Google Cloud Platform and other services</a></li></ul><ul id="71c15c40-72ad-4b83-aebf-cf1173c2764e" class="bulleted-list"><li>https://www.protocol.com/kelsey-hightower-google-cloud</li></ul><ul id="19962566-22e7-4dff-b012-5b125ac206cc" class="bulleted-list"><li>https://medium.com/graphicacy/capturing-user-emails-in-google-sheets-for-primarycast-b3eaf7a38979</li></ul><ul id="b5d13707-633e-441d-ad66-48f045ac6f46" class="bulleted-list"><li><a href="https://twitter.com/MohapatraHemant/status/1343969802080030720">A Google engineer’s experience with the company as it navigated these issues, giving an inside look at how Google Cloud became what it is today.</a></li></ul><ul id="f4ff2f09-aab9-4393-867e-26f62b7020e5" class="bulleted-list"><li><a href="https://github.com/malob/article-to-audio-cloud-function">Google Cloud Function that takes a url, converts the article at that url to audio using Cloud Text-To-Speech, then stores it in a Cloud Storage bucket.</a></li></ul><ul id="685c6a3d-f57a-42da-8d40-ea9cb5548075" class="bulleted-list"><li><a href="https://github.com/malob/serverless-tts-podcast">Rewrite of article-to-audio-cloud-function and generate-podcast-rss-cloud-function, in a functional style using TypeScript and fp-ts.</a></li></ul><ul id="ec194f18-6c1f-4bdc-a753-b45147bddc45" class="bulleted-list"><li>https://github.com/idevelop/google-cloud-speech-webaudio</li></ul><h3 id="5c135274-3303-4ef1-981c-6c7f73418bb8" class="">IBM</h3><ul id="e568a5e6-63dd-4050-94dc-19008024b35f" class="bulleted-list"><li>https://github.com/victorshinya/awesome-ibmcloud</li></ul><ul id="b97b3765-7bbd-4883-a8b1-8c27b27bcb8b" class="bulleted-list"><li>Introduction to @IBMcloudant - <a href="https://twitter.com/glynn_bird/status/1248217903276732419">tweet</a> + <a href="https://www.youtube.com/playlist?list=PLJa_sXrJUZb-Y4Q_5y3yPC8m5RxS5q-_J">video series</a></li></ul><h3 id="1e7b908d-434e-462f-a775-08f07dd56ca5" class="">Azure</h3><ul id="d5f820dd-91a1-4f16-a858-8c2c9f847c03" class="bulleted-list"><li>https://www.nexmo.com/blog/2020/01/29/how-send-receive-sms-messages-with-node-js-azure-functions-dr</li></ul><ul id="8b1819b4-a89f-4584-ae79-c15ac5c75268" class="bulleted-list"><li>https://github.com/appsecco/breaking-and-pwning-apps-and-servers-aws-azure-training</li></ul><ul id="8d125418-2a55-4050-a91d-fd587ea1644f" class="bulleted-list"><li>https://techcommunity.microsoft.com/t5/azure-security-center/become-an-azure-security-center-ninja/ba-p/1608761</li></ul><ul id="f1442523-ec55-4418-9cc8-5ccf5b6ec965" class="bulleted-list"><li>https://github.com/ddneves/awesome-azure-learning</li></ul><h3 id="9181401a-3627-4539-be7e-fabe0b0cb713" class="">Cloudflare</h3><ul id="edcdad09-bf9c-4a0c-bea6-372eccd9c3d6" class="bulleted-list"><li>https://areknawo.com/cloudflare-workers-the-best-serverless-faas-platform</li></ul><h3 id="e055c331-054a-4626-80cd-fd5f6b35ce0b" class="">Platform independent</h3><ul id="f8d1adbf-85b5-4b06-94f8-278aa666b912" class="bulleted-list"><li><a href="https://landscape.cncf.io/">CNCF Cloud Native Interactive Landscape</a></li></ul><ul id="a831f41a-c13e-42df-a937-4bd3e641f34f" class="bulleted-list"><li><a href="https://github.com/trailofbits/algo">Set up a personal VPN in the cloud.</a></li></ul><ul id="a3c20624-58c5-4b01-8f88-ef7c775e3306" class="bulleted-list"><li>https://github.com/Atarity/deploy-your-own-saas</li></ul><ul id="626e97a8-30bb-4d9b-9079-5997977dbcf5" class="bulleted-list"><li><a href="https://github.com/cloudquery/cloudquery">cloudquery transforms your cloud infrastructure into queryable SQL tables for easy monitoring, governance and security.</a></li></ul><ul id="ae2355d7-bb9f-4a09-baf6-6a0e1b47f89a" class="bulleted-list"><li>https://github.com/Hacking-the-Cloud/hackingthe.cloud</li></ul><ul id="c93fec8f-2902-41ec-a543-3eec5a0ac4cc" class="bulleted-list"><li>https://github.com/100DaysOfCloud/100DaysOfCloudIdeas</li></ul></div></article></body></html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>cloud</title>
+    <style>
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 3px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        text-indent: -1.7em;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC",
+          "Noto Sans CJK KR";
+      }
+
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Consolas,
+          "Liberation Mono", Menlo, Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC", "Noto Sans Mono CJK KR";
+      }
+
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif,
+          "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC", "Noto Sans CJK KR";
+      }
+
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC",
+          "Noto Sans Mono CJK KR";
+      }
+
+      .highlight-default {
+      }
+      .highlight-gray {
+        color: rgb(155, 154, 151);
+      }
+      .highlight-brown {
+        color: rgb(100, 71, 58);
+      }
+      .highlight-orange {
+        color: rgb(217, 115, 13);
+      }
+      .highlight-yellow {
+        color: rgb(223, 171, 1);
+      }
+      .highlight-teal {
+        color: rgb(15, 123, 108);
+      }
+      .highlight-blue {
+        color: rgb(11, 110, 153);
+      }
+      .highlight-purple {
+        color: rgb(105, 64, 165);
+      }
+      .highlight-pink {
+        color: rgb(173, 26, 114);
+      }
+      .highlight-red {
+        color: rgb(224, 62, 62);
+      }
+      .highlight-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .highlight-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .highlight-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .highlight-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .highlight-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .highlight-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .highlight-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .highlight-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .highlight-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+      }
+      .block-color-brown {
+        color: rgb(100, 71, 58);
+        fill: rgb(100, 71, 58);
+      }
+      .block-color-orange {
+        color: rgb(217, 115, 13);
+        fill: rgb(217, 115, 13);
+      }
+      .block-color-yellow {
+        color: rgb(223, 171, 1);
+        fill: rgb(223, 171, 1);
+      }
+      .block-color-teal {
+        color: rgb(15, 123, 108);
+        fill: rgb(15, 123, 108);
+      }
+      .block-color-blue {
+        color: rgb(11, 110, 153);
+        fill: rgb(11, 110, 153);
+      }
+      .block-color-purple {
+        color: rgb(105, 64, 165);
+        fill: rgb(105, 64, 165);
+      }
+      .block-color-pink {
+        color: rgb(173, 26, 114);
+        fill: rgb(173, 26, 114);
+      }
+      .block-color-red {
+        color: rgb(224, 62, 62);
+        fill: rgb(224, 62, 62);
+      }
+      .block-color-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .block-color-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .block-color-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .block-color-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .block-color-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .block-color-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .block-color-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .block-color-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .block-color-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .select-value-color-default {
+        background-color: rgba(206, 205, 202, 0.5);
+      }
+      .select-value-color-gray {
+        background-color: rgba(155, 154, 151, 0.4);
+      }
+      .select-value-color-brown {
+        background-color: rgba(140, 46, 0, 0.2);
+      }
+      .select-value-color-orange {
+        background-color: rgba(245, 93, 0, 0.2);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(233, 168, 0, 0.2);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 135, 107, 0.2);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 120, 223, 0.2);
+      }
+      .select-value-color-purple {
+        background-color: rgba(103, 36, 222, 0.2);
+      }
+      .select-value-color-pink {
+        background-color: rgba(221, 0, 129, 0.2);
+      }
+      .select-value-color-red {
+        background-color: rgba(255, 0, 26, 0.2);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="f309506b-990b-40ad-9435-faeb3fcd8204" class="page sans">
+      <header><h1 class="page-title">cloud</h1></header>
+      <div class="page-body">
+        <h3 id="5e71206e-8a77-4cfd-8546-8ed7d3b683f2" class="">AWS</h3>
+        <ul id="4f60c57f-6f30-401f-afef-6925cdc9ed4a" class="bulleted-list">
+          <li>
+            <a href="https://cloudcraft.co/">Cloudcraft – Draw AWS diagrams</a>
+          </li>
+        </ul>
+        <ul id="506b3bce-1441-4fb7-9655-7ad5e4254aae" class="bulleted-list">
+          <li>
+            Build your first Serverless app using AWS Lambda and React -
+            https://serverless-stack.com +
+            https://mail.google.com/mail/u/0/#inbox/FMfcgxwHMjvMVHPvTZpzHSbNcxZgnvjx
+          </li>
+        </ul>
+        <ul id="786c1afb-9e26-443e-a3a5-5bb5af4c46ec" class="bulleted-list">
+          <li>
+            <a href="https://github.com/open-guides/og-aws"
+              >📙 Amazon Web Services — a practical guide.</a
+            >
+          </li>
+        </ul>
+        <ul id="31b95061-a220-4731-902d-1d873f39dba1" class="bulleted-list">
+          <li>
+            https://www.freecodecamp.org/news/learn-the-basics-of-amazon-web-services
+          </li>
+        </ul>
+        <ul id="7859589d-0da5-41da-864b-6d6690faeaef" class="bulleted-list">
+          <li>
+            https://github.com/toniblyx/my-arsenal-of-aws-security-tools +
+            https://twitter.com/ToniBlyx/status/1207073852968316928 +
+            https://blyx.com/2018/07/18/my-arsenal-of-aws-security-tools
+          </li>
+        </ul>
+        <ul id="f6f6f064-8c75-4e9d-b40f-c01d906c8434" class="bulleted-list">
+          <li>
+            https://gumroad.com/l/aws-good-parts +
+            https://hassenchaieb.com/aws-good-parts
+          </li>
+        </ul>
+        <ul id="035cdc4c-353f-4858-819c-d0aa0f96f831" class="bulleted-list">
+          <li>
+            https://www.freecodecamp.org/news/pass-the-aws-certified-solutions-architect-exam-with-this-free-10-hour-course
+            +
+            https://www.freecodecamp.org/news/pass-the-aws-developer-associate-exam-with-this-free-16-hour-course
+          </li>
+        </ul>
+        <ul id="79ceedca-3538-4267-bc46-3ca1418b82b8" class="bulleted-list">
+          <li>
+            https://gameanalytics.com/blog/reduce-costs-https-api-aws.html
+          </li>
+        </ul>
+        <ul id="5b231b68-6a26-44d9-b428-61eedcc76285" class="bulleted-list">
+          <li>
+            A serverless email server on AWS using S3 and SES:
+            <a href="https://twitter.com/brianleroux/status/1214236551032393731"
+              >tweet</a
+            >
+            +
+            <a href="https://github.com/0x4447/0x4447_product_s3_email">repo</a>
+          </li>
+        </ul>
+        <ul id="89a661d2-bab1-4d6e-bc1a-2466dfe7a73e" class="bulleted-list">
+          <li>https://m.signalvnoise.com/aws-s3-youre-out-of-order</li>
+        </ul>
+        <ul id="3d1921b5-921e-445a-a824-a814c02745e7" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/brianleroux/status/1218252704348172288"
+              >DNS on AWS</a
+            >
+          </li>
+        </ul>
+        <ul id="bd589a2f-35b7-419b-b816-ae0ec47a351c" class="bulleted-list">
+          <li>
+            https://nathandavison.com/blog/exploiting-email-address-parsing-with-aws-ses
+          </li>
+        </ul>
+        <ul id="3271c5d1-fd40-45e4-a62f-5202f48477c5" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/eastdakota/status/1224555855493746688"
+              >Understanding Isolates: The Future of Programming</a
+            >
+          </li>
+        </ul>
+        <ul id="8483e5bc-beed-4af2-a1d1-5f09c10a3903" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.hackster.io/claudiuivan1/mqtt-broker-for-real-time-data-db28d4"
+              >How to run up an IoT MQTT cloud based system, including sensors,
+              database and a website, in a short time.</a
+            >
+          </li>
+        </ul>
+        <ul id="3c1c0ca1-6d1a-4ed1-afe2-1f5675e23b65" class="bulleted-list">
+          <li>
+            https://www.marcolancini.it/2020/blog-mapping-moving-clouds-with-cartography
+            + https://eng.lyft.com/iam-whatever-you-say-iam-febce59d1e3b +
+            https://www.youtube.com/watch?v=ZukUmZSKSek +
+            https://www.slideshare.net/ErkangZheng/overcoming-the-old-ways-of-working-with-devsecops-culture-data-graph-and-query
+          </li>
+        </ul>
+        <ul id="9f538415-f829-4ed2-8f1f-fb7baaddf356" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.freecodecamp.org/news/auto-updating-excel-python-aws"
+              >Build an auto-updating Excel spreadsheet with stock market data
+              using Python, AWS, and the API for the IEX stock exchange.</a
+            >
+          </li>
+        </ul>
+        <ul id="ec3d7bd9-7be6-46c6-b9b7-71e53137a9ef" class="bulleted-list">
+          <li>
+            <a href="https://www.jarv.org/building-cmdchallenge.html"
+              >Building cmdchallenge using Lambda and API Gateway in the AWS
+              free-tier with Docker and Go</a
+            >
+          </li>
+        </ul>
+        <ul id="6af1edd6-deb6-4597-9ce2-6d8357decc87" class="bulleted-list">
+          <li>
+            https://research.nccgroup.com/2020/04/24/the-extended-aws-security-ramp-up-guide
+          </li>
+        </ul>
+        <ul id="c5dda524-91bd-4a4f-b75c-61511dcd38b6" class="bulleted-list">
+          <li>
+            <a href="https://news.ycombinator.com/item?id=23798347"
+              >How can I quickly trim my AWS bill?</a
+            >
+          </li>
+        </ul>
+        <ul id="d554fcf5-2296-4dd5-a93f-d288563b7edb" class="bulleted-list">
+          <li>
+            https://www.freecodecamp.org/news/how-to-make-a-store-in-one-day-aws-react-stripe
+          </li>
+        </ul>
+        <ul id="fa9e6d4a-43f5-4a45-892c-ba4deb1efa1e" class="bulleted-list">
+          <li>
+            https://frantic.im/back-to-rails +
+            https://news.ycombinator.com/item?id=25100397
+          </li>
+        </ul>
+        <ul id="b1a9ae87-50ba-4ae1-a7b2-59c721fe7bd9" class="bulleted-list">
+          <li>
+            https://summitroute.com/blog/2020/11/24/setting_up_personal_gsuite_backups_on_aws
+          </li>
+        </ul>
+        <ul id="69978ab6-cb42-4c65-bd75-1714443de9f7" class="bulleted-list">
+          <li>
+            <a href="https://github.com/Netflix/consoleme"
+              >ConsoleMe consolidates the management of multiple AWS accounts
+              into a single interface.</a
+            >
+          </li>
+        </ul>
+        <ul id="6390cd42-2079-4494-bcde-91a0de9ca982" class="bulleted-list">
+          <li>https://oliverwainwright.io/backup-wordpress-to-aws-s3</li>
+        </ul>
+        <ul id="325f8606-0cd1-49e5-8b99-0dc127b1c72c" class="bulleted-list">
+          <li>https://oliverwainwright.io/aws-cert-resources</li>
+        </ul>
+        <ul id="4f4df491-636a-4a96-98a1-9c8649d01cfb" class="bulleted-list">
+          <li>https://github.com/awslabs/aws-well-architected-labs</li>
+        </ul>
+        <ul id="817937af-a541-49c4-a9a4-a70939c3f6e5" class="bulleted-list">
+          <li>https://github.com/mykter/aws-security-cert-service-notes</li>
+        </ul>
+        <ul id="86c06d62-7a1c-4967-9a15-8685db25adf3" class="bulleted-list">
+          <li>
+            <a href="https://github.com/wolfeidau/website-openid-proxy"
+              >OpenID authenticated access to a static website hosted in an s3
+              bucket.</a
+            >
+          </li>
+        </ul>
+        <ul id="34933751-56f4-49d1-a28b-d7eaed18be57" class="bulleted-list">
+          <li>
+            https://d1.awsstatic.com/whitepapers/Overview-AWS-Lambda-Security.pdf
+          </li>
+        </ul>
+        <ul id="6c861757-96de-40f1-8f91-b55dd31b44e4" class="bulleted-list">
+          <li>
+            https://scalesec.com/aws-series/best-practices-for-serverless-endpoints-on-aws
+          </li>
+        </ul>
+        <ul id="a86bb5c3-16c6-41d6-8736-53bc13aad907" class="bulleted-list">
+          <li>https://wellarchitectedlabs.com</li>
+        </ul>
+        <ul id="3ad8aced-f5c3-46bf-aa28-ce952ab55cef" class="bulleted-list">
+          <li>
+            https://aws.amazon.com/blogs/security/essential-security-for-everyone-building-a-secure-aws-foundation
+          </li>
+        </ul>
+        <ul id="22b48a14-a626-4c43-b754-fe12f99133b7" class="bulleted-list">
+          <li>https://github.com/llSourcell/Build-a-Cybersecurity-Startup</li>
+        </ul>
+        <h3 id="075d7286-f47e-4a8a-8282-e4eab6086ca1" class="">Google Cloud</h3>
+        <ul id="c197f3c3-724a-4401-af5a-79c21056b5a1" class="bulleted-list">
+          <li>https://github.com/gregsramblings/google-cloud-4-words</li>
+        </ul>
+        <ul id="acc064bd-57c3-42e5-be4c-31df057651d6" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/s0md3v/status/1212115426697547777"
+              >Set up a free server</a
+            >
+            + https://dev.to/phocks/how-to-get-a-free-google-server-forever-1fpf
+          </li>
+        </ul>
+        <ul id="62398428-4af6-4723-8374-8b3c7cefe022" class="bulleted-list">
+          <li>
+            <a href="https://github.com/jthegedus/firebase-gcp-examples"
+              >Firebase app architectures, languages, tools &amp; some GCP
+              things!</a
+            >
+          </li>
+        </ul>
+        <ul id="58118e02-4b47-41ea-9e2b-a3ff6a1f4a08" class="bulleted-list">
+          <li>
+            https://medium.com/@Philmod/npm-release-automation-adb970e49066
+          </li>
+        </ul>
+        <ul id="97cbe884-2476-4112-9bce-651ed9b78d4c" class="bulleted-list">
+          <li>
+            https://medium.com/google-cloud/code-coverage-on-google-cloud-build-7fcf1b67f182
+          </li>
+        </ul>
+        <ul id="ee35ab73-8de7-40cc-a929-acf6af713853" class="bulleted-list">
+          <li>
+            <a href="https://github.com/asrivas/work-less-do-more"
+              >.. Github API to collect metrics on the Node.js runtime to
+              correlate it with survey in a Google Form. It is hosted on a
+              Google Cloud Function.</a
+            >
+          </li>
+        </ul>
+        <ul id="9de78678-681e-4336-8e4a-90c944876864" class="bulleted-list">
+          <li>
+            https://medium.com/google-cloud/no-localhost-no-problem-using-google-cloud-shell-as-my-full-time-development-environment-22d5a1942439
+          </li>
+        </ul>
+        <ul id="992abdc5-16bf-45a5-b05c-5be9d2d7256f" class="bulleted-list">
+          <li>
+            https://medium.com/python-for-the-utopian/how-to-setup-gsuite-when-your-domain-is-at-zeit-co-600f98801e6b
+          </li>
+        </ul>
+        <ul id="c50b562b-3061-463c-b874-f1cc2e23eb74" class="bulleted-list">
+          <li>
+            https://www.freecodecamp.org/news/google-cloud-platform-from-zero-to-hero
+          </li>
+        </ul>
+        <ul id="f51f1aed-ff24-41a8-9f87-8d6e24925e8b" class="bulleted-list">
+          <li>
+            <a href="https://geshan.com.np/blog/2020/10/start-tech-startup"
+              >How to start a tech startup for $0 with Google Cloud Platform and
+              other services</a
+            >
+          </li>
+        </ul>
+        <ul id="71c15c40-72ad-4b83-aebf-cf1173c2764e" class="bulleted-list">
+          <li>https://www.protocol.com/kelsey-hightower-google-cloud</li>
+        </ul>
+        <ul id="19962566-22e7-4dff-b012-5b125ac206cc" class="bulleted-list">
+          <li>
+            https://medium.com/graphicacy/capturing-user-emails-in-google-sheets-for-primarycast-b3eaf7a38979
+          </li>
+        </ul>
+        <ul id="b5d13707-633e-441d-ad66-48f045ac6f46" class="bulleted-list">
+          <li>
+            <a
+              href="https://twitter.com/MohapatraHemant/status/1343969802080030720"
+              >A Google engineer’s experience with the company as it navigated
+              these issues, giving an inside look at how Google Cloud became
+              what it is today.</a
+            >
+          </li>
+        </ul>
+        <ul id="f4ff2f09-aab9-4393-867e-26f62b7020e5" class="bulleted-list">
+          <li>
+            <a href="https://github.com/malob/article-to-audio-cloud-function"
+              >Google Cloud Function that takes a url, converts the article at
+              that url to audio using Cloud Text-To-Speech, then stores it in a
+              Cloud Storage bucket.</a
+            >
+          </li>
+        </ul>
+        <ul id="685c6a3d-f57a-42da-8d40-ea9cb5548075" class="bulleted-list">
+          <li>
+            <a href="https://github.com/malob/serverless-tts-podcast"
+              >Rewrite of article-to-audio-cloud-function and
+              generate-podcast-rss-cloud-function, in a functional style using
+              TypeScript and fp-ts.</a
+            >
+          </li>
+        </ul>
+        <ul id="ec194f18-6c1f-4bdc-a753-b45147bddc45" class="bulleted-list">
+          <li>https://github.com/idevelop/google-cloud-speech-webaudio</li>
+        </ul>
+        <h3 id="5c135274-3303-4ef1-981c-6c7f73418bb8" class="">IBM</h3>
+        <ul id="e568a5e6-63dd-4050-94dc-19008024b35f" class="bulleted-list">
+          <li>https://github.com/victorshinya/awesome-ibmcloud</li>
+        </ul>
+        <ul id="b97b3765-7bbd-4883-a8b1-8c27b27bcb8b" class="bulleted-list">
+          <li>
+            Introduction to @IBMcloudant -
+            <a href="https://twitter.com/glynn_bird/status/1248217903276732419"
+              >tweet</a
+            >
+            +
+            <a
+              href="https://www.youtube.com/playlist?list=PLJa_sXrJUZb-Y4Q_5y3yPC8m5RxS5q-_J"
+              >video series</a
+            >
+          </li>
+        </ul>
+        <h3 id="1e7b908d-434e-462f-a775-08f07dd56ca5" class="">Azure</h3>
+        <ul id="d5f820dd-91a1-4f16-a858-8c2c9f847c03" class="bulleted-list">
+          <li>
+            https://www.nexmo.com/blog/2020/01/29/how-send-receive-sms-messages-with-node-js-azure-functions-dr
+          </li>
+        </ul>
+        <ul id="8b1819b4-a89f-4584-ae79-c15ac5c75268" class="bulleted-list">
+          <li>
+            https://github.com/appsecco/breaking-and-pwning-apps-and-servers-aws-azure-training
+          </li>
+        </ul>
+        <ul id="8d125418-2a55-4050-a91d-fd587ea1644f" class="bulleted-list">
+          <li>
+            https://techcommunity.microsoft.com/t5/azure-security-center/become-an-azure-security-center-ninja/ba-p/1608761
+          </li>
+        </ul>
+        <ul id="f1442523-ec55-4418-9cc8-5ccf5b6ec965" class="bulleted-list">
+          <li>https://github.com/ddneves/awesome-azure-learning</li>
+        </ul>
+        <h3 id="9181401a-3627-4539-be7e-fabe0b0cb713" class="">Cloudflare</h3>
+        <ul id="edcdad09-bf9c-4a0c-bea6-372eccd9c3d6" class="bulleted-list">
+          <li>
+            https://areknawo.com/cloudflare-workers-the-best-serverless-faas-platform
+          </li>
+        </ul>
+        <h3 id="e055c331-054a-4626-80cd-fd5f6b35ce0b" class="">
+          Platform independent
+        </h3>
+        <ul id="f8d1adbf-85b5-4b06-94f8-278aa666b912" class="bulleted-list">
+          <li>
+            <a href="https://landscape.cncf.io/"
+              >CNCF Cloud Native Interactive Landscape</a
+            >
+          </li>
+        </ul>
+        <ul id="a831f41a-c13e-42df-a937-4bd3e641f34f" class="bulleted-list">
+          <li>
+            <a href="https://github.com/trailofbits/algo"
+              >Set up a personal VPN in the cloud.</a
+            >
+          </li>
+        </ul>
+        <ul id="a3c20624-58c5-4b01-8f88-ef7c775e3306" class="bulleted-list">
+          <li>https://github.com/Atarity/deploy-your-own-saas</li>
+        </ul>
+        <ul id="626e97a8-30bb-4d9b-9079-5997977dbcf5" class="bulleted-list">
+          <li>
+            <a href="https://github.com/cloudquery/cloudquery"
+              >cloudquery transforms your cloud infrastructure into queryable
+              SQL tables for easy monitoring, governance and security.</a
+            >
+          </li>
+        </ul>
+        <ul id="ae2355d7-bb9f-4a09-baf6-6a0e1b47f89a" class="bulleted-list">
+          <li>https://github.com/Hacking-the-Cloud/hackingthe.cloud</li>
+        </ul>
+        <ul id="c93fec8f-2902-41ec-a543-3eec5a0ac4cc" class="bulleted-list">
+          <li>https://github.com/100DaysOfCloud/100DaysOfCloudIdeas</li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

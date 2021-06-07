@@ -26,7 +26,7 @@ We recommend to put the test files (or `__tests__` folders) next to the code the
 
 ## Command Line Interface
 
-When you run `npm test`, Jest will launch in watch mode*. Every time you save a file, it will re-run the tests, like how `npm start` recompiles the code.
+When you run `npm test`, Jest will launch in watch mode\*. Every time you save a file, it will re-run the tests, like how `npm start` recompiles the code.
 
 The watcher includes an interactive command-line interface with the ability to run all tests, or focus on a search pattern. It is designed this way so that you can keep it open and enjoy fast re-runs. You can learn the commands from the “Watch Usage” note that the watcher prints after every run:
 
@@ -34,7 +34,7 @@ The watcher includes an interactive command-line interface with the ability to r
 
 Jest watch mode
 
-> *Although we recommend running your tests in watch mode during development, you can disable this behavior by passing in the --watchAll=false flag. In most CI environments, this is handled for you (see On CI servers).
+> \*Although we recommend running your tests in watch mode during development, you can disable this behavior by passing in the --watchAll=false flag. In most CI environments, this is handled for you (see On CI servers).
 
 ## Version Control Integration
 
@@ -130,7 +130,7 @@ const localStorageMock = {  getItem: jest.fn(),  setItem: jest.fn(),  removeItem
 
 > Note: Keep in mind that if you decide to “eject” before creating src/setupTests.js, the resulting package.json file won’t contain any reference to it, so you should manually create the property setupFilesAfterEnv in the configuration for Jest, something like the following:
 
-> "jest": {  // ...  "setupFilesAfterEnv": ["<rootDir>/src/setupTests.js"] }
+> "jest": { // ... "setupFilesAfterEnv": ["<rootDir>/src/setupTests.js"] }
 
 ## Focusing and Excluding Tests
 

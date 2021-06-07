@@ -1,627 +1,953 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>design</title><style>
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	text-indent: -1.7em;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.highlight-default {
-}
-.highlight-gray {
-	color: rgb(155,154,151);
-}
-.highlight-brown {
-	color: rgb(100,71,58);
-}
-.highlight-orange {
-	color: rgb(217,115,13);
-}
-.highlight-yellow {
-	color: rgb(223,171,1);
-}
-.highlight-teal {
-	color: rgb(15,123,108);
-}
-.highlight-blue {
-	color: rgb(11,110,153);
-}
-.highlight-purple {
-	color: rgb(105,64,165);
-}
-.highlight-pink {
-	color: rgb(173,26,114);
-}
-.highlight-red {
-	color: rgb(224,62,62);
-}
-.highlight-gray_background {
-	background: rgb(235,236,237);
-}
-.highlight-brown_background {
-	background: rgb(233,229,227);
-}
-.highlight-orange_background {
-	background: rgb(250,235,221);
-}
-.highlight-yellow_background {
-	background: rgb(251,243,219);
-}
-.highlight-teal_background {
-	background: rgb(221,237,234);
-}
-.highlight-blue_background {
-	background: rgb(221,235,241);
-}
-.highlight-purple_background {
-	background: rgb(234,228,242);
-}
-.highlight-pink_background {
-	background: rgb(244,223,235);
-}
-.highlight-red_background {
-	background: rgb(251,228,228);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(55, 53, 47, 0.6);
-	fill: rgba(55, 53, 47, 0.6);
-}
-.block-color-brown {
-	color: rgb(100,71,58);
-	fill: rgb(100,71,58);
-}
-.block-color-orange {
-	color: rgb(217,115,13);
-	fill: rgb(217,115,13);
-}
-.block-color-yellow {
-	color: rgb(223,171,1);
-	fill: rgb(223,171,1);
-}
-.block-color-teal {
-	color: rgb(15,123,108);
-	fill: rgb(15,123,108);
-}
-.block-color-blue {
-	color: rgb(11,110,153);
-	fill: rgb(11,110,153);
-}
-.block-color-purple {
-	color: rgb(105,64,165);
-	fill: rgb(105,64,165);
-}
-.block-color-pink {
-	color: rgb(173,26,114);
-	fill: rgb(173,26,114);
-}
-.block-color-red {
-	color: rgb(224,62,62);
-	fill: rgb(224,62,62);
-}
-.block-color-gray_background {
-	background: rgb(235,236,237);
-}
-.block-color-brown_background {
-	background: rgb(233,229,227);
-}
-.block-color-orange_background {
-	background: rgb(250,235,221);
-}
-.block-color-yellow_background {
-	background: rgb(251,243,219);
-}
-.block-color-teal_background {
-	background: rgb(221,237,234);
-}
-.block-color-blue_background {
-	background: rgb(221,235,241);
-}
-.block-color-purple_background {
-	background: rgb(234,228,242);
-}
-.block-color-pink_background {
-	background: rgb(244,223,235);
-}
-.block-color-red_background {
-	background: rgb(251,228,228);
-}
-.select-value-color-default { background-color: rgba(206,205,202,0.5); }
-.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
-.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
-.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
-.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
-.select-value-color-green { background-color: rgba(0,135,107,0.2); }
-.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
-.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
-.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
-.select-value-color-red { background-color: rgba(255,0,26,0.2); }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="537d9e30-b96a-41c5-806d-27ffbbe70881" class="page sans"><header><h1 class="page-title">design</h1></header><div class="page-body"><h3 id="5712061c-2a43-453d-bf97-adae712ada07" class="">Book</h3><ul id="75c4e379-114a-44ff-b641-1337856657ab" class="bulleted-list"><li>https://jennywen.ca/books</li></ul><ul id="60ee4c65-144c-48fd-8b61-f742c7ba5d76" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL7e8VJ_ZN6eqd8ceHTM3OYoThy21yIoJO">The Handbook of Healthcare Delivery Systems (reviewed by Gregory Schmidt)</a></li></ul><ul id="28f4a353-0e96-4659-bb4b-0851bd08b1a4" class="bulleted-list"><li>https://www.amazon.com/Biomimicry-Innovation-Inspired-Janine-Benyus/dp/0060533226</li></ul><ul id="f3c7caaa-dbd5-4337-a72d-cf785d7e02b5" class="bulleted-list"><li>https://www.amazon.com/Universal-Principles-Design-Revised-Updated/dp/1592535879</li></ul><ul id="5ffbdfdd-42ef-4213-a169-c3a16a7a7425" class="bulleted-list"><li>https://twitter.com/rjs/status/1246161738069753856</li></ul><ul id="1bd6c15b-a3e4-4547-90ea-e12d04bdca06" class="bulleted-list"><li>http://web.eecs.utk.edu/~azh/blog/booksformystudents.html</li></ul><ul id="65002cc6-2f87-4c05-aed9-c83b4d50a702" class="bulleted-list"><li><a href="https://www.degreeless.design/">Degreeless.design - Everything I Learned in Design School</a></li></ul><ul id="2620a393-0d5c-416b-bd25-0c2446bc1f41" class="bulleted-list"><li>https://github.com/bevacqua/reads#artdesign</li></ul><ul id="26a6241f-38fa-41b4-8e6a-1879845ddbd6" class="bulleted-list"><li>https://scattered-thoughts.net/blog/2016/04/17/notes-on-calm-technology-principles-and-patterns-for-non-intrusive-design</li></ul><ul id="34d64741-7937-4edf-a366-83d64736f089" class="bulleted-list"><li>https://www.amazon.com/Codify-Parametric-Computational-Landscape-Architecture/dp/1138125032 + https://twitter.com/mrmrs_/status/1225211023306756104</li></ul><ul id="d88e4019-8d13-4f7f-86ed-08aa920d84e1" class="bulleted-list"><li><a href="https://twitter.com/some1else/status/1266361213321125888">What are the best ways/resources to teach backend developers to learn to build beautiful landing pages?</a></li></ul><ul id="b652ff56-5b1f-43cc-bdfd-2e5c9a316a4b" class="bulleted-list"><li><a href="https://www.designswarm.com/catastrophiccandour">Design history through the books I own</a></li></ul><h3 id="995efa32-a269-49da-9f05-89776df268e0" class="">Cinema</h3><ul id="b7f8ac9d-c641-40f9-b4bb-2f6a9f9a2e9d" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLJ8cMiYb3G5ciSdIo4uRt26NRxmVs0TTQ">Design – Vox</a></li></ul><ul id="27e5fcc8-02b6-4ebf-bd96-56b5292bd0e8" class="bulleted-list"><li><a href="https://vimeo.com/404760526">Rams - Gary Hustwit</a></li></ul><ul id="afda86d0-0f0b-4d75-be0f-c7cb7250e846" class="bulleted-list"><li><a href="https://vimeo.com/402413663">Urbanized - Gary Hustwit</a></li></ul><ul id="1cb02246-b891-4cc7-8491-f4a6133138f1" class="bulleted-list"><li><a href="https://vimeo.com/407343244">Workplace - Gary Hustwit</a></li></ul><ul id="d71be83f-03c3-4e28-ac5a-d8cae2b67341" class="bulleted-list"><li>https://www.hustwit.com/objectified</li></ul><ul id="8a6f4df9-e018-45d2-b314-c9c6a55cb929" class="bulleted-list"><li>https://www.hustwit.com/helvetica</li></ul><ul id="4e5a454b-d748-48af-9e42-23d7b3d0dd1d" class="bulleted-list"><li><a href="https://www.netflix.com/ro-en/title/80057883">Abstract. The Art of Design (2017)</a></li></ul><ul id="9329d085-19c1-47a0-bb46-be3363d59023" class="bulleted-list"><li>https://designthinkingmovie.com</li></ul><ul id="fb2fd2b1-a80d-4a01-adb8-aa228250cf70" class="bulleted-list"><li><a href="https://www.youtube.com/watch?v=jZ1YHqgZzGQ">Milton Glaser: To Inform and Delight (2008)</a></li></ul><ul id="a75a467f-6db4-417d-ab14-f59a0a233c39" class="bulleted-list"><li><a href="https://www.designdisruptors.com/dd">Design Disruptors (2016)</a></li></ul><ul id="8401a17f-aa8a-43fa-a752-eb7bb66ab36d" class="bulleted-list"><li><a href="https://vimeo.com/52861634">vimeo.com/microsoftdesign/connecting</a></li></ul><ul id="af87a65f-1756-4104-a7e5-12da649a24ca" class="bulleted-list"><li>https://www.ohyouprettythings.com/free</li></ul><ul id="871a9909-fac8-484e-9078-36b3152aa0ca" class="bulleted-list"><li>https://www.domestika.org/en/blog/5606-7-masters-of-graphic-design-share-their-industry-insider-secrets</li></ul><h3 id="c33578e2-e333-4f1a-8e89-1fd080d89c1a" class="">Course</h3><ul id="ad618dd0-81c4-4f21-952b-5b083734d5f2" class="bulleted-list"><li>https://matthewstrom.com/ethics</li></ul><ul id="1930b23d-823a-428f-a9a6-a50e3f8f6d50" class="bulleted-list"><li>https://blog.awaxman.com/product-design-resources</li></ul><h3 id="f2f4e7c3-3484-41f3-9373-7674a00bfcc0" class="">Community</h3><ul id="0cbf0225-a058-4e7c-9994-608fe388a115" class="bulleted-list"><li>https://www.facebook.com/lectiadedesign</li></ul><ul id="5ffc507e-fb29-4f73-be91-9b653cde9a64" class="bulleted-list"><li><a href="https://twitter.com/kentcdodds/status/1219641103579779072">I hear a lot about how Stripe is the perfect example of good design.</a></li></ul><h3 id="5a73f488-6809-4d74-8712-e7fe496d30fd" class="">Graphic design</h3><ul id="0d2f07f6-1ff6-4d90-8a04-7ad3677bcd15" class="bulleted-list"><li>https://www.amazon.com/Grid-Systems-Graphic-Design-Communication/dp/3721201450 - mentioned in https://learning.oreilly.com/library/view/graphic-icons-visionaries/9780133156195 and https://learning.oreilly.com/library/view/the-language-of/9781592536764</li></ul><ul id="a4dbabc1-1f31-43fd-9e13-dd1fcdb76989" class="bulleted-list"><li><a href="http://denizcemonduygu.com/thesis">Gráphagos: Evolutionary Algorithm as a Model for the Creative Process and as a Tool to Create Graphic Design Products | by Deniz Cem Önduygu</a></li></ul><ul id="554c6925-8695-4cdb-9423-9c42779f6bfa" class="bulleted-list"><li>https://www.creativeboom.com/inspiration/50-of-the-best-blogs-for-graphic-design-inspiration</li></ul><h3 id="f1c30bea-76b2-4f0b-9437-4d10d59028ec" class="">Inspire</h3><ul id="a29855f2-479e-4454-b6b5-043ab5d41a49" class="bulleted-list"><li>https://component.gallery</li></ul><ul id="30975f37-01d9-4adc-84a6-fa3c302bfe3d" class="bulleted-list"><li>https://www.designboom.com/art/artsupplies-worlds-most-googled-artists-03-10-2021</li></ul><ul id="20956703-8ed9-4d77-9a67-e5dec023cd4a" class="bulleted-list"><li>https://spectrum.mit.edu/winter-2017/neri-oxmans-krebs-cycle-of-creativity</li></ul><ul id="b2a1d4b1-ea0c-4fd2-a0ff-2bfb071bbbda" class="bulleted-list"><li>https://github.com/open-source-ideas/open-source-ideas</li></ul><ul id="729ca093-fda0-4e04-97db-4609b75e6ef0" class="bulleted-list"><li><a href="https://twitter.com/vponamariov/status/1381584285300359169">How to design almost any UI element. A curated list of 58 articles</a></li></ul><ul id="79cd39d8-2216-481b-89ef-1c31151034b2" class="bulleted-list"><li>https://github.com/nordicgiant2/awesome-landing-page</li></ul><ul id="1fbeb384-9c0d-4d7a-874e-e5785534d6b7" class="bulleted-list"><li>https://github.com/CreativeCodeBerlin/creative-coding-minilist</li></ul><h3 id="268d6a99-4f75-477a-a8c6-6fb09f59d8bf" class="">User experience</h3><ul id="887d3013-7854-490d-b513-1c4f18cafacf" class="bulleted-list"><li><a href="https://uxpamagazine.org/the-art-of-designing-conversational-interfaces-book-review">Conversational design is very popular with chat bots.</a></li></ul><ul id="f9f1f7ac-b7ac-46ea-ae5f-e477edb534db" class="bulleted-list"><li>https://github.com/bevacqua/reads#user-experienceinteraction-designusability</li></ul><ul id="0a072405-6f99-47ef-8e40-cf53ffd8fac5" class="bulleted-list"><li>https://uxdesign.cc/button-design-user-interface-components-series-85243b6736c7</li></ul><ul id="9508d2f4-e3d6-45c4-8eee-4971fe174a31" class="bulleted-list"><li>https://uxtools.co/challenges</li></ul><h3 id="439b294b-ac2f-430c-bd15-f00e53bf6e70" class="">Portfolio</h3><ul id="72cc310c-add3-480d-b720-5ba2e5ad071f" class="bulleted-list"><li>https://brianlovin.com/writing/product-design-portfolios</li></ul><ul id="171e82a5-b3d1-4b2b-8df0-2554e86565b8" class="bulleted-list"><li><a href="https://aworkinprogress.dev/">Wei Gao</a></li></ul><ul id="996bc5b7-e944-4df2-97d4-53ee58f0f50a" class="bulleted-list"><li><a href="https://paco.sh/">Paco Coursey</a></li></ul><ul id="dc73332c-ef58-4f6f-91bf-e46cc6614896" class="bulleted-list"><li><a href="https://github.com/kuldar/kuldar-2020">Kuldar Kalvik</a></li></ul><ul id="aa198db3-5457-4bbd-8e8c-d7cbdec0481c" class="bulleted-list"><li><a href="https://github.com/colinhemphill/colinhemphill-website">Colin Hemphill</a></li></ul><ul id="9df29bbe-957c-4181-974c-ef8ce4598aef" class="bulleted-list"><li>https://zthall.com/2017/06/11/narrows-crossfit-casestudy</li></ul><h3 id="9cd8d8ad-13f9-4c2c-a807-3a76fea20a37" class="">Tools</h3><ul id="3a4713cf-84d5-4f21-8528-7fcaedbb0630" class="bulleted-list"><li>https://github.com/goabstract/Awesome-Design-Tools</li></ul></div></article></body></html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>design</title>
+    <style>
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 3px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        text-indent: -1.7em;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC",
+          "Noto Sans CJK KR";
+      }
+
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Consolas,
+          "Liberation Mono", Menlo, Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC", "Noto Sans Mono CJK KR";
+      }
+
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif,
+          "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC", "Noto Sans CJK KR";
+      }
+
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC",
+          "Noto Sans Mono CJK KR";
+      }
+
+      .highlight-default {
+      }
+      .highlight-gray {
+        color: rgb(155, 154, 151);
+      }
+      .highlight-brown {
+        color: rgb(100, 71, 58);
+      }
+      .highlight-orange {
+        color: rgb(217, 115, 13);
+      }
+      .highlight-yellow {
+        color: rgb(223, 171, 1);
+      }
+      .highlight-teal {
+        color: rgb(15, 123, 108);
+      }
+      .highlight-blue {
+        color: rgb(11, 110, 153);
+      }
+      .highlight-purple {
+        color: rgb(105, 64, 165);
+      }
+      .highlight-pink {
+        color: rgb(173, 26, 114);
+      }
+      .highlight-red {
+        color: rgb(224, 62, 62);
+      }
+      .highlight-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .highlight-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .highlight-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .highlight-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .highlight-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .highlight-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .highlight-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .highlight-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .highlight-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+      }
+      .block-color-brown {
+        color: rgb(100, 71, 58);
+        fill: rgb(100, 71, 58);
+      }
+      .block-color-orange {
+        color: rgb(217, 115, 13);
+        fill: rgb(217, 115, 13);
+      }
+      .block-color-yellow {
+        color: rgb(223, 171, 1);
+        fill: rgb(223, 171, 1);
+      }
+      .block-color-teal {
+        color: rgb(15, 123, 108);
+        fill: rgb(15, 123, 108);
+      }
+      .block-color-blue {
+        color: rgb(11, 110, 153);
+        fill: rgb(11, 110, 153);
+      }
+      .block-color-purple {
+        color: rgb(105, 64, 165);
+        fill: rgb(105, 64, 165);
+      }
+      .block-color-pink {
+        color: rgb(173, 26, 114);
+        fill: rgb(173, 26, 114);
+      }
+      .block-color-red {
+        color: rgb(224, 62, 62);
+        fill: rgb(224, 62, 62);
+      }
+      .block-color-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .block-color-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .block-color-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .block-color-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .block-color-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .block-color-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .block-color-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .block-color-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .block-color-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .select-value-color-default {
+        background-color: rgba(206, 205, 202, 0.5);
+      }
+      .select-value-color-gray {
+        background-color: rgba(155, 154, 151, 0.4);
+      }
+      .select-value-color-brown {
+        background-color: rgba(140, 46, 0, 0.2);
+      }
+      .select-value-color-orange {
+        background-color: rgba(245, 93, 0, 0.2);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(233, 168, 0, 0.2);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 135, 107, 0.2);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 120, 223, 0.2);
+      }
+      .select-value-color-purple {
+        background-color: rgba(103, 36, 222, 0.2);
+      }
+      .select-value-color-pink {
+        background-color: rgba(221, 0, 129, 0.2);
+      }
+      .select-value-color-red {
+        background-color: rgba(255, 0, 26, 0.2);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="537d9e30-b96a-41c5-806d-27ffbbe70881" class="page sans">
+      <header><h1 class="page-title">design</h1></header>
+      <div class="page-body">
+        <h3 id="5712061c-2a43-453d-bf97-adae712ada07" class="">Book</h3>
+        <ul id="75c4e379-114a-44ff-b641-1337856657ab" class="bulleted-list">
+          <li>https://jennywen.ca/books</li>
+        </ul>
+        <ul id="60ee4c65-144c-48fd-8b61-f742c7ba5d76" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL7e8VJ_ZN6eqd8ceHTM3OYoThy21yIoJO"
+              >The Handbook of Healthcare Delivery Systems (reviewed by Gregory
+              Schmidt)</a
+            >
+          </li>
+        </ul>
+        <ul id="28f4a353-0e96-4659-bb4b-0851bd08b1a4" class="bulleted-list">
+          <li>
+            https://www.amazon.com/Biomimicry-Innovation-Inspired-Janine-Benyus/dp/0060533226
+          </li>
+        </ul>
+        <ul id="f3c7caaa-dbd5-4337-a72d-cf785d7e02b5" class="bulleted-list">
+          <li>
+            https://www.amazon.com/Universal-Principles-Design-Revised-Updated/dp/1592535879
+          </li>
+        </ul>
+        <ul id="5ffbdfdd-42ef-4213-a169-c3a16a7a7425" class="bulleted-list">
+          <li>https://twitter.com/rjs/status/1246161738069753856</li>
+        </ul>
+        <ul id="1bd6c15b-a3e4-4547-90ea-e12d04bdca06" class="bulleted-list">
+          <li>http://web.eecs.utk.edu/~azh/blog/booksformystudents.html</li>
+        </ul>
+        <ul id="65002cc6-2f87-4c05-aed9-c83b4d50a702" class="bulleted-list">
+          <li>
+            <a href="https://www.degreeless.design/"
+              >Degreeless.design - Everything I Learned in Design School</a
+            >
+          </li>
+        </ul>
+        <ul id="2620a393-0d5c-416b-bd25-0c2446bc1f41" class="bulleted-list">
+          <li>https://github.com/bevacqua/reads#artdesign</li>
+        </ul>
+        <ul id="26a6241f-38fa-41b4-8e6a-1879845ddbd6" class="bulleted-list">
+          <li>
+            https://scattered-thoughts.net/blog/2016/04/17/notes-on-calm-technology-principles-and-patterns-for-non-intrusive-design
+          </li>
+        </ul>
+        <ul id="34d64741-7937-4edf-a366-83d64736f089" class="bulleted-list">
+          <li>
+            https://www.amazon.com/Codify-Parametric-Computational-Landscape-Architecture/dp/1138125032
+            + https://twitter.com/mrmrs_/status/1225211023306756104
+          </li>
+        </ul>
+        <ul id="d88e4019-8d13-4f7f-86ed-08aa920d84e1" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/some1else/status/1266361213321125888"
+              >What are the best ways/resources to teach backend developers to
+              learn to build beautiful landing pages?</a
+            >
+          </li>
+        </ul>
+        <ul id="b652ff56-5b1f-43cc-bdfd-2e5c9a316a4b" class="bulleted-list">
+          <li>
+            <a href="https://www.designswarm.com/catastrophiccandour"
+              >Design history through the books I own</a
+            >
+          </li>
+        </ul>
+        <h3 id="995efa32-a269-49da-9f05-89776df268e0" class="">Cinema</h3>
+        <ul id="b7f8ac9d-c641-40f9-b4bb-2f6a9f9a2e9d" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLJ8cMiYb3G5ciSdIo4uRt26NRxmVs0TTQ"
+              >Design – Vox</a
+            >
+          </li>
+        </ul>
+        <ul id="27e5fcc8-02b6-4ebf-bd96-56b5292bd0e8" class="bulleted-list">
+          <li><a href="https://vimeo.com/404760526">Rams - Gary Hustwit</a></li>
+        </ul>
+        <ul id="afda86d0-0f0b-4d75-be0f-c7cb7250e846" class="bulleted-list">
+          <li>
+            <a href="https://vimeo.com/402413663">Urbanized - Gary Hustwit</a>
+          </li>
+        </ul>
+        <ul id="1cb02246-b891-4cc7-8491-f4a6133138f1" class="bulleted-list">
+          <li>
+            <a href="https://vimeo.com/407343244">Workplace - Gary Hustwit</a>
+          </li>
+        </ul>
+        <ul id="d71be83f-03c3-4e28-ac5a-d8cae2b67341" class="bulleted-list">
+          <li>https://www.hustwit.com/objectified</li>
+        </ul>
+        <ul id="8a6f4df9-e018-45d2-b314-c9c6a55cb929" class="bulleted-list">
+          <li>https://www.hustwit.com/helvetica</li>
+        </ul>
+        <ul id="4e5a454b-d748-48af-9e42-23d7b3d0dd1d" class="bulleted-list">
+          <li>
+            <a href="https://www.netflix.com/ro-en/title/80057883"
+              >Abstract. The Art of Design (2017)</a
+            >
+          </li>
+        </ul>
+        <ul id="9329d085-19c1-47a0-bb46-be3363d59023" class="bulleted-list">
+          <li>https://designthinkingmovie.com</li>
+        </ul>
+        <ul id="fb2fd2b1-a80d-4a01-adb8-aa228250cf70" class="bulleted-list">
+          <li>
+            <a href="https://www.youtube.com/watch?v=jZ1YHqgZzGQ"
+              >Milton Glaser: To Inform and Delight (2008)</a
+            >
+          </li>
+        </ul>
+        <ul id="a75a467f-6db4-417d-ab14-f59a0a233c39" class="bulleted-list">
+          <li>
+            <a href="https://www.designdisruptors.com/dd"
+              >Design Disruptors (2016)</a
+            >
+          </li>
+        </ul>
+        <ul id="8401a17f-aa8a-43fa-a752-eb7bb66ab36d" class="bulleted-list">
+          <li>
+            <a href="https://vimeo.com/52861634"
+              >vimeo.com/microsoftdesign/connecting</a
+            >
+          </li>
+        </ul>
+        <ul id="af87a65f-1756-4104-a7e5-12da649a24ca" class="bulleted-list">
+          <li>https://www.ohyouprettythings.com/free</li>
+        </ul>
+        <ul id="871a9909-fac8-484e-9078-36b3152aa0ca" class="bulleted-list">
+          <li>
+            https://www.domestika.org/en/blog/5606-7-masters-of-graphic-design-share-their-industry-insider-secrets
+          </li>
+        </ul>
+        <h3 id="c33578e2-e333-4f1a-8e89-1fd080d89c1a" class="">Course</h3>
+        <ul id="ad618dd0-81c4-4f21-952b-5b083734d5f2" class="bulleted-list">
+          <li>https://matthewstrom.com/ethics</li>
+        </ul>
+        <ul id="1930b23d-823a-428f-a9a6-a50e3f8f6d50" class="bulleted-list">
+          <li>https://blog.awaxman.com/product-design-resources</li>
+        </ul>
+        <h3 id="f2f4e7c3-3484-41f3-9373-7674a00bfcc0" class="">Community</h3>
+        <ul id="0cbf0225-a058-4e7c-9994-608fe388a115" class="bulleted-list">
+          <li>https://www.facebook.com/lectiadedesign</li>
+        </ul>
+        <ul id="5ffc507e-fb29-4f73-be91-9b653cde9a64" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/kentcdodds/status/1219641103579779072"
+              >I hear a lot about how Stripe is the perfect example of good
+              design.</a
+            >
+          </li>
+        </ul>
+        <h3 id="5a73f488-6809-4d74-8712-e7fe496d30fd" class="">
+          Graphic design
+        </h3>
+        <ul id="0d2f07f6-1ff6-4d90-8a04-7ad3677bcd15" class="bulleted-list">
+          <li>
+            https://www.amazon.com/Grid-Systems-Graphic-Design-Communication/dp/3721201450
+            - mentioned in
+            https://learning.oreilly.com/library/view/graphic-icons-visionaries/9780133156195
+            and
+            https://learning.oreilly.com/library/view/the-language-of/9781592536764
+          </li>
+        </ul>
+        <ul id="a4dbabc1-1f31-43fd-9e13-dd1fcdb76989" class="bulleted-list">
+          <li>
+            <a href="http://denizcemonduygu.com/thesis"
+              >Gráphagos: Evolutionary Algorithm as a Model for the Creative
+              Process and as a Tool to Create Graphic Design Products | by Deniz
+              Cem Önduygu</a
+            >
+          </li>
+        </ul>
+        <ul id="554c6925-8695-4cdb-9423-9c42779f6bfa" class="bulleted-list">
+          <li>
+            https://www.creativeboom.com/inspiration/50-of-the-best-blogs-for-graphic-design-inspiration
+          </li>
+        </ul>
+        <h3 id="f1c30bea-76b2-4f0b-9437-4d10d59028ec" class="">Inspire</h3>
+        <ul id="a29855f2-479e-4454-b6b5-043ab5d41a49" class="bulleted-list">
+          <li>https://component.gallery</li>
+        </ul>
+        <ul id="30975f37-01d9-4adc-84a6-fa3c302bfe3d" class="bulleted-list">
+          <li>
+            https://www.designboom.com/art/artsupplies-worlds-most-googled-artists-03-10-2021
+          </li>
+        </ul>
+        <ul id="20956703-8ed9-4d77-9a67-e5dec023cd4a" class="bulleted-list">
+          <li>
+            https://spectrum.mit.edu/winter-2017/neri-oxmans-krebs-cycle-of-creativity
+          </li>
+        </ul>
+        <ul id="b2a1d4b1-ea0c-4fd2-a0ff-2bfb071bbbda" class="bulleted-list">
+          <li>https://github.com/open-source-ideas/open-source-ideas</li>
+        </ul>
+        <ul id="729ca093-fda0-4e04-97db-4609b75e6ef0" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/vponamariov/status/1381584285300359169"
+              >How to design almost any UI element. A curated list of 58
+              articles</a
+            >
+          </li>
+        </ul>
+        <ul id="79cd39d8-2216-481b-89ef-1c31151034b2" class="bulleted-list">
+          <li>https://github.com/nordicgiant2/awesome-landing-page</li>
+        </ul>
+        <ul id="1fbeb384-9c0d-4d7a-874e-e5785534d6b7" class="bulleted-list">
+          <li>
+            https://github.com/CreativeCodeBerlin/creative-coding-minilist
+          </li>
+        </ul>
+        <h3 id="268d6a99-4f75-477a-a8c6-6fb09f59d8bf" class="">
+          User experience
+        </h3>
+        <ul id="887d3013-7854-490d-b513-1c4f18cafacf" class="bulleted-list">
+          <li>
+            <a
+              href="https://uxpamagazine.org/the-art-of-designing-conversational-interfaces-book-review"
+              >Conversational design is very popular with chat bots.</a
+            >
+          </li>
+        </ul>
+        <ul id="f9f1f7ac-b7ac-46ea-ae5f-e477edb534db" class="bulleted-list">
+          <li>
+            https://github.com/bevacqua/reads#user-experienceinteraction-designusability
+          </li>
+        </ul>
+        <ul id="0a072405-6f99-47ef-8e40-cf53ffd8fac5" class="bulleted-list">
+          <li>
+            https://uxdesign.cc/button-design-user-interface-components-series-85243b6736c7
+          </li>
+        </ul>
+        <ul id="9508d2f4-e3d6-45c4-8eee-4971fe174a31" class="bulleted-list">
+          <li>https://uxtools.co/challenges</li>
+        </ul>
+        <h3 id="439b294b-ac2f-430c-bd15-f00e53bf6e70" class="">Portfolio</h3>
+        <ul id="72cc310c-add3-480d-b720-5ba2e5ad071f" class="bulleted-list">
+          <li>https://brianlovin.com/writing/product-design-portfolios</li>
+        </ul>
+        <ul id="171e82a5-b3d1-4b2b-8df0-2554e86565b8" class="bulleted-list">
+          <li><a href="https://aworkinprogress.dev/">Wei Gao</a></li>
+        </ul>
+        <ul id="996bc5b7-e944-4df2-97d4-53ee58f0f50a" class="bulleted-list">
+          <li><a href="https://paco.sh/">Paco Coursey</a></li>
+        </ul>
+        <ul id="dc73332c-ef58-4f6f-91bf-e46cc6614896" class="bulleted-list">
+          <li>
+            <a href="https://github.com/kuldar/kuldar-2020">Kuldar Kalvik</a>
+          </li>
+        </ul>
+        <ul id="aa198db3-5457-4bbd-8e8c-d7cbdec0481c" class="bulleted-list">
+          <li>
+            <a href="https://github.com/colinhemphill/colinhemphill-website"
+              >Colin Hemphill</a
+            >
+          </li>
+        </ul>
+        <ul id="9df29bbe-957c-4181-974c-ef8ce4598aef" class="bulleted-list">
+          <li>https://zthall.com/2017/06/11/narrows-crossfit-casestudy</li>
+        </ul>
+        <h3 id="9cd8d8ad-13f9-4c2c-a807-3a76fea20a37" class="">Tools</h3>
+        <ul id="3a4713cf-84d5-4f21-8528-7fcaedbb0630" class="bulleted-list">
+          <li>https://github.com/goabstract/Awesome-Design-Tools</li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

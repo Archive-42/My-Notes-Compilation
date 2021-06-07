@@ -29,23 +29,23 @@ function sayHello () {
   console.log(hello)
 }
 
-console.log(hello) 
-sayHello() 
+console.log(hello)
+sayHello()
 ```
 
 Although you can declare variables in the global scope, it is advised not to. This is because there is a chance of naming collisions, where two or more variables are named the same. If you declared your variables with `const` or `let`, you would receive an error whenever a name collision happens. This is undesirable.
 
 ```text
 let thing = 'something'
-let thing = 'something else' 
+let thing = 'something else'
 ```
 
 If you declare your variables with `var`, your second variable overwrites the first one after it is declared. This also undesirable as you make your code hard to debug.
 
 ```text
 var thing = 'something'
-var thing = 'something else' 
-console.log(thing) 
+var thing = 'something else'
+console.log(thing)
 ```
 
 So, you should always declare local variables, not global variables.
@@ -70,8 +70,8 @@ function sayHello () {
   console.log(hello)
 }
 
-sayHello() 
-console.log(hello) 
+sayHello()
+console.log(hello)
 ```
 
 ### Block scope
@@ -83,10 +83,10 @@ In the example below, you can see that `hello` is scoped to the curly brace:
 ```text
 {
   const hello = 'Hello CSS-Tricks Reader!'
-  console.log(hello) 
+  console.log(hello)
 }
 
-console.log(hello) 
+console.log(hello)
 ```
 
 The block scope is a subset of a function scope since functions need to be declared with curly braces \(unless you’re using [arrow functions](https://zellwk.com/blog/es6/#arrow-functions) with an implicit return\).
@@ -111,7 +111,7 @@ sayHello()
 When declared with a function expression, functions are not hoisted to the top of the current scope.
 
 ```text
-sayHello() 
+sayHello()
 const sayHello = function () {
   console.log(aFunction)
 }
@@ -132,7 +132,7 @@ function first () {
 
 function second () {
   first()
-  console.log(firstFunctionVariable) 
+  console.log(firstFunctionVariable)
 }
 ```
 
@@ -148,10 +148,10 @@ function outerFunction () {
 
   function innerFunction() {
     const inner = `I'm the inner function!`
-    console.log(outer) 
+    console.log(outer)
   }
 
-  console.log(inner) 
+  console.log(inner)
 }
 ```
 
@@ -184,7 +184,7 @@ function outerFunction () {
   return innerFunction
 }
 
-outerFunction()() 
+outerFunction()()
 ```
 
 Since the inner function is returned, you can also shorten the code a little by writing a return statement while declaring the function.
@@ -198,7 +198,7 @@ function outerFunction () {
   }
 }
 
-outerFunction()() 
+outerFunction()()
 ```
 
 Since closures have access to the variables in the outer function, they are usually used for two things:
@@ -351,4 +351,3 @@ Feel free to pop by and ask any questions you have. I’ll get back to you as so
 If you liked this article, you may also like other front-end-related articles I write on my [blog](https://zellwk.com/blog/) and my [newsletter](https://zellwk.com/newsletter/css-tricks/). I also have a brand new \(and free!\) email course: [JavaScript Roadmap](https://jsroadmap.com/).
 
 [Source](https://css-tricks.com/javascript-scope-closures/)
-

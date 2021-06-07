@@ -17,6 +17,7 @@ No more than two identical consecutive characters, etc
 `^(([\w])\2?(?!\2))+$`
 
 ### At least two unique characters: https://stackoverflow.com/questions/5341369/regex-for-at-least-two-unique-characters/
+
 ```
 ^
 (?>                 # Possessive group - do not backtrack!
@@ -33,15 +34,18 @@ $
 (?<-Unique>){2}     # After we're done, check there were at least
                     # two unique characters
 ```
+
 The idea here is to match duplicated characters and count the rest using balancing groups: This is achieved with a possessive group - it makes sure the duplicated characters never backtrack, thus the next dot will only capture a non-duplicated character.  
 In .Net, every capture of a group is added to a stack. (?<-Unique>) pops a capture from the stack, and fails if it's empty. It gives a nice way of counting how many captures we've had.
 
 Or a simpler solution:
+
 ```
 (.)(?<!\1.+)(?!.*\1).*(.)(?<!\2.+)(?!.*\2)
 ```
 
 To explain it:
+
 ```
 (.)                    # match any character...
 (?<!\1.+)              # ...which does not already exist in the input...
@@ -50,6 +54,6 @@ To explain it:
 
 .*                     # allow for any number of random characters in the middle
 
-(.)(?<!\2.+)(?!.*\2)   # Find a second unique character, 
+(.)(?<!\2.+)(?!.*\2)   # Find a second unique character,
                        # using the same technique.
 ```

@@ -56,11 +56,11 @@ That’s something that you hear people getting tested for all the time, but you
 
 Editorial @ MediumFollowSHAQ CHERIS FOLLOWS
 
-* [![Jada Gomez](https://miro.medium.com/fit/c/24/24/1*mmjw6NfFl2rPFSTuXXw2fg.jpeg)](https://jada.medium.com/?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)[Jada Gomez](https://jada.medium.com/?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)
-* [![ZORA](https://miro.medium.com/fit/c/24/24/1*4Sybq8pTkkfjqANAw9SiRA.jpeg)](https://zora.medium.com/?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)[ZORA](https://zora.medium.com/?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)
-* [![The Startup](https://miro.medium.com/fit/c/24/24/1*pKOfOAOvx-fWzfITATgGRg.jpeg)](https://medium.com/swlh?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)[The Startup](https://medium.com/swlh?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)
-* [![umair haque](https://miro.medium.com/fit/c/24/24/1*N3XzP2bucTYwTm8ZmUZkUA.jpeg)](https://medium.com/@umairh?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)[umair haque](https://medium.com/@umairh?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)
-* [![Lessons from History](https://miro.medium.com/fit/c/24/24/1*DyMHJ7-6eRZHHUSRHsbg7g.png)](https://medium.com/lessons-from-history?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)[Lessons from History](https://medium.com/lessons-from-history?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)
+- [![Jada Gomez](https://miro.medium.com/fit/c/24/24/1*mmjw6NfFl2rPFSTuXXw2fg.jpeg)](https://jada.medium.com/?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)[Jada Gomez](https://jada.medium.com/?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)
+- [![ZORA](https://miro.medium.com/fit/c/24/24/1*4Sybq8pTkkfjqANAw9SiRA.jpeg)](https://zora.medium.com/?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)[ZORA](https://zora.medium.com/?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)
+- [![The Startup](https://miro.medium.com/fit/c/24/24/1*pKOfOAOvx-fWzfITATgGRg.jpeg)](https://medium.com/swlh?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)[The Startup](https://medium.com/swlh?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)
+- [![umair haque](https://miro.medium.com/fit/c/24/24/1*N3XzP2bucTYwTm8ZmUZkUA.jpeg)](https://medium.com/@umairh?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)[umair haque](https://medium.com/@umairh?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)
+- [![Lessons from History](https://miro.medium.com/fit/c/24/24/1*DyMHJ7-6eRZHHUSRHsbg7g.png)](https://medium.com/lessons-from-history?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)[Lessons from History](https://medium.com/lessons-from-history?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)
 
 [See all \(82\)](https://medium.com/@shaq/following?source=blogrolls_sidebar-----d408e2858ae6--------------------------------)
 
@@ -72,11 +72,11 @@ Editorial @ MediumFollowSHAQ CHERIS FOLLOWS
 
 9
 
-* [Writing](https://medium.com/creators-hub/tagged/writing)
-* [Writing Tips](https://medium.com/creators-hub/tagged/writing-tips)
-* [Roundtable](https://medium.com/creators-hub/tagged/roundtable)
-* [Personal Essay](https://medium.com/creators-hub/tagged/personal-essay)
-* [Médium](https://medium.com/creators-hub/tagged/m%C3%A9dium)
+- [Writing](https://medium.com/creators-hub/tagged/writing)
+- [Writing Tips](https://medium.com/creators-hub/tagged/writing-tips)
+- [Roundtable](https://medium.com/creators-hub/tagged/roundtable)
+- [Personal Essay](https://medium.com/creators-hub/tagged/personal-essay)
+- [Médium](https://medium.com/creators-hub/tagged/m%C3%A9dium)
 
 ### [More from Creators Hub](https://medium.com/creators-hub?source=follow_footer-------------------------------------)
 
@@ -93,4 +93,3 @@ The Creators Hub is your source of ongoing education and inspiration to help you
 Lots of people have an important story to tell, and in recent years, memoirs have evolved to tell true stories in creative new ways. Take, for example, Thi Bui’s acclaimed graphic novel memoir [_The Best We Could Do_](https://www.abramsbooks.com/product/best-we-could-do_9781419718779/), which she illustrated herself.
 
 Whether your memoir is a genre-bending form like Bui’s or a traditional exploration of the personal, there are crucial elements to structuring and writing your story that can help you get started or refine a manuscript in progress. …
-

@@ -6,23 +6,23 @@ Learn how to navigate the resources provided by the GitHub API.
 
 ### [In this article](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#in-this-article) <a id="in-this-article"></a>
 
-* [Current version](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#current-version)
-* [Schema](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#schema)
-* [Authentication](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#authentication)
-* [Parameters](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#parameters)
-* [Root endpoint](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#root-endpoint)
-* [GraphQL global node IDs](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#graphql-global-node-ids)
-* [Client errors](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#client-errors)
-* [HTTP redirects](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#http-redirects)
-* [HTTP verbs](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#http-verbs)
-* [Hypermedia](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#hypermedia)
-* [Pagination](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#pagination)
-* [Rate limiting](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting)
-* [User agent required](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required)
-* [Conditional requests](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#conditional-requests)
-* [Cross origin resource sharing](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#cross-origin-resource-sharing)
-* [JSON-P callbacks](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#json-p-callbacks)
-* [Timezones](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#timezones)
+- [Current version](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#current-version)
+- [Schema](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#schema)
+- [Authentication](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#authentication)
+- [Parameters](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#parameters)
+- [Root endpoint](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#root-endpoint)
+- [GraphQL global node IDs](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#graphql-global-node-ids)
+- [Client errors](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#client-errors)
+- [HTTP redirects](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#http-redirects)
+- [HTTP verbs](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#http-verbs)
+- [Hypermedia](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#hypermedia)
+- [Pagination](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#pagination)
+- [Rate limiting](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting)
+- [User agent required](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required)
+- [Conditional requests](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#conditional-requests)
+- [Cross origin resource sharing](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#cross-origin-resource-sharing)
+- [JSON-P callbacks](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#json-p-callbacks)
+- [Timezones](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#timezones)
 
 This describes the resources that make up the official GitHub REST API. If you have any problems or requests, please contact [GitHub Support](https://support.github.com/contact) or [GitHub Premium Support](https://premium.githubsupport.com/).
 
@@ -141,8 +141,8 @@ $ curl -I https://api.github.com -u foo:bar
 After detecting several requests with invalid credentials within a short period, the API will temporarily reject all authentication attempts for that user \(including ones with valid credentials\) with `403 Forbidden`:
 
 ```text
-$ curl -i https://api.github.com -u 
--u valid_username:valid_token 
+$ curl -i https://api.github.com -u
+-u valid_username:valid_token
 > HTTP/1.1 403 Forbidden
 > {
 >   "message": "Maximum number of login attempts exceeded. Please try again later.",
@@ -171,7 +171,7 @@ $ curl -i -u username -d '{"scopes":["repo_deployment"]}' https://api.github.com
 You can issue a `GET` request to the root endpoint to get all the endpoint categories that the REST API supports:
 
 ```text
-$ curl 
+$ curl
 -u username:token https://api.github.com
 ```
 
@@ -221,13 +221,13 @@ There are three possible types of client errors on API calls that receive reques
 
 All error objects have resource and field properties so that your client can tell what the problem is. There's also an error code to let you know what is wrong with the field. These are the possible validation error codes:
 
-| Error code name | Description |
-| :--- | :--- |
-| `missing` | A resource does not exist. |
-| `missing_field` | A required field on a resource has not been set. |
-| `invalid` | The formatting of a field is invalid. Review the documentation for more specific information. |
+| Error code name  | Description                                                                                                                             |
+| :--------------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| `missing`        | A resource does not exist.                                                                                                              |
+| `missing_field`  | A required field on a resource has not been set.                                                                                        |
+| `invalid`        | The formatting of a field is invalid. Review the documentation for more specific information.                                           |
 | `already_exists` | Another resource has the same value as this field. This can happen in resources that must have some unique key \(such as label names\). |
-| `unprocessable` | The inputs provided were invalid. |
+| `unprocessable`  | The inputs provided were invalid.                                                                                                       |
 
 Resources may also send custom validation errors \(where `code` is `custom`\). Custom errors will always have a `message` field describing the error, and most errors will also include a `documentation_url` field pointing to some content that might help you resolve the error.
 
@@ -235,10 +235,10 @@ Resources may also send custom validation errors \(where `code` is `custom`\). C
 
 API v3 uses HTTP redirection where appropriate. Clients should assume that any request may result in a redirection. Receiving an HTTP redirection is _not_ an error and clients should follow that redirect. Redirect responses will have a `Location` header field which contains the URI of the resource to which the client should repeat the requests.
 
-| Status Code | Description |
-| :--- | :--- |
-| `301` | Permanent redirection. The URI you used to make the request has been superseded by the one specified in the `Location` header field. This and all future requests to this resource should be directed to the new URI. |
-| `302`, `307` | Temporary redirection. The request should be repeated verbatim to the URI specified in the `Location` header field but clients should continue to use the original URI for future requests. |
+| Status Code  | Description                                                                                                                                                                                                           |
+| :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `301`        | Permanent redirection. The URI you used to make the request has been superseded by the one specified in the `Location` header field. This and all future requests to this resource should be directed to the new URI. |
+| `302`, `307` | Temporary redirection. The request should be repeated verbatim to the URI specified in the `Location` header field but clients should continue to use the original URI for future requests.                           |
 
 Other redirection status codes may be used in accordance with the HTTP 1.1 spec.
 
@@ -246,20 +246,20 @@ Other redirection status codes may be used in accordance with the HTTP 1.1 spec.
 
 Where possible, API v3 strives to use appropriate HTTP verbs for each action.
 
-| Verb | Description |
-| :--- | :--- |
-| `HEAD` | Can be issued against any resource to get just the HTTP header info. |
-| `GET` | Used for retrieving resources. |
-| `POST` | Used for creating resources. |
-| `PATCH` | Used for updating resources with partial JSON data. For instance, an Issue resource has `title` and `body` attributes. A `PATCH` request may accept one or more of the attributes to update the resource. |
-| `PUT` | Used for replacing resources or collections. For `PUT` requests with no `body` attribute, be sure to set the `Content-Length` header to zero. |
-| `DELETE` | Used for deleting resources. |
+| Verb     | Description                                                                                                                                                                                               |
+| :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `HEAD`   | Can be issued against any resource to get just the HTTP header info.                                                                                                                                      |
+| `GET`    | Used for retrieving resources.                                                                                                                                                                            |
+| `POST`   | Used for creating resources.                                                                                                                                                                              |
+| `PATCH`  | Used for updating resources with partial JSON data. For instance, an Issue resource has `title` and `body` attributes. A `PATCH` request may accept one or more of the attributes to update the resource. |
+| `PUT`    | Used for replacing resources or collections. For `PUT` requests with no `body` attribute, be sure to set the `Content-Length` header to zero.                                                             |
+| `DELETE` | Used for deleting resources.                                                                                                                                                                              |
 
 #### [Hypermedia](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#hypermedia) <a id="hypermedia"></a>
 
 All resources may have one or more `*_url` properties linking to other resources. These are meant to provide explicit URLs so that proper API clients don't need to construct URLs on their own. It is highly recommended that API clients use these. Doing so will make future upgrades of the API easier for developers. All URLs are expected to be proper [RFC 6570](http://tools.ietf.org/html/rfc6570) URI templates.
 
-You can then expand these templates using something like the [uri\_template](https://github.com/hannesg/uri_template) gem:
+You can then expand these templates using something like the [uri_template](https://github.com/hannesg/uri_template) gem:
 
 ```text
 >> tmpl = URITemplate.new('/notifications{?since,all,participating}')
@@ -310,12 +310,12 @@ This `Link` response header contains one or more [Hypermedia](https://docs.githu
 
 The possible `rel` values are:
 
-| Name | Description |
-| :--- | :--- |
-| `next` | The link relation for the immediate next page of results. |
-| `last` | The link relation for the last page of results. |
-| `first` | The link relation for the first page of results. |
-| `prev` | The link relation for the immediate previous page of results. |
+| Name    | Description                                                   |
+| :------ | :------------------------------------------------------------ |
+| `next`  | The link relation for the immediate next page of results.     |
+| `last`  | The link relation for the last page of results.               |
+| `first` | The link relation for the first page of results.              |
+| `prev`  | The link relation for the immediate previous page of results. |
 
 #### [Rate limiting](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) <a id="rate-limiting"></a>
 
@@ -341,11 +341,11 @@ $ curl -I https://api.github.com/users/octocat
 > X-RateLimit-Reset: 1372700873
 ```
 
-| Header Name | Description |
-| :--- | :--- |
-| `X-RateLimit-Limit` | The maximum number of requests you're permitted to make per hour. |
-| `X-RateLimit-Remaining` | The number of requests remaining in the current rate limit window. |
-| `X-RateLimit-Reset` | The time at which the current rate limit window resets in [UTC epoch seconds](http://en.wikipedia.org/wiki/Unix_time). |
+| Header Name             | Description                                                                                                            |
+| :---------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| `X-RateLimit-Limit`     | The maximum number of requests you're permitted to make per hour.                                                      |
+| `X-RateLimit-Remaining` | The number of requests remaining in the current rate limit window.                                                     |
+| `X-RateLimit-Reset`     | The time at which the current rate limit window resets in [UTC epoch seconds](http://en.wikipedia.org/wiki/Unix_time). |
 
 If you need the time in a different format, any modern programming language can get the job done. For example, if you open up the console on your web browser, you can easily get the reset time as a JavaScript Date object.
 
@@ -582,10 +582,10 @@ Link: <url1>; rel="next", <url2>; rel="foo"; bar="baz"
 
 Some requests that create new data, such as creating a new commit, allow you to provide time zone information when specifying or generating timestamps. We apply the following rules, in order of priority, to determine timezone information for API calls.
 
-* [Explicitly providing an ISO 8601 timestamp with timezone information](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#explicitly-providing-an-iso-8601-timestamp-with-timezone-information)
-* [Using the `Time-Zone` header](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#using-the-time-zone-header)
-* [Using the last known timezone for the user](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#using-the-last-known-timezone-for-the-user)
-* [Defaulting to UTC without other timezone information](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#defaulting-to-utc-without-other-timezone-information)
+- [Explicitly providing an ISO 8601 timestamp with timezone information](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#explicitly-providing-an-iso-8601-timestamp-with-timezone-information)
+- [Using the `Time-Zone` header](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#using-the-time-zone-header)
+- [Using the last known timezone for the user](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#using-the-last-known-timezone-for-the-user)
+- [Defaulting to UTC without other timezone information](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#defaulting-to-utc-without-other-timezone-information)
 
 **Explicitly providing an ISO 8601 timestamp with timezone information**
 
@@ -610,4 +610,3 @@ If no `Time-Zone` header is specified and you make an authenticated call to the 
 **Defaulting to UTC without other timezone information**
 
 If the steps above don't result in any information, we use UTC as the timezone to create the git commit.
-

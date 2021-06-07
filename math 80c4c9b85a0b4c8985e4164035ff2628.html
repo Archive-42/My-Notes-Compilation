@@ -1,627 +1,1191 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>math</title><style>
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	text-indent: -1.7em;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.highlight-default {
-}
-.highlight-gray {
-	color: rgb(155,154,151);
-}
-.highlight-brown {
-	color: rgb(100,71,58);
-}
-.highlight-orange {
-	color: rgb(217,115,13);
-}
-.highlight-yellow {
-	color: rgb(223,171,1);
-}
-.highlight-teal {
-	color: rgb(15,123,108);
-}
-.highlight-blue {
-	color: rgb(11,110,153);
-}
-.highlight-purple {
-	color: rgb(105,64,165);
-}
-.highlight-pink {
-	color: rgb(173,26,114);
-}
-.highlight-red {
-	color: rgb(224,62,62);
-}
-.highlight-gray_background {
-	background: rgb(235,236,237);
-}
-.highlight-brown_background {
-	background: rgb(233,229,227);
-}
-.highlight-orange_background {
-	background: rgb(250,235,221);
-}
-.highlight-yellow_background {
-	background: rgb(251,243,219);
-}
-.highlight-teal_background {
-	background: rgb(221,237,234);
-}
-.highlight-blue_background {
-	background: rgb(221,235,241);
-}
-.highlight-purple_background {
-	background: rgb(234,228,242);
-}
-.highlight-pink_background {
-	background: rgb(244,223,235);
-}
-.highlight-red_background {
-	background: rgb(251,228,228);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(55, 53, 47, 0.6);
-	fill: rgba(55, 53, 47, 0.6);
-}
-.block-color-brown {
-	color: rgb(100,71,58);
-	fill: rgb(100,71,58);
-}
-.block-color-orange {
-	color: rgb(217,115,13);
-	fill: rgb(217,115,13);
-}
-.block-color-yellow {
-	color: rgb(223,171,1);
-	fill: rgb(223,171,1);
-}
-.block-color-teal {
-	color: rgb(15,123,108);
-	fill: rgb(15,123,108);
-}
-.block-color-blue {
-	color: rgb(11,110,153);
-	fill: rgb(11,110,153);
-}
-.block-color-purple {
-	color: rgb(105,64,165);
-	fill: rgb(105,64,165);
-}
-.block-color-pink {
-	color: rgb(173,26,114);
-	fill: rgb(173,26,114);
-}
-.block-color-red {
-	color: rgb(224,62,62);
-	fill: rgb(224,62,62);
-}
-.block-color-gray_background {
-	background: rgb(235,236,237);
-}
-.block-color-brown_background {
-	background: rgb(233,229,227);
-}
-.block-color-orange_background {
-	background: rgb(250,235,221);
-}
-.block-color-yellow_background {
-	background: rgb(251,243,219);
-}
-.block-color-teal_background {
-	background: rgb(221,237,234);
-}
-.block-color-blue_background {
-	background: rgb(221,235,241);
-}
-.block-color-purple_background {
-	background: rgb(234,228,242);
-}
-.block-color-pink_background {
-	background: rgb(244,223,235);
-}
-.block-color-red_background {
-	background: rgb(251,228,228);
-}
-.select-value-color-default { background-color: rgba(206,205,202,0.5); }
-.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
-.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
-.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
-.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
-.select-value-color-green { background-color: rgba(0,135,107,0.2); }
-.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
-.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
-.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
-.select-value-color-red { background-color: rgba(255,0,26,0.2); }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="80c4c9b8-5a0b-4c89-85e4-164035ff2628" class="page sans"><header><h1 class="page-title">math</h1></header><div class="page-body"><h3 id="05bb1216-9b43-4a2e-8cf6-fb8ae83b76b8" class="">Machine Learning</h3><ul id="4546196e-3ede-444c-ac6f-cc2523adc633" class="bulleted-list"><li><a href="https://mml-book.github.io/">Mathematics for Machine Learning by Marc Peter Deisenroth, A Aldo Faisal, and Cheng Soon Ong</a></li></ul><ul id="7adbc225-d13d-4826-9920-c0e6b341afe1" class="bulleted-list"><li><a href="https://github.com/ebezzam/melody-detection">(Whistled) melody detection workshop. First presented at LauzHack Days (Nov 13, 2018).</a></li></ul><ul id="38e6ea9f-7fad-4bd2-9cdc-9ee6e7559fa9" class="bulleted-list"><li><a href="https://pabloinsente.github.io/intro-linear-algebra">Introduction to Linear Algebra for Applied Machine Learning with Python</a></li></ul><h3 id="b69a369f-8635-403b-ad0d-a29386bd9d7c" class="">Calculus</h3><ul id="2eee0b61-0f49-4284-a170-5138775e399a" class="bulleted-list"><li>https://www.amazon.com/Infinite-Powers-Calculus-Reveals-Universe/dp/1328879984</li></ul><ul id="e0d72443-3a95-4047-ac6a-f7bfdfcee1ea" class="bulleted-list"><li><a href="https://twitter.com/stevenstrogatz/status/1208199688362610688">Open-source textbooks on calculus, linear algebra, differential equations, real analysis, abstract algebra, combinatorics, and introduction to proof – a partial list</a></li></ul><ul id="eef451cc-d1db-4992-a9b1-08d70414ff94" class="bulleted-list"><li>https://github.com/nadvornix/calculus-made-easy + https://twitter.com/helenczerski/status/1375915057905856513</li></ul><h3 id="b997277f-d6cc-4abf-99c3-c591950f3b1a" class="">Books</h3><ul id="d03d748d-f44c-4a3b-93c9-293428275179" class="bulleted-list"><li><a href="https://www.goodreads.com/book/show/593458.The_Art_and_Craft_of_Problem_Solving">The Art and Craft of Problem Solving - Paul Zeitz</a></li></ul><ul id="471df036-348f-4019-be9c-cbab0746b9ee" class="bulleted-list"><li><a href="https://www.amazon.com/Introduction-Graph-Theory-Dover-Mathematics/dp/0486678709">Introduction to Graph Theory (Dover Books on Mathematics)</a></li></ul><ul id="09497556-a05d-419e-99ba-30066f2da455" class="bulleted-list"><li>http://danaernst.com/resources/free-and-open-source-textbooks</li></ul><ul id="2749d010-afed-4c2d-8548-5d3563d4b09a" class="bulleted-list"><li><a href="http://www.math.ubc.ca/~cass/graphics/manual">Mathematical Illustrations: A Manual of Geometry and PostScript</a></li></ul><ul id="a6ed4583-762b-4a9a-80f9-32eb66b93d8e" class="bulleted-list"><li>https://www.amazon.com/Network-Science-Albert-L%C3%A1szl%C3%B3-Barab%C3%A1si/dp/1107076269</li></ul><ul id="6d96ac97-4acc-4286-ba10-737dcd4d1e2f" class="bulleted-list"><li>https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers</li></ul><ul id="fe0119bf-bb79-4183-8f0a-4ec58de8ec14" class="bulleted-list"><li>https://www.amazon.com/Think-Stats-Exploratory-Data-Analysis/dp/1491907339</li></ul><ul id="c478cae1-45ca-46d1-9454-2d82638f1b47" class="bulleted-list"><li><a href="http://people.math.sfu.ca/~cbm/aands/">Abramowitz and Stegun: Handbook of Mathematical Functions</a></li></ul><ul id="bc53aa81-bcbf-4b27-9b42-ae6acbda88bf" class="bulleted-list"><li>https://github.com/Shraddha2702/Math-Concepts</li></ul><ul id="8e2cd3d9-eedc-44f6-8bdd-23767efbeef4" class="bulleted-list"><li><a href="https://pimbook.org/">A Programmer’s Introduction to Mathematics by Jeremy Kun</a></li></ul><ul id="262ebee0-216c-44fa-ab52-eee86b0c3289" class="bulleted-list"><li>https://yurichev.com/writings/Math-for-programmers.pdf</li></ul><ul id="db205822-a883-40f5-8f58-d149ae133731" class="bulleted-list"><li>https://www.neilwithdata.com/mathematics-self-learner + https://news.ycombinator.com/item?id=22400375</li></ul><ul id="a0157a6d-db63-4e75-8ec1-8935f5dbb533" class="bulleted-list"><li><a href="https://twitter.com/dan_abramov/status/1249344084981972992">Any book to study mathematics from first principles?</a></li></ul><ul id="c55e333b-9397-4917-898a-7393fa79ea89" class="bulleted-list"><li>Linear Algebra Done Right - http://linear.axler.net/LADRvideos.html + https://link.springer.com/book/10.1007/978-3-319-11080-6 + https://mega.nz/file/70xXHK6A</li></ul><ul id="332da60c-6182-41a9-9ccc-ce1145d92f10" class="bulleted-list"><li><a href="https://twitter.com/math3ma/status/1249862830670729217">At the Interface of Algebra and Statistics - Tai-Danae Bradley</a></li></ul><ul id="64a3b335-28db-40f1-a97f-eb2ae041e84e" class="bulleted-list"><li><a href="https://www.amazon.com/Primer-Graphics-Development-Wordware-Library/dp/1556229119">3D Math Primer For Graphics and Game Development (Wordware Game Math Library)</a></li></ul><ul id="ff389c29-1545-4e57-9419-b1b1f2366f5b" class="bulleted-list"><li>https://www.amazon.com/History-Mathematical-Notations-Dover-Mathematics/dp/0486677664</li></ul><ul id="431cca4e-f14f-4b80-8c21-c9aed7af3fa4" class="bulleted-list"><li><a href="https://www.logicmatters.net/tyl">Teach Yourself Logic: A Study Guide</a> + https://en.wikipedia.org/wiki/How_to_Solve_It + https://www.edx.org/course/paradox-and-infinity + https://omereingold.wordpress.com/cs-154-introduction-to-automata-and-complexity-theory</li></ul><ul id="651d56f1-709b-4615-a616-1e096470eb23" class="bulleted-list"><li>https://cse.buffalo.edu/faculty/atri/courses/coding-theory/book/web-coding-book.pdf + https://news.ycombinator.com/item?id=24194543</li></ul><ul id="455f753d-c953-4a20-9463-aef0a75c8b72" class="bulleted-list"><li>https://www.basicbooks.com/titles/sabine-hossenfelder/lost-in-math/9781541646766 + http://backreaction.blogspot.com/2020/06/physicists-still-lost-in-math.html</li></ul><ul id="c8c072a6-d262-4b46-a92c-53421c266700" class="bulleted-list"><li>https://csgordon.github.io/books.html + https://news.ycombinator.com/item?id=25572852</li></ul><ul id="52e244e5-4f10-443e-80e4-1da632113ea3" class="bulleted-list"><li>https://math.recipes/main.html + https://sat-smt.codes/main.html</li></ul><ul id="bdf2b64d-3ee8-4767-8340-4b1d276a1d15" class="bulleted-list"><li><a href="https://twitter.com/prathyvsh/status/1199258119362117633">Bumping into some little known but cool computer history books lately.</a></li></ul><ul id="58ce6e61-c12a-47e1-a3b0-b74ef3a7cc7d" class="bulleted-list"><li>https://github.com/jaybutera/Abstract-Algebra</li></ul><h3 id="e7c6f476-8a92-4bb6-95a0-5a87a623da12" class="">Courses</h3><ul id="47bea6d6-239a-474b-a35b-8353da7391d6" class="bulleted-list"><li>https://github.com/llSourcell/learn_math_fast</li></ul><ul id="565141c5-0711-4588-8525-f15e8d119899" class="bulleted-list"><li>https://github.com/Developer-Y/math-science-video-lectures#mathematics</li></ul><ul id="6a0ed28f-9654-4268-a8a9-8dad06c47afe" class="bulleted-list"><li>https://github.com/ossu/computer-science#core-math + https://github.com/ossu/computer-science#advanced-math</li></ul><ul id="72f35705-c952-4143-b7d9-cdc8d48e1423" class="bulleted-list"><li>https://twitter.com/FedericoArdila/status/1241414233444810753 + https://www.youtube.com/user/federicoelmatematico/playlists</li></ul><ul id="06f8ff00-93be-4981-bc03-1573069e1c06" class="bulleted-list"><li><a href="https://github.com/dalcde/cam-notes">Cambridge Mathematics Lecture Notes</a></li></ul><ul id="752be164-a1ae-4122-8698-9fcc95b164b2" class="bulleted-list"><li><a href="https://github.com/Dongryul-Kim/harvard_notes">Notes for courses taken at Harvard (2015–2019)</a></li></ul><ul id="28a23dca-e523-4d4d-bc33-58b820c1c27e" class="bulleted-list"><li>http://abel.math.harvard.edu/pamphlets/courses.html</li></ul><ul id="c83e2e91-4f03-4418-9a82-1e495ea459ca" class="bulleted-list"><li>https://github.com/hongshin/DiscreteMath</li></ul><h3 id="9c4408b1-16da-400f-8a1e-73caa33ed49d" class="">Cinema</h3><ul id="4150f522-7223-4fa6-9430-c7ddf9ebb4aa" class="bulleted-list"><li>https://www.youtube.com/user/standupmaths/videos</li></ul><ul id="8d1f632b-035c-4511-9bd2-2b51bae32bc4" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0EpikNmjs2CYUMePMGh3IjjP4tQlYqji">Tutorials by Inigo Quilez</a></li></ul><ul id="413b1a2e-e0b8-418f-a0ad-9b36f8d82dd9" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0EpikNmjs2Dz45-Ru7Rfp8zQ48fI5QOa">CG Experiments and Demos by Inigo Quilez</a></li></ul><ul id="704911f0-e5be-4596-a993-7e6f7b65b6f6" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0EpikNmjs2BQr3b2WtTlmhEWHs_Tcm1R">Math by Inigo Quilez</a></li></ul><ul id="556e8686-3883-4cac-abea-51f0fa35ca18" class="bulleted-list"><li>https://www.youtube.com/user/professorleonard57/playlists</li></ul><ul id="02e490b5-eb13-4d77-b2e7-de08a3f3c331" class="bulleted-list"><li>https://www.youtube.com/results?search_query=%22gilbert+strang%22</li></ul><ul id="18860f62-0a36-4617-b7d4-33226237737f" class="bulleted-list"><li><a href="https://www.youtube.com/channel/UCr22xikWUK2yUW4YxOKXclQ/playlists">MathTheBeautiful</a></li></ul><ul id="c02349c2-afc1-4025-8c24-202bef51c5b9" class="bulleted-list"><li><a href="https://www.youtube.com/channel/UCnHh6XeLupJ5FHSKDh9eIMw/playlists">Sandy Bultena has a great series on Euclid’s elements</a></li></ul><ul id="d50df0b8-ca6c-4bf6-8cbc-2e607eb3213b" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLJHszsWbB6hqkOyFCQOAlQtfzC1G9sf2_">Error Correcting Codes (ECCs) by eigenchris</a></li></ul><ul id="2b4d0728-ccba-41b1-8a37-a39e2221c885" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLJHszsWbB6hrkmmq57lX8BV-o-YIOFsiG">Tensors for Beginners by eigenchris</a></li></ul><ul id="16ae4872-d70a-4f8f-b11b-e1e533e9211a" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLJHszsWbB6hpk5h8lSfBkVrpjsqvUGTCx">Tensor Calculus by eigenchris</a></li></ul><ul id="89bbfc80-2676-40cf-82f5-a34523f52469" class="bulleted-list"><li>https://www.youtube.com/user/XylyXylyX/playlists</li></ul><ul id="b6655d41-851c-4609-a09a-6ecb6e99e201" class="bulleted-list"><li>[High school math by Eddie Woo]https://www.youtube.com/user/misterwootube/playlists</li></ul><ul id="2261c7f0-681d-4690-bc2f-0df834605639" class="bulleted-list"><li>https://projects.iq.harvard.edu/stat110/youtube</li></ul><ul id="2f7f09c3-47d7-4d00-b899-0d99469a9287" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL3D9A62846A129C47">Stephen Boyd Convex Optimization</a></li></ul><ul id="3880f8e5-8676-4ac3-9839-f9e0f016ee67" class="bulleted-list"><li><a href="https://www.youtube.com/channel/UCpHjg_Qmzxm3xaAWRrwQPCA/playlists">Tobias Osborne</a></li></ul><ul id="7ef5b2fa-86ee-465a-8700-26985669519c" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL1C5310BB35555A1C">David Tong: Lectures on Quantum Field Theory</a></li></ul><ul id="29332365-7521-45f2-82e7-47efb6e7fa88" class="bulleted-list"><li>https://www.youtube.com/user/njwildberger/playlists</li></ul><ul id="a5c3aa8e-def6-449b-a0bc-9e8e3416a3a0" class="bulleted-list"><li>https://www.youtube.com/user/ControlLectures/playlists</li></ul><ul id="078d3e58-98c7-4040-9b43-53075529942f" class="bulleted-list"><li>https://www.youtube.com/channel/UCEWpbFLzoYGPfuWUMFPSaoA/playlists</li></ul><ul id="ec0dae17-b5b5-4018-bee9-f27045ef283a" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0E754696F72137EC">Real Analysis: Lectures by Professor Francis Su</a></li></ul><ul id="5bf7bc3b-410d-42a7-b8ea-504b7e10e88b" class="bulleted-list"><li><a href="https://www.youtube.com/channel/UC9yt3wz-6j19RwD5m5f6HSg/videos">Think Twice</a></li></ul><ul id="ef5e3b13-def6-4a56-a02c-c7510f45da6e" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLtMJUI0rs4e5BLanthvCYmW5EeFs6wY3z">The Art of Math: A No-Nonsense Guide - Ilya (Ilusha) Tsinis</a></li></ul><ul id="22c05b26-45a9-4db5-8f81-b1bfcf9a9e82" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLhsb6tmzSpixUGjmJq6g9iPm73pMWnPnH">The Free Will Lectures - John Conway (2009)</a></li></ul><ul id="a63a2ae9-0079-42e6-b98c-4214c0ceb70f" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLm3J0oaFux3ZYpFLwwrlv_EHH9wtH6pnX">“CS Theory Toolkit” – graduate course 15-751 taught at Carnegie Mellon University (CMU) in Spring 2020.</a></li></ul><ul id="d3270746-c875-47b7-911d-587688445ce4" class="bulleted-list"><li>https://www.freecodecamp.org/news/learn-algebra-to-improve-your-programming-skills</li></ul><ul id="edf310df-e4ae-45e1-a33f-cb4e2f2ec0f4" class="bulleted-list"><li>https://www.youtube.com/c/EasyTheory/playlists</li></ul><ul id="5b7abe54-62f5-4640-817f-a56081d815d1" class="bulleted-list"><li>https://github.com/davidwparker/programmingtil-3d-math + https://www.youtube.com/playlist?list=PLPqKsyEGhUnaxVxzRaSKs1gSSJMknhwrL</li></ul><ul id="e26c65eb-a9cd-4622-a4c6-3d9b64cca0f8" class="bulleted-list"><li>https://www.youtube.com/c/SyberMath/playlists</li></ul><ul id="affe7d08-7c5e-419e-a5ec-288e2fc67db4" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLi7yHjesblV0sSfZzWdSUXGO683n_nJdQ">Introduction to Complex Analysis | Petra Bonfert-Taylor</a></li></ul><h3 id="b1dcccfe-a58d-45a7-8c62-28416698f760" class="">Mathematicians</h3><ul id="a9ba0185-c7ba-4e6f-98a8-e73f627209b3" class="bulleted-list"><li><a href="https://twitter.com/3blue1brown/status/1245468127061610496">Évariste Galois</a> + https://www.damninteresting.com/radical-solutions</li></ul><ul id="dafbaf9b-ce81-4255-b034-11a877745456" class="bulleted-list"><li><a href="https://www.scottaaronson.com/blog/?p=4732">John Horton Conway (1937-2020)</a> + http://raganwald.com/2020/05/03/fractran.html</li></ul><ul id="8c54f6c0-e78a-4c21-8f25-738201508c64" class="bulleted-list"><li>http://martin-gardner.org/MATHEMATICIAN.html</li></ul><h3 id="504c0c3c-2c5f-43df-89b5-489b82a7b654" class="">Miscellaneous</h3><ul id="5b79ce23-cba8-455d-99d1-91470884f0df" class="bulleted-list"><li>https://github.com/llSourcell/Mathematics_for_Beginners</li></ul><ul id="e1d291d6-c0c4-4f7c-87bb-2da7021deb92" class="bulleted-list"><li><a href="https://twitter.com/Yaz17657882/status/1206566643142258691">Rocket Men by Robert Kurson</a></li></ul><ul id="d68048c8-b415-4bf6-8801-5778303cc20d" class="bulleted-list"><li><a href="https://www.amazon.com/What-Cannot-Know-Explorations-Knowledge-ebook/dp/B012LWZHWU">What We Cannot Know: Explorations at the Edge of Knowledge</a></li></ul><ul id="bec77d2e-e360-41b6-bfbd-064b95452a70" class="bulleted-list"><li><a href="https://kary.us/nota">A calculator for the Terminal that renders beautiful math.</a></li></ul><ul id="02a154f7-5570-46b4-993e-86f253b149e7" class="bulleted-list"><li>https://unprovable.github.io/jekyll/update/2016/11/13/Maths-For-Hackers-The-Hacker-Theorem.html + https://unprovable.github.io/jekyll/update/2016/11/18/Maths-For-Hackers-The-Recursion-Theorem.html + https://unprovable.github.io/jekyll/update/2016/11/20/Maths-For-Hackers-Enumeration-and-Insight.html</li></ul><ul id="3d486e8e-6aa5-4731-a05d-a9bd00669252" class="bulleted-list"><li>https://primes.utm.edu/primes/home.php + https://primes.utm.edu/primes/download.php + https://primes.utm.edu/lists/small/ + https://primes.utm.edu/primes/search.php</li></ul><ul id="a004ada6-8530-4f04-972d-4cad39878d99" class="bulleted-list"><li><a href="https://dlmf.nist.gov/">NIST Digital Library of Mathematical Functions</a> + http://backreaction.blogspot.com/2010/05/abramowitzstegun-goes-online.html</li></ul></div></article></body></html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>math</title>
+    <style>
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 3px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        text-indent: -1.7em;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC",
+          "Noto Sans CJK KR";
+      }
+
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Consolas,
+          "Liberation Mono", Menlo, Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC", "Noto Sans Mono CJK KR";
+      }
+
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif,
+          "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC", "Noto Sans CJK KR";
+      }
+
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC",
+          "Noto Sans Mono CJK KR";
+      }
+
+      .highlight-default {
+      }
+      .highlight-gray {
+        color: rgb(155, 154, 151);
+      }
+      .highlight-brown {
+        color: rgb(100, 71, 58);
+      }
+      .highlight-orange {
+        color: rgb(217, 115, 13);
+      }
+      .highlight-yellow {
+        color: rgb(223, 171, 1);
+      }
+      .highlight-teal {
+        color: rgb(15, 123, 108);
+      }
+      .highlight-blue {
+        color: rgb(11, 110, 153);
+      }
+      .highlight-purple {
+        color: rgb(105, 64, 165);
+      }
+      .highlight-pink {
+        color: rgb(173, 26, 114);
+      }
+      .highlight-red {
+        color: rgb(224, 62, 62);
+      }
+      .highlight-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .highlight-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .highlight-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .highlight-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .highlight-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .highlight-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .highlight-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .highlight-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .highlight-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+      }
+      .block-color-brown {
+        color: rgb(100, 71, 58);
+        fill: rgb(100, 71, 58);
+      }
+      .block-color-orange {
+        color: rgb(217, 115, 13);
+        fill: rgb(217, 115, 13);
+      }
+      .block-color-yellow {
+        color: rgb(223, 171, 1);
+        fill: rgb(223, 171, 1);
+      }
+      .block-color-teal {
+        color: rgb(15, 123, 108);
+        fill: rgb(15, 123, 108);
+      }
+      .block-color-blue {
+        color: rgb(11, 110, 153);
+        fill: rgb(11, 110, 153);
+      }
+      .block-color-purple {
+        color: rgb(105, 64, 165);
+        fill: rgb(105, 64, 165);
+      }
+      .block-color-pink {
+        color: rgb(173, 26, 114);
+        fill: rgb(173, 26, 114);
+      }
+      .block-color-red {
+        color: rgb(224, 62, 62);
+        fill: rgb(224, 62, 62);
+      }
+      .block-color-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .block-color-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .block-color-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .block-color-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .block-color-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .block-color-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .block-color-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .block-color-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .block-color-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .select-value-color-default {
+        background-color: rgba(206, 205, 202, 0.5);
+      }
+      .select-value-color-gray {
+        background-color: rgba(155, 154, 151, 0.4);
+      }
+      .select-value-color-brown {
+        background-color: rgba(140, 46, 0, 0.2);
+      }
+      .select-value-color-orange {
+        background-color: rgba(245, 93, 0, 0.2);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(233, 168, 0, 0.2);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 135, 107, 0.2);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 120, 223, 0.2);
+      }
+      .select-value-color-purple {
+        background-color: rgba(103, 36, 222, 0.2);
+      }
+      .select-value-color-pink {
+        background-color: rgba(221, 0, 129, 0.2);
+      }
+      .select-value-color-red {
+        background-color: rgba(255, 0, 26, 0.2);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="80c4c9b8-5a0b-4c89-85e4-164035ff2628" class="page sans">
+      <header><h1 class="page-title">math</h1></header>
+      <div class="page-body">
+        <h3 id="05bb1216-9b43-4a2e-8cf6-fb8ae83b76b8" class="">
+          Machine Learning
+        </h3>
+        <ul id="4546196e-3ede-444c-ac6f-cc2523adc633" class="bulleted-list">
+          <li>
+            <a href="https://mml-book.github.io/"
+              >Mathematics for Machine Learning by Marc Peter Deisenroth, A Aldo
+              Faisal, and Cheng Soon Ong</a
+            >
+          </li>
+        </ul>
+        <ul id="7adbc225-d13d-4826-9920-c0e6b341afe1" class="bulleted-list">
+          <li>
+            <a href="https://github.com/ebezzam/melody-detection"
+              >(Whistled) melody detection workshop. First presented at LauzHack
+              Days (Nov 13, 2018).</a
+            >
+          </li>
+        </ul>
+        <ul id="38e6ea9f-7fad-4bd2-9cdc-9ee6e7559fa9" class="bulleted-list">
+          <li>
+            <a href="https://pabloinsente.github.io/intro-linear-algebra"
+              >Introduction to Linear Algebra for Applied Machine Learning with
+              Python</a
+            >
+          </li>
+        </ul>
+        <h3 id="b69a369f-8635-403b-ad0d-a29386bd9d7c" class="">Calculus</h3>
+        <ul id="2eee0b61-0f49-4284-a170-5138775e399a" class="bulleted-list">
+          <li>
+            https://www.amazon.com/Infinite-Powers-Calculus-Reveals-Universe/dp/1328879984
+          </li>
+        </ul>
+        <ul id="e0d72443-3a95-4047-ac6a-f7bfdfcee1ea" class="bulleted-list">
+          <li>
+            <a
+              href="https://twitter.com/stevenstrogatz/status/1208199688362610688"
+              >Open-source textbooks on calculus, linear algebra, differential
+              equations, real analysis, abstract algebra, combinatorics, and
+              introduction to proof – a partial list</a
+            >
+          </li>
+        </ul>
+        <ul id="eef451cc-d1db-4992-a9b1-08d70414ff94" class="bulleted-list">
+          <li>
+            https://github.com/nadvornix/calculus-made-easy +
+            https://twitter.com/helenczerski/status/1375915057905856513
+          </li>
+        </ul>
+        <h3 id="b997277f-d6cc-4abf-99c3-c591950f3b1a" class="">Books</h3>
+        <ul id="d03d748d-f44c-4a3b-93c9-293428275179" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.goodreads.com/book/show/593458.The_Art_and_Craft_of_Problem_Solving"
+              >The Art and Craft of Problem Solving - Paul Zeitz</a
+            >
+          </li>
+        </ul>
+        <ul id="471df036-348f-4019-be9c-cbab0746b9ee" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.amazon.com/Introduction-Graph-Theory-Dover-Mathematics/dp/0486678709"
+              >Introduction to Graph Theory (Dover Books on Mathematics)</a
+            >
+          </li>
+        </ul>
+        <ul id="09497556-a05d-419e-99ba-30066f2da455" class="bulleted-list">
+          <li>http://danaernst.com/resources/free-and-open-source-textbooks</li>
+        </ul>
+        <ul id="2749d010-afed-4c2d-8548-5d3563d4b09a" class="bulleted-list">
+          <li>
+            <a href="http://www.math.ubc.ca/~cass/graphics/manual"
+              >Mathematical Illustrations: A Manual of Geometry and
+              PostScript</a
+            >
+          </li>
+        </ul>
+        <ul id="a6ed4583-762b-4a9a-80f9-32eb66b93d8e" class="bulleted-list">
+          <li>
+            https://www.amazon.com/Network-Science-Albert-L%C3%A1szl%C3%B3-Barab%C3%A1si/dp/1107076269
+          </li>
+        </ul>
+        <ul id="6d96ac97-4acc-4286-ba10-737dcd4d1e2f" class="bulleted-list">
+          <li>
+            https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers
+          </li>
+        </ul>
+        <ul id="fe0119bf-bb79-4183-8f0a-4ec58de8ec14" class="bulleted-list">
+          <li>
+            https://www.amazon.com/Think-Stats-Exploratory-Data-Analysis/dp/1491907339
+          </li>
+        </ul>
+        <ul id="c478cae1-45ca-46d1-9454-2d82638f1b47" class="bulleted-list">
+          <li>
+            <a href="http://people.math.sfu.ca/~cbm/aands/"
+              >Abramowitz and Stegun: Handbook of Mathematical Functions</a
+            >
+          </li>
+        </ul>
+        <ul id="bc53aa81-bcbf-4b27-9b42-ae6acbda88bf" class="bulleted-list">
+          <li>https://github.com/Shraddha2702/Math-Concepts</li>
+        </ul>
+        <ul id="8e2cd3d9-eedc-44f6-8bdd-23767efbeef4" class="bulleted-list">
+          <li>
+            <a href="https://pimbook.org/"
+              >A Programmer’s Introduction to Mathematics by Jeremy Kun</a
+            >
+          </li>
+        </ul>
+        <ul id="262ebee0-216c-44fa-ab52-eee86b0c3289" class="bulleted-list">
+          <li>https://yurichev.com/writings/Math-for-programmers.pdf</li>
+        </ul>
+        <ul id="db205822-a883-40f5-8f58-d149ae133731" class="bulleted-list">
+          <li>
+            https://www.neilwithdata.com/mathematics-self-learner +
+            https://news.ycombinator.com/item?id=22400375
+          </li>
+        </ul>
+        <ul id="a0157a6d-db63-4e75-8ec1-8935f5dbb533" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/dan_abramov/status/1249344084981972992"
+              >Any book to study mathematics from first principles?</a
+            >
+          </li>
+        </ul>
+        <ul id="c55e333b-9397-4917-898a-7393fa79ea89" class="bulleted-list">
+          <li>
+            Linear Algebra Done Right - http://linear.axler.net/LADRvideos.html
+            + https://link.springer.com/book/10.1007/978-3-319-11080-6 +
+            https://mega.nz/file/70xXHK6A
+          </li>
+        </ul>
+        <ul id="332da60c-6182-41a9-9ccc-ce1145d92f10" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/math3ma/status/1249862830670729217"
+              >At the Interface of Algebra and Statistics - Tai-Danae Bradley</a
+            >
+          </li>
+        </ul>
+        <ul id="64a3b335-28db-40f1-a97f-eb2ae041e84e" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.amazon.com/Primer-Graphics-Development-Wordware-Library/dp/1556229119"
+              >3D Math Primer For Graphics and Game Development (Wordware Game
+              Math Library)</a
+            >
+          </li>
+        </ul>
+        <ul id="ff389c29-1545-4e57-9419-b1b1f2366f5b" class="bulleted-list">
+          <li>
+            https://www.amazon.com/History-Mathematical-Notations-Dover-Mathematics/dp/0486677664
+          </li>
+        </ul>
+        <ul id="431cca4e-f14f-4b80-8c21-c9aed7af3fa4" class="bulleted-list">
+          <li>
+            <a href="https://www.logicmatters.net/tyl"
+              >Teach Yourself Logic: A Study Guide</a
+            >
+            + https://en.wikipedia.org/wiki/How_to_Solve_It +
+            https://www.edx.org/course/paradox-and-infinity +
+            https://omereingold.wordpress.com/cs-154-introduction-to-automata-and-complexity-theory
+          </li>
+        </ul>
+        <ul id="651d56f1-709b-4615-a616-1e096470eb23" class="bulleted-list">
+          <li>
+            https://cse.buffalo.edu/faculty/atri/courses/coding-theory/book/web-coding-book.pdf
+            + https://news.ycombinator.com/item?id=24194543
+          </li>
+        </ul>
+        <ul id="455f753d-c953-4a20-9463-aef0a75c8b72" class="bulleted-list">
+          <li>
+            https://www.basicbooks.com/titles/sabine-hossenfelder/lost-in-math/9781541646766
+            +
+            http://backreaction.blogspot.com/2020/06/physicists-still-lost-in-math.html
+          </li>
+        </ul>
+        <ul id="c8c072a6-d262-4b46-a92c-53421c266700" class="bulleted-list">
+          <li>
+            https://csgordon.github.io/books.html +
+            https://news.ycombinator.com/item?id=25572852
+          </li>
+        </ul>
+        <ul id="52e244e5-4f10-443e-80e4-1da632113ea3" class="bulleted-list">
+          <li>
+            https://math.recipes/main.html + https://sat-smt.codes/main.html
+          </li>
+        </ul>
+        <ul id="bdf2b64d-3ee8-4767-8340-4b1d276a1d15" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/prathyvsh/status/1199258119362117633"
+              >Bumping into some little known but cool computer history books
+              lately.</a
+            >
+          </li>
+        </ul>
+        <ul id="58ce6e61-c12a-47e1-a3b0-b74ef3a7cc7d" class="bulleted-list">
+          <li>https://github.com/jaybutera/Abstract-Algebra</li>
+        </ul>
+        <h3 id="e7c6f476-8a92-4bb6-95a0-5a87a623da12" class="">Courses</h3>
+        <ul id="47bea6d6-239a-474b-a35b-8353da7391d6" class="bulleted-list">
+          <li>https://github.com/llSourcell/learn_math_fast</li>
+        </ul>
+        <ul id="565141c5-0711-4588-8525-f15e8d119899" class="bulleted-list">
+          <li>
+            https://github.com/Developer-Y/math-science-video-lectures#mathematics
+          </li>
+        </ul>
+        <ul id="6a0ed28f-9654-4268-a8a9-8dad06c47afe" class="bulleted-list">
+          <li>
+            https://github.com/ossu/computer-science#core-math +
+            https://github.com/ossu/computer-science#advanced-math
+          </li>
+        </ul>
+        <ul id="72f35705-c952-4143-b7d9-cdc8d48e1423" class="bulleted-list">
+          <li>
+            https://twitter.com/FedericoArdila/status/1241414233444810753 +
+            https://www.youtube.com/user/federicoelmatematico/playlists
+          </li>
+        </ul>
+        <ul id="06f8ff00-93be-4981-bc03-1573069e1c06" class="bulleted-list">
+          <li>
+            <a href="https://github.com/dalcde/cam-notes"
+              >Cambridge Mathematics Lecture Notes</a
+            >
+          </li>
+        </ul>
+        <ul id="752be164-a1ae-4122-8698-9fcc95b164b2" class="bulleted-list">
+          <li>
+            <a href="https://github.com/Dongryul-Kim/harvard_notes"
+              >Notes for courses taken at Harvard (2015–2019)</a
+            >
+          </li>
+        </ul>
+        <ul id="28a23dca-e523-4d4d-bc33-58b820c1c27e" class="bulleted-list">
+          <li>http://abel.math.harvard.edu/pamphlets/courses.html</li>
+        </ul>
+        <ul id="c83e2e91-4f03-4418-9a82-1e495ea459ca" class="bulleted-list">
+          <li>https://github.com/hongshin/DiscreteMath</li>
+        </ul>
+        <h3 id="9c4408b1-16da-400f-8a1e-73caa33ed49d" class="">Cinema</h3>
+        <ul id="4150f522-7223-4fa6-9430-c7ddf9ebb4aa" class="bulleted-list">
+          <li>https://www.youtube.com/user/standupmaths/videos</li>
+        </ul>
+        <ul id="8d1f632b-035c-4511-9bd2-2b51bae32bc4" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0EpikNmjs2CYUMePMGh3IjjP4tQlYqji"
+              >Tutorials by Inigo Quilez</a
+            >
+          </li>
+        </ul>
+        <ul id="413b1a2e-e0b8-418f-a0ad-9b36f8d82dd9" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0EpikNmjs2Dz45-Ru7Rfp8zQ48fI5QOa"
+              >CG Experiments and Demos by Inigo Quilez</a
+            >
+          </li>
+        </ul>
+        <ul id="704911f0-e5be-4596-a993-7e6f7b65b6f6" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0EpikNmjs2BQr3b2WtTlmhEWHs_Tcm1R"
+              >Math by Inigo Quilez</a
+            >
+          </li>
+        </ul>
+        <ul id="556e8686-3883-4cac-abea-51f0fa35ca18" class="bulleted-list">
+          <li>https://www.youtube.com/user/professorleonard57/playlists</li>
+        </ul>
+        <ul id="02e490b5-eb13-4d77-b2e7-de08a3f3c331" class="bulleted-list">
+          <li>
+            https://www.youtube.com/results?search_query=%22gilbert+strang%22
+          </li>
+        </ul>
+        <ul id="18860f62-0a36-4617-b7d4-33226237737f" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/channel/UCr22xikWUK2yUW4YxOKXclQ/playlists"
+              >MathTheBeautiful</a
+            >
+          </li>
+        </ul>
+        <ul id="c02349c2-afc1-4025-8c24-202bef51c5b9" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/channel/UCnHh6XeLupJ5FHSKDh9eIMw/playlists"
+              >Sandy Bultena has a great series on Euclid’s elements</a
+            >
+          </li>
+        </ul>
+        <ul id="d50df0b8-ca6c-4bf6-8cbc-2e607eb3213b" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLJHszsWbB6hqkOyFCQOAlQtfzC1G9sf2_"
+              >Error Correcting Codes (ECCs) by eigenchris</a
+            >
+          </li>
+        </ul>
+        <ul id="2b4d0728-ccba-41b1-8a37-a39e2221c885" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLJHszsWbB6hrkmmq57lX8BV-o-YIOFsiG"
+              >Tensors for Beginners by eigenchris</a
+            >
+          </li>
+        </ul>
+        <ul id="16ae4872-d70a-4f8f-b11b-e1e533e9211a" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLJHszsWbB6hpk5h8lSfBkVrpjsqvUGTCx"
+              >Tensor Calculus by eigenchris</a
+            >
+          </li>
+        </ul>
+        <ul id="89bbfc80-2676-40cf-82f5-a34523f52469" class="bulleted-list">
+          <li>https://www.youtube.com/user/XylyXylyX/playlists</li>
+        </ul>
+        <ul id="b6655d41-851c-4609-a09a-6ecb6e99e201" class="bulleted-list">
+          <li>
+            [High school math by Eddie
+            Woo]https://www.youtube.com/user/misterwootube/playlists
+          </li>
+        </ul>
+        <ul id="2261c7f0-681d-4690-bc2f-0df834605639" class="bulleted-list">
+          <li>https://projects.iq.harvard.edu/stat110/youtube</li>
+        </ul>
+        <ul id="2f7f09c3-47d7-4d00-b899-0d99469a9287" class="bulleted-list">
+          <li>
+            <a href="https://www.youtube.com/playlist?list=PL3D9A62846A129C47"
+              >Stephen Boyd Convex Optimization</a
+            >
+          </li>
+        </ul>
+        <ul id="3880f8e5-8676-4ac3-9839-f9e0f016ee67" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/channel/UCpHjg_Qmzxm3xaAWRrwQPCA/playlists"
+              >Tobias Osborne</a
+            >
+          </li>
+        </ul>
+        <ul id="7ef5b2fa-86ee-465a-8700-26985669519c" class="bulleted-list">
+          <li>
+            <a href="https://www.youtube.com/playlist?list=PL1C5310BB35555A1C"
+              >David Tong: Lectures on Quantum Field Theory</a
+            >
+          </li>
+        </ul>
+        <ul id="29332365-7521-45f2-82e7-47efb6e7fa88" class="bulleted-list">
+          <li>https://www.youtube.com/user/njwildberger/playlists</li>
+        </ul>
+        <ul id="a5c3aa8e-def6-449b-a0bc-9e8e3416a3a0" class="bulleted-list">
+          <li>https://www.youtube.com/user/ControlLectures/playlists</li>
+        </ul>
+        <ul id="078d3e58-98c7-4040-9b43-53075529942f" class="bulleted-list">
+          <li>
+            https://www.youtube.com/channel/UCEWpbFLzoYGPfuWUMFPSaoA/playlists
+          </li>
+        </ul>
+        <ul id="ec0dae17-b5b5-4018-bee9-f27045ef283a" class="bulleted-list">
+          <li>
+            <a href="https://www.youtube.com/playlist?list=PL0E754696F72137EC"
+              >Real Analysis: Lectures by Professor Francis Su</a
+            >
+          </li>
+        </ul>
+        <ul id="5bf7bc3b-410d-42a7-b8ea-504b7e10e88b" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/channel/UC9yt3wz-6j19RwD5m5f6HSg/videos"
+              >Think Twice</a
+            >
+          </li>
+        </ul>
+        <ul id="ef5e3b13-def6-4a56-a02c-c7510f45da6e" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLtMJUI0rs4e5BLanthvCYmW5EeFs6wY3z"
+              >The Art of Math: A No-Nonsense Guide - Ilya (Ilusha) Tsinis</a
+            >
+          </li>
+        </ul>
+        <ul id="22c05b26-45a9-4db5-8f81-b1bfcf9a9e82" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLhsb6tmzSpixUGjmJq6g9iPm73pMWnPnH"
+              >The Free Will Lectures - John Conway (2009)</a
+            >
+          </li>
+        </ul>
+        <ul id="a63a2ae9-0079-42e6-b98c-4214c0ceb70f" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLm3J0oaFux3ZYpFLwwrlv_EHH9wtH6pnX"
+              >“CS Theory Toolkit” – graduate course 15-751 taught at Carnegie
+              Mellon University (CMU) in Spring 2020.</a
+            >
+          </li>
+        </ul>
+        <ul id="d3270746-c875-47b7-911d-587688445ce4" class="bulleted-list">
+          <li>
+            https://www.freecodecamp.org/news/learn-algebra-to-improve-your-programming-skills
+          </li>
+        </ul>
+        <ul id="edf310df-e4ae-45e1-a33f-cb4e2f2ec0f4" class="bulleted-list">
+          <li>https://www.youtube.com/c/EasyTheory/playlists</li>
+        </ul>
+        <ul id="5b7abe54-62f5-4640-817f-a56081d815d1" class="bulleted-list">
+          <li>
+            https://github.com/davidwparker/programmingtil-3d-math +
+            https://www.youtube.com/playlist?list=PLPqKsyEGhUnaxVxzRaSKs1gSSJMknhwrL
+          </li>
+        </ul>
+        <ul id="e26c65eb-a9cd-4622-a4c6-3d9b64cca0f8" class="bulleted-list">
+          <li>https://www.youtube.com/c/SyberMath/playlists</li>
+        </ul>
+        <ul id="affe7d08-7c5e-419e-a5ec-288e2fc67db4" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLi7yHjesblV0sSfZzWdSUXGO683n_nJdQ"
+              >Introduction to Complex Analysis | Petra Bonfert-Taylor</a
+            >
+          </li>
+        </ul>
+        <h3 id="b1dcccfe-a58d-45a7-8c62-28416698f760" class="">
+          Mathematicians
+        </h3>
+        <ul id="a9ba0185-c7ba-4e6f-98a8-e73f627209b3" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/3blue1brown/status/1245468127061610496"
+              >Évariste Galois</a
+            >
+            + https://www.damninteresting.com/radical-solutions
+          </li>
+        </ul>
+        <ul id="dafbaf9b-ce81-4255-b034-11a877745456" class="bulleted-list">
+          <li>
+            <a href="https://www.scottaaronson.com/blog/?p=4732"
+              >John Horton Conway (1937-2020)</a
+            >
+            + http://raganwald.com/2020/05/03/fractran.html
+          </li>
+        </ul>
+        <ul id="8c54f6c0-e78a-4c21-8f25-738201508c64" class="bulleted-list">
+          <li>http://martin-gardner.org/MATHEMATICIAN.html</li>
+        </ul>
+        <h3 id="504c0c3c-2c5f-43df-89b5-489b82a7b654" class="">
+          Miscellaneous
+        </h3>
+        <ul id="5b79ce23-cba8-455d-99d1-91470884f0df" class="bulleted-list">
+          <li>https://github.com/llSourcell/Mathematics_for_Beginners</li>
+        </ul>
+        <ul id="e1d291d6-c0c4-4f7c-87bb-2da7021deb92" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/Yaz17657882/status/1206566643142258691"
+              >Rocket Men by Robert Kurson</a
+            >
+          </li>
+        </ul>
+        <ul id="d68048c8-b415-4bf6-8801-5778303cc20d" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.amazon.com/What-Cannot-Know-Explorations-Knowledge-ebook/dp/B012LWZHWU"
+              >What We Cannot Know: Explorations at the Edge of Knowledge</a
+            >
+          </li>
+        </ul>
+        <ul id="bec77d2e-e360-41b6-bfbd-064b95452a70" class="bulleted-list">
+          <li>
+            <a href="https://kary.us/nota"
+              >A calculator for the Terminal that renders beautiful math.</a
+            >
+          </li>
+        </ul>
+        <ul id="02a154f7-5570-46b4-993e-86f253b149e7" class="bulleted-list">
+          <li>
+            https://unprovable.github.io/jekyll/update/2016/11/13/Maths-For-Hackers-The-Hacker-Theorem.html
+            +
+            https://unprovable.github.io/jekyll/update/2016/11/18/Maths-For-Hackers-The-Recursion-Theorem.html
+            +
+            https://unprovable.github.io/jekyll/update/2016/11/20/Maths-For-Hackers-Enumeration-and-Insight.html
+          </li>
+        </ul>
+        <ul id="3d486e8e-6aa5-4731-a05d-a9bd00669252" class="bulleted-list">
+          <li>
+            https://primes.utm.edu/primes/home.php +
+            https://primes.utm.edu/primes/download.php +
+            https://primes.utm.edu/lists/small/ +
+            https://primes.utm.edu/primes/search.php
+          </li>
+        </ul>
+        <ul id="a004ada6-8530-4f04-972d-4cad39878d99" class="bulleted-list">
+          <li>
+            <a href="https://dlmf.nist.gov/"
+              >NIST Digital Library of Mathematical Functions</a
+            >
+            +
+            http://backreaction.blogspot.com/2010/05/abramowitzstegun-goes-online.html
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

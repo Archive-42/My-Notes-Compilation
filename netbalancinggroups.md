@@ -1,28 +1,31 @@
 # .NET Balancing Groups
 
-
 Basic pattern
+
 ```
 ^(?:(?'open'o)+(?'-open'c)+)+(?(open)(?!))$
 ```
+
 Optimized pattern using an atomic groups
+
 ```
 ^(?>(?'open'o)+(?'-open'c)+)+(?(open)(?!))$
 ```
+
 allow any number of letters m anywhere in the string, while still requiring all o's and c's to be balanced
+
 ```
 ^m*(?>(?>(?'open'o)m*)+(?>(?'-open'c)m*)+)+(?(open)(?!))$
 ```
+
 This is the generic solution for matching balanced constructs using .NET's balancing groups or capturing group subtraction feature. You can replace o, m, and c with any regular expression, as long as no two of these three can match the same text.
-
-
-
 
 ## Matching nested balanced parenthesis
 
 applies this technique to match a string in which all parentheses are perfectly balanced.
+
 ```
-^[^()]*(?>(?>(?'open'\()[^()]*)+(?>(?'-open'\))[^()]*)+)+(?(open)(?!))$ 
+^[^()]*(?>(?>(?'open'\()[^()]*)+(?>(?'-open'\))[^()]*)+)+(?(open)(?!))$
 ```
 
 ... still not a parser
@@ -68,45 +71,43 @@ public class Example
 ```
 
 ### .. nested tags, e.g. X/HTML
+
 ```
 <div[^>]*>[^<>]*(((?'Open'<div[^>]*>)[^<>]*)+((?'-Open'</div>)[^<>]*)+)*(?(Open)(?!))</div>
 ```
 
 Or more generalized (needs some more work):
 
-<                         #The outermost left parenthesis 
-    [^<>]*                #The outermost left parenthesis is not the content of the brackets 
-    ( 
-        ( 
-            (?'Open'<)    #Met a left parenthesis, write on the blackboard"Open" 
-            [^<>]*       #Matching left parenthesis is not the content of the brackets 
-        )+ 
-        ( 
-            (?'-Open'>) #Met the right bracket, wipe a"Open" 
-            [^<>]*        #Matching right parenthesis is not behind the bracket content 
-        )+ 
-    )* 
-    (?(Open)(?!))         #In front of the outermost parentheses, judgment and not erase the blackboard "Open"; if there is failure, matching 
->                         #The outermost right parenthesis
+< #The outermost left parenthesis
+[^<>]_ #The outermost left parenthesis is not the content of the brackets
+(
+(
+(?'Open'<) #Met a left parenthesis, write on the blackboard"Open"
+[^<>]_ #Matching left parenthesis is not the content of the brackets
+)+
+(
+(?'-Open'>) #Met the right bracket, wipe a"Open"
+[^<>]_ #Matching right parenthesis is not behind the bracket content
+)+
+)_
+(?(Open)(?!)) #In front of the outermost parentheses, judgment and not erase the blackboard "Open"; if there is failure, matching
 
+>                         #The outermost right parenthesis
 
 #### Backreferences To Subtracted Groups
 
-
-
 #### [Matching Palindromes](https://www.regular-expressions.info/balancing.html)
-
-
 
 ```
 ^(?'letter'[a-z])+[a-z]?(?:\k'letter'(?'-letter'))+(?(letter)(?!))$
 ```
+
 or more condensed
 
 ```
 (?x)^(?<l>\w)+\w?
 (\k<l>(?<-l>))+
-(?(l)(?!))$ 
+(?(l)(?!))$
 ```
 
 https://www.regular-expressions.info/refrecurse.html

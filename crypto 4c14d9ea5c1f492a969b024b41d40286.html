@@ -1,627 +1,1101 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>crypto</title><style>
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	text-indent: -1.7em;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.highlight-default {
-}
-.highlight-gray {
-	color: rgb(155,154,151);
-}
-.highlight-brown {
-	color: rgb(100,71,58);
-}
-.highlight-orange {
-	color: rgb(217,115,13);
-}
-.highlight-yellow {
-	color: rgb(223,171,1);
-}
-.highlight-teal {
-	color: rgb(15,123,108);
-}
-.highlight-blue {
-	color: rgb(11,110,153);
-}
-.highlight-purple {
-	color: rgb(105,64,165);
-}
-.highlight-pink {
-	color: rgb(173,26,114);
-}
-.highlight-red {
-	color: rgb(224,62,62);
-}
-.highlight-gray_background {
-	background: rgb(235,236,237);
-}
-.highlight-brown_background {
-	background: rgb(233,229,227);
-}
-.highlight-orange_background {
-	background: rgb(250,235,221);
-}
-.highlight-yellow_background {
-	background: rgb(251,243,219);
-}
-.highlight-teal_background {
-	background: rgb(221,237,234);
-}
-.highlight-blue_background {
-	background: rgb(221,235,241);
-}
-.highlight-purple_background {
-	background: rgb(234,228,242);
-}
-.highlight-pink_background {
-	background: rgb(244,223,235);
-}
-.highlight-red_background {
-	background: rgb(251,228,228);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(55, 53, 47, 0.6);
-	fill: rgba(55, 53, 47, 0.6);
-}
-.block-color-brown {
-	color: rgb(100,71,58);
-	fill: rgb(100,71,58);
-}
-.block-color-orange {
-	color: rgb(217,115,13);
-	fill: rgb(217,115,13);
-}
-.block-color-yellow {
-	color: rgb(223,171,1);
-	fill: rgb(223,171,1);
-}
-.block-color-teal {
-	color: rgb(15,123,108);
-	fill: rgb(15,123,108);
-}
-.block-color-blue {
-	color: rgb(11,110,153);
-	fill: rgb(11,110,153);
-}
-.block-color-purple {
-	color: rgb(105,64,165);
-	fill: rgb(105,64,165);
-}
-.block-color-pink {
-	color: rgb(173,26,114);
-	fill: rgb(173,26,114);
-}
-.block-color-red {
-	color: rgb(224,62,62);
-	fill: rgb(224,62,62);
-}
-.block-color-gray_background {
-	background: rgb(235,236,237);
-}
-.block-color-brown_background {
-	background: rgb(233,229,227);
-}
-.block-color-orange_background {
-	background: rgb(250,235,221);
-}
-.block-color-yellow_background {
-	background: rgb(251,243,219);
-}
-.block-color-teal_background {
-	background: rgb(221,237,234);
-}
-.block-color-blue_background {
-	background: rgb(221,235,241);
-}
-.block-color-purple_background {
-	background: rgb(234,228,242);
-}
-.block-color-pink_background {
-	background: rgb(244,223,235);
-}
-.block-color-red_background {
-	background: rgb(251,228,228);
-}
-.select-value-color-default { background-color: rgba(206,205,202,0.5); }
-.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
-.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
-.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
-.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
-.select-value-color-green { background-color: rgba(0,135,107,0.2); }
-.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
-.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
-.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
-.select-value-color-red { background-color: rgba(255,0,26,0.2); }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="4c14d9ea-5c1f-492a-969b-024b41d40286" class="page sans"><header><h1 class="page-title">crypto</h1></header><div class="page-body"><h3 id="7db110e8-f8ab-4f4c-ab1a-d2c7e879a402" class="">Algorithms</h3><ul id="a80df96b-e5f4-4ac7-a8c8-12f81c2e8ca9" class="bulleted-list"><li>https://backdrifting.net/post/003_diffie_hellman</li></ul><ul id="56f06712-aeb6-40cd-a150-b248b7326a38" class="bulleted-list"><li>https://github.com/B-Con/crypto-algorithms</li></ul><ul id="795e5927-464c-4c31-b88b-408ca1e9a940" class="bulleted-list"><li><a href="https://twitter.com/mstrakastrak/status/1215099753991569409">S(T|N)ARKs.</a></li></ul><ul id="bf83533e-d4a9-40c8-bf87-9f915c78a670" class="bulleted-list"><li>https://github.com/lrlna/sketchin/blob/master/guides/libsodium.md</li></ul><ul id="3c01b0a0-818d-4223-9b79-af60db68d40a" class="bulleted-list"><li>https://www.quantamagazine.org/computer-scientists-achieve-crown-jewel-of-cryptography-20201110</li></ul><ul id="be9f289e-8b5b-4fbd-97ca-f4ae55cea5c6" class="bulleted-list"><li><a href="https://martin.kleppmann.com/papers/curve25519.pdf">Implementing Curve25519/X25519: A Tutorial on Elliptic Curve Cryptography</a></li></ul><ul id="892d62fb-22cc-410c-9337-156cec256e0a" class="bulleted-list"><li>https://owlspace.xyz/cybersec/steam-login</li></ul><ul id="a6812326-fea6-43fe-a298-5948d146d6b2" class="bulleted-list"><li>https://thehazarika.com/blog/programming/rsa-cryptosystem</li></ul><ul id="d7e5b980-b304-410c-97ad-5484fa96c439" class="bulleted-list"><li>https://github.com/TheAlgorithms/Algorithms-Explanation/tree/master/en/Ciphers</li></ul><h3 id="08185d04-457a-45f8-aeb6-b99af026165e" class="">Best practices</h3><ul id="753fa94b-2330-4bc1-af67-f8810f91b2a3" class="bulleted-list"><li>https://www.seancassidy.me/how-to-implement-crypto-poorly.html</li></ul><h3 id="d2051b11-903a-45aa-b791-e53609b90e38" class="">Books</h3><ul id="c0401187-8301-4b5b-87ef-5f8a0bcaf1bc" class="bulleted-list"><li>https://github.com/nakov/Practical-Cryptography-for-Developers-Book</li></ul><ul id="a284c847-6ad9-4c4a-8ac9-e1bdcb5cbec8" class="bulleted-list"><li><a href="https://crypto.stanford.edu/~dabo/cryptobook/BonehShoup_0_5.pdf">A Graduate Course in Applied Cryptography (Rev 2020)</a> + https://toc.cryptobook.us</li></ul><ul id="13e4d23b-92ec-4517-8df4-23c416057049" class="bulleted-list"><li>https://cscott.net/Books/#crypto</li></ul><ul id="bfcb37e6-9e8b-4686-aac1-18ef2e5e84f8" class="bulleted-list"><li>https://book.keybase.io</li></ul><ul id="b1594338-4312-4e23-bfb3-c41a585dfa77" class="bulleted-list"><li>https://blog.cryptographyengineering.com/2011/11/23/digital-fortress-i-read-it-so-you-dont + https://twitter.com/LindellYehuda/status/1251577233929576448</li></ul><ul id="82fa25fe-f4c6-4398-b122-926f3898f4a7" class="bulleted-list"><li>https://twitter.com/InsiderPhD/status/1338901012535513094</li></ul><ul id="a58e8876-a1ce-423c-ab53-715c4cc15ec4" class="bulleted-list"><li><a href="https://twitter.com/morpheu5/status/1376166695988039682">Concrete Abstract Algebra by Niels Lauritzen</a></li></ul><h3 id="3b80e8ab-c29e-4615-bdc1-834ee950f4af" class="">Courses</h3><ul id="3d02acee-7318-49e3-83c1-f1cc5ff7f510" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLM96W_EHEqh4ImClhKxuH4Fqm_Ieiok_B">Introduction to Cryptography (89-656), in Hebrew</a> + https://u.cs.biu.ac.il/~lindell/89-656/main-89-656.html</li></ul><ul id="78e9414b-ca98-463b-b426-c24da993f631" class="bulleted-list"><li><a href="https://docs.google.com/spreadsheets/d/11_dfB1B1iTqjfMBjoWBtLkD14kCxDHsw-wsUbvIfaNg/pubhtml">Introduction to Cryptography - 1s2017</a></li></ul><h3 id="e29d18a0-4370-42df-86d0-b3e54032509e" class="">Cinema</h3><ul id="f0312dad-3ed8-497a-b0bd-820c49321826" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL10875C2002F7E6F6">Theory and Practice of Cryptography</a></li></ul><ul id="70f1e9d7-fecb-4861-8452-acb389c1b383" class="bulleted-list"><li><a href="https://www.youtube.com/channel/UC1usFRN4LCMcfIV7UjHNuQg/videos">Introduction to Cryptography by Christof Paar</a></li></ul><ul id="73f53e55-c7ac-46f3-8aac-72daa83424ef" class="bulleted-list"><li><a href="https://eccworkshop.org/2020">Workshop on Elliptic Curve Cryptography ECC 2020</a></li></ul><h3 id="51dede29-5f5b-4f39-b366-232dc3ec162e" class="">Certificates</h3><ul id="81923a4d-e479-4bd4-89d8-095009a18bb2" class="bulleted-list"><li><a href="https://smallstep.com/blog/everything-pki">Everything you should know about certificates and PKI but are too afraid to ask</a></li></ul><ul id="b443be24-862b-4816-9d31-f4c2472e7950" class="bulleted-list"><li>mkcert: valid HTTPS certificates for localhost - <a href="https://github.com/FiloSottile/mkcert">repo</a> + <a href="https://blog.filippo.io/mkcert-valid-https-certificates-for-localhost">blog post</a></li></ul><ul id="afa4d76f-0c6b-4958-b1bc-055a774dd021" class="bulleted-list"><li><a href="https://github.com/famasoon/crtsh">Shows the result of crt.sh</a></li></ul><ul id="2fafb4ef-1f10-4627-92df-cf7d00cbe038" class="bulleted-list"><li>https://www.freecodecamp.org/news/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec</li></ul><ul id="16604cac-50e7-4b1f-9b62-02ae4c9c2c04" class="bulleted-list"><li><a href="https://github.com/diafygi/gethttpsforfree">Get HTTPS for free!</a></li></ul><ul id="6cd3fa4a-f5a2-44f2-8b0d-6f5bb16432cf" class="bulleted-list"><li>https://github.com/dakshshah96/local-cert-generator</li></ul><ul id="03f8ffb7-f90b-456d-a504-1e416b5863f9" class="bulleted-list"><li><a href="https://docs.https.dev/acme-ops">Best Practices for ACME Client Operations. Considerations for Long-Running TLS Certificate Management Software.</a></li></ul><ul id="89fb83b9-1809-4850-bf6e-505119efbaf8" class="bulleted-list"><li>https://ma.ttias.be/the-end-of-extended-validation-certificates + https://www.aaronpeters.nl/blog/ev-certificates-make-the-web-slow-and-unreliable</li></ul><ul id="8fbdf46d-f1be-4e49-9ee9-99bf2fd604c6" class="bulleted-list"><li>https://emilymstark.com/2020/07/20/certificate-transparency-a-birds-eye-view.html</li></ul><h3 id="8eb78f3a-0f48-4f74-84ab-0b8f49182188" class="">Demos</h3><ul id="852c18bf-cb78-424a-b1c8-6699ac34981b" class="bulleted-list"><li><a href="https://github.com/derhuerst/html-vault">Store a secret securely in a standalone HTML file.</a></li></ul><h3 id="3d42f4d5-e421-4d8e-87c6-733115d6b145" class="">Standards</h3><ul id="974761bb-b90b-4a82-82f5-7c55d420f81c" class="bulleted-list"><li><a href="ftp://ftp.gnupg.org/people/neal/an-advanced-introduction-to-gnupg/openpgp/openpgp.pdf">Introduction to GPG/PGP</a> + https://twitter.com/binarymist/status/1148732727371296768</li></ul><ul id="7da63c54-3584-4651-a82f-60c08748a200" class="bulleted-list"><li>https://cheapskatesguide.org/articles/encrypted-email.html</li></ul><ul id="899cf074-5ebb-45da-873e-4c31768198e1" class="bulleted-list"><li>https://unix-ninja.com/p/attacking_google_authenticator + https://twitter.com/adam_baldwin/status/1341470342666014720</li></ul><h3 id="4d2eea68-5a6b-4db6-8ea7-4ae454edf3a1" class="">Transport Layer Security</h3><ul id="1cc0048a-f186-4f26-81b0-e45cbcf132ba" class="bulleted-list"><li>https://github.com/trimstray/nginx-admins-handbook/blob/master/doc/SSL_TLS_BASICS.md</li></ul><ul id="785c4621-e64e-41ac-bb48-5366d8b578bc" class="bulleted-list"><li>https://github.com/trimstray/the-book-of-secret-knowledge#build-your-own-certificate-authority</li></ul><ul id="b459c96e-7ee9-4fd5-b1f1-97d35e54445e" class="bulleted-list"><li><a href="https://youtu.be/9Ya8H-9Hrp4">Lessons learned running SSL/TLS at scale (FOSDEM 2016)</a></li></ul><ul id="fa920c77-d907-41bb-bd28-7377ecd63705" class="bulleted-list"><li>https://idea.popcount.org/2012-06-16-dissecting-ssl-handshake</li></ul><ul id="c79d8b30-e6fd-4b3a-9de5-98ff8d7902fe" class="bulleted-list"><li><a href="https://youtu.be/_V6tT4eP1SI">Erik Hjelmvik - TLS Interception and Decryption</a></li></ul><ul id="0bed6567-8eaa-465b-8f05-ce7140efa184" class="bulleted-list"><li><a href="https://twitter.com/rauchg/status/1246894998731100160">What goes into providing free automatic SSL at scale?</a></li></ul><ul id="5186b08d-8041-4c3c-bd53-e7a0ffeb2495" class="bulleted-list"><li><a href="https://geneva.cs.umd.edu/posts/china-censors-esni/esni">Exposing and Circumventing China’s Censorship of ESNI</a></li></ul><ul id="5299504c-a415-4f9d-8f3f-43d0bfff74a7" class="bulleted-list"><li>https://github.com/jmdx/TLS-poison</li></ul><ul id="065a264a-de02-4028-be55-ba4fb634fd2f" class="bulleted-list"><li><a href="https://github.com/danbev/learning-libcrypto">Project for learning about OpenSSL.</a></li></ul><ul id="777566da-b497-4f20-a3bd-93473a0e121e" class="bulleted-list"><li><a href="https://github.com/mattsta/lematt">Matt’s Let’s Encrypt Automation</a></li></ul><ul id="6e755ed0-250f-42fa-a12f-b98e41ebc6ee" class="bulleted-list"><li><a href="https://news.ycombinator.com/item?id=26760032">TLS Mastery</a></li></ul><h3 id="24d836f2-0b11-46a5-ba57-41ac735e91a7" class="">References</h3><ul id="312766b2-0dbe-4bc0-b24f-e89ec3040158" class="bulleted-list"><li>https://github.com/OpenTechFund/CryptoTerminology</li></ul><ul id="06bba3b5-d64d-4700-888b-2b71e9a8a4e5" class="bulleted-list"><li><a href="https://gist.github.com/tqbf/be58d2d39690c3b366ad">Cryptographic Right Answers (gist)</a></li></ul><ul id="00ffc87e-6cf5-48db-a54a-4234dfa21ac1" class="bulleted-list"><li><a href="https://gist.github.com/paragonie-scott/e9319254c8ecbad4f227">An Open Letter to Developers Everywhere (crypto-wrong-answers)</a></li></ul><ul id="bff49e9d-5233-4b41-a867-6aca787df4db" class="bulleted-list"><li><a href="https://twitter.com/grittygrease/status/1028769194643353600">Some really smart people in security shared their favorite papers or articles.</a></li></ul><ul id="6ac5df91-ba7a-4a08-b3ea-49f14a2a9a1d" class="bulleted-list"><li>https://digitalbunker.dev/2020/09/30/understanding-how-uuids-are-generated</li></ul><ul id="7e0622b3-de40-4178-af55-3bac05590e95" class="bulleted-list"><li><a href="https://github.com/luke-park/SecureCompatibleEncryptionExamples">A collection of secure encryption examples for encrypting strings and binary data.</a></li></ul><h3 id="a486be86-1ae7-4d16-ac38-01bc531d9272" class="">Practice</h3><ul id="14b09b94-cd9c-4442-97cf-00ddff153fec" class="bulleted-list"><li><a href="https://cryptohack.org/">CryptoHack – A fun platform for learning cryptography</a></li></ul><ul id="d9e604a4-b089-47d8-98f6-19c400d01f86" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLwiyx1dc3P2KoKsYdbZQutKvozOPjDilr">Cryptopals on Twitch - Filippo Valsorda</a></li></ul><ul id="06c3d5b8-b207-4f97-a343-4f907fec1dd6" class="bulleted-list"><li>https://vnhacker.blogspot.com/2020/08/so-you-want-to-roll-your-own-crypto.html</li></ul><ul id="fa95395a-ce2f-4e81-9419-a1d591274415" class="bulleted-list"><li><a href="https://blog.cryptohack.org/twitter-secrets">Recovering a full PEM Private Key when half of it is redacted</a></li></ul><h3 id="12d0dc7e-aa1b-495d-a773-622ba499755d" class="">Tools</h3><ul id="71ce7a32-a83e-490e-bd88-2da20cebeeb7" class="bulleted-list"><li><a href="https://twitter.com/bblipp/status/1223289973836861440">Verifpal - cryptographic protocol analysis tool.</a></li></ul><ul id="813ac56d-85db-472b-9b0d-cf701e79bf40" class="bulleted-list"><li><a href="https://github.com/KishanBagaria/padding-oracle-attacker">padding-oracle-attacker: modern, parallel implementation in TypeScript</a></li></ul><ul id="22538105-1828-4b59-bd71-364e8660f30f" class="bulleted-list"><li><a href="https://github.com/in3rsha/sha256-animation">Animation of the SHA-256 hash function in your terminal.</a></li></ul><ul id="4b514903-6df9-455f-b875-83497e82f8c2" class="bulleted-list"><li><a href="https://github.com/drwetter/testssl.sh">Testing TLS/SSL encryption anywhere on any port</a></li></ul><h3 id="78af2cf2-c713-4622-a6a9-3e7944537397" class="">History</h3><ul id="d210d153-186f-4ff8-860b-d12ffae34783" class="bulleted-list"><li>https://onezero.medium.com/the-untold-story-of-the-man-that-made-mainstream-encryption-possible-231c749d5005</li></ul><ul id="55fbcaa1-9775-4bc6-9250-a64d52a9c518" class="bulleted-list"><li>https://vnhacker.blogspot.com/2020/09/a-history-of-elliptic-curves-in-tweets.html</li></ul><ul id="dde614d2-18ea-47c7-99d8-afaeadfd4286" class="bulleted-list"><li>https://github.com/EdOverflow/cryptojourney-content</li></ul><h3 id="5a26fffc-ffef-475f-9e2f-6dd68e7f5f72" class="">People</h3><ul id="5b2361d1-5244-472e-b3f9-3aa97f68aeaa" class="bulleted-list"><li>https://dev.to/cossacklabs/schneier-on-cryptography-live-interview-4mi7</li></ul><ul id="b07d62af-3196-4407-a3a6-c8d470304e73" class="bulleted-list"><li>https://github.com/vixentael/my-talks + https://medium.com/@vixentael/how-to-start-learning-cryptography-49e7d91b54a8</li></ul></div></article></body></html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>crypto</title>
+    <style>
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 3px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        text-indent: -1.7em;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC",
+          "Noto Sans CJK KR";
+      }
+
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Consolas,
+          "Liberation Mono", Menlo, Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC", "Noto Sans Mono CJK KR";
+      }
+
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif,
+          "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC", "Noto Sans CJK KR";
+      }
+
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC",
+          "Noto Sans Mono CJK KR";
+      }
+
+      .highlight-default {
+      }
+      .highlight-gray {
+        color: rgb(155, 154, 151);
+      }
+      .highlight-brown {
+        color: rgb(100, 71, 58);
+      }
+      .highlight-orange {
+        color: rgb(217, 115, 13);
+      }
+      .highlight-yellow {
+        color: rgb(223, 171, 1);
+      }
+      .highlight-teal {
+        color: rgb(15, 123, 108);
+      }
+      .highlight-blue {
+        color: rgb(11, 110, 153);
+      }
+      .highlight-purple {
+        color: rgb(105, 64, 165);
+      }
+      .highlight-pink {
+        color: rgb(173, 26, 114);
+      }
+      .highlight-red {
+        color: rgb(224, 62, 62);
+      }
+      .highlight-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .highlight-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .highlight-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .highlight-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .highlight-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .highlight-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .highlight-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .highlight-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .highlight-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+      }
+      .block-color-brown {
+        color: rgb(100, 71, 58);
+        fill: rgb(100, 71, 58);
+      }
+      .block-color-orange {
+        color: rgb(217, 115, 13);
+        fill: rgb(217, 115, 13);
+      }
+      .block-color-yellow {
+        color: rgb(223, 171, 1);
+        fill: rgb(223, 171, 1);
+      }
+      .block-color-teal {
+        color: rgb(15, 123, 108);
+        fill: rgb(15, 123, 108);
+      }
+      .block-color-blue {
+        color: rgb(11, 110, 153);
+        fill: rgb(11, 110, 153);
+      }
+      .block-color-purple {
+        color: rgb(105, 64, 165);
+        fill: rgb(105, 64, 165);
+      }
+      .block-color-pink {
+        color: rgb(173, 26, 114);
+        fill: rgb(173, 26, 114);
+      }
+      .block-color-red {
+        color: rgb(224, 62, 62);
+        fill: rgb(224, 62, 62);
+      }
+      .block-color-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .block-color-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .block-color-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .block-color-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .block-color-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .block-color-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .block-color-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .block-color-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .block-color-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .select-value-color-default {
+        background-color: rgba(206, 205, 202, 0.5);
+      }
+      .select-value-color-gray {
+        background-color: rgba(155, 154, 151, 0.4);
+      }
+      .select-value-color-brown {
+        background-color: rgba(140, 46, 0, 0.2);
+      }
+      .select-value-color-orange {
+        background-color: rgba(245, 93, 0, 0.2);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(233, 168, 0, 0.2);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 135, 107, 0.2);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 120, 223, 0.2);
+      }
+      .select-value-color-purple {
+        background-color: rgba(103, 36, 222, 0.2);
+      }
+      .select-value-color-pink {
+        background-color: rgba(221, 0, 129, 0.2);
+      }
+      .select-value-color-red {
+        background-color: rgba(255, 0, 26, 0.2);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="4c14d9ea-5c1f-492a-969b-024b41d40286" class="page sans">
+      <header><h1 class="page-title">crypto</h1></header>
+      <div class="page-body">
+        <h3 id="7db110e8-f8ab-4f4c-ab1a-d2c7e879a402" class="">Algorithms</h3>
+        <ul id="a80df96b-e5f4-4ac7-a8c8-12f81c2e8ca9" class="bulleted-list">
+          <li>https://backdrifting.net/post/003_diffie_hellman</li>
+        </ul>
+        <ul id="56f06712-aeb6-40cd-a150-b248b7326a38" class="bulleted-list">
+          <li>https://github.com/B-Con/crypto-algorithms</li>
+        </ul>
+        <ul id="795e5927-464c-4c31-b88b-408ca1e9a940" class="bulleted-list">
+          <li>
+            <a
+              href="https://twitter.com/mstrakastrak/status/1215099753991569409"
+              >S(T|N)ARKs.</a
+            >
+          </li>
+        </ul>
+        <ul id="bf83533e-d4a9-40c8-bf87-9f915c78a670" class="bulleted-list">
+          <li>
+            https://github.com/lrlna/sketchin/blob/master/guides/libsodium.md
+          </li>
+        </ul>
+        <ul id="3c01b0a0-818d-4223-9b79-af60db68d40a" class="bulleted-list">
+          <li>
+            https://www.quantamagazine.org/computer-scientists-achieve-crown-jewel-of-cryptography-20201110
+          </li>
+        </ul>
+        <ul id="be9f289e-8b5b-4fbd-97ca-f4ae55cea5c6" class="bulleted-list">
+          <li>
+            <a href="https://martin.kleppmann.com/papers/curve25519.pdf"
+              >Implementing Curve25519/X25519: A Tutorial on Elliptic Curve
+              Cryptography</a
+            >
+          </li>
+        </ul>
+        <ul id="892d62fb-22cc-410c-9337-156cec256e0a" class="bulleted-list">
+          <li>https://owlspace.xyz/cybersec/steam-login</li>
+        </ul>
+        <ul id="a6812326-fea6-43fe-a298-5948d146d6b2" class="bulleted-list">
+          <li>https://thehazarika.com/blog/programming/rsa-cryptosystem</li>
+        </ul>
+        <ul id="d7e5b980-b304-410c-97ad-5484fa96c439" class="bulleted-list">
+          <li>
+            https://github.com/TheAlgorithms/Algorithms-Explanation/tree/master/en/Ciphers
+          </li>
+        </ul>
+        <h3 id="08185d04-457a-45f8-aeb6-b99af026165e" class="">
+          Best practices
+        </h3>
+        <ul id="753fa94b-2330-4bc1-af67-f8810f91b2a3" class="bulleted-list">
+          <li>
+            https://www.seancassidy.me/how-to-implement-crypto-poorly.html
+          </li>
+        </ul>
+        <h3 id="d2051b11-903a-45aa-b791-e53609b90e38" class="">Books</h3>
+        <ul id="c0401187-8301-4b5b-87ef-5f8a0bcaf1bc" class="bulleted-list">
+          <li>
+            https://github.com/nakov/Practical-Cryptography-for-Developers-Book
+          </li>
+        </ul>
+        <ul id="a284c847-6ad9-4c4a-8ac9-e1bdcb5cbec8" class="bulleted-list">
+          <li>
+            <a
+              href="https://crypto.stanford.edu/~dabo/cryptobook/BonehShoup_0_5.pdf"
+              >A Graduate Course in Applied Cryptography (Rev 2020)</a
+            >
+            + https://toc.cryptobook.us
+          </li>
+        </ul>
+        <ul id="13e4d23b-92ec-4517-8df4-23c416057049" class="bulleted-list">
+          <li>https://cscott.net/Books/#crypto</li>
+        </ul>
+        <ul id="bfcb37e6-9e8b-4686-aac1-18ef2e5e84f8" class="bulleted-list">
+          <li>https://book.keybase.io</li>
+        </ul>
+        <ul id="b1594338-4312-4e23-bfb3-c41a585dfa77" class="bulleted-list">
+          <li>
+            https://blog.cryptographyengineering.com/2011/11/23/digital-fortress-i-read-it-so-you-dont
+            + https://twitter.com/LindellYehuda/status/1251577233929576448
+          </li>
+        </ul>
+        <ul id="82fa25fe-f4c6-4398-b122-926f3898f4a7" class="bulleted-list">
+          <li>https://twitter.com/InsiderPhD/status/1338901012535513094</li>
+        </ul>
+        <ul id="a58e8876-a1ce-423c-ab53-715c4cc15ec4" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/morpheu5/status/1376166695988039682"
+              >Concrete Abstract Algebra by Niels Lauritzen</a
+            >
+          </li>
+        </ul>
+        <h3 id="3b80e8ab-c29e-4615-bdc1-834ee950f4af" class="">Courses</h3>
+        <ul id="3d02acee-7318-49e3-83c1-f1cc5ff7f510" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLM96W_EHEqh4ImClhKxuH4Fqm_Ieiok_B"
+              >Introduction to Cryptography (89-656), in Hebrew</a
+            >
+            + https://u.cs.biu.ac.il/~lindell/89-656/main-89-656.html
+          </li>
+        </ul>
+        <ul id="78e9414b-ca98-463b-b426-c24da993f631" class="bulleted-list">
+          <li>
+            <a
+              href="https://docs.google.com/spreadsheets/d/11_dfB1B1iTqjfMBjoWBtLkD14kCxDHsw-wsUbvIfaNg/pubhtml"
+              >Introduction to Cryptography - 1s2017</a
+            >
+          </li>
+        </ul>
+        <h3 id="e29d18a0-4370-42df-86d0-b3e54032509e" class="">Cinema</h3>
+        <ul id="f0312dad-3ed8-497a-b0bd-820c49321826" class="bulleted-list">
+          <li>
+            <a href="https://www.youtube.com/playlist?list=PL10875C2002F7E6F6"
+              >Theory and Practice of Cryptography</a
+            >
+          </li>
+        </ul>
+        <ul id="70f1e9d7-fecb-4861-8452-acb389c1b383" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/channel/UC1usFRN4LCMcfIV7UjHNuQg/videos"
+              >Introduction to Cryptography by Christof Paar</a
+            >
+          </li>
+        </ul>
+        <ul id="73f53e55-c7ac-46f3-8aac-72daa83424ef" class="bulleted-list">
+          <li>
+            <a href="https://eccworkshop.org/2020"
+              >Workshop on Elliptic Curve Cryptography ECC 2020</a
+            >
+          </li>
+        </ul>
+        <h3 id="51dede29-5f5b-4f39-b366-232dc3ec162e" class="">Certificates</h3>
+        <ul id="81923a4d-e479-4bd4-89d8-095009a18bb2" class="bulleted-list">
+          <li>
+            <a href="https://smallstep.com/blog/everything-pki"
+              >Everything you should know about certificates and PKI but are too
+              afraid to ask</a
+            >
+          </li>
+        </ul>
+        <ul id="b443be24-862b-4816-9d31-f4c2472e7950" class="bulleted-list">
+          <li>
+            mkcert: valid HTTPS certificates for localhost -
+            <a href="https://github.com/FiloSottile/mkcert">repo</a> +
+            <a
+              href="https://blog.filippo.io/mkcert-valid-https-certificates-for-localhost"
+              >blog post</a
+            >
+          </li>
+        </ul>
+        <ul id="afa4d76f-0c6b-4958-b1bc-055a774dd021" class="bulleted-list">
+          <li>
+            <a href="https://github.com/famasoon/crtsh"
+              >Shows the result of crt.sh</a
+            >
+          </li>
+        </ul>
+        <ul id="2fafb4ef-1f10-4627-92df-cf7d00cbe038" class="bulleted-list">
+          <li>
+            https://www.freecodecamp.org/news/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec
+          </li>
+        </ul>
+        <ul id="16604cac-50e7-4b1f-9b62-02ae4c9c2c04" class="bulleted-list">
+          <li>
+            <a href="https://github.com/diafygi/gethttpsforfree"
+              >Get HTTPS for free!</a
+            >
+          </li>
+        </ul>
+        <ul id="6cd3fa4a-f5a2-44f2-8b0d-6f5bb16432cf" class="bulleted-list">
+          <li>https://github.com/dakshshah96/local-cert-generator</li>
+        </ul>
+        <ul id="03f8ffb7-f90b-456d-a504-1e416b5863f9" class="bulleted-list">
+          <li>
+            <a href="https://docs.https.dev/acme-ops"
+              >Best Practices for ACME Client Operations. Considerations for
+              Long-Running TLS Certificate Management Software.</a
+            >
+          </li>
+        </ul>
+        <ul id="89fb83b9-1809-4850-bf6e-505119efbaf8" class="bulleted-list">
+          <li>
+            https://ma.ttias.be/the-end-of-extended-validation-certificates +
+            https://www.aaronpeters.nl/blog/ev-certificates-make-the-web-slow-and-unreliable
+          </li>
+        </ul>
+        <ul id="8fbdf46d-f1be-4e49-9ee9-99bf2fd604c6" class="bulleted-list">
+          <li>
+            https://emilymstark.com/2020/07/20/certificate-transparency-a-birds-eye-view.html
+          </li>
+        </ul>
+        <h3 id="8eb78f3a-0f48-4f74-84ab-0b8f49182188" class="">Demos</h3>
+        <ul id="852c18bf-cb78-424a-b1c8-6699ac34981b" class="bulleted-list">
+          <li>
+            <a href="https://github.com/derhuerst/html-vault"
+              >Store a secret securely in a standalone HTML file.</a
+            >
+          </li>
+        </ul>
+        <h3 id="3d42f4d5-e421-4d8e-87c6-733115d6b145" class="">Standards</h3>
+        <ul id="974761bb-b90b-4a82-82f5-7c55d420f81c" class="bulleted-list">
+          <li>
+            <a
+              href="ftp://ftp.gnupg.org/people/neal/an-advanced-introduction-to-gnupg/openpgp/openpgp.pdf"
+              >Introduction to GPG/PGP</a
+            >
+            + https://twitter.com/binarymist/status/1148732727371296768
+          </li>
+        </ul>
+        <ul id="7da63c54-3584-4651-a82f-60c08748a200" class="bulleted-list">
+          <li>https://cheapskatesguide.org/articles/encrypted-email.html</li>
+        </ul>
+        <ul id="899cf074-5ebb-45da-873e-4c31768198e1" class="bulleted-list">
+          <li>
+            https://unix-ninja.com/p/attacking_google_authenticator +
+            https://twitter.com/adam_baldwin/status/1341470342666014720
+          </li>
+        </ul>
+        <h3 id="4d2eea68-5a6b-4db6-8ea7-4ae454edf3a1" class="">
+          Transport Layer Security
+        </h3>
+        <ul id="1cc0048a-f186-4f26-81b0-e45cbcf132ba" class="bulleted-list">
+          <li>
+            https://github.com/trimstray/nginx-admins-handbook/blob/master/doc/SSL_TLS_BASICS.md
+          </li>
+        </ul>
+        <ul id="785c4621-e64e-41ac-bb48-5366d8b578bc" class="bulleted-list">
+          <li>
+            https://github.com/trimstray/the-book-of-secret-knowledge#build-your-own-certificate-authority
+          </li>
+        </ul>
+        <ul id="b459c96e-7ee9-4fd5-b1f1-97d35e54445e" class="bulleted-list">
+          <li>
+            <a href="https://youtu.be/9Ya8H-9Hrp4"
+              >Lessons learned running SSL/TLS at scale (FOSDEM 2016)</a
+            >
+          </li>
+        </ul>
+        <ul id="fa920c77-d907-41bb-bd28-7377ecd63705" class="bulleted-list">
+          <li>https://idea.popcount.org/2012-06-16-dissecting-ssl-handshake</li>
+        </ul>
+        <ul id="c79d8b30-e6fd-4b3a-9de5-98ff8d7902fe" class="bulleted-list">
+          <li>
+            <a href="https://youtu.be/_V6tT4eP1SI"
+              >Erik Hjelmvik - TLS Interception and Decryption</a
+            >
+          </li>
+        </ul>
+        <ul id="0bed6567-8eaa-465b-8f05-ce7140efa184" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/rauchg/status/1246894998731100160"
+              >What goes into providing free automatic SSL at scale?</a
+            >
+          </li>
+        </ul>
+        <ul id="5186b08d-8041-4c3c-bd53-e7a0ffeb2495" class="bulleted-list">
+          <li>
+            <a href="https://geneva.cs.umd.edu/posts/china-censors-esni/esni"
+              >Exposing and Circumventing China’s Censorship of ESNI</a
+            >
+          </li>
+        </ul>
+        <ul id="5299504c-a415-4f9d-8f3f-43d0bfff74a7" class="bulleted-list">
+          <li>https://github.com/jmdx/TLS-poison</li>
+        </ul>
+        <ul id="065a264a-de02-4028-be55-ba4fb634fd2f" class="bulleted-list">
+          <li>
+            <a href="https://github.com/danbev/learning-libcrypto"
+              >Project for learning about OpenSSL.</a
+            >
+          </li>
+        </ul>
+        <ul id="777566da-b497-4f20-a3bd-93473a0e121e" class="bulleted-list">
+          <li>
+            <a href="https://github.com/mattsta/lematt"
+              >Matt’s Let’s Encrypt Automation</a
+            >
+          </li>
+        </ul>
+        <ul id="6e755ed0-250f-42fa-a12f-b98e41ebc6ee" class="bulleted-list">
+          <li>
+            <a href="https://news.ycombinator.com/item?id=26760032"
+              >TLS Mastery</a
+            >
+          </li>
+        </ul>
+        <h3 id="24d836f2-0b11-46a5-ba57-41ac735e91a7" class="">References</h3>
+        <ul id="312766b2-0dbe-4bc0-b24f-e89ec3040158" class="bulleted-list">
+          <li>https://github.com/OpenTechFund/CryptoTerminology</li>
+        </ul>
+        <ul id="06bba3b5-d64d-4700-888b-2b71e9a8a4e5" class="bulleted-list">
+          <li>
+            <a href="https://gist.github.com/tqbf/be58d2d39690c3b366ad"
+              >Cryptographic Right Answers (gist)</a
+            >
+          </li>
+        </ul>
+        <ul id="00ffc87e-6cf5-48db-a54a-4234dfa21ac1" class="bulleted-list">
+          <li>
+            <a
+              href="https://gist.github.com/paragonie-scott/e9319254c8ecbad4f227"
+              >An Open Letter to Developers Everywhere (crypto-wrong-answers)</a
+            >
+          </li>
+        </ul>
+        <ul id="bff49e9d-5233-4b41-a867-6aca787df4db" class="bulleted-list">
+          <li>
+            <a
+              href="https://twitter.com/grittygrease/status/1028769194643353600"
+              >Some really smart people in security shared their favorite papers
+              or articles.</a
+            >
+          </li>
+        </ul>
+        <ul id="6ac5df91-ba7a-4a08-b3ea-49f14a2a9a1d" class="bulleted-list">
+          <li>
+            https://digitalbunker.dev/2020/09/30/understanding-how-uuids-are-generated
+          </li>
+        </ul>
+        <ul id="7e0622b3-de40-4178-af55-3bac05590e95" class="bulleted-list">
+          <li>
+            <a
+              href="https://github.com/luke-park/SecureCompatibleEncryptionExamples"
+              >A collection of secure encryption examples for encrypting strings
+              and binary data.</a
+            >
+          </li>
+        </ul>
+        <h3 id="a486be86-1ae7-4d16-ac38-01bc531d9272" class="">Practice</h3>
+        <ul id="14b09b94-cd9c-4442-97cf-00ddff153fec" class="bulleted-list">
+          <li>
+            <a href="https://cryptohack.org/"
+              >CryptoHack – A fun platform for learning cryptography</a
+            >
+          </li>
+        </ul>
+        <ul id="d9e604a4-b089-47d8-98f6-19c400d01f86" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLwiyx1dc3P2KoKsYdbZQutKvozOPjDilr"
+              >Cryptopals on Twitch - Filippo Valsorda</a
+            >
+          </li>
+        </ul>
+        <ul id="06c3d5b8-b207-4f97-a343-4f907fec1dd6" class="bulleted-list">
+          <li>
+            https://vnhacker.blogspot.com/2020/08/so-you-want-to-roll-your-own-crypto.html
+          </li>
+        </ul>
+        <ul id="fa95395a-ce2f-4e81-9419-a1d591274415" class="bulleted-list">
+          <li>
+            <a href="https://blog.cryptohack.org/twitter-secrets"
+              >Recovering a full PEM Private Key when half of it is redacted</a
+            >
+          </li>
+        </ul>
+        <h3 id="12d0dc7e-aa1b-495d-a773-622ba499755d" class="">Tools</h3>
+        <ul id="71ce7a32-a83e-490e-bd88-2da20cebeeb7" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/bblipp/status/1223289973836861440"
+              >Verifpal - cryptographic protocol analysis tool.</a
+            >
+          </li>
+        </ul>
+        <ul id="813ac56d-85db-472b-9b0d-cf701e79bf40" class="bulleted-list">
+          <li>
+            <a href="https://github.com/KishanBagaria/padding-oracle-attacker"
+              >padding-oracle-attacker: modern, parallel implementation in
+              TypeScript</a
+            >
+          </li>
+        </ul>
+        <ul id="22538105-1828-4b59-bd71-364e8660f30f" class="bulleted-list">
+          <li>
+            <a href="https://github.com/in3rsha/sha256-animation"
+              >Animation of the SHA-256 hash function in your terminal.</a
+            >
+          </li>
+        </ul>
+        <ul id="4b514903-6df9-455f-b875-83497e82f8c2" class="bulleted-list">
+          <li>
+            <a href="https://github.com/drwetter/testssl.sh"
+              >Testing TLS/SSL encryption anywhere on any port</a
+            >
+          </li>
+        </ul>
+        <h3 id="78af2cf2-c713-4622-a6a9-3e7944537397" class="">History</h3>
+        <ul id="d210d153-186f-4ff8-860b-d12ffae34783" class="bulleted-list">
+          <li>
+            https://onezero.medium.com/the-untold-story-of-the-man-that-made-mainstream-encryption-possible-231c749d5005
+          </li>
+        </ul>
+        <ul id="55fbcaa1-9775-4bc6-9250-a64d52a9c518" class="bulleted-list">
+          <li>
+            https://vnhacker.blogspot.com/2020/09/a-history-of-elliptic-curves-in-tweets.html
+          </li>
+        </ul>
+        <ul id="dde614d2-18ea-47c7-99d8-afaeadfd4286" class="bulleted-list">
+          <li>https://github.com/EdOverflow/cryptojourney-content</li>
+        </ul>
+        <h3 id="5a26fffc-ffef-475f-9e2f-6dd68e7f5f72" class="">People</h3>
+        <ul id="5b2361d1-5244-472e-b3f9-3aa97f68aeaa" class="bulleted-list">
+          <li>
+            https://dev.to/cossacklabs/schneier-on-cryptography-live-interview-4mi7
+          </li>
+        </ul>
+        <ul id="b07d62af-3196-4407-a3a6-c8d470304e73" class="bulleted-list">
+          <li>
+            https://github.com/vixentael/my-talks +
+            https://medium.com/@vixentael/how-to-start-learning-cryptography-49e7d91b54a8
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

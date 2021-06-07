@@ -1,6 +1,3 @@
-
-
-
 Repeated character, n-times:
 
 ```

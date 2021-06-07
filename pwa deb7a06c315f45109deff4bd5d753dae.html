@@ -1,627 +1,953 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>pwa</title><style>
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	text-indent: -1.7em;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.highlight-default {
-}
-.highlight-gray {
-	color: rgb(155,154,151);
-}
-.highlight-brown {
-	color: rgb(100,71,58);
-}
-.highlight-orange {
-	color: rgb(217,115,13);
-}
-.highlight-yellow {
-	color: rgb(223,171,1);
-}
-.highlight-teal {
-	color: rgb(15,123,108);
-}
-.highlight-blue {
-	color: rgb(11,110,153);
-}
-.highlight-purple {
-	color: rgb(105,64,165);
-}
-.highlight-pink {
-	color: rgb(173,26,114);
-}
-.highlight-red {
-	color: rgb(224,62,62);
-}
-.highlight-gray_background {
-	background: rgb(235,236,237);
-}
-.highlight-brown_background {
-	background: rgb(233,229,227);
-}
-.highlight-orange_background {
-	background: rgb(250,235,221);
-}
-.highlight-yellow_background {
-	background: rgb(251,243,219);
-}
-.highlight-teal_background {
-	background: rgb(221,237,234);
-}
-.highlight-blue_background {
-	background: rgb(221,235,241);
-}
-.highlight-purple_background {
-	background: rgb(234,228,242);
-}
-.highlight-pink_background {
-	background: rgb(244,223,235);
-}
-.highlight-red_background {
-	background: rgb(251,228,228);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(55, 53, 47, 0.6);
-	fill: rgba(55, 53, 47, 0.6);
-}
-.block-color-brown {
-	color: rgb(100,71,58);
-	fill: rgb(100,71,58);
-}
-.block-color-orange {
-	color: rgb(217,115,13);
-	fill: rgb(217,115,13);
-}
-.block-color-yellow {
-	color: rgb(223,171,1);
-	fill: rgb(223,171,1);
-}
-.block-color-teal {
-	color: rgb(15,123,108);
-	fill: rgb(15,123,108);
-}
-.block-color-blue {
-	color: rgb(11,110,153);
-	fill: rgb(11,110,153);
-}
-.block-color-purple {
-	color: rgb(105,64,165);
-	fill: rgb(105,64,165);
-}
-.block-color-pink {
-	color: rgb(173,26,114);
-	fill: rgb(173,26,114);
-}
-.block-color-red {
-	color: rgb(224,62,62);
-	fill: rgb(224,62,62);
-}
-.block-color-gray_background {
-	background: rgb(235,236,237);
-}
-.block-color-brown_background {
-	background: rgb(233,229,227);
-}
-.block-color-orange_background {
-	background: rgb(250,235,221);
-}
-.block-color-yellow_background {
-	background: rgb(251,243,219);
-}
-.block-color-teal_background {
-	background: rgb(221,237,234);
-}
-.block-color-blue_background {
-	background: rgb(221,235,241);
-}
-.block-color-purple_background {
-	background: rgb(234,228,242);
-}
-.block-color-pink_background {
-	background: rgb(244,223,235);
-}
-.block-color-red_background {
-	background: rgb(251,228,228);
-}
-.select-value-color-default { background-color: rgba(206,205,202,0.5); }
-.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
-.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
-.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
-.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
-.select-value-color-green { background-color: rgba(0,135,107,0.2); }
-.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
-.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
-.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
-.select-value-color-red { background-color: rgba(255,0,26,0.2); }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="deb7a06c-315f-4510-9def-f4bd5d753dae" class="page sans"><header><h1 class="page-title">pwa</h1></header><div class="page-body"><h3 id="ad4b6bc0-e90c-4ebb-8f95-c284462a7563" class="">Boilerplate</h3><ul id="41c07337-46e2-4624-9bed-04d62d8c9e87" class="bulleted-list"><li>https://github.com/localnerve/react-pwa-reference</li></ul><h3 id="9e910c08-761d-409a-a9a6-a451031b4950" class="">Book</h3><ul id="40b63e83-a978-4ba7-985e-38c0f0147bdc" class="bulleted-list"><li><a href="https://twitter.com/tomayac/status/1067505747456638976">pwas-the-future-of-the-mobile-web</a></li></ul><ul id="d944fd3d-eaea-44eb-a517-0c217e5d9fe2" class="bulleted-list"><li>https://github.com/gauntface/web-push-book</li></ul><h3 id="3715a658-caf4-4c09-a95b-83c06f9d60ca" class="">Course</h3><ul id="c27c4fdc-ebe8-415a-91cd-21ee4b32a683" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLNYkxOF6rcIB2xHBZ7opgc2Mv009X87Hh">Progressive Web App Training - Google Chrome Developers</a></li></ul><h3 id="5fea9198-1420-4363-af2b-58d351477601" class="">Case study</h3><ul id="ab55a5cf-ecc7-4782-923c-913b9971dbe0" class="bulleted-list"><li>https://devblogs.microsoft.com/sustainable-software/green-energy-efficient-progressive-web-apps</li></ul><ul id="64976bf7-dd6f-4d4e-a8ea-a6d87515bf39" class="bulleted-list"><li><a href="https://developers.google.com/web/showcase">Learn why and how other developers have used the web to create amazing web experiences for their users.</a></li></ul><ul id="3500b70e-abf7-4129-a681-f878ca2d3f71" class="bulleted-list"><li>https://formidable.com/work/starbucks-progressive-web-app + https://realtalkjavascript.simplecast.com/episodes/episode-74-react-at-starbucks-with-cher</li></ul><ul id="58e65908-8305-457d-8cd5-2a3c7517f54d" class="bulleted-list"><li>https://medium.com/samsung-internet-dev/improve-device-integration-for-your-web-app-in-just-a-few-minutes-cca413c4f0f</li></ul><h3 id="34b7f842-d076-413d-b71b-8fad7d60ba1c" class="">Cinema</h3><ul id="1ad7160d-ec89-491b-9692-da6f6dc5def1" class="bulleted-list"><li>https://www.youtube.com/c/PWABuilder/videos</li></ul><h3 id="13344d14-aa18-4f06-86c5-f560564996f7" class="">Development</h3><ul id="bf1d1515-179e-466e-9f55-48d85bd3b834" class="bulleted-list"><li>https://firt.dev/pwa-2021</li></ul><ul id="1981ba6c-254d-47f6-910b-ee6bf9363440" class="bulleted-list"><li>https://felixgerschau.com/how-to-make-your-react-app-a-progressive-web-app-pwa</li></ul><ul id="93a97e4d-c13b-425c-bf98-0232b6485f22" class="bulleted-list"><li><a href="https://github.com/thepassle/pwa-helpers">Utilities for common patterns that help you build your Progressive Web App</a></li></ul><ul id="fc8efd79-1c4c-4593-b47b-4a5b1a1ea8b7" class="bulleted-list"><li>https://dev.to/thepassle/lessons-learned-building-a-covid-19-pwa-57fi</li></ul><ul id="010118ac-0f5e-4335-8add-35e160a0474c" class="bulleted-list"><li><a href="https://github.com/fireship-io/169-pwa-trusted-web-activity">Deploy a PWA to as an Android Package to the Google Play Store</a></li></ul><ul id="cfed5d11-e8a8-41f6-ae0c-319c88a710ea" class="bulleted-list"><li><a href="https://github.com/save91/my-journal">A boilerplate to create a complete journal system with backend, frontend, PWA and apps.</a></li></ul><ul id="1cd5c081-f3e8-4f31-9ba4-9116937ccc97" class="bulleted-list"><li>https://github.com/PWA-POLICE/pwa-bugs</li></ul><ul id="730597f9-1194-420a-af81-2ff55d0a8021" class="bulleted-list"><li>https://github.com/onderceylan/pwa-asset-generator</li></ul><ul id="cf0e2859-2428-4551-83fc-c6460aad3c46" class="bulleted-list"><li>https://github.com/google-developer-training/pwa-training-labs</li></ul><ul id="9b2c021e-2d7a-421c-9008-f44e4477aa3b" class="bulleted-list"><li>https://github.com/GeekyAndFun/pwa-docs</li></ul><ul id="9e38fd6b-8ebe-4d40-8338-3685c77eb528" class="bulleted-list"><li>https://leandrotk.github.io/2021/01/optimizing-the-performance-of-a-react-progressive-web-app/index.html</li></ul><ul id="48dbe025-ab6b-48d9-b1fe-b8c8dd6eaa89" class="bulleted-list"><li>https://medium.com/pwabuilder/building-pwas-with-web-components-33f986bf8e4c</li></ul><ul id="e64df7ba-e5f6-4c27-9333-ff5a9938ac03" class="bulleted-list"><li><a href="https://twitter.com/HarveyRamer/status/1375176619590057988">what library are you using to build them?</a></li></ul><ul id="9fdf82a3-ab86-403b-9700-55c2c4ba2333" class="bulleted-list"><li>https://itnext.io/publishing-a-progressive-web-app-pwa-on-the-playstore-what-works-and-what-doesnt-in-2021-c4cfea5a7601</li></ul><h3 id="dfd46dd3-6956-450f-82a0-9aa308f78feb" class="">Demo</h3><ul id="5d8895ef-2c19-4d83-b040-33ff8b42f508" class="bulleted-list"><li><a href="https://appsco.pe/">Appscope - Progressive Web Apps Examples</a></li></ul><ul id="b525767f-e2ca-4245-9989-4afc0dd199fa" class="bulleted-list"><li><a href="https://github.com/sandoche/Detoxify-app">Generate a fake app to replace any addictive app</a></li></ul><ul id="eec6c614-fb72-4fe0-a529-a5ffe8aa9d2d" class="bulleted-list"><li><a href="https://github.com/JonnyBurger/light-spotify">Spotify PWA + Desktop shortcut + Media keys. Tutorial and Chrome Extension</a></li></ul><ul id="eefd77f6-c857-4518-9be3-70ad4e24ffae" class="bulleted-list"><li><a href="https://github.com/ivan-rey-cv/tailwindcss-cheatsheet-react-pwa">A cheat sheet for tailwind css built in react.js</a></li></ul><ul id="b07c7f26-3a2d-41b3-a3f0-318efe203773" class="bulleted-list"><li><a href="https://github.com/RobinLinus/snapdrop">A Progressive Web App for local file sharing.</a></li></ul><ul id="48757522-1e93-47a1-a0e4-6d21cf1d6960" class="bulleted-list"><li><a href="https://github.com/Utwo/bus-pwa">A simple bus schedule made with Vue.</a></li></ul><ul id="8f1ce7d6-e573-4132-abc0-c2513476bdb6" class="bulleted-list"><li>https://github.com/ayastreb/money-tracker</li></ul><ul id="bcbb5388-e644-40df-8e43-2ddb2ffb7b7c" class="bulleted-list"><li><a href="https://github.com/ayndqy/notecards">PWA notes made with Svelte</a></li></ul><ul id="17a9286a-2029-4b4a-be79-970620435feb" class="bulleted-list"><li><a href="https://github.com/shprink/isitblackfridayyet">A product that tells you if it is Black Friday day or not.</a></li></ul><ul id="d3b4eb0a-d3b0-4ff5-932f-ac6ca118184c" class="bulleted-list"><li><a href="https://github.com/giekaton/vipassana-app">Gamified Meditation PWA</a></li></ul><ul id="6c8b8915-c3d2-4dac-a59f-5de0898e5565" class="bulleted-list"><li><a href="https://github.com/giekaton/thinking-bugs">The classical thinking errors list and the CBT app.</a></li></ul><ul id="1b47d280-c3da-4718-b8a3-514f8aa7b307" class="bulleted-list"><li>https://github.com/jgw96/web-whiteboard</li></ul><ul id="9f6a1a5d-ef35-459b-8f06-e974ab681489" class="bulleted-list"><li>https://github.com/AmruthPillai/Reactive-Resume</li></ul><ul id="100b9767-91c9-4b89-ae92-7c7923a1da29" class="bulleted-list"><li>https://samselikoff.com/blog/8-tips-to-make-your-website-feel-like-an-ios-app</li></ul><ul id="62e2fd40-91b7-49db-b301-c0fb406c95d1" class="bulleted-list"><li>https://github.com/alexandrunastase/json-formatter-live</li></ul><ul id="6de1bde1-12c5-4cbc-8994-98ba7e60e080" class="bulleted-list"><li><a href="https://github.com/gokulkrishh/qrcodescan.in">QR Code Scanner - a simple, fast and useful progressive web application</a></li></ul><ul id="716f40ec-1694-44b9-96cb-e831b9495edb" class="bulleted-list"><li><a href="https://github.com/dimaip/calendar">Orthodox Calendar PWA</a></li></ul><ul id="79970d30-1009-4b29-9c7a-e3a45842ccf5" class="bulleted-list"><li><a href="https://github.com/trekhleb/links-detector">Links Detector makes printed links clickable via your smartphone camera.</a></li></ul><ul id="7b30b2fd-fd8c-45b6-9b1a-fc61ab724057" class="bulleted-list"><li><a href="https://github.com/jgw96/liveCanvas">Collaborative whiteboard PWA</a></li></ul><ul id="726ef1b1-c41a-41ef-a089-7ba92ab0b5ec" class="bulleted-list"><li>https://github.com/jgw96/voice-notes</li></ul><h3 id="446666ac-0817-4384-a2fa-b57c3cbf916c" class="">Security</h3><ul id="872424f3-beca-48b0-aad6-98c358d14dfa" class="bulleted-list"><li>https://blog.nviso.eu/2020/01/16/deep-dive-into-the-security-of-progressive-web-apps</li></ul><h3 id="81615524-bb35-4dab-9f49-cd844c472c99" class="">Opinion</h3><ul id="48bc930c-6941-4851-b0e2-10a241e056c4" class="bulleted-list"><li>https://twitter.com/firt/status/1367205341302243333</li></ul><ul id="43885fad-c429-4758-82b0-1b10b702792a" class="bulleted-list"><li>https://twitter.com/HenrikJoreteg/status/1354625168497201161</li></ul></div></article></body></html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pwa</title>
+    <style>
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 3px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        text-indent: -1.7em;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC",
+          "Noto Sans CJK KR";
+      }
+
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Consolas,
+          "Liberation Mono", Menlo, Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC", "Noto Sans Mono CJK KR";
+      }
+
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif,
+          "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC", "Noto Sans CJK KR";
+      }
+
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC",
+          "Noto Sans Mono CJK KR";
+      }
+
+      .highlight-default {
+      }
+      .highlight-gray {
+        color: rgb(155, 154, 151);
+      }
+      .highlight-brown {
+        color: rgb(100, 71, 58);
+      }
+      .highlight-orange {
+        color: rgb(217, 115, 13);
+      }
+      .highlight-yellow {
+        color: rgb(223, 171, 1);
+      }
+      .highlight-teal {
+        color: rgb(15, 123, 108);
+      }
+      .highlight-blue {
+        color: rgb(11, 110, 153);
+      }
+      .highlight-purple {
+        color: rgb(105, 64, 165);
+      }
+      .highlight-pink {
+        color: rgb(173, 26, 114);
+      }
+      .highlight-red {
+        color: rgb(224, 62, 62);
+      }
+      .highlight-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .highlight-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .highlight-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .highlight-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .highlight-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .highlight-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .highlight-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .highlight-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .highlight-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+      }
+      .block-color-brown {
+        color: rgb(100, 71, 58);
+        fill: rgb(100, 71, 58);
+      }
+      .block-color-orange {
+        color: rgb(217, 115, 13);
+        fill: rgb(217, 115, 13);
+      }
+      .block-color-yellow {
+        color: rgb(223, 171, 1);
+        fill: rgb(223, 171, 1);
+      }
+      .block-color-teal {
+        color: rgb(15, 123, 108);
+        fill: rgb(15, 123, 108);
+      }
+      .block-color-blue {
+        color: rgb(11, 110, 153);
+        fill: rgb(11, 110, 153);
+      }
+      .block-color-purple {
+        color: rgb(105, 64, 165);
+        fill: rgb(105, 64, 165);
+      }
+      .block-color-pink {
+        color: rgb(173, 26, 114);
+        fill: rgb(173, 26, 114);
+      }
+      .block-color-red {
+        color: rgb(224, 62, 62);
+        fill: rgb(224, 62, 62);
+      }
+      .block-color-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .block-color-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .block-color-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .block-color-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .block-color-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .block-color-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .block-color-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .block-color-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .block-color-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .select-value-color-default {
+        background-color: rgba(206, 205, 202, 0.5);
+      }
+      .select-value-color-gray {
+        background-color: rgba(155, 154, 151, 0.4);
+      }
+      .select-value-color-brown {
+        background-color: rgba(140, 46, 0, 0.2);
+      }
+      .select-value-color-orange {
+        background-color: rgba(245, 93, 0, 0.2);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(233, 168, 0, 0.2);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 135, 107, 0.2);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 120, 223, 0.2);
+      }
+      .select-value-color-purple {
+        background-color: rgba(103, 36, 222, 0.2);
+      }
+      .select-value-color-pink {
+        background-color: rgba(221, 0, 129, 0.2);
+      }
+      .select-value-color-red {
+        background-color: rgba(255, 0, 26, 0.2);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="deb7a06c-315f-4510-9def-f4bd5d753dae" class="page sans">
+      <header><h1 class="page-title">pwa</h1></header>
+      <div class="page-body">
+        <h3 id="ad4b6bc0-e90c-4ebb-8f95-c284462a7563" class="">Boilerplate</h3>
+        <ul id="41c07337-46e2-4624-9bed-04d62d8c9e87" class="bulleted-list">
+          <li>https://github.com/localnerve/react-pwa-reference</li>
+        </ul>
+        <h3 id="9e910c08-761d-409a-a9a6-a451031b4950" class="">Book</h3>
+        <ul id="40b63e83-a978-4ba7-985e-38c0f0147bdc" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/tomayac/status/1067505747456638976"
+              >pwas-the-future-of-the-mobile-web</a
+            >
+          </li>
+        </ul>
+        <ul id="d944fd3d-eaea-44eb-a517-0c217e5d9fe2" class="bulleted-list">
+          <li>https://github.com/gauntface/web-push-book</li>
+        </ul>
+        <h3 id="3715a658-caf4-4c09-a95b-83c06f9d60ca" class="">Course</h3>
+        <ul id="c27c4fdc-ebe8-415a-91cd-21ee4b32a683" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLNYkxOF6rcIB2xHBZ7opgc2Mv009X87Hh"
+              >Progressive Web App Training - Google Chrome Developers</a
+            >
+          </li>
+        </ul>
+        <h3 id="5fea9198-1420-4363-af2b-58d351477601" class="">Case study</h3>
+        <ul id="ab55a5cf-ecc7-4782-923c-913b9971dbe0" class="bulleted-list">
+          <li>
+            https://devblogs.microsoft.com/sustainable-software/green-energy-efficient-progressive-web-apps
+          </li>
+        </ul>
+        <ul id="64976bf7-dd6f-4d4e-a8ea-a6d87515bf39" class="bulleted-list">
+          <li>
+            <a href="https://developers.google.com/web/showcase"
+              >Learn why and how other developers have used the web to create
+              amazing web experiences for their users.</a
+            >
+          </li>
+        </ul>
+        <ul id="3500b70e-abf7-4129-a681-f878ca2d3f71" class="bulleted-list">
+          <li>
+            https://formidable.com/work/starbucks-progressive-web-app +
+            https://realtalkjavascript.simplecast.com/episodes/episode-74-react-at-starbucks-with-cher
+          </li>
+        </ul>
+        <ul id="58e65908-8305-457d-8cd5-2a3c7517f54d" class="bulleted-list">
+          <li>
+            https://medium.com/samsung-internet-dev/improve-device-integration-for-your-web-app-in-just-a-few-minutes-cca413c4f0f
+          </li>
+        </ul>
+        <h3 id="34b7f842-d076-413d-b71b-8fad7d60ba1c" class="">Cinema</h3>
+        <ul id="1ad7160d-ec89-491b-9692-da6f6dc5def1" class="bulleted-list">
+          <li>https://www.youtube.com/c/PWABuilder/videos</li>
+        </ul>
+        <h3 id="13344d14-aa18-4f06-86c5-f560564996f7" class="">Development</h3>
+        <ul id="bf1d1515-179e-466e-9f55-48d85bd3b834" class="bulleted-list">
+          <li>https://firt.dev/pwa-2021</li>
+        </ul>
+        <ul id="1981ba6c-254d-47f6-910b-ee6bf9363440" class="bulleted-list">
+          <li>
+            https://felixgerschau.com/how-to-make-your-react-app-a-progressive-web-app-pwa
+          </li>
+        </ul>
+        <ul id="93a97e4d-c13b-425c-bf98-0232b6485f22" class="bulleted-list">
+          <li>
+            <a href="https://github.com/thepassle/pwa-helpers"
+              >Utilities for common patterns that help you build your
+              Progressive Web App</a
+            >
+          </li>
+        </ul>
+        <ul id="fc8efd79-1c4c-4593-b47b-4a5b1a1ea8b7" class="bulleted-list">
+          <li>
+            https://dev.to/thepassle/lessons-learned-building-a-covid-19-pwa-57fi
+          </li>
+        </ul>
+        <ul id="010118ac-0f5e-4335-8add-35e160a0474c" class="bulleted-list">
+          <li>
+            <a
+              href="https://github.com/fireship-io/169-pwa-trusted-web-activity"
+              >Deploy a PWA to as an Android Package to the Google Play Store</a
+            >
+          </li>
+        </ul>
+        <ul id="cfed5d11-e8a8-41f6-ae0c-319c88a710ea" class="bulleted-list">
+          <li>
+            <a href="https://github.com/save91/my-journal"
+              >A boilerplate to create a complete journal system with backend,
+              frontend, PWA and apps.</a
+            >
+          </li>
+        </ul>
+        <ul id="1cd5c081-f3e8-4f31-9ba4-9116937ccc97" class="bulleted-list">
+          <li>https://github.com/PWA-POLICE/pwa-bugs</li>
+        </ul>
+        <ul id="730597f9-1194-420a-af81-2ff55d0a8021" class="bulleted-list">
+          <li>https://github.com/onderceylan/pwa-asset-generator</li>
+        </ul>
+        <ul id="cf0e2859-2428-4551-83fc-c6460aad3c46" class="bulleted-list">
+          <li>
+            https://github.com/google-developer-training/pwa-training-labs
+          </li>
+        </ul>
+        <ul id="9b2c021e-2d7a-421c-9008-f44e4477aa3b" class="bulleted-list">
+          <li>https://github.com/GeekyAndFun/pwa-docs</li>
+        </ul>
+        <ul id="9e38fd6b-8ebe-4d40-8338-3685c77eb528" class="bulleted-list">
+          <li>
+            https://leandrotk.github.io/2021/01/optimizing-the-performance-of-a-react-progressive-web-app/index.html
+          </li>
+        </ul>
+        <ul id="48dbe025-ab6b-48d9-b1fe-b8c8dd6eaa89" class="bulleted-list">
+          <li>
+            https://medium.com/pwabuilder/building-pwas-with-web-components-33f986bf8e4c
+          </li>
+        </ul>
+        <ul id="e64df7ba-e5f6-4c27-9333-ff5a9938ac03" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/HarveyRamer/status/1375176619590057988"
+              >what library are you using to build them?</a
+            >
+          </li>
+        </ul>
+        <ul id="9fdf82a3-ab86-403b-9700-55c2c4ba2333" class="bulleted-list">
+          <li>
+            https://itnext.io/publishing-a-progressive-web-app-pwa-on-the-playstore-what-works-and-what-doesnt-in-2021-c4cfea5a7601
+          </li>
+        </ul>
+        <h3 id="dfd46dd3-6956-450f-82a0-9aa308f78feb" class="">Demo</h3>
+        <ul id="5d8895ef-2c19-4d83-b040-33ff8b42f508" class="bulleted-list">
+          <li>
+            <a href="https://appsco.pe/"
+              >Appscope - Progressive Web Apps Examples</a
+            >
+          </li>
+        </ul>
+        <ul id="b525767f-e2ca-4245-9989-4afc0dd199fa" class="bulleted-list">
+          <li>
+            <a href="https://github.com/sandoche/Detoxify-app"
+              >Generate a fake app to replace any addictive app</a
+            >
+          </li>
+        </ul>
+        <ul id="eec6c614-fb72-4fe0-a529-a5ffe8aa9d2d" class="bulleted-list">
+          <li>
+            <a href="https://github.com/JonnyBurger/light-spotify"
+              >Spotify PWA + Desktop shortcut + Media keys. Tutorial and Chrome
+              Extension</a
+            >
+          </li>
+        </ul>
+        <ul id="eefd77f6-c857-4518-9be3-70ad4e24ffae" class="bulleted-list">
+          <li>
+            <a
+              href="https://github.com/ivan-rey-cv/tailwindcss-cheatsheet-react-pwa"
+              >A cheat sheet for tailwind css built in react.js</a
+            >
+          </li>
+        </ul>
+        <ul id="b07c7f26-3a2d-41b3-a3f0-318efe203773" class="bulleted-list">
+          <li>
+            <a href="https://github.com/RobinLinus/snapdrop"
+              >A Progressive Web App for local file sharing.</a
+            >
+          </li>
+        </ul>
+        <ul id="48757522-1e93-47a1-a0e4-6d21cf1d6960" class="bulleted-list">
+          <li>
+            <a href="https://github.com/Utwo/bus-pwa"
+              >A simple bus schedule made with Vue.</a
+            >
+          </li>
+        </ul>
+        <ul id="8f1ce7d6-e573-4132-abc0-c2513476bdb6" class="bulleted-list">
+          <li>https://github.com/ayastreb/money-tracker</li>
+        </ul>
+        <ul id="bcbb5388-e644-40df-8e43-2ddb2ffb7b7c" class="bulleted-list">
+          <li>
+            <a href="https://github.com/ayndqy/notecards"
+              >PWA notes made with Svelte</a
+            >
+          </li>
+        </ul>
+        <ul id="17a9286a-2029-4b4a-be79-970620435feb" class="bulleted-list">
+          <li>
+            <a href="https://github.com/shprink/isitblackfridayyet"
+              >A product that tells you if it is Black Friday day or not.</a
+            >
+          </li>
+        </ul>
+        <ul id="d3b4eb0a-d3b0-4ff5-932f-ac6ca118184c" class="bulleted-list">
+          <li>
+            <a href="https://github.com/giekaton/vipassana-app"
+              >Gamified Meditation PWA</a
+            >
+          </li>
+        </ul>
+        <ul id="6c8b8915-c3d2-4dac-a59f-5de0898e5565" class="bulleted-list">
+          <li>
+            <a href="https://github.com/giekaton/thinking-bugs"
+              >The classical thinking errors list and the CBT app.</a
+            >
+          </li>
+        </ul>
+        <ul id="1b47d280-c3da-4718-b8a3-514f8aa7b307" class="bulleted-list">
+          <li>https://github.com/jgw96/web-whiteboard</li>
+        </ul>
+        <ul id="9f6a1a5d-ef35-459b-8f06-e974ab681489" class="bulleted-list">
+          <li>https://github.com/AmruthPillai/Reactive-Resume</li>
+        </ul>
+        <ul id="100b9767-91c9-4b89-ae92-7c7923a1da29" class="bulleted-list">
+          <li>
+            https://samselikoff.com/blog/8-tips-to-make-your-website-feel-like-an-ios-app
+          </li>
+        </ul>
+        <ul id="62e2fd40-91b7-49db-b301-c0fb406c95d1" class="bulleted-list">
+          <li>https://github.com/alexandrunastase/json-formatter-live</li>
+        </ul>
+        <ul id="6de1bde1-12c5-4cbc-8994-98ba7e60e080" class="bulleted-list">
+          <li>
+            <a href="https://github.com/gokulkrishh/qrcodescan.in"
+              >QR Code Scanner - a simple, fast and useful progressive web
+              application</a
+            >
+          </li>
+        </ul>
+        <ul id="716f40ec-1694-44b9-96cb-e831b9495edb" class="bulleted-list">
+          <li>
+            <a href="https://github.com/dimaip/calendar"
+              >Orthodox Calendar PWA</a
+            >
+          </li>
+        </ul>
+        <ul id="79970d30-1009-4b29-9c7a-e3a45842ccf5" class="bulleted-list">
+          <li>
+            <a href="https://github.com/trekhleb/links-detector"
+              >Links Detector makes printed links clickable via your smartphone
+              camera.</a
+            >
+          </li>
+        </ul>
+        <ul id="7b30b2fd-fd8c-45b6-9b1a-fc61ab724057" class="bulleted-list">
+          <li>
+            <a href="https://github.com/jgw96/liveCanvas"
+              >Collaborative whiteboard PWA</a
+            >
+          </li>
+        </ul>
+        <ul id="726ef1b1-c41a-41ef-a089-7ba92ab0b5ec" class="bulleted-list">
+          <li>https://github.com/jgw96/voice-notes</li>
+        </ul>
+        <h3 id="446666ac-0817-4384-a2fa-b57c3cbf916c" class="">Security</h3>
+        <ul id="872424f3-beca-48b0-aad6-98c358d14dfa" class="bulleted-list">
+          <li>
+            https://blog.nviso.eu/2020/01/16/deep-dive-into-the-security-of-progressive-web-apps
+          </li>
+        </ul>
+        <h3 id="81615524-bb35-4dab-9f49-cd844c472c99" class="">Opinion</h3>
+        <ul id="48bc930c-6941-4851-b0e2-10a241e056c4" class="bulleted-list">
+          <li>https://twitter.com/firt/status/1367205341302243333</li>
+        </ul>
+        <ul id="43885fad-c429-4758-82b0-1b10b702792a" class="bulleted-list">
+          <li>https://twitter.com/HenrikJoreteg/status/1354625168497201161</li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

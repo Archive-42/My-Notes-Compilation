@@ -3,7 +3,7 @@
 Created: May 10, 2021 6:55 PM
 Tags: Daily
 
-**Notion Tip:** Create a new page and select `Daily Entry` ****from the list of template options to automatically generate the format below every day.
+**Notion Tip:** Create a new page and select `Daily Entry` \*\*\*\*from the list of template options to automatically generate the format below every day.
 
 # Intentions
 
@@ -21,5 +21,5 @@ Tags: Daily
 
 # Action items
 
-- [ ]  ...
-- [ ]  ...
+- [ ] ...
+- [ ] ...

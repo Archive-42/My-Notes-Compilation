@@ -1,627 +1,1229 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>db</title><style>
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	text-indent: -1.7em;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.highlight-default {
-}
-.highlight-gray {
-	color: rgb(155,154,151);
-}
-.highlight-brown {
-	color: rgb(100,71,58);
-}
-.highlight-orange {
-	color: rgb(217,115,13);
-}
-.highlight-yellow {
-	color: rgb(223,171,1);
-}
-.highlight-teal {
-	color: rgb(15,123,108);
-}
-.highlight-blue {
-	color: rgb(11,110,153);
-}
-.highlight-purple {
-	color: rgb(105,64,165);
-}
-.highlight-pink {
-	color: rgb(173,26,114);
-}
-.highlight-red {
-	color: rgb(224,62,62);
-}
-.highlight-gray_background {
-	background: rgb(235,236,237);
-}
-.highlight-brown_background {
-	background: rgb(233,229,227);
-}
-.highlight-orange_background {
-	background: rgb(250,235,221);
-}
-.highlight-yellow_background {
-	background: rgb(251,243,219);
-}
-.highlight-teal_background {
-	background: rgb(221,237,234);
-}
-.highlight-blue_background {
-	background: rgb(221,235,241);
-}
-.highlight-purple_background {
-	background: rgb(234,228,242);
-}
-.highlight-pink_background {
-	background: rgb(244,223,235);
-}
-.highlight-red_background {
-	background: rgb(251,228,228);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(55, 53, 47, 0.6);
-	fill: rgba(55, 53, 47, 0.6);
-}
-.block-color-brown {
-	color: rgb(100,71,58);
-	fill: rgb(100,71,58);
-}
-.block-color-orange {
-	color: rgb(217,115,13);
-	fill: rgb(217,115,13);
-}
-.block-color-yellow {
-	color: rgb(223,171,1);
-	fill: rgb(223,171,1);
-}
-.block-color-teal {
-	color: rgb(15,123,108);
-	fill: rgb(15,123,108);
-}
-.block-color-blue {
-	color: rgb(11,110,153);
-	fill: rgb(11,110,153);
-}
-.block-color-purple {
-	color: rgb(105,64,165);
-	fill: rgb(105,64,165);
-}
-.block-color-pink {
-	color: rgb(173,26,114);
-	fill: rgb(173,26,114);
-}
-.block-color-red {
-	color: rgb(224,62,62);
-	fill: rgb(224,62,62);
-}
-.block-color-gray_background {
-	background: rgb(235,236,237);
-}
-.block-color-brown_background {
-	background: rgb(233,229,227);
-}
-.block-color-orange_background {
-	background: rgb(250,235,221);
-}
-.block-color-yellow_background {
-	background: rgb(251,243,219);
-}
-.block-color-teal_background {
-	background: rgb(221,237,234);
-}
-.block-color-blue_background {
-	background: rgb(221,235,241);
-}
-.block-color-purple_background {
-	background: rgb(234,228,242);
-}
-.block-color-pink_background {
-	background: rgb(244,223,235);
-}
-.block-color-red_background {
-	background: rgb(251,228,228);
-}
-.select-value-color-default { background-color: rgba(206,205,202,0.5); }
-.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
-.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
-.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
-.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
-.select-value-color-green { background-color: rgba(0,135,107,0.2); }
-.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
-.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
-.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
-.select-value-color-red { background-color: rgba(255,0,26,0.2); }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="c462b47e-bc50-4dc6-a003-b80ba5897e9f" class="page sans"><header><h1 class="page-title">db</h1></header><div class="page-body"><h3 id="da3ec81e-6b37-4ed9-ae9a-e8f4b33709e9" class="">Books</h3><ul id="da85c2dc-b172-4f03-a356-633380fad426" class="bulleted-list"><li>https://www.goodreads.com/book/show/1032724.The_Art_of_SQL</li></ul><ul id="d0f98740-f162-4c45-b8ae-d86943f14f77" class="bulleted-list"><li><a href="https://www.databass.dev/">Database Internals: A Deep Dive into How Distributed Data Systems Work.</a></li></ul><ul id="14923fca-0716-479f-bd8d-7c2e32db30e6" class="bulleted-list"><li><a href="https://learning.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/">Designing Data-Intensive Applications</a>: <a href="https://henrikwarne.com/2019/07/27/book-review-designing-data-intensive-applications">review</a> + <a href="https://news.ycombinator.com/item?id=20550516">HN</a> + <a href="https://www.reddit.com/r/programming/comments/cj6x91/book_review_designing_dataintensive_applications/">Reddit</a> + <a href="https://news.ycombinator.com/item?id=18961793">What are must-know concepts for back end development?</a></li></ul><ul id="c2b0be96-66a4-4d7a-8078-dea6f2e91e4e" class="bulleted-list"><li>https://lethain.com/handbook-relational-db-design-on-data-modeling</li></ul><ul id="574b99fb-9b4b-4ad3-ae50-45d1040a0abe" class="bulleted-list"><li>https://www.amazon.com/DBA-Survivor-Become-Rock-Star/dp/1430227877</li></ul><ul id="905bc1dd-16e2-444d-ad4c-08c38f2ec421" class="bulleted-list"><li><a href="https://twitter.com/samerbuna/status/1183771023054987264">beginners</a></li></ul><ul id="4e5e3f75-8f3a-442f-bc09-a7526cdee982" class="bulleted-list"><li><a href="https://news.ycombinator.com/item?id=23138297">Advanced SQL and database books and resources</a></li></ul><ul id="bc805746-9404-49d7-9135-00e34e97b252" class="bulleted-list"><li><a href="https://news.ycombinator.com/item?id=23193093">The DynamoDB Book: Data Modeling with NoSQL and DynamoDB</a></li></ul><ul id="22ff6a43-5a9c-425c-b631-3eafdc690546" class="bulleted-list"><li>https://www.neilwithdata.com/advanced-sql</li></ul><ul id="a7078abf-4376-4b3b-88f0-afccf443e2f0" class="bulleted-list"><li>https://github.com/bevacqua/reads#databasessearch</li></ul><ul id="77ffb832-912e-46d6-be1a-661cbdcb7b1b" class="bulleted-list"><li><a href="https://news.ycombinator.com/item?id=25327077">A Distributed Systems Reading List</a> + https://news.ycombinator.com/item?id=25987664</li></ul><h3 id="a2aee8a2-cfcf-4a72-8a66-e4c0e9a3e6cc" class="">Courses</h3><ul id="4b39c7eb-d04d-4e4f-8fb4-4d3adf7bad9c" class="bulleted-list"><li>https://news.ycombinator.com/item?id=23070491</li></ul><ul id="d0ee2c52-9bbb-4bc6-a5a1-fce10233392c" class="bulleted-list"><li><a href="https://www2.cs.sfu.ca/CourseCentral/354/zaiane/material/notes/contents.html">CMPT 354: Database Systems and Structures (Summer 1998)</a></li></ul><ul id="892a26c1-17ee-401a-9e65-9401958aaf09" class="bulleted-list"><li>https://www.sqlhabit.com/blog/posts/how-to-detect-recurring-payments-with-sql</li></ul><ul id="dd926cdf-344d-458b-b5f4-f48bb223aa71" class="bulleted-list"><li>https://blog.bradfieldcs.com/how-to-learn-about-database-systems-40c7432f471d</li></ul><ul id="af5fa880-3871-4056-8ee6-9fe1997f59ad" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLroEs25KGvwzmvIxYHRhoGTz9w8LeXek0">Introduction to Databases - Jennifer Widom - Stanford</a></li></ul><ul id="8d226ec2-f52a-4427-957e-a75afa000b88" class="bulleted-list"><li>https://www.freecodecamp.org/news/watch-a-cornell-university-database-course-for-free</li></ul><h3 id="6953cb80-a104-45f4-9fe9-5c9eaf55011d" class="">Tools</h3><ul id="42f31dd1-bcd9-42cb-8d2c-6f53527f2bf5" class="bulleted-list"><li><a href="https://www.codediesel.com/data/visualizing-missing-data-in-databases/">Visualizing missing data in databases</a></li></ul><ul id="82770bd3-e0c7-4a57-b392-142fd8cfae68" class="bulleted-list"><li><a href="https://github.com/infostreams/db">Version control for databases: save, restore, and archive snapshots of your database from the command line</a></li></ul><ul id="8a0a7380-7f5c-4d8e-80c7-ca4e96338e7b" class="bulleted-list"><li>https://www.johndcook.com/blog/2019/12/31/sql-join-csv-files</li></ul><ul id="31b89c11-063e-4b38-b542-a7cf27b477b0" class="bulleted-list"><li><a href="https://github.com/forbesmyester/esqlate">Build minimum viable admin panels quickly with just SQL</a></li></ul><ul id="bd20e5fe-1ce8-4a85-8ce6-c718dcc62d6d" class="bulleted-list"><li><a href="https://jbeckwith.com/2016/08/13/bigquery-github">Analyzing node.js on GitHub with BigQuery</a></li></ul><ul id="091ac231-9ac4-4962-97a7-638156211ab0" class="bulleted-list"><li>https://chartio.com/blog/why-we-made-sql-visual-and-how-we-finally-did-it</li></ul><ul id="e2b9be99-0a0a-46fb-a2f8-fceeb95782b2" class="bulleted-list"><li>https://medium.com/@woj_ciech/leaklooker-gui-discover-browse-and-monitor-database-source-code-leaks-f4b82bbb48fe + https://github.com/woj-ciech/LeakLooker</li></ul><ul id="8bd3c54e-23d9-437a-a589-9f5551bfe231" class="bulleted-list"><li>https://blog.codepen.io/2018/06/07/need-to-store-some-data</li></ul><ul id="685ecf03-f0d1-47a6-b091-4c661fcdfd80" class="bulleted-list"><li><a href="https://twitter.com/HusseiN98D/status/1238545584644149250">SQLmap guide</a> + http://www.it-docs.net/ddata/4956.pdf</li></ul><h3 id="7b593ca6-7bed-4546-81b8-274861240e60" class="">TIL</h3><ul id="35f24006-0e62-4650-a629-5d4ced87f88a" class="bulleted-list"><li>SQL, NoSQL, and Scale - How DynamoDB scales where relational databases don’t: <a href="https://twitter.com/alexbdebrie/status/1214966652254732304">tweet</a> + <a href="https://www.alexdebrie.com/posts/dynamodb-no-bad-queries/">article</a></li></ul><ul id="57452af4-3886-471e-aea5-95d8f100bb38" class="bulleted-list"><li>https://ovid.github.io/articles/database-design-standards.html</li></ul><ul id="0e511884-b6aa-4e9d-ad0f-7e7063be3cdc" class="bulleted-list"><li>https://joshduff.com/2016-07-writing-sql.md</li></ul><ul id="99594565-1290-4388-a27b-0d42eb17d4db" class="bulleted-list"><li><a href="https://news.ycombinator.com/item?id=22942278">Things I wished more developers knew about databases.</a></li></ul><ul id="7d8dcd4a-0452-4ee9-9623-5ed8d64505e6" class="bulleted-list"><li><a href="https://news.ycombinator.com/item?id=23271053">Using SQL to find my best photo of a pelican according to Apple Photos</a></li></ul><ul id="546b435e-8fd2-4520-8b30-5418656d7578" class="bulleted-list"><li>https://gbl08ma.com/time-for-a-wtf-mysql-moment</li></ul><ul id="e7338a6b-1214-4c11-8488-b1d0cdfed16b" class="bulleted-list"><li>https://blog.jooq.org/2019/11/13/stop-mapping-stuff-in-your-middleware-use-sqls-xml-or-json-operators-instead + https://twitter.com/lukaseder/status/1331897735361028097</li></ul><ul id="435fc2bc-a619-455a-9952-a169fa12e1b5" class="bulleted-list"><li>https://materialize.com/kafka-is-not-a-database + https://news.ycombinator.com/item?id=25346851</li></ul><ul id="e9efbbbb-2aae-4aea-ab83-f90bfc895bec" class="bulleted-list"><li>https://www.percona.com/blog/2019/11/22/uuids-are-popular-but-bad-for-performance-lets-discuss + https://news.ycombinator.com/item?id=25870482</li></ul><ul id="86e31371-1ad1-4304-9d6e-0ee300e7b880" class="bulleted-list"><li><a href="https://twitter.com/rafrasenberg/status/1376454875224113152">Do you prefer SQL or NoSQL databases?</a></li></ul><h3 id="aebfa1bd-a820-4579-8a01-047772ecd8fb" class="">Hacks</h3><ul id="840672ed-303b-4da4-8294-f13a91915bc4" class="bulleted-list"><li>Tunneling traffic through MySQL service (or your mysqld is my new SOCKS5): <a href="https://twitter.com/TheXC3LL/status/1203432035353845760">tweet</a> + <a href="https://x-c3ll.github.io/posts/Pivoting-MySQL-Proxy/">blog post</a></li></ul><ul id="dec47ba1-55d1-4880-8976-5fdca205ea29" class="bulleted-list"><li><a href="https://github.com/Turr0n/firebase">Exploiting misconfigured firebase databases</a> + http://ghostlulz.com/google-exposed-firebase-database</li></ul><ul id="6f58e296-ca8f-40ed-aff8-71f923209986" class="bulleted-list"><li>https://medium.com/@knownsec404team/mysql-client-arbitrary-file-reading-attack-chain-extension-727bb63f578c</li></ul><ul id="ba0b1499-4916-4afe-b9f5-e56cf8ceee5d" class="bulleted-list"><li><a href="https://gist.github.com/james-otten/63389189ee73376268c5eb676946ada5">Executing Python inside MSSQL using sp_execute_external_script</a></li></ul><ul id="5407331d-2ed6-4780-bfc6-eb9f60abf477" class="bulleted-list"><li>https://github.com/qazbnm456/awesome-security-trivia#sql</li></ul><ul id="5ed647fc-9488-4b01-9789-fb5d03c8882a" class="bulleted-list"><li>https://dev.to/hacubu/how-to-use-google-sheets-as-a-database-responsibly-3ohk</li></ul><h3 id="56ab5d74-24aa-4e9a-aec5-de0c19332cb0" class="">TV</h3><ul id="9ea2b335-d2ea-4572-943a-6aa034b78981" class="bulleted-list"><li><a href="https://www.infoq.com/presentations/storage-algorithms">Algorithms behind Modern Storage Systems.</a></li></ul><ul id="b665a9dd-20cf-4894-b90d-4bcf1e2e372f" class="bulleted-list"><li><a href="https://www.youtube.com/channel/UCHnBsf2rH-K7pn09rb3qvkA/playlists">CMU Database Group</a></li></ul><ul id="42a626e5-39b3-4609-a6ad-96eb56394df6" class="bulleted-list"><li><a href="https://twitter.com/benawad/status/1217109321902850048">SQL Tutorial for Beginners by Ben Awad</a></li></ul><ul id="d97c2ab1-2641-4ccd-b99a-6033cdf27325" class="bulleted-list"><li>https://www.deconstructconf.com/2018/jumana-bahrainwala-how-to-scale-relational-database-migrations</li></ul><h3 id="cf7da64a-9c5d-4dd0-88b5-77a80e2c733d" class="">Radio</h3><ul id="28dfdded-d6a3-42f7-8131-1738164c3f96" class="bulleted-list"><li><a href="https://changelog.com/podcast/201">Why SQLite succeeded as a database.</a></li></ul><h3 id="6b74fab0-f824-4472-ad0d-661527fae89b" class="">NoSQL</h3><ul id="731ac183-cda7-4d68-8055-95eae218da5f" class="bulleted-list"><li>https://github.com/riyazwalikar/injection-attacks-nosql-talk</li></ul><ul id="a570e123-871c-41b1-ac7d-acd142ce9982" class="bulleted-list"><li><a href="https://www.dynamodbguide.com/">A Primer on the DynamoDB NoSQL database.</a></li></ul><ul id="755844ba-9ea4-4a7e-a6d3-7505e2b52502" class="bulleted-list"><li>https://github.com/lrlna/sketchin/blob/master/zines/mongodb101.md</li></ul><ul id="0570e369-5be8-40cd-ac12-be4abf4cb06d" class="bulleted-list"><li>https://www.bugsnag.com/blog/getting-started-with-mongodb</li></ul><ul id="908b7bcd-648f-4789-8ac4-4fd0aff9260a" class="bulleted-list"><li>https://github.com/dabit3/dynamodb-documentclient-cheat-sheet</li></ul><h3 id="57e18cc7-0ac9-4fcf-9c3c-4e9a33ddf0ec" class="">Relational databases</h3><ul id="5e617937-f506-4e50-8eef-5224cb889681" class="bulleted-list"><li><a href="https://twitter.com/Swizec/status/1232376212195966976">Postgres is the perfect database.</a></li></ul><ul id="a5ceba80-7395-41ec-95f0-c8af271971ef" class="bulleted-list"><li>http://postgresguide.com</li></ul><ul id="27733c0c-949a-418f-8f5a-b9dc070d9383" class="bulleted-list"><li><a href="https://github.com/dalibo/pev2">Postgres Explain Visualizer 2</a></li></ul><ul id="20d0dbb3-52c8-4750-83e0-4dabda1aa187" class="bulleted-list"><li><a href="https://github.com/ankane/pgsync">Sync Postgres data between databases</a></li></ul><ul id="27d056fd-6e4e-4248-8c1a-aad75b49b10b" class="bulleted-list"><li><a href="https://sivers.org/pg">Simplify: Move Code Into Database Functions</a></li></ul><ul id="f588102c-33b3-4977-839d-248f5b8b27e3" class="bulleted-list"><li>https://daniel-upton.com/articles/introduction-to-cassandra-for-sql-folk</li></ul><ul id="dbb1d209-1ede-42ed-92fe-18ec9512c821" class="bulleted-list"><li>https://www.2ndquadrant.com/en/blog/postgresql-is-the-worlds-best-database</li></ul><ul id="520cc431-b6da-44bf-944e-5f336b606fa7" class="bulleted-list"><li>https://leontrolski.github.io/nested-sql.html</li></ul><ul id="6302f633-07a5-4a6b-9936-dc07727b26f7" class="bulleted-list"><li>https://medium.com/@rbranson/10-things-i-hate-about-postgresql-20dbab8c2791</li></ul><ul id="f86fe39a-a791-46a7-a4b1-1838df3e45ed" class="bulleted-list"><li>https://thedataguy.in/internals-of-google-cloud-spanner</li></ul><ul id="a68be42c-79a3-4c5a-8262-2df751958fd0" class="bulleted-list"><li><a href="https://hakibenita.com/sql-tricks-application-dba">Some SQL Tricks of an Application DBA</a></li></ul><ul id="a33f9d3c-9913-45f2-8dd6-10cbb1b6f98e" class="bulleted-list"><li>https://knowledgepill.it/posts/postgresql-basics-guide</li></ul><ul id="22a5d65f-5485-4ff8-98f1-46a4ee885b14" class="bulleted-list"><li><a href="https://news.ycombinator.com/item?id=24130286">Self-taught webdev with lots of free time. What should I learn?</a></li></ul><ul id="070574a6-2fb7-4d01-a88f-fade72137f83" class="bulleted-list"><li><a href="https://pgstats.dev/">Postgres Observability</a></li></ul><ul id="d0d379f9-c4a1-43e3-ad4a-171c280135be" class="bulleted-list"><li>https://tomcam.github.io/postgres + https://news.ycombinator.com/item?id=25113440</li></ul><ul id="40702ca5-f4a8-449f-9f38-b5a50fcdd1ba" class="bulleted-list"><li>https://postgresqlco.nf/en/doc/param + https://news.ycombinator.com/item?id=25024224</li></ul><ul id="ae9ef99a-a528-4233-b058-95ed2d89960a" class="bulleted-list"><li>But nobody writes production applications with SQLite, right? https://litestream.io/blog/why-i-built-litestream + https://twitter.com/benbjohnson/status/1359906563285254149 + https://twitter.com/benbjohnson/status/1359944904588353537</li></ul><h3 id="b701e875-2ee5-4a82-bf2e-bb0a3ee3c626" class="">Real-time databases</h3><ul id="9eedeb21-4bdf-43bd-8721-c410fc9cf383" class="bulleted-list"><li><a href="https://sapphire-db.com/start/main">SapphireDb. An alternative to Firebase</a></li></ul><ul id="e4a97896-12eb-43e9-887c-7035ba81a097" class="bulleted-list"><li><a href="https://github.com/samuelgozi/firebase-firestore-lite">A lightweight cloud firestore library for the browser.</a></li></ul><ul id="13e5e190-6050-486a-8782-45ae3198b270" class="bulleted-list"><li><a href="https://twitter.com/erikras/status/1246710418191646720">You’ve got 100k requests/minute coming in, that need to return immediately, and you need to put a record in a database for every one.</a></li></ul><h3 id="c6d8b360-d326-4a49-a557-4bbd967945be" class="">In memory databases</h3><ul id="0167f215-a683-4f31-aa93-e10dd3d27349" class="bulleted-list"><li><a href="https://twitter.com/mattkrick/status/1245037667034624000">What is easy to do with Redis?</a></li></ul><ul id="091faa83-a8c4-42fe-a991-84992c9e4a73" class="bulleted-list"><li><a href="https://matt.sh/best-database-ever">Carrier Cache and Carrier DB</a></li></ul><h3 id="908c5a16-1741-4d86-8a64-9ffdb0b02b74" class="">Key-value databases</h3><ul id="ddf178c0-bf33-4012-8327-40f9d968aa97" class="bulleted-list"><li><a href="https://twitter.com/wesbos/status/1232680811964649472">Need a lightweight DB for a toy node project I’m working on. I always reach for DiskDB, but want to try something new.</a></li></ul><h3 id="e707d475-1e11-4f7f-bb0b-7e51805d1e39" class="">Demos</h3><ul id="391b776c-be5c-4c87-8d16-651bb280e215" class="bulleted-list"><li><a href="https://twitter.com/dabit3/status/1221949512878624768">Anyone tried Gun.js? Thoughts?</a></li></ul><ul id="9d6b5fbc-8ad3-4eaf-a464-44142d459424" class="bulleted-list"><li><a href="https://twitter.com/rauchg/status/1221985754059964416">EdgeDB is looking clean.</a></li></ul><h3 id="e4375d4b-7b08-4937-9f6d-3796a33cad05" class="">Miscellaneous</h3><ul id="1295597d-9b65-420d-a9ae-1cf55c8d5b10" class="bulleted-list"><li><a href="https://dbdb.io/">Database of Databases</a> + https://news.ycombinator.com/item?id=24494403</li></ul><ul id="848acf46-57fc-4f9e-9520-de6e044b1ad7" class="bulleted-list"><li><a href="https://news.ycombinator.com/item?id=22324691">What are some examples of good database schema designs?</a></li></ul><ul id="3fe4bceb-4d7d-4920-880a-e0e0c8eb175a" class="bulleted-list"><li>https://muldoon.cloud/programming/2020/04/17/programming-rules-thumb.html#rule-11-which-database-technology-to-choose</li></ul><ul id="cbd03309-3b75-43af-b57f-374133e64f74" class="bulleted-list"><li>https://metaduck.com/the-history-of-databases-a-summary</li></ul><ul id="853bd62f-e032-4de9-b1eb-73446031ea94" class="bulleted-list"><li>https://github.com/pingcap/awesome-database-learning</li></ul><ul id="6b1feac9-2313-4504-a9ee-0519fdc7798a" class="bulleted-list"><li>https://github.com/madd86/awesome-system-design</li></ul><ul id="4c746b83-eaf2-4649-a720-19f3690a8508" class="bulleted-list"><li>https://erikbern.com/2018/08/30/i-dont-want-to-learn-your-garbage-query-language.html</li></ul><ul id="f2f4c6b1-8247-4e37-9ac8-af58fa986953" class="bulleted-list"><li>https://rawrmaan.com/why-parse-failed</li></ul></div></article></body></html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>db</title>
+    <style>
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 3px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        text-indent: -1.7em;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC",
+          "Noto Sans CJK KR";
+      }
+
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Consolas,
+          "Liberation Mono", Menlo, Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC", "Noto Sans Mono CJK KR";
+      }
+
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif,
+          "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC", "Noto Sans CJK KR";
+      }
+
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC",
+          "Noto Sans Mono CJK KR";
+      }
+
+      .highlight-default {
+      }
+      .highlight-gray {
+        color: rgb(155, 154, 151);
+      }
+      .highlight-brown {
+        color: rgb(100, 71, 58);
+      }
+      .highlight-orange {
+        color: rgb(217, 115, 13);
+      }
+      .highlight-yellow {
+        color: rgb(223, 171, 1);
+      }
+      .highlight-teal {
+        color: rgb(15, 123, 108);
+      }
+      .highlight-blue {
+        color: rgb(11, 110, 153);
+      }
+      .highlight-purple {
+        color: rgb(105, 64, 165);
+      }
+      .highlight-pink {
+        color: rgb(173, 26, 114);
+      }
+      .highlight-red {
+        color: rgb(224, 62, 62);
+      }
+      .highlight-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .highlight-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .highlight-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .highlight-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .highlight-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .highlight-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .highlight-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .highlight-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .highlight-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+      }
+      .block-color-brown {
+        color: rgb(100, 71, 58);
+        fill: rgb(100, 71, 58);
+      }
+      .block-color-orange {
+        color: rgb(217, 115, 13);
+        fill: rgb(217, 115, 13);
+      }
+      .block-color-yellow {
+        color: rgb(223, 171, 1);
+        fill: rgb(223, 171, 1);
+      }
+      .block-color-teal {
+        color: rgb(15, 123, 108);
+        fill: rgb(15, 123, 108);
+      }
+      .block-color-blue {
+        color: rgb(11, 110, 153);
+        fill: rgb(11, 110, 153);
+      }
+      .block-color-purple {
+        color: rgb(105, 64, 165);
+        fill: rgb(105, 64, 165);
+      }
+      .block-color-pink {
+        color: rgb(173, 26, 114);
+        fill: rgb(173, 26, 114);
+      }
+      .block-color-red {
+        color: rgb(224, 62, 62);
+        fill: rgb(224, 62, 62);
+      }
+      .block-color-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .block-color-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .block-color-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .block-color-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .block-color-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .block-color-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .block-color-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .block-color-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .block-color-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .select-value-color-default {
+        background-color: rgba(206, 205, 202, 0.5);
+      }
+      .select-value-color-gray {
+        background-color: rgba(155, 154, 151, 0.4);
+      }
+      .select-value-color-brown {
+        background-color: rgba(140, 46, 0, 0.2);
+      }
+      .select-value-color-orange {
+        background-color: rgba(245, 93, 0, 0.2);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(233, 168, 0, 0.2);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 135, 107, 0.2);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 120, 223, 0.2);
+      }
+      .select-value-color-purple {
+        background-color: rgba(103, 36, 222, 0.2);
+      }
+      .select-value-color-pink {
+        background-color: rgba(221, 0, 129, 0.2);
+      }
+      .select-value-color-red {
+        background-color: rgba(255, 0, 26, 0.2);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="c462b47e-bc50-4dc6-a003-b80ba5897e9f" class="page sans">
+      <header><h1 class="page-title">db</h1></header>
+      <div class="page-body">
+        <h3 id="da3ec81e-6b37-4ed9-ae9a-e8f4b33709e9" class="">Books</h3>
+        <ul id="da85c2dc-b172-4f03-a356-633380fad426" class="bulleted-list">
+          <li>https://www.goodreads.com/book/show/1032724.The_Art_of_SQL</li>
+        </ul>
+        <ul id="d0f98740-f162-4c45-b8ae-d86943f14f77" class="bulleted-list">
+          <li>
+            <a href="https://www.databass.dev/"
+              >Database Internals: A Deep Dive into How Distributed Data Systems
+              Work.</a
+            >
+          </li>
+        </ul>
+        <ul id="14923fca-0716-479f-bd8d-7c2e32db30e6" class="bulleted-list">
+          <li>
+            <a
+              href="https://learning.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/"
+              >Designing Data-Intensive Applications</a
+            >:
+            <a
+              href="https://henrikwarne.com/2019/07/27/book-review-designing-data-intensive-applications"
+              >review</a
+            >
+            + <a href="https://news.ycombinator.com/item?id=20550516">HN</a> +
+            <a
+              href="https://www.reddit.com/r/programming/comments/cj6x91/book_review_designing_dataintensive_applications/"
+              >Reddit</a
+            >
+            +
+            <a href="https://news.ycombinator.com/item?id=18961793"
+              >What are must-know concepts for back end development?</a
+            >
+          </li>
+        </ul>
+        <ul id="c2b0be96-66a4-4d7a-8078-dea6f2e91e4e" class="bulleted-list">
+          <li>
+            https://lethain.com/handbook-relational-db-design-on-data-modeling
+          </li>
+        </ul>
+        <ul id="574b99fb-9b4b-4ad3-ae50-45d1040a0abe" class="bulleted-list">
+          <li>
+            https://www.amazon.com/DBA-Survivor-Become-Rock-Star/dp/1430227877
+          </li>
+        </ul>
+        <ul id="905bc1dd-16e2-444d-ad4c-08c38f2ec421" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/samerbuna/status/1183771023054987264"
+              >beginners</a
+            >
+          </li>
+        </ul>
+        <ul id="4e5e3f75-8f3a-442f-bc09-a7526cdee982" class="bulleted-list">
+          <li>
+            <a href="https://news.ycombinator.com/item?id=23138297"
+              >Advanced SQL and database books and resources</a
+            >
+          </li>
+        </ul>
+        <ul id="bc805746-9404-49d7-9135-00e34e97b252" class="bulleted-list">
+          <li>
+            <a href="https://news.ycombinator.com/item?id=23193093"
+              >The DynamoDB Book: Data Modeling with NoSQL and DynamoDB</a
+            >
+          </li>
+        </ul>
+        <ul id="22ff6a43-5a9c-425c-b631-3eafdc690546" class="bulleted-list">
+          <li>https://www.neilwithdata.com/advanced-sql</li>
+        </ul>
+        <ul id="a7078abf-4376-4b3b-88f0-afccf443e2f0" class="bulleted-list">
+          <li>https://github.com/bevacqua/reads#databasessearch</li>
+        </ul>
+        <ul id="77ffb832-912e-46d6-be1a-661cbdcb7b1b" class="bulleted-list">
+          <li>
+            <a href="https://news.ycombinator.com/item?id=25327077"
+              >A Distributed Systems Reading List</a
+            >
+            + https://news.ycombinator.com/item?id=25987664
+          </li>
+        </ul>
+        <h3 id="a2aee8a2-cfcf-4a72-8a66-e4c0e9a3e6cc" class="">Courses</h3>
+        <ul id="4b39c7eb-d04d-4e4f-8fb4-4d3adf7bad9c" class="bulleted-list">
+          <li>https://news.ycombinator.com/item?id=23070491</li>
+        </ul>
+        <ul id="d0ee2c52-9bbb-4bc6-a5a1-fce10233392c" class="bulleted-list">
+          <li>
+            <a
+              href="https://www2.cs.sfu.ca/CourseCentral/354/zaiane/material/notes/contents.html"
+              >CMPT 354: Database Systems and Structures (Summer 1998)</a
+            >
+          </li>
+        </ul>
+        <ul id="892a26c1-17ee-401a-9e65-9401958aaf09" class="bulleted-list">
+          <li>
+            https://www.sqlhabit.com/blog/posts/how-to-detect-recurring-payments-with-sql
+          </li>
+        </ul>
+        <ul id="dd926cdf-344d-458b-b5f4-f48bb223aa71" class="bulleted-list">
+          <li>
+            https://blog.bradfieldcs.com/how-to-learn-about-database-systems-40c7432f471d
+          </li>
+        </ul>
+        <ul id="af5fa880-3871-4056-8ee6-9fe1997f59ad" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLroEs25KGvwzmvIxYHRhoGTz9w8LeXek0"
+              >Introduction to Databases - Jennifer Widom - Stanford</a
+            >
+          </li>
+        </ul>
+        <ul id="8d226ec2-f52a-4427-957e-a75afa000b88" class="bulleted-list">
+          <li>
+            https://www.freecodecamp.org/news/watch-a-cornell-university-database-course-for-free
+          </li>
+        </ul>
+        <h3 id="6953cb80-a104-45f4-9fe9-5c9eaf55011d" class="">Tools</h3>
+        <ul id="42f31dd1-bcd9-42cb-8d2c-6f53527f2bf5" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.codediesel.com/data/visualizing-missing-data-in-databases/"
+              >Visualizing missing data in databases</a
+            >
+          </li>
+        </ul>
+        <ul id="82770bd3-e0c7-4a57-b392-142fd8cfae68" class="bulleted-list">
+          <li>
+            <a href="https://github.com/infostreams/db"
+              >Version control for databases: save, restore, and archive
+              snapshots of your database from the command line</a
+            >
+          </li>
+        </ul>
+        <ul id="8a0a7380-7f5c-4d8e-80c7-ca4e96338e7b" class="bulleted-list">
+          <li>https://www.johndcook.com/blog/2019/12/31/sql-join-csv-files</li>
+        </ul>
+        <ul id="31b89c11-063e-4b38-b542-a7cf27b477b0" class="bulleted-list">
+          <li>
+            <a href="https://github.com/forbesmyester/esqlate"
+              >Build minimum viable admin panels quickly with just SQL</a
+            >
+          </li>
+        </ul>
+        <ul id="bd20e5fe-1ce8-4a85-8ce6-c718dcc62d6d" class="bulleted-list">
+          <li>
+            <a href="https://jbeckwith.com/2016/08/13/bigquery-github"
+              >Analyzing node.js on GitHub with BigQuery</a
+            >
+          </li>
+        </ul>
+        <ul id="091ac231-9ac4-4962-97a7-638156211ab0" class="bulleted-list">
+          <li>
+            https://chartio.com/blog/why-we-made-sql-visual-and-how-we-finally-did-it
+          </li>
+        </ul>
+        <ul id="e2b9be99-0a0a-46fb-a2f8-fceeb95782b2" class="bulleted-list">
+          <li>
+            https://medium.com/@woj_ciech/leaklooker-gui-discover-browse-and-monitor-database-source-code-leaks-f4b82bbb48fe
+            + https://github.com/woj-ciech/LeakLooker
+          </li>
+        </ul>
+        <ul id="8bd3c54e-23d9-437a-a589-9f5551bfe231" class="bulleted-list">
+          <li>https://blog.codepen.io/2018/06/07/need-to-store-some-data</li>
+        </ul>
+        <ul id="685ecf03-f0d1-47a6-b091-4c661fcdfd80" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/HusseiN98D/status/1238545584644149250"
+              >SQLmap guide</a
+            >
+            + http://www.it-docs.net/ddata/4956.pdf
+          </li>
+        </ul>
+        <h3 id="7b593ca6-7bed-4546-81b8-274861240e60" class="">TIL</h3>
+        <ul id="35f24006-0e62-4650-a629-5d4ced87f88a" class="bulleted-list">
+          <li>
+            SQL, NoSQL, and Scale - How DynamoDB scales where relational
+            databases don’t:
+            <a href="https://twitter.com/alexbdebrie/status/1214966652254732304"
+              >tweet</a
+            >
+            +
+            <a href="https://www.alexdebrie.com/posts/dynamodb-no-bad-queries/"
+              >article</a
+            >
+          </li>
+        </ul>
+        <ul id="57452af4-3886-471e-aea5-95d8f100bb38" class="bulleted-list">
+          <li>
+            https://ovid.github.io/articles/database-design-standards.html
+          </li>
+        </ul>
+        <ul id="0e511884-b6aa-4e9d-ad0f-7e7063be3cdc" class="bulleted-list">
+          <li>https://joshduff.com/2016-07-writing-sql.md</li>
+        </ul>
+        <ul id="99594565-1290-4388-a27b-0d42eb17d4db" class="bulleted-list">
+          <li>
+            <a href="https://news.ycombinator.com/item?id=22942278"
+              >Things I wished more developers knew about databases.</a
+            >
+          </li>
+        </ul>
+        <ul id="7d8dcd4a-0452-4ee9-9623-5ed8d64505e6" class="bulleted-list">
+          <li>
+            <a href="https://news.ycombinator.com/item?id=23271053"
+              >Using SQL to find my best photo of a pelican according to Apple
+              Photos</a
+            >
+          </li>
+        </ul>
+        <ul id="546b435e-8fd2-4520-8b30-5418656d7578" class="bulleted-list">
+          <li>https://gbl08ma.com/time-for-a-wtf-mysql-moment</li>
+        </ul>
+        <ul id="e7338a6b-1214-4c11-8488-b1d0cdfed16b" class="bulleted-list">
+          <li>
+            https://blog.jooq.org/2019/11/13/stop-mapping-stuff-in-your-middleware-use-sqls-xml-or-json-operators-instead
+            + https://twitter.com/lukaseder/status/1331897735361028097
+          </li>
+        </ul>
+        <ul id="435fc2bc-a619-455a-9952-a169fa12e1b5" class="bulleted-list">
+          <li>
+            https://materialize.com/kafka-is-not-a-database +
+            https://news.ycombinator.com/item?id=25346851
+          </li>
+        </ul>
+        <ul id="e9efbbbb-2aae-4aea-ab83-f90bfc895bec" class="bulleted-list">
+          <li>
+            https://www.percona.com/blog/2019/11/22/uuids-are-popular-but-bad-for-performance-lets-discuss
+            + https://news.ycombinator.com/item?id=25870482
+          </li>
+        </ul>
+        <ul id="86e31371-1ad1-4304-9d6e-0ee300e7b880" class="bulleted-list">
+          <li>
+            <a
+              href="https://twitter.com/rafrasenberg/status/1376454875224113152"
+              >Do you prefer SQL or NoSQL databases?</a
+            >
+          </li>
+        </ul>
+        <h3 id="aebfa1bd-a820-4579-8a01-047772ecd8fb" class="">Hacks</h3>
+        <ul id="840672ed-303b-4da4-8294-f13a91915bc4" class="bulleted-list">
+          <li>
+            Tunneling traffic through MySQL service (or your mysqld is my new
+            SOCKS5):
+            <a href="https://twitter.com/TheXC3LL/status/1203432035353845760"
+              >tweet</a
+            >
+            +
+            <a href="https://x-c3ll.github.io/posts/Pivoting-MySQL-Proxy/"
+              >blog post</a
+            >
+          </li>
+        </ul>
+        <ul id="dec47ba1-55d1-4880-8976-5fdca205ea29" class="bulleted-list">
+          <li>
+            <a href="https://github.com/Turr0n/firebase"
+              >Exploiting misconfigured firebase databases</a
+            >
+            + http://ghostlulz.com/google-exposed-firebase-database
+          </li>
+        </ul>
+        <ul id="6f58e296-ca8f-40ed-aff8-71f923209986" class="bulleted-list">
+          <li>
+            https://medium.com/@knownsec404team/mysql-client-arbitrary-file-reading-attack-chain-extension-727bb63f578c
+          </li>
+        </ul>
+        <ul id="ba0b1499-4916-4afe-b9f5-e56cf8ceee5d" class="bulleted-list">
+          <li>
+            <a
+              href="https://gist.github.com/james-otten/63389189ee73376268c5eb676946ada5"
+              >Executing Python inside MSSQL using sp_execute_external_script</a
+            >
+          </li>
+        </ul>
+        <ul id="5407331d-2ed6-4780-bfc6-eb9f60abf477" class="bulleted-list">
+          <li>https://github.com/qazbnm456/awesome-security-trivia#sql</li>
+        </ul>
+        <ul id="5ed647fc-9488-4b01-9789-fb5d03c8882a" class="bulleted-list">
+          <li>
+            https://dev.to/hacubu/how-to-use-google-sheets-as-a-database-responsibly-3ohk
+          </li>
+        </ul>
+        <h3 id="56ab5d74-24aa-4e9a-aec5-de0c19332cb0" class="">TV</h3>
+        <ul id="9ea2b335-d2ea-4572-943a-6aa034b78981" class="bulleted-list">
+          <li>
+            <a href="https://www.infoq.com/presentations/storage-algorithms"
+              >Algorithms behind Modern Storage Systems.</a
+            >
+          </li>
+        </ul>
+        <ul id="b665a9dd-20cf-4894-b90d-4bcf1e2e372f" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/channel/UCHnBsf2rH-K7pn09rb3qvkA/playlists"
+              >CMU Database Group</a
+            >
+          </li>
+        </ul>
+        <ul id="42a626e5-39b3-4609-a6ad-96eb56394df6" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/benawad/status/1217109321902850048"
+              >SQL Tutorial for Beginners by Ben Awad</a
+            >
+          </li>
+        </ul>
+        <ul id="d97c2ab1-2641-4ccd-b99a-6033cdf27325" class="bulleted-list">
+          <li>
+            https://www.deconstructconf.com/2018/jumana-bahrainwala-how-to-scale-relational-database-migrations
+          </li>
+        </ul>
+        <h3 id="cf7da64a-9c5d-4dd0-88b5-77a80e2c733d" class="">Radio</h3>
+        <ul id="28dfdded-d6a3-42f7-8131-1738164c3f96" class="bulleted-list">
+          <li>
+            <a href="https://changelog.com/podcast/201"
+              >Why SQLite succeeded as a database.</a
+            >
+          </li>
+        </ul>
+        <h3 id="6b74fab0-f824-4472-ad0d-661527fae89b" class="">NoSQL</h3>
+        <ul id="731ac183-cda7-4d68-8055-95eae218da5f" class="bulleted-list">
+          <li>https://github.com/riyazwalikar/injection-attacks-nosql-talk</li>
+        </ul>
+        <ul id="a570e123-871c-41b1-ac7d-acd142ce9982" class="bulleted-list">
+          <li>
+            <a href="https://www.dynamodbguide.com/"
+              >A Primer on the DynamoDB NoSQL database.</a
+            >
+          </li>
+        </ul>
+        <ul id="755844ba-9ea4-4a7e-a6d3-7505e2b52502" class="bulleted-list">
+          <li>
+            https://github.com/lrlna/sketchin/blob/master/zines/mongodb101.md
+          </li>
+        </ul>
+        <ul id="0570e369-5be8-40cd-ac12-be4abf4cb06d" class="bulleted-list">
+          <li>https://www.bugsnag.com/blog/getting-started-with-mongodb</li>
+        </ul>
+        <ul id="908b7bcd-648f-4789-8ac4-4fd0aff9260a" class="bulleted-list">
+          <li>https://github.com/dabit3/dynamodb-documentclient-cheat-sheet</li>
+        </ul>
+        <h3 id="57e18cc7-0ac9-4fcf-9c3c-4e9a33ddf0ec" class="">
+          Relational databases
+        </h3>
+        <ul id="5e617937-f506-4e50-8eef-5224cb889681" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/Swizec/status/1232376212195966976"
+              >Postgres is the perfect database.</a
+            >
+          </li>
+        </ul>
+        <ul id="a5ceba80-7395-41ec-95f0-c8af271971ef" class="bulleted-list">
+          <li>http://postgresguide.com</li>
+        </ul>
+        <ul id="27733c0c-949a-418f-8f5a-b9dc070d9383" class="bulleted-list">
+          <li>
+            <a href="https://github.com/dalibo/pev2"
+              >Postgres Explain Visualizer 2</a
+            >
+          </li>
+        </ul>
+        <ul id="20d0dbb3-52c8-4750-83e0-4dabda1aa187" class="bulleted-list">
+          <li>
+            <a href="https://github.com/ankane/pgsync"
+              >Sync Postgres data between databases</a
+            >
+          </li>
+        </ul>
+        <ul id="27d056fd-6e4e-4248-8c1a-aad75b49b10b" class="bulleted-list">
+          <li>
+            <a href="https://sivers.org/pg"
+              >Simplify: Move Code Into Database Functions</a
+            >
+          </li>
+        </ul>
+        <ul id="f588102c-33b3-4977-839d-248f5b8b27e3" class="bulleted-list">
+          <li>
+            https://daniel-upton.com/articles/introduction-to-cassandra-for-sql-folk
+          </li>
+        </ul>
+        <ul id="dbb1d209-1ede-42ed-92fe-18ec9512c821" class="bulleted-list">
+          <li>
+            https://www.2ndquadrant.com/en/blog/postgresql-is-the-worlds-best-database
+          </li>
+        </ul>
+        <ul id="520cc431-b6da-44bf-944e-5f336b606fa7" class="bulleted-list">
+          <li>https://leontrolski.github.io/nested-sql.html</li>
+        </ul>
+        <ul id="6302f633-07a5-4a6b-9936-dc07727b26f7" class="bulleted-list">
+          <li>
+            https://medium.com/@rbranson/10-things-i-hate-about-postgresql-20dbab8c2791
+          </li>
+        </ul>
+        <ul id="f86fe39a-a791-46a7-a4b1-1838df3e45ed" class="bulleted-list">
+          <li>https://thedataguy.in/internals-of-google-cloud-spanner</li>
+        </ul>
+        <ul id="a68be42c-79a3-4c5a-8262-2df751958fd0" class="bulleted-list">
+          <li>
+            <a href="https://hakibenita.com/sql-tricks-application-dba"
+              >Some SQL Tricks of an Application DBA</a
+            >
+          </li>
+        </ul>
+        <ul id="a33f9d3c-9913-45f2-8dd6-10cbb1b6f98e" class="bulleted-list">
+          <li>https://knowledgepill.it/posts/postgresql-basics-guide</li>
+        </ul>
+        <ul id="22a5d65f-5485-4ff8-98f1-46a4ee885b14" class="bulleted-list">
+          <li>
+            <a href="https://news.ycombinator.com/item?id=24130286"
+              >Self-taught webdev with lots of free time. What should I
+              learn?</a
+            >
+          </li>
+        </ul>
+        <ul id="070574a6-2fb7-4d01-a88f-fade72137f83" class="bulleted-list">
+          <li><a href="https://pgstats.dev/">Postgres Observability</a></li>
+        </ul>
+        <ul id="d0d379f9-c4a1-43e3-ad4a-171c280135be" class="bulleted-list">
+          <li>
+            https://tomcam.github.io/postgres +
+            https://news.ycombinator.com/item?id=25113440
+          </li>
+        </ul>
+        <ul id="40702ca5-f4a8-449f-9f38-b5a50fcdd1ba" class="bulleted-list">
+          <li>
+            https://postgresqlco.nf/en/doc/param +
+            https://news.ycombinator.com/item?id=25024224
+          </li>
+        </ul>
+        <ul id="ae9ef99a-a528-4233-b058-95ed2d89960a" class="bulleted-list">
+          <li>
+            But nobody writes production applications with SQLite, right?
+            https://litestream.io/blog/why-i-built-litestream +
+            https://twitter.com/benbjohnson/status/1359906563285254149 +
+            https://twitter.com/benbjohnson/status/1359944904588353537
+          </li>
+        </ul>
+        <h3 id="b701e875-2ee5-4a82-bf2e-bb0a3ee3c626" class="">
+          Real-time databases
+        </h3>
+        <ul id="9eedeb21-4bdf-43bd-8721-c410fc9cf383" class="bulleted-list">
+          <li>
+            <a href="https://sapphire-db.com/start/main"
+              >SapphireDb. An alternative to Firebase</a
+            >
+          </li>
+        </ul>
+        <ul id="e4a97896-12eb-43e9-887c-7035ba81a097" class="bulleted-list">
+          <li>
+            <a href="https://github.com/samuelgozi/firebase-firestore-lite"
+              >A lightweight cloud firestore library for the browser.</a
+            >
+          </li>
+        </ul>
+        <ul id="13e5e190-6050-486a-8782-45ae3198b270" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/erikras/status/1246710418191646720"
+              >You’ve got 100k requests/minute coming in, that need to return
+              immediately, and you need to put a record in a database for every
+              one.</a
+            >
+          </li>
+        </ul>
+        <h3 id="c6d8b360-d326-4a49-a557-4bbd967945be" class="">
+          In memory databases
+        </h3>
+        <ul id="0167f215-a683-4f31-aa93-e10dd3d27349" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/mattkrick/status/1245037667034624000"
+              >What is easy to do with Redis?</a
+            >
+          </li>
+        </ul>
+        <ul id="091faa83-a8c4-42fe-a991-84992c9e4a73" class="bulleted-list">
+          <li>
+            <a href="https://matt.sh/best-database-ever"
+              >Carrier Cache and Carrier DB</a
+            >
+          </li>
+        </ul>
+        <h3 id="908c5a16-1741-4d86-8a64-9ffdb0b02b74" class="">
+          Key-value databases
+        </h3>
+        <ul id="ddf178c0-bf33-4012-8327-40f9d968aa97" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/wesbos/status/1232680811964649472"
+              >Need a lightweight DB for a toy node project I’m working on. I
+              always reach for DiskDB, but want to try something new.</a
+            >
+          </li>
+        </ul>
+        <h3 id="e707d475-1e11-4f7f-bb0b-7e51805d1e39" class="">Demos</h3>
+        <ul id="391b776c-be5c-4c87-8d16-651bb280e215" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/dabit3/status/1221949512878624768"
+              >Anyone tried Gun.js? Thoughts?</a
+            >
+          </li>
+        </ul>
+        <ul id="9d6b5fbc-8ad3-4eaf-a464-44142d459424" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/rauchg/status/1221985754059964416"
+              >EdgeDB is looking clean.</a
+            >
+          </li>
+        </ul>
+        <h3 id="e4375d4b-7b08-4937-9f6d-3796a33cad05" class="">
+          Miscellaneous
+        </h3>
+        <ul id="1295597d-9b65-420d-a9ae-1cf55c8d5b10" class="bulleted-list">
+          <li>
+            <a href="https://dbdb.io/">Database of Databases</a> +
+            https://news.ycombinator.com/item?id=24494403
+          </li>
+        </ul>
+        <ul id="848acf46-57fc-4f9e-9520-de6e044b1ad7" class="bulleted-list">
+          <li>
+            <a href="https://news.ycombinator.com/item?id=22324691"
+              >What are some examples of good database schema designs?</a
+            >
+          </li>
+        </ul>
+        <ul id="3fe4bceb-4d7d-4920-880a-e0e0c8eb175a" class="bulleted-list">
+          <li>
+            https://muldoon.cloud/programming/2020/04/17/programming-rules-thumb.html#rule-11-which-database-technology-to-choose
+          </li>
+        </ul>
+        <ul id="cbd03309-3b75-43af-b57f-374133e64f74" class="bulleted-list">
+          <li>https://metaduck.com/the-history-of-databases-a-summary</li>
+        </ul>
+        <ul id="853bd62f-e032-4de9-b1eb-73446031ea94" class="bulleted-list">
+          <li>https://github.com/pingcap/awesome-database-learning</li>
+        </ul>
+        <ul id="6b1feac9-2313-4504-a9ee-0519fdc7798a" class="bulleted-list">
+          <li>https://github.com/madd86/awesome-system-design</li>
+        </ul>
+        <ul id="4c746b83-eaf2-4649-a720-19f3690a8508" class="bulleted-list">
+          <li>
+            https://erikbern.com/2018/08/30/i-dont-want-to-learn-your-garbage-query-language.html
+          </li>
+        </ul>
+        <ul id="f2f4c6b1-8247-4e37-9ac8-af58fa986953" class="bulleted-list">
+          <li>https://rawrmaan.com/why-parse-failed</li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

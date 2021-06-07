@@ -1,25 +1,23 @@
 # Search API
 
-
-
 ## Search
 
 ### [In this article](https://docs.github.com/en/rest/reference/search#in-this-article) <a id="in-this-article"></a>
 
-* [Ranking search results](https://docs.github.com/en/rest/reference/search#ranking-search-results)
-* [Rate limit](https://docs.github.com/en/rest/reference/search#rate-limit)
-* [Constructing a search query](https://docs.github.com/en/rest/reference/search#constructing-a-search-query)
-* [Limitations on query length](https://docs.github.com/en/rest/reference/search#limitations-on-query-length)
-* [Timeouts and incomplete results](https://docs.github.com/en/rest/reference/search#timeouts-and-incomplete-results)
-* [Access errors or missing search results](https://docs.github.com/en/rest/reference/search#access-errors-or-missing-search-results)
-* [Search code](https://docs.github.com/en/rest/reference/search#search-code)
-* [Search commits](https://docs.github.com/en/rest/reference/search#search-commits)
-* [Search issues and pull requests](https://docs.github.com/en/rest/reference/search#search-issues-and-pull-requests)
-* [Search labels](https://docs.github.com/en/rest/reference/search#search-labels)
-* [Search repositories](https://docs.github.com/en/rest/reference/search#search-repositories)
-* [Search topics](https://docs.github.com/en/rest/reference/search#search-topics)
-* [Search users](https://docs.github.com/en/rest/reference/search#search-users)
-* [Text match metadata](https://docs.github.com/en/rest/reference/search#text-match-metadata)
+- [Ranking search results](https://docs.github.com/en/rest/reference/search#ranking-search-results)
+- [Rate limit](https://docs.github.com/en/rest/reference/search#rate-limit)
+- [Constructing a search query](https://docs.github.com/en/rest/reference/search#constructing-a-search-query)
+- [Limitations on query length](https://docs.github.com/en/rest/reference/search#limitations-on-query-length)
+- [Timeouts and incomplete results](https://docs.github.com/en/rest/reference/search#timeouts-and-incomplete-results)
+- [Access errors or missing search results](https://docs.github.com/en/rest/reference/search#access-errors-or-missing-search-results)
+- [Search code](https://docs.github.com/en/rest/reference/search#search-code)
+- [Search commits](https://docs.github.com/en/rest/reference/search#search-commits)
+- [Search issues and pull requests](https://docs.github.com/en/rest/reference/search#search-issues-and-pull-requests)
+- [Search labels](https://docs.github.com/en/rest/reference/search#search-labels)
+- [Search repositories](https://docs.github.com/en/rest/reference/search#search-repositories)
+- [Search topics](https://docs.github.com/en/rest/reference/search#search-topics)
+- [Search users](https://docs.github.com/en/rest/reference/search#search-users)
+- [Text match metadata](https://docs.github.com/en/rest/reference/search#text-match-metadata)
 
 The Search API helps you search for the specific item you want to find. For example, you can find a user or a specific file in a repository. Think of it the way you think of performing a search on Google. It's designed to help you find the one result you're looking for \(or maybe the few results you're looking for\). Just like searching on Google, you sometimes want to see a few pages of search results so that you can find the item that best meets your needs. To satisfy that need, the GitHub Search API provides **up to 1,000 results for each search**.
 
@@ -64,8 +62,8 @@ See "[Searching on GitHub](https://docs.github.com/en/articles/searching-on-gith
 
 The Search API does not support queries that:
 
-* are longer than 256 characters \(not including operators or qualifiers\).
-* have more than five `AND`, `OR`, or `NOT` operators.
+- are longer than 256 characters \(not including operators or qualifiers\).
+- have more than five `AND`, `OR`, or `NOT` operators.
 
 These search queries will return a "Validation failed" error message.
 
@@ -99,9 +97,9 @@ This query searches for the keyword `addClass` within a file's contents. The que
 
 Due to the complexity of searching code, there are a few restrictions on how searches are performed:
 
-* Only the _default branch_ is considered. In most cases, this will be the `master` branch.
-* Only files smaller than 384 KB are searchable.
-* You must always include at least one search term when searching source code. For example, searching for [`language:go`](https://github.com/search?utf8=%E2%9C%93&q=language%3Ago&type=Code) is not valid, while [`amazing language:go`](https://github.com/search?utf8=%E2%9C%93&q=amazing+language%3Ago&type=Code) is.
+- Only the _default branch_ is considered. In most cases, this will be the `master` branch.
+- Only files smaller than 384 KB are searchable.
+- You must always include at least one search term when searching source code. For example, searching for [`language:go`](https://github.com/search?utf8=%E2%9C%93&q=language%3Ago&type=Code) is not valid, while [`amazing language:go`](https://github.com/search?utf8=%E2%9C%93&q=amazing+language%3Ago&type=Code) is.
 
 ```text
 GET /search/code
@@ -109,14 +107,14 @@ GET /search/code
 
 **Parameters**
 
-| Name | Type | In | Description |
-| :--- | :--- | :--- | :--- |
-| `accept` | string | header | Setting to `application/vnd.github.v3+json` is recommended. |
-| `q` | string | query | The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching code](https://help.github.com/articles/searching-code/)" for a detailed list of qualifiers. |
-| `sort` | string | query | Sorts the results of your query. Can only be `indexed`, which indicates how recently a file has been indexed by the GitHub search infrastructure. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) |
-| `order` | string | query | Determines whether the first search result returned is the highest number of matches \(`desc`\) or lowest number of matches \(`asc`\). This parameter is ignored unless you provide `sort`. |
-| `per_page` | integer | query | Results per page \(max 100\). |
-| `page` | integer | query | Page number of the results to fetch. |
+| Name       | Type    | In     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| :--------- | :------ | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accept`   | string  | header | Setting to `application/vnd.github.v3+json` is recommended.                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `q`        | string  | query  | The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching code](https://help.github.com/articles/searching-code/)" for a detailed list of qualifiers. |
+| `sort`     | string  | query  | Sorts the results of your query. Can only be `indexed`, which indicates how recently a file has been indexed by the GitHub search infrastructure. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results)                                                                                                                                                                                                                         |
+| `order`    | string  | query  | Determines whether the first search result returned is the highest number of matches \(`desc`\) or lowest number of matches \(`asc`\). This parameter is ignored unless you provide `sort`.                                                                                                                                                                                                                                                                           |
+| `per_page` | integer | query  | Results per page \(max 100\).                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `page`     | integer | query  | Page number of the results to fetch.                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 
 **Code samples**
 
@@ -253,7 +251,7 @@ Status: 503 Service Unavailable
 
 **Notes**
 
-* [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 #### [Search commits](https://docs.github.com/en/rest/reference/search#search-commits) <a id="search-commits"></a>
 
@@ -271,14 +269,14 @@ GET /search/commits
 
 **Parameters**
 
-| Name | Type | In | Description |
-| :--- | :--- | :--- | :--- |
-| `accept` | string | header | This API is under preview and subject to change. [See preview notice](https://docs.github.com/en/rest/reference/search#search-commits-preview-notices) |
-| `q` | string | query | The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching commits](https://help.github.com/articles/searching-commits/)" for a detailed list of qualifiers. |
-| `sort` | string | query | Sorts the results of your query by `author-date` or `committer-date`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) |
-| `order` | string | query | Determines whether the first search result returned is the highest number of matches \(`desc`\) or lowest number of matches \(`asc`\). This parameter is ignored unless you provide `sort`. |
-| `per_page` | integer | query | Results per page \(max 100\). |
-| `page` | integer | query | Page number of the results to fetch. |
+| Name       | Type    | In     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| :--------- | :------ | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accept`   | string  | header | This API is under preview and subject to change. [See preview notice](https://docs.github.com/en/rest/reference/search#search-commits-preview-notices)                                                                                                                                                                                                                                                                                                                      |
+| `q`        | string  | query  | The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching commits](https://help.github.com/articles/searching-commits/)" for a detailed list of qualifiers. |
+| `sort`     | string  | query  | Sorts the results of your query by `author-date` or `committer-date`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results)                                                                                                                                                                                                                                                                                                           |
+| `order`    | string  | query  | Determines whether the first search result returned is the highest number of matches \(`desc`\) or lowest number of matches \(`asc`\). This parameter is ignored unless you provide `sort`.                                                                                                                                                                                                                                                                                 |
+| `per_page` | integer | query  | Results per page \(max 100\).                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `page`     | integer | query  | Page number of the results to fetch.                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 **Code samples**
 
@@ -454,7 +452,7 @@ Status: 415 Unsupported Media Type
 
 **Notes**
 
-* [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 **Preview notice**
 
@@ -488,14 +486,14 @@ GET /search/issues
 
 **Parameters**
 
-| Name | Type | In | Description |
-| :--- | :--- | :--- | :--- |
-| `accept` | string | header | Setting to `application/vnd.github.v3+json` is recommended. |
-| `q` | string | query | The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching issues and pull requests](https://help.github.com/articles/searching-issues-and-pull-requests/)" for a detailed list of qualifiers. |
-| `sort` | string | query | Sorts the results of your query by the number of `comments`, `reactions`, `reactions-+1`, `reactions--1`, `reactions-smile`, `reactions-thinking_face`, `reactions-heart`, `reactions-tada`, or `interactions`. You can also sort results by how recently the items were `created` or `updated`, Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) |
-| `order` | string | query | Determines whether the first search result returned is the highest number of matches \(`desc`\) or lowest number of matches \(`asc`\). This parameter is ignored unless you provide `sort`. |
-| `per_page` | integer | query | Results per page \(max 100\). |
-| `page` | integer | query | Page number of the results to fetch. |
+| Name       | Type    | In     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| :--------- | :------ | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `accept`   | string  | header | Setting to `application/vnd.github.v3+json` is recommended.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `q`        | string  | query  | The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching issues and pull requests](https://help.github.com/articles/searching-issues-and-pull-requests/)" for a detailed list of qualifiers. |
+| `sort`     | string  | query  | Sorts the results of your query by the number of `comments`, `reactions`, `reactions-+1`, `reactions--1`, `reactions-smile`, `reactions-thinking_face`, `reactions-heart`, `reactions-tada`, or `interactions`. You can also sort results by how recently the items were `created` or `updated`, Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results)                                                                                                                  |
+| `order`    | string  | query  | Determines whether the first search result returned is the highest number of matches \(`desc`\) or lowest number of matches \(`asc`\). This parameter is ignored unless you provide `sort`.                                                                                                                                                                                                                                                                                                                   |
+| `per_page` | integer | query  | Results per page \(max 100\).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `page`     | integer | query  | Page number of the results to fetch.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 **Code samples**
 
@@ -650,7 +648,7 @@ Status: 503 Service Unavailable
 
 **Notes**
 
-* [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 #### [Search labels](https://docs.github.com/en/rest/reference/search#search-labels) <a id="search-labels"></a>
 
@@ -670,13 +668,13 @@ GET /search/labels
 
 **Parameters**
 
-| Name | Type | In | Description |
-| :--- | :--- | :--- | :--- |
-| `accept` | string | header | Setting to `application/vnd.github.v3+json` is recommended. |
-| `repository_id` | integer | query | The id of the repository. |
-| `q` | string | query | The search keywords. This endpoint does not accept qualifiers in the query. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). |
-| `sort` | string | query | Sorts the results of your query by when the label was `created` or `updated`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) |
-| `order` | string | query | Determines whether the first search result returned is the highest number of matches \(`desc`\) or lowest number of matches \(`asc`\). This parameter is ignored unless you provide `sort`. |
+| Name            | Type    | In     | Description                                                                                                                                                                                                                            |
+| :-------------- | :------ | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accept`        | string  | header | Setting to `application/vnd.github.v3+json` is recommended.                                                                                                                                                                            |
+| `repository_id` | integer | query  | The id of the repository.                                                                                                                                                                                                              |
+| `q`             | string  | query  | The search keywords. This endpoint does not accept qualifiers in the query. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). |
+| `sort`          | string  | query  | Sorts the results of your query by when the label was `created` or `updated`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results)                                                              |
+| `order`         | string  | query  | Determines whether the first search result returned is the highest number of matches \(`desc`\) or lowest number of matches \(`asc`\). This parameter is ignored unless you provide `sort`.                                            |
 
 **Code samples**
 
@@ -758,7 +756,7 @@ Status: 422 Unprocessable Entity
 
 **Notes**
 
-* [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 #### [Search repositories](https://docs.github.com/en/rest/reference/search#search-repositories) <a id="search-repositories"></a>
 
@@ -782,14 +780,14 @@ GET /search/repositories
 
 **Parameters**
 
-| Name | Type | In | Description |
-| :--- | :--- | :--- | :--- |
-| `accept` | string | header | Setting to `application/vnd.github.v3+json` is recommended. [See preview notice](https://docs.github.com/en/rest/reference/search#search-repositories-preview-notices) |
-| `q` | string | query | The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching for repositories](https://help.github.com/articles/searching-for-repositories/)" for a detailed list of qualifiers. |
-| `sort` | string | query | Sorts the results of your query by number of `stars`, `forks`, or `help-wanted-issues` or how recently the items were `updated`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) |
-| `order` | string | query | Determines whether the first search result returned is the highest number of matches \(`desc`\) or lowest number of matches \(`asc`\). This parameter is ignored unless you provide `sort`. |
-| `per_page` | integer | query | Results per page \(max 100\). |
-| `page` | integer | query | Page number of the results to fetch. |
+| Name       | Type    | In     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| :--------- | :------ | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accept`   | string  | header | Setting to `application/vnd.github.v3+json` is recommended. [See preview notice](https://docs.github.com/en/rest/reference/search#search-repositories-preview-notices)                                                                                                                                                                                                                                                                                                                        |
+| `q`        | string  | query  | The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching for repositories](https://help.github.com/articles/searching-for-repositories/)" for a detailed list of qualifiers. |
+| `sort`     | string  | query  | Sorts the results of your query by number of `stars`, `forks`, or `help-wanted-issues` or how recently the items were `updated`. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results)                                                                                                                                                                                                                                                                  |
+| `order`    | string  | query  | Determines whether the first search result returned is the highest number of matches \(`desc`\) or lowest number of matches \(`asc`\). This parameter is ignored unless you provide `sort`.                                                                                                                                                                                                                                                                                                   |
+| `per_page` | integer | query  | Results per page \(max 100\).                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `page`     | integer | query  | Page number of the results to fetch.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 **Code samples**
 
@@ -947,7 +945,7 @@ Status: 503 Service Unavailable
 
 **Notes**
 
-* [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 **Preview notice**
 
@@ -961,7 +959,7 @@ application/vnd.github.mercy-preview+json
 
 Find topics via various criteria. Results are sorted by best match. This method returns up to 100 results [per page](https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination). See "[Searching topics](https://help.github.com/articles/searching-topics/)" for a detailed list of qualifiers.
 
-When searching for topics, you can get text match metadata for the topic's **short\_description**, **description**, **name**, or **display\_name** field when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/reference/search#text-match-metadata).
+When searching for topics, you can get text match metadata for the topic's **short_description**, **description**, **name**, or **display_name** field when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/rest/reference/search#text-match-metadata).
 
 For example, if you want to search for topics related to Ruby that are featured on [https://github.com/topics](https://github.com/topics). Your query might look like this:
 
@@ -975,10 +973,10 @@ GET /search/topics
 
 **Parameters**
 
-| Name | Type | In | Description |
-| :--- | :--- | :--- | :--- |
-| `accept` | string | header | This API is under preview and subject to change. [See preview notice](https://docs.github.com/en/rest/reference/search#search-topics-preview-notices) |
-| `q` | string | query | The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). |
+| Name     | Type   | In     | Description                                                                                                                                                                                                                                                                                                                                               |
+| :------- | :----- | :----- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accept` | string | header | This API is under preview and subject to change. [See preview notice](https://docs.github.com/en/rest/reference/search#search-topics-preview-notices)                                                                                                                                                                                                     |
+| `q`      | string | query  | The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). |
 
 **Code samples**
 
@@ -1110,7 +1108,7 @@ Status: 415 Unsupported Media Type
 
 **Notes**
 
-* [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 **Preview notice**
 
@@ -1140,14 +1138,14 @@ GET /search/users
 
 **Parameters**
 
-| Name | Type | In | Description |
-| :--- | :--- | :--- | :--- |
-| `accept` | string | header | Setting to `application/vnd.github.v3+json` is recommended. |
-| `q` | string | query | The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching users](https://help.github.com/articles/searching-users/)" for a detailed list of qualifiers. |
-| `sort` | string | query | Sorts the results of your query by number of `followers` or `repositories`, or when the person `joined` GitHub. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results) |
-| `order` | string | query | Determines whether the first search result returned is the highest number of matches \(`desc`\) or lowest number of matches \(`asc`\). This parameter is ignored unless you provide `sort`. |
-| `per_page` | integer | query | Results per page \(max 100\). |
-| `page` | integer | query | Page number of the results to fetch. |
+| Name       | Type    | In     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| :--------- | :------ | :----- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accept`   | string  | header | Setting to `application/vnd.github.v3+json` is recommended.                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `q`        | string  | query  | The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see [Constructing a search query](https://docs.github.com/rest/reference/search#constructing-a-search-query). See "[Searching users](https://help.github.com/articles/searching-users/)" for a detailed list of qualifiers. |
+| `sort`     | string  | query  | Sorts the results of your query by number of `followers` or `repositories`, or when the person `joined` GitHub. Default: [best match](https://docs.github.com/rest/reference/search#ranking-search-results)                                                                                                                                                                                                                                                             |
+| `order`    | string  | query  | Determines whether the first search result returned is the highest number of matches \(`desc`\) or lowest number of matches \(`asc`\). This parameter is ignored unless you provide `sort`.                                                                                                                                                                                                                                                                             |
+| `per_page` | integer | query  | Results per page \(max 100\).                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `page`     | integer | query  | Page number of the results to fetch.                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
 **Code samples**
 
@@ -1223,7 +1221,7 @@ Status: 503 Service Unavailable
 
 **Notes**
 
-* [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
+- [Works with GitHub Apps](https://docs.github.com/en/developers/apps)
 
 #### [Text match metadata](https://docs.github.com/en/rest/reference/search#text-match-metadata) <a id="text-match-metadata"></a>
 
@@ -1241,13 +1239,13 @@ application/vnd.github.v3.text-match+json
 
 When you provide the `text-match` media type, you will receive an extra key in the JSON payload called `text_matches` that provides information about the position of your search terms within the text and the `property` that includes the search term. Inside the `text_matches` array, each object includes the following attributes:
 
-| Name | Description |
-| :--- | :--- |
-| `object_url` | The URL for the resource that contains a string property matching one of the search terms. |
-| `object_type` | The name for the type of resource that exists at the given `object_url`. |
-| `property` | The name of a property of the resource that exists at `object_url`. That property is a string that matches one of the search terms. \(In the JSON returned from `object_url`, the full content for the `fragment` will be found in the property with this name.\) |
-| `fragment` | A subset of the value of `property`. This is the text fragment that matches one or more of the search terms. |
-| `matches` | An array of one or more search terms that are present in `fragment`. The indices \(i.e., "offsets"\) are relative to the fragment. \(They are not relative to the _full_ content of `property`.\) |
+| Name          | Description                                                                                                                                                                                                                                                       |
+| :------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `object_url`  | The URL for the resource that contains a string property matching one of the search terms.                                                                                                                                                                        |
+| `object_type` | The name for the type of resource that exists at the given `object_url`.                                                                                                                                                                                          |
+| `property`    | The name of a property of the resource that exists at `object_url`. That property is a string that matches one of the search terms. \(In the JSON returned from `object_url`, the full content for the `fragment` will be found in the property with this name.\) |
+| `fragment`    | A subset of the value of `property`. This is the text fragment that matches one or more of the search terms.                                                                                                                                                      |
+| `matches`     | An array of one or more search terms that are present in `fragment`. The indices \(i.e., "offsets"\) are relative to the fragment. \(They are not relative to the _full_ content of `property`.\)                                                                 |
 
 **Example**
 
@@ -1307,4 +1305,3 @@ The second text match occurred in the `body` property of one of the issue's comm
   ]
 }
 ```
-

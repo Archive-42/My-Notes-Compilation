@@ -34,11 +34,11 @@ To use imports relative to a path you specify, you can add a `[.env` file](https
 > Tip: You can opt into using this feature with CSS modules too!
 
 > Note: If you’re using Flow, override the module.file_ext setting in your .flowconfig so it’ll recognize .sass or .scss files. You will also need to include the module.file_ext default settings for .js, .jsx, .mjs and .json files.[options]
-module.file_ext=.js
-module.file_ext=.jsx
-module.file_ext=.mjs
-module.file_ext=.json
-module.file_ext=.sass
-module.file_ext=.scss
+> module.file_ext=.js
+> module.file_ext=.jsx
+> module.file_ext=.mjs
+> module.file_ext=.json
+> module.file_ext=.sass
+> module.file_ext=.scss
 
 > Note: LibSass and the packages built on top of it, including Node Sass, are deprecated. If you’re a user of Node Sass, you can migrate to Dart Sass by replacing node-sass in your package.json file with sass or by running the following commands:$ npm uninstall node-sass$ npm install sass# or$ yarn remove node-sass$ yarn add sass

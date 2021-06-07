@@ -5,22 +5,22 @@ A cheatsheet containing ES2015 \[ES6\] tips, tricks, best practices and code
 
 ## Table of Contents
 
-* [var versus let / const]()
-* [Replacing IIFEs with Blocks]()
-* [Arrow Functions]()
-* [Strings]()
-* [Destructuring]()
-* [Modules]()
-* [Parameters]()
-* [Classes]()
-* [Symbols]()
-* [Maps]()
-* [WeakMaps]()
-* [Promises]()
-* [Generators]()
-* [Async Await]()
-* [Getter/Setter functions]()
-* [License]()
+- [var versus let / const]()
+- [Replacing IIFEs with Blocks]()
+- [Arrow Functions]()
+- [Strings]()
+- [Destructuring]()
+- [Modules]()
+- [Parameters]()
+- [Classes]()
+- [Symbols]()
+- [Maps]()
+- [WeakMaps]()
+- [Promises]()
+- [Generators]()
+- [Async Await]()
+- [Getter/Setter functions]()
+- [License]()
 
 ## var versus let / const
 
@@ -31,14 +31,14 @@ A cheatsheet containing ES2015 \[ES6\] tips, tricks, best practices and code
 An example of using `var`:
 
 ```javascript
-var snack = 'Meow Mix';
+var snack = "Meow Mix";
 
 function getFood(food) {
-    if (food) {
-        var snack = 'Friskies';
-        return snack;
-    }
+  if (food) {
+    var snack = "Friskies";
     return snack;
+  }
+  return snack;
 }
 
 getFood(false); // undefined
@@ -47,14 +47,14 @@ getFood(false); // undefined
 However, observe what happens when we replace `var` using `let`:
 
 ```javascript
-let snack = 'Meow Mix';
+let snack = "Meow Mix";
 
 function getFood(food) {
-    if (food) {
-        let snack = 'Friskies';
-        return snack;
-    }
+  if (food) {
+    let snack = "Friskies";
     return snack;
+  }
+  return snack;
 }
 
 getFood(false); // 'Meow Mix'
@@ -71,7 +71,7 @@ This change in behavior highlights that we need to be careful when refactoring
 ```javascript
 console.log(x); // ReferenceError: x is not defined
 
-let x = 'hi';
+let x = "hi";
 ```
 
 > **Best Practice**: Leave `var` declarations inside of legacy code to denote  
@@ -89,8 +89,8 @@ let x = 'hi';
 
 ```javascript
 (function () {
-    var food = 'Meow Mix';
-}());
+  var food = "Meow Mix";
+})();
 
 console.log(food); // Reference Error
 ```
@@ -1141,10 +1141,10 @@ class Employee {
 
     get name() {
       if(this._name) {
-        return 'Mr. ' + this._name.toUpperCase();  
+        return 'Mr. ' + this._name.toUpperCase();
       } else {
         return undefined;
-      }  
+      }
     }
 
     set name(newName) {
@@ -1167,7 +1167,7 @@ if (emp.name) {
 
 // uses the setter in the background
 emp.name = "Bond 007";
-console.log(emp.name);  // Mr. BOND 007  
+console.log(emp.name);  // Mr. BOND 007
 ```
 
 Latest browsers are also supporting getter/setter functions in Objects and we can use them for computed properties, adding listeners and preprocessing before setting/getting:
@@ -1195,5 +1195,4 @@ person.fullName; // Bond 007
 
 [\(back to table of contents\)]()
 
- Created 1 minute ago \| Updated 1 minute ago
-
+Created 1 minute ago \| Updated 1 minute ago

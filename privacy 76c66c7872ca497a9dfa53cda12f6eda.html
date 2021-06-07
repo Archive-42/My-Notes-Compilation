@@ -1,627 +1,1045 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>privacy</title><style>
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	text-indent: -1.7em;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.highlight-default {
-}
-.highlight-gray {
-	color: rgb(155,154,151);
-}
-.highlight-brown {
-	color: rgb(100,71,58);
-}
-.highlight-orange {
-	color: rgb(217,115,13);
-}
-.highlight-yellow {
-	color: rgb(223,171,1);
-}
-.highlight-teal {
-	color: rgb(15,123,108);
-}
-.highlight-blue {
-	color: rgb(11,110,153);
-}
-.highlight-purple {
-	color: rgb(105,64,165);
-}
-.highlight-pink {
-	color: rgb(173,26,114);
-}
-.highlight-red {
-	color: rgb(224,62,62);
-}
-.highlight-gray_background {
-	background: rgb(235,236,237);
-}
-.highlight-brown_background {
-	background: rgb(233,229,227);
-}
-.highlight-orange_background {
-	background: rgb(250,235,221);
-}
-.highlight-yellow_background {
-	background: rgb(251,243,219);
-}
-.highlight-teal_background {
-	background: rgb(221,237,234);
-}
-.highlight-blue_background {
-	background: rgb(221,235,241);
-}
-.highlight-purple_background {
-	background: rgb(234,228,242);
-}
-.highlight-pink_background {
-	background: rgb(244,223,235);
-}
-.highlight-red_background {
-	background: rgb(251,228,228);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(55, 53, 47, 0.6);
-	fill: rgba(55, 53, 47, 0.6);
-}
-.block-color-brown {
-	color: rgb(100,71,58);
-	fill: rgb(100,71,58);
-}
-.block-color-orange {
-	color: rgb(217,115,13);
-	fill: rgb(217,115,13);
-}
-.block-color-yellow {
-	color: rgb(223,171,1);
-	fill: rgb(223,171,1);
-}
-.block-color-teal {
-	color: rgb(15,123,108);
-	fill: rgb(15,123,108);
-}
-.block-color-blue {
-	color: rgb(11,110,153);
-	fill: rgb(11,110,153);
-}
-.block-color-purple {
-	color: rgb(105,64,165);
-	fill: rgb(105,64,165);
-}
-.block-color-pink {
-	color: rgb(173,26,114);
-	fill: rgb(173,26,114);
-}
-.block-color-red {
-	color: rgb(224,62,62);
-	fill: rgb(224,62,62);
-}
-.block-color-gray_background {
-	background: rgb(235,236,237);
-}
-.block-color-brown_background {
-	background: rgb(233,229,227);
-}
-.block-color-orange_background {
-	background: rgb(250,235,221);
-}
-.block-color-yellow_background {
-	background: rgb(251,243,219);
-}
-.block-color-teal_background {
-	background: rgb(221,237,234);
-}
-.block-color-blue_background {
-	background: rgb(221,235,241);
-}
-.block-color-purple_background {
-	background: rgb(234,228,242);
-}
-.block-color-pink_background {
-	background: rgb(244,223,235);
-}
-.block-color-red_background {
-	background: rgb(251,228,228);
-}
-.select-value-color-default { background-color: rgba(206,205,202,0.5); }
-.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
-.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
-.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
-.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
-.select-value-color-green { background-color: rgba(0,135,107,0.2); }
-.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
-.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
-.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
-.select-value-color-red { background-color: rgba(255,0,26,0.2); }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="76c66c78-72ca-497a-9dfa-53cda12f6eda" class="page sans"><header><h1 class="page-title">privacy</h1></header><div class="page-body"><h3 id="0059b8c6-f6f3-4f5b-8b91-abd8b15fb3a5" class="">Breach</h3><ul id="afc6f767-56eb-4773-bea4-73b939c36385" class="bulleted-list"><li>https://www.npr.org/2021/04/16/985439655/a-worst-nightmare-cyberattack-the-untold-story-of-the-solarwinds-hack</li></ul><ul id="cda077d0-edf0-40d3-82a7-c809d891fbae" class="bulleted-list"><li><a href="https://dorper.me/articles/unileak.aspx">Massive security breach at US universities.</a></li></ul><h3 id="ec9af7e6-0be4-4330-b256-610718aa544d" class="">Community</h3><ul id="89adcefb-cfa4-4e21-a3b1-d2caa6c0d2a8" class="bulleted-list"><li><a href="https://www.facebook.com/groups/490766952100168">PinePhone User’s Group</a></li></ul><h3 id="94d43736-698b-4e43-b415-4a1134404d0b" class="">Hardware</h3><ul id="5e7aa1fd-ca20-4b24-94d8-76c89a306804" class="bulleted-list"><li><a href="https://www.zdnet.com/article/this-cheap-gadget-can-stop-your-smartphone-or-tablet-being-hacked-at-an-airport-hotel-or-cafe/">USB data blocker</a></li></ul><ul id="e7f892c3-0a70-45f7-901e-034951b22b1c" class="bulleted-list"><li>https://www.washingtonpost.com/technology/2019/12/17/what-does-your-car-know-about-you-we-hacked-chevy-find-out</li></ul><ul id="e6445c19-1daa-40de-abbd-63a8a0321fc5" class="bulleted-list"><li>https://github.com/StevenBlack/hosts</li></ul><ul id="991b46a7-ae7c-4761-9851-cc8a5d3a6036" class="bulleted-list"><li><a href="https://notice.indevice.sonymobile.com/en_gb">Important Privacy Notice from Sony Mobile to Xperia users.</a></li></ul><ul id="94c5a6f5-691a-4203-a0e0-8d232cad983b" class="bulleted-list"><li><a href="https://github.com/alulsh/personal-security-checklist">🔒 A curated checklist of 100+ tips for protecting digital security and privacy in 2020</a></li></ul><ul id="d0665f93-8300-4942-85f4-5466774850cc" class="bulleted-list"><li>https://this-pin-can-be-easily-guessed.github.io/index.html</li></ul><ul id="ae599c56-32c0-40ef-a970-2a5f793efad1" class="bulleted-list"><li><a href="https://podcasts.apple.com/us/podcast/fresh-air/id214089682?i=1000467576663&amp;mc_cid=0c0d31527f&amp;mc_eid=2b9e8b6990">Uncovering The CIA’s Operation To Steal State Secrets</a></li></ul><ul id="9faf1e82-448b-40ec-8e99-21372368d59f" class="bulleted-list"><li>https://www.pcmag.com/news/google-free-android-smartphones-are-now-available-in-the-us</li></ul><h3 id="7b31cb48-3dc3-49a5-bf36-8052f99925d7" class="">Software</h3><ul id="1ea686e4-4f7f-445c-af02-df92d7fa0f3b" class="bulleted-list"><li>https://github.com/melanierichards/resources/blob/master/resources/privacy-security.md</li></ul><ul id="4126499c-5950-4933-9fa6-e2bb2553255b" class="bulleted-list"><li>https://robertheaton.com/2017/11/20/how-does-online-tracking-actually-work/</li></ul><ul id="7365bfcf-9170-4577-9134-9113a4440808" class="bulleted-list"><li>https://jvns.ca/blog/how-tracking-pixels-work</li></ul><ul id="979d8240-75d3-4f56-a3ef-aa593d41ad09" class="bulleted-list"><li>https://andreyromanov.com/writing/2019/12/01/dns-adblock</li></ul><ul id="d3603c6b-1222-4b36-942a-d528f9af3bb5" class="bulleted-list"><li><a href="https://twitter.com/nys0s/status/1211570679151284224">Public adblocking DoH server.</a></li></ul><ul id="c962d50c-ea3b-4b5e-9a04-530faa4cca1a" class="bulleted-list"><li>https://securityespresso.org/tutorials/2019/03/22/vpn-server-using-wireguard-on-ubuntu</li></ul><ul id="a5bf70f4-15e7-47ed-9206-fab4173e450b" class="bulleted-list"><li><a href="https://trevordmiller.com/posts/media/">Encouraging wholesome media with filters.</a></li></ul><ul id="60e75b94-5d2e-4267-a2fe-d3cf6704a147" class="bulleted-list"><li>https://www.forbes.com/sites/thomasbrewster/2019/12/09/are-you-one-of-avasts-400-million-users-this-is-why-it-collects-and-sells-your-web-habits</li></ul><ul id="0591121e-5fd2-4c95-9711-ca8e64e50172" class="bulleted-list"><li>https://github.com/tanhauhau/tanhauhau.github.io/blob/dev/content/notes/2019-10-14%20-%20DRM%20Digital%20rights%20management.md</li></ul><ul id="71f92865-9ed8-4b5e-8e20-22701e240b45" class="bulleted-list"><li><a href="https://twitter.com/Ouren/status/1241398181205889024">ZOOM monitors the activity on your computer and collects data on the programs running and captures which window you have focus on.</a></li></ul><ul id="c9d41761-8d88-480a-8df7-a9e61db49e60" class="bulleted-list"><li><a href="http://safepaths.mit.edu/">Private Kit: Safe Paths- Can we slow the spread without giving up individual privacy?</a></li></ul><ul id="defa5436-36dc-4159-aed3-b650c19ae64e" class="bulleted-list"><li>https://www.obsessivefacts.com/blog/2020-04-04-the-javascript-black-hole.html + https://news.ycombinator.com/item?id=22805239</li></ul><ul id="12dcc40b-a9d9-4659-ac94-ce4f8c970d38" class="bulleted-list"><li><a href="https://github.com/Kkevsterrr/geneva">automated censorship evasion for the client-side and server-side</a> + https://geneva.cs.umd.edu/posts/server-side</li></ul><ul id="85e1bf8d-8f67-4962-adc6-202035ee6290" class="bulleted-list"><li><a href="https://wheregoes.com/">Wheregoes - A tool for tracing the redirect path of URLs</a></li></ul><ul id="58fece00-7581-4b73-92d0-a80567ea15d4" class="bulleted-list"><li>https://themarkup.org/google-the-giant/2020/11/19/as-antitrust-pressure-mounts-google-to-pull-back-benefit-to-news-sites-that-adopted-its-preferred-mobile-technology + https://twitter.com/themarkup/status/1329409297281781760</li></ul><ul id="dbc9237f-019d-414e-b897-777126ec3bf3" class="bulleted-list"><li>https://www.haaretz.com/israel-news/tech-news/.premium-israeli-spy-tech-firm-says-it-can-break-into-signal-app-previously-considered-safe-1.9368581</li></ul><ul id="dcf6b677-0206-4ff3-b753-1ff7a970606e" class="bulleted-list"><li>https://github.com/Igglybuff/awesome-piracy</li></ul><ul id="fc65dd02-06b7-49f5-82a0-95894320c6ba" class="bulleted-list"><li>https://github.com/kiprotect/klaro</li></ul><ul id="393195d3-78f4-4626-8be0-e03b8f707f0a" class="bulleted-list"><li>https://www.haaretz.com/israel-news/tech-news/.premium-israeli-spy-tech-firm-says-it-can-break-into-signal-app-previously-considered-safe-1.9368581 + http://web.archive.org/web/20201210150311/https://www.cellebrite.com/en/blog/cellebrites-new-solution-for-decrypting-the-signal-app + https://cf-media.cellebrite.com/wp-content/uploads/2020/09/ProductOverview_Cellebrite_Physical_Analyzer_A4_web.pdf</li></ul><ul id="22c4139d-f8cf-4244-b9a6-03e8f19f4e17" class="bulleted-list"><li><a href="https://github.com/SadeghHayeri/GreenTunnel">GreenTunnel is an anti-censorship utility designed to bypass the DPI system that is put in place by various ISPs</a></li></ul><ul id="0e388ab8-463d-4836-a267-1741495d75ed" class="bulleted-list"><li>https://twitter.com/mikispag/status/1255164681121136642</li></ul><ul id="42b4b4ce-25f0-491a-9807-1315c42997c5" class="bulleted-list"><li><a href="https://github.com/redecentralize/alternative-internet">A collection of interesting new networks and tech aiming at decentralisation (in some form).</a></li></ul><ul id="33765f85-5705-44f2-a8b2-b19c91b00b21" class="bulleted-list"><li>https://github.com/vlvagerviwager/protect-your-privacy</li></ul><ul id="c0d86e91-be92-4b29-9abb-9c30f62c2072" class="bulleted-list"><li>https://github.com/veeral-patel/how-to-secure-anything</li></ul><ul id="138a1eb9-f890-49bc-9ad7-ac5f7f758c75" class="bulleted-list"><li>https://github.com/nikitavoloboev/privacy-respecting</li></ul><h3 id="e0fe3f31-d364-4b7e-8bd6-e1d6fd76780d" class="">Techniques</h3><ul id="49bc6c3a-356f-4ba7-9c11-4891130f53ba" class="bulleted-list"><li>https://github.com/Lissy93/personal-security-checklist</li></ul><ul id="23bb373e-0fb0-4c93-be6b-1bbc53bf472f" class="bulleted-list"><li>Studying the Resilience of Browser Fingerprinting to Block Crawlers: <a href="https://twitter.com/xopek59/status/1218169607535693824">tweet</a> + <a href="https://hal.inria.fr/hal-02441653">paper</a></li></ul><ul id="fdae7d32-fa74-4cc6-9e6e-88f3e8156b35" class="bulleted-list"><li>https://medium.com/@vmsp/blocking-your-adblocker-967d1c6e48f2</li></ul><ul id="8f13f2b3-0981-4f64-82da-c0c9518b0fb4" class="bulleted-list"><li>https://foosoft.net/posts/decrapifying-the-twitter-timeline/index.html</li></ul><ul id="7cb89624-27b0-4066-858c-3f888f943f0c" class="bulleted-list"><li>https://www.bellingcat.com/news/2020/05/18/military-and-intelligence-personnel-can-be-tracked-with-the-untappd-beer-app</li></ul><ul id="36313ba4-d1c2-4888-b558-21929d182505" class="bulleted-list"><li>https://csjourney.com/vuvuzela-scalable-private-messaging-traffic-analysis-paper</li></ul><ul id="e6473aa5-b08d-4f9a-bd02-3df9431f4600" class="bulleted-list"><li>https://simonwillison.net/2020/Nov/14/personal-data-warehouses + https://news.ycombinator.com/item?id=25090218</li></ul><ul id="f241c0e4-59b4-4d38-a94e-885c5e999fc7" class="bulleted-list"><li>https://www.gov.uk/guidance/protect-domains-that-dont-send-email</li></ul><ul id="96560cc8-6975-4159-9bbb-09e09c3c9c4d" class="bulleted-list"><li>https://github.com/adilmajid/privacy-for-the-paranoid</li></ul><ul id="57d1871a-9a90-4bd6-a144-474892da73c0" class="bulleted-list"><li>https://github.com/bslassey/ip-blindness</li></ul><ul id="c0c495b6-ad0c-409b-bac8-3d1ecef25344" class="bulleted-list"><li><a href="https://twitter.com/sherrod_im/status/1372259376690511873">I don’t think SMS is legit 2FA</a></li></ul><ul id="84352102-3e5f-47ab-ba1b-4873e79ddc6a" class="bulleted-list"><li>https://www.cnet.com/how-to/stolen-or-lost-android-phone-heres-how-to-recover-it-fast</li></ul><ul id="3ed8c7af-189a-4af2-9135-7162d166ccd4" class="bulleted-list"><li><a href="https://fingerprintjs.com/blog/audio-fingerprinting">How the Web Audio API is used for browser fingerprinting</a></li></ul><ul id="e4fda77c-45e4-4a4a-a965-d25209ca6c3f" class="bulleted-list"><li><a href="https://github.com/RobinLinus/ubercookie">Browser Fingerprinting via getClientRects and AudioContext</a></li></ul><ul id="33e7c401-69e7-4072-8884-c4e870ac0552" class="bulleted-list"><li>https://github.com/anttiviljami/browser-autofill-phishing</li></ul><h3 id="24e37b8d-c3ec-4559-ace2-a4b1bc85c847" class="">Social media</h3><ul id="bc7c9746-f3b8-45a2-a277-30b2d7f1192a" class="bulleted-list"><li>https://github.com/tycrek/degoogle + https://www.wired.com/story/google-tracks-you-privacy</li></ul><ul id="333b887b-8e7c-4bf5-aa2b-a8ca66fe87f8" class="bulleted-list"><li>https://gavinr.com/three-tips-to-reduce-personal-data-tracking-in-2019</li></ul><ul id="5eef907b-3c51-4b22-9c27-7404d171e15a" class="bulleted-list"><li><a href="https://twitter.com/aral/status/1219929929145573377">short list of privacy conferences and privacy advocates</a></li></ul><ul id="afbde1e5-9079-49fd-9ced-a82e0b4fc02a" class="bulleted-list"><li>https://nelsonslog.wordpress.com/2020/01/07/facial-recognition-for-the-public-yandex</li></ul><ul id="6eb5b6c1-4e7a-4f67-af27-87c95761e187" class="bulleted-list"><li>https://github.com/good-lly/gdpr-documents</li></ul><ul id="099d24df-28ba-4f7c-9798-cc0b86e67f89" class="bulleted-list"><li><a href="https://www.bbc.co.uk/news/extra/CLQYZENMBI/amazon-data">Why Amazon knows so much about you?</a></li></ul><ul id="613207b8-9071-43d4-9980-180053eb12c9" class="bulleted-list"><li>https://open.nytimes.com/how-to-dox-yourself-on-the-internet-d2892b4c5954</li></ul><ul id="3d896fa2-ef37-49c3-8c6a-bca9c77fcbc3" class="bulleted-list"><li>https://johnopdenakker.com/how-to-control-your-online-exposure</li></ul><ul id="a66d2786-a22b-411e-871f-4b12345afaeb" class="bulleted-list"><li>https://rolisz.ro/2020/04/11/moving-away-from-gmail + https://news.ycombinator.com/item?id=22843326</li></ul><ul id="74ab1403-5371-4003-8e2e-0f48561b733f" class="bulleted-list"><li>https://www.freecodecamp.org/news/white-pages-removal-remove-information-spokeo-peoplefinder-whitepages-opt-out +</li></ul><ul id="b3a450f9-ed24-42b0-af18-2c0913c404ce" class="bulleted-list"><li>[@BotSentinel - just enter an account handle and it instantly analyses their tweets, giving an assessment of the extent to which it is questionable, disruptive or problematic account.](https://twitter.com/docrussjackson/status/1323246492304506880)</li></ul><ul id="4966d020-4436-49fc-952d-713347120dd7" class="bulleted-list"><li>https://sneak.berlin/20201031/goodbye-twitter</li></ul><ul id="be35ed13-d74a-4cd8-a08e-8c30d9b4eccc" class="bulleted-list"><li>https://axbom.com/clubhouse-overview</li></ul></div></article></body></html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>privacy</title>
+    <style>
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 3px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        text-indent: -1.7em;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC",
+          "Noto Sans CJK KR";
+      }
+
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Consolas,
+          "Liberation Mono", Menlo, Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC", "Noto Sans Mono CJK KR";
+      }
+
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif,
+          "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC", "Noto Sans CJK KR";
+      }
+
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC",
+          "Noto Sans Mono CJK KR";
+      }
+
+      .highlight-default {
+      }
+      .highlight-gray {
+        color: rgb(155, 154, 151);
+      }
+      .highlight-brown {
+        color: rgb(100, 71, 58);
+      }
+      .highlight-orange {
+        color: rgb(217, 115, 13);
+      }
+      .highlight-yellow {
+        color: rgb(223, 171, 1);
+      }
+      .highlight-teal {
+        color: rgb(15, 123, 108);
+      }
+      .highlight-blue {
+        color: rgb(11, 110, 153);
+      }
+      .highlight-purple {
+        color: rgb(105, 64, 165);
+      }
+      .highlight-pink {
+        color: rgb(173, 26, 114);
+      }
+      .highlight-red {
+        color: rgb(224, 62, 62);
+      }
+      .highlight-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .highlight-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .highlight-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .highlight-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .highlight-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .highlight-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .highlight-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .highlight-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .highlight-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+      }
+      .block-color-brown {
+        color: rgb(100, 71, 58);
+        fill: rgb(100, 71, 58);
+      }
+      .block-color-orange {
+        color: rgb(217, 115, 13);
+        fill: rgb(217, 115, 13);
+      }
+      .block-color-yellow {
+        color: rgb(223, 171, 1);
+        fill: rgb(223, 171, 1);
+      }
+      .block-color-teal {
+        color: rgb(15, 123, 108);
+        fill: rgb(15, 123, 108);
+      }
+      .block-color-blue {
+        color: rgb(11, 110, 153);
+        fill: rgb(11, 110, 153);
+      }
+      .block-color-purple {
+        color: rgb(105, 64, 165);
+        fill: rgb(105, 64, 165);
+      }
+      .block-color-pink {
+        color: rgb(173, 26, 114);
+        fill: rgb(173, 26, 114);
+      }
+      .block-color-red {
+        color: rgb(224, 62, 62);
+        fill: rgb(224, 62, 62);
+      }
+      .block-color-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .block-color-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .block-color-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .block-color-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .block-color-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .block-color-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .block-color-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .block-color-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .block-color-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .select-value-color-default {
+        background-color: rgba(206, 205, 202, 0.5);
+      }
+      .select-value-color-gray {
+        background-color: rgba(155, 154, 151, 0.4);
+      }
+      .select-value-color-brown {
+        background-color: rgba(140, 46, 0, 0.2);
+      }
+      .select-value-color-orange {
+        background-color: rgba(245, 93, 0, 0.2);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(233, 168, 0, 0.2);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 135, 107, 0.2);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 120, 223, 0.2);
+      }
+      .select-value-color-purple {
+        background-color: rgba(103, 36, 222, 0.2);
+      }
+      .select-value-color-pink {
+        background-color: rgba(221, 0, 129, 0.2);
+      }
+      .select-value-color-red {
+        background-color: rgba(255, 0, 26, 0.2);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="76c66c78-72ca-497a-9dfa-53cda12f6eda" class="page sans">
+      <header><h1 class="page-title">privacy</h1></header>
+      <div class="page-body">
+        <h3 id="0059b8c6-f6f3-4f5b-8b91-abd8b15fb3a5" class="">Breach</h3>
+        <ul id="afc6f767-56eb-4773-bea4-73b939c36385" class="bulleted-list">
+          <li>
+            https://www.npr.org/2021/04/16/985439655/a-worst-nightmare-cyberattack-the-untold-story-of-the-solarwinds-hack
+          </li>
+        </ul>
+        <ul id="cda077d0-edf0-40d3-82a7-c809d891fbae" class="bulleted-list">
+          <li>
+            <a href="https://dorper.me/articles/unileak.aspx"
+              >Massive security breach at US universities.</a
+            >
+          </li>
+        </ul>
+        <h3 id="ec9af7e6-0be4-4330-b256-610718aa544d" class="">Community</h3>
+        <ul id="89adcefb-cfa4-4e21-a3b1-d2caa6c0d2a8" class="bulleted-list">
+          <li>
+            <a href="https://www.facebook.com/groups/490766952100168"
+              >PinePhone User’s Group</a
+            >
+          </li>
+        </ul>
+        <h3 id="94d43736-698b-4e43-b415-4a1134404d0b" class="">Hardware</h3>
+        <ul id="5e7aa1fd-ca20-4b24-94d8-76c89a306804" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.zdnet.com/article/this-cheap-gadget-can-stop-your-smartphone-or-tablet-being-hacked-at-an-airport-hotel-or-cafe/"
+              >USB data blocker</a
+            >
+          </li>
+        </ul>
+        <ul id="e7f892c3-0a70-45f7-901e-034951b22b1c" class="bulleted-list">
+          <li>
+            https://www.washingtonpost.com/technology/2019/12/17/what-does-your-car-know-about-you-we-hacked-chevy-find-out
+          </li>
+        </ul>
+        <ul id="e6445c19-1daa-40de-abbd-63a8a0321fc5" class="bulleted-list">
+          <li>https://github.com/StevenBlack/hosts</li>
+        </ul>
+        <ul id="991b46a7-ae7c-4761-9851-cc8a5d3a6036" class="bulleted-list">
+          <li>
+            <a href="https://notice.indevice.sonymobile.com/en_gb"
+              >Important Privacy Notice from Sony Mobile to Xperia users.</a
+            >
+          </li>
+        </ul>
+        <ul id="94c5a6f5-691a-4203-a0e0-8d232cad983b" class="bulleted-list">
+          <li>
+            <a href="https://github.com/alulsh/personal-security-checklist"
+              >🔒 A curated checklist of 100+ tips for protecting digital
+              security and privacy in 2020</a
+            >
+          </li>
+        </ul>
+        <ul id="d0665f93-8300-4942-85f4-5466774850cc" class="bulleted-list">
+          <li>https://this-pin-can-be-easily-guessed.github.io/index.html</li>
+        </ul>
+        <ul id="ae599c56-32c0-40ef-a970-2a5f793efad1" class="bulleted-list">
+          <li>
+            <a
+              href="https://podcasts.apple.com/us/podcast/fresh-air/id214089682?i=1000467576663&amp;mc_cid=0c0d31527f&amp;mc_eid=2b9e8b6990"
+              >Uncovering The CIA’s Operation To Steal State Secrets</a
+            >
+          </li>
+        </ul>
+        <ul id="9faf1e82-448b-40ec-8e99-21372368d59f" class="bulleted-list">
+          <li>
+            https://www.pcmag.com/news/google-free-android-smartphones-are-now-available-in-the-us
+          </li>
+        </ul>
+        <h3 id="7b31cb48-3dc3-49a5-bf36-8052f99925d7" class="">Software</h3>
+        <ul id="1ea686e4-4f7f-445c-af02-df92d7fa0f3b" class="bulleted-list">
+          <li>
+            https://github.com/melanierichards/resources/blob/master/resources/privacy-security.md
+          </li>
+        </ul>
+        <ul id="4126499c-5950-4933-9fa6-e2bb2553255b" class="bulleted-list">
+          <li>
+            https://robertheaton.com/2017/11/20/how-does-online-tracking-actually-work/
+          </li>
+        </ul>
+        <ul id="7365bfcf-9170-4577-9134-9113a4440808" class="bulleted-list">
+          <li>https://jvns.ca/blog/how-tracking-pixels-work</li>
+        </ul>
+        <ul id="979d8240-75d3-4f56-a3ef-aa593d41ad09" class="bulleted-list">
+          <li>https://andreyromanov.com/writing/2019/12/01/dns-adblock</li>
+        </ul>
+        <ul id="d3603c6b-1222-4b36-942a-d528f9af3bb5" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/nys0s/status/1211570679151284224"
+              >Public adblocking DoH server.</a
+            >
+          </li>
+        </ul>
+        <ul id="c962d50c-ea3b-4b5e-9a04-530faa4cca1a" class="bulleted-list">
+          <li>
+            https://securityespresso.org/tutorials/2019/03/22/vpn-server-using-wireguard-on-ubuntu
+          </li>
+        </ul>
+        <ul id="a5bf70f4-15e7-47ed-9206-fab4173e450b" class="bulleted-list">
+          <li>
+            <a href="https://trevordmiller.com/posts/media/"
+              >Encouraging wholesome media with filters.</a
+            >
+          </li>
+        </ul>
+        <ul id="60e75b94-5d2e-4267-a2fe-d3cf6704a147" class="bulleted-list">
+          <li>
+            https://www.forbes.com/sites/thomasbrewster/2019/12/09/are-you-one-of-avasts-400-million-users-this-is-why-it-collects-and-sells-your-web-habits
+          </li>
+        </ul>
+        <ul id="0591121e-5fd2-4c95-9711-ca8e64e50172" class="bulleted-list">
+          <li>
+            https://github.com/tanhauhau/tanhauhau.github.io/blob/dev/content/notes/2019-10-14%20-%20DRM%20Digital%20rights%20management.md
+          </li>
+        </ul>
+        <ul id="71f92865-9ed8-4b5e-8e20-22701e240b45" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/Ouren/status/1241398181205889024"
+              >ZOOM monitors the activity on your computer and collects data on
+              the programs running and captures which window you have focus
+              on.</a
+            >
+          </li>
+        </ul>
+        <ul id="c9d41761-8d88-480a-8df7-a9e61db49e60" class="bulleted-list">
+          <li>
+            <a href="http://safepaths.mit.edu/"
+              >Private Kit: Safe Paths- Can we slow the spread without giving up
+              individual privacy?</a
+            >
+          </li>
+        </ul>
+        <ul id="defa5436-36dc-4159-aed3-b650c19ae64e" class="bulleted-list">
+          <li>
+            https://www.obsessivefacts.com/blog/2020-04-04-the-javascript-black-hole.html
+            + https://news.ycombinator.com/item?id=22805239
+          </li>
+        </ul>
+        <ul id="12dcc40b-a9d9-4659-ac94-ce4f8c970d38" class="bulleted-list">
+          <li>
+            <a href="https://github.com/Kkevsterrr/geneva"
+              >automated censorship evasion for the client-side and
+              server-side</a
+            >
+            + https://geneva.cs.umd.edu/posts/server-side
+          </li>
+        </ul>
+        <ul id="85e1bf8d-8f67-4962-adc6-202035ee6290" class="bulleted-list">
+          <li>
+            <a href="https://wheregoes.com/"
+              >Wheregoes - A tool for tracing the redirect path of URLs</a
+            >
+          </li>
+        </ul>
+        <ul id="58fece00-7581-4b73-92d0-a80567ea15d4" class="bulleted-list">
+          <li>
+            https://themarkup.org/google-the-giant/2020/11/19/as-antitrust-pressure-mounts-google-to-pull-back-benefit-to-news-sites-that-adopted-its-preferred-mobile-technology
+            + https://twitter.com/themarkup/status/1329409297281781760
+          </li>
+        </ul>
+        <ul id="dbc9237f-019d-414e-b897-777126ec3bf3" class="bulleted-list">
+          <li>
+            https://www.haaretz.com/israel-news/tech-news/.premium-israeli-spy-tech-firm-says-it-can-break-into-signal-app-previously-considered-safe-1.9368581
+          </li>
+        </ul>
+        <ul id="dcf6b677-0206-4ff3-b753-1ff7a970606e" class="bulleted-list">
+          <li>https://github.com/Igglybuff/awesome-piracy</li>
+        </ul>
+        <ul id="fc65dd02-06b7-49f5-82a0-95894320c6ba" class="bulleted-list">
+          <li>https://github.com/kiprotect/klaro</li>
+        </ul>
+        <ul id="393195d3-78f4-4626-8be0-e03b8f707f0a" class="bulleted-list">
+          <li>
+            https://www.haaretz.com/israel-news/tech-news/.premium-israeli-spy-tech-firm-says-it-can-break-into-signal-app-previously-considered-safe-1.9368581
+            +
+            http://web.archive.org/web/20201210150311/https://www.cellebrite.com/en/blog/cellebrites-new-solution-for-decrypting-the-signal-app
+            +
+            https://cf-media.cellebrite.com/wp-content/uploads/2020/09/ProductOverview_Cellebrite_Physical_Analyzer_A4_web.pdf
+          </li>
+        </ul>
+        <ul id="22c4139d-f8cf-4244-b9a6-03e8f19f4e17" class="bulleted-list">
+          <li>
+            <a href="https://github.com/SadeghHayeri/GreenTunnel"
+              >GreenTunnel is an anti-censorship utility designed to bypass the
+              DPI system that is put in place by various ISPs</a
+            >
+          </li>
+        </ul>
+        <ul id="0e388ab8-463d-4836-a267-1741495d75ed" class="bulleted-list">
+          <li>https://twitter.com/mikispag/status/1255164681121136642</li>
+        </ul>
+        <ul id="42b4b4ce-25f0-491a-9807-1315c42997c5" class="bulleted-list">
+          <li>
+            <a href="https://github.com/redecentralize/alternative-internet"
+              >A collection of interesting new networks and tech aiming at
+              decentralisation (in some form).</a
+            >
+          </li>
+        </ul>
+        <ul id="33765f85-5705-44f2-a8b2-b19c91b00b21" class="bulleted-list">
+          <li>https://github.com/vlvagerviwager/protect-your-privacy</li>
+        </ul>
+        <ul id="c0d86e91-be92-4b29-9abb-9c30f62c2072" class="bulleted-list">
+          <li>https://github.com/veeral-patel/how-to-secure-anything</li>
+        </ul>
+        <ul id="138a1eb9-f890-49bc-9ad7-ac5f7f758c75" class="bulleted-list">
+          <li>https://github.com/nikitavoloboev/privacy-respecting</li>
+        </ul>
+        <h3 id="e0fe3f31-d364-4b7e-8bd6-e1d6fd76780d" class="">Techniques</h3>
+        <ul id="49bc6c3a-356f-4ba7-9c11-4891130f53ba" class="bulleted-list">
+          <li>https://github.com/Lissy93/personal-security-checklist</li>
+        </ul>
+        <ul id="23bb373e-0fb0-4c93-be6b-1bbc53bf472f" class="bulleted-list">
+          <li>
+            Studying the Resilience of Browser Fingerprinting to Block Crawlers:
+            <a href="https://twitter.com/xopek59/status/1218169607535693824"
+              >tweet</a
+            >
+            + <a href="https://hal.inria.fr/hal-02441653">paper</a>
+          </li>
+        </ul>
+        <ul id="fdae7d32-fa74-4cc6-9e6e-88f3e8156b35" class="bulleted-list">
+          <li>https://medium.com/@vmsp/blocking-your-adblocker-967d1c6e48f2</li>
+        </ul>
+        <ul id="8f13f2b3-0981-4f64-82da-c0c9518b0fb4" class="bulleted-list">
+          <li>
+            https://foosoft.net/posts/decrapifying-the-twitter-timeline/index.html
+          </li>
+        </ul>
+        <ul id="7cb89624-27b0-4066-858c-3f888f943f0c" class="bulleted-list">
+          <li>
+            https://www.bellingcat.com/news/2020/05/18/military-and-intelligence-personnel-can-be-tracked-with-the-untappd-beer-app
+          </li>
+        </ul>
+        <ul id="36313ba4-d1c2-4888-b558-21929d182505" class="bulleted-list">
+          <li>
+            https://csjourney.com/vuvuzela-scalable-private-messaging-traffic-analysis-paper
+          </li>
+        </ul>
+        <ul id="e6473aa5-b08d-4f9a-bd02-3df9431f4600" class="bulleted-list">
+          <li>
+            https://simonwillison.net/2020/Nov/14/personal-data-warehouses +
+            https://news.ycombinator.com/item?id=25090218
+          </li>
+        </ul>
+        <ul id="f241c0e4-59b4-4d38-a94e-885c5e999fc7" class="bulleted-list">
+          <li>
+            https://www.gov.uk/guidance/protect-domains-that-dont-send-email
+          </li>
+        </ul>
+        <ul id="96560cc8-6975-4159-9bbb-09e09c3c9c4d" class="bulleted-list">
+          <li>https://github.com/adilmajid/privacy-for-the-paranoid</li>
+        </ul>
+        <ul id="57d1871a-9a90-4bd6-a144-474892da73c0" class="bulleted-list">
+          <li>https://github.com/bslassey/ip-blindness</li>
+        </ul>
+        <ul id="c0c495b6-ad0c-409b-bac8-3d1ecef25344" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/sherrod_im/status/1372259376690511873"
+              >I don’t think SMS is legit 2FA</a
+            >
+          </li>
+        </ul>
+        <ul id="84352102-3e5f-47ab-ba1b-4873e79ddc6a" class="bulleted-list">
+          <li>
+            https://www.cnet.com/how-to/stolen-or-lost-android-phone-heres-how-to-recover-it-fast
+          </li>
+        </ul>
+        <ul id="3ed8c7af-189a-4af2-9135-7162d166ccd4" class="bulleted-list">
+          <li>
+            <a href="https://fingerprintjs.com/blog/audio-fingerprinting"
+              >How the Web Audio API is used for browser fingerprinting</a
+            >
+          </li>
+        </ul>
+        <ul id="e4fda77c-45e4-4a4a-a965-d25209ca6c3f" class="bulleted-list">
+          <li>
+            <a href="https://github.com/RobinLinus/ubercookie"
+              >Browser Fingerprinting via getClientRects and AudioContext</a
+            >
+          </li>
+        </ul>
+        <ul id="33e7c401-69e7-4072-8884-c4e870ac0552" class="bulleted-list">
+          <li>https://github.com/anttiviljami/browser-autofill-phishing</li>
+        </ul>
+        <h3 id="24e37b8d-c3ec-4559-ace2-a4b1bc85c847" class="">Social media</h3>
+        <ul id="bc7c9746-f3b8-45a2-a277-30b2d7f1192a" class="bulleted-list">
+          <li>
+            https://github.com/tycrek/degoogle +
+            https://www.wired.com/story/google-tracks-you-privacy
+          </li>
+        </ul>
+        <ul id="333b887b-8e7c-4bf5-aa2b-a8ca66fe87f8" class="bulleted-list">
+          <li>
+            https://gavinr.com/three-tips-to-reduce-personal-data-tracking-in-2019
+          </li>
+        </ul>
+        <ul id="5eef907b-3c51-4b22-9c27-7404d171e15a" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/aral/status/1219929929145573377"
+              >short list of privacy conferences and privacy advocates</a
+            >
+          </li>
+        </ul>
+        <ul id="afbde1e5-9079-49fd-9ced-a82e0b4fc02a" class="bulleted-list">
+          <li>
+            https://nelsonslog.wordpress.com/2020/01/07/facial-recognition-for-the-public-yandex
+          </li>
+        </ul>
+        <ul id="6eb5b6c1-4e7a-4f67-af27-87c95761e187" class="bulleted-list">
+          <li>https://github.com/good-lly/gdpr-documents</li>
+        </ul>
+        <ul id="099d24df-28ba-4f7c-9798-cc0b86e67f89" class="bulleted-list">
+          <li>
+            <a href="https://www.bbc.co.uk/news/extra/CLQYZENMBI/amazon-data"
+              >Why Amazon knows so much about you?</a
+            >
+          </li>
+        </ul>
+        <ul id="613207b8-9071-43d4-9980-180053eb12c9" class="bulleted-list">
+          <li>
+            https://open.nytimes.com/how-to-dox-yourself-on-the-internet-d2892b4c5954
+          </li>
+        </ul>
+        <ul id="3d896fa2-ef37-49c3-8c6a-bca9c77fcbc3" class="bulleted-list">
+          <li>
+            https://johnopdenakker.com/how-to-control-your-online-exposure
+          </li>
+        </ul>
+        <ul id="a66d2786-a22b-411e-871f-4b12345afaeb" class="bulleted-list">
+          <li>
+            https://rolisz.ro/2020/04/11/moving-away-from-gmail +
+            https://news.ycombinator.com/item?id=22843326
+          </li>
+        </ul>
+        <ul id="74ab1403-5371-4003-8e2e-0f48561b733f" class="bulleted-list">
+          <li>
+            https://www.freecodecamp.org/news/white-pages-removal-remove-information-spokeo-peoplefinder-whitepages-opt-out
+            +
+          </li>
+        </ul>
+        <ul id="b3a450f9-ed24-42b0-af18-2c0913c404ce" class="bulleted-list">
+          <li>
+            [@BotSentinel - just enter an account handle and it instantly
+            analyses their tweets, giving an assessment of the extent to which
+            it is questionable, disruptive or problematic
+            account.](https://twitter.com/docrussjackson/status/1323246492304506880)
+          </li>
+        </ul>
+        <ul id="4966d020-4436-49fc-952d-713347120dd7" class="bulleted-list">
+          <li>https://sneak.berlin/20201031/goodbye-twitter</li>
+        </ul>
+        <ul id="be35ed13-d74a-4cd8-a08e-8c30d9b4eccc" class="bulleted-list">
+          <li>https://axbom.com/clubhouse-overview</li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

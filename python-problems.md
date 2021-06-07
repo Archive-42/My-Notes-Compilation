@@ -166,11 +166,11 @@ def find_top_ip_address(lines):
     """ Given an Apache log file, return IP address(es) which accesses the site most often.
     Our log is in this format (Common Log Format). One entry per line and it starts with an IP address which accessed the site,
     followed by a whitespace.
-  
+
     10.0.0.1 - frank [10/Dec/2000:12:34:56 -0500] &quot;GET /a.gif HTTP/1.0&quot; 200 234
 
     Log file entries are passed as a list.
-     
+
     NOTE: In case of tie, this returns a comma-separated list of IP addresses. Tie is not mentioned explicitly in the exercise
     on purpose.
 &quot;&quot;&quot;
@@ -207,7 +207,7 @@ result = find_top_ip_address(lines)
 if result != &quot;10.0.0.1,10.0.0.2&quot;:
     tests_passed = False
 
-if tests_passed:    
+if tests_passed:
     print(&quot;test passed&quot;)
 else:
     print(&quot;test failed&quot;)
@@ -218,7 +218,7 @@ if name == "main":
 do_tests_pass()
 ```
 
-## 
+##
 
 **Bishop Moves**
 
@@ -281,7 +281,7 @@ else:
 print("There are test failures")
 ```
 
-## 
+##
 
 **Count Length of Cycle**
 
@@ -328,10 +328,10 @@ test_cases = [
     # [[1, 2, 4], 0, -1]
 ]
 tests_passed = True
- 
+
 for test_case in test_cases:
     tests_passed &amp;= count_length_of_cycle(test_case[0], test_case[1]) == test_case[2]
- 
+
 if tests_passed:
     print(&quot;Test passed.&quot;)
     return True
@@ -344,7 +344,7 @@ if name == "main":
 do_tests_pass()
 ```
 
-## 
+##
 
 **Deque**
 
@@ -374,7 +374,7 @@ def addFirst(self, data):
         self.first.next = oldFirst
         oldFirst.prev = self.first
     self.size += 1
-         
+
 def addLast(self, data):
     oldLast = self.last
     self.last = Node(data)
@@ -383,9 +383,9 @@ def addLast(self, data):
     else:
         self.last.prev = oldLast
         self.last.next = None
-        oldLast.next = self.last                         
+        oldLast.next = self.last
     self.size += 1
-     
+
 def removeFirst(self):
     oldFirst = self.first
     if oldFirst == None:
@@ -396,10 +396,10 @@ def removeFirst(self):
             self.last = self.first
         else:
             self.first.prev = None
-         
+
     self.size -= 1
     return oldFirst.data
-  
+
 def removeLast(self):
     oldLast = self.last
     if oldLast == None:
@@ -410,22 +410,22 @@ def removeLast(self):
             self.first = self.last
         else:
             self.last.next = None
-             
+
     self.size -= 1
     return oldLast.data
- 
+
 def peekFirst(self):
     if self.first == None:
         return None
     else:
         return self.first.data
- 
+
 def peekLast(self):
     if self.last == None:
         return None
     else:
         return self.last.data
-     
+
 def getSize(self):
     return self.size
 
@@ -434,9 +434,9 @@ if not condition:
 raise Exception(message)
 def doTestsPass():
 #TODO: implement more tests
- 
+
 deque=Deque()
- 
+
 # enqueue
 deque.addLast(&quot;a&quot;)
 deque.addLast(&quot;b&quot;)
@@ -482,7 +482,7 @@ print("Test failed")
 traceback.print_exc()
 ```
 
-## 
+##
 
 **Dot Product**
 
@@ -497,16 +497,16 @@ def dotProduct( array1, array2 ):
     sum = 0
 if( array1 == None or array2 == None ) :
     print( &quot;Null array is not a valid input.&quot; )
-    return sum   
-        
+    return sum
+
 if( len( array1 ) == 0 or len( array2 ) == 0 ) :
     print( &quot;Empty array is not a valid input.&quot; )
     return sum
-     
+
 if( len( array1 ) != len( array2 ) ) :
     print( &quot;Input arrays should be of equal length.&quot; )
     return sum
-     
+
 for i in range( len( array1 ) ) :
     sum += array1[ i ] * array2[ i ]
 return sum
@@ -519,43 +519,43 @@ testPassed  = True
 array1      = [ 2, 3, 4, 1]
 array2      = [ 1, 3, 4, 5]
 
- 
+
 print( &quot;Running Test #1.&quot; )
 result = dotProduct( array1, array2 )
 if( result != 32 ):
     print( &quot;Test #1 failed&quot; )
     testPassed = False
- 
+
 print( &quot;Running Test #2.&quot; )
 array2 = [ 1, 3, 4, 5, 6, 7 ]
 result = dotProduct( array1, array2 )
 if( result != 0 ):
     print( &quot;Test #2 failed.&quot; )
     testPassed = False
-     
+
 print( &quot;Running Test #3.&quot; )
 array2 = []
 result = dotProduct( array1, array2 )
 if ( result != 0 ):
     print( &quot;Test #3 failed.&quot; )
     testPassed = False
-     
+
 print( &quot;Running Test #4.&quot; )
 array2 = None
 result = dotProduct( array1, array2 )
 if ( result != 0 ):
     print( &quot;Test #4 failed.&quot; )
-    testPassed = False  
-     
+    testPassed = False
+
 print( &quot;Running Test #5.&quot; )
 array2 = [ -1, 0, 2, -1 ]
 result = dotProduct( array1, array2 )
 if( result != 5 ):
     print( &quot;Test #5 failed.&quot; )
-    testPassed = False       
-     
+    testPassed = False
+
 print( &quot;All tests pass.&quot; ) if( testPassed ) else print( &quot;There are test failures.&quot; )
-     
+
 return testPassed
 
 if name == "main":
@@ -563,7 +563,7 @@ if name == "main":
 doTestsPass()
 ```
 
-## 
+##
 
 **Election**
 
@@ -584,7 +584,7 @@ def whoIsElected(n, k):
 
     For example, suppose the song length is two (k=2). And there are four students to start with (1,2,3,4). The first
     student to go would be `2`, after that `4`, and after that `3`. Student `1` would be the next president in this example.
-  
+
     @param n:   the number of students sitting in a circle.
     @param k:   the length (in students) of each song.
     @return:    the number of the student that is elected.
@@ -630,7 +630,7 @@ if name == "main":
 doTestsPass()
 ```
 
-## 
+##
 
 **First Non-Repeating**
 
@@ -679,7 +679,7 @@ else:
 
 ```
 
-## 
+##
 
 **Group Anagrams**
 
@@ -730,7 +730,7 @@ if name == "main":
 doTestsPass()
 ```
 
-## 
+##
 
 **Power of 10**
 
@@ -781,7 +781,7 @@ if name == "main":
 doTestsPass()
 ```
 
-## 
+##
 
 **Longest Uniform String**
 
@@ -845,7 +845,7 @@ else:
 print("At least one failure!")
 ```
 
-## 
+##
 
 **Magic Potion**
 
@@ -873,15 +873,15 @@ def minimal_steps( ingredients ):
 n = len( ingredients )
 if n == 0:
 return 0
-dp = [ sys.maxsize ] * n   
+dp = [ sys.maxsize ] * n
 dp[0] = 1
 for i in range(1, n):
     dp[ i ] = min(dp[ i ], dp[ i - 1 ] + 1)
-     
+
     # If the string can be replicated, we need to update at (2*i + 1)
     if ingredients[ 0: i + 1 ] == ingredients[ i + 1: 2*i + 2 ]:
         dp[ 2*i + 1 ] = dp[ i ] + 1
-         
+
 return dp[ n - 1 ]
 
 """
@@ -889,8 +889,8 @@ Returns true if all tests pass. Otherwise returns false.
 TODO: implement some tests. We've included a trivial boilerplate
 """
 def do_tests_pass():
-return minimal_steps( "ABCDABCE" ) == 8 and minimal_steps( "ABCABCE" ) == 5 and 
-minimal_steps("AAAAAA") == 4 and minimal_steps("AAAABBBB") == 7 and 
+return minimal_steps( "ABCDABCE" ) == 8 and minimal_steps( "ABCABCE" ) == 5 and
+minimal_steps("AAAAAA") == 4 and minimal_steps("AAAABBBB") == 7 and
 minimal_steps("ABABCABABCD") == 6
 if name == "main":
 result = do_tests_pass()
@@ -901,7 +901,7 @@ else:
 
 ```
 
-## 
+##
 
 **Pangram Detector**
 
@@ -949,7 +949,7 @@ else:
 print("At least one test failed.")
 ```
 
-## 
+##
 
 **Pascal Triangle**
 
@@ -960,23 +960,23 @@ print("At least one test failed.")
 ```python
 /*
 **  The below pattern of numbers are called Pascals Triangle.
-** 
+**
 **  Pascals Triangle exhibits the following behaviour:
-** 
+**
 **  The first and last numbers of each row in the triangle are 1
 **  Each number in the triangle is the sum of the two numbers above it.
-** 
+**
 **  Example:
 **    1
 **    1 1
 **    1 2 1
 **    1 3 3 1
-** 
+**
 **  Please Complete the 'pascal' function below so that given a
 **  col and a row it will return the value in that positon.
-** 
+**
 **  Example, pascal(1,2) should return 2
-** 
+**
 */
 """
 pascalDictionary = {}
@@ -993,14 +993,14 @@ def doTestsPass():
 """ Returns 1 if all tests pass. Otherwise returns 0. """
 doPass = True
 pascalColRowValues = {(0,0):1, (1,2): 2, (5,6): 6, (6,6):1, (4,8): 70, (6,6):1}
-for key, val in pascalColRowValues.items():  
+for key, val in pascalColRowValues.items():
     if pascal(key[0],key[1]) != val:
         doPass = False
         print(&quot;Failed for %s and %s \n&quot;, key, val)
-                
+
 if doPass:
     print(&quot;All tests pass\n&quot;)
-     
+
 return doPass
 
 if name == "main":
@@ -1008,7 +1008,7 @@ if name == "main":
 doTestsPass()
 ```
 
-## 
+##
 
 **Power**
 
@@ -1053,7 +1053,7 @@ else:
 print("There are test failures")
 ```
 
-## 
+##
 
 **Prime Factorization**
 
@@ -1106,7 +1106,7 @@ else:
 print ("Not all tests pass")
 ```
 
-## 
+##
 
 **Reverse String**
 
@@ -1158,7 +1158,7 @@ else:
 
 ```
 
-## 
+##
 
 **Reverse String Bug**
 
@@ -1210,7 +1210,7 @@ else:
 
 ```
 
-## 
+##
 
 **Run Length Encoding**
 
@@ -1259,7 +1259,7 @@ if name == "main":
 doTestsPass()
 ```
 
-## 
+##
 
 **Search Tree**
 
@@ -1371,7 +1371,7 @@ if name == 'main':
 unittest.main()
 ```
 
-## 
+##
 
 **Second Smallest**
 
@@ -1381,7 +1381,7 @@ unittest.main()
 
 ```python
 def secondSmallest(x):
-        """ Returns second smallest integer in the array x. Returns nothing if array has less than 2 elements. """     
+        """ Returns second smallest integer in the array x. Returns nothing if array has less than 2 elements. """
         # First check if array is large enough
         if len( x ) < 2:
             return
@@ -1393,7 +1393,7 @@ def secondSmallest(x):
             Smallest = i
         elif i &lt; SecSmallest:
             SecSmallest = i
-             
+
     return SecSmallest
 
 def doTestsPass():
@@ -1403,7 +1403,7 @@ testAnswers   = [ None, None, 1, -1, 1 ]
     for i in range( len( testArrays ) ):
         if not ( secondSmallest( testArrays[i] ) == testAnswers[i] ):
             return False
-     
+
     return True
 
 if name == "main":
@@ -1417,7 +1417,7 @@ else:
 print( "Not all tests pass" )
 ```
 
-## 
+##
 
 **Smallest in Rotated Array**
 
@@ -1485,7 +1485,7 @@ else:
 
 ```
 
-## 
+##
 
 **Square Root**
 
@@ -1533,7 +1533,7 @@ if name == "main":
 doTestsPass()
 ```
 
-## 
+##
 
 **Unique Tuples**
 
@@ -1548,20 +1548,20 @@ def uniqueTuples( input, size ):
 if( input == None or len( input ) == 0 ):
     print( &quot;Input string cannot be null or of zero length.&quot; )
     return None
- 
+
 if( size &lt;= 0 ):
     print( &quot;Length of tuples must be greater than zero. &quot;)
     return None
- 
+
 inputLength = len(input)
 if( size &gt; inputLength ):
     print( &quot;Length of the tuple cannot be more than the length of the source string.&quot; )
     return None
-     
-result = set()   
+
+result = set()
 for i in range( inputLength - size + 1 ):
     result.add( input[ i : i + size ] )
-     
+
 return result
 
 """ Returns 1 if all tests pass. Otherwise returns 0. """
@@ -1571,31 +1571,31 @@ def doTestsPass():
 testPassed  = True
 result      = set()
 
- 
+
 print( &quot;Running Test #1.&quot; )
 result = uniqueTuples( &quot;&quot;, 2 )
 if( result != None ):
     print( &quot;Test #1 failed&quot; )
     testPassed = False
- 
+
 print( &quot;Running Test #2.&quot; )
 result = uniqueTuples( None, 2 )
 if( result != None ):
     print( &quot;Test #2 failed.&quot; )
     testPassed = False
-     
+
 print( &quot;Running Test #3.&quot; )
 result = uniqueTuples( &quot;Anything&quot;, 0 )
 if( result != None ):
     print( &quot;Test #3 failed.&quot; )
     testPassed = False
-     
+
 print( &quot;Running Test #4.&quot; )
 result = uniqueTuples( &quot;1234&quot;, 5)
 if( result != None ):
     print( &quot;Test #4 failed.&quot; )
-    testPassed = False 
-           
+    testPassed = False
+
 print( &quot;Running Test #5.&quot; )
 result     = uniqueTuples( &quot;abbccde&quot;, 2 )
 goodResult = set()
@@ -1612,9 +1612,9 @@ if( result == None  or
     print( &quot;Test #5 failed.&quot; )
     testPassed = False
 
-     
+
 print( &quot;All tests pass.&quot; ) if( testPassed ) else print( &quot;There are test failures.&quot; )
-     
+
 return testPassed
 
 if name == "main":
@@ -1622,7 +1622,7 @@ if name == "main":
 doTestsPass()
 ```
 
-## 
+##
 
 **Walking Robot**
 
@@ -1646,10 +1646,10 @@ directions = { &quot;U&quot; : [ 0, 1],
                &quot;L&quot; : [-1, 0],
                &quot;R&quot; : [ 1, 0]
              }
- 
+
 for char in path:
     ret = [ a + b for a, b in zip( ret, directions.get( char, [0,0] ) ) ]
- 
+
 return( ret )
 
 def do_tests_pass():
@@ -1663,10 +1663,10 @@ test_cases = [
     [ &quot;ULLLDUDUURLRLR&quot;, [-2,2] ],
     [ &quot;UP LEFT 2xDOWN DOWN RIGHT RIGHT UP UP&quot;, [1,1] ],
 ]
- 
+
 result = True
 for test in test_cases:
-    result = result and ( walk( test[0] ) == test[1] )       
+    result = result and ( walk( test[0] ) == test[1] )
 
 if result:
     print(&quot;Test passed.&quot;)
@@ -1679,8 +1679,6 @@ if name == "main":
 
 do_tests_pass()
 ```
-
-
 
 ```python
 <========================================()===========================================>
@@ -1807,9 +1805,7 @@ else:
     print(&quot;Tests fail\n&quot;);</code></pre></td>
 ```
 
-
-
-## 
+##
 
 **Decimal Conversion**
 
@@ -1868,9 +1864,7 @@ if name == "main":
 doTestsPass()
 ```
 
-
-
-## 
+##
 
 **Distance between strings**
 
@@ -1964,9 +1958,7 @@ if name == "main":
 doTestsPass()
 ```
 
-
-
-## 
+##
 
 **Largest Tree**
 
@@ -1991,7 +1983,7 @@ doTestsPass()
 **  Example:
 **
 **  Input:
-**  { { 1 -> 2 }, { 3 -> 4} }  
+**  { { 1 -> 2 }, { 3 -> 4} }
 **
 **  Expected output: 2
 **  Explanation: There are two trees one having root of Id 2 and another having root of Id 4.
@@ -2049,15 +2041,15 @@ testCases = [
       800000000:400000000,
       1000000000:400000000}),
      300000000),
-      
+
    # two trees of same size
    ( dict( {
-     9:4, 1:4, 5:2, 8:4, 7:3, 2:3, 6:7, 10:4 
-   } ), 3 ), 
- 
+     9:4, 1:4, 5:2, 8:4, 7:3, 2:3, 6:7, 10:4
+   } ), 3 ),
+
    # tree sizes differ by one
    ( dict( {
-     35:33, 33:28, 31:22, 28:25, 34:31, 29:27, 21:23, 25:21, 22:29 
+     35:33, 33:28, 31:22, 28:25, 34:31, 29:27, 21:23, 25:21, 22:29
    } ), 23 ),
 ]
 
@@ -2079,9 +2071,7 @@ else:
 
 ```
 
-
-
-## 
+##
 
 **Longest Word**
 
@@ -2161,9 +2151,7 @@ if name == "main":
 doTestsPass()
 ```
 
-
-
-## 
+##
 
 **Optimal Path**
 
@@ -2249,9 +2237,7 @@ else:
 print("Not all tests pass")
 ```
 
-
-
-## 
+##
 
 **Snow Pack**
 
@@ -2295,7 +2281,7 @@ for i in range(len(arr)):
     if arr[i] &gt; left_max:
         left_max = arr[i]
     left_highest[i] = left_max
- 
+
 right_max = 0
 for i in reversed(range(len(arr))):
     if arr[i] &gt; right_max:
@@ -2329,9 +2315,7 @@ else:
 print( "Not all tests pass" )
 ```
 
-
-
-## 
+##
 
 **Subarray exceeding sum**
 
@@ -2354,7 +2338,7 @@ if target &lt;= 0:
     return 0
 if len(arr) &lt; 1:
     return -1
- 
+
 currsum = arr[ 0 ]
 while True:
     if currsum &gt;= target:
@@ -2380,7 +2364,7 @@ testAnswers   = [2, -1, 4, 1, -1, 0]
 for i in range( len( testArrays ) ):
     if not ( subArrayExceedsSum( testArrays[i][ 0 ], testArrays[i][ 1 ] ) == testAnswers[i] ):
         return False
- 
+
 return True
 
 if name == "main":
@@ -2394,9 +2378,7 @@ else:
 print( "Not all tests pass" )
 ```
 
-
-
-## 
+##
 
 **Train Map**
 
@@ -2405,7 +2387,7 @@ print( "Not all tests pass" )
 ```python
 /**
  *      Visual representation of the Train map used
- * 
+ *
  *      King's Cross St Pancras --- Angel ---- Old Street
  *      |                   \                            |
  *      |                    \                            |
@@ -2556,9 +2538,7 @@ else:
 print("Some tests fail")
 ```
 
-
-
-## 
+##
 
 \*\*\*\*
 
@@ -2682,9 +2662,7 @@ if name == "main":
 doTestsPass()
 ```
 
-
-
-## 
+##
 
 **KnightProbability**
 
@@ -2702,7 +2680,7 @@ Given an empty chessboard (8x8 grid), a knight is placed
 * X * * * X * *
 * * X * X * * *
 * * * * * * * *
-* * * * * * * *           
+* * * * * * * *
 
 Depending on the knight's position on the board, 0-6 of
 the 8 possible movements may cause the knight to leave
@@ -2768,9 +2746,7 @@ else:
 print("Tests fail")
 ```
 
-
-
-## 
+##
 
 **Lowest Price**
 
@@ -2811,7 +2787,7 @@ def init( self ):
 self._root = None
 self._sorted_intervals = []
 # Actual function to insert node into the tree
-def _insert( self, node, interval ):   
+def _insert( self, node, interval ):
     # Excess to the left - trim and push
     if interval.start_time &lt; node.data.start_time:
         new_interval = Interval( interval.start_time,
@@ -2831,25 +2807,25 @@ def _insert( self, node, interval ):
             self._insert( node.right, new_interval )
         else:
             node.right = Node( new_interval )
-     
+
 # Actual recursive function to do inorder traversal
 def _inorder( self, node ):
     if not node:
         return()
-     
+
     if node.left:
-        self._inorder( node.left )           
-    self._sorted_intervals.append( node.data )       
+        self._inorder( node.left )
+    self._sorted_intervals.append( node.data )
     if node.right:
-        self._inorder( node.right )   
-               
+        self._inorder( node.right )
+
 # Public function to insert node into the tree
 def add_to_node( self, interval ):
     if not self._root:
         self._root = Node( interval )
     else:
         self._insert( self._root, interval )
-         
+
 # Public function to return all non-overlapping intervals (sorted on start )
 def start_inorder( self ):
     self._sorted_intervals = []
@@ -2866,12 +2842,12 @@ for each_interval in input_intervals:
         raise Exception( &quot;start_time greater than or equal to end_time for an interval&quot; )
     if each_interval.start_time &lt; 0 or each_interval.end_time &lt; 0 or each_interval.price &lt; 0:
         raise Exception( &quot;vendor information has negative values&quot; )
-         
+
 input_intervals = sorted( input_intervals, key = lambda x: x.price )
 bst = BinarySearchTree()
 for each_interval in input_intervals:
     bst.add_to_node( each_interval )
-     
+
 return( bst.start_inorder() )
 
 """
@@ -2889,7 +2865,7 @@ def do_tests_pass():
 input_intervals = [ Interval( 1, 5, 20 ), Interval( 3, 8, 15 ), Interval( 7, 10, 8 ) ]
 expected_output = [ Interval( 1, 3, 20 ), Interval( 3, 7, 15 ), Interval( 7, 10, 8 ) ]
 output_intervals = get_lowest_prices( input_intervals )
- 
+
 if output_intervals == expected_output:
     print( &quot;All tests passed&quot; )
 else:
@@ -2900,9 +2876,7 @@ if name == "main":
 do_tests_pass()
 ```
 
-
-
-## 
+##
 
 **Prefix Search**
 
@@ -3011,9 +2985,7 @@ if name == "main":
 do_tests_pass()
 ```
 
-
-
-## 
+##
 
 **Sort Segments**
 
@@ -3152,11 +3124,6 @@ def test_duplicate(self):
 unittest.main(exit=False)
 ```
 
-
-
 ## **END**
 
 ≡
-
-
-

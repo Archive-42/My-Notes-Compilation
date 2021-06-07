@@ -12,9 +12,9 @@ They found Mary, as usual, deep in the study of thorough-bass and human nature; 
 
 ---
 
-- [ ]  Wake up
-- [ ]  Eat breakfast
-- [x]  Brush teeth
+- [ ] Wake up
+- [ ] Eat breakfast
+- [x] Brush teeth
 
 # Create sub-pages
 

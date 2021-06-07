@@ -115,15 +115,15 @@ For example, to create a build environment for a staging environment:
 2. Set environment variables as you would any other `.env` file (e.g. `REACT_APP_API_URL=http://api-staging.example.com`)
 3. Install [env-cmd](https://www.npmjs.com/package/env-cmd)
 
-    ```
-    $ npm install env-cmd --save$ # or$ yarn add env-cmd
-    ```
+   ```
+   $ npm install env-cmd --save$ # or$ yarn add env-cmd
+   ```
 
 4. Add a new script to your `package.json`, building with your new environment:
 
-    ```
-    {  "scripts": {    "build:staging": "env-cmd -f .env.staging npm run build"  }}
-    ```
+   ```
+   {  "scripts": {    "build:staging": "env-cmd -f .env.staging npm run build"  }}
+   ```
 
 Now you can run `npm run build:staging` to build with the staging environment config. You can specify other environments in the same way.
 
@@ -136,7 +136,7 @@ The AWS Amplify Console provides continuous deployment and hosting for modern we
 1. Login to the Amplify Console [here](https://console.aws.amazon.com/amplify/home).
 2. Connect your Create React App repo and pick a branch. If you’re looking for a Create React App+Amplify starter, try the [create-react-app-auth-amplify starter](https://github.com/swaminator/create-react-app-auth-amplify) that demonstrates setting up auth in 10 minutes with Create React App.
 3. The Amplify Console automatically detects the build settings. Choose Next.
-4. Choose *Save and deploy*.
+4. Choose _Save and deploy_.
 
 If the build succeeds, the app is deployed and hosted on a global CDN with an amplifyapp.com domain. You can now continuously deploy changes to your frontend or backend. Continuous deployment allows developers to deploy updates to their frontend and backend on every code commit to their Git repository.
 

@@ -67,8 +67,8 @@ There are a few interesting bits in the response headers. As expected, the `Cont
 
 Any headers beginning with `X-` are custom headers, and are not included in the HTTP spec. For example:
 
-* `X-GitHub-Media-Type` has a value of `github.v3`. This lets us know the [media type](https://docs.github.com/en/rest/overview/media-types) for the response. Media types have helped us version our output in API v3. We'll talk more about that later.
-* Take note of the `X-RateLimit-Limit` and `X-RateLimit-Remaining` headers. This pair of headers indicate [how many requests a client can make](https://docs.github.com/en/rest#rate-limiting) in a rolling time period \(typically an hour\) and how many of those requests the client has already spent.
+- `X-GitHub-Media-Type` has a value of `github.v3`. This lets us know the [media type](https://docs.github.com/en/rest/overview/media-types) for the response. Media types have helped us version our output in API v3. We'll talk more about that later.
+- Take note of the `X-RateLimit-Limit` and `X-RateLimit-Remaining` headers. This pair of headers indicate [how many requests a client can make](https://docs.github.com/en/rest#rate-limiting) in a rolling time period \(typically an hour\) and how many of those requests the client has already spent.
 
 #### [Authentication](https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api#authentication) <a id="authentication"></a>
 
@@ -125,12 +125,12 @@ Apps that need to read or write private information using the API on behalf of a
 
 OAuth uses _tokens_. Tokens provide two big features:
 
-* **Revokable access**: users can revoke authorization to third party apps at any time
-* **Limited access**: users can review the specific access that a token will provide before authorizing a third party app
+- **Revokable access**: users can revoke authorization to third party apps at any time
+- **Limited access**: users can review the specific access that a token will provide before authorizing a third party app
 
 Tokens should be created via a [web flow](https://docs.github.com/en/apps/building-oauth-apps/authorizing-oauth-apps). An application sends users to GitHub to log in. GitHub then presents a dialog indicating the name of the app, as well as the level of access the app has once it's authorized by the user. After a user authorizes access, GitHub redirects the user back to the application:
 
-![GitHub&apos;s OAuth Prompt](https://docs.github.com/assets/images/oauth_prompt.png)
+![GitHub's OAuth Prompt](https://docs.github.com/assets/images/oauth_prompt.png)
 
 **Treat OAuth tokens like passwords!** Don't share them with other users or store them in insecure places. The tokens in these examples are fake and the names have been changed to protect the innocent.
 
@@ -165,8 +165,8 @@ $ curl -i https://api.github.com/orgs/octo-org/repos
 
 The information returned from these calls will depend on which scopes our token has when we authenticate:
 
-* A token with `public_repo` [scope](https://docs.github.com/en/apps/building-oauth-apps/understanding-scopes-for-oauth-apps) returns a response that includes all public repositories we have access to see on github.com.
-* A token with `repo` [scope](https://docs.github.com/en/apps/building-oauth-apps/understanding-scopes-for-oauth-apps) returns a response that includes all public and private repositories we have access to see on GitHub.
+- A token with `public_repo` [scope](https://docs.github.com/en/apps/building-oauth-apps/understanding-scopes-for-oauth-apps) returns a response that includes all public repositories we have access to see on github.com.
+- A token with `repo` [scope](https://docs.github.com/en/apps/building-oauth-apps/understanding-scopes-for-oauth-apps) returns a response that includes all public and private repositories we have access to see on GitHub.
 
 As the [docs](https://docs.github.com/en/rest/reference/repos) indicate, these methods take a `type` parameter that can filter the repositories returned based on what type of access the user has for the repository. In this way, we can fetch only directly-owned repositories, organization repositories, or repositories the user collaborates on via a team.
 
@@ -328,4 +328,3 @@ $    https://api.github.com/users/defunkt
 ```
 
 The `304` status indicates that the resource hasn't changed since the last time we asked for it and the response will contain no body. As a bonus, `304` responses don't count against your [rate limit](https://docs.github.com/en/rest#rate-limiting).
-

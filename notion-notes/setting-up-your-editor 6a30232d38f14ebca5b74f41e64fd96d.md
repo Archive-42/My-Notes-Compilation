@@ -29,7 +29,7 @@ You can extend our base ESLint config, or replace it completely if you need.
 There are a few things to remember:
 
 1. We highly recommend extending the base config, as removing it could introduce hard-to-find issues.
-2. When working with TypeScript, you’ll need to provide an `overrides` object for rules that should *only* target TypeScript files.
+2. When working with TypeScript, you’ll need to provide an `overrides` object for rules that should _only_ target TypeScript files.
 3. It’s important to note that any rules that are set to `"error"` will stop the project from building.
 
 In the below example:

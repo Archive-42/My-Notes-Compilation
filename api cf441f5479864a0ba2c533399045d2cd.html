@@ -1,627 +1,1202 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>api</title><style>
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	text-indent: -1.7em;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.highlight-default {
-}
-.highlight-gray {
-	color: rgb(155,154,151);
-}
-.highlight-brown {
-	color: rgb(100,71,58);
-}
-.highlight-orange {
-	color: rgb(217,115,13);
-}
-.highlight-yellow {
-	color: rgb(223,171,1);
-}
-.highlight-teal {
-	color: rgb(15,123,108);
-}
-.highlight-blue {
-	color: rgb(11,110,153);
-}
-.highlight-purple {
-	color: rgb(105,64,165);
-}
-.highlight-pink {
-	color: rgb(173,26,114);
-}
-.highlight-red {
-	color: rgb(224,62,62);
-}
-.highlight-gray_background {
-	background: rgb(235,236,237);
-}
-.highlight-brown_background {
-	background: rgb(233,229,227);
-}
-.highlight-orange_background {
-	background: rgb(250,235,221);
-}
-.highlight-yellow_background {
-	background: rgb(251,243,219);
-}
-.highlight-teal_background {
-	background: rgb(221,237,234);
-}
-.highlight-blue_background {
-	background: rgb(221,235,241);
-}
-.highlight-purple_background {
-	background: rgb(234,228,242);
-}
-.highlight-pink_background {
-	background: rgb(244,223,235);
-}
-.highlight-red_background {
-	background: rgb(251,228,228);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(55, 53, 47, 0.6);
-	fill: rgba(55, 53, 47, 0.6);
-}
-.block-color-brown {
-	color: rgb(100,71,58);
-	fill: rgb(100,71,58);
-}
-.block-color-orange {
-	color: rgb(217,115,13);
-	fill: rgb(217,115,13);
-}
-.block-color-yellow {
-	color: rgb(223,171,1);
-	fill: rgb(223,171,1);
-}
-.block-color-teal {
-	color: rgb(15,123,108);
-	fill: rgb(15,123,108);
-}
-.block-color-blue {
-	color: rgb(11,110,153);
-	fill: rgb(11,110,153);
-}
-.block-color-purple {
-	color: rgb(105,64,165);
-	fill: rgb(105,64,165);
-}
-.block-color-pink {
-	color: rgb(173,26,114);
-	fill: rgb(173,26,114);
-}
-.block-color-red {
-	color: rgb(224,62,62);
-	fill: rgb(224,62,62);
-}
-.block-color-gray_background {
-	background: rgb(235,236,237);
-}
-.block-color-brown_background {
-	background: rgb(233,229,227);
-}
-.block-color-orange_background {
-	background: rgb(250,235,221);
-}
-.block-color-yellow_background {
-	background: rgb(251,243,219);
-}
-.block-color-teal_background {
-	background: rgb(221,237,234);
-}
-.block-color-blue_background {
-	background: rgb(221,235,241);
-}
-.block-color-purple_background {
-	background: rgb(234,228,242);
-}
-.block-color-pink_background {
-	background: rgb(244,223,235);
-}
-.block-color-red_background {
-	background: rgb(251,228,228);
-}
-.select-value-color-default { background-color: rgba(206,205,202,0.5); }
-.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
-.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
-.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
-.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
-.select-value-color-green { background-color: rgba(0,135,107,0.2); }
-.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
-.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
-.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
-.select-value-color-red { background-color: rgba(255,0,26,0.2); }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="cf441f54-7986-4a0b-a2c5-33399045d2cd" class="page sans"><header><h1 class="page-title">api</h1></header><div class="page-body"><h3 id="d940ad00-786c-4ea8-98cc-909d7b119970" class="">Social platforms</h3><ul id="763e35e9-762c-4b9c-8578-abd02f0a3ae6" class="bulleted-list"><li>https://github.com/JMPerez/linkedin-to-json-resume + <a href="https://twitter.com/kentcdodds/status/1251865245133365250">So I have 1,825 LinkedIn connection requests… and no way to batch approve or deny them…</a></li></ul><ul id="9dce22e5-6b25-4c6d-bdeb-b4cb49749e53" class="bulleted-list"><li>https://github.com/jamiebuilds/havetheybeenpwned</li></ul><ul id="78a4b2d8-96bb-45c6-88fa-71e386309e49" class="bulleted-list"><li><a href="https://github.com/socialpoint-labs/sheetfu">Python library to interact with Google Sheets V4 API</a></li></ul><ul id="3019a577-dd52-4d01-bbba-b1420e59f211" class="bulleted-list"><li><a href="https://github.com/simon-weber/gmusicapi">An unofficial client library for Google Music.</a></li></ul><ul id="dc3b3740-2b47-42f5-ba16-fc6bd393e3fb" class="bulleted-list"><li>https://thisisnotlinkedin.com</li></ul><ul id="0dd1d965-6d8c-4ebe-b317-1cd01cf2b994" class="bulleted-list"><li><a href="https://github.com/wesbos/twitter-unfollower">A twitter unfollower for stale accounts.</a></li></ul><ul id="b83bbf3a-e755-4ad3-b811-e5dadc569abc" class="bulleted-list"><li>https://github.com/mathdroid/twitter-dev-salaries-scraper</li></ul><ul id="66721c1e-3de8-4ec0-9a32-e3e7dd0046ee" class="bulleted-list"><li>https://github.com/vintagesucks/instagram-export</li></ul><ul id="03110cd6-8112-4304-afbf-a88549b5fc4a" class="bulleted-list"><li><a href="https://github.com/terence410/ts-google-drive">Google Drive API Library</a></li></ul><ul id="d23680f1-d3da-4bc9-90ea-1874623b7511" class="bulleted-list"><li><a href="https://twitter.com/mtliendo/status/1234911134932709376">github(dot)com/USERNAME.png</a></li></ul><ul id="bfda0d2c-7b6b-421c-a6f2-e1f722082425" class="bulleted-list"><li><a href="https://github.com/benjojo/Gmail_GeoIPTagger">An app script that will filter your email from where in the world it was sent from</a></li></ul><ul id="e1ad0f07-c090-4b0d-85fd-4096be93cda7" class="bulleted-list"><li>https://blog.filippo.io/gmail-bot-with-apps-script-and-typescript</li></ul><ul id="512c09cb-587d-4051-a5f3-7bd1c7bb3675" class="bulleted-list"><li><a href="https://github.com/bisguzar/twitter-scraper">Scrape the Twitter Frontend API without authentication.</a></li></ul><ul id="8b17c043-cc30-4340-9198-cce4dfc3c138" class="bulleted-list"><li><a href="https://github.com/abhishekkr/gmail-helper">GMail tasks over OAuth2 API using Google’s API Client</a></li></ul><ul id="fc8efb53-b00c-45c3-8cc5-dbaee2ee298c" class="bulleted-list"><li><a href="https://github.com/gedrick/SpotifyKaraoke">Instant lyrics for your current Spotify track!</a></li></ul><ul id="590bf8b5-78be-4cec-9874-d8fa86e1dcbe" class="bulleted-list"><li><a href="https://github.com/t-tran/slack-chat-backup">Backup your Slack chat messages (direct messages, group messages, joined channels) to your local computer without any extra permissions or apps.</a></li></ul><ul id="23cb9ef9-bfb2-4d92-8ae8-d53b2ea09bf1" class="bulleted-list"><li><a href="https://github.com/liyasthomas/books">Find books from Google Play Books</a></li></ul><ul id="d062ec6f-3e80-4391-a0e0-3fc89c7164c5" class="bulleted-list"><li><a href="https://github.com/stefansundin/rssbox">This app uses the API of other websites and gives you an RSS feed in return.</a></li></ul><ul id="fdcec209-cd95-4ce8-8be2-3f0ea974aaa6" class="bulleted-list"><li>https://github.com/adyz/youtube-parse-history</li></ul><ul id="98302c9f-4852-4b81-82a0-d60af4c18c8b" class="bulleted-list"><li><a href="https://github.com/NoMore201/googleplay-api">Google Play Unofficial Python API</a></li></ul><ul id="eaaeca3e-c751-4423-a87c-f3cff894484e" class="bulleted-list"><li>https://github.com/weskerfoot/DeleteFB</li></ul><ul id="4e2debcd-de6d-4a3b-b310-073392a595de" class="bulleted-list"><li><a href="https://github.com/raineorshine/simplifiedavailability">Generates a simple text list of your availability from your Google Calendar</a></li></ul><ul id="58a5e4a0-0f29-418e-a157-9072f0fc797b" class="bulleted-list"><li><a href="https://github.com/drawrowfly/amazon-product-api">Amazon Scraper. Scrape products from the amazon search result or reviews from the specific product</a></li></ul><ul id="8e10fa73-59b3-42c3-94a4-a50c84071ecb" class="bulleted-list"><li><a href="https://github.com/TomFrink/StoicPage">Collection of Stoic Wisdom</a></li></ul><ul id="cad95997-f62e-47da-b21d-8754b75b1ea4" class="bulleted-list"><li><a href="https://github.com/headllines/hackernews-daily">Hacker News daily top 10 posts</a></li></ul><h3 id="fec58a2c-5923-4a9d-aba0-cbda9312d606" class="">GraphQL</h3><ul id="d272e08e-a7ef-4c7a-be8b-01b1aa6623f3" class="bulleted-list"><li>https://www.musumeche.com/fishing + https://github.com/stevenmusumeche/salty-solutions</li></ul><ul id="421fa91c-a7ba-423c-b735-4f2f5893f74d" class="bulleted-list"><li>https://tldrsec.com/blog/appsec-cali-2019/#an-attackers-view-of-serverless-and-graphql-apps</li></ul><ul id="dc22a9fa-5a02-41c7-863e-4a778cbf7f7d" class="bulleted-list"><li><a href="https://youtu.be/mj850EuHQHs">GraphQL: The future of API’s is here</a> + http://files.lifely.nl/graphql-the-future-of-apis-is-here.pdf</li></ul><ul id="84956211-2119-4354-b7a4-dcf997769101" class="bulleted-list"><li>https://twitter.com/sarah_edo/status/1220381789165719553</li></ul><ul id="2b57fbcb-4655-46bf-9f9b-e7584358958c" class="bulleted-list"><li>https://twitter.com/HivarekarPranav/status/1231979599401078784</li></ul><ul id="18a0c714-58b1-47b0-a05b-42f8c8b69a13" class="bulleted-list"><li><a href="https://gist.github.com/stubailo/7a2071c4e568a185726c583073695bc0">Find all GraphQL queries in your codebase that use a certain field.</a></li></ul><ul id="fd452b35-4d87-4af6-907e-8e85ca5b58fc" class="bulleted-list"><li>https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696</li></ul><ul id="37744046-f30a-431d-9ab6-dd6dca414d60" class="bulleted-list"><li>https://lab.wallarm.com/graphql-batching-attack</li></ul><ul id="8d039693-c08c-4066-97fe-7f72f78e588f" class="bulleted-list"><li>https://gitlab.com/dee-see/graphql-path-enum + https://blog.deesee.xyz/graphql/security/2020/04/13/graphql-permission-testing.html</li></ul><ul id="12afcd2c-5e90-468a-a85d-ae1d54527062" class="bulleted-list"><li>https://github.com/APIs-guru/graphql-apis</li></ul><ul id="76f8f7fe-e437-45ab-887a-f8eb15fde3c4" class="bulleted-list"><li>https://github.com/sibelius/relay-workshop/tree/master/solutions</li></ul><ul id="377d57ba-9b23-4f2b-aa27-94f242e0ad23" class="bulleted-list"><li>https://netflixtechblog.com/how-netflix-scales-its-api-with-graphql-federation-part-2-bbe71aaec44a</li></ul><ul id="4ba683f5-8145-4622-87ee-181ba4f072de" class="bulleted-list"><li>https://cult.honeypot.io/originals/graphql-the-documentary</li></ul><ul id="2c302cfa-5a53-436b-bceb-22e9203e49f4" class="bulleted-list"><li>https://github.com/dolevf/Damn-Vulnerable-GraphQL-Application</li></ul><ul id="b1975efb-7327-47ac-b094-88647bb696d6" class="bulleted-list"><li><a href="https://github.com/johnymontana/grandcast.fm">GRANDcase.FM is a podcast application built using GRANDstack (GraphQL, React, Apollo, Neo4j Database)</a></li></ul><ul id="700a65ff-5360-4ca1-8d1f-7d872626bb39" class="bulleted-list"><li>https://github.com/Shopify/graphql-design-tutorial</li></ul><ul id="0ae0a875-655a-4def-aef9-f45b6aef02bd" class="bulleted-list"><li><a href="https://github.com/enisdenjo/graphql-ws">Coherent, zero-dependency, lazy, simple, GraphQL over WebSocket Protocol compliant server and client.</a></li></ul><ul id="3a864143-c7d5-4ec0-8b7c-fdeb159b0b81" class="bulleted-list"><li><a href="https://twitter.com/drunkrhin0/status/1375038146409271300">Want to learn about GraphQL hacking?</a></li></ul><ul id="a12944b0-3b43-4547-bf3e-e3b6cb894763" class="bulleted-list"><li>https://github.com/devknoll/graphql-resources</li></ul><h3 id="5ee32e26-246b-4a53-832b-4b4916b68735" class="">gRPC</h3><ul id="0495b62b-c46b-499e-898f-f7b071664345" class="bulleted-list"><li><a href="https://youtu.be/l_P6m3JTyp0">GraphQL, gRPC or REST? Resolving the API Developer’s Dilemma - Rob Crowley</a></li></ul><h3 id="902c5c62-439e-483c-9731-1eb04f95dd0f" class="">Health</h3><ul id="2cf03331-1a28-4b44-b7bf-8213dcc291f8" class="bulleted-list"><li>https://github.com/Cazaimi/circadian-api</li></ul><ul id="045d6681-1682-4d93-bc0b-1353945da77e" class="bulleted-list"><li><a href="https://fdc.nal.usda.gov/about-us.html">FoodData Central (FDC)</a> + https://github.com/USDA/USDA-APIs/issues/92</li></ul><ul id="b47702a2-fa12-497a-9733-89a83c63afa7" class="bulleted-list"><li>https://github.com/ChickenKyiv/awesome-food-open-source</li></ul><h3 id="ce34c43e-4095-4325-9e48-229ac7f26ed3" class="">Weather</h3><ul id="8361802e-0689-4a4f-b097-99d90fc0188c" class="bulleted-list"><li>Get the weather from terminal</li></ul><pre id="9377c537-e8e0-44e3-a930-00692c107830" class="code code-wrap"><code>curl v2.wttr.in/Bucharest</code></pre><h3 id="31bb787e-975b-43e9-8b6f-82465aca61d2" class="">Chemistry</h3><ul id="46f5d755-4bec-4659-90ad-72cce6fa8cef" class="bulleted-list"><li>https://github.com/darekkay/tip-of-the-day/tree/master/src/data-sources/chemical-elements-en</li></ul><h3 id="c6065bb2-5b81-4131-a763-681235563a78" class="">Geography</h3><ul id="2f9e34aa-9ceb-47f2-93f1-b68901f48eb2" class="bulleted-list"><li><a href="https://github.com/mapnificent/mapnificent_cities">City data repository for mapnificent.net</a> + https://stefanwehrmeyer.com/projects/mapnificent</li></ul><ul id="00de65d7-cb45-4693-8814-3faa747fd87c" class="bulleted-list"><li><a href="https://twitter.com/tmcw/status/1133165834677866496">Dear map people,</a></li></ul><ul id="92c3d508-36d3-4168-af41-5b2fb1cdee9a" class="bulleted-list"><li><a href="https://gist.github.com/maephisto/9228207">ISO 3166-1 alpha-2 country code to country name conversion with a simple Javascript implementation, an array and a function.</a></li></ul><ul id="697d6f09-8b9e-48a2-89c5-c69c869778da" class="bulleted-list"><li>https://github.com/darekkay/tip-of-the-day/tree/master/src/data-sources/countries-en</li></ul><ul id="f7252c31-e6f4-4054-a6f8-0dba0134da66" class="bulleted-list"><li>https://github.com/oldboyxx/Mapped-Country-Language-Codes</li></ul><ul id="418ddd1f-d73c-45f7-8bb2-8104ce924c21" class="bulleted-list"><li><a href="https://github.com/dmfilipenko/timezones.json">Full list of timezones.</a></li></ul><ul id="2bd79373-d99e-4482-abae-6271c21076aa" class="bulleted-list"><li><a href="https://github.com/tylerhall/sosumi">A PHP client for Apple’s Find My iPhone service.</a></li></ul><ul id="4ffc101d-bc47-422d-a32a-1d53eb87b244" class="bulleted-list"><li>https://github.com/eveporcello/simple-strava-sample + https://moonhighway.com/incorporating-rest-data</li></ul><ul id="38dc85d2-b57d-478c-a481-60675af4e27e" class="bulleted-list"><li>https://github.com/apilayer/restcountries</li></ul><h3 id="7a0ab3c7-19ae-404c-ae16-039413e40bb6" class="">Shopping</h3><ul id="8dec91e7-b519-4e97-8451-786dc5411383" class="bulleted-list"><li>https://twitter.com/ryanflorence/status/1332403896208146433</li></ul><ul id="3a9649ef-f0bf-4eba-9b7f-12669629c7fe" class="bulleted-list"><li><a href="https://github.com/chubin/rate.sx">curl cryptocurrencies exchange rates</a></li></ul><h3 id="39a7c13c-bf73-4fcf-8185-05b4ce4be0c3" class="">Languages</h3><ul id="17582ae6-8104-4242-9554-1f7499148328" class="bulleted-list"><li><a href="https://github.com/MicrosoftTranslator/Text-Translation-API-V3-NodeJS">Microsoft Translator Text API v3.</a></li></ul><ul id="c17a6b03-4750-40dd-a3d1-4258dcec8bbb" class="bulleted-list"><li>https://github.com/cortexlabs/cortex/tree/translator-example/examples/model-caching/python/translator</li></ul><ul id="c70da1ec-cfbd-41a1-8e46-0912dc21bbe2" class="bulleted-list"><li><a href="https://github.com/llll-org/vizor">A simple front-end for OCR with Google Vision API.</a></li></ul><h3 id="d480e386-e32c-4d4b-9b4f-1036a5e4eaef" class="">Miscellaneous</h3><ul id="6bc48fd0-46d1-4055-9f05-c6850cdbe3ac" class="bulleted-list"><li><a href="https://twitter.com/ShortJared/status/1377331662275534848">What is the single best book any of y’all have ever read about API design?</a></li></ul><ul id="ff12a200-a450-4279-993b-df2fd6b59271" class="bulleted-list"><li>https://github.com/vicziani/learnwebservices</li></ul><ul id="d5f28d23-f799-4532-9da3-9055eb00b916" class="bulleted-list"><li>https://github.com/n0shake/Public-APIs</li></ul><ul id="4a4ca58f-1b1f-4295-81a9-179e2343110e" class="bulleted-list"><li>http://algermissen.io/classification_of_http_apis.html + http://algermissen.io/2019/03/rest-design-essentials</li></ul><ul id="ad633197-f981-4899-80d0-25fa3c7b464c" class="bulleted-list"><li>https://github.com/algermissen/rest-discuss-archive</li></ul><ul id="a6a843b9-b223-4573-8f2f-bc34cc29dc3f" class="bulleted-list"><li>https://dontkillmyapp.com/apidoc</li></ul><ul id="16c2aad7-891b-413e-8d87-3bd400dfa9c4" class="bulleted-list"><li>https://tldrsec.com/blog/appsec-cali-2019/#preventing-mobile-app-and-api-abuse</li></ul><ul id="e143788e-498e-421c-8a39-a14f93d60b46" class="bulleted-list"><li>https://phil.tech/2018/05/21/picking-an-api-paradigm-implementation</li></ul><ul id="648084aa-23de-4435-ab91-14a5d9e2148f" class="bulleted-list"><li>https://plus.codes</li></ul><ul id="92545053-d13a-48cc-a10c-f6095a5b0dfa" class="bulleted-list"><li>https://shkspr.mobi/blog/2020/01/why-api-responses-should-be-signed</li></ul><ul id="d77f359e-89e8-4111-9de5-3de5ac0b0910" class="bulleted-list"><li>https://vasco3.gitbooks.io/hacks-n-notes/content/apis.html</li></ul><ul id="f2457779-4c78-4c9a-9c53-05e8fc926a81" class="bulleted-list"><li>https://github.com/danburzo/toolbox#apis</li></ul><ul id="b3e8f24f-609f-461b-b1a7-4555aee66719" class="bulleted-list"><li>https://github.com/smodnix/31-days-of-API-Security-Tips + https://docs.google.com/spreadsheets/d/1jn3JnWzQFZW41gKo5Fhxwf2ke2w-pvrpCGhBmKhyIBE + https://drive.google.com/file/d/1iMGqUUpaiQrEys4IOETwgxti8AiShomZ/view</li></ul><ul id="c0863301-7315-4d6b-9733-26e93ce7bce6" class="bulleted-list"><li><a href="https://github.com/palmerabollo/node-isbn">A simple node.js module that uses Google Books API to find books by ISBN.</a></li></ul><ul id="6085d2eb-4652-49ee-95c8-9bec8d4184eb" class="bulleted-list"><li><a href="https://news.ycombinator.com/item?id=23737601">Bible API</a></li></ul><ul id="a0a1696a-c06f-4e8f-a643-f05e7c449ad4" class="bulleted-list"><li>https://github.com/jswest/kiss-list-refresh/blob/master/public/data.json.js</li></ul><ul id="2f4ebadb-9216-418f-8acd-b7a011d2719c" class="bulleted-list"><li><a href="https://github.com/typesense/showcase-songs-search">A demo app that showcases some of Typesense’s features using the MusicBrainz songs database.</a> + <a href="https://news.ycombinator.com/item?id=25365397">Instantly search 2M cooking recipes using Typesense Search (an open source alternative to Algolia / ElasticSearch)</a> + <a href="https://news.ycombinator.com/item?id=25414389">Instantly search 28M books from OpenLibrary</a></li></ul><ul id="8231dcf6-b652-48ec-8aec-4aec6cc3366d" class="bulleted-list"><li>https://github.com/francescocarlucci/job-offers-http-headers</li></ul><ul id="70cc23d1-e318-4963-900f-5ea764c5bb13" class="bulleted-list"><li>https://blog.idrisolubisi.com/35-free-public-apis-to-improve-productivity</li></ul><ul id="a7877f13-a36d-497c-b3f5-8f862a09b6fb" class="bulleted-list"><li>https://github.com/Rolstenhouse/unofficial-apis</li></ul><ul id="4835edc5-3924-427c-a76c-f05abfc6c373" class="bulleted-list"><li>https://paperswithcode.com/api/v1/docs + https://github.com/paperswithcode/paperswithcode-data + https://paperswithcode.com/datasets</li></ul><ul id="d0967151-bbe8-404e-81c2-2079dc599a79" class="bulleted-list"><li><a href="https://github.com/dijs/wiki">Wikipedia Interface for Node.js</a></li></ul><ul id="b0f527a7-586f-4d45-8e3e-356428af6c7d" class="bulleted-list"><li>https://blog.webpagetest.org/posts/the-webpagetest-api-has-gone-public</li></ul></div></article></body></html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>api</title>
+    <style>
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 3px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        text-indent: -1.7em;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC",
+          "Noto Sans CJK KR";
+      }
+
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Consolas,
+          "Liberation Mono", Menlo, Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC", "Noto Sans Mono CJK KR";
+      }
+
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif,
+          "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC", "Noto Sans CJK KR";
+      }
+
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC",
+          "Noto Sans Mono CJK KR";
+      }
+
+      .highlight-default {
+      }
+      .highlight-gray {
+        color: rgb(155, 154, 151);
+      }
+      .highlight-brown {
+        color: rgb(100, 71, 58);
+      }
+      .highlight-orange {
+        color: rgb(217, 115, 13);
+      }
+      .highlight-yellow {
+        color: rgb(223, 171, 1);
+      }
+      .highlight-teal {
+        color: rgb(15, 123, 108);
+      }
+      .highlight-blue {
+        color: rgb(11, 110, 153);
+      }
+      .highlight-purple {
+        color: rgb(105, 64, 165);
+      }
+      .highlight-pink {
+        color: rgb(173, 26, 114);
+      }
+      .highlight-red {
+        color: rgb(224, 62, 62);
+      }
+      .highlight-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .highlight-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .highlight-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .highlight-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .highlight-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .highlight-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .highlight-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .highlight-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .highlight-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+      }
+      .block-color-brown {
+        color: rgb(100, 71, 58);
+        fill: rgb(100, 71, 58);
+      }
+      .block-color-orange {
+        color: rgb(217, 115, 13);
+        fill: rgb(217, 115, 13);
+      }
+      .block-color-yellow {
+        color: rgb(223, 171, 1);
+        fill: rgb(223, 171, 1);
+      }
+      .block-color-teal {
+        color: rgb(15, 123, 108);
+        fill: rgb(15, 123, 108);
+      }
+      .block-color-blue {
+        color: rgb(11, 110, 153);
+        fill: rgb(11, 110, 153);
+      }
+      .block-color-purple {
+        color: rgb(105, 64, 165);
+        fill: rgb(105, 64, 165);
+      }
+      .block-color-pink {
+        color: rgb(173, 26, 114);
+        fill: rgb(173, 26, 114);
+      }
+      .block-color-red {
+        color: rgb(224, 62, 62);
+        fill: rgb(224, 62, 62);
+      }
+      .block-color-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .block-color-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .block-color-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .block-color-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .block-color-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .block-color-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .block-color-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .block-color-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .block-color-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .select-value-color-default {
+        background-color: rgba(206, 205, 202, 0.5);
+      }
+      .select-value-color-gray {
+        background-color: rgba(155, 154, 151, 0.4);
+      }
+      .select-value-color-brown {
+        background-color: rgba(140, 46, 0, 0.2);
+      }
+      .select-value-color-orange {
+        background-color: rgba(245, 93, 0, 0.2);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(233, 168, 0, 0.2);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 135, 107, 0.2);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 120, 223, 0.2);
+      }
+      .select-value-color-purple {
+        background-color: rgba(103, 36, 222, 0.2);
+      }
+      .select-value-color-pink {
+        background-color: rgba(221, 0, 129, 0.2);
+      }
+      .select-value-color-red {
+        background-color: rgba(255, 0, 26, 0.2);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="cf441f54-7986-4a0b-a2c5-33399045d2cd" class="page sans">
+      <header><h1 class="page-title">api</h1></header>
+      <div class="page-body">
+        <h3 id="d940ad00-786c-4ea8-98cc-909d7b119970" class="">
+          Social platforms
+        </h3>
+        <ul id="763e35e9-762c-4b9c-8578-abd02f0a3ae6" class="bulleted-list">
+          <li>
+            https://github.com/JMPerez/linkedin-to-json-resume +
+            <a href="https://twitter.com/kentcdodds/status/1251865245133365250"
+              >So I have 1,825 LinkedIn connection requests… and no way to batch
+              approve or deny them…</a
+            >
+          </li>
+        </ul>
+        <ul id="9dce22e5-6b25-4c6d-bdeb-b4cb49749e53" class="bulleted-list">
+          <li>https://github.com/jamiebuilds/havetheybeenpwned</li>
+        </ul>
+        <ul id="78a4b2d8-96bb-45c6-88fa-71e386309e49" class="bulleted-list">
+          <li>
+            <a href="https://github.com/socialpoint-labs/sheetfu"
+              >Python library to interact with Google Sheets V4 API</a
+            >
+          </li>
+        </ul>
+        <ul id="3019a577-dd52-4d01-bbba-b1420e59f211" class="bulleted-list">
+          <li>
+            <a href="https://github.com/simon-weber/gmusicapi"
+              >An unofficial client library for Google Music.</a
+            >
+          </li>
+        </ul>
+        <ul id="dc3b3740-2b47-42f5-ba16-fc6bd393e3fb" class="bulleted-list">
+          <li>https://thisisnotlinkedin.com</li>
+        </ul>
+        <ul id="0dd1d965-6d8c-4ebe-b317-1cd01cf2b994" class="bulleted-list">
+          <li>
+            <a href="https://github.com/wesbos/twitter-unfollower"
+              >A twitter unfollower for stale accounts.</a
+            >
+          </li>
+        </ul>
+        <ul id="b83bbf3a-e755-4ad3-b811-e5dadc569abc" class="bulleted-list">
+          <li>https://github.com/mathdroid/twitter-dev-salaries-scraper</li>
+        </ul>
+        <ul id="66721c1e-3de8-4ec0-9a32-e3e7dd0046ee" class="bulleted-list">
+          <li>https://github.com/vintagesucks/instagram-export</li>
+        </ul>
+        <ul id="03110cd6-8112-4304-afbf-a88549b5fc4a" class="bulleted-list">
+          <li>
+            <a href="https://github.com/terence410/ts-google-drive"
+              >Google Drive API Library</a
+            >
+          </li>
+        </ul>
+        <ul id="d23680f1-d3da-4bc9-90ea-1874623b7511" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/mtliendo/status/1234911134932709376"
+              >github(dot)com/USERNAME.png</a
+            >
+          </li>
+        </ul>
+        <ul id="bfda0d2c-7b6b-421c-a6f2-e1f722082425" class="bulleted-list">
+          <li>
+            <a href="https://github.com/benjojo/Gmail_GeoIPTagger"
+              >An app script that will filter your email from where in the world
+              it was sent from</a
+            >
+          </li>
+        </ul>
+        <ul id="e1ad0f07-c090-4b0d-85fd-4096be93cda7" class="bulleted-list">
+          <li>
+            https://blog.filippo.io/gmail-bot-with-apps-script-and-typescript
+          </li>
+        </ul>
+        <ul id="512c09cb-587d-4051-a5f3-7bd1c7bb3675" class="bulleted-list">
+          <li>
+            <a href="https://github.com/bisguzar/twitter-scraper"
+              >Scrape the Twitter Frontend API without authentication.</a
+            >
+          </li>
+        </ul>
+        <ul id="8b17c043-cc30-4340-9198-cce4dfc3c138" class="bulleted-list">
+          <li>
+            <a href="https://github.com/abhishekkr/gmail-helper"
+              >GMail tasks over OAuth2 API using Google’s API Client</a
+            >
+          </li>
+        </ul>
+        <ul id="fc8efb53-b00c-45c3-8cc5-dbaee2ee298c" class="bulleted-list">
+          <li>
+            <a href="https://github.com/gedrick/SpotifyKaraoke"
+              >Instant lyrics for your current Spotify track!</a
+            >
+          </li>
+        </ul>
+        <ul id="590bf8b5-78be-4cec-9874-d8fa86e1dcbe" class="bulleted-list">
+          <li>
+            <a href="https://github.com/t-tran/slack-chat-backup"
+              >Backup your Slack chat messages (direct messages, group messages,
+              joined channels) to your local computer without any extra
+              permissions or apps.</a
+            >
+          </li>
+        </ul>
+        <ul id="23cb9ef9-bfb2-4d92-8ae8-d53b2ea09bf1" class="bulleted-list">
+          <li>
+            <a href="https://github.com/liyasthomas/books"
+              >Find books from Google Play Books</a
+            >
+          </li>
+        </ul>
+        <ul id="d062ec6f-3e80-4391-a0e0-3fc89c7164c5" class="bulleted-list">
+          <li>
+            <a href="https://github.com/stefansundin/rssbox"
+              >This app uses the API of other websites and gives you an RSS feed
+              in return.</a
+            >
+          </li>
+        </ul>
+        <ul id="fdcec209-cd95-4ce8-8be2-3f0ea974aaa6" class="bulleted-list">
+          <li>https://github.com/adyz/youtube-parse-history</li>
+        </ul>
+        <ul id="98302c9f-4852-4b81-82a0-d60af4c18c8b" class="bulleted-list">
+          <li>
+            <a href="https://github.com/NoMore201/googleplay-api"
+              >Google Play Unofficial Python API</a
+            >
+          </li>
+        </ul>
+        <ul id="eaaeca3e-c751-4423-a87c-f3cff894484e" class="bulleted-list">
+          <li>https://github.com/weskerfoot/DeleteFB</li>
+        </ul>
+        <ul id="4e2debcd-de6d-4a3b-b310-073392a595de" class="bulleted-list">
+          <li>
+            <a href="https://github.com/raineorshine/simplifiedavailability"
+              >Generates a simple text list of your availability from your
+              Google Calendar</a
+            >
+          </li>
+        </ul>
+        <ul id="58a5e4a0-0f29-418e-a157-9072f0fc797b" class="bulleted-list">
+          <li>
+            <a href="https://github.com/drawrowfly/amazon-product-api"
+              >Amazon Scraper. Scrape products from the amazon search result or
+              reviews from the specific product</a
+            >
+          </li>
+        </ul>
+        <ul id="8e10fa73-59b3-42c3-94a4-a50c84071ecb" class="bulleted-list">
+          <li>
+            <a href="https://github.com/TomFrink/StoicPage"
+              >Collection of Stoic Wisdom</a
+            >
+          </li>
+        </ul>
+        <ul id="cad95997-f62e-47da-b21d-8754b75b1ea4" class="bulleted-list">
+          <li>
+            <a href="https://github.com/headllines/hackernews-daily"
+              >Hacker News daily top 10 posts</a
+            >
+          </li>
+        </ul>
+        <h3 id="fec58a2c-5923-4a9d-aba0-cbda9312d606" class="">GraphQL</h3>
+        <ul id="d272e08e-a7ef-4c7a-be8b-01b1aa6623f3" class="bulleted-list">
+          <li>
+            https://www.musumeche.com/fishing +
+            https://github.com/stevenmusumeche/salty-solutions
+          </li>
+        </ul>
+        <ul id="421fa91c-a7ba-423c-b735-4f2f5893f74d" class="bulleted-list">
+          <li>
+            https://tldrsec.com/blog/appsec-cali-2019/#an-attackers-view-of-serverless-and-graphql-apps
+          </li>
+        </ul>
+        <ul id="dc22a9fa-5a02-41c7-863e-4a778cbf7f7d" class="bulleted-list">
+          <li>
+            <a href="https://youtu.be/mj850EuHQHs"
+              >GraphQL: The future of API’s is here</a
+            >
+            + http://files.lifely.nl/graphql-the-future-of-apis-is-here.pdf
+          </li>
+        </ul>
+        <ul id="84956211-2119-4354-b7a4-dcf997769101" class="bulleted-list">
+          <li>https://twitter.com/sarah_edo/status/1220381789165719553</li>
+        </ul>
+        <ul id="2b57fbcb-4655-46bf-9f9b-e7584358958c" class="bulleted-list">
+          <li>
+            https://twitter.com/HivarekarPranav/status/1231979599401078784
+          </li>
+        </ul>
+        <ul id="18a0c714-58b1-47b0-a05b-42f8c8b69a13" class="bulleted-list">
+          <li>
+            <a
+              href="https://gist.github.com/stubailo/7a2071c4e568a185726c583073695bc0"
+              >Find all GraphQL queries in your codebase that use a certain
+              field.</a
+            >
+          </li>
+        </ul>
+        <ul id="fd452b35-4d87-4af6-907e-8e85ca5b58fc" class="bulleted-list">
+          <li>
+            https://medium.com/@the.bilal.rizwan/graphql-common-vulnerabilities-how-to-exploit-them-464f9fdce696
+          </li>
+        </ul>
+        <ul id="37744046-f30a-431d-9ab6-dd6dca414d60" class="bulleted-list">
+          <li>https://lab.wallarm.com/graphql-batching-attack</li>
+        </ul>
+        <ul id="8d039693-c08c-4066-97fe-7f72f78e588f" class="bulleted-list">
+          <li>
+            https://gitlab.com/dee-see/graphql-path-enum +
+            https://blog.deesee.xyz/graphql/security/2020/04/13/graphql-permission-testing.html
+          </li>
+        </ul>
+        <ul id="12afcd2c-5e90-468a-a85d-ae1d54527062" class="bulleted-list">
+          <li>https://github.com/APIs-guru/graphql-apis</li>
+        </ul>
+        <ul id="76f8f7fe-e437-45ab-887a-f8eb15fde3c4" class="bulleted-list">
+          <li>
+            https://github.com/sibelius/relay-workshop/tree/master/solutions
+          </li>
+        </ul>
+        <ul id="377d57ba-9b23-4f2b-aa27-94f242e0ad23" class="bulleted-list">
+          <li>
+            https://netflixtechblog.com/how-netflix-scales-its-api-with-graphql-federation-part-2-bbe71aaec44a
+          </li>
+        </ul>
+        <ul id="4ba683f5-8145-4622-87ee-181ba4f072de" class="bulleted-list">
+          <li>https://cult.honeypot.io/originals/graphql-the-documentary</li>
+        </ul>
+        <ul id="2c302cfa-5a53-436b-bceb-22e9203e49f4" class="bulleted-list">
+          <li>https://github.com/dolevf/Damn-Vulnerable-GraphQL-Application</li>
+        </ul>
+        <ul id="b1975efb-7327-47ac-b094-88647bb696d6" class="bulleted-list">
+          <li>
+            <a href="https://github.com/johnymontana/grandcast.fm"
+              >GRANDcase.FM is a podcast application built using GRANDstack
+              (GraphQL, React, Apollo, Neo4j Database)</a
+            >
+          </li>
+        </ul>
+        <ul id="700a65ff-5360-4ca1-8d1f-7d872626bb39" class="bulleted-list">
+          <li>https://github.com/Shopify/graphql-design-tutorial</li>
+        </ul>
+        <ul id="0ae0a875-655a-4def-aef9-f45b6aef02bd" class="bulleted-list">
+          <li>
+            <a href="https://github.com/enisdenjo/graphql-ws"
+              >Coherent, zero-dependency, lazy, simple, GraphQL over WebSocket
+              Protocol compliant server and client.</a
+            >
+          </li>
+        </ul>
+        <ul id="3a864143-c7d5-4ec0-8b7c-fdeb159b0b81" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/drunkrhin0/status/1375038146409271300"
+              >Want to learn about GraphQL hacking?</a
+            >
+          </li>
+        </ul>
+        <ul id="a12944b0-3b43-4547-bf3e-e3b6cb894763" class="bulleted-list">
+          <li>https://github.com/devknoll/graphql-resources</li>
+        </ul>
+        <h3 id="5ee32e26-246b-4a53-832b-4b4916b68735" class="">gRPC</h3>
+        <ul id="0495b62b-c46b-499e-898f-f7b071664345" class="bulleted-list">
+          <li>
+            <a href="https://youtu.be/l_P6m3JTyp0"
+              >GraphQL, gRPC or REST? Resolving the API Developer’s Dilemma -
+              Rob Crowley</a
+            >
+          </li>
+        </ul>
+        <h3 id="902c5c62-439e-483c-9731-1eb04f95dd0f" class="">Health</h3>
+        <ul id="2cf03331-1a28-4b44-b7bf-8213dcc291f8" class="bulleted-list">
+          <li>https://github.com/Cazaimi/circadian-api</li>
+        </ul>
+        <ul id="045d6681-1682-4d93-bc0b-1353945da77e" class="bulleted-list">
+          <li>
+            <a href="https://fdc.nal.usda.gov/about-us.html"
+              >FoodData Central (FDC)</a
+            >
+            + https://github.com/USDA/USDA-APIs/issues/92
+          </li>
+        </ul>
+        <ul id="b47702a2-fa12-497a-9733-89a83c63afa7" class="bulleted-list">
+          <li>https://github.com/ChickenKyiv/awesome-food-open-source</li>
+        </ul>
+        <h3 id="ce34c43e-4095-4325-9e48-229ac7f26ed3" class="">Weather</h3>
+        <ul id="8361802e-0689-4a4f-b097-99d90fc0188c" class="bulleted-list">
+          <li>Get the weather from terminal</li>
+        </ul>
+        <pre
+          id="9377c537-e8e0-44e3-a930-00692c107830"
+          class="code code-wrap"
+        ><code>curl v2.wttr.in/Bucharest</code></pre>
+        <h3 id="31bb787e-975b-43e9-8b6f-82465aca61d2" class="">Chemistry</h3>
+        <ul id="46f5d755-4bec-4659-90ad-72cce6fa8cef" class="bulleted-list">
+          <li>
+            https://github.com/darekkay/tip-of-the-day/tree/master/src/data-sources/chemical-elements-en
+          </li>
+        </ul>
+        <h3 id="c6065bb2-5b81-4131-a763-681235563a78" class="">Geography</h3>
+        <ul id="2f9e34aa-9ceb-47f2-93f1-b68901f48eb2" class="bulleted-list">
+          <li>
+            <a href="https://github.com/mapnificent/mapnificent_cities"
+              >City data repository for mapnificent.net</a
+            >
+            + https://stefanwehrmeyer.com/projects/mapnificent
+          </li>
+        </ul>
+        <ul id="00de65d7-cb45-4693-8814-3faa747fd87c" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/tmcw/status/1133165834677866496"
+              >Dear map people,</a
+            >
+          </li>
+        </ul>
+        <ul id="92c3d508-36d3-4168-af41-5b2fb1cdee9a" class="bulleted-list">
+          <li>
+            <a href="https://gist.github.com/maephisto/9228207"
+              >ISO 3166-1 alpha-2 country code to country name conversion with a
+              simple Javascript implementation, an array and a function.</a
+            >
+          </li>
+        </ul>
+        <ul id="697d6f09-8b9e-48a2-89c5-c69c869778da" class="bulleted-list">
+          <li>
+            https://github.com/darekkay/tip-of-the-day/tree/master/src/data-sources/countries-en
+          </li>
+        </ul>
+        <ul id="f7252c31-e6f4-4054-a6f8-0dba0134da66" class="bulleted-list">
+          <li>https://github.com/oldboyxx/Mapped-Country-Language-Codes</li>
+        </ul>
+        <ul id="418ddd1f-d73c-45f7-8bb2-8104ce924c21" class="bulleted-list">
+          <li>
+            <a href="https://github.com/dmfilipenko/timezones.json"
+              >Full list of timezones.</a
+            >
+          </li>
+        </ul>
+        <ul id="2bd79373-d99e-4482-abae-6271c21076aa" class="bulleted-list">
+          <li>
+            <a href="https://github.com/tylerhall/sosumi"
+              >A PHP client for Apple’s Find My iPhone service.</a
+            >
+          </li>
+        </ul>
+        <ul id="4ffc101d-bc47-422d-a32a-1d53eb87b244" class="bulleted-list">
+          <li>
+            https://github.com/eveporcello/simple-strava-sample +
+            https://moonhighway.com/incorporating-rest-data
+          </li>
+        </ul>
+        <ul id="38dc85d2-b57d-478c-a481-60675af4e27e" class="bulleted-list">
+          <li>https://github.com/apilayer/restcountries</li>
+        </ul>
+        <h3 id="7a0ab3c7-19ae-404c-ae16-039413e40bb6" class="">Shopping</h3>
+        <ul id="8dec91e7-b519-4e97-8451-786dc5411383" class="bulleted-list">
+          <li>https://twitter.com/ryanflorence/status/1332403896208146433</li>
+        </ul>
+        <ul id="3a9649ef-f0bf-4eba-9b7f-12669629c7fe" class="bulleted-list">
+          <li>
+            <a href="https://github.com/chubin/rate.sx"
+              >curl cryptocurrencies exchange rates</a
+            >
+          </li>
+        </ul>
+        <h3 id="39a7c13c-bf73-4fcf-8185-05b4ce4be0c3" class="">Languages</h3>
+        <ul id="17582ae6-8104-4242-9554-1f7499148328" class="bulleted-list">
+          <li>
+            <a
+              href="https://github.com/MicrosoftTranslator/Text-Translation-API-V3-NodeJS"
+              >Microsoft Translator Text API v3.</a
+            >
+          </li>
+        </ul>
+        <ul id="c17a6b03-4750-40dd-a3d1-4258dcec8bbb" class="bulleted-list">
+          <li>
+            https://github.com/cortexlabs/cortex/tree/translator-example/examples/model-caching/python/translator
+          </li>
+        </ul>
+        <ul id="c70da1ec-cfbd-41a1-8e46-0912dc21bbe2" class="bulleted-list">
+          <li>
+            <a href="https://github.com/llll-org/vizor"
+              >A simple front-end for OCR with Google Vision API.</a
+            >
+          </li>
+        </ul>
+        <h3 id="d480e386-e32c-4d4b-9b4f-1036a5e4eaef" class="">
+          Miscellaneous
+        </h3>
+        <ul id="6bc48fd0-46d1-4055-9f05-c6850cdbe3ac" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/ShortJared/status/1377331662275534848"
+              >What is the single best book any of y’all have ever read about
+              API design?</a
+            >
+          </li>
+        </ul>
+        <ul id="ff12a200-a450-4279-993b-df2fd6b59271" class="bulleted-list">
+          <li>https://github.com/vicziani/learnwebservices</li>
+        </ul>
+        <ul id="d5f28d23-f799-4532-9da3-9055eb00b916" class="bulleted-list">
+          <li>https://github.com/n0shake/Public-APIs</li>
+        </ul>
+        <ul id="4a4ca58f-1b1f-4295-81a9-179e2343110e" class="bulleted-list">
+          <li>
+            http://algermissen.io/classification_of_http_apis.html +
+            http://algermissen.io/2019/03/rest-design-essentials
+          </li>
+        </ul>
+        <ul id="ad633197-f981-4899-80d0-25fa3c7b464c" class="bulleted-list">
+          <li>https://github.com/algermissen/rest-discuss-archive</li>
+        </ul>
+        <ul id="a6a843b9-b223-4573-8f2f-bc34cc29dc3f" class="bulleted-list">
+          <li>https://dontkillmyapp.com/apidoc</li>
+        </ul>
+        <ul id="16c2aad7-891b-413e-8d87-3bd400dfa9c4" class="bulleted-list">
+          <li>
+            https://tldrsec.com/blog/appsec-cali-2019/#preventing-mobile-app-and-api-abuse
+          </li>
+        </ul>
+        <ul id="e143788e-498e-421c-8a39-a14f93d60b46" class="bulleted-list">
+          <li>
+            https://phil.tech/2018/05/21/picking-an-api-paradigm-implementation
+          </li>
+        </ul>
+        <ul id="648084aa-23de-4435-ab91-14a5d9e2148f" class="bulleted-list">
+          <li>https://plus.codes</li>
+        </ul>
+        <ul id="92545053-d13a-48cc-a10c-f6095a5b0dfa" class="bulleted-list">
+          <li>
+            https://shkspr.mobi/blog/2020/01/why-api-responses-should-be-signed
+          </li>
+        </ul>
+        <ul id="d77f359e-89e8-4111-9de5-3de5ac0b0910" class="bulleted-list">
+          <li>https://vasco3.gitbooks.io/hacks-n-notes/content/apis.html</li>
+        </ul>
+        <ul id="f2457779-4c78-4c9a-9c53-05e8fc926a81" class="bulleted-list">
+          <li>https://github.com/danburzo/toolbox#apis</li>
+        </ul>
+        <ul id="b3e8f24f-609f-461b-b1a7-4555aee66719" class="bulleted-list">
+          <li>
+            https://github.com/smodnix/31-days-of-API-Security-Tips +
+            https://docs.google.com/spreadsheets/d/1jn3JnWzQFZW41gKo5Fhxwf2ke2w-pvrpCGhBmKhyIBE
+            +
+            https://drive.google.com/file/d/1iMGqUUpaiQrEys4IOETwgxti8AiShomZ/view
+          </li>
+        </ul>
+        <ul id="c0863301-7315-4d6b-9733-26e93ce7bce6" class="bulleted-list">
+          <li>
+            <a href="https://github.com/palmerabollo/node-isbn"
+              >A simple node.js module that uses Google Books API to find books
+              by ISBN.</a
+            >
+          </li>
+        </ul>
+        <ul id="6085d2eb-4652-49ee-95c8-9bec8d4184eb" class="bulleted-list">
+          <li>
+            <a href="https://news.ycombinator.com/item?id=23737601"
+              >Bible API</a
+            >
+          </li>
+        </ul>
+        <ul id="a0a1696a-c06f-4e8f-a643-f05e7c449ad4" class="bulleted-list">
+          <li>
+            https://github.com/jswest/kiss-list-refresh/blob/master/public/data.json.js
+          </li>
+        </ul>
+        <ul id="2f4ebadb-9216-418f-8acd-b7a011d2719c" class="bulleted-list">
+          <li>
+            <a href="https://github.com/typesense/showcase-songs-search"
+              >A demo app that showcases some of Typesense’s features using the
+              MusicBrainz songs database.</a
+            >
+            +
+            <a href="https://news.ycombinator.com/item?id=25365397"
+              >Instantly search 2M cooking recipes using Typesense Search (an
+              open source alternative to Algolia / ElasticSearch)</a
+            >
+            +
+            <a href="https://news.ycombinator.com/item?id=25414389"
+              >Instantly search 28M books from OpenLibrary</a
+            >
+          </li>
+        </ul>
+        <ul id="8231dcf6-b652-48ec-8aec-4aec6cc3366d" class="bulleted-list">
+          <li>https://github.com/francescocarlucci/job-offers-http-headers</li>
+        </ul>
+        <ul id="70cc23d1-e318-4963-900f-5ea764c5bb13" class="bulleted-list">
+          <li>
+            https://blog.idrisolubisi.com/35-free-public-apis-to-improve-productivity
+          </li>
+        </ul>
+        <ul id="a7877f13-a36d-497c-b3f5-8f862a09b6fb" class="bulleted-list">
+          <li>https://github.com/Rolstenhouse/unofficial-apis</li>
+        </ul>
+        <ul id="4835edc5-3924-427c-a76c-f05abfc6c373" class="bulleted-list">
+          <li>
+            https://paperswithcode.com/api/v1/docs +
+            https://github.com/paperswithcode/paperswithcode-data +
+            https://paperswithcode.com/datasets
+          </li>
+        </ul>
+        <ul id="d0967151-bbe8-404e-81c2-2079dc599a79" class="bulleted-list">
+          <li>
+            <a href="https://github.com/dijs/wiki"
+              >Wikipedia Interface for Node.js</a
+            >
+          </li>
+        </ul>
+        <ul id="b0f527a7-586f-4d45-8e3e-356428af6c7d" class="bulleted-list">
+          <li>
+            https://blog.webpagetest.org/posts/the-webpagetest-api-has-gone-public
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

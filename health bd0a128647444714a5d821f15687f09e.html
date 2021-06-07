@@ -1,627 +1,1902 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>health</title><style>
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	text-indent: -1.7em;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.highlight-default {
-}
-.highlight-gray {
-	color: rgb(155,154,151);
-}
-.highlight-brown {
-	color: rgb(100,71,58);
-}
-.highlight-orange {
-	color: rgb(217,115,13);
-}
-.highlight-yellow {
-	color: rgb(223,171,1);
-}
-.highlight-teal {
-	color: rgb(15,123,108);
-}
-.highlight-blue {
-	color: rgb(11,110,153);
-}
-.highlight-purple {
-	color: rgb(105,64,165);
-}
-.highlight-pink {
-	color: rgb(173,26,114);
-}
-.highlight-red {
-	color: rgb(224,62,62);
-}
-.highlight-gray_background {
-	background: rgb(235,236,237);
-}
-.highlight-brown_background {
-	background: rgb(233,229,227);
-}
-.highlight-orange_background {
-	background: rgb(250,235,221);
-}
-.highlight-yellow_background {
-	background: rgb(251,243,219);
-}
-.highlight-teal_background {
-	background: rgb(221,237,234);
-}
-.highlight-blue_background {
-	background: rgb(221,235,241);
-}
-.highlight-purple_background {
-	background: rgb(234,228,242);
-}
-.highlight-pink_background {
-	background: rgb(244,223,235);
-}
-.highlight-red_background {
-	background: rgb(251,228,228);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(55, 53, 47, 0.6);
-	fill: rgba(55, 53, 47, 0.6);
-}
-.block-color-brown {
-	color: rgb(100,71,58);
-	fill: rgb(100,71,58);
-}
-.block-color-orange {
-	color: rgb(217,115,13);
-	fill: rgb(217,115,13);
-}
-.block-color-yellow {
-	color: rgb(223,171,1);
-	fill: rgb(223,171,1);
-}
-.block-color-teal {
-	color: rgb(15,123,108);
-	fill: rgb(15,123,108);
-}
-.block-color-blue {
-	color: rgb(11,110,153);
-	fill: rgb(11,110,153);
-}
-.block-color-purple {
-	color: rgb(105,64,165);
-	fill: rgb(105,64,165);
-}
-.block-color-pink {
-	color: rgb(173,26,114);
-	fill: rgb(173,26,114);
-}
-.block-color-red {
-	color: rgb(224,62,62);
-	fill: rgb(224,62,62);
-}
-.block-color-gray_background {
-	background: rgb(235,236,237);
-}
-.block-color-brown_background {
-	background: rgb(233,229,227);
-}
-.block-color-orange_background {
-	background: rgb(250,235,221);
-}
-.block-color-yellow_background {
-	background: rgb(251,243,219);
-}
-.block-color-teal_background {
-	background: rgb(221,237,234);
-}
-.block-color-blue_background {
-	background: rgb(221,235,241);
-}
-.block-color-purple_background {
-	background: rgb(234,228,242);
-}
-.block-color-pink_background {
-	background: rgb(244,223,235);
-}
-.block-color-red_background {
-	background: rgb(251,228,228);
-}
-.select-value-color-default { background-color: rgba(206,205,202,0.5); }
-.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
-.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
-.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
-.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
-.select-value-color-green { background-color: rgba(0,135,107,0.2); }
-.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
-.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
-.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
-.select-value-color-red { background-color: rgba(255,0,26,0.2); }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="bd0a1286-4744-4714-a5d8-21f15687f09e" class="page sans"><header><h1 class="page-title">health</h1></header><div class="page-body"><h3 id="bbac1607-3291-4ed7-bdd9-ed34df70fde0" class="">Blood</h3><ul id="c2c15156-5757-4d72-8176-e8880334501b" class="bulleted-list"><li>https://www.redpenreviews.org/reviews/eat-right-4-your-type-the-individualized-blood-type-diet-solution</li></ul><h3 id="195c991a-fded-4042-8ccf-8b57551b3e6c" class="">Books</h3><ul id="dfb69fb6-aa5a-46a8-b117-c6ab6a2fde30" class="bulleted-list"><li><a href="https://www.amazon.com/gp/customer-reviews/R2SC5L9GQGZVXH/ref=cm_cr_dp_d_rvw_ttl?ie=UTF8&amp;ASIN=0062290738">The Disease Delusion: Conquering the Causes of Chronic Illness for a Healthier, Longer, and Happier Life - Jeffrey Bland</a></li></ul><ul id="ae5ab8a4-a841-4133-a302-189bc22278e6" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9xQaTKb5QTizgOHbRFuKVUu">Book reviews heart attack stroke prevention weight loss - Ford Brewer MD MPH</a></li></ul><ul id="abb73120-ff52-4ba4-874d-5a879996a7c3" class="bulleted-list"><li>http://nutriblog.ro/4043/carti-despre-dieta-ketogenica-low-carb-scrise-limba-romana.html</li></ul><ul id="9555eca3-da06-4f77-906c-5a757366c6ea" class="bulleted-list"><li>https://www.scribd.com/book/420546368/Dieta-ketogenica + https://books.google.ro/books?id=-xGnDwAAQBAJ</li></ul><ul id="188ca2e9-2123-4a2d-a103-bbdd8ad118f3" class="bulleted-list"><li><a href="https://www.amazon.com/Magick-Food-Rituals-Offerings-Together/dp/0738760854">The Magick of Food: Rituals, Offerings &amp; Why We Eat Together ~ Gwion Raven</a></li></ul><ul id="b73cf152-47b7-4548-91e2-3ae068cf53bc" class="bulleted-list"><li>http://istrosbooks.com/products/books/our-daily-bread-110</li></ul><ul id="3b77a12a-53cd-4420-a758-682c5921b252" class="bulleted-list"><li>https://flaviocopes.com/repetive-strain-injury + https://twitter.com/flaviocopes/status/1378999932191977473</li></ul><ul id="bb215fad-2a9c-4c5b-bbaa-f90cf6ce3f9b" class="bulleted-list"><li>https://inquisitivebiologist.com/2021/04/06/book-review-how-to-make-a-vaccine-an-essential-guide-for-covid-19-beyond</li></ul><h3 id="8197d94c-f1e3-409a-a3dc-8cae4f1c736c" class="">Cinema</h3><ul id="dcb2023d-fa24-42f3-ab46-bc8082f002f1" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL5TLzNi5fYd9JWJdWb4rgzaMrPLoF8S7c">Benefits of Turmeric | NutritionFacts.org</a></li></ul><h3 id="127ac26e-66e4-4a63-9a94-5e5c84170c16" class="">Cholesterol</h3><ul id="5b41bb75-a0c2-43a9-aabc-49f7a63d422e" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLWNQLvi9Q_zuigCB6JPmDQuR3TwfJO3QX">#CholesterolScience - Dave Feldman</a></li></ul><h3 id="6bf13a59-52bb-41f9-8f26-1b59e1a902dd" class="">Diseases</h3><ul id="2c52628e-db43-4d2c-83af-1eb9dc4f5bca" class="bulleted-list"><li>https://prevmedhealth.com/the-end-of-alzheimers-by-dale-bredesen + https://youtu.be/wekW6wVpQFw</li></ul><ul id="7e7d134a-6eac-4b3e-b49d-6e784f074a08" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9zqQxkYNBB1fcr34jmXg9_0">Alzheimer’s Dementia - Ford Brewer MD MPH</a></li></ul><ul id="71a506c4-d9cd-4aa7-a4d2-2fd12714401a" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9z7G9VtDVphcQvVqHgqA3lB">New model for Alzheimer’s - Ford Brewer MD MPH</a></li></ul><ul id="b07c0cd6-873b-4021-aa78-2fccf277ebf7" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9ykKqG1sIejMutqMLaatSGH">How to diagnose diabetes - Ford Brewer MD MPH</a></li></ul><ul id="39060060-255d-4ed8-99ac-d80a5c3530e4" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9wVPKIgxe3NYlXCbSi73tyS">How to prevent Alzheimer’s and cognitive decline - Ford Brewer MD MPH</a></li></ul><ul id="5f62a39e-f8b1-407c-a438-f18b6119e23d" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9zsbsPab5bwq0Ky6xqwYgur">Diabetes science - Ford Brewer MD MPH</a></li></ul><ul id="7beeb48d-b0b6-4ac1-bbc9-66e81548b6c2" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9z08cPCCcf298wh6jOfftnl">Gum disease, periodontal disease - Ford Brewer MD MPH</a></li></ul><ul id="93411cf1-1536-4a06-b6e4-71927b03d167" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9xnbbJvE9y4iat16_rQVm2L">gingivitis, periodontitis &amp; heart disease - Ford Brewer MD MPH</a></li></ul><ul id="002c88a0-bcfe-4223-ab19-79d6f5183c1c" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLLNvew6525LFssuFNroVieEEWvs8fXjQr">Calcifying Nanoparticles - Dr. Darren Schmidt, DC</a></li></ul><h3 id="3ab615fc-a9ff-4ae3-92a5-181d22264128" class="">Grocery</h3><ul id="1e24ac79-fcf2-4b30-a6eb-8b8741b917a9" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLZupSfb-NVbpltzWP1zcpVH7Nzd16_cQG">What is Organics? - Paul Chek</a></li></ul><ul id="e77c09f6-4fe9-4b19-ae42-bcdcbe00e7bb" class="bulleted-list"><li>https://andranistor.ro/2020/03/26/de-unde-cumparam-alimente-cand-nu-mai-merg-aplicatiile-cunoscute</li></ul><ul id="3f3677b5-103f-4a82-8b84-4ee18b253982" class="bulleted-list"><li>https://mamamag.ro/producatorii-locali-de-alimente-de-la-care-ne-aprovizionam-in-autoizolare</li></ul><ul id="bbba12b6-c782-4158-83f5-444a87500900" class="bulleted-list"><li>https://ligiapop.com/2012/05/04/microferme-si-producatori-bio-locali</li></ul><ul id="403c62ca-4a8d-4032-9dcc-3257ad78bfad" class="bulleted-list"><li>https://shop.greensense.ro/fructe-crude/17-nuci-macadamia.html#/3-gramaj-1kg</li></ul><ul id="9f213c45-7a68-46c9-ba63-4fc88b11d3bf" class="bulleted-list"><li>https://shop.greensense.ro/fructe-crude/3-nuci-pecan.html#/3-gramaj-1kg</li></ul><h3 id="2bde45ca-895d-43a6-85a9-bb1a67a24b31" class="">Sleep</h3><ul id="5e8a8fc6-5263-44b9-8816-53017374951d" class="bulleted-list"><li>https://www.quora.com/What-are-some-good-chronobiology-books</li></ul><ul id="614180cc-a7f3-44d7-8e4e-591887e2b87b" class="bulleted-list"><li>http://circadiana.blogspot.com/2005/12/reading-recommendations-books-about.html</li></ul><ul id="3deb16c2-96a0-42e4-b2ad-0115fede1d3b" class="bulleted-list"><li><a href="https://books.google.ro/books?id=XlUyNPDMY8sC">The Rhythms Of Life: The Biological Clocks That Control the Daily Lives of Every Living Thing</a></li></ul><ul id="b2087b35-8acf-49e8-8eb5-6f603aea7ae5" class="bulleted-list"><li>https://truedark.com/the-best-books-to-help-you-improve-your-health-and-sleep</li></ul><ul id="acf754ea-d3c4-44d7-86fe-585e12630063" class="bulleted-list"><li>https://www.youtube.com/watch?v=8hAw1z8GdE8</li></ul><ul id="a5d38d89-fef9-4212-8f6a-d4d58fc2589a" class="bulleted-list"><li>https://www.youtube.com/watch?v=pwaWilO_Pig</li></ul><ul id="4d5872af-abde-4cb8-b4cf-a3622b82358a" class="bulleted-list"><li>https://www.huffpost.com/entry/15-ways-to-fall-asleep-faster_n_55dde3e7e4b04ae497054470</li></ul><ul id="97ad24c2-844a-4be7-b397-79dafc2d96bb" class="bulleted-list"><li>https://www.quantifiedbob.com/best-biohacking-books/#biohacking-sleep</li></ul><ul id="f5bebc7a-54f4-4397-883f-5389cc8d080f" class="bulleted-list"><li>https://highintensityhealth.com/snacking-before-bed-may-slow-weight-loss-fat-oxidation</li></ul><ul id="567c5bf6-8117-4a21-b098-ac735b54c1b4" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9wkkJ0_lVNSRVvsoYH7QDBM">Ford brewer sleep</a></li></ul><ul id="872003c7-47fd-47ee-b38d-49898b426c7c" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9z1wfXgDNilmpXY7YQklqqA">Home sleep studies - Ford Brewer MD MPH</a></li></ul><ul id="c546dcdb-1aa6-4ea0-b9b4-ff283aa251f1" class="bulleted-list"><li><a href="https://onlinelibrary.wiley.com/doi/10.1002/hbm.25132">Sleep duration is associated with white matter microstructure and cognitive performance in healthy adults</a> + https://news.ycombinator.com/item?id=25246419</li></ul><ul id="343648a4-3d97-472d-97fb-574846a64905" class="bulleted-list"><li>https://www.sciencefocus.com/the-human-body/afternoon-naps-linked-to-improved-cognitive-function + https://news.ycombinator.com/item?id=25972342</li></ul><h3 id="5a47de15-e73a-4458-ac92-6b8d8c1e9fe5" class="">Fitness</h3><ul id="6cd502c7-123f-4707-8477-487c9aa3adc6" class="bulleted-list"><li>https://chekinstitute.com/podcast-episode-notes/ep-18-evolve-yourself-physically</li></ul><ul id="dbe5af41-539f-4bfb-a2b6-f6764a23000b" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLZupSfb-NVbqeLSTfY6jGmKStAWw2LQ57">Movement As Medicine 1-7 - Paul Chek</a></li></ul><ul id="f3ec0139-1b2d-48dc-981e-e78149e02b42" class="bulleted-list"><li>https://www.julian.com/guide/muscle/intro</li></ul><ul id="a7797162-46b1-46d2-8dc9-8c3d3a41132d" class="bulleted-list"><li>https://github.com/evexoio/awesome-health</li></ul><ul id="e3470047-e6a5-416e-b7a2-407ab7ffdc21" class="bulleted-list"><li>https://www.goodreads.com/book/show/33293328-overcoming-gravity</li></ul><ul id="d685ab4b-b65d-4a6c-b62b-91411d646b2d" class="bulleted-list"><li>http://www.shapesense.com/fitness-exercise/calculators/running-calorie-burn-calculator.shtml</li></ul><ul id="e50c346c-5733-46c9-be1c-8b6bc119d88c" class="bulleted-list"><li><a href="https://www.facebook.com/apostu.alin.claudiu/posts/1935540589911432">Cine a (mai) fost la sporturi de contact?</a></li></ul><ul id="f401c07d-9619-41f9-9a3c-49ba0d3369ed" class="bulleted-list"><li><a href="https://jamonholmgren.com/gym">Building My Home Garage Gym</a></li></ul><ul id="821c569f-8745-4563-bfdf-592bf3cd3e84" class="bulleted-list"><li><a href="https://github.com/diracdeltas/random-training">Site that generates random workout routines.</a></li></ul><ul id="d7c0ae73-9d3c-4734-84f3-3c8fb3918e95" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLFBizIyYw93eg07IPpRQYgoNtQ9W6ECtV">HOW TO CORRECT POSTURE - Jeremy Ethier</a></li></ul><ul id="935fa318-966c-4cd3-9d78-e1ac0153cc29" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLEyLSg7prXmEJ_UYLpELgaMSbOPoYthRR">Grupe deficitare - Marius Mitrache</a></li></ul><ul id="878a80df-592d-4348-a71d-17ddb6a23509" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLEyLSg7prXmE93v3fT6AkBsJmTDNc37o4">Antrenamente acasa - Marius Mitrache</a></li></ul><ul id="ed6e2a5b-49bc-47af-a0a2-ec1fbd60a6d3" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLPem8DMLJzQNZf7TE8dKhzJOGa8bao24S">Workout Theory - Pietro Boselli</a></li></ul><ul id="392367a8-355f-4665-beb0-5cbaebe4f591" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLPem8DMLJzQPB3gzfXBoCNPlG1Wf6ByFI">Exercise Anatomy - Pietro Boselli</a></li></ul><ul id="48ab8f63-b4ae-4527-bd03-d456896e79d0" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9z8z0O-Oqm9wUsfywDOgQgU">Lactate threshold training health biochemistry - Ford Brewer MD MPH</a></li></ul><h3 id="a3c6b41e-8c54-404a-9ec2-55e140445cbb" class="">Injuries</h3><ul id="586c4fd0-f8b3-44ea-adfe-aa00a77522d1" class="bulleted-list"><li>https://www.costinglavan.ro/vindeca-hernia</li></ul><h3 id="a6c83a87-eb36-4f6d-967e-56d9eee73197" class="">Fasting</h3><ul id="feb48052-20ea-4e40-aafd-2773ced40c2d" class="bulleted-list"><li><a href="https://www.sciencedirect.com/science/article/pii/S1097276518306051">β-Hydroxybutyrate Prevents Vascular Senescence through hnRNP A1-Mediated Upregulation of Oct4</a></li></ul><ul id="595f92c5-04b9-45f9-98ac-a763adbf9cdd" class="bulleted-list"><li>https://twitter.com/elavenilee/status/1207653303028289537</li></ul><ul id="3b936f19-dc98-479f-a0e0-9eb114a44791" class="bulleted-list"><li><a href="https://youtu.be/A6Dkt7zyImk">Intermittent Fasting: Transformational Technique | Cynthia Thurlow | TEDxGreenville</a></li></ul><ul id="a2e4d901-5c42-40ac-8b39-df77519db69e" class="bulleted-list"><li>https://peterattiamd.com/jasonfung + https://news.ycombinator.com/item?id=21802676</li></ul><ul id="8ea51ab4-25de-4735-ad51-7455dd0c32eb" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLWIcRrPLCdUfEsFPi53bI3BeljwcIBIWl">Personal playlist</a></li></ul><ul id="7cb937d0-2962-42c3-af18-7fd0b86322c0" class="bulleted-list"><li>https://twitter.com/KetoAurelius/status/1216461099404595200</li></ul><ul id="b8f4aa98-540a-4c8e-8ed0-de9c8164d532" class="bulleted-list"><li>https://www.siimland.co/products/metabolic-autophagy-book</li></ul><ul id="8a0e91aa-19e3-4c90-a720-715d3f5d3fbc" class="bulleted-list"><li><a href="https://www.gwern.net/docs/longevity/2019-mattson.pdf">An Evolutionary Perspective on Why Food Overconsumption Impairs Cognition - Mark P. Mattson</a></li></ul><ul id="a6b3fe3e-081f-4a61-8bff-7a7f78b9ce13" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9xF85LzBWl7OcjmLQuAq7Uh">Autophagy - Ford Brewer MD MPH</a></li></ul><h3 id="b15653c8-0a12-4c9d-b766-73cc1441d3db" class="">Supplements</h3><ul id="a5990bbc-9dce-4485-a704-9c312e11818e" class="bulleted-list"><li>https://www.health.harvard.edu/staying-healthy/listing_of_vitamins</li></ul><ul id="09ae6e46-4ba9-40cc-966d-95f4f37e7bbb" class="bulleted-list"><li>https://masterpass.chrismasterjohnphd.com/dashboard</li></ul><ul id="86ed3d4e-fa5b-43b0-b76e-c8fd8677f598" class="bulleted-list"><li><a href="https://gist.github.com/costinEEST/ad8cf467626ba983b9ef6e79dd4dbf8f">Vitamins and minerals</a></li></ul><ul id="29397054-734d-4773-b260-a0b6c054f66e" class="bulleted-list"><li>https://www.foundmyfitness.com/topics/creatine</li></ul><ul id="1fadbb6c-ae87-40ee-9d46-33aabdad033e" class="bulleted-list"><li>https://www.healthline.com/nutrition/10-nutrients-you-cant-get-from-animal-foods</li></ul><ul id="791e8a4a-85c0-441f-b337-21970dd4d8ee" class="bulleted-list"><li>https://www.accessdata.fda.gov/scripts/interactivenutritionfactslabel/factsheets/vitamin_and_mineral_chart.pdf</li></ul><ul id="c33bdcf6-b56e-4471-8b8c-c4245b299e07" class="bulleted-list"><li>https://books.google.ro/books/about/Prescription_for_Nutritional_Healing.html?id=2s_q2y_J3rwC</li></ul><ul id="b907812c-8d88-4d38-92c8-80b54cfdbc76" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLFbLg_bIQgxC-NtGO7TzTTO0Lgd8R-Vop">Mr. Mineral | Minerals for Body, Brain and Business Optimization- Thomas DeLauer</a></li></ul><ul id="d340af27-953e-4b66-8279-fd5136c26af8" class="bulleted-list"><li><a href="https://www.facebook.com/groups/755526297805685/permalink/3994212310603718">În București, de unde vă procurați stevie, turmeric, fulgi de drojdie inactivă?</a></li></ul><ul id="6d98eff3-ccfa-4104-beea-af8a4c3083b0" class="bulleted-list"><li>https://www.emag.ro/puterea-vitaminei-d-sarfraz-zaidi-9786068784007/pd/DQV543BBM</li></ul><ul id="3887fabf-b341-44fa-a60a-f2c7d937f044" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLM1VQBlR_OgvFYPr0vJkWkwpDAT-_CEmf">Iron Overload - Matt Blackburn</a></li></ul><ul id="cd11861f-c2b8-425c-ad37-53133714596f" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLM1VQBlR_Ogt1A0EHmzyxxKq9qsPD6cL-">Magnesium - Matt Blackburn</a></li></ul><ul id="b8756763-8793-4ca6-9e8e-c8a911b76939" class="bulleted-list"><li><a href="https://www.amazon.com/shop/influencer-5dcb908c?listId=L6NGBTQPLMEJ">Ketogains Suggested Products</a></li></ul><ul id="e7d3d942-1e2d-4398-93b6-23ec3683801e" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9xfwHQsPNIRrGCghvvh0uLV">Should I take Aspirin? - Ford Brewer MD MPH</a></li></ul><ul id="d31d1af7-25d7-46a9-8ccb-ae0eec26a254" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9wdGJ4lybaQWvoj7C_m3xDV">Aspirin - Ford Brewer MD MPH</a></li></ul><ul id="e1a4a06c-9c90-465c-a989-3c5a5840dddd" class="bulleted-list"><li>https://www.thoughtco.com/elements-in-the-human-body-p2-602188</li></ul><h3 id="d217e2ee-4294-455b-9668-001abb1e3c1e" class="">Vegetables</h3><ul id="7ad539fa-e3b3-41e2-9098-dfc2b698d945" class="bulleted-list"><li>https://incredibleromania.com/curs-de-culegator-din-flora-spontana-foraging</li></ul><ul id="0a0e6499-4082-4924-8566-0e4ecdaa623f" class="bulleted-list"><li>https://chekinstitute.com/blog/eating-animals-a-moral-question</li></ul><ul id="6d8f4c77-2b27-4dd6-90de-8029d87903ba" class="bulleted-list"><li>https://wellnessforce.com/the-science-of-why-vegans-get-sick</li></ul><ul id="4d423c96-4a39-4104-b075-c0521d4e6312" class="bulleted-list"><li>https://www.cristianmargarit.ro/2014/10/despre-antinutrienti-si-toxine-naturale-mancare</li></ul><ul id="f9061f21-63b3-4943-bbf1-196aad5af347" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLy5C4b2v0Bq0vTRUziPB_RB3ZJu1Mmplj">Lectins - clistbus</a></li></ul><ul id="e7c78e69-b726-4837-becb-f3b6bfded521" class="bulleted-list"><li><a href="https://www.youtube.com/user/jenfugo/playlists">Jennifer Fugo talks about gluten free</a></li></ul><ul id="4bb21725-e099-451c-8003-071dd40fdcab" class="bulleted-list"><li>https://mdlingo.com/a-guide-to-coconut-products-water-milk-cream-oil-butter</li></ul><ul id="b2ea7322-d5d2-4544-871a-0adfed6009f0" class="bulleted-list"><li>https://inquisitivebiologist.com/2019/11/25/book-review-slime-how-algae-created-us-plague-us-and-just-might-save-us</li></ul><h3 id="4a3e8652-a069-4265-9045-715e4bb2d8b1" class="">Ketosis</h3><ul id="6bc1a811-0b18-4e2d-99d8-f5829dcbf535" class="bulleted-list"><li>https://perfectketo.com/guide/ultimate-start-guide-ketogenic-diet</li></ul><ul id="733547c1-5d9f-4c6f-b11e-38594ad18fff" class="bulleted-list"><li>https://www.ruled.me/guide-keto-diet</li></ul><ul id="bb92473d-a1d5-4a4d-980e-402b1da7f349" class="bulleted-list"><li>https://www.amazon.com/Keto-Answers-Simplifying-Everything-Confusing-ebook/dp/B07WH43FLB</li></ul><ul id="dabe303b-1361-4172-9106-1104c0f3d932" class="bulleted-list"><li>https://www.facebook.com/groups/755526297805685/permalink/1902882243070079</li></ul><ul id="1ec1a44c-1ec7-41c2-a28a-b0b456ea6386" class="bulleted-list"><li><a href="http://josepharcita.blogspot.com/2011/03/guide-to-ketosis.html?m=1">A Guide to Ketosis.</a></li></ul><ul id="35608778-92bc-43c3-8dcd-3e8e7aa014ac" class="bulleted-list"><li><a href="https://youtu.be/qR4tf-np6jU">Behind the World’s First Ketone Ester ft. Kieran Clarke || HVMN Enhancement Podcast: Ep. 48</a></li></ul><ul id="e4b072f7-651b-4ce8-af3f-d23f08f8d543" class="bulleted-list"><li>https://isitketo.org</li></ul><ul id="adf0959e-a848-4cfb-b395-054de29370cf" class="bulleted-list"><li><a href="https://www.facebook.com/AdaptYourLife/videos/481025419270677">How Keto Eased My PCOS — Jordan Swain [Adapt Event]</a></li></ul><ul id="c262394b-0206-43bb-9e21-4fab345dbedb" class="bulleted-list"><li><a href="https://www.facebook.com/groups/755526297805685/permalink/3902770676414549">În București: mai există alte restaurante keto/low carb, în afară de MASA - CASA ?</a></li></ul><ul id="5e501060-6f19-4277-8d2d-d388cf9c1f20" class="bulleted-list"><li><a href="https://www.netflix.com/ro-en/title/80238655">The Magic Pill (2017)</a></li></ul><ul id="83370bc8-6803-4818-af76-a09a13d7bd39" class="bulleted-list"><li>https://www.udemy.com/course/ketosis-and-if-for-fat-loss/?referralCode=92E9B7EAFC36975B08A0</li></ul><ul id="2bf84f74-b498-42b1-aad5-ad4aae22ee5e" class="bulleted-list"><li>https://www.amazon.com/Ketones-Fourth-Fuel-Warburg-Fountain-ebook/dp/B08G8TFQKS + https://youtu.be/9ler8ksUAfE + https://twitter.com/briannastubbs/status/1225209323522936832 + https://medium.com/@travischristofferson/richard-bud-veech-the-unknown-scientist-behind-the-ketogenic-diet-craze-dies-at-84-ff1f7c9b91ea + https://youtu.be/WV_jip-Yhe4</li></ul><ul id="1b5e6292-76ef-400e-b4bd-1aa3a0dbbc5d" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9x2q-9uV9zcGfQ6Pi6Oj-_s">Biomarkers, Metabolism, Biochemistry - Ford Brewer MD MPH</a></li></ul><ul id="feb00ea8-873c-4872-af9a-32d9511db160" class="bulleted-list"><li><a href="https://github.com/arielf/weight-loss">Machine Learning meets ketosis: how to effectively lose weight</a></li></ul><h3 id="539b5c9f-56f0-49f6-aed7-241f153dc795" class="">Meat</h3><ul id="0766a7cd-6623-43f4-986b-0b7dcf3c7e2f" class="bulleted-list"><li>https://www.timesofisrael.com/for-2-million-years-humans-ate-meat-and-little-else-study</li></ul><h3 id="13556d5b-8f2f-4405-836b-70c78914272b" class="">Mushrooms</h3><ul id="7680eb8b-86f3-40ab-b4aa-e13438eb34b4" class="bulleted-list"><li>https://ciupercar.ro</li></ul><ul id="b2e7891a-90e8-4ab8-a949-bcf402704b25" class="bulleted-list"><li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3854548">Mushrooms and Truffles: Historical Biofactories for Complementary Medicine in Africa and in the Middle East</a></li></ul><ul id="34982c57-b5c6-4a88-b6d0-5e8b92addbe9" class="bulleted-list"><li>https://incredibleromania.com/magazinul-culegatorului/cursuri-cumpar/curs-de-ciuperci-salbatice-comestibile</li></ul><ul id="b43f30ff-1cd8-46d1-8349-b7aea6d4ca37" class="bulleted-list"><li>https://inquisitivebiologist.com/2019/11/04/book-review-fungipedia-a-brief-compendium-of-mushroom-lore</li></ul><ul id="26d05b65-9f5d-467e-8ade-35200a62bb05" class="bulleted-list"><li>https://bioneers.org/will-mushrooms-be-magic-for-threatened-bees</li></ul><ul id="8292b8c9-9d4f-48cf-9ad3-9ee9de63b63b" class="bulleted-list"><li>https://www.foragingwildmushrooms.com/</li></ul><ul id="e5997d6e-0161-43e7-84c5-0c06c2880513" class="bulleted-list"><li>https://inquisitivebiologist.com/2020/10/02/book-review-entangled-life-how-fungi-make-our-worlds-change-our-minds-and-shape-our-futures + https://www.youtube.com/user/merlinsheldrake/playlists</li></ul><ul id="f7129eb9-5d17-49de-a256-732e28062c1d" class="bulleted-list"><li>https://www.youtube.com/user/radmycology/playlists + https://chthaeus.com/collections/books-1/products/radical-mycology-a-treatise-on-seeing-working-with-fungi</li></ul><ul id="c229570a-7a72-4b70-b52f-9b53cadb7abb" class="bulleted-list"><li>https://www.mycoworks.com/resources</li></ul><h3 id="b0d6157b-86c0-43b7-8bcf-4427f2e0f164" class="">Alcohol</h3><ul id="fbb70dbf-1c05-479f-b3d8-23b8373847d8" class="bulleted-list"><li>https://www.vinography.com/2020/12/how-long-does-a-bottle-of-wine-last-after-it-is-opened + https://news.ycombinator.com/item?id=25887200</li></ul><h3 id="6f13ba76-06b5-4702-8a4b-fe446325b225" class="">Tea</h3><ul id="4b6f3049-78d7-4cc8-8557-5c7059cc031d" class="bulleted-list"><li><a href="https://www.amazon.com/Empire-Tea-Asian-Conquered-World/dp/1780234406">Empire of Tea: The Asian Leaf that Conquered the World</a></li></ul><ul id="3f4ff1a6-6be3-432f-9cdb-0b15d598fcf7" class="bulleted-list"><li>https://www.ceai.info</li></ul><h3 id="9f6da306-669d-4a8f-b5ef-9d65d70fb417" class="">Coffee</h3><ul id="7cc28612-8529-45b0-9670-5ea1a3d86d61" class="bulleted-list"><li>https://blackwells.co.uk/bookshop/product/Lonely-Planets-Global-Coffee-Tour-by-Mike-Higgins-editor-Nick-Mee-editor-Yolanda-Zappaterra-editor/9781787013599</li></ul><h3 id="12c8db3e-6e8f-46ed-8584-5745ffe2ed68" class="">Sugar</h3><ul id="03e13309-9424-4a56-8ec5-e1253ef1dcc4" class="bulleted-list"><li><a href="https://twitter.com/Austen/status/1211144183018246144">Is there a way to be prescribed a continuous glucose monitor without an insulin deficiency/diabetes?</a></li></ul><ul id="a4a91204-809b-47de-b6c9-4a7abe29a209" class="bulleted-list"><li><a href="https://twitter.com/notyetagm/status/1220352727546580997">Why Did Mexico Surpass America in Obesity?</a></li></ul><ul id="6e69178a-4d4f-45e5-af96-8a367ef747af" class="bulleted-list"><li>https://www.amazon.com/Diets-Because-Youre-Addicted-Sugar/dp/1607744864</li></ul><ul id="a76eaa65-342f-403b-bea1-255d2d62b63a" class="bulleted-list"><li>https://inquisitivebiologist.com/2018/05/17/book-review-the-rise-of-yeast-how-the-sugar-fungus-shaped-civilisation</li></ul><ul id="17e1b5cd-f91d-450d-9156-f0555b32316b" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9w_vQBQgWVFneHt8r2Gvvkr">Ghrelin, the only known hunger hormone - Ford Brewer MD MPH</a></li></ul><ul id="4c56fe16-9805-469e-8907-bd2f0e6aae53" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9zUgj26Wns9yLYMq559Luru">Insulin Resistance - Ford Brewer MD MPH</a></li></ul><ul id="209d67fd-8eb9-4a25-88ea-8d01d38fff29" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9wlbcBO4wBL2M2-_3C9FSVh">Hormonal theory of weight management - Ford Brewer MD MPH</a></li></ul><h3 id="8d6aea85-0c81-4ace-9148-f67bc0e9f5c2" class="">Skin</h3><ul id="ee480d06-fe16-42a3-a832-6764bf367a17" class="bulleted-list"><li>https://www.google.com/search?q=mucocutaneous+triad</li></ul><ul id="ac85e9b1-6032-4a7f-b1c8-fec3d566a4ec" class="bulleted-list"><li>https://www.emag.ro/totul-despre-alergii-earl-mindell-dr-pamela-wartian-smith-9786067890921/pd/DPDZGNBBM</li></ul><h3 id="f79fa0fe-9229-47d4-95c2-a27bbf4e98fa" class="">Gut</h3><ul id="19495ece-dcbb-4138-9a3e-9f96bd2e0e90" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLCjag94GB6w17vSjb5pgjM-HSpVK0IkPH">Microbiome - YourekaScience</a></li></ul><ul id="f0c27f98-07fa-49e8-9002-2c7998a87486" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9weTI4NF9TBxCenYKgUU8DS">The gut biome and heart health - Ford Brewer MD MPH</a></li></ul><ul id="eb79a7e1-f5b6-48d7-aeda-67a3cf518250" class="bulleted-list"><li>https://chriskresser.com/sibo-what-causes-it-and-why-its-so-hard-to-treat + https://pubmed.ncbi.nlm.nih.gov/33361039</li></ul><h3 id="a94f58de-09b3-4301-85ce-5f0e50c2325a" class="">Addictions</h3><ul id="547e7c42-3b86-48f6-97df-7cfdb4fa5a6e" class="bulleted-list"><li>https://www.amazon.com/Hedonic-Eating-Pleasure-Affects-Behavior/dp/019933045X</li></ul><ul id="37850f2b-eda2-4d57-8be7-4b39a5186a6a" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9zc29LI75JIkt-aUvG-ETIh">Mindful eating and food addiction - Ford Brewer MD MPH</a></li></ul><h3 id="f956ab83-fb26-42dc-a7f8-154a29bebca3" class="">Ageing</h3><ul id="c53f3756-4283-43c6-80cb-0fd67dfa63a8" class="bulleted-list"><li>https://www.ldeming.com/longevityfaq</li></ul><ul id="4f7c68c9-65ca-432e-a562-7b0454e51be7" class="bulleted-list"><li>https://player.fm/series/the-ironman-executive/cracking-the-aging-code-with-josh-mitteldorf</li></ul><ul id="deefdb01-b562-4dc9-87a3-d87ead06cb8e" class="bulleted-list"><li>https://joshmitteldorf.scienceblog.com/2018/08/01/the-most-effective-personal-anti-aging-program</li></ul><ul id="0ce71cfb-e87f-43c2-87d7-7c73b344dcf3" class="bulleted-list"><li><a href="https://onlinelibrary.wiley.com/doi/full/10.1111/acel.12510">Can aging be programmed? A critical literature review</a></li></ul><ul id="a37a9e97-fb4b-4060-965f-fda06a0d4d1f" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL-7qI6NZpO3u8IWIDhIhHH5eczjs_2S2Z">Undoing Aging by Science, Technology &amp; the Future</a></li></ul><ul id="670f6db3-e3e7-41ac-b2d8-e3b2f9f2a2e0" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL-7qI6NZpO3uDn2dTsRwWLb0jEuWU8bcI">Anti-Aging by Science, Technology &amp; the Future</a></li></ul><ul id="edebb491-6e58-48d3-8d2c-816e83f0ebb0" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLvB8mhLViWhBoKvY_9eVtenBbOzelLANs">SRF Education Video Lecture Course</a></li></ul><ul id="17f83544-e2bf-4109-a1ce-c507fd077307" class="bulleted-list"><li><a href="https://www.ncbi.nlm.nih.gov/m/pubmed/23425777/">Answering the ultimate question “what is the proximal cause of aging?”.</a></li></ul><ul id="47833322-6068-422f-aa17-a6e21981f31d" class="bulleted-list"><li>https://www.reddit.com/r/longevity/comments/e2q84z/textbooks_courses_and_resources_on_aging</li></ul><ul id="e5557f95-c3a4-432d-8c19-cc2519844999" class="bulleted-list"><li>https://www.naomiwhittel.com/benefits-of-autophagy</li></ul><ul id="722e5586-f986-4707-99e4-5019ab56e8aa" class="bulleted-list"><li>http://sureshrattan.com/category/offers/lectures-workshops-list/videos</li></ul><ul id="303a6383-21fd-4301-a851-e5b4fe780376" class="bulleted-list"><li>https://www.foundmyfitness.com/episodes/elissa-epel + https://youtu.be/IEz1P4i1P7s + https://podcastnotes.org/ben-greenfield-fitness/thomas-delaurer-ben-greenfield-muscle-strength</li></ul><ul id="22191624-b28e-4ddf-9e94-8870a77757f5" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLCjag94GB6w1p5-FTEshIf-Vl_p8dNiqa">Longevity - YourekaScience</a></li></ul><ul id="121978e5-e66e-47a0-a165-f130ad56bb94" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9xcAWAI60AWk89crbEkcQ0Z">Mitochondria - Ford Brewer MD MPH</a></li></ul><ul id="043fe33d-d91d-4aa8-ad8c-27243e046d8e" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9yZ2mbJTPiXd1jOHhTPTqgx">Life Purpose &amp; Longevity - Ford Brewer MD MPH</a></li></ul><ul id="a09d188a-1fd8-4058-8e28-75c3b3067bfe" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9zAoQZKBD8d1kPUqAB7PMuV">Longevity - Ford Brewer MD MPH</a></li></ul><ul id="9d23ddc5-8d00-4b96-a946-03644426f59c" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9y66aEswCVyVLLgngYx3htY">David Sinclair - Harvard Longevity Prof, author of Lifespan, &amp; Joe Rogan guest - Ford Brewer MD MPH</a></li></ul><ul id="e86e0a7c-67ea-4171-b256-db28a9f8545b" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9z0lcffgTrggdLrVPfp1Eu3">MTHFR - Ford Brewer MD MPH</a></li></ul><ul id="d6c2ad39-0f77-452f-8b2f-821fdbea0192" class="bulleted-list"><li>https://www.discovermagazine.com/health/liz-parrish-is-patient-zero-in-her-own-anti-aging-experiment</li></ul><ul id="aa1732e9-7d3a-4fab-9173-794c0b9cc552" class="bulleted-list"><li>https://en.wikipedia.org/wiki/List_of_living_centenarians</li></ul><ul id="db070c6e-372d-4b8a-999d-491d4a823ab7" class="bulleted-list"><li>https://www.gowinglife.com/top-10-health-and-longevity-innovations-in-2020</li></ul><h3 id="f3a0d702-d2b9-4c44-a88c-de33fac75160" class="">Viruses</h3><ul id="963b6d32-a15b-4005-aa4f-9f767e2ee1ec" class="bulleted-list"><li>https://formular.sts.ro + https://github.com/CSSEGISandData/COVID-19 + https://berthub.eu/articles/posts/corona-science + https://www.flattenthecurve.com + https://staythefuckhome.com + https://chrismasterjohnphd.com/what-im-doing-for-the-coronavirus + https://www.cnet.com/news/hospital-uses-vr-to-show-how-coronavirus-impacts-the-lungs + https://londonreal.tv/the-truth-behind-the-coronavirus-pandemic-covid-19-lockdown-the-economic-crash-david-icke + <a href="https://www.crowdcast.io/e/daniel-david-live/1">CORONAVIRUS: Sfatul psihologului Daniel David</a> + <a href="https://twitter.com/PeterKolchinsky/status/1246975275021348865">A recent Nature paper reveal a remarkable trick SARS-Cov-2 learned that makes it nastier than the first SARS.</a></li></ul><ul id="409621a1-ff7a-422a-a1b1-1e9698c26817" class="bulleted-list"><li><a href="https://shop.biohackercenter.com/a/downloads/-/7a6e98bd51548749/410e6d9f1c7e39e0">Bio hacker’s flu guide (e-book)</a></li></ul><ul id="e5b119c1-a513-4412-8d58-8bbe191ad8b0" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLGhmZX2NKiNldpyRUBBEzNoWL0Cso1jip">Virology Lectures 2020 - Vincent Racaniello</a></li></ul><ul id="772fe96b-de71-40b6-a028-e35c2f59e4f4" class="bulleted-list"><li>https://www.alexirpan.com/2020/05/17/corona-chernobyl.html</li></ul><ul id="973d371f-e17e-4213-b403-b02f43ae530e" class="bulleted-list"><li>https://mailchi.mp/667e9af04cfa/spitting-image?e=12229ba061 + https://www.protocols.io/workspaces/coronavirus-method-development-community + https://youtu.be/CbzwyigvfRY</li></ul><ul id="ca6277c1-3d40-42f6-9ef3-89e5a5598f12" class="bulleted-list"><li><a href="https://twitter.com/o_rips/status/1320587067601031169">Judy A. Mikovits</a></li></ul><ul id="a0fb73e9-6561-421d-9824-3851035de091" class="bulleted-list"><li>https://www.newyorker.com/magazine/2020/11/09/how-the-coronavirus-hacks-the-immune-system</li></ul><ul id="1c9a20d9-ead8-4e80-8a1d-5cc04b001948" class="bulleted-list"><li>https://www.amazon.com/Apollos-Arrow-Profound-Enduring-Coronavirus/dp/0316628212</li></ul><ul id="aac746e8-9854-4b8a-9b92-91d1214af246" class="bulleted-list"><li>https://www.gatesnotes.com/About-Bill-Gates/Year-in-Review-2020 + https://news.ycombinator.com/item?id=25356485</li></ul><ul id="3364f4a6-3726-488c-86b7-c02850447005" class="bulleted-list"><li><a href="https://amp.theatlantic.com/amp/article/617262">COVID-19 Changed Science Forever - The Atlantic</a></li></ul><ul id="4b43def5-cd65-466a-8296-08854f2ce73f" class="bulleted-list"><li>https://www.nationalgeographic.com/science/2020/12/these-scientists-spent-twelve-years-solving-puzzle-yielded-coronavirus-vaccines</li></ul><ul id="3119521f-a318-4b0f-ac33-3747d30507d5" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLASpI360FnueQxqPuoxjYuypW5evZxeKm">Journal Club - Deep Dives into the Primary Literature | Youtube Microbiology Journal Club</a></li></ul><h3 id="17082b2b-e397-4a99-92c3-7fa3894ab6c9" class="">Radiation</h3><ul id="ce33b45f-0f04-4c39-91e5-7b48fd6241c9" class="bulleted-list"><li>https://phibetaiota.net/2020/02/arthur-firstenberg-the-invisible-rainbow-a-history-of-electricity-and-life-radiation-sickness-explains-all-past-and-present-flu-outbreaks-including-wuhan-virus-and-radiation-sickness-on-cruise-shi + https://podcasts.apple.com/gb/podcast/progressive-commentary-hour-invisible-rainbow-being/id453549934?i=1000467436348</li></ul><ul id="1aeb5c23-74fe-45ba-a5c8-391e662e1f9a" class="bulleted-list"><li>https://thetruthaboutcancer.com/are-microwaves-safe</li></ul><h3 id="8d45200f-fc90-4c72-9fdd-2c3758cbf367" class="">Tools</h3><ul id="d453114e-5fae-477f-b2c4-b71b1fde8565" class="bulleted-list"><li><a href="https://github.com/edwardqiu/digital-zeitgebers">A BitBar plugin that reminds you with sleep hygiene recommendations</a></li></ul><ul id="83ef22d7-cc2d-48a8-af89-bd5b67fecfa3" class="bulleted-list"><li><a href="https://datadrivenyou.com/quantified-self-mind-map">Conceptualizing Self-Tracking Tools and Data-Driven Technologies</a></li></ul><ul id="7709a660-e9eb-4319-be68-e4049d93da88" class="bulleted-list"><li>https://github.com/woop/awesome-quantified-self#sleep</li></ul><ul id="30a8fde5-cba1-4305-9f73-3b9571421543" class="bulleted-list"><li>https://apps.apple.com/us/app/before-you-eat/id1475748617</li></ul><ul id="a886db1f-e354-48a0-adeb-ccd86bebe5bb" class="bulleted-list"><li>https://www.questionsdeforme.fr/les-3-applications-pour-manger-sain-equilibre-et-pas-cher</li></ul><ul id="8a189596-3c09-49e8-a719-33add51bc2d1" class="bulleted-list"><li>https://apps.apple.com/us/app/spar-get-better-at-stuff/id1109640290</li></ul><ul id="b90cc929-2d90-47bc-bc09-998691fb9d83" class="bulleted-list"><li><a href="https://www.youper.ai/">Youper - Emotional Health Assistant Powered by AI</a></li></ul><ul id="f34bf0c2-ea6a-4f0c-8660-82a9ae7a40c8" class="bulleted-list"><li><a href="https://github.com/ojwalch/sleep_classifiers">Classify sleep from heart rate and acceleration via Apple Watch</a></li></ul><ul id="4bc5cc87-513b-4990-9d18-f18170a0202b" class="bulleted-list"><li><a href="https://github.com/vasco3/cheff">Meal Planner for calories and macros</a></li></ul><ul id="ca752368-3d68-406e-93af-c404fe8c31ea" class="bulleted-list"><li>https://github.com/yetanotherchris/awesome-mindhacking#journaling</li></ul><ul id="a1e1728f-fe89-40b6-98b7-fe8ed3207406" class="bulleted-list"><li><a href="https://play.google.com/store/apps/details?id=com.rubytribe.skinvision.ac">SkinVision - Detect Skin Cancer. Track your Moles.</a></li></ul><ul id="0e6ec614-69d5-4c41-8944-5a3871bfc3fd" class="bulleted-list"><li>https://blog.elifiner.com/how-i-built-an-app-to-fix-my-depression + https://news.ycombinator.com/item?id=24439612</li></ul><ul id="eb23300b-85bd-433e-92e9-5b6cc1c9a8b3" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9xIR0CRwKuGkNPXd_uJcF1f">Functional medicine - Ford Brewer MD MPH</a></li></ul><ul id="bcf26ed2-915f-4755-826e-765db5422478" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLLNvew6525LHpgxqaIeeXaTEcHsTsDbo2">Follow The Physiology - Dr. Darren Schmidt, DC</a></li></ul><ul id="8224992b-d182-4539-a159-42e1acfe22c3" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLLNvew6525LH5xMlqdLQVlF_nD6BaXGY3">How to Detoxify Your Brain &amp; Body - Dr. Darren Schmidt, DC</a></li></ul><ul id="8e44fbf5-56ba-4e81-b245-f766eb91b042" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLLNvew6525LFvQOTlvvmoAbCqO0himSx5">Mold, Candida, Yeast. - Dr. Darren Schmidt, DC</a></li></ul><ul id="1cd08a3b-46a6-46a4-9cb5-f3015e27ce8a" class="bulleted-list"><li><a href="https://github.com/jasoncwarner/ama/issues/35">How did you fix your posterior chain?</a></li></ul><h3 id="d7fecc0c-9ade-46f3-8de8-e54599841cd2" class="">Miscellaneous</h3><ul id="5c164482-4a3a-4246-8ef8-054a7b8f67e6" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PL0TLaocCMc9z_1YOf0VfvSOAJ2wsTr9tg">Lifestyle &amp; Disease -History of preventive medicine - Ford Brewer MD MPH</a></li></ul><ul id="1dc55ca8-f69c-4a08-889d-8bafc900d163" class="bulleted-list"><li>https://singularityhub.com/2020/10/13/scientists-found-a-new-way-to-control-the-brain-with-light-no-surgery-required</li></ul><h3 id="fbab1a95-bf21-4b77-acf9-f547d0cef7d0" class="">DYI</h3><ul id="7c7a05f2-5025-484f-a1d4-30665f0f92d0" class="bulleted-list"><li><a href="https://freebreathing.org/">VentilatorPAL is a high-quality but low-cost, open source ventilator that can be bought or built by anyone for a fraction of the cost of commercial ventilators.</a></li></ul><ul id="4835c6a3-80c0-4c7f-ab5a-a4fa8ad89817" class="bulleted-list"><li><a href="https://makefacemasks.com/">Make a face mask</a></li></ul></div></article></body></html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>health</title>
+    <style>
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 3px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        text-indent: -1.7em;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC",
+          "Noto Sans CJK KR";
+      }
+
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Consolas,
+          "Liberation Mono", Menlo, Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC", "Noto Sans Mono CJK KR";
+      }
+
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif,
+          "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC", "Noto Sans CJK KR";
+      }
+
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC",
+          "Noto Sans Mono CJK KR";
+      }
+
+      .highlight-default {
+      }
+      .highlight-gray {
+        color: rgb(155, 154, 151);
+      }
+      .highlight-brown {
+        color: rgb(100, 71, 58);
+      }
+      .highlight-orange {
+        color: rgb(217, 115, 13);
+      }
+      .highlight-yellow {
+        color: rgb(223, 171, 1);
+      }
+      .highlight-teal {
+        color: rgb(15, 123, 108);
+      }
+      .highlight-blue {
+        color: rgb(11, 110, 153);
+      }
+      .highlight-purple {
+        color: rgb(105, 64, 165);
+      }
+      .highlight-pink {
+        color: rgb(173, 26, 114);
+      }
+      .highlight-red {
+        color: rgb(224, 62, 62);
+      }
+      .highlight-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .highlight-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .highlight-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .highlight-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .highlight-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .highlight-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .highlight-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .highlight-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .highlight-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+      }
+      .block-color-brown {
+        color: rgb(100, 71, 58);
+        fill: rgb(100, 71, 58);
+      }
+      .block-color-orange {
+        color: rgb(217, 115, 13);
+        fill: rgb(217, 115, 13);
+      }
+      .block-color-yellow {
+        color: rgb(223, 171, 1);
+        fill: rgb(223, 171, 1);
+      }
+      .block-color-teal {
+        color: rgb(15, 123, 108);
+        fill: rgb(15, 123, 108);
+      }
+      .block-color-blue {
+        color: rgb(11, 110, 153);
+        fill: rgb(11, 110, 153);
+      }
+      .block-color-purple {
+        color: rgb(105, 64, 165);
+        fill: rgb(105, 64, 165);
+      }
+      .block-color-pink {
+        color: rgb(173, 26, 114);
+        fill: rgb(173, 26, 114);
+      }
+      .block-color-red {
+        color: rgb(224, 62, 62);
+        fill: rgb(224, 62, 62);
+      }
+      .block-color-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .block-color-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .block-color-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .block-color-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .block-color-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .block-color-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .block-color-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .block-color-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .block-color-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .select-value-color-default {
+        background-color: rgba(206, 205, 202, 0.5);
+      }
+      .select-value-color-gray {
+        background-color: rgba(155, 154, 151, 0.4);
+      }
+      .select-value-color-brown {
+        background-color: rgba(140, 46, 0, 0.2);
+      }
+      .select-value-color-orange {
+        background-color: rgba(245, 93, 0, 0.2);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(233, 168, 0, 0.2);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 135, 107, 0.2);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 120, 223, 0.2);
+      }
+      .select-value-color-purple {
+        background-color: rgba(103, 36, 222, 0.2);
+      }
+      .select-value-color-pink {
+        background-color: rgba(221, 0, 129, 0.2);
+      }
+      .select-value-color-red {
+        background-color: rgba(255, 0, 26, 0.2);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="bd0a1286-4744-4714-a5d8-21f15687f09e" class="page sans">
+      <header><h1 class="page-title">health</h1></header>
+      <div class="page-body">
+        <h3 id="bbac1607-3291-4ed7-bdd9-ed34df70fde0" class="">Blood</h3>
+        <ul id="c2c15156-5757-4d72-8176-e8880334501b" class="bulleted-list">
+          <li>
+            https://www.redpenreviews.org/reviews/eat-right-4-your-type-the-individualized-blood-type-diet-solution
+          </li>
+        </ul>
+        <h3 id="195c991a-fded-4042-8ccf-8b57551b3e6c" class="">Books</h3>
+        <ul id="dfb69fb6-aa5a-46a8-b117-c6ab6a2fde30" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.amazon.com/gp/customer-reviews/R2SC5L9GQGZVXH/ref=cm_cr_dp_d_rvw_ttl?ie=UTF8&amp;ASIN=0062290738"
+              >The Disease Delusion: Conquering the Causes of Chronic Illness
+              for a Healthier, Longer, and Happier Life - Jeffrey Bland</a
+            >
+          </li>
+        </ul>
+        <ul id="ae5ab8a4-a841-4133-a302-189bc22278e6" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9xQaTKb5QTizgOHbRFuKVUu"
+              >Book reviews heart attack stroke prevention weight loss - Ford
+              Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="abb73120-ff52-4ba4-874d-5a879996a7c3" class="bulleted-list">
+          <li>
+            http://nutriblog.ro/4043/carti-despre-dieta-ketogenica-low-carb-scrise-limba-romana.html
+          </li>
+        </ul>
+        <ul id="9555eca3-da06-4f77-906c-5a757366c6ea" class="bulleted-list">
+          <li>
+            https://www.scribd.com/book/420546368/Dieta-ketogenica +
+            https://books.google.ro/books?id=-xGnDwAAQBAJ
+          </li>
+        </ul>
+        <ul id="188ca2e9-2123-4a2d-a103-bbdd8ad118f3" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.amazon.com/Magick-Food-Rituals-Offerings-Together/dp/0738760854"
+              >The Magick of Food: Rituals, Offerings &amp; Why We Eat Together
+              ~ Gwion Raven</a
+            >
+          </li>
+        </ul>
+        <ul id="b73cf152-47b7-4548-91e2-3ae068cf53bc" class="bulleted-list">
+          <li>http://istrosbooks.com/products/books/our-daily-bread-110</li>
+        </ul>
+        <ul id="3b77a12a-53cd-4420-a758-682c5921b252" class="bulleted-list">
+          <li>
+            https://flaviocopes.com/repetive-strain-injury +
+            https://twitter.com/flaviocopes/status/1378999932191977473
+          </li>
+        </ul>
+        <ul id="bb215fad-2a9c-4c5b-bbaa-f90cf6ce3f9b" class="bulleted-list">
+          <li>
+            https://inquisitivebiologist.com/2021/04/06/book-review-how-to-make-a-vaccine-an-essential-guide-for-covid-19-beyond
+          </li>
+        </ul>
+        <h3 id="8197d94c-f1e3-409a-a3dc-8cae4f1c736c" class="">Cinema</h3>
+        <ul id="dcb2023d-fa24-42f3-ab46-bc8082f002f1" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL5TLzNi5fYd9JWJdWb4rgzaMrPLoF8S7c"
+              >Benefits of Turmeric | NutritionFacts.org</a
+            >
+          </li>
+        </ul>
+        <h3 id="127ac26e-66e4-4a63-9a94-5e5c84170c16" class="">Cholesterol</h3>
+        <ul id="5b41bb75-a0c2-43a9-aabc-49f7a63d422e" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLWNQLvi9Q_zuigCB6JPmDQuR3TwfJO3QX"
+              >#CholesterolScience - Dave Feldman</a
+            >
+          </li>
+        </ul>
+        <h3 id="6bf13a59-52bb-41f9-8f26-1b59e1a902dd" class="">Diseases</h3>
+        <ul id="2c52628e-db43-4d2c-83af-1eb9dc4f5bca" class="bulleted-list">
+          <li>
+            https://prevmedhealth.com/the-end-of-alzheimers-by-dale-bredesen +
+            https://youtu.be/wekW6wVpQFw
+          </li>
+        </ul>
+        <ul id="7e7d134a-6eac-4b3e-b49d-6e784f074a08" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9zqQxkYNBB1fcr34jmXg9_0"
+              >Alzheimer’s Dementia - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="71a506c4-d9cd-4aa7-a4d2-2fd12714401a" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9z7G9VtDVphcQvVqHgqA3lB"
+              >New model for Alzheimer’s - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="b07c0cd6-873b-4021-aa78-2fccf277ebf7" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9ykKqG1sIejMutqMLaatSGH"
+              >How to diagnose diabetes - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="39060060-255d-4ed8-99ac-d80a5c3530e4" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9wVPKIgxe3NYlXCbSi73tyS"
+              >How to prevent Alzheimer’s and cognitive decline - Ford Brewer MD
+              MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="5f62a39e-f8b1-407c-a438-f18b6119e23d" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9zsbsPab5bwq0Ky6xqwYgur"
+              >Diabetes science - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="7beeb48d-b0b6-4ac1-bbc9-66e81548b6c2" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9z08cPCCcf298wh6jOfftnl"
+              >Gum disease, periodontal disease - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="93411cf1-1536-4a06-b6e4-71927b03d167" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9xnbbJvE9y4iat16_rQVm2L"
+              >gingivitis, periodontitis &amp; heart disease - Ford Brewer MD
+              MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="002c88a0-bcfe-4223-ab19-79d6f5183c1c" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLLNvew6525LFssuFNroVieEEWvs8fXjQr"
+              >Calcifying Nanoparticles - Dr. Darren Schmidt, DC</a
+            >
+          </li>
+        </ul>
+        <h3 id="3ab615fc-a9ff-4ae3-92a5-181d22264128" class="">Grocery</h3>
+        <ul id="1e24ac79-fcf2-4b30-a6eb-8b8741b917a9" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLZupSfb-NVbpltzWP1zcpVH7Nzd16_cQG"
+              >What is Organics? - Paul Chek</a
+            >
+          </li>
+        </ul>
+        <ul id="e77c09f6-4fe9-4b19-ae42-bcdcbe00e7bb" class="bulleted-list">
+          <li>
+            https://andranistor.ro/2020/03/26/de-unde-cumparam-alimente-cand-nu-mai-merg-aplicatiile-cunoscute
+          </li>
+        </ul>
+        <ul id="3f3677b5-103f-4a82-8b84-4ee18b253982" class="bulleted-list">
+          <li>
+            https://mamamag.ro/producatorii-locali-de-alimente-de-la-care-ne-aprovizionam-in-autoizolare
+          </li>
+        </ul>
+        <ul id="bbba12b6-c782-4158-83f5-444a87500900" class="bulleted-list">
+          <li>
+            https://ligiapop.com/2012/05/04/microferme-si-producatori-bio-locali
+          </li>
+        </ul>
+        <ul id="403c62ca-4a8d-4032-9dcc-3257ad78bfad" class="bulleted-list">
+          <li>
+            https://shop.greensense.ro/fructe-crude/17-nuci-macadamia.html#/3-gramaj-1kg
+          </li>
+        </ul>
+        <ul id="9f213c45-7a68-46c9-ba63-4fc88b11d3bf" class="bulleted-list">
+          <li>
+            https://shop.greensense.ro/fructe-crude/3-nuci-pecan.html#/3-gramaj-1kg
+          </li>
+        </ul>
+        <h3 id="2bde45ca-895d-43a6-85a9-bb1a67a24b31" class="">Sleep</h3>
+        <ul id="5e8a8fc6-5263-44b9-8816-53017374951d" class="bulleted-list">
+          <li>https://www.quora.com/What-are-some-good-chronobiology-books</li>
+        </ul>
+        <ul id="614180cc-a7f3-44d7-8e4e-591887e2b87b" class="bulleted-list">
+          <li>
+            http://circadiana.blogspot.com/2005/12/reading-recommendations-books-about.html
+          </li>
+        </ul>
+        <ul id="3deb16c2-96a0-42e4-b2ad-0115fede1d3b" class="bulleted-list">
+          <li>
+            <a href="https://books.google.ro/books?id=XlUyNPDMY8sC"
+              >The Rhythms Of Life: The Biological Clocks That Control the Daily
+              Lives of Every Living Thing</a
+            >
+          </li>
+        </ul>
+        <ul id="b2087b35-8acf-49e8-8eb5-6f603aea7ae5" class="bulleted-list">
+          <li>
+            https://truedark.com/the-best-books-to-help-you-improve-your-health-and-sleep
+          </li>
+        </ul>
+        <ul id="acf754ea-d3c4-44d7-86fe-585e12630063" class="bulleted-list">
+          <li>https://www.youtube.com/watch?v=8hAw1z8GdE8</li>
+        </ul>
+        <ul id="a5d38d89-fef9-4212-8f6a-d4d58fc2589a" class="bulleted-list">
+          <li>https://www.youtube.com/watch?v=pwaWilO_Pig</li>
+        </ul>
+        <ul id="4d5872af-abde-4cb8-b4cf-a3622b82358a" class="bulleted-list">
+          <li>
+            https://www.huffpost.com/entry/15-ways-to-fall-asleep-faster_n_55dde3e7e4b04ae497054470
+          </li>
+        </ul>
+        <ul id="97ad24c2-844a-4be7-b397-79dafc2d96bb" class="bulleted-list">
+          <li>
+            https://www.quantifiedbob.com/best-biohacking-books/#biohacking-sleep
+          </li>
+        </ul>
+        <ul id="f5bebc7a-54f4-4397-883f-5389cc8d080f" class="bulleted-list">
+          <li>
+            https://highintensityhealth.com/snacking-before-bed-may-slow-weight-loss-fat-oxidation
+          </li>
+        </ul>
+        <ul id="567c5bf6-8117-4a21-b098-ac735b54c1b4" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9wkkJ0_lVNSRVvsoYH7QDBM"
+              >Ford brewer sleep</a
+            >
+          </li>
+        </ul>
+        <ul id="872003c7-47fd-47ee-b38d-49898b426c7c" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9z1wfXgDNilmpXY7YQklqqA"
+              >Home sleep studies - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="c546dcdb-1aa6-4ea0-b9b4-ff283aa251f1" class="bulleted-list">
+          <li>
+            <a href="https://onlinelibrary.wiley.com/doi/10.1002/hbm.25132"
+              >Sleep duration is associated with white matter microstructure and
+              cognitive performance in healthy adults</a
+            >
+            + https://news.ycombinator.com/item?id=25246419
+          </li>
+        </ul>
+        <ul id="343648a4-3d97-472d-97fb-574846a64905" class="bulleted-list">
+          <li>
+            https://www.sciencefocus.com/the-human-body/afternoon-naps-linked-to-improved-cognitive-function
+            + https://news.ycombinator.com/item?id=25972342
+          </li>
+        </ul>
+        <h3 id="5a47de15-e73a-4458-ac92-6b8d8c1e9fe5" class="">Fitness</h3>
+        <ul id="6cd502c7-123f-4707-8477-487c9aa3adc6" class="bulleted-list">
+          <li>
+            https://chekinstitute.com/podcast-episode-notes/ep-18-evolve-yourself-physically
+          </li>
+        </ul>
+        <ul id="dbe5af41-539f-4bfb-a2b6-f6764a23000b" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLZupSfb-NVbqeLSTfY6jGmKStAWw2LQ57"
+              >Movement As Medicine 1-7 - Paul Chek</a
+            >
+          </li>
+        </ul>
+        <ul id="f3ec0139-1b2d-48dc-981e-e78149e02b42" class="bulleted-list">
+          <li>https://www.julian.com/guide/muscle/intro</li>
+        </ul>
+        <ul id="a7797162-46b1-46d2-8dc9-8c3d3a41132d" class="bulleted-list">
+          <li>https://github.com/evexoio/awesome-health</li>
+        </ul>
+        <ul id="e3470047-e6a5-416e-b7a2-407ab7ffdc21" class="bulleted-list">
+          <li>
+            https://www.goodreads.com/book/show/33293328-overcoming-gravity
+          </li>
+        </ul>
+        <ul id="d685ab4b-b65d-4a6c-b62b-91411d646b2d" class="bulleted-list">
+          <li>
+            http://www.shapesense.com/fitness-exercise/calculators/running-calorie-burn-calculator.shtml
+          </li>
+        </ul>
+        <ul id="e50c346c-5733-46c9-be1c-8b6bc119d88c" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.facebook.com/apostu.alin.claudiu/posts/1935540589911432"
+              >Cine a (mai) fost la sporturi de contact?</a
+            >
+          </li>
+        </ul>
+        <ul id="f401c07d-9619-41f9-9a3c-49ba0d3369ed" class="bulleted-list">
+          <li>
+            <a href="https://jamonholmgren.com/gym"
+              >Building My Home Garage Gym</a
+            >
+          </li>
+        </ul>
+        <ul id="821c569f-8745-4563-bfdf-592bf3cd3e84" class="bulleted-list">
+          <li>
+            <a href="https://github.com/diracdeltas/random-training"
+              >Site that generates random workout routines.</a
+            >
+          </li>
+        </ul>
+        <ul id="d7c0ae73-9d3c-4734-84f3-3c8fb3918e95" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLFBizIyYw93eg07IPpRQYgoNtQ9W6ECtV"
+              >HOW TO CORRECT POSTURE - Jeremy Ethier</a
+            >
+          </li>
+        </ul>
+        <ul id="935fa318-966c-4cd3-9d78-e1ac0153cc29" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLEyLSg7prXmEJ_UYLpELgaMSbOPoYthRR"
+              >Grupe deficitare - Marius Mitrache</a
+            >
+          </li>
+        </ul>
+        <ul id="878a80df-592d-4348-a71d-17ddb6a23509" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLEyLSg7prXmE93v3fT6AkBsJmTDNc37o4"
+              >Antrenamente acasa - Marius Mitrache</a
+            >
+          </li>
+        </ul>
+        <ul id="ed6e2a5b-49bc-47af-a0a2-ec1fbd60a6d3" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLPem8DMLJzQNZf7TE8dKhzJOGa8bao24S"
+              >Workout Theory - Pietro Boselli</a
+            >
+          </li>
+        </ul>
+        <ul id="392367a8-355f-4665-beb0-5cbaebe4f591" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLPem8DMLJzQPB3gzfXBoCNPlG1Wf6ByFI"
+              >Exercise Anatomy - Pietro Boselli</a
+            >
+          </li>
+        </ul>
+        <ul id="48ab8f63-b4ae-4527-bd03-d456896e79d0" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9z8z0O-Oqm9wUsfywDOgQgU"
+              >Lactate threshold training health biochemistry - Ford Brewer MD
+              MPH</a
+            >
+          </li>
+        </ul>
+        <h3 id="a3c6b41e-8c54-404a-9ec2-55e140445cbb" class="">Injuries</h3>
+        <ul id="586c4fd0-f8b3-44ea-adfe-aa00a77522d1" class="bulleted-list">
+          <li>https://www.costinglavan.ro/vindeca-hernia</li>
+        </ul>
+        <h3 id="a6c83a87-eb36-4f6d-967e-56d9eee73197" class="">Fasting</h3>
+        <ul id="feb48052-20ea-4e40-aafd-2773ced40c2d" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.sciencedirect.com/science/article/pii/S1097276518306051"
+              >β-Hydroxybutyrate Prevents Vascular Senescence through hnRNP
+              A1-Mediated Upregulation of Oct4</a
+            >
+          </li>
+        </ul>
+        <ul id="595f92c5-04b9-45f9-98ac-a763adbf9cdd" class="bulleted-list">
+          <li>https://twitter.com/elavenilee/status/1207653303028289537</li>
+        </ul>
+        <ul id="3b936f19-dc98-479f-a0e0-9eb114a44791" class="bulleted-list">
+          <li>
+            <a href="https://youtu.be/A6Dkt7zyImk"
+              >Intermittent Fasting: Transformational Technique | Cynthia
+              Thurlow | TEDxGreenville</a
+            >
+          </li>
+        </ul>
+        <ul id="a2e4d901-5c42-40ac-8b39-df77519db69e" class="bulleted-list">
+          <li>
+            https://peterattiamd.com/jasonfung +
+            https://news.ycombinator.com/item?id=21802676
+          </li>
+        </ul>
+        <ul id="8ea51ab4-25de-4735-ad51-7455dd0c32eb" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLWIcRrPLCdUfEsFPi53bI3BeljwcIBIWl"
+              >Personal playlist</a
+            >
+          </li>
+        </ul>
+        <ul id="7cb937d0-2962-42c3-af18-7fd0b86322c0" class="bulleted-list">
+          <li>https://twitter.com/KetoAurelius/status/1216461099404595200</li>
+        </ul>
+        <ul id="b8f4aa98-540a-4c8e-8ed0-de9c8164d532" class="bulleted-list">
+          <li>https://www.siimland.co/products/metabolic-autophagy-book</li>
+        </ul>
+        <ul id="8a0e91aa-19e3-4c90-a720-715d3f5d3fbc" class="bulleted-list">
+          <li>
+            <a href="https://www.gwern.net/docs/longevity/2019-mattson.pdf"
+              >An Evolutionary Perspective on Why Food Overconsumption Impairs
+              Cognition - Mark P. Mattson</a
+            >
+          </li>
+        </ul>
+        <ul id="a6b3fe3e-081f-4a61-8bff-7a7f78b9ce13" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9xF85LzBWl7OcjmLQuAq7Uh"
+              >Autophagy - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <h3 id="b15653c8-0a12-4c9d-b766-73cc1441d3db" class="">Supplements</h3>
+        <ul id="a5990bbc-9dce-4485-a704-9c312e11818e" class="bulleted-list">
+          <li>
+            https://www.health.harvard.edu/staying-healthy/listing_of_vitamins
+          </li>
+        </ul>
+        <ul id="09ae6e46-4ba9-40cc-966d-95f4f37e7bbb" class="bulleted-list">
+          <li>https://masterpass.chrismasterjohnphd.com/dashboard</li>
+        </ul>
+        <ul id="86ed3d4e-fa5b-43b0-b76e-c8fd8677f598" class="bulleted-list">
+          <li>
+            <a
+              href="https://gist.github.com/costinEEST/ad8cf467626ba983b9ef6e79dd4dbf8f"
+              >Vitamins and minerals</a
+            >
+          </li>
+        </ul>
+        <ul id="29397054-734d-4773-b260-a0b6c054f66e" class="bulleted-list">
+          <li>https://www.foundmyfitness.com/topics/creatine</li>
+        </ul>
+        <ul id="1fadbb6c-ae87-40ee-9d46-33aabdad033e" class="bulleted-list">
+          <li>
+            https://www.healthline.com/nutrition/10-nutrients-you-cant-get-from-animal-foods
+          </li>
+        </ul>
+        <ul id="791e8a4a-85c0-441f-b337-21970dd4d8ee" class="bulleted-list">
+          <li>
+            https://www.accessdata.fda.gov/scripts/interactivenutritionfactslabel/factsheets/vitamin_and_mineral_chart.pdf
+          </li>
+        </ul>
+        <ul id="c33bdcf6-b56e-4471-8b8c-c4245b299e07" class="bulleted-list">
+          <li>
+            https://books.google.ro/books/about/Prescription_for_Nutritional_Healing.html?id=2s_q2y_J3rwC
+          </li>
+        </ul>
+        <ul id="b907812c-8d88-4d38-92c8-80b54cfdbc76" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLFbLg_bIQgxC-NtGO7TzTTO0Lgd8R-Vop"
+              >Mr. Mineral | Minerals for Body, Brain and Business Optimization-
+              Thomas DeLauer</a
+            >
+          </li>
+        </ul>
+        <ul id="d340af27-953e-4b66-8279-fd5136c26af8" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.facebook.com/groups/755526297805685/permalink/3994212310603718"
+              >În București, de unde vă procurați stevie, turmeric, fulgi de
+              drojdie inactivă?</a
+            >
+          </li>
+        </ul>
+        <ul id="6d98eff3-ccfa-4104-beea-af8a4c3083b0" class="bulleted-list">
+          <li>
+            https://www.emag.ro/puterea-vitaminei-d-sarfraz-zaidi-9786068784007/pd/DQV543BBM
+          </li>
+        </ul>
+        <ul id="3887fabf-b341-44fa-a60a-f2c7d937f044" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLM1VQBlR_OgvFYPr0vJkWkwpDAT-_CEmf"
+              >Iron Overload - Matt Blackburn</a
+            >
+          </li>
+        </ul>
+        <ul id="cd11861f-c2b8-425c-ad37-53133714596f" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLM1VQBlR_Ogt1A0EHmzyxxKq9qsPD6cL-"
+              >Magnesium - Matt Blackburn</a
+            >
+          </li>
+        </ul>
+        <ul id="b8756763-8793-4ca6-9e8e-c8a911b76939" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.amazon.com/shop/influencer-5dcb908c?listId=L6NGBTQPLMEJ"
+              >Ketogains Suggested Products</a
+            >
+          </li>
+        </ul>
+        <ul id="e7d3d942-1e2d-4398-93b6-23ec3683801e" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9xfwHQsPNIRrGCghvvh0uLV"
+              >Should I take Aspirin? - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="d31d1af7-25d7-46a9-8ccb-ae0eec26a254" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9wdGJ4lybaQWvoj7C_m3xDV"
+              >Aspirin - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="e1a4a06c-9c90-465c-a989-3c5a5840dddd" class="bulleted-list">
+          <li>
+            https://www.thoughtco.com/elements-in-the-human-body-p2-602188
+          </li>
+        </ul>
+        <h3 id="d217e2ee-4294-455b-9668-001abb1e3c1e" class="">Vegetables</h3>
+        <ul id="7ad539fa-e3b3-41e2-9098-dfc2b698d945" class="bulleted-list">
+          <li>
+            https://incredibleromania.com/curs-de-culegator-din-flora-spontana-foraging
+          </li>
+        </ul>
+        <ul id="0a0e6499-4082-4924-8566-0e4ecdaa623f" class="bulleted-list">
+          <li>
+            https://chekinstitute.com/blog/eating-animals-a-moral-question
+          </li>
+        </ul>
+        <ul id="6d8f4c77-2b27-4dd6-90de-8029d87903ba" class="bulleted-list">
+          <li>https://wellnessforce.com/the-science-of-why-vegans-get-sick</li>
+        </ul>
+        <ul id="4d423c96-4a39-4104-b075-c0521d4e6312" class="bulleted-list">
+          <li>
+            https://www.cristianmargarit.ro/2014/10/despre-antinutrienti-si-toxine-naturale-mancare
+          </li>
+        </ul>
+        <ul id="f9061f21-63b3-4943-bbf1-196aad5af347" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLy5C4b2v0Bq0vTRUziPB_RB3ZJu1Mmplj"
+              >Lectins - clistbus</a
+            >
+          </li>
+        </ul>
+        <ul id="e7c78e69-b726-4837-becb-f3b6bfded521" class="bulleted-list">
+          <li>
+            <a href="https://www.youtube.com/user/jenfugo/playlists"
+              >Jennifer Fugo talks about gluten free</a
+            >
+          </li>
+        </ul>
+        <ul id="4bb21725-e099-451c-8003-071dd40fdcab" class="bulleted-list">
+          <li>
+            https://mdlingo.com/a-guide-to-coconut-products-water-milk-cream-oil-butter
+          </li>
+        </ul>
+        <ul id="b2ea7322-d5d2-4544-871a-0adfed6009f0" class="bulleted-list">
+          <li>
+            https://inquisitivebiologist.com/2019/11/25/book-review-slime-how-algae-created-us-plague-us-and-just-might-save-us
+          </li>
+        </ul>
+        <h3 id="4a3e8652-a069-4265-9045-715e4bb2d8b1" class="">Ketosis</h3>
+        <ul id="6bc1a811-0b18-4e2d-99d8-f5829dcbf535" class="bulleted-list">
+          <li>
+            https://perfectketo.com/guide/ultimate-start-guide-ketogenic-diet
+          </li>
+        </ul>
+        <ul id="733547c1-5d9f-4c6f-b11e-38594ad18fff" class="bulleted-list">
+          <li>https://www.ruled.me/guide-keto-diet</li>
+        </ul>
+        <ul id="bb92473d-a1d5-4a4d-980e-402b1da7f349" class="bulleted-list">
+          <li>
+            https://www.amazon.com/Keto-Answers-Simplifying-Everything-Confusing-ebook/dp/B07WH43FLB
+          </li>
+        </ul>
+        <ul id="dabe303b-1361-4172-9106-1104c0f3d932" class="bulleted-list">
+          <li>
+            https://www.facebook.com/groups/755526297805685/permalink/1902882243070079
+          </li>
+        </ul>
+        <ul id="1ec1a44c-1ec7-41c2-a28a-b0b456ea6386" class="bulleted-list">
+          <li>
+            <a
+              href="http://josepharcita.blogspot.com/2011/03/guide-to-ketosis.html?m=1"
+              >A Guide to Ketosis.</a
+            >
+          </li>
+        </ul>
+        <ul id="35608778-92bc-43c3-8dcd-3e8e7aa014ac" class="bulleted-list">
+          <li>
+            <a href="https://youtu.be/qR4tf-np6jU"
+              >Behind the World’s First Ketone Ester ft. Kieran Clarke || HVMN
+              Enhancement Podcast: Ep. 48</a
+            >
+          </li>
+        </ul>
+        <ul id="e4b072f7-651b-4ce8-af3f-d23f08f8d543" class="bulleted-list">
+          <li>https://isitketo.org</li>
+        </ul>
+        <ul id="adf0959e-a848-4cfb-b395-054de29370cf" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.facebook.com/AdaptYourLife/videos/481025419270677"
+              >How Keto Eased My PCOS — Jordan Swain [Adapt Event]</a
+            >
+          </li>
+        </ul>
+        <ul id="c262394b-0206-43bb-9e21-4fab345dbedb" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.facebook.com/groups/755526297805685/permalink/3902770676414549"
+              >În București: mai există alte restaurante keto/low carb, în afară
+              de MASA - CASA ?</a
+            >
+          </li>
+        </ul>
+        <ul id="5e501060-6f19-4277-8d2d-d388cf9c1f20" class="bulleted-list">
+          <li>
+            <a href="https://www.netflix.com/ro-en/title/80238655"
+              >The Magic Pill (2017)</a
+            >
+          </li>
+        </ul>
+        <ul id="83370bc8-6803-4818-af76-a09a13d7bd39" class="bulleted-list">
+          <li>
+            https://www.udemy.com/course/ketosis-and-if-for-fat-loss/?referralCode=92E9B7EAFC36975B08A0
+          </li>
+        </ul>
+        <ul id="2bf84f74-b498-42b1-aad5-ad4aae22ee5e" class="bulleted-list">
+          <li>
+            https://www.amazon.com/Ketones-Fourth-Fuel-Warburg-Fountain-ebook/dp/B08G8TFQKS
+            + https://youtu.be/9ler8ksUAfE +
+            https://twitter.com/briannastubbs/status/1225209323522936832 +
+            https://medium.com/@travischristofferson/richard-bud-veech-the-unknown-scientist-behind-the-ketogenic-diet-craze-dies-at-84-ff1f7c9b91ea
+            + https://youtu.be/WV_jip-Yhe4
+          </li>
+        </ul>
+        <ul id="1b5e6292-76ef-400e-b4bd-1aa3a0dbbc5d" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9x2q-9uV9zcGfQ6Pi6Oj-_s"
+              >Biomarkers, Metabolism, Biochemistry - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="feb00ea8-873c-4872-af9a-32d9511db160" class="bulleted-list">
+          <li>
+            <a href="https://github.com/arielf/weight-loss"
+              >Machine Learning meets ketosis: how to effectively lose weight</a
+            >
+          </li>
+        </ul>
+        <h3 id="539b5c9f-56f0-49f6-aed7-241f153dc795" class="">Meat</h3>
+        <ul id="0766a7cd-6623-43f4-986b-0b7dcf3c7e2f" class="bulleted-list">
+          <li>
+            https://www.timesofisrael.com/for-2-million-years-humans-ate-meat-and-little-else-study
+          </li>
+        </ul>
+        <h3 id="13556d5b-8f2f-4405-836b-70c78914272b" class="">Mushrooms</h3>
+        <ul id="7680eb8b-86f3-40ab-b4aa-e13438eb34b4" class="bulleted-list">
+          <li>https://ciupercar.ro</li>
+        </ul>
+        <ul id="b2e7891a-90e8-4ab8-a949-bcf402704b25" class="bulleted-list">
+          <li>
+            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3854548"
+              >Mushrooms and Truffles: Historical Biofactories for Complementary
+              Medicine in Africa and in the Middle East</a
+            >
+          </li>
+        </ul>
+        <ul id="34982c57-b5c6-4a88-b6d0-5e8b92addbe9" class="bulleted-list">
+          <li>
+            https://incredibleromania.com/magazinul-culegatorului/cursuri-cumpar/curs-de-ciuperci-salbatice-comestibile
+          </li>
+        </ul>
+        <ul id="b43f30ff-1cd8-46d1-8349-b7aea6d4ca37" class="bulleted-list">
+          <li>
+            https://inquisitivebiologist.com/2019/11/04/book-review-fungipedia-a-brief-compendium-of-mushroom-lore
+          </li>
+        </ul>
+        <ul id="26d05b65-9f5d-467e-8ade-35200a62bb05" class="bulleted-list">
+          <li>
+            https://bioneers.org/will-mushrooms-be-magic-for-threatened-bees
+          </li>
+        </ul>
+        <ul id="8292b8c9-9d4f-48cf-9ad3-9ee9de63b63b" class="bulleted-list">
+          <li>https://www.foragingwildmushrooms.com/</li>
+        </ul>
+        <ul id="e5997d6e-0161-43e7-84c5-0c06c2880513" class="bulleted-list">
+          <li>
+            https://inquisitivebiologist.com/2020/10/02/book-review-entangled-life-how-fungi-make-our-worlds-change-our-minds-and-shape-our-futures
+            + https://www.youtube.com/user/merlinsheldrake/playlists
+          </li>
+        </ul>
+        <ul id="f7129eb9-5d17-49de-a256-732e28062c1d" class="bulleted-list">
+          <li>
+            https://www.youtube.com/user/radmycology/playlists +
+            https://chthaeus.com/collections/books-1/products/radical-mycology-a-treatise-on-seeing-working-with-fungi
+          </li>
+        </ul>
+        <ul id="c229570a-7a72-4b70-b52f-9b53cadb7abb" class="bulleted-list">
+          <li>https://www.mycoworks.com/resources</li>
+        </ul>
+        <h3 id="b0d6157b-86c0-43b7-8bcf-4427f2e0f164" class="">Alcohol</h3>
+        <ul id="fbb70dbf-1c05-479f-b3d8-23b8373847d8" class="bulleted-list">
+          <li>
+            https://www.vinography.com/2020/12/how-long-does-a-bottle-of-wine-last-after-it-is-opened
+            + https://news.ycombinator.com/item?id=25887200
+          </li>
+        </ul>
+        <h3 id="6f13ba76-06b5-4702-8a4b-fe446325b225" class="">Tea</h3>
+        <ul id="4b6f3049-78d7-4cc8-8557-5c7059cc031d" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.amazon.com/Empire-Tea-Asian-Conquered-World/dp/1780234406"
+              >Empire of Tea: The Asian Leaf that Conquered the World</a
+            >
+          </li>
+        </ul>
+        <ul id="3f4ff1a6-6be3-432f-9cdb-0b15d598fcf7" class="bulleted-list">
+          <li>https://www.ceai.info</li>
+        </ul>
+        <h3 id="9f6da306-669d-4a8f-b5ef-9d65d70fb417" class="">Coffee</h3>
+        <ul id="7cc28612-8529-45b0-9670-5ea1a3d86d61" class="bulleted-list">
+          <li>
+            https://blackwells.co.uk/bookshop/product/Lonely-Planets-Global-Coffee-Tour-by-Mike-Higgins-editor-Nick-Mee-editor-Yolanda-Zappaterra-editor/9781787013599
+          </li>
+        </ul>
+        <h3 id="12c8db3e-6e8f-46ed-8584-5745ffe2ed68" class="">Sugar</h3>
+        <ul id="03e13309-9424-4a56-8ec5-e1253ef1dcc4" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/Austen/status/1211144183018246144"
+              >Is there a way to be prescribed a continuous glucose monitor
+              without an insulin deficiency/diabetes?</a
+            >
+          </li>
+        </ul>
+        <ul id="a4a91204-809b-47de-b6c9-4a7abe29a209" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/notyetagm/status/1220352727546580997"
+              >Why Did Mexico Surpass America in Obesity?</a
+            >
+          </li>
+        </ul>
+        <ul id="6e69178a-4d4f-45e5-af96-8a367ef747af" class="bulleted-list">
+          <li>
+            https://www.amazon.com/Diets-Because-Youre-Addicted-Sugar/dp/1607744864
+          </li>
+        </ul>
+        <ul id="a76eaa65-342f-403b-bea1-255d2d62b63a" class="bulleted-list">
+          <li>
+            https://inquisitivebiologist.com/2018/05/17/book-review-the-rise-of-yeast-how-the-sugar-fungus-shaped-civilisation
+          </li>
+        </ul>
+        <ul id="17e1b5cd-f91d-450d-9156-f0555b32316b" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9w_vQBQgWVFneHt8r2Gvvkr"
+              >Ghrelin, the only known hunger hormone - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="4c56fe16-9805-469e-8907-bd2f0e6aae53" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9zUgj26Wns9yLYMq559Luru"
+              >Insulin Resistance - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="209d67fd-8eb9-4a25-88ea-8d01d38fff29" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9wlbcBO4wBL2M2-_3C9FSVh"
+              >Hormonal theory of weight management - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <h3 id="8d6aea85-0c81-4ace-9148-f67bc0e9f5c2" class="">Skin</h3>
+        <ul id="ee480d06-fe16-42a3-a832-6764bf367a17" class="bulleted-list">
+          <li>https://www.google.com/search?q=mucocutaneous+triad</li>
+        </ul>
+        <ul id="ac85e9b1-6032-4a7f-b1c8-fec3d566a4ec" class="bulleted-list">
+          <li>
+            https://www.emag.ro/totul-despre-alergii-earl-mindell-dr-pamela-wartian-smith-9786067890921/pd/DPDZGNBBM
+          </li>
+        </ul>
+        <h3 id="f79fa0fe-9229-47d4-95c2-a27bbf4e98fa" class="">Gut</h3>
+        <ul id="19495ece-dcbb-4138-9a3e-9f96bd2e0e90" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLCjag94GB6w17vSjb5pgjM-HSpVK0IkPH"
+              >Microbiome - YourekaScience</a
+            >
+          </li>
+        </ul>
+        <ul id="f0c27f98-07fa-49e8-9002-2c7998a87486" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9weTI4NF9TBxCenYKgUU8DS"
+              >The gut biome and heart health - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="eb79a7e1-f5b6-48d7-aeda-67a3cf518250" class="bulleted-list">
+          <li>
+            https://chriskresser.com/sibo-what-causes-it-and-why-its-so-hard-to-treat
+            + https://pubmed.ncbi.nlm.nih.gov/33361039
+          </li>
+        </ul>
+        <h3 id="a94f58de-09b3-4301-85ce-5f0e50c2325a" class="">Addictions</h3>
+        <ul id="547e7c42-3b86-48f6-97df-7cfdb4fa5a6e" class="bulleted-list">
+          <li>
+            https://www.amazon.com/Hedonic-Eating-Pleasure-Affects-Behavior/dp/019933045X
+          </li>
+        </ul>
+        <ul id="37850f2b-eda2-4d57-8be7-4b39a5186a6a" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9zc29LI75JIkt-aUvG-ETIh"
+              >Mindful eating and food addiction - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <h3 id="f956ab83-fb26-42dc-a7f8-154a29bebca3" class="">Ageing</h3>
+        <ul id="c53f3756-4283-43c6-80cb-0fd67dfa63a8" class="bulleted-list">
+          <li>https://www.ldeming.com/longevityfaq</li>
+        </ul>
+        <ul id="4f7c68c9-65ca-432e-a562-7b0454e51be7" class="bulleted-list">
+          <li>
+            https://player.fm/series/the-ironman-executive/cracking-the-aging-code-with-josh-mitteldorf
+          </li>
+        </ul>
+        <ul id="deefdb01-b562-4dc9-87a3-d87ead06cb8e" class="bulleted-list">
+          <li>
+            https://joshmitteldorf.scienceblog.com/2018/08/01/the-most-effective-personal-anti-aging-program
+          </li>
+        </ul>
+        <ul id="0ce71cfb-e87f-43c2-87d7-7c73b344dcf3" class="bulleted-list">
+          <li>
+            <a
+              href="https://onlinelibrary.wiley.com/doi/full/10.1111/acel.12510"
+              >Can aging be programmed? A critical literature review</a
+            >
+          </li>
+        </ul>
+        <ul id="a37a9e97-fb4b-4060-965f-fda06a0d4d1f" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL-7qI6NZpO3u8IWIDhIhHH5eczjs_2S2Z"
+              >Undoing Aging by Science, Technology &amp; the Future</a
+            >
+          </li>
+        </ul>
+        <ul id="670f6db3-e3e7-41ac-b2d8-e3b2f9f2a2e0" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL-7qI6NZpO3uDn2dTsRwWLb0jEuWU8bcI"
+              >Anti-Aging by Science, Technology &amp; the Future</a
+            >
+          </li>
+        </ul>
+        <ul id="edebb491-6e58-48d3-8d2c-816e83f0ebb0" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLvB8mhLViWhBoKvY_9eVtenBbOzelLANs"
+              >SRF Education Video Lecture Course</a
+            >
+          </li>
+        </ul>
+        <ul id="17f83544-e2bf-4109-a1ce-c507fd077307" class="bulleted-list">
+          <li>
+            <a href="https://www.ncbi.nlm.nih.gov/m/pubmed/23425777/"
+              >Answering the ultimate question “what is the proximal cause of
+              aging?”.</a
+            >
+          </li>
+        </ul>
+        <ul id="47833322-6068-422f-aa17-a6e21981f31d" class="bulleted-list">
+          <li>
+            https://www.reddit.com/r/longevity/comments/e2q84z/textbooks_courses_and_resources_on_aging
+          </li>
+        </ul>
+        <ul id="e5557f95-c3a4-432d-8c19-cc2519844999" class="bulleted-list">
+          <li>https://www.naomiwhittel.com/benefits-of-autophagy</li>
+        </ul>
+        <ul id="722e5586-f986-4707-99e4-5019ab56e8aa" class="bulleted-list">
+          <li>
+            http://sureshrattan.com/category/offers/lectures-workshops-list/videos
+          </li>
+        </ul>
+        <ul id="303a6383-21fd-4301-a851-e5b4fe780376" class="bulleted-list">
+          <li>
+            https://www.foundmyfitness.com/episodes/elissa-epel +
+            https://youtu.be/IEz1P4i1P7s +
+            https://podcastnotes.org/ben-greenfield-fitness/thomas-delaurer-ben-greenfield-muscle-strength
+          </li>
+        </ul>
+        <ul id="22191624-b28e-4ddf-9e94-8870a77757f5" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLCjag94GB6w1p5-FTEshIf-Vl_p8dNiqa"
+              >Longevity - YourekaScience</a
+            >
+          </li>
+        </ul>
+        <ul id="121978e5-e66e-47a0-a165-f130ad56bb94" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9xcAWAI60AWk89crbEkcQ0Z"
+              >Mitochondria - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="043fe33d-d91d-4aa8-ad8c-27243e046d8e" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9yZ2mbJTPiXd1jOHhTPTqgx"
+              >Life Purpose &amp; Longevity - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="a09d188a-1fd8-4058-8e28-75c3b3067bfe" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9zAoQZKBD8d1kPUqAB7PMuV"
+              >Longevity - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="9d23ddc5-8d00-4b96-a946-03644426f59c" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9y66aEswCVyVLLgngYx3htY"
+              >David Sinclair - Harvard Longevity Prof, author of Lifespan,
+              &amp; Joe Rogan guest - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="e86e0a7c-67ea-4171-b256-db28a9f8545b" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9z0lcffgTrggdLrVPfp1Eu3"
+              >MTHFR - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="d6c2ad39-0f77-452f-8b2f-821fdbea0192" class="bulleted-list">
+          <li>
+            https://www.discovermagazine.com/health/liz-parrish-is-patient-zero-in-her-own-anti-aging-experiment
+          </li>
+        </ul>
+        <ul id="aa1732e9-7d3a-4fab-9173-794c0b9cc552" class="bulleted-list">
+          <li>https://en.wikipedia.org/wiki/List_of_living_centenarians</li>
+        </ul>
+        <ul id="db070c6e-372d-4b8a-999d-491d4a823ab7" class="bulleted-list">
+          <li>
+            https://www.gowinglife.com/top-10-health-and-longevity-innovations-in-2020
+          </li>
+        </ul>
+        <h3 id="f3a0d702-d2b9-4c44-a88c-de33fac75160" class="">Viruses</h3>
+        <ul id="963b6d32-a15b-4005-aa4f-9f767e2ee1ec" class="bulleted-list">
+          <li>
+            https://formular.sts.ro + https://github.com/CSSEGISandData/COVID-19
+            + https://berthub.eu/articles/posts/corona-science +
+            https://www.flattenthecurve.com + https://staythefuckhome.com +
+            https://chrismasterjohnphd.com/what-im-doing-for-the-coronavirus +
+            https://www.cnet.com/news/hospital-uses-vr-to-show-how-coronavirus-impacts-the-lungs
+            +
+            https://londonreal.tv/the-truth-behind-the-coronavirus-pandemic-covid-19-lockdown-the-economic-crash-david-icke
+            +
+            <a href="https://www.crowdcast.io/e/daniel-david-live/1"
+              >CORONAVIRUS: Sfatul psihologului Daniel David</a
+            >
+            +
+            <a
+              href="https://twitter.com/PeterKolchinsky/status/1246975275021348865"
+              >A recent Nature paper reveal a remarkable trick SARS-Cov-2
+              learned that makes it nastier than the first SARS.</a
+            >
+          </li>
+        </ul>
+        <ul id="409621a1-ff7a-422a-a1b1-1e9698c26817" class="bulleted-list">
+          <li>
+            <a
+              href="https://shop.biohackercenter.com/a/downloads/-/7a6e98bd51548749/410e6d9f1c7e39e0"
+              >Bio hacker’s flu guide (e-book)</a
+            >
+          </li>
+        </ul>
+        <ul id="e5b119c1-a513-4412-8d58-8bbe191ad8b0" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLGhmZX2NKiNldpyRUBBEzNoWL0Cso1jip"
+              >Virology Lectures 2020 - Vincent Racaniello</a
+            >
+          </li>
+        </ul>
+        <ul id="772fe96b-de71-40b6-a028-e35c2f59e4f4" class="bulleted-list">
+          <li>https://www.alexirpan.com/2020/05/17/corona-chernobyl.html</li>
+        </ul>
+        <ul id="973d371f-e17e-4213-b403-b02f43ae530e" class="bulleted-list">
+          <li>
+            https://mailchi.mp/667e9af04cfa/spitting-image?e=12229ba061 +
+            https://www.protocols.io/workspaces/coronavirus-method-development-community
+            + https://youtu.be/CbzwyigvfRY
+          </li>
+        </ul>
+        <ul id="ca6277c1-3d40-42f6-9ef3-89e5a5598f12" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/o_rips/status/1320587067601031169"
+              >Judy A. Mikovits</a
+            >
+          </li>
+        </ul>
+        <ul id="a0fb73e9-6561-421d-9824-3851035de091" class="bulleted-list">
+          <li>
+            https://www.newyorker.com/magazine/2020/11/09/how-the-coronavirus-hacks-the-immune-system
+          </li>
+        </ul>
+        <ul id="1c9a20d9-ead8-4e80-8a1d-5cc04b001948" class="bulleted-list">
+          <li>
+            https://www.amazon.com/Apollos-Arrow-Profound-Enduring-Coronavirus/dp/0316628212
+          </li>
+        </ul>
+        <ul id="aac746e8-9854-4b8a-9b92-91d1214af246" class="bulleted-list">
+          <li>
+            https://www.gatesnotes.com/About-Bill-Gates/Year-in-Review-2020 +
+            https://news.ycombinator.com/item?id=25356485
+          </li>
+        </ul>
+        <ul id="3364f4a6-3726-488c-86b7-c02850447005" class="bulleted-list">
+          <li>
+            <a href="https://amp.theatlantic.com/amp/article/617262"
+              >COVID-19 Changed Science Forever - The Atlantic</a
+            >
+          </li>
+        </ul>
+        <ul id="4b43def5-cd65-466a-8296-08854f2ce73f" class="bulleted-list">
+          <li>
+            https://www.nationalgeographic.com/science/2020/12/these-scientists-spent-twelve-years-solving-puzzle-yielded-coronavirus-vaccines
+          </li>
+        </ul>
+        <ul id="3119521f-a318-4b0f-ac33-3747d30507d5" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLASpI360FnueQxqPuoxjYuypW5evZxeKm"
+              >Journal Club - Deep Dives into the Primary Literature | Youtube
+              Microbiology Journal Club</a
+            >
+          </li>
+        </ul>
+        <h3 id="17082b2b-e397-4a99-92c3-7fa3894ab6c9" class="">Radiation</h3>
+        <ul id="ce33b45f-0f04-4c39-91e5-7b48fd6241c9" class="bulleted-list">
+          <li>
+            https://phibetaiota.net/2020/02/arthur-firstenberg-the-invisible-rainbow-a-history-of-electricity-and-life-radiation-sickness-explains-all-past-and-present-flu-outbreaks-including-wuhan-virus-and-radiation-sickness-on-cruise-shi
+            +
+            https://podcasts.apple.com/gb/podcast/progressive-commentary-hour-invisible-rainbow-being/id453549934?i=1000467436348
+          </li>
+        </ul>
+        <ul id="1aeb5c23-74fe-45ba-a5c8-391e662e1f9a" class="bulleted-list">
+          <li>https://thetruthaboutcancer.com/are-microwaves-safe</li>
+        </ul>
+        <h3 id="8d45200f-fc90-4c72-9fdd-2c3758cbf367" class="">Tools</h3>
+        <ul id="d453114e-5fae-477f-b2c4-b71b1fde8565" class="bulleted-list">
+          <li>
+            <a href="https://github.com/edwardqiu/digital-zeitgebers"
+              >A BitBar plugin that reminds you with sleep hygiene
+              recommendations</a
+            >
+          </li>
+        </ul>
+        <ul id="83ef22d7-cc2d-48a8-af89-bd5b67fecfa3" class="bulleted-list">
+          <li>
+            <a href="https://datadrivenyou.com/quantified-self-mind-map"
+              >Conceptualizing Self-Tracking Tools and Data-Driven
+              Technologies</a
+            >
+          </li>
+        </ul>
+        <ul id="7709a660-e9eb-4319-be68-e4049d93da88" class="bulleted-list">
+          <li>https://github.com/woop/awesome-quantified-self#sleep</li>
+        </ul>
+        <ul id="30a8fde5-cba1-4305-9f73-3b9571421543" class="bulleted-list">
+          <li>https://apps.apple.com/us/app/before-you-eat/id1475748617</li>
+        </ul>
+        <ul id="a886db1f-e354-48a0-adeb-ccd86bebe5bb" class="bulleted-list">
+          <li>
+            https://www.questionsdeforme.fr/les-3-applications-pour-manger-sain-equilibre-et-pas-cher
+          </li>
+        </ul>
+        <ul id="8a189596-3c09-49e8-a719-33add51bc2d1" class="bulleted-list">
+          <li>
+            https://apps.apple.com/us/app/spar-get-better-at-stuff/id1109640290
+          </li>
+        </ul>
+        <ul id="b90cc929-2d90-47bc-bc09-998691fb9d83" class="bulleted-list">
+          <li>
+            <a href="https://www.youper.ai/"
+              >Youper - Emotional Health Assistant Powered by AI</a
+            >
+          </li>
+        </ul>
+        <ul id="f34bf0c2-ea6a-4f0c-8660-82a9ae7a40c8" class="bulleted-list">
+          <li>
+            <a href="https://github.com/ojwalch/sleep_classifiers"
+              >Classify sleep from heart rate and acceleration via Apple
+              Watch</a
+            >
+          </li>
+        </ul>
+        <ul id="4bc5cc87-513b-4990-9d18-f18170a0202b" class="bulleted-list">
+          <li>
+            <a href="https://github.com/vasco3/cheff"
+              >Meal Planner for calories and macros</a
+            >
+          </li>
+        </ul>
+        <ul id="ca752368-3d68-406e-93af-c404fe8c31ea" class="bulleted-list">
+          <li>
+            https://github.com/yetanotherchris/awesome-mindhacking#journaling
+          </li>
+        </ul>
+        <ul id="a1e1728f-fe89-40b6-98b7-fe8ed3207406" class="bulleted-list">
+          <li>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.rubytribe.skinvision.ac"
+              >SkinVision - Detect Skin Cancer. Track your Moles.</a
+            >
+          </li>
+        </ul>
+        <ul id="0e6ec614-69d5-4c41-8944-5a3871bfc3fd" class="bulleted-list">
+          <li>
+            https://blog.elifiner.com/how-i-built-an-app-to-fix-my-depression +
+            https://news.ycombinator.com/item?id=24439612
+          </li>
+        </ul>
+        <ul id="eb23300b-85bd-433e-92e9-5b6cc1c9a8b3" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9xIR0CRwKuGkNPXd_uJcF1f"
+              >Functional medicine - Ford Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="bcf26ed2-915f-4755-826e-765db5422478" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLLNvew6525LHpgxqaIeeXaTEcHsTsDbo2"
+              >Follow The Physiology - Dr. Darren Schmidt, DC</a
+            >
+          </li>
+        </ul>
+        <ul id="8224992b-d182-4539-a159-42e1acfe22c3" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLLNvew6525LH5xMlqdLQVlF_nD6BaXGY3"
+              >How to Detoxify Your Brain &amp; Body - Dr. Darren Schmidt, DC</a
+            >
+          </li>
+        </ul>
+        <ul id="8e44fbf5-56ba-4e81-b245-f766eb91b042" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLLNvew6525LFvQOTlvvmoAbCqO0himSx5"
+              >Mold, Candida, Yeast. - Dr. Darren Schmidt, DC</a
+            >
+          </li>
+        </ul>
+        <ul id="1cd08a3b-46a6-46a4-9cb5-f3015e27ce8a" class="bulleted-list">
+          <li>
+            <a href="https://github.com/jasoncwarner/ama/issues/35"
+              >How did you fix your posterior chain?</a
+            >
+          </li>
+        </ul>
+        <h3 id="d7fecc0c-9ade-46f3-8de8-e54599841cd2" class="">
+          Miscellaneous
+        </h3>
+        <ul id="5c164482-4a3a-4246-8ef8-054a7b8f67e6" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PL0TLaocCMc9z_1YOf0VfvSOAJ2wsTr9tg"
+              >Lifestyle &amp; Disease -History of preventive medicine - Ford
+              Brewer MD MPH</a
+            >
+          </li>
+        </ul>
+        <ul id="1dc55ca8-f69c-4a08-889d-8bafc900d163" class="bulleted-list">
+          <li>
+            https://singularityhub.com/2020/10/13/scientists-found-a-new-way-to-control-the-brain-with-light-no-surgery-required
+          </li>
+        </ul>
+        <h3 id="fbab1a95-bf21-4b77-acf9-f547d0cef7d0" class="">DYI</h3>
+        <ul id="7c7a05f2-5025-484f-a1d4-30665f0f92d0" class="bulleted-list">
+          <li>
+            <a href="https://freebreathing.org/"
+              >VentilatorPAL is a high-quality but low-cost, open source
+              ventilator that can be bought or built by anyone for a fraction of
+              the cost of commercial ventilators.</a
+            >
+          </li>
+        </ul>
+        <ul id="4835c6a3-80c0-4c7f-ab5a-a4fa8ad89817" class="bulleted-list">
+          <li><a href="https://makefacemasks.com/">Make a face mask</a></li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>

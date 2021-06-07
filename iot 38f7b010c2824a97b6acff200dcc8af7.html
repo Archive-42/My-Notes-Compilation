@@ -1,627 +1,1013 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>iot</title><style>
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	text-indent: -1.7em;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
-
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
-
-.highlight-default {
-}
-.highlight-gray {
-	color: rgb(155,154,151);
-}
-.highlight-brown {
-	color: rgb(100,71,58);
-}
-.highlight-orange {
-	color: rgb(217,115,13);
-}
-.highlight-yellow {
-	color: rgb(223,171,1);
-}
-.highlight-teal {
-	color: rgb(15,123,108);
-}
-.highlight-blue {
-	color: rgb(11,110,153);
-}
-.highlight-purple {
-	color: rgb(105,64,165);
-}
-.highlight-pink {
-	color: rgb(173,26,114);
-}
-.highlight-red {
-	color: rgb(224,62,62);
-}
-.highlight-gray_background {
-	background: rgb(235,236,237);
-}
-.highlight-brown_background {
-	background: rgb(233,229,227);
-}
-.highlight-orange_background {
-	background: rgb(250,235,221);
-}
-.highlight-yellow_background {
-	background: rgb(251,243,219);
-}
-.highlight-teal_background {
-	background: rgb(221,237,234);
-}
-.highlight-blue_background {
-	background: rgb(221,235,241);
-}
-.highlight-purple_background {
-	background: rgb(234,228,242);
-}
-.highlight-pink_background {
-	background: rgb(244,223,235);
-}
-.highlight-red_background {
-	background: rgb(251,228,228);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(55, 53, 47, 0.6);
-	fill: rgba(55, 53, 47, 0.6);
-}
-.block-color-brown {
-	color: rgb(100,71,58);
-	fill: rgb(100,71,58);
-}
-.block-color-orange {
-	color: rgb(217,115,13);
-	fill: rgb(217,115,13);
-}
-.block-color-yellow {
-	color: rgb(223,171,1);
-	fill: rgb(223,171,1);
-}
-.block-color-teal {
-	color: rgb(15,123,108);
-	fill: rgb(15,123,108);
-}
-.block-color-blue {
-	color: rgb(11,110,153);
-	fill: rgb(11,110,153);
-}
-.block-color-purple {
-	color: rgb(105,64,165);
-	fill: rgb(105,64,165);
-}
-.block-color-pink {
-	color: rgb(173,26,114);
-	fill: rgb(173,26,114);
-}
-.block-color-red {
-	color: rgb(224,62,62);
-	fill: rgb(224,62,62);
-}
-.block-color-gray_background {
-	background: rgb(235,236,237);
-}
-.block-color-brown_background {
-	background: rgb(233,229,227);
-}
-.block-color-orange_background {
-	background: rgb(250,235,221);
-}
-.block-color-yellow_background {
-	background: rgb(251,243,219);
-}
-.block-color-teal_background {
-	background: rgb(221,237,234);
-}
-.block-color-blue_background {
-	background: rgb(221,235,241);
-}
-.block-color-purple_background {
-	background: rgb(234,228,242);
-}
-.block-color-pink_background {
-	background: rgb(244,223,235);
-}
-.block-color-red_background {
-	background: rgb(251,228,228);
-}
-.select-value-color-default { background-color: rgba(206,205,202,0.5); }
-.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
-.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
-.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
-.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
-.select-value-color-green { background-color: rgba(0,135,107,0.2); }
-.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
-.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
-.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
-.select-value-color-red { background-color: rgba(255,0,26,0.2); }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="38f7b010-c282-4a97-b6ac-ff200dcc8af7" class="page sans"><header><h1 class="page-title">iot</h1></header><div class="page-body"><h3 id="805d0f3c-442a-4786-a1ed-453d7d05b8ba" class="">Courses</h3><ul id="5a9081b5-ccae-4701-bfbb-5ecf0bb792ce" class="bulleted-list"><li><a href="http://dret.net/lectures/iot-spring15">Internet of Things: Foundations and Applications (2015)</a></li></ul><ul id="15f9f392-b2a4-4d35-9a5b-e5d619a443b4" class="bulleted-list"><li>https://jaycarlson.net/2019/07/26/how-i-teach-embedded-systems</li></ul><ul id="00e2df3e-5797-4db4-9c60-575ffa32fc88" class="bulleted-list"><li>https://github.com/Developer-Y/cs-video-courses#embedded-systems</li></ul><h3 id="a211a530-4a6d-4d32-8ab0-cb478fb2d358" class="">Arduino</h3><ul id="902ba944-d3ad-44db-be50-44860dfe4c78" class="bulleted-list"><li>https://www.youtube.com/playlist?list=PLWIcRrPLCdUe2-bhkgFCCKwCyx_ZBzCcp</li></ul><ul id="75797011-eb4b-4acd-b5c1-d08d3180d7d4" class="bulleted-list"><li>https://www.instructables.com/id/A-Beginners-Guide-to-Arduino</li></ul><ul id="a88551f8-a7d2-4635-8950-dd5e084bce82" class="bulleted-list"><li><a href="https://jcs.org/2019/12/17/arduino">Arduino Development on OpenBSD</a></li></ul><ul id="a97ce8dc-dbb5-4644-ac7d-ae3b2cd5c55c" class="bulleted-list"><li><a href="https://youtu.be/Sb08leLWOgA">ESP32-Cam Quickstart with Arduino Code</a></li></ul><ul id="fe8ba357-3978-450b-a7da-c8b54ab00d3d" class="bulleted-list"><li>https://arunoda.me/blog/building-a-connected-ammeter-with-arduino</li></ul><ul id="2b340233-2971-4842-8650-f6d3249bd6dd" class="bulleted-list"><li><a href="https://github.com/aberke/city-science-bike-swarm">A decentralized system of synchronized lights to coordinate urban mobility swarms.</a></li></ul><ul id="9bbb60a2-d1fb-48b7-bd64-c242e5b608b1" class="bulleted-list"><li>https://blog.yifangu.com/2020/12/30/wasmino-wasm-arduino-running-arduino-code-in-browser</li></ul><ul id="747e1348-0f1a-4bed-8b52-f21ad5c8c320" class="bulleted-list"><li>https://medium.com/@Hossman333/building-a-custom-led-word-clock-bfb3ba390e15 + https://github.com/Hossman333/word-clock</li></ul><ul id="0d0c0324-1b5b-41c9-a296-013fdaf3fecf" class="bulleted-list"><li>https://github.com/joeycastillo/The-Open-Book</li></ul><h3 id="77e83b0b-cf0e-4f2c-aa43-00bb713fbce8" class="">ESP32</h3><ul id="8d5189e5-3d9e-481b-89c9-a634fc4383d1" class="bulleted-list"><li><a href="https://twitter.com/binitamshah/status/1229349993829498882">Cloud Home Automation Series</a></li></ul><ul id="7d210a6c-ca92-4850-b2a5-1ad961d0482e" class="bulleted-list"><li>https://hackaday.com/2021/02/08/hands-on-the-risc-v-esp32-c3-will-be-your-new-esp8266</li></ul><h3 id="325544ae-973a-4415-aee1-b97ff0fab545" class="">ESP8266</h3><ul id="82606a27-ec00-430c-bf4f-7b8a3b0112e6" class="bulleted-list"><li><a href="https://tttapa.github.io/ESP8266/Chap01%20-%20ESP8266.html">A Beginner’s Guide to the ESP8266</a></li></ul><ul id="9331095f-feee-4445-8ac1-926e309cdc08" class="bulleted-list"><li><a href="https://learning.oreilly.com/library/view/esp8266-home-automation/9781787282629">ESP8266 Home Automation Projects</a> + https://myesp8266.blogspot.com/2018/09/esp8266-home-automation-projects-errata.html</li></ul><ul id="34cf7c79-8a07-4ad0-84d1-40f33d2da981" class="bulleted-list"><li>https://arunoda.me/blog/load-testing-an-esp8266</li></ul><ul id="eb3e0a9b-e3dc-4c84-970f-f78e00a44ede" class="bulleted-list"><li><a href="https://github.com/maakbaas/esp8266-iot-framework">Framework for IoT projects implementing HTTPS requests, a React web interface, WiFi manager, live dashboard, configuration manager, file manager and OTA updates.</a></li></ul><h3 id="7720e26d-8ae8-40b9-a5c3-9f7a2d9dcb28" class="">Espruino</h3><ul id="61207547-c0b4-4f24-91b6-c45aa7cdaaf1" class="bulleted-list"><li>https://www.youtube.com/user/Espruino/playlists</li></ul><h3 id="5a663c3f-7197-4987-b55c-2cf5ff7518f2" class="">RaspberryPI</h3><ul id="a49ba62a-4beb-41e8-929c-a1b6500846c6" class="bulleted-list"><li>https://hackclub.com/workshops/choose_your_pi</li></ul><ul id="b03d1ae9-592a-4110-86da-73b8e305f02c" class="bulleted-list"><li>https://qmacro.org/2020/03/22/starting-out-with-raspberry-pi-experiments</li></ul><ul id="13a0d10b-884f-4ca2-b2f2-0f13848c631e" class="bulleted-list"><li>https://quanticdev.com/articles/raspberry-pi-guide-for-developers + https://quanticdev.com/articles/most-valuable-thing-to-learn-in-one-hour</li></ul><ul id="9f6e8746-8dd5-4f77-bb36-6c7d79b09cf8" class="bulleted-list"><li>https://github.com/e1ioan/RaspberryPi-AxisYoutubeStreaming</li></ul><ul id="9d265e68-2094-4a45-968f-df2d3873e136" class="bulleted-list"><li>https://snikt.net/blog/2020/01/29/building-a-simple-vpn-with-wireguard-with-a-raspberry-pi-as-server</li></ul><ul id="4265c9ca-fe18-4a82-91ad-3bc28058331d" class="bulleted-list"><li>https://snikt.net/blog/2019/06/22/building-an-lte-access-point-with-a-raspberry-pi</li></ul><ul id="d2bf2922-9611-4fd3-be9e-7dc5a8c47dfa" class="bulleted-list"><li>http://www.irongeek.com/i.php?page=videos/bsidestampa2020/track-e-04-is-that-a-wifi-sniffer-in-your-pocket-jacob-baines</li></ul><ul id="7dbf4b1a-595f-4f5f-aa34-6cb60edcf1ab" class="bulleted-list"><li>https://alternativebit.fr/posts/ultimate-writer</li></ul><ul id="56680136-d1dd-405b-96d2-68cd059e7029" class="bulleted-list"><li>https://mtlynch.io/tinypilot/#how-to-build-your-own-tinypilot + https://mtlynch.io/tinypilot/#building-a-kvm-over-ip-with-raspberry-pi + https://news.ycombinator.com/item?id=23927380</li></ul><ul id="43cc1026-f4cf-4d57-ace0-dd3ff258f636" class="bulleted-list"><li>https://github.com/brandonskerritt/How-I-Hacked-Your-Pi-Hole</li></ul><ul id="698ebb21-9b25-4278-b75f-70a1d461391a" class="bulleted-list"><li>https://ptx2.net/posts/unbricking-a-bike-with-a-raspberry-pi + https://news.ycombinator.com/item?id=24022751</li></ul><ul id="81ad12f9-f356-47cf-9942-89348b8a482b" class="bulleted-list"><li>https://felixge.de/2015/03/05/go-raspberry-pi-powered-alarm-clock</li></ul><ul id="b527bb9b-5344-4829-9a87-c71f751430da" class="bulleted-list"><li><a href="https://christianhans.info/12791/running-your-own-read-later-service-with-raspberry-pi-and-pinboard">Running your own Read Later Service with Raspberry Pi and Pinboard</a></li></ul><ul id="df1d4b4e-bf0a-498c-b9b9-a260ce442f79" class="bulleted-list"><li><a href="https://github.com/schollz/find-lf">Track the location of every Wi-Fi device (📱) in your house using Raspberry Pis and FIND</a></li></ul><ul id="45141af7-5ee7-469e-a238-0919c02db077" class="bulleted-list"><li><a href="https://github.com/googlecreativelab/alto">Explore the basics of machine learning by building your own teachable object at home.</a></li></ul><ul id="bac790f8-5a19-4de9-aecf-ec0f62c1d0da" class="bulleted-list"><li><a href="https://leanpub.com/rpctemp">Raspberry Pi Computing: Temperature Measurement</a></li></ul><ul id="6fef30c5-d668-4c1e-8722-3c07e9584475" class="bulleted-list"><li>https://www.bit-101.com/blog/2021/02/raspberry-pi-pico-what-ive-learned</li></ul><ul id="1584e1d7-d748-4100-9c51-9494d31861df" class="bulleted-list"><li>https://www.alexanderjsingleton.com/hack-to-spy-building-a-raspberry-spy-pi</li></ul><h3 id="88c4d108-7656-403b-bc43-14c65bce7b58" class="">Smartwatch</h3><ul id="e6a72203-dc5d-42d0-b6bd-27d1f1522db9" class="bulleted-list"><li>https://medium.com/@sayliambure/hacking-a-5-smartband-824763ab6e8f</li></ul><h3 id="762e64c6-7141-4bd3-8fa0-5e2c5c35c95a" class="">Firmware</h3><ul id="353c94d7-2cac-44d7-b596-58d2e2b62713" class="bulleted-list"><li>https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks</li></ul><h3 id="43fc9647-3605-484f-a6fe-934321a44c32" class="">Security</h3><ul id="6f52be92-c687-44e0-9f35-f67365e3c28f" class="bulleted-list"><li>https://github.com/V33RU/IoTSecurity101</li></ul><ul id="c44aee3d-7909-4ca9-b7f4-da4ce958c61a" class="bulleted-list"><li>Backdooring a smart camera by creating a malicious firmware upgrade: <a href="https://twitter.com/StackSmashing/status/1216738008441020416">tweet</a> + <a href="https://github.com/ghidraninja/wyze_scripts">repo</a></li></ul><ul id="06a82baf-193d-404e-a24d-81c3cc471431" class="bulleted-list"><li><a href="https://github.com/david-oswald/hwsec_lecture_notes">Lecture notes for the Hardware and Embedded Systems Security lecture.</a> + https://twitter.com/sublevado/status/1219153201326366720</li></ul><ul id="ceb50f74-98e6-4d1e-9b35-425584716eee" class="bulleted-list"><li>https://payatu.com/blog/Arun-Magesh/iot-security-part-4-bluetooth-low-energy-101</li></ul><ul id="72b756ba-ecc2-4bea-b5f3-74d691555904" class="bulleted-list"><li><a href="https://www.youtube.com/playlist?list=PLxzQqOO_sw9Pj46OJiXb1yvniUkqOhFo9">IoT Security Techniques - Andrew Tierney</a></li></ul><ul id="3047a7a4-c679-463e-8d04-68373e44839c" class="bulleted-list"><li>https://afitnerd.com/2020/08/09/man-in-the-middle-yourself</li></ul><h3 id="92821a80-daac-4d38-887e-5cbc81b8741e" class="">Miscellaneous</h3><ul id="c3379d33-7cac-43a2-bfb8-87ffc7b5e419" class="bulleted-list"><li>https://japaniot.github.io/2020/01/01/how-i-automate-my-home-en</li></ul><ul id="c1f64044-f0ce-4a5f-82cb-97a372220e15" class="bulleted-list"><li><a href="https://rhasspy.readthedocs.io/en/latest/">Rhasspy (pronounced RAH-SPEE) is an open source, fully offline voice assistant toolkit for many languages that works well with Home Assistant, Hass.io, and Node-RED.</a></li></ul><ul id="0ed087f9-5e53-48a3-be62-c164ae93a280" class="bulleted-list"><li>https://www.youtube.com/user/greatscottlab/playlists</li></ul><ul id="a3d59737-7701-408a-8d5c-6e08d5fc56d7" class="bulleted-list"><li>https://www.youtube.com/user/mcwhorpj/playlists</li></ul><ul id="d3c4a25a-947a-4b9e-b004-82a749e07a26" class="bulleted-list"><li>I Made My Own Image Sensor! (And Digital Camera): <a href="https://youtu.be/PaXweP73NT4">video</a> + <a href="https://github.com/IdleHandsProject/diycamera">repo</a></li></ul><ul id="2c96abdd-7035-43c3-9ccc-0515233bfa13" class="bulleted-list"><li><a href="https://youtu.be/-2UnCfy5NSs">Peter Hoddie from Moddable presenting SES</a></li></ul><ul id="d2ac4167-66fb-4378-b862-2d40f4053dc8" class="bulleted-list"><li><a href="https://github.com/rzr/webthing-iotjs/wiki">IoT.js implementation of WebThing API (based on Mozilla-IoT’s webthing-node)</a></li></ul><ul id="7a2ea79d-d3ac-438e-a319-8cf748237873" class="bulleted-list"><li><a href="https://twitter.com/julian_duque/status/1309514620403679233">I’m building an IoT solution (consuming sensor data), but can’t use MQTT. Is Redis PubSub a valid IoT use case?</a></li></ul><ul id="9a55e7d1-80e1-4120-b99a-33108ca37525" class="bulleted-list"><li>https://jaycarlson.net/embedded-linux + https://twitter.com/jaydcarlson/status/1316917799755960320</li></ul></div></article></body></html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>iot</title>
+    <style>
+      /* webkit printing magic: print all background colors */
+      html {
+        -webkit-print-color-adjust: exact;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      @media only screen {
+        body {
+          margin: 2em auto;
+          max-width: 900px;
+          color: rgb(55, 53, 47);
+        }
+      }
+
+      body {
+        line-height: 1.5;
+        white-space: pre-wrap;
+      }
+
+      a,
+      a.visited {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .pdf-relative-link-path {
+        font-size: 80%;
+        color: #444;
+      }
+
+      h1,
+      h2,
+      h3 {
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0.75em;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-top: 1.875rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        margin-top: 1.25rem;
+      }
+
+      .source {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 1.5em;
+        word-break: break-all;
+      }
+
+      .callout {
+        border-radius: 3px;
+        padding: 1rem;
+      }
+
+      figure {
+        margin: 1.25em 0;
+        page-break-inside: avoid;
+      }
+
+      figcaption {
+        opacity: 0.5;
+        font-size: 85%;
+        margin-top: 0.5em;
+      }
+
+      mark {
+        background-color: transparent;
+      }
+
+      .indented {
+        padding-left: 1.5em;
+      }
+
+      hr {
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 1px;
+        visibility: visible;
+        border: none;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      @media only print {
+        img {
+          max-height: 100vh;
+          object-fit: contain;
+        }
+      }
+
+      @page {
+        margin: 1in;
+      }
+
+      .collection-content {
+        font-size: 0.875rem;
+      }
+
+      .column-list {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        padding: 0 1em;
+      }
+
+      .column:first-child {
+        padding-left: 0;
+      }
+
+      .column:last-child {
+        padding-right: 0;
+      }
+
+      .table_of_contents-item {
+        display: block;
+        font-size: 0.875rem;
+        line-height: 1.3;
+        padding: 0.125rem;
+      }
+
+      .table_of_contents-indent-1 {
+        margin-left: 1.5rem;
+      }
+
+      .table_of_contents-indent-2 {
+        margin-left: 3rem;
+      }
+
+      .table_of_contents-indent-3 {
+        margin-left: 4.5rem;
+      }
+
+      .table_of_contents-link {
+        text-decoration: none;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid rgba(55, 53, 47, 0.09);
+        border-collapse: collapse;
+      }
+
+      table {
+        border-left: none;
+        border-right: none;
+      }
+
+      th,
+      td {
+        font-weight: normal;
+        padding: 0.25em 0.5em;
+        line-height: 1.5;
+        min-height: 1.5em;
+        text-align: left;
+      }
+
+      th {
+        color: rgba(55, 53, 47, 0.6);
+      }
+
+      ol,
+      ul {
+        margin: 0;
+        margin-block-start: 0.6em;
+        margin-block-end: 0.6em;
+      }
+
+      li > ol:first-child,
+      li > ul:first-child {
+        margin-block-start: 0.6em;
+      }
+
+      ul > li {
+        list-style: disc;
+      }
+
+      ul.to-do-list {
+        text-indent: -1.7em;
+      }
+
+      ul.to-do-list > li {
+        list-style: none;
+      }
+
+      .to-do-children-checked {
+        text-decoration: line-through;
+        opacity: 0.375;
+      }
+
+      ul.toggle > li {
+        list-style: none;
+      }
+
+      ul {
+        padding-inline-start: 1.7em;
+      }
+
+      ul > li {
+        padding-left: 0.1em;
+      }
+
+      ol {
+        padding-inline-start: 1.6em;
+      }
+
+      ol > li {
+        padding-left: 0.2em;
+      }
+
+      .mono ol {
+        padding-inline-start: 2em;
+      }
+
+      .mono ol > li {
+        text-indent: -0.4em;
+      }
+
+      .toggle {
+        padding-inline-start: 0em;
+        list-style-type: none;
+      }
+
+      /* Indent toggle children */
+      .toggle > li > details {
+        padding-left: 1.7em;
+      }
+
+      .toggle > li > details > summary {
+        margin-left: -1.1em;
+      }
+
+      .selected-value {
+        display: inline-block;
+        padding: 0 0.5em;
+        background: rgba(206, 205, 202, 0.5);
+        border-radius: 3px;
+        margin-right: 0.5em;
+        margin-top: 0.3em;
+        margin-bottom: 0.3em;
+        white-space: nowrap;
+      }
+
+      .collection-title {
+        display: inline-block;
+        margin-right: 1em;
+      }
+
+      time {
+        opacity: 0.5;
+      }
+
+      .icon {
+        display: inline-block;
+        max-width: 1.2em;
+        max-height: 1.2em;
+        text-decoration: none;
+        vertical-align: text-bottom;
+        margin-right: 0.5em;
+      }
+
+      img.icon {
+        border-radius: 3px;
+      }
+
+      .user-icon {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 100%;
+        margin-right: 0.5rem;
+      }
+
+      .user-icon-inner {
+        font-size: 0.8em;
+      }
+
+      .text-icon {
+        border: 1px solid #000;
+        text-align: center;
+      }
+
+      .page-cover-image {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 30vh;
+      }
+
+      .page-header-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header-icon-with-cover {
+        margin-top: -0.72em;
+        margin-left: 0.07em;
+      }
+
+      .page-header-icon img {
+        border-radius: 3px;
+      }
+
+      .link-to-page {
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+        font-weight: 500;
+      }
+
+      p > .user {
+        opacity: 0.5;
+      }
+
+      td > .user,
+      td > time {
+        white-space: nowrap;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 0.6em;
+        vertical-align: middle;
+      }
+
+      p {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+
+      .image {
+        border: none;
+        margin: 1.5em 0;
+        padding: 0;
+        border-radius: 0;
+        text-align: center;
+      }
+
+      .code,
+      code {
+        background: rgba(135, 131, 120, 0.15);
+        border-radius: 3px;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 85%;
+        tab-size: 2;
+      }
+
+      code {
+        color: #eb5757;
+      }
+
+      .code {
+        padding: 1.5em 1em;
+      }
+
+      .code-wrap {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      .code > code {
+        background: none;
+        padding: 0;
+        font-size: 100%;
+        color: inherit;
+      }
+
+      blockquote {
+        font-size: 1.25em;
+        margin: 1em 0;
+        padding-left: 1em;
+        border-left: 3px solid rgb(55, 53, 47);
+      }
+
+      .bookmark {
+        text-decoration: none;
+        max-height: 8em;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      .bookmark-title {
+        font-size: 0.85em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 1.75em;
+        white-space: nowrap;
+      }
+
+      .bookmark-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .bookmark-info {
+        flex: 4 1 180px;
+        padding: 12px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .bookmark-image {
+        width: 33%;
+        flex: 1 1 180px;
+        display: block;
+        position: relative;
+        object-fit: cover;
+        border-radius: 1px;
+      }
+
+      .bookmark-description {
+        color: rgba(55, 53, 47, 0.6);
+        font-size: 0.75em;
+        overflow: hidden;
+        max-height: 4.5em;
+        word-break: break-word;
+      }
+
+      .bookmark-href {
+        font-size: 0.75em;
+        margin-top: 0.25em;
+      }
+
+      .sans {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+      .code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+          Courier, monospace;
+      }
+      .serif {
+        font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif;
+      }
+      .mono {
+        font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+      }
+      .pdf .sans {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+          "Segoe UI Symbol", "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC",
+          "Noto Sans CJK KR";
+      }
+
+      .pdf .code {
+        font-family: Source Code Pro, "SFMono-Regular", Consolas,
+          "Liberation Mono", Menlo, Courier, monospace, "Twemoji",
+          "Noto Color Emoji", "Noto Sans Mono CJK SC", "Noto Sans Mono CJK KR";
+      }
+
+      .pdf .serif {
+        font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho",
+          "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC",
+          "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif,
+          "Twemoji", "Noto Color Emoji", "Noto Sans CJK SC", "Noto Sans CJK KR";
+      }
+
+      .pdf .mono {
+        font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace,
+          "Twemoji", "Noto Color Emoji", "Noto Sans Mono CJK SC",
+          "Noto Sans Mono CJK KR";
+      }
+
+      .highlight-default {
+      }
+      .highlight-gray {
+        color: rgb(155, 154, 151);
+      }
+      .highlight-brown {
+        color: rgb(100, 71, 58);
+      }
+      .highlight-orange {
+        color: rgb(217, 115, 13);
+      }
+      .highlight-yellow {
+        color: rgb(223, 171, 1);
+      }
+      .highlight-teal {
+        color: rgb(15, 123, 108);
+      }
+      .highlight-blue {
+        color: rgb(11, 110, 153);
+      }
+      .highlight-purple {
+        color: rgb(105, 64, 165);
+      }
+      .highlight-pink {
+        color: rgb(173, 26, 114);
+      }
+      .highlight-red {
+        color: rgb(224, 62, 62);
+      }
+      .highlight-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .highlight-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .highlight-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .highlight-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .highlight-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .highlight-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .highlight-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .highlight-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .highlight-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .block-color-default {
+        color: inherit;
+        fill: inherit;
+      }
+      .block-color-gray {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+      }
+      .block-color-brown {
+        color: rgb(100, 71, 58);
+        fill: rgb(100, 71, 58);
+      }
+      .block-color-orange {
+        color: rgb(217, 115, 13);
+        fill: rgb(217, 115, 13);
+      }
+      .block-color-yellow {
+        color: rgb(223, 171, 1);
+        fill: rgb(223, 171, 1);
+      }
+      .block-color-teal {
+        color: rgb(15, 123, 108);
+        fill: rgb(15, 123, 108);
+      }
+      .block-color-blue {
+        color: rgb(11, 110, 153);
+        fill: rgb(11, 110, 153);
+      }
+      .block-color-purple {
+        color: rgb(105, 64, 165);
+        fill: rgb(105, 64, 165);
+      }
+      .block-color-pink {
+        color: rgb(173, 26, 114);
+        fill: rgb(173, 26, 114);
+      }
+      .block-color-red {
+        color: rgb(224, 62, 62);
+        fill: rgb(224, 62, 62);
+      }
+      .block-color-gray_background {
+        background: rgb(235, 236, 237);
+      }
+      .block-color-brown_background {
+        background: rgb(233, 229, 227);
+      }
+      .block-color-orange_background {
+        background: rgb(250, 235, 221);
+      }
+      .block-color-yellow_background {
+        background: rgb(251, 243, 219);
+      }
+      .block-color-teal_background {
+        background: rgb(221, 237, 234);
+      }
+      .block-color-blue_background {
+        background: rgb(221, 235, 241);
+      }
+      .block-color-purple_background {
+        background: rgb(234, 228, 242);
+      }
+      .block-color-pink_background {
+        background: rgb(244, 223, 235);
+      }
+      .block-color-red_background {
+        background: rgb(251, 228, 228);
+      }
+      .select-value-color-default {
+        background-color: rgba(206, 205, 202, 0.5);
+      }
+      .select-value-color-gray {
+        background-color: rgba(155, 154, 151, 0.4);
+      }
+      .select-value-color-brown {
+        background-color: rgba(140, 46, 0, 0.2);
+      }
+      .select-value-color-orange {
+        background-color: rgba(245, 93, 0, 0.2);
+      }
+      .select-value-color-yellow {
+        background-color: rgba(233, 168, 0, 0.2);
+      }
+      .select-value-color-green {
+        background-color: rgba(0, 135, 107, 0.2);
+      }
+      .select-value-color-blue {
+        background-color: rgba(0, 120, 223, 0.2);
+      }
+      .select-value-color-purple {
+        background-color: rgba(103, 36, 222, 0.2);
+      }
+      .select-value-color-pink {
+        background-color: rgba(221, 0, 129, 0.2);
+      }
+      .select-value-color-red {
+        background-color: rgba(255, 0, 26, 0.2);
+      }
+
+      .checkbox {
+        display: inline-flex;
+        vertical-align: text-bottom;
+        width: 16;
+        height: 16;
+        background-size: 16px;
+        margin-left: 2px;
+        margin-right: 5px;
+      }
+
+      .checkbox-on {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+      .checkbox-off {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+    </style>
+  </head>
+  <body>
+    <article id="38f7b010-c282-4a97-b6ac-ff200dcc8af7" class="page sans">
+      <header><h1 class="page-title">iot</h1></header>
+      <div class="page-body">
+        <h3 id="805d0f3c-442a-4786-a1ed-453d7d05b8ba" class="">Courses</h3>
+        <ul id="5a9081b5-ccae-4701-bfbb-5ecf0bb792ce" class="bulleted-list">
+          <li>
+            <a href="http://dret.net/lectures/iot-spring15"
+              >Internet of Things: Foundations and Applications (2015)</a
+            >
+          </li>
+        </ul>
+        <ul id="15f9f392-b2a4-4d35-9a5b-e5d619a443b4" class="bulleted-list">
+          <li>
+            https://jaycarlson.net/2019/07/26/how-i-teach-embedded-systems
+          </li>
+        </ul>
+        <ul id="00e2df3e-5797-4db4-9c60-575ffa32fc88" class="bulleted-list">
+          <li>
+            https://github.com/Developer-Y/cs-video-courses#embedded-systems
+          </li>
+        </ul>
+        <h3 id="a211a530-4a6d-4d32-8ab0-cb478fb2d358" class="">Arduino</h3>
+        <ul id="902ba944-d3ad-44db-be50-44860dfe4c78" class="bulleted-list">
+          <li>
+            https://www.youtube.com/playlist?list=PLWIcRrPLCdUe2-bhkgFCCKwCyx_ZBzCcp
+          </li>
+        </ul>
+        <ul id="75797011-eb4b-4acd-b5c1-d08d3180d7d4" class="bulleted-list">
+          <li>https://www.instructables.com/id/A-Beginners-Guide-to-Arduino</li>
+        </ul>
+        <ul id="a88551f8-a7d2-4635-8950-dd5e084bce82" class="bulleted-list">
+          <li>
+            <a href="https://jcs.org/2019/12/17/arduino"
+              >Arduino Development on OpenBSD</a
+            >
+          </li>
+        </ul>
+        <ul id="a97ce8dc-dbb5-4644-ac7d-ae3b2cd5c55c" class="bulleted-list">
+          <li>
+            <a href="https://youtu.be/Sb08leLWOgA"
+              >ESP32-Cam Quickstart with Arduino Code</a
+            >
+          </li>
+        </ul>
+        <ul id="fe8ba357-3978-450b-a7da-c8b54ab00d3d" class="bulleted-list">
+          <li>
+            https://arunoda.me/blog/building-a-connected-ammeter-with-arduino
+          </li>
+        </ul>
+        <ul id="2b340233-2971-4842-8650-f6d3249bd6dd" class="bulleted-list">
+          <li>
+            <a href="https://github.com/aberke/city-science-bike-swarm"
+              >A decentralized system of synchronized lights to coordinate urban
+              mobility swarms.</a
+            >
+          </li>
+        </ul>
+        <ul id="9bbb60a2-d1fb-48b7-bd64-c242e5b608b1" class="bulleted-list">
+          <li>
+            https://blog.yifangu.com/2020/12/30/wasmino-wasm-arduino-running-arduino-code-in-browser
+          </li>
+        </ul>
+        <ul id="747e1348-0f1a-4bed-8b52-f21ad5c8c320" class="bulleted-list">
+          <li>
+            https://medium.com/@Hossman333/building-a-custom-led-word-clock-bfb3ba390e15
+            + https://github.com/Hossman333/word-clock
+          </li>
+        </ul>
+        <ul id="0d0c0324-1b5b-41c9-a296-013fdaf3fecf" class="bulleted-list">
+          <li>https://github.com/joeycastillo/The-Open-Book</li>
+        </ul>
+        <h3 id="77e83b0b-cf0e-4f2c-aa43-00bb713fbce8" class="">ESP32</h3>
+        <ul id="8d5189e5-3d9e-481b-89c9-a634fc4383d1" class="bulleted-list">
+          <li>
+            <a href="https://twitter.com/binitamshah/status/1229349993829498882"
+              >Cloud Home Automation Series</a
+            >
+          </li>
+        </ul>
+        <ul id="7d210a6c-ca92-4850-b2a5-1ad961d0482e" class="bulleted-list">
+          <li>
+            https://hackaday.com/2021/02/08/hands-on-the-risc-v-esp32-c3-will-be-your-new-esp8266
+          </li>
+        </ul>
+        <h3 id="325544ae-973a-4415-aee1-b97ff0fab545" class="">ESP8266</h3>
+        <ul id="82606a27-ec00-430c-bf4f-7b8a3b0112e6" class="bulleted-list">
+          <li>
+            <a href="https://tttapa.github.io/ESP8266/Chap01%20-%20ESP8266.html"
+              >A Beginner’s Guide to the ESP8266</a
+            >
+          </li>
+        </ul>
+        <ul id="9331095f-feee-4445-8ac1-926e309cdc08" class="bulleted-list">
+          <li>
+            <a
+              href="https://learning.oreilly.com/library/view/esp8266-home-automation/9781787282629"
+              >ESP8266 Home Automation Projects</a
+            >
+            +
+            https://myesp8266.blogspot.com/2018/09/esp8266-home-automation-projects-errata.html
+          </li>
+        </ul>
+        <ul id="34cf7c79-8a07-4ad0-84d1-40f33d2da981" class="bulleted-list">
+          <li>https://arunoda.me/blog/load-testing-an-esp8266</li>
+        </ul>
+        <ul id="eb3e0a9b-e3dc-4c84-970f-f78e00a44ede" class="bulleted-list">
+          <li>
+            <a href="https://github.com/maakbaas/esp8266-iot-framework"
+              >Framework for IoT projects implementing HTTPS requests, a React
+              web interface, WiFi manager, live dashboard, configuration
+              manager, file manager and OTA updates.</a
+            >
+          </li>
+        </ul>
+        <h3 id="7720e26d-8ae8-40b9-a5c3-9f7a2d9dcb28" class="">Espruino</h3>
+        <ul id="61207547-c0b4-4f24-91b6-c45aa7cdaaf1" class="bulleted-list">
+          <li>https://www.youtube.com/user/Espruino/playlists</li>
+        </ul>
+        <h3 id="5a663c3f-7197-4987-b55c-2cf5ff7518f2" class="">RaspberryPI</h3>
+        <ul id="a49ba62a-4beb-41e8-929c-a1b6500846c6" class="bulleted-list">
+          <li>https://hackclub.com/workshops/choose_your_pi</li>
+        </ul>
+        <ul id="b03d1ae9-592a-4110-86da-73b8e305f02c" class="bulleted-list">
+          <li>
+            https://qmacro.org/2020/03/22/starting-out-with-raspberry-pi-experiments
+          </li>
+        </ul>
+        <ul id="13a0d10b-884f-4ca2-b2f2-0f13848c631e" class="bulleted-list">
+          <li>
+            https://quanticdev.com/articles/raspberry-pi-guide-for-developers +
+            https://quanticdev.com/articles/most-valuable-thing-to-learn-in-one-hour
+          </li>
+        </ul>
+        <ul id="9f6e8746-8dd5-4f77-bb36-6c7d79b09cf8" class="bulleted-list">
+          <li>https://github.com/e1ioan/RaspberryPi-AxisYoutubeStreaming</li>
+        </ul>
+        <ul id="9d265e68-2094-4a45-968f-df2d3873e136" class="bulleted-list">
+          <li>
+            https://snikt.net/blog/2020/01/29/building-a-simple-vpn-with-wireguard-with-a-raspberry-pi-as-server
+          </li>
+        </ul>
+        <ul id="4265c9ca-fe18-4a82-91ad-3bc28058331d" class="bulleted-list">
+          <li>
+            https://snikt.net/blog/2019/06/22/building-an-lte-access-point-with-a-raspberry-pi
+          </li>
+        </ul>
+        <ul id="d2bf2922-9611-4fd3-be9e-7dc5a8c47dfa" class="bulleted-list">
+          <li>
+            http://www.irongeek.com/i.php?page=videos/bsidestampa2020/track-e-04-is-that-a-wifi-sniffer-in-your-pocket-jacob-baines
+          </li>
+        </ul>
+        <ul id="7dbf4b1a-595f-4f5f-aa34-6cb60edcf1ab" class="bulleted-list">
+          <li>https://alternativebit.fr/posts/ultimate-writer</li>
+        </ul>
+        <ul id="56680136-d1dd-405b-96d2-68cd059e7029" class="bulleted-list">
+          <li>
+            https://mtlynch.io/tinypilot/#how-to-build-your-own-tinypilot +
+            https://mtlynch.io/tinypilot/#building-a-kvm-over-ip-with-raspberry-pi
+            + https://news.ycombinator.com/item?id=23927380
+          </li>
+        </ul>
+        <ul id="43cc1026-f4cf-4d57-ace0-dd3ff258f636" class="bulleted-list">
+          <li>https://github.com/brandonskerritt/How-I-Hacked-Your-Pi-Hole</li>
+        </ul>
+        <ul id="698ebb21-9b25-4278-b75f-70a1d461391a" class="bulleted-list">
+          <li>
+            https://ptx2.net/posts/unbricking-a-bike-with-a-raspberry-pi +
+            https://news.ycombinator.com/item?id=24022751
+          </li>
+        </ul>
+        <ul id="81ad12f9-f356-47cf-9942-89348b8a482b" class="bulleted-list">
+          <li>
+            https://felixge.de/2015/03/05/go-raspberry-pi-powered-alarm-clock
+          </li>
+        </ul>
+        <ul id="b527bb9b-5344-4829-9a87-c71f751430da" class="bulleted-list">
+          <li>
+            <a
+              href="https://christianhans.info/12791/running-your-own-read-later-service-with-raspberry-pi-and-pinboard"
+              >Running your own Read Later Service with Raspberry Pi and
+              Pinboard</a
+            >
+          </li>
+        </ul>
+        <ul id="df1d4b4e-bf0a-498c-b9b9-a260ce442f79" class="bulleted-list">
+          <li>
+            <a href="https://github.com/schollz/find-lf"
+              >Track the location of every Wi-Fi device (📱) in your house using
+              Raspberry Pis and FIND</a
+            >
+          </li>
+        </ul>
+        <ul id="45141af7-5ee7-469e-a238-0919c02db077" class="bulleted-list">
+          <li>
+            <a href="https://github.com/googlecreativelab/alto"
+              >Explore the basics of machine learning by building your own
+              teachable object at home.</a
+            >
+          </li>
+        </ul>
+        <ul id="bac790f8-5a19-4de9-aecf-ec0f62c1d0da" class="bulleted-list">
+          <li>
+            <a href="https://leanpub.com/rpctemp"
+              >Raspberry Pi Computing: Temperature Measurement</a
+            >
+          </li>
+        </ul>
+        <ul id="6fef30c5-d668-4c1e-8722-3c07e9584475" class="bulleted-list">
+          <li>
+            https://www.bit-101.com/blog/2021/02/raspberry-pi-pico-what-ive-learned
+          </li>
+        </ul>
+        <ul id="1584e1d7-d748-4100-9c51-9494d31861df" class="bulleted-list">
+          <li>
+            https://www.alexanderjsingleton.com/hack-to-spy-building-a-raspberry-spy-pi
+          </li>
+        </ul>
+        <h3 id="88c4d108-7656-403b-bc43-14c65bce7b58" class="">Smartwatch</h3>
+        <ul id="e6a72203-dc5d-42d0-b6bd-27d1f1522db9" class="bulleted-list">
+          <li>
+            https://medium.com/@sayliambure/hacking-a-5-smartband-824763ab6e8f
+          </li>
+        </ul>
+        <h3 id="762e64c6-7141-4bd3-8fa0-5e2c5c35c95a" class="">Firmware</h3>
+        <ul id="353c94d7-2cac-44d7-b596-58d2e2b62713" class="bulleted-list">
+          <li>https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks</li>
+        </ul>
+        <h3 id="43fc9647-3605-484f-a6fe-934321a44c32" class="">Security</h3>
+        <ul id="6f52be92-c687-44e0-9f35-f67365e3c28f" class="bulleted-list">
+          <li>https://github.com/V33RU/IoTSecurity101</li>
+        </ul>
+        <ul id="c44aee3d-7909-4ca9-b7f4-da4ce958c61a" class="bulleted-list">
+          <li>
+            Backdooring a smart camera by creating a malicious firmware upgrade:
+            <a
+              href="https://twitter.com/StackSmashing/status/1216738008441020416"
+              >tweet</a
+            >
+            + <a href="https://github.com/ghidraninja/wyze_scripts">repo</a>
+          </li>
+        </ul>
+        <ul id="06a82baf-193d-404e-a24d-81c3cc471431" class="bulleted-list">
+          <li>
+            <a href="https://github.com/david-oswald/hwsec_lecture_notes"
+              >Lecture notes for the Hardware and Embedded Systems Security
+              lecture.</a
+            >
+            + https://twitter.com/sublevado/status/1219153201326366720
+          </li>
+        </ul>
+        <ul id="ceb50f74-98e6-4d1e-9b35-425584716eee" class="bulleted-list">
+          <li>
+            https://payatu.com/blog/Arun-Magesh/iot-security-part-4-bluetooth-low-energy-101
+          </li>
+        </ul>
+        <ul id="72b756ba-ecc2-4bea-b5f3-74d691555904" class="bulleted-list">
+          <li>
+            <a
+              href="https://www.youtube.com/playlist?list=PLxzQqOO_sw9Pj46OJiXb1yvniUkqOhFo9"
+              >IoT Security Techniques - Andrew Tierney</a
+            >
+          </li>
+        </ul>
+        <ul id="3047a7a4-c679-463e-8d04-68373e44839c" class="bulleted-list">
+          <li>https://afitnerd.com/2020/08/09/man-in-the-middle-yourself</li>
+        </ul>
+        <h3 id="92821a80-daac-4d38-887e-5cbc81b8741e" class="">
+          Miscellaneous
+        </h3>
+        <ul id="c3379d33-7cac-43a2-bfb8-87ffc7b5e419" class="bulleted-list">
+          <li>
+            https://japaniot.github.io/2020/01/01/how-i-automate-my-home-en
+          </li>
+        </ul>
+        <ul id="c1f64044-f0ce-4a5f-82cb-97a372220e15" class="bulleted-list">
+          <li>
+            <a href="https://rhasspy.readthedocs.io/en/latest/"
+              >Rhasspy (pronounced RAH-SPEE) is an open source, fully offline
+              voice assistant toolkit for many languages that works well with
+              Home Assistant, Hass.io, and Node-RED.</a
+            >
+          </li>
+        </ul>
+        <ul id="0ed087f9-5e53-48a3-be62-c164ae93a280" class="bulleted-list">
+          <li>https://www.youtube.com/user/greatscottlab/playlists</li>
+        </ul>
+        <ul id="a3d59737-7701-408a-8d5c-6e08d5fc56d7" class="bulleted-list">
+          <li>https://www.youtube.com/user/mcwhorpj/playlists</li>
+        </ul>
+        <ul id="d3c4a25a-947a-4b9e-b004-82a749e07a26" class="bulleted-list">
+          <li>
+            I Made My Own Image Sensor! (And Digital Camera):
+            <a href="https://youtu.be/PaXweP73NT4">video</a> +
+            <a href="https://github.com/IdleHandsProject/diycamera">repo</a>
+          </li>
+        </ul>
+        <ul id="2c96abdd-7035-43c3-9ccc-0515233bfa13" class="bulleted-list">
+          <li>
+            <a href="https://youtu.be/-2UnCfy5NSs"
+              >Peter Hoddie from Moddable presenting SES</a
+            >
+          </li>
+        </ul>
+        <ul id="d2ac4167-66fb-4378-b862-2d40f4053dc8" class="bulleted-list">
+          <li>
+            <a href="https://github.com/rzr/webthing-iotjs/wiki"
+              >IoT.js implementation of WebThing API (based on Mozilla-IoT’s
+              webthing-node)</a
+            >
+          </li>
+        </ul>
+        <ul id="7a2ea79d-d3ac-438e-a319-8cf748237873" class="bulleted-list">
+          <li>
+            <a
+              href="https://twitter.com/julian_duque/status/1309514620403679233"
+              >I’m building an IoT solution (consuming sensor data), but can’t
+              use MQTT. Is Redis PubSub a valid IoT use case?</a
+            >
+          </li>
+        </ul>
+        <ul id="9a55e7d1-80e1-4120-b99a-33108ca37525" class="bulleted-list">
+          <li>
+            https://jaycarlson.net/embedded-linux +
+            https://twitter.com/jaydcarlson/status/1316917799755960320
+          </li>
+        </ul>
+      </div>
+    </article>
+  </body>
+</html>
