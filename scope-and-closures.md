@@ -1,5 +1,4 @@
-index
-=====
+# index
 
 > Scopes and closures are important in JavaScript. But, they were confusing for me when I first started. Here’s an explanation of scopes and closures to
 
@@ -7,8 +6,7 @@ Scopes and closures are important in JavaScript. But, they were confusing for me
 
 Let’s start with scopes.
 
-Scope
------
+## Scope
 
 A scope in JavaScript defines what variables you have access to. There are two kinds of scope – global scope and local scope.
 
@@ -151,8 +149,7 @@ Multiple layers of functions mean multiple layers of one-way glass
 
 After understanding everything about scopes so far, you’re well primed to figure out what closures are.
 
-Closures
---------
+## Closures
 
 Whenever you create a function within another function, you have created a closure. The inner function is the closure. This closure is usually returned so you can use the outer function’s variables at a later time.
 
@@ -255,8 +252,7 @@ However, sometimes you need to access such a private variable. You can do so wit
 
 `saySecretCode` in this example above is the only function (a closure) that exposes the `secretCode` outside the original secret function. As such, it is also called a **privileged function**.
 
-Debugging scopes with DevTools
-------------------------------
+## Debugging scopes with DevTools
 
 Chrome and Firefox’s DevTools make it simple for you to debug variables you can access in the current scope. There are two ways to use this functionality.
 
@@ -302,8 +298,7 @@ The second way to use this debugging functionality is to add a breakpoint to you
 
 Debugging scopes by adding breakpoints
 
-Wrapping up
------------
+## Wrapping up
 
 Scopes and closures aren’t incredibly hard to understand. They’re pretty simple once you know how to see them through a one-way glass.
 

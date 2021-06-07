@@ -1,12 +1,10 @@
 <span class="icon">📒</span>
 
-Google Cloud
-============
+# Google Cloud
 
 <table><tbody><tr class="odd"><td>Extra</td><td></td></tr><tr class="even"><td>Links</td><td></td></tr><tr class="odd"><td>Priority (1-10)</td><td><span class="selected-value select-value-color-purple">6</span></td></tr></tbody></table>
 
-Schedule
-========
+# Schedule
 
 ### Tuesday
 
@@ -16,19 +14,18 @@ Looking East from Indian Country
 
 Looking West from Europe
 
-Readings
-========
+# Readings
 
--   Lepore, The Name of War, chapters 4-5
-
-<!-- -->
-
--   The Iroquois Describe the Beginning of the World
+- Lepore, The Name of War, chapters 4-5
 
 <!-- -->
 
--   The Ho-Chunk Creation Story
+- The Iroquois Describe the Beginning of the World
 
 <!-- -->
 
--   John Winthrop, A Model of Christian Charity
+- The Ho-Chunk Creation Story
+
+<!-- -->
+
+- John Winthrop, A Model of Christian Charity

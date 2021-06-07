@@ -1,5 +1,4 @@
-proxying-api-requests-in-development
-====================================
+# proxying-api-requests-in-development
 
 > Note: this feature is available with react-scripts@0.2.3 and higher.
 
@@ -29,12 +28,11 @@ The `proxy` option supports HTTP, HTTPS and WebSocket connections.
 
 If the `proxy` option is **not** flexible enough for you, alternatively you can:
 
--   [Configure the proxy yourself](about:blank#configuring-the-proxy-manually)
--   Enable CORS on your server ([here’s how to do it for Express](https://enable-cors.org/server_expressjs.html)).
--   Use [environment variables](adding-custom-environment-variables.md) to inject the right server host and port into your app.
+- [Configure the proxy yourself](about:blank#configuring-the-proxy-manually)
+- Enable CORS on your server ([here’s how to do it for Express](https://enable-cors.org/server_expressjs.html)).
+- Use [environment variables](adding-custom-environment-variables.md) to inject the right server host and port into your app.
 
-“Invalid Host Header” Errors After Configuring Proxy
-----------------------------------------------------
+## “Invalid Host Header” Errors After Configuring Proxy
 
 When you enable the `proxy` option, you opt into a more strict set of host checks. This is necessary because leaving the backend open to remote hosts makes your computer vulnerable to DNS rebinding attacks. The issue is explained in [this article](https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a) and [this issue](https://github.com/webpack/webpack-dev-server/issues/887).
 
@@ -56,8 +54,7 @@ If you are still having issues or if you’re using a more exotic environment li
 
 We don’t recommend this approach.
 
-Configuring the Proxy Manually
-------------------------------
+## Configuring the Proxy Manually
 
 > Note: this feature is available with react-scripts@2.0.0 and higher.
 

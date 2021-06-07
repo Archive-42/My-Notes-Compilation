@@ -1,13 +1,10 @@
 <span class="icon">🎨</span>
 
-How are courses structured in Canvas? How do I know what's expected of me & what to submit?
-===========================================================================================
+# How are courses structured in Canvas? How do I know what's expected of me & what to submit?
 
-Course Structure
-================
+# Course Structure
 
-General Structure - Web, DS, CS, Careers
-========================================
+# General Structure - Web, DS, CS, Careers
 
 <span class="icon">🔑</span>
 
@@ -15,21 +12,19 @@ This section will walk through general Canvas tools, and the structure of your t
 
 <https://www.loom.com/share/4fb9ea54ca5941ffac85538ebf0ce7ad?from_recorder=1>
 
-Home Page
----------
+## Home Page
 
 The home page is where you land when you access a course from your dashboard or courses tab. The home page contains links to view your progress (grades) and provides several different options to access your content (Modules, To Do List, and Course Calendar) which we'll explore in the sections below
 
 ![](../Using%20Canvas%2027a0cf2408124ad19a3802565bd24de6/How%20are%20courses%20structured%20in%20Canvas%20How%20do%20I%20know%203dfccdd4ff5f462dacde3b358c627e60/Screen_Shot_2020-10-21_at_11.40.23_AM.png)
 
-Modules
--------
+## Modules
 
 Modules is where you access everything you need to read, every project you need to complete, every form you need to fill out, etc. In your technical sprints (Web, DS, and CS), each module contains three sections: Warmup, Engage, and Prepare.
 
 ### Warmup
 
-This is your preclass content (formerly Training Kit). *Before* guided project each day, you should read through this content and watch the videos, so that you can properly follow along with your instructor as they code.
+This is your preclass content (formerly Training Kit). _Before_ guided project each day, you should read through this content and watch the videos, so that you can properly follow along with your instructor as they code.
 
 ### Engage
 
@@ -41,15 +36,13 @@ This section contains links to previously recorded guided projects to give you a
 
 ![](../Using%20Canvas%2027a0cf2408124ad19a3802565bd24de6/How%20are%20courses%20structured%20in%20Canvas%20How%20do%20I%20know%203dfccdd4ff5f462dacde3b358c627e60/Screen_Shot_2020-10-21_at_11.42.07_AM.png)
 
-Grades
-------
+## Grades
 
 The final tab on the course sidebar is `Grades`, here you can check your status on all of the projects and forms for a given course, and view your learning mastery for each module.
 
 ![](../Using%20Canvas%2027a0cf2408124ad19a3802565bd24de6/How%20are%20courses%20structured%20in%20Canvas%20How%20do%20I%20know%203dfccdd4ff5f462dacde3b358c627e60/Untitled.png)
 
-Other Features
---------------
+## Other Features
 
 One of Canvas' features (though, some might call it a flaw) is that it offers many routes to the same content. In addition to the tools above, you may find the following options useful.
 
@@ -63,8 +56,7 @@ You can access your calendar from the left-hand global navigation bar, or a cour
 
 You can access your To Do list from your Dashboard, or view a course-specific To Do list on the right hand side of that course. This shows the same information as calendar view, but removes the assignments and quizzes that you have already submitted.
 
-Lambda Leadership
-=================
+# Lambda Leadership
 
 <span class="icon">🔑</span>
 
@@ -80,7 +72,6 @@ You will walk through the "Investigate", "Apply", and "Sync" agendas during your
 
 Just like with your technical course, if you ever feel like you haven't completed something, you can use `Grades`, `To-do`, or `Calendar` to check your status.
 
-Other Courses
-=============
+# Other Courses
 
 Throughout your student journey, you will be enrolled in other courses - like build sprints and endorsement. These follow generally the same structure as the courses above. When in doubt, navigate to modules and work your way through.

@@ -1,26 +1,25 @@
-Getting Started
-===============
+# Getting Started
 
 👋 Welcome to Notion!
 
 Here are the basics:
 
--   \[ \] Click anywhere and just start typing
--   \[ \] Hit `/` to see all the types of content you can add - headers, videos, sub pages, etc.
+- \[ \] Click anywhere and just start typing
+- \[ \] Hit `/` to see all the types of content you can add - headers, videos, sub pages, etc.
 
-    [Example sub page](Getting%20Started%209f94e9c7ea5042a5b3571d2cdc1666d3/Example%20sub%20page%2055369250c23c477a9293dd362e07b058.md)
+  [Example sub page](Getting%20Started%209f94e9c7ea5042a5b3571d2cdc1666d3/Example%20sub%20page%2055369250c23c477a9293dd362e07b058.md)
 
--   \[ \] Highlight any text, and use the menu that pops up to **style** *your* <s>writing</s> `however` [you](https://www.notion.so/product) like
--   \[ \] See the `⋮⋮` to the left of this checkbox on hover? Click and drag to move this line
--   \[ \] Click the `+ New Page` button at the bottom of your sidebar to add a new page
--   \[ \] Click `Templates` in your sidebar to get started with pre-built pages
--   This is a toggle block. Click the little triangle to see more useful tips!
+- \[ \] Highlight any text, and use the menu that pops up to **style** _your_ <s>writing</s> `however` [you](https://www.notion.so/product) like
+- \[ \] See the `⋮⋮` to the left of this checkbox on hover? Click and drag to move this line
+- \[ \] Click the `+ New Page` button at the bottom of your sidebar to add a new page
+- \[ \] Click `Templates` in your sidebar to get started with pre-built pages
+- This is a toggle block. Click the little triangle to see more useful tips!
 
-    -   [Template Gallery](https://www.notion.so/notion/Notion-Template-Gallery-181e961aeb5c4ee6915307c0dfd5156d): More templates built by the Notion community
-    -   [Help & Support](https://www.notion.so/notion/Help-Support-e040febf70a94950b8620e6f00005004): \*\*\*\*Guides and FAQs for everything in Notion
-    -   Stay organized with your sidebar and nested pages:
+  - [Template Gallery](https://www.notion.so/notion/Notion-Template-Gallery-181e961aeb5c4ee6915307c0dfd5156d): More templates built by the Notion community
+  - [Help & Support](https://www.notion.so/notion/Help-Support-e040febf70a94950b8620e6f00005004): \*\*\*\*Guides and FAQs for everything in Notion
+  - Stay organized with your sidebar and nested pages:
 
-        ![](Getting%20Started%209f94e9c7ea5042a5b3571d2cdc1666d3/infinitehierarchynodither.gif)
+    ![](Getting%20Started%209f94e9c7ea5042a5b3571d2cdc1666d3/infinitehierarchynodither.gif)
 
 See it in action:
 

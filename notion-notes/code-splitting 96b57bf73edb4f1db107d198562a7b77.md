@@ -1,5 +1,4 @@
-code-splitting
-==============
+# code-splitting
 
 Instead of downloading the entire app before users can use it, code splitting allows you to split your code into small chunks which you can then load on demand.
 
@@ -7,13 +6,11 @@ This project setup supports code splitting via [dynamic `import()`](https://2ali
 
 Here is an example:
 
-`moduleA.js`
-------------
+## `moduleA.js`
 
     const moduleA = 'Hello';export { moduleA };
 
-`App.js`
---------
+## `App.js`
 
     import React, { Component } from 'react';class App extends Component {  handleClick = () => {    import('./moduleA')      .then(({ moduleA }) => {        // Use moduleA      })      .catch(err => {        // Handle failure      });  };  render() {    return (      <div>        <button onClick={this.handleClick}>Load</button>      </div>    );  }}export default App;
 
@@ -21,8 +18,7 @@ This will make `moduleA.js` and all its unique dependencies as a separate chunk 
 
 You can also use it with `async` / `await` syntax if you prefer it.
 
-With React Router
------------------
+## With React Router
 
 If you are using React Router check out [this tutorial](https://reactjs.org/docs/code-splitting.html#route-based-code-splitting)
 

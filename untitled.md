@@ -1,31 +1,28 @@
-ES6-Cheat-Sheet
-===============
+# ES6-Cheat-Sheet
 
 A cheatsheet containing ES2015 \[ES6\] tips, tricks, best practices and code  
 snippet examples for your day to day workflow. Contributions are welcome!
 
-Table of Contents
------------------
+## Table of Contents
 
--   [var versus let / const]()
--   [Replacing IIFEs with Blocks]()
--   [Arrow Functions]()
--   [Strings]()
--   [Destructuring]()
--   [Modules]()
--   [Parameters]()
--   [Classes]()
--   [Symbols]()
--   [Maps]()
--   [WeakMaps]()
--   [Promises]()
--   [Generators]()
--   [Async Await]()
--   [Getter/Setter functions]()
--   [License]()
+- [var versus let / const]()
+- [Replacing IIFEs with Blocks]()
+- [Arrow Functions]()
+- [Strings]()
+- [Destructuring]()
+- [Modules]()
+- [Parameters]()
+- [Classes]()
+- [Symbols]()
+- [Maps]()
+- [WeakMaps]()
+- [Promises]()
+- [Generators]()
+- [Async Await]()
+- [Getter/Setter functions]()
+- [License]()
 
-var versus let / const
-----------------------
+## var versus let / const
 
 > Besides `var`, we now have access to two new identifiers for storing values  
 > —`let` and `const`. Unlike `var`, `let` and `const` statements are not hoisted  
@@ -78,8 +75,7 @@ may lead to unexpected behavior.
 
 [(back to table of contents)]()
 
-Replacing IIFEs with Blocks
----------------------------
+## Replacing IIFEs with Blocks
 
 > A common use of **Immediately Invoked Function Expressions** is to enclose  
 > values within its scope. In ES6, we now have the ability to create block-based  
@@ -101,8 +97,7 @@ Using ES6 Blocks:
 
 [(back to table of contents)]()
 
-Arrow Functions
----------------
+## Arrow Functions
 
 Often times we have nested functions in which we would like to preserve the  
 context of `this` from its lexical scope. An example is shown below:
@@ -182,8 +177,7 @@ simply return a value:
 
 [(back to table of contents)]()
 
-Strings
--------
+## Strings
 
 With ES6, the standard library has grown immensely. Along with these changes  
 are new methods which can be used on strings, such as `.includes()` and  
@@ -274,8 +268,7 @@ explicitly place them in:
 
 [(back to table of contents)]()
 
-Destructuring
--------------
+## Destructuring
 
 Destructuring allows us to extract values from arrays and objects (even deeply  
 nested) and store them in variables with a more convenient syntax.
@@ -307,8 +300,7 @@ nested) and store them in variables with a more convenient syntax.
 
 [(back to table of contents)]()
 
-Modules
--------
+## Modules
 
 Prior to ES6, we used libraries such as [Browserify](http://browserify.org/)  
 to create modules on the client-side, and [require](https://nodejs.org/api/modules.html#modules_module_require_id)  
@@ -438,8 +430,7 @@ This can also be simplified further, using:
 
 [(back to table of contents)]()
 
-Parameters
-----------
+## Parameters
 
 In ES5, we had varying ways to handle functions which needed **default values**,  
 **indefinite arguments**, and **named parameters**. With ES6, we can accomplish  
@@ -526,8 +517,7 @@ We can concat array literals easily with this intuitive syntax:
 
 [(back to table of contents)]()
 
-Classes
--------
+## Classes
 
 Prior to ES6, we implemented Classes by creating a constructor function and  
 adding properties by extending the prototype:
@@ -595,8 +585,7 @@ And extend them using the `extends` keyword:
 
 [(back to table of contents)]()
 
-Symbols
--------
+## Symbols
 
 Symbols have existed prior to ES6, but now we have a public interface to using  
 them directly. Symbols are immutable and unique and can be used as keys in any hash.
@@ -656,8 +645,7 @@ And then in another library:
 
 [(back to table of contents)]()
 
-Maps
-----
+## Maps
 
 **Maps** is a much needed data structure in JavaScript. Prior to ES6, we created  
 **hash** maps through objects:
@@ -708,8 +696,7 @@ We can also iterate over maps using `.entries()`:
 
 [(back to table of contents)]()
 
-WeakMaps
---------
+## WeakMaps
 
 In order to store private data versions &lt; ES6, we had various ways of doing this.  
 One such method was using naming conventions:
@@ -781,8 +768,7 @@ by that object.
 
 [(back to table of contents)]()
 
-Promises
---------
+## Promises
 
 Promises allow us to turn our horizontal code (callback hell):
 
@@ -865,8 +851,7 @@ operations by using `Promise.all()`:
 
 [(back to table of contents)]()
 
-Generators
-----------
+## Generators
 
 Similar to how [Promises](https://github.com/DrkSephy/es6-cheatsheet#promises) allow us to avoid  
 [callback hell](http://callbackhell.com/), Generators allow us to flatten our code - giving our  
@@ -952,8 +937,7 @@ errors in a nice way, we can actually begin to utilize a simpler construction th
 
 [(back to table of contents)]()
 
-Async Await
------------
+## Async Await
 
 While this is actually an upcoming ES2016 feature, `async await` allows us to perform the same thing we accomplished  
 using Generators and Promises with less effort:
@@ -980,8 +964,7 @@ for getting up and running with ES7 and Babel can be found [here](http://masnun.
 
 [(back to table of contents)]()
 
-Getter and setter functions
----------------------------
+## Getter and setter functions
 
 ES6 has started supporting getter and setter functions within classes. Using the following example:
 

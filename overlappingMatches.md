@@ -1,5 +1,4 @@
-Overlapping Matches
-===================
+# Overlapping Matches
 
 Using a matching group in a lookahead, and then consume one character to move forward, e.g.
 

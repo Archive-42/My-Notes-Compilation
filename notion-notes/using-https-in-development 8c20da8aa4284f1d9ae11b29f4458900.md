@@ -1,5 +1,4 @@
-using-https-in-development
-==========================
+# using-https-in-development
 
 > Note: this feature is available with react-scripts@0.4.0 and higher.
 
@@ -23,8 +22,7 @@ To do this, set the `HTTPS` environment variable to `true`, then start the dev s
 
 Note that the server will use a self-signed certificate, so your web browser will almost definitely display a warning upon accessing the page.
 
-Custom SSL certificate
-----------------------
+## Custom SSL certificate
 
 To set a custom certificate, set the `SSL_CRT_FILE` and `SSL_KEY_FILE` environment variables to the path of the certificate and key files in the same way you do for `HTTPS` above. Note that you will also need to set `HTTPS=true`.
 

@@ -1,12 +1,10 @@
 Create React App comes with a bunch of tools that improve the editing experience - if configured correctly. Here’s a few tips to maximize your productivity:
 
-Syntax highlighting
--------------------
+## Syntax highlighting
 
 To configure the syntax highlighting in your favorite text editor, head to the [relevant Babel documentation page](https://babeljs.io/docs/editors) and follow the instructions. Some of the most popular editors are covered.
 
-Displaying Lint Output in the Editor
-------------------------------------
+## Displaying Lint Output in the Editor
 
 > Note: this feature is available with `react-scripts@0.2.0` and higher.
 
@@ -29,34 +27,33 @@ You can extend our base ESLint config, or replace it completely if you need.
 There are a few things to remember:
 
 1.  We highly recommend extending the base config, as removing it could introduce hard-to-find issues.
-2.  When working with TypeScript, you’ll need to provide an `overrides` object for rules that should *only* target TypeScript files.
+2.  When working with TypeScript, you’ll need to provide an `overrides` object for rules that should _only_ target TypeScript files.
 3.  It’s important to note that any rules that are set to `"error"` will stop the project from building.
 
 In the below example:
 
--   the base config has been extended by a shared ESLint config,
--   a new rule has been set that applies to all JavaScript and TypeScript files, and
--   a new rule has been set that only targets TypeScript files.
+- the base config has been extended by a shared ESLint config,
+- a new rule has been set that applies to all JavaScript and TypeScript files, and
+- a new rule has been set that only targets TypeScript files.
 
-    {
-      "eslintConfig": {
-        "extends": ["react-app", "shared-config"],
-        "rules": {
-          "additional-rule": "warn"
-        },
-        "overrides": [
-          {
-            "files": ["**/*.ts?(x)"],
-            "rules": {
-              "additional-typescript-only-rule": "warn"
-            }
-          }
-        ]
-      }
-    }
+  {
+  "eslintConfig": {
+  "extends": ["react-app", "shared-config"],
+  "rules": {
+  "additional-rule": "warn"
+  },
+  "overrides": [
+  {
+  "files": ["**/*.ts?(x)"],
+  "rules": {
+  "additional-typescript-only-rule": "warn"
+  }
+  }
+  ]
+  }
+  }
 
-Debugging in the Editor
------------------------
+## Debugging in the Editor
 
 **This feature is currently only supported by [Visual Studio Code](https://code.visualstudio.com) and [WebStorm](https://www.jetbrains.com/webstorm/).**
 
@@ -102,8 +99,7 @@ Start your app by running `npm start`, then press `^D` on macOS or `F9` on Windo
 
 The same way you can debug your application in IntelliJ IDEA Ultimate, PhpStorm, PyCharm Pro, and RubyMine.
 
-Formatting Code Automatically
------------------------------
+## Formatting Code Automatically
 
 Prettier is an opinionated code formatter with support for JavaScript, CSS and JSON. With Prettier you can format the code you write automatically to ensure a code style within your project. See [Prettier’s GitHub page](https://github.com/prettier/prettier) for more information, and look at this [page to see it in action](https://prettier.io/playground/).
 
@@ -115,9 +111,9 @@ Alternatively you may use `yarn`:
 
     yarn add husky lint-staged prettier
 
--   `husky` makes it possible to use githooks as if they are npm scripts.
--   `lint-staged` allows us to run scripts on staged files in git. See this [blog post about lint-staged to learn more about it](https://medium.com/@okonetchnikov/make-linting-great-again-f3890e1ad6b8).
--   `prettier` is the JavaScript formatter we will run before commits.
+- `husky` makes it possible to use githooks as if they are npm scripts.
+- `lint-staged` allows us to run scripts on staged files in git. See this [blog post about lint-staged to learn more about it](https://medium.com/@okonetchnikov/make-linting-great-again-f3890e1ad6b8).
+- `prettier` is the JavaScript formatter we will run before commits.
 
 Now we can make sure every file is formatted correctly by adding a few lines to the `package.json` in the project root.
 

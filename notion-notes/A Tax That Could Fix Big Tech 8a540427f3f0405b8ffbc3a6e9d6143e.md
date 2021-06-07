@@ -1,5 +1,4 @@
-A Tax That Could Fix Big Tech
-=============================
+# A Tax That Could Fix Big Tech
 
 Author: Paul Romer Link: https://www.nytimes.com/2019/05/06/opinion/tax-facebook-google.html Publisher: NYT Publishing/Release Date: Oct 6, 2019 Status: Ready to Start Summary: Putting a levy on targeted ad revenue would give Facebook and Google a real incentive to change their dangerous business models. Type: Article
 
@@ -29,6 +28,6 @@ From the very beginning, Americans have refused to tolerate unchecked power. We 
 
 Paul Romer, a recipient of the 2018 Nobel Memorial Prize in Economic Science, advised the Department of Justice in its antitrust case against Microsoft.
 
-*The Times is committed to publishing [a diversity of letters](https://www.nytimes.com/2019/01/31/opinion/letters/letters-to-editor-new-york-times-women.html) to the editor. We’d like to hear what you think about this or any of our articles. Here are some [tips](https://help.nytimes.com/hc/en-us/articles/115014925288-How-to-submit-a-letter-to-the-editor). And here’s our email: <letters@nytimes.com>.*
+_The Times is committed to publishing [a diversity of letters](https://www.nytimes.com/2019/01/31/opinion/letters/letters-to-editor-new-york-times-women.html) to the editor. We’d like to hear what you think about this or any of our articles. Here are some [tips](https://help.nytimes.com/hc/en-us/articles/115014925288-How-to-submit-a-letter-to-the-editor). And here’s our email: <letters@nytimes.com>._
 
-*Follow The New York Times Opinion section on [Facebook](https://www.facebook.com/nytopinion), <span class="citation" data-cites="NYTopinion">\[Twitter (@NYTopinion)\]</span>(http://twitter.com/NYTOpinion) and [Instagram](https://www.instagram.com/nytopinion/).*
+_Follow The New York Times Opinion section on [Facebook](https://www.facebook.com/nytopinion), <span class="citation" data-cites="NYTopinion">\[Twitter (@NYTopinion)\]</span>(http://twitter.com/NYTOpinion) and [Instagram](https://www.instagram.com/nytopinion/)._

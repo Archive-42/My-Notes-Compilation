@@ -4,15 +4,13 @@ This project setup supports code splitting via [dynamic `import()`](https://2ali
 
 Here is an example:
 
-`moduleA.js`
-------------
+## `moduleA.js`
 
     const moduleA = "Hello";
 
     export { moduleA };
 
-`App.js`
---------
+## `App.js`
 
     import React, { Component } from "react";
 
@@ -42,8 +40,7 @@ This will make `moduleA.js` and all its unique dependencies as a separate chunk 
 
 You can also use it with `async` / `await` syntax if you prefer it.
 
-With React Router
------------------
+## With React Router
 
 If you are using React Router check out [this tutorial](https://reactjs.org/docs/code-splitting.html#route-based-code-splitting)
 

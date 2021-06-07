@@ -1,23 +1,20 @@
-using-the-public-folder
-=======================
+# using-the-public-folder
 
 > Note: this feature is available with react-scripts@0.5.0 and higher.
 
-Changing the HTML
------------------
+## Changing the HTML
 
 The `public` folder contains the HTML file so you can tweak it, for example, to [set the page title](title-and-meta-tags.md). The `<script>` tag with the compiled code will be added to it automatically during the build process.
 
-Adding Assets Outside of the Module System
-------------------------------------------
+## Adding Assets Outside of the Module System
 
 You can also add other assets to the `public` folder.
 
 Note that we normally encourage you to `import` assets in JavaScript files instead. For example, see the sections on [adding a stylesheet](adding-a-stylesheet.md) and [adding images and fonts](adding-images-fonts-and-files.md). This mechanism provides a number of benefits:
 
--   Scripts and stylesheets get minified and bundled together to avoid extra network requests.
--   Missing files cause compilation errors instead of 404 errors for your users.
--   Result filenames include content hashes so you don’t need to worry about browsers caching their old versions.
+- Scripts and stylesheets get minified and bundled together to avoid extra network requests.
+- Missing files cause compilation errors instead of 404 errors for your users.
+- Result filenames include content hashes so you don’t need to worry about browsers caching their old versions.
 
 However there is an **escape hatch** that you can use to add an asset outside of the module system.
 
@@ -37,18 +34,17 @@ In JavaScript code, you can use `process.env.PUBLIC_URL` for similar purposes:
 
 Keep in mind the downsides of this approach:
 
--   None of the files in `public` folder get post-processed or minified.
--   Missing files will not be called at compilation time, and will cause 404 errors for your users.
--   Result filenames won’t include content hashes so you’ll need to add query arguments or rename them every time they change.
+- None of the files in `public` folder get post-processed or minified.
+- Missing files will not be called at compilation time, and will cause 404 errors for your users.
+- Result filenames won’t include content hashes so you’ll need to add query arguments or rename them every time they change.
 
-When to Use the `public` Folder
--------------------------------
+## When to Use the `public` Folder
 
 Normally we recommend importing [stylesheets](adding-a-stylesheet.md), [images, and fonts](adding-images-fonts-and-files.md) from JavaScript. The `public` folder is useful as a workaround for a number of less common cases:
 
--   You need a file with a specific name in the build output, such as `[manifest.webmanifest](https://developer.mozilla.org/en-US/docs/Web/Manifest)`.
--   You have thousands of images and need to dynamically reference their paths.
--   You want to include a small script like `[pace.js](https://github.hubspot.com/pace/docs/welcome/)` outside of the bundled code.
--   Some libraries may be incompatible with webpack and you have no other option but to include it as a `<script>` tag.
+- You need a file with a specific name in the build output, such as `[manifest.webmanifest](https://developer.mozilla.org/en-US/docs/Web/Manifest)`.
+- You have thousands of images and need to dynamically reference their paths.
+- You want to include a small script like `[pace.js](https://github.hubspot.com/pace/docs/welcome/)` outside of the bundled code.
+- Some libraries may be incompatible with webpack and you have no other option but to include it as a `<script>` tag.
 
 Note that if you add a `<script>` that declares global variables, you should read the topic [Using Global Variables](using-global-variables.md) in the next section which explains how to reference them.

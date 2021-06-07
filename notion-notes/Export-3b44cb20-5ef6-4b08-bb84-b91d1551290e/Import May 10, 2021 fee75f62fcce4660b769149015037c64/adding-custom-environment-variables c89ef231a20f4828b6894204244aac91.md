@@ -1,5 +1,4 @@
-adding-custom-environment-variables
-===================================
+# adding-custom-environment-variables
 
 > Note: this feature is available with react-scripts@0.2.3 and higher.
 
@@ -9,7 +8,7 @@ Your project can consume variables declared in your environment as if they were 
 
 **The environment variables are embedded during the build time**. Since Create React App produces a static HTML/CSS/JS bundle, it can’t possibly read them at runtime. To read them at runtime, you would need to load HTML into memory on the server and replace placeholders in runtime, as [described here](title-and-meta-tags.md#injecting-data-from-the-server-into-the-page). Alternatively you can rebuild the app on the server anytime you change them.
 
-> Note: You must create custom environment variables beginning with REACT*APP*. Any other variables except NODE\_ENV will be ignored to avoid accidentally exposing a private key on the machine that could have the same name. Changing any environment variables will require you to restart the development server if it is running.
+> Note: You must create custom environment variables beginning with REACT*APP*. Any other variables except NODE_ENV will be ignored to avoid accidentally exposing a private key on the machine that could have the same name. Changing any environment variables will require you to restart the development server if it is running.
 
 These environment variables will be defined for you on `process.env`. For example, having an environment variable named `REACT_APP_NOT_SECRET_CODE` will be exposed in your JS as `process.env.REACT_APP_NOT_SECRET_CODE`.
 
@@ -44,8 +43,7 @@ Having access to the `NODE_ENV` is also useful for performing actions conditiona
 
 When you compile the app with `npm run build`, the minification step will strip out this condition, and the resulting bundle will be smaller.
 
-Referencing Environment Variables in the HTML
----------------------------------------------
+## Referencing Environment Variables in the HTML
 
 > Note: this feature is available with react-scripts@0.9.0 and higher.
 
@@ -55,11 +53,10 @@ You can also access the environment variables starting with `REACT_APP_` in the 
 
 Note that the caveats from the above section apply:
 
--   Apart from a few built-in variables (`NODE_ENV` and `PUBLIC_URL`), variable names must start with `REACT_APP_` to work.
--   The environment variables are injected at build time. If you need to inject them at runtime, [follow this approach instead](title-and-meta-tags.md#generating-dynamic-meta-tags-on-the-server).
+- Apart from a few built-in variables (`NODE_ENV` and `PUBLIC_URL`), variable names must start with `REACT_APP_` to work.
+- The environment variables are injected at build time. If you need to inject them at runtime, [follow this approach instead](title-and-meta-tags.md#generating-dynamic-meta-tags-on-the-server).
 
-Adding Temporary Environment Variables In Your Shell
-----------------------------------------------------
+## Adding Temporary Environment Variables In Your Shell
 
 Defining environment variables can vary between OSes. It’s also important to know that this manner is temporary for the life of the shell session.
 
@@ -77,8 +74,7 @@ Defining environment variables can vary between OSes. It’s also important to k
 
     REACT_APP_NOT_SECRET_CODE=abcdef npm start
 
-Adding Development Environment Variables In `.env`
---------------------------------------------------
+## Adding Development Environment Variables In `.env`
 
 > Note: this feature is available with react-scripts@0.5.0 and higher.
 
@@ -86,7 +82,7 @@ To define permanent environment variables, create a file called `.env` in the ro
 
     REACT_APP_NOT_SECRET_CODE=abcdef
 
-> Note: You must create custom environment variables beginning with REACT*APP*. Any other variables except NODE\_ENV will be ignored to avoid accidentally exposing a private key on the machine that could have the same name. Changing any environment variables will require you to restart the development server if it is running.
+> Note: You must create custom environment variables beginning with REACT*APP*. Any other variables except NODE_ENV will be ignored to avoid accidentally exposing a private key on the machine that could have the same name. Changing any environment variables will require you to restart the development server if it is running.
 
 > Note: You need to restart the development server after changing .env files.
 
@@ -96,16 +92,16 @@ To define permanent environment variables, create a file called `.env` in the ro
 
 > Note: this feature is available with react-scripts@1.0.0 and higher.
 
--   `.env`: Default.
--   `.env.local`: Local overrides. **This file is loaded for all environments except test.**
--   `.env.development`, `.env.test`, `.env.production`: Environment-specific settings.
--   `.env.development.local`, `.env.test.local`, `.env.production.local`: Local overrides of environment-specific settings.
+- `.env`: Default.
+- `.env.local`: Local overrides. **This file is loaded for all environments except test.**
+- `.env.development`, `.env.test`, `.env.production`: Environment-specific settings.
+- `.env.development.local`, `.env.test.local`, `.env.production.local`: Local overrides of environment-specific settings.
 
 Files on the left have more priority than files on the right:
 
--   `npm start`: `.env.development.local`, `.env.local`, `.env.development`, `.env`
--   `npm run build`: `.env.production.local`, `.env.local`, `.env.production`, `.env`
--   `npm test`: `.env.test.local`, `.env.test`, `.env` (note `.env.local` is missing)
+- `npm start`: `.env.development.local`, `.env.local`, `.env.development`, `.env`
+- `npm run build`: `.env.production.local`, `.env.local`, `.env.production`, `.env`
+- `npm test`: `.env.test.local`, `.env.test`, `.env` (note `.env.local` is missing)
 
 These variables will act as the defaults if the machine does not explicitly set them.
 

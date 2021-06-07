@@ -1,8 +1,6 @@
-title-and-meta-tags
-===================
+# title-and-meta-tags
 
-Changing the title tag
-----------------------
+## Changing the title tag
 
 You can find the source HTML file in the `public` folder of the generated project. You may edit the `<title>` tag in it to change the title from “React App” to anything else.
 
@@ -12,8 +10,7 @@ If you need to dynamically update the page title based on the content, you can u
 
 If you use a custom server for your app in production and want to modify the title before it gets sent to the browser, you can follow advice in [this section](about:blank#generating-dynamic-meta-tags-on-the-server). Alternatively, you can pre-build each page as a static HTML file which then loads the JavaScript bundle, which is covered [here](pre-rendering-into-static-html-files.md).
 
-Generating Dynamic `<meta>` Tags on the Server
-----------------------------------------------
+## Generating Dynamic `<meta>` Tags on the Server
 
 Since Create React App doesn’t support server rendering, you might be wondering how to make `<meta>` tags dynamic and reflect the current URL. To solve this, we recommend to add placeholders into the HTML, like this:
 
@@ -23,8 +20,7 @@ Then, on the server, regardless of the backend you use, you can read `index.html
 
 If you use a Node server, you can even share the route matching logic between the client and the server. However duplicating it also works fine in basic cases.
 
-Injecting Data from the Server into the Page
---------------------------------------------
+## Injecting Data from the Server into the Page
 
 Similarly to the previous section, you can leave some placeholders in the HTML that inject global variables, for example:
 

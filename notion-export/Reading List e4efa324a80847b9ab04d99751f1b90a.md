@@ -1,7 +1,6 @@
 <span class="icon">📕</span>
 
-Reading List
-============
+# Reading List
 
 <span class="icon">📚</span>
 

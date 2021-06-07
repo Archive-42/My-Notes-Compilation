@@ -1,5 +1,4 @@
-using-global-variables
-======================
+# using-global-variables
 
 When you include a script in the HTML file that defines global variables and try to use one of these variables in the code, the linter will complain because it cannot see the definition of the variable.
 

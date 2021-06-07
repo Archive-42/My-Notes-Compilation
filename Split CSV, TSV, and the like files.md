@@ -1,20 +1,17 @@
-Comma-separated values, semi-colon when not surrounded by single or double quotes
----------------------------------------------------------------------------------
+## Comma-separated values, semi-colon when not surrounded by single or double quotes
 
     [^,"']+|"([^"]*)"|'([^']*)'
     [^,"']+|"([^"]*)"|'([^']*)'
 
 ..
 
-Tab-separated values when not surrounded by single or double quotes
--------------------------------------------------------------------
+## Tab-separated values when not surrounded by single or double quotes
 
     [^\t"']+|"([^"]*)"|'([^']*)'
 
     [^\s"']+|"([^"]*)"|'([^']*)'
 
-Drop-in csv/tsv pattern
------------------------
+## Drop-in csv/tsv pattern
 
     /\t(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)/gm;
 

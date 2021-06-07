@@ -1,5 +1,4 @@
-importing-a-component
-=====================
+# importing-a-component
 
 This project setup supports ES6 modules thanks to webpack.
 
@@ -7,13 +6,11 @@ While you can still use `require()` and `module.exports`, we encourage you to us
 
 For example:
 
-`Button.js`
------------
+## `Button.js`
 
     import React, { Component } from 'react';class Button extends Component {  render() {    // ...  }}export default Button; // Don’t forget to use export default!
 
-`DangerButton.js`
------------------
+## `DangerButton.js`
 
     import React, { Component } from 'react';import Button from './Button'; // Import a component from another fileclass DangerButton extends Component {  render() {    return <Button color="red" />;  }}export default DangerButton;
 
@@ -25,12 +22,11 @@ Named exports are useful for utility modules that export several functions. A mo
 
 Learn more about ES6 modules:
 
--   [When to use the curly braces?](https://stackoverflow.com/questions/36795819/react-native-es-6-when-should-i-use-curly-braces-for-import/36796281#36796281)
--   [Exploring ES6: Modules](https://exploringjs.com/es6/ch_modules.html)
--   [Understanding ES6: Modules](https://leanpub.com/understandinges6/read#leanpub-auto-encapsulating-code-with-modules)
+- [When to use the curly braces?](https://stackoverflow.com/questions/36795819/react-native-es-6-when-should-i-use-curly-braces-for-import/36796281#36796281)
+- [Exploring ES6: Modules](https://exploringjs.com/es6/ch_modules.html)
+- [Understanding ES6: Modules](https://leanpub.com/understandinges6/read#leanpub-auto-encapsulating-code-with-modules)
 
-Absolute Imports
-----------------
+## Absolute Imports
 
 You can configure your application to support importing modules using absolute paths. This can be done by configuring a `jsconfig.json` or `tsconfig.json` file in the root of your project. If you’re using TypeScript in your project, you will already have a `tsconfig.json` file.
 

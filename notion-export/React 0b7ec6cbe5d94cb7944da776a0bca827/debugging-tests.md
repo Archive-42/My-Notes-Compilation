@@ -1,7 +1,6 @@
 There are various ways to setup a debugger for your Jest tests. We cover debugging in Chrome and [Visual Studio Code](https://code.visualstudio.com/).
 
-Debugging Tests in Chrome
--------------------------
+## Debugging Tests in Chrome
 
 Add the following to the `scripts` section in your project’s `package.json`
 
@@ -23,8 +22,7 @@ After opening that link, the Chrome Developer Tools will be displayed. Select `i
 
 > Note: the –runInBand cli option makes sure Jest runs test in the same process rather than spawning processes for individual tests. Normally Jest parallelizes test runs across processes but it is hard to debug many processes at the same time.
 
-Debugging Tests in Visual Studio Code
--------------------------------------
+## Debugging Tests in Visual Studio Code
 
 Debugging Jest tests is supported out of the box for [Visual Studio Code](https://code.visualstudio.com).
 

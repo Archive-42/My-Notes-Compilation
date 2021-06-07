@@ -1,5 +1,4 @@
-loading-graphql-files
-=====================
+# loading-graphql-files
 
 To load `.gql` and `.graphql` files, first install the `[graphql](https://www.npmjs.com/package/graphql)` and `[graphql.macro](https://www.npmjs.com/package/graphql.macro)` packages by running:
 

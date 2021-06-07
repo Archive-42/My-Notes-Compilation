@@ -1,10 +1,8 @@
-deployment
-==========
+# deployment
 
 `npm run build` creates a `build` directory with a production build of your app. Set up your favorite HTTP server so that a visitor to your site is served `index.html`, and requests to static paths like `/static/js/main.<hash>.js` are served with the contents of the `/static/js/main.<hash>.js` file. For more information see the [production build](production-build.md) section.
 
-Static Server
--------------
+## Static Server
 
 For environments using [Node](https://nodejs.org/), the easiest way to handle this would be to install [serve](https://github.com/zeit/serve) and let it handle the rest:
 
@@ -18,8 +16,7 @@ Run this command to get a full list of the options available:
 
     serve -h
 
-Other Solutions
----------------
+## Other Solutions
 
 You don’t necessarily need a static server in order to run a Create React App project in production. It also works well when integrated into an existing server side app.
 
@@ -33,8 +30,7 @@ The `build` folder with static assets is the only output produced by Create Reac
 
 However this is not quite enough if you use client-side routing. Read the next section if you want to support URLs like `/todos/42` in your single-page app.
 
-Serving Apps with Client-Side Routing
--------------------------------------
+## Serving Apps with Client-Side Routing
 
 If you use routers that use the HTML5 `[pushState` history API\](https://developer.mozilla.org/en-US/docs/Web/API/History\_API\#Adding\_and\_modifying\_history\_entries) under the hood (for example, [React Router](https://github.com/ReactTraining/react-router) with `browserHistory`), many static file servers will fail. For example, if you used React Router with a route for `/todos/42`, the development server will respond to `localhost:3000/todos/42` properly, but an Express serving a production build as above will not.
 
@@ -61,8 +57,7 @@ When users install your app to the homescreen of their device the default config
 
       "start_url": ".",
 
-Building for Relative Paths
----------------------------
+## Building for Relative Paths
 
 By default, Create React App produces a build assuming your app is hosted at the server root.
 
@@ -90,8 +85,7 @@ If you are not using the HTML5 `pushState` history API or not using client-side 
 
 This will make sure that all the asset paths are relative to `index.html`. You will then be able to move your app from `http://mywebsite.com` to `http://mywebsite.com/relativepath` or even `http://mywebsite.com/relative/path` without having to rebuild it.
 
-Customizing Environment Variables for Arbitrary Build Environments
-------------------------------------------------------------------
+## Customizing Environment Variables for Arbitrary Build Environments
 
 You can create an arbitrary build environment by creating a custom `.env` file and loading it using [env-cmd](https://www.npmjs.com/package/env-cmd).
 
@@ -111,20 +105,18 @@ Now you can run `npm run build:staging` to build with the staging environment co
 
 Variables in `.env.production` will be used as fallback because `NODE_ENV` will always be set to `production` for a build.
 
-[AWS Amplify](https://console.amplify.aws/)
--------------------------------------------
+## [AWS Amplify](https://console.amplify.aws/)
 
 The AWS Amplify Console provides continuous deployment and hosting for modern web apps (single page apps and static site generators) with serverless backends. The Amplify Console offers globally available CDNs, custom domain setup, feature branch deployments, and password protection.
 
 1.  Login to the Amplify Console [here](https://console.aws.amazon.com/amplify/home).
 2.  Connect your Create React App repo and pick a branch. If you’re looking for a Create React App+Amplify starter, try the [create-react-app-auth-amplify starter](https://github.com/swaminator/create-react-app-auth-amplify) that demonstrates setting up auth in 10 minutes with Create React App.
 3.  The Amplify Console automatically detects the build settings. Choose Next.
-4.  Choose *Save and deploy*.
+4.  Choose _Save and deploy_.
 
 If the build succeeds, the app is deployed and hosted on a global CDN with an amplifyapp.com domain. You can now continuously deploy changes to your frontend or backend. Continuous deployment allows developers to deploy updates to their frontend and backend on every code commit to their Git repository.
 
-[Azure](https://azure.microsoft.com/)
--------------------------------------
+## [Azure](https://azure.microsoft.com/)
 
 Azure Static Web Apps creates an automated build and deploy pipeline for your React app powered by GitHub Actions. Applications are geo-distributed by default with multiple points of presence. PR’s are built automatically for staging environment previews.
 
@@ -136,8 +128,7 @@ Azure Static Web Apps will automatically configure a GitHub Action in your repo 
 
 See the [Azure Static Web Apps documentation](https://aka.ms/swadocs) for more information on routing, APIs, authentication and authorization, custom domains and more.
 
-[Firebase](https://firebase.google.com/)
-----------------------------------------
+## [Firebase](https://firebase.google.com/)
 
 Install the Firebase CLI if you haven’t already by running `npm install -g firebase-tools`. Sign up for a [Firebase account](https://console.firebase.google.com/) and create a new project. Run `firebase login` and login with your previous created Firebase account.
 
@@ -155,8 +146,7 @@ Now, after you create a production build with `npm run build`, you can deploy it
 
 For more information see [Firebase Hosting](https://firebase.google.com/docs/hosting).
 
-[GitHub Pages](https://pages.github.com/)
------------------------------------------
+## [GitHub Pages](https://pages.github.com/)
 
 > Note: this feature is available with react-scripts@0.2.0 and higher.
 
@@ -230,8 +220,8 @@ Your CNAME file should look like this:
 
 GitHub Pages doesn’t support routers that use the HTML5 `pushState` history API under the hood (for example, React Router using `browserHistory`). This is because when there is a fresh page load for a url like `http://user.github.io/todomvc/todos/42`, where `/todos/42` is a frontend route, the GitHub Pages server returns 404 because it knows nothing of `/todos/42`. If you want to add a router to a project hosted on GitHub Pages, here are a couple of solutions:
 
--   You could switch from using HTML5 history API to routing with hashes. If you use React Router, you can switch to `hashHistory` for this effect, but the URL will be longer and more verbose (for example, `http://user.github.io/todomvc/#/todos/42?_k=yknaj`). [Read more](https://reacttraining.com/react-router/web/api/Router) about different history implementations in React Router.
--   Alternatively, you can use a trick to teach GitHub Pages to handle 404s by redirecting to your `index.html` page with a custom redirect parameter. You would need to add a `404.html` file with the redirection code to the `build` folder before deploying your project, and you’ll need to add code handling the redirect parameter to `index.html`. You can find a detailed explanation of this technique [in this guide](https://github.com/rafrex/spa-github-pages).
+- You could switch from using HTML5 history API to routing with hashes. If you use React Router, you can switch to `hashHistory` for this effect, but the URL will be longer and more verbose (for example, `http://user.github.io/todomvc/#/todos/42?_k=yknaj`). [Read more](https://reacttraining.com/react-router/web/api/Router) about different history implementations in React Router.
+- Alternatively, you can use a trick to teach GitHub Pages to handle 404s by redirecting to your `index.html` page with a custom redirect parameter. You would need to add a `404.html` file with the redirection code to the `build` folder before deploying your project, and you’ll need to add code handling the redirect parameter to `index.html`. You can find a detailed explanation of this technique [in this guide](https://github.com/rafrex/spa-github-pages).
 
 ### Troubleshooting
 
@@ -251,8 +241,7 @@ If, when deploying, you get `Cannot read property 'email' of null`, try the foll
 2.  `git config --global user.email '<your_email>'`
 3.  Try `npm run deploy` again
 
-[Heroku](https://www.heroku.com/)
----------------------------------
+## [Heroku](https://www.heroku.com/)
 
 Use the [Heroku Buildpack for Create React App](https://github.com/mars/create-react-app-buildpack).
 
@@ -287,8 +276,7 @@ If you exclude or ignore necessary files from the package you will see a error s
 
 In this case, ensure that the file is there with the proper lettercase and that’s not ignored on your local `.gitignore` or `~/.gitignore_global`.
 
-[Netlify](https://www.netlify.com/)
------------------------------------
+## [Netlify](https://www.netlify.com/)
 
 **To do a manual deploy to Netlify’s CDN:**
 
@@ -312,8 +300,7 @@ To support `pushState`, make sure to create a `public/_redirects` file with the 
 
 When you build the project, Create React App will place the `public` folder contents into the build output.
 
-[Vercel](https://vercel.com/)
------------------------------
+## [Vercel](https://vercel.com/)
 
 [Vercel](https://vercel.com/home) is a cloud platform that enables developers to host Jamstack websites and web services that deploy instantly, scale automatically, and requires no supervision, all with zero configuration. They provide a global edge network, SSL encryption, asset compression, cache invalidation, and more.
 
@@ -343,13 +330,12 @@ You can deploy a fresh React project, with a Git repository set up for you, with
 
 ### Vercel References:
 
--   [Example Source](https://github.com/vercel/vercel/tree/master/examples/create-react-app)
--   [Official Vercel Guide](https://vercel.com/guides/deploying-react-with-vercel-cra)
--   [Vercel Deployment Docs](https://vercel.com/docs)
--   [Vercel Custom Domain Docs](https://vercel.com/docs/custom-domains)
+- [Example Source](https://github.com/vercel/vercel/tree/master/examples/create-react-app)
+- [Official Vercel Guide](https://vercel.com/guides/deploying-react-with-vercel-cra)
+- [Vercel Deployment Docs](https://vercel.com/docs)
+- [Vercel Custom Domain Docs](https://vercel.com/docs/custom-domains)
 
-[Render](https://render.com/)
------------------------------
+## [Render](https://render.com/)
 
 Render offers free [static site](https://render.com/docs/static-sites) hosting with fully managed SSL, a global CDN and continuous auto deploys from GitHub.
 
@@ -357,13 +343,11 @@ Deploy your app in only a few minutes by following the [Create React App deploym
 
 Use invite code `cra` to sign up or use [this link](https://render.com/i/cra).
 
-[S3](https://aws.amazon.com/s3) and [CloudFront](https://aws.amazon.com/cloudfront/)
-------------------------------------------------------------------------------------
+## [S3](https://aws.amazon.com/s3) and [CloudFront](https://aws.amazon.com/cloudfront/)
 
 See this [blog post](https://medium.com/@omgwtfmarc/deploying-create-react-app-to-s3-or-cloudfront-48dae4ce0af) on how to deploy your React app to Amazon Web Services S3 and CloudFront. If you are looking to add a custom domain, HTTPS and continuous deployment see this [blog post](https://medium.com/dailyjs/a-guide-to-deploying-your-react-app-with-aws-s3-including-https-a-custom-domain-a-cdn-and-58245251f081).
 
-[Surge](https://surge.sh/)
---------------------------
+## [Surge](https://surge.sh/)
 
 Install the Surge CLI if you haven’t already by running `npm install -g surge`. Run the `surge` command and log in you or create a new account.
 
@@ -373,7 +357,6 @@ When asked about the project path, make sure to specify the `build` folder, for 
 
 Note that in order to support routers that use HTML5 `pushState` API, you may want to rename the `index.html` in your build folder to `200.html` before deploying to Surge. This [ensures that every URL falls back to that file](https://surge.sh/help/adding-a-200-page-for-client-side-routing).
 
-Publishing Components To npm
-----------------------------
+## Publishing Components To npm
 
 Create React App doesn’t provide any built-in functionality to publish a component to npm. If you’re ready to extract a component from your project so other people can use it, we recommend moving it to a separate directory outside of your project and then using a tool like [nwb](https://github.com/insin/nwb#react-components-and-libraries) to prepare it for publishing.

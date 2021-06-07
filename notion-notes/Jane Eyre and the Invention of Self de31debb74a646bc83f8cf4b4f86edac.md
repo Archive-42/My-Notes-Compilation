@@ -1,5 +1,4 @@
-Jane Eyre and the Invention of Self
-===================================
+# Jane Eyre and the Invention of Self
 
 Author: Karen Swallow Prior Link: https://www.theatlantic.com/entertainment/archive/2016/03/how-jane-eyre-created-the-modern-self/460461/ Publisher: The Atlantic Publishing/Release Date: Oct 3, 2016 Score /5: ⭐️⭐️ Status: Reading Type: Essay Resource
 

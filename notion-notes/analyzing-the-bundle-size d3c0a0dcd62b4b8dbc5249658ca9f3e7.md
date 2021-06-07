@@ -1,5 +1,4 @@
-analyzing-the-bundle-size
-=========================
+# analyzing-the-bundle-size
 
 [Source map explorer](https://www.npmjs.com/package/source-map-explorer) analyzes JavaScript bundles using the source maps. This helps you understand where code bloat is coming from.
 

@@ -1,19 +1,17 @@
-Supported Browsers
-------------------
+## Supported Browsers
 
 By default, the generated project supports all modern browsers. Support for Internet Explorer 9, 10, and 11 requires polyfills. For a set of polyfills to support older browsers, use [react-app-polyfill](https://github.com/facebook/create-react-app/blob/master/packages/react-app-polyfill/README.md).
 
-Supported Language Features
----------------------------
+## Supported Language Features
 
 This project supports a superset of the latest JavaScript standard. In addition to [ES6](https://github.com/lukehoban/es6features) syntax features, it also supports:
 
--   [Exponentiation Operator](https://github.com/rwaldron/exponentiation-operator) (ES2016).
--   [Async/await](https://github.com/tc39/ecmascript-asyncawait) (ES2017).
--   [Object Rest/Spread Properties](https://github.com/tc39/proposal-object-rest-spread) (ES2018).
--   [Dynamic import()](https://github.com/tc39/proposal-dynamic-import) (stage 4 proposal)
--   [Class Fields and Static Properties](https://github.com/tc39/proposal-class-public-fields) (part of stage 3 proposal).
--   [JSX](https://facebook.github.io/react/docs/introducing-jsx.html), [Flow](./adding-flow) and [TypeScript](./adding-typescript).
+- [Exponentiation Operator](https://github.com/rwaldron/exponentiation-operator) (ES2016).
+- [Async/await](https://github.com/tc39/ecmascript-asyncawait) (ES2017).
+- [Object Rest/Spread Properties](https://github.com/tc39/proposal-object-rest-spread) (ES2018).
+- [Dynamic import()](https://github.com/tc39/proposal-dynamic-import) (stage 4 proposal)
+- [Class Fields and Static Properties](https://github.com/tc39/proposal-class-public-fields) (part of stage 3 proposal).
+- [JSX](https://facebook.github.io/react/docs/introducing-jsx.html), [Flow](./adding-flow) and [TypeScript](./adding-typescript).
 
 Learn more about [different proposal stages](https://tc39.github.io/process-document/).
 
@@ -23,8 +21,7 @@ Note that **this project includes no [polyfills](https://github.com/facebook/cre
 
 If you use any other ES6+ features that need **runtime support** (such as `Array.from()` or `Symbol`), make sure you are [including the appropriate polyfills manually](https://github.com/facebook/create-react-app/blob/master/packages/react-app-polyfill/README.md), or that the browsers you are targeting already support them.
 
-Configuring Supported Browsers
-------------------------------
+## Configuring Supported Browsers
 
 By default, the generated project includes a [`browserslist`](https://github.com/browserslist/browserslist) configuration in your `package.json` file to target a broad range of browsers based on global usage (`> 0.2%`) for production builds, and modern browsers for development. This gives a good development experience, especially when using language features such as async/await, but still provides high compatibility with many browsers in production.
 

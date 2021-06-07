@@ -1,5 +1,4 @@
-The contribution of neural networks and genetic algorithms to business decision support
-=======================================================================================
+# The contribution of neural networks and genetic algorithms to business decision support
 
 <table><tbody><tr class="odd"><td>Author</td><td></td></tr><tr class="even"><td>Publisher</td><td><span class="selected-value select-value-color-gray">Emerald Group</span></td></tr><tr class="odd"><td>Publishing/Release Date</td><td>@Oct 1, 2004</td></tr><tr class="even"><td>Score /5</td><td><span class="selected-value select-value-color-default">⭐️⭐️⭐️⭐️</span></td></tr><tr class="odd"><td>Status</td><td><span class="selected-value select-value-color-blue">Finished</span></td></tr><tr class="even"><td>Summary</td><td></td></tr><tr class="odd"><td>Type</td><td><span class="selected-value select-value-color-default">Academic Journal</span></td></tr><tr class="even"><td>https://github.com/joemccann</td><td><a href="https://www.emeraldinsight.com/doi/abs/10.1108/00251740410518534" class="url-value">https://www.emeraldinsight.com/doi/abs/10.1108/00251740410518534</a></td></tr></tbody></table>
 

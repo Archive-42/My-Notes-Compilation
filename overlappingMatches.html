@@ -1,32 +1,55 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>overlappingMatches</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-</head>
-<body>
-<h1 id="overlapping-matches">Overlapping Matches</h1>
-<p>Using a matching group in a lookahead, and then consume one character to move forward, e.g.</p>
-<pre><code>(?=(CCC)).</code></pre>
-<p><strong>CCC</strong>C, C<strong>CCC</strong></p>
-<p>However, the consumed does have to be a dot, e.g.</p>
-<pre><code>(?=(nn))n</code></pre>
-<p><strong>nn</strong>nn, n<strong>nn</strong>n, nn<strong>nn</strong></p>
-<p>The innner pattern also can be as complex as the regex engine supports it:</p>
-<pre><code>(?=(\d+\D+\d+)).</code></pre>
-<p>However, using a lookahead with a capturing group works, at the expense of making your regex slower and more complicated. An alternative solution is to tell the <code>Regex.Match()</code> method where the next match attempt should begin. In Java/.NET, it would look like this:</p>
-<pre><code>Regex regexObj = new Regex(&quot;nn&quot;);
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>overlappingMatches</title>
+    <style type="text/css">
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      span.underline {
+        text-decoration: underline;
+      }
+      div.column {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="overlapping-matches">Overlapping Matches</h1>
+    <p>
+      Using a matching group in a lookahead, and then consume one character to
+      move forward, e.g.
+    </p>
+    <pre><code>(?=(CCC)).</code></pre>
+    <p><strong>CCC</strong>C, C<strong>CCC</strong></p>
+    <p>However, the consumed does have to be a dot, e.g.</p>
+    <pre><code>(?=(nn))n</code></pre>
+    <p><strong>nn</strong>nn, n<strong>nn</strong>n, nn<strong>nn</strong></p>
+    <p>
+      The innner pattern also can be as complex as the regex engine supports it:
+    </p>
+    <pre><code>(?=(\d+\D+\d+)).</code></pre>
+    <p>
+      However, using a lookahead with a capturing group works, at the expense of
+      making your regex slower and more complicated. An alternative solution is
+      to tell the <code>Regex.Match()</code> method where the next match attempt
+      should begin. In Java/.NET, it would look like this:
+    </p>
+    <pre><code>Regex regexObj = new Regex(&quot;nn&quot;);
 Match matchObj = regexObj.Match(subjectString);
 while (matchObj.Success) {
     matchObj = regexObj.Match(subjectString, matchObj.Index + 1);
 }</code></pre>
-</body>
+  </body>
 </html>

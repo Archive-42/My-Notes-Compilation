@@ -2,8 +2,7 @@
 
 <span class="icon">📄</span>
 
-Things I should Learn
-=====================
+# Things I should Learn
 
 #### Schedule
 
