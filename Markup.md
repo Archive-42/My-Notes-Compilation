@@ -1,5 +1,4 @@
-HTML Tags
----------
+## HTML Tags
 
 ### tags
 

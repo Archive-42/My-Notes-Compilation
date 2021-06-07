@@ -1,34 +1,64 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>netbalancinggroups</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-</head>
-<body>
-<h1 id="net-balancing-groups">.NET Balancing Groups</h1>
-<p>Basic pattern</p>
-<pre><code>^(?:(?&#39;open&#39;o)+(?&#39;-open&#39;c)+)+(?(open)(?!))$</code></pre>
-<p>Optimized pattern using an atomic groups</p>
-<pre><code>^(?&gt;(?&#39;open&#39;o)+(?&#39;-open&#39;c)+)+(?(open)(?!))$</code></pre>
-<p>allow any number of letters m anywhere in the string, while still requiring all o’s and c’s to be balanced</p>
-<pre><code>^m*(?&gt;(?&gt;(?&#39;open&#39;o)m*)+(?&gt;(?&#39;-open&#39;c)m*)+)+(?(open)(?!))$</code></pre>
-<p>This is the generic solution for matching balanced constructs using .NET’s balancing groups or capturing group subtraction feature. You can replace o, m, and c with any regular expression, as long as no two of these three can match the same text.</p>
-<h2 id="matching-nested-balanced-parenthesis">Matching nested balanced parenthesis</h2>
-<p>applies this technique to match a string in which all parentheses are perfectly balanced.</p>
-<pre><code>^[^()]*(?&gt;(?&gt;(?&#39;open&#39;\()[^()]*)+(?&gt;(?&#39;-open&#39;\))[^()]*)+)+(?(open)(?!))$</code></pre>
-<p>… still not a parser</p>
-<pre><code>(?=(\((?:(?&lt;open&gt;\()*[^()]+(?&lt;-open&gt;\))*)+\)(?(open)(?!))))</code></pre>
-<p>That isn’t optimal since it “reparses” some nested gropups of parenthesis for every match.<br />
-Using a real parser would read/parse the string only once, and would be therefore more efficient.</p>
-<pre><code>using System;
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>netbalancinggroups</title>
+    <style type="text/css">
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      span.underline {
+        text-decoration: underline;
+      }
+      div.column {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="net-balancing-groups">.NET Balancing Groups</h1>
+    <p>Basic pattern</p>
+    <pre><code>^(?:(?&#39;open&#39;o)+(?&#39;-open&#39;c)+)+(?(open)(?!))$</code></pre>
+    <p>Optimized pattern using an atomic groups</p>
+    <pre><code>^(?&gt;(?&#39;open&#39;o)+(?&#39;-open&#39;c)+)+(?(open)(?!))$</code></pre>
+    <p>
+      allow any number of letters m anywhere in the string, while still
+      requiring all o’s and c’s to be balanced
+    </p>
+    <pre><code>^m*(?&gt;(?&gt;(?&#39;open&#39;o)m*)+(?&gt;(?&#39;-open&#39;c)m*)+)+(?(open)(?!))$</code></pre>
+    <p>
+      This is the generic solution for matching balanced constructs using .NET’s
+      balancing groups or capturing group subtraction feature. You can replace
+      o, m, and c with any regular expression, as long as no two of these three
+      can match the same text.
+    </p>
+    <h2 id="matching-nested-balanced-parenthesis">
+      Matching nested balanced parenthesis
+    </h2>
+    <p>
+      applies this technique to match a string in which all parentheses are
+      perfectly balanced.
+    </p>
+    <pre><code>^[^()]*(?&gt;(?&gt;(?&#39;open&#39;\()[^()]*)+(?&gt;(?&#39;-open&#39;\))[^()]*)+)+(?(open)(?!))$</code></pre>
+    <p>… still not a parser</p>
+    <pre><code>(?=(\((?:(?&lt;open&gt;\()*[^()]+(?&lt;-open&gt;\))*)+\)(?(open)(?!))))</code></pre>
+    <p>
+      That isn’t optimal since it “reparses” some nested gropups of parenthesis
+      for every match.<br />
+      Using a real parser would read/parse the string only once, and would be
+      therefore more efficient.
+    </p>
+    <pre><code>using System;
 using System.Text.RegularExpressions;
 public class Example
 {
@@ -58,20 +88,35 @@ public class Example
         Console.WriteLine(i.Groups[1]);
    }
 }</code></pre>
-<h3 id="nested-tags-e.g.-xhtml">.. nested tags, e.g. X/HTML</h3>
-<pre><code>&lt;div[^&gt;]*&gt;[^&lt;&gt;]*(((?&#39;Open&#39;&lt;div[^&gt;]*&gt;)[^&lt;&gt;]*)+((?&#39;-Open&#39;&lt;/div&gt;)[^&lt;&gt;]*)+)*(?(Open)(?!))&lt;/div&gt;</code></pre>
-<p>Or more generalized (needs some more work):</p>
-<p>&lt; #The outermost left parenthesis [^&lt;&gt;]_ #The outermost left parenthesis is not the content of the brackets ( ( (?‘Open’&lt;) #Met a left parenthesis, write on the blackboard“Open” [^&lt;&gt;]_ #Matching left parenthesis is not the content of the brackets )+ ( (?‘-Open’&gt;) #Met the right bracket, wipe a“Open” [^&lt;&gt;]_ #Matching right parenthesis is not behind the bracket content )+ )_ (?(Open)(?!)) #In front of the outermost parentheses, judgment and not erase the blackboard “Open”; if there is failure, matching</p>
-<blockquote>
-<pre><code>                    #The outermost right parenthesis</code></pre>
-</blockquote>
-<h4 id="backreferences-to-subtracted-groups">Backreferences To Subtracted Groups</h4>
-<h4 id="matching-palindromes"><a href="https://www.regular-expressions.info/balancing.html">Matching Palindromes</a></h4>
-<pre><code>^(?&#39;letter&#39;[a-z])+[a-z]?(?:\k&#39;letter&#39;(?&#39;-letter&#39;))+(?(letter)(?!))$</code></pre>
-<p>or more condensed</p>
-<pre><code>(?x)^(?&lt;l&gt;\w)+\w?
+    <h3 id="nested-tags-e.g.-xhtml">.. nested tags, e.g. X/HTML</h3>
+    <pre><code>&lt;div[^&gt;]*&gt;[^&lt;&gt;]*(((?&#39;Open&#39;&lt;div[^&gt;]*&gt;)[^&lt;&gt;]*)+((?&#39;-Open&#39;&lt;/div&gt;)[^&lt;&gt;]*)+)*(?(Open)(?!))&lt;/div&gt;</code></pre>
+    <p>Or more generalized (needs some more work):</p>
+    <p>
+      &lt; #The outermost left parenthesis [^&lt;&gt;]_ #The outermost left
+      parenthesis is not the content of the brackets ( ( (?‘Open’&lt;) #Met a
+      left parenthesis, write on the blackboard“Open” [^&lt;&gt;]_ #Matching
+      left parenthesis is not the content of the brackets )+ ( (?‘-Open’&gt;)
+      #Met the right bracket, wipe a“Open” [^&lt;&gt;]_ #Matching right
+      parenthesis is not behind the bracket content )+ )_ (?(Open)(?!)) #In
+      front of the outermost parentheses, judgment and not erase the blackboard
+      “Open”; if there is failure, matching
+    </p>
+    <blockquote>
+      <pre><code>                    #The outermost right parenthesis</code></pre>
+    </blockquote>
+    <h4 id="backreferences-to-subtracted-groups">
+      Backreferences To Subtracted Groups
+    </h4>
+    <h4 id="matching-palindromes">
+      <a href="https://www.regular-expressions.info/balancing.html"
+        >Matching Palindromes</a
+      >
+    </h4>
+    <pre><code>^(?&#39;letter&#39;[a-z])+[a-z]?(?:\k&#39;letter&#39;(?&#39;-letter&#39;))+(?(letter)(?!))$</code></pre>
+    <p>or more condensed</p>
+    <pre><code>(?x)^(?&lt;l&gt;\w)+\w?
 (\k&lt;l&gt;(?&lt;-l&gt;))+
 (?(l)(?!))$</code></pre>
-<p>https://www.regular-expressions.info/refrecurse.html</p>
-</body>
+    <p>https://www.regular-expressions.info/refrecurse.html</p>
+  </body>
 </html>
