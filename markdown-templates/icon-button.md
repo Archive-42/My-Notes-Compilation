@@ -1,10 +1,8 @@
-Icon button
-===========
+# Icon button
 
 When you need a button that will also contain an icon such as the sign-in buttons, this is the component to use. As can be seen in the code example, the icon SVG is embedded into the `button` element. This is to ensure that we can style the icon appropriately for the various interaction states.
 
-Left aligned icon example
--------------------------
+## Left aligned icon example
 
 Sign in with Github
 
@@ -31,8 +29,7 @@ Sign in with Github
 
 If you need the icon to be aligned on the right-hand side of the button add the SVG after the button’s text content and use the `right` class.
 
-Right aligned icon example
---------------------------
+## Right aligned icon example
 
 Sign up now
 

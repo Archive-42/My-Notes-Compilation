@@ -1,10 +1,8 @@
-Variants
-========
+# Variants
 
 All buttons can recieve the `outline` class to render the button as an outlined button as opposed to a solid button.
 
-Example
--------
+## Example
 
 Primary Outline Button
 
@@ -16,8 +14,7 @@ A button is not always the correct element to use. Sometimes you have a link ele
 
 Always remember, “buttons do things and links take you somewhere”. Choose your elements wisely 😀
 
-Example
--------
+## Example
 
 <a href="#" class="button danger">Danger Link</a>
 

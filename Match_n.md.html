@@ -1,29 +1,47 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Match_n.md</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-</head>
-<body>
-<h1 id="match-n">Match n</h1>
-<p>String length</p>
-<p><code>^.{1,35}$</code></p>
-<p>String that containts a substring ONLY once</p>
-<p><code>^(?:(?!&lt;scr&gt;).)*&lt;scr&gt;(?!.*&lt;scr&gt;).*$</code></p>
-<p>No identical consecutive characters</p>
-<p><code>^(([\w])(?!\2))+$</code></p>
-<p>No more than two identical consecutive characters, etc</p>
-<p><code>^(([\w])\2?(?!\2))+$</code></p>
-<h3 id="at-least-two-unique-characters-httpsstackoverflow.comquestions5341369regex-for-at-least-two-unique-characters">At least two unique characters: https://stackoverflow.com/questions/5341369/regex-for-at-least-two-unique-characters/</h3>
-<pre><code>^
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>Match_n.md</title>
+    <style type="text/css">
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      span.underline {
+        text-decoration: underline;
+      }
+      div.column {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="match-n">Match n</h1>
+    <p>String length</p>
+    <p><code>^.{1,35}$</code></p>
+    <p>String that containts a substring ONLY once</p>
+    <p><code>^(?:(?!&lt;scr&gt;).)*&lt;scr&gt;(?!.*&lt;scr&gt;).*$</code></p>
+    <p>No identical consecutive characters</p>
+    <p><code>^(([\w])(?!\2))+$</code></p>
+    <p>No more than two identical consecutive characters, etc</p>
+    <p><code>^(([\w])\2?(?!\2))+$</code></p>
+    <h3
+      id="at-least-two-unique-characters-httpsstackoverflow.comquestions5341369regex-for-at-least-two-unique-characters"
+    >
+      At least two unique characters:
+      https://stackoverflow.com/questions/5341369/regex-for-at-least-two-unique-characters/
+    </h3>
+    <pre><code>^
 (?&gt;                 # Possessive group - do not backtrack!
     (.)             # Match a duplicated character
        (?:
@@ -37,12 +55,19 @@
 $
 (?&lt;-Unique&gt;){2}     # After we&#39;re done, check there were at least
                     # two unique characters</code></pre>
-<p>The idea here is to match duplicated characters and count the rest using balancing groups: This is achieved with a possessive group - it makes sure the duplicated characters never backtrack, thus the next dot will only capture a non-duplicated character.<br />
-In .Net, every capture of a group is added to a stack. (?&lt;-Unique&gt;) pops a capture from the stack, and fails if it’s empty. It gives a nice way of counting how many captures we’ve had.</p>
-<p>Or a simpler solution:</p>
-<pre><code>(.)(?&lt;!\1.+)(?!.*\1).*(.)(?&lt;!\2.+)(?!.*\2)</code></pre>
-<p>To explain it:</p>
-<pre><code>(.)                    # match any character...
+    <p>
+      The idea here is to match duplicated characters and count the rest using
+      balancing groups: This is achieved with a possessive group - it makes sure
+      the duplicated characters never backtrack, thus the next dot will only
+      capture a non-duplicated character.<br />
+      In .Net, every capture of a group is added to a stack. (?&lt;-Unique&gt;)
+      pops a capture from the stack, and fails if it’s empty. It gives a nice
+      way of counting how many captures we’ve had.
+    </p>
+    <p>Or a simpler solution:</p>
+    <pre><code>(.)(?&lt;!\1.+)(?!.*\1).*(.)(?&lt;!\2.+)(?!.*\2)</code></pre>
+    <p>To explain it:</p>
+    <pre><code>(.)                    # match any character...
 (?&lt;!\1.+)              # ...which does not already exist in the input...
 (?!.*\1)               # ..and does not exist later on in the input
                        # We have now found one unique character.
@@ -51,5 +76,5 @@ In .Net, every capture of a group is added to a stack. (?&lt;-Unique&gt;) pops a
 
 (.)(?&lt;!\2.+)(?!.*\2)   # Find a second unique character,
                        # using the same technique.</code></pre>
-</body>
+  </body>
 </html>

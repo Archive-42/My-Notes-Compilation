@@ -1,8 +1,6 @@
-Legend
-======
+# Legend
 
-Default `legend`
-----------------
+## Default `legend`
 
 ### Example
 
@@ -19,8 +17,7 @@ No additional styling is added to `legend` elements by default.
       </p>
     </fieldset>
 
-Legend Variants
----------------
+## Legend Variants
 
 ### Example: Highlighted `legend`
 

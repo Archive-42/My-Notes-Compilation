@@ -1,10 +1,8 @@
-Callout
-=======
+# Callout
 
 The callout is commonly used within content in the learning area to direct users to other pages that might be of interest. A callout commonly consists of a heading, short lead paragrap and a call to action.
 
-Example
--------
+## Example
 
 #### Looking to become a front-end web developer?
 
@@ -12,8 +10,7 @@ We have put together a course that includes all the essential information you ne
 
 <a href="/docs/Learn/Front-end_web_developer" class="button">Get started</a>
 
-Code
-----
+## Code
 
     <div class="callout">
       <h4 id="Looking_to_become_a_front-end_web_developer">

@@ -1,10 +1,8 @@
-Primary button
-==============
+# Primary button
 
 The primary button is primarily used for call to action items.
 
-Example
--------
+## Example
 
 Primary Button
 

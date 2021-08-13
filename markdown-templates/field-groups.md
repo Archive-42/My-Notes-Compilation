@@ -1,5 +1,4 @@
-Field groups
-============
+# Field groups
 
 When a form contains multiple input fields, you can group them using a `div` element with the `field-group` class. This is a block level container with appropriate spacing when multiple groups are stacked.
 
@@ -10,8 +9,7 @@ When a form contains multiple input fields, you can group them using a `div` ele
     <input type="url" id="website" name="website" />
     <p class="field-note">Please enter your company website url</p>
 
-Code
-----
+## Code
 
     <div class="field-group">
       <label for="name">Name</label>
@@ -23,8 +21,7 @@ Code
       <p class="field-note">Please enter your company website url</p>
     </div>
 
-Inline field groups
--------------------
+## Inline field groups
 
 To have two field groups line up horizontally, add the class `inline` to the field group element.
 

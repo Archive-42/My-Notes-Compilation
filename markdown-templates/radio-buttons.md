@@ -1,13 +1,10 @@
-Radio buttons
-=============
+# Radio buttons
 
-Example
--------
+## Example
 
 Yup Nope
 
-Code
-----
+## Code
 
     <label for="yes">
       <input type="radio" id="yes" name="subscribe" value="yup" checked />

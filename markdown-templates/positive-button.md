@@ -1,10 +1,8 @@
-Positive button
-===============
+# Positive button
 
 For general form submission using the `positive` button.
 
-Example
--------
+## Example
 
 Positive Button
 

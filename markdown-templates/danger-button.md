@@ -1,10 +1,8 @@
-Danger button
-=============
+# Danger button
 
 When the outcome of clicking a button could potentially be destructive, use the `danger` class.
 
-Example
--------
+## Example
 
 Danger Button
 

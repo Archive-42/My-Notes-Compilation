@@ -1,8 +1,6 @@
-Input field states
-==================
+# Input field states
 
-Invalid state
--------------
+## Invalid state
 
 When a field is in an invalid state, we can visually indicate this by adding the `invalid` class to the element.
 

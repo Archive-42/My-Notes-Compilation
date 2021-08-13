@@ -1,20 +1,18 @@
-Forms
-=====
+# Forms
 
--   [Fieldset](fieldset/)
--   [Legend](legend/)
--   [Label](label/)
--   [Input fields](input/)
--   [Textarea](textarea/)
--   [Radio buttons](radio-buttons/)
--   [Check boxes](checkboxes/)
--   [Select](select/)
--   [Input field states](states/)
--   [Field notes](field-notes/)
--   [Field groups](field-groups/)
+- [Fieldset](fieldset/)
+- [Legend](legend/)
+- [Label](label/)
+- [Input fields](input/)
+- [Textarea](textarea/)
+- [Radio buttons](radio-buttons/)
+- [Check boxes](checkboxes/)
+- [Select](select/)
+- [Input field states](states/)
+- [Field notes](field-notes/)
+- [Field groups](field-groups/)
 
-Example form layout
--------------------
+## Example form layout
 
             <label for="name">Name</label>
             <input type="text" id="name" name="name" />
