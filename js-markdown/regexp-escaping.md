@@ -168,7 +168,7 @@ To fix it, we need to double backslashes, because string quotes turn `\\` into `
 - <a href="regexp-escaping.html#new-regexp" class="sidebar__link">new RegExp</a>
 - <a href="regexp-escaping.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="regexp-escaping.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-escaping" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-escaping" class="share share_fb sidebar__share"></a>
+- <a href="regexp-escaping.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-escaping" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-escaping" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/07-regexp-escaping" class="sidebar__link">Edit on GitHub</a>
 

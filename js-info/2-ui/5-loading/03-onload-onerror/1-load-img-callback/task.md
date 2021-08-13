@@ -9,8 +9,8 @@ Normally, images are loaded when they are created. So when we add `<img>` to the
 To show an image immediately, we can create it "in advance", like this:
 
 ```js
-let img = document.createElement('img');
-img.src = 'my.jpg';
+let img = document.createElement("img");
+img.src = "my.jpg";
 ```
 
 The browser starts loading the image and remembers it in the cache. Later, when the same image appears in the document (no matter how), it shows up immediately.
@@ -21,7 +21,7 @@ For instance, this will show an `alert` after the images are loaded:
 
 ```js
 function loaded() {
-  alert("Images loaded")
+  alert("Images loaded");
 }
 
 preloadImages(["1.jpg", "2.jpg", "3.jpg"], loaded);

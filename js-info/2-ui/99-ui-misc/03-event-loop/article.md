@@ -1,7 +1,6 @@
-
 # Event loop: microtasks and macrotasks
 
-Browser JavaScript execution flow, as well as in Node.js, is based on an *event loop*.
+Browser JavaScript execution flow, as well as in Node.js, is based on an _event loop_.
 
 Understanding how event loop works is important for optimizations, and sometimes for the right architecture.
 
@@ -9,12 +8,12 @@ In this chapter we first cover theoretical details about how things work, and th
 
 ## Event Loop
 
-The *event loop* concept is very simple. There's an endless loop, where the JavaScript engine waits for tasks, executes them and then sleeps, waiting for more tasks.
+The _event loop_ concept is very simple. There's an endless loop, where the JavaScript engine waits for tasks, executes them and then sleeps, waiting for more tasks.
 
 The general algorithm of the engine:
 
 1. While there are tasks:
-    - execute them, starting with the oldest task.
+   - execute them, starting with the oldest task.
 2. Sleep until a task appears, then go to 1.
 
 That's a formalization for what we see when browsing a page. The JavaScript engine does nothing most of the time, it only runs if a script/handler/event activates.
@@ -41,6 +40,7 @@ Tasks from the queue are processed on "first come – first served" basis. When 
 So far, quite simple, right?
 
 Two more details:
+
 1. Rendering never happens while the engine executes a task. It doesn't matter if the task takes a long time. Changes to the DOM are painted only after the task is complete.
 2. If a task takes too long, the browser can't do other tasks, such as processing user events. So after a time, it raises an alert like "Page Unresponsive", suggesting killing the task with the whole page. That happens when there are a lot of complex calculations or a programming error leading to an infinite loop.
 
@@ -66,13 +66,12 @@ let i = 0;
 let start = Date.now();
 
 function count() {
-
   // do a heavy job
   for (let j = 0; j < 1e9; j++) {
     i++;
   }
 
-  alert("Done in " + (Date.now() - start) + 'ms');
+  alert("Done in " + (Date.now() - start) + "ms");
 }
 
 count();
@@ -88,18 +87,16 @@ let i = 0;
 let start = Date.now();
 
 function count() {
-
   // do a piece of the heavy job (*)
   do {
     i++;
   } while (i % 1e6 != 0);
 
   if (i == 1e9) {
-    alert("Done in " + (Date.now() - start) + 'ms');
+    alert("Done in " + (Date.now() - start) + "ms");
   } else {
     setTimeout(count); // schedule the new call (**)
   }
-
 }
 
 count();
@@ -127,7 +124,6 @@ let i = 0;
 let start = Date.now();
 
 function count() {
-
   // move the scheduling to the beginning
   if (i < 1e9 - 1e6) {
     setTimeout(count); // schedule the new call
@@ -138,9 +134,8 @@ function count() {
   } while (i % 1e6 != 0);
 
   if (i == 1e9) {
-    alert("Done in " + (Date.now() - start) + 'ms');
+    alert("Done in " + (Date.now() - start) + "ms");
   }
-
 }
 
 count();
@@ -150,7 +145,7 @@ Now when we start to `count()` and see that we'll need to `count()` more, we sch
 
 If you run it, it's easy to notice that it takes significantly less time.
 
-Why?  
+Why?
 
 That's simple: as you remember, there's the in-browser minimal delay of 4ms for many nested `setTimeout` calls. Even if we set `0`, it's `4ms` (or a bit more). So the earlier we schedule it - the faster it runs.
 
@@ -166,12 +161,10 @@ On one hand, that's great, because our function may create many elements, add th
 
 Here's the demo, the changes to `i` won't show up until the function finishes, so we'll see only the last value:
 
-
 ```html run
 <div id="progress"></div>
 
 <script>
-
   function count() {
     for (let i = 0; i < 1e6; i++) {
       i++;
@@ -196,7 +189,6 @@ This looks prettier:
   let i = 0;
 
   function count() {
-
     // do a piece of the heavy job (*)
     do {
       i++;
@@ -206,7 +198,6 @@ This looks prettier:
     if (i < 1e7) {
       setTimeout(count);
     }
-
   }
 
   count();
@@ -215,7 +206,6 @@ This looks prettier:
 
 Now the `<div>` shows increasing values of `i`, a kind of a progress bar.
 
-
 ## Use case 3: doing something after the event
 
 In an event handler we may decide to postpone some actions until the event bubbled up and was handled on all levels. We can do that by wrapping the code in zero delay `setTimeout`.
@@ -223,12 +213,12 @@ In an event handler we may decide to postpone some actions until the event bubbl
 In the chapter <info:dispatch-events> we saw an example: custom event `menu-open` is dispatched in `setTimeout`, so that it happens after the "click" event is fully handled.
 
 ```js
-menu.onclick = function() {
+menu.onclick = function () {
   // ...
 
   // create a custom event with the clicked menu item data
   let customEvent = new CustomEvent("menu-open", {
-    bubbles: true
+    bubbles: true,
   });
 
   // dispatch the custom event asynchronously
@@ -238,21 +228,20 @@ menu.onclick = function() {
 
 ## Macrotasks and Microtasks
 
-Along with *macrotasks*, described in this chapter, there are *microtasks*, mentioned in the chapter <info:microtask-queue>.
+Along with _macrotasks_, described in this chapter, there are _microtasks_, mentioned in the chapter <info:microtask-queue>.
 
 Microtasks come solely from our code. They are usually created by promises: an execution of `.then/catch/finally` handler becomes a microtask. Microtasks are used "under the cover" of `await` as well, as it's another form of promise handling.
 
 There's also a special function `queueMicrotask(func)` that queues `func` for execution in the microtask queue.
 
-**Immediately after every *macrotask*, the engine executes all tasks from *microtask* queue, prior to running any other macrotasks or rendering or anything else.**
+**Immediately after every _macrotask_, the engine executes all tasks from _microtask_ queue, prior to running any other macrotasks or rendering or anything else.**
 
 For instance, take a look:
 
 ```js run
 setTimeout(() => alert("timeout"));
 
-Promise.resolve()
-  .then(() => alert("promise"));
+Promise.resolve().then(() => alert("promise"));
 
 alert("code");
 ```
@@ -305,22 +294,24 @@ Here's an example with "counting progress bar", similar to the one shown previou
 
 A more detailed event loop algorithm (though still simplified compared to the [specification](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model)):
 
-1. Dequeue and run the oldest task from the *macrotask* queue (e.g. "script").
-2. Execute all *microtasks*:
-    - While the microtask queue is not empty:
-        - Dequeue and run the oldest microtask.
+1. Dequeue and run the oldest task from the _macrotask_ queue (e.g. "script").
+2. Execute all _microtasks_:
+   - While the microtask queue is not empty:
+     - Dequeue and run the oldest microtask.
 3. Render changes if any.
 4. If the macrotask queue is empty, wait till a macrotask appears.
 5. Go to step 1.
 
-To schedule a new *macrotask*:
+To schedule a new _macrotask_:
+
 - Use zero delayed `setTimeout(f)`.
 
 That may be used to split a big calculation-heavy task into pieces, for the browser to be able to react to user events and show progress between them.
 
 Also, used in event handlers to schedule an action after the event is fully handled (bubbling done).
 
-To schedule a new *microtask*
+To schedule a new _microtask_
+
 - Use `queueMicrotask(f)`.
 - Also promise handlers go through the microtask queue.
 

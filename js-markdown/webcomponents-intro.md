@@ -133,7 +133,7 @@ In the next chapter we’ll go into details of “Custom Elements” – the fun
 - <a href="webcomponents-intro.html#what-s-common-between" class="sidebar__link">What’s common between…</a>
 - <a href="webcomponents-intro.html#component-architecture" class="sidebar__link">Component architecture</a>
 
-- <a href="webcomponents-intro.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fwebcomponents-intro" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fwebcomponents-intro" class="share share_fb sidebar__share"></a>
+- <a href="webcomponents-intro.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fwebcomponents-intro" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fwebcomponents-intro" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/8-web-components/1-webcomponents-intro" class="sidebar__link">Edit on GitHub</a>
 

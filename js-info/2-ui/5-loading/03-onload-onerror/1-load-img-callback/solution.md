@@ -1,5 +1,5 @@
-
 The algorithm:
+
 1. Make `img` for every source.
 2. Add `onload/onerror` for every image.
 3. Increase the counter when either `onload` or `onerror` triggers.

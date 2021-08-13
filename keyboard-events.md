@@ -380,7 +380,7 @@ The first handler adds to it, while the second one removes from it. Every time o
 - <a href="keyboard-events.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="keyboard-events.html#tasks" class="sidebar__link">Tasks (1)</a>
-- <a href="keyboard-events.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fkeyboard-events" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fkeyboard-events" class="share share_fb sidebar__share"></a>
+- <a href="keyboard-events.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fkeyboard-events" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fkeyboard-events" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/3-event-details/7-keyboard-events" class="sidebar__link">Edit on GitHub</a>
 

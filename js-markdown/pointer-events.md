@@ -326,7 +326,7 @@ As of now, pointer events are supported in all major browsers, so we can safely 
 - <a href="pointer-events.html#pointer-capturing" class="sidebar__link">Pointer capturing</a>
 - <a href="pointer-events.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="pointer-events.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fpointer-events" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fpointer-events" class="share share_fb sidebar__share"></a>
+- <a href="pointer-events.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fpointer-events" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fpointer-events" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/3-event-details/6-pointer-events" class="sidebar__link">Edit on GitHub</a>
 

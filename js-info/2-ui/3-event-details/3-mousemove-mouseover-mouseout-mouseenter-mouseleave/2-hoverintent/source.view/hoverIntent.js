@@ -1,15 +1,14 @@
-'use strict';
+"use strict";
 
 // Here's a brief sketch of the class
 // with things that you'll need anyway
 class HoverIntent {
-
   constructor({
     sensitivity = 0.1, // speed less than 0.1px/ms means "hovering over an element"
     interval = 100, // measure mouse speed once per 100ms: calculate the distance between previous and next points
     elem,
     over,
-    out
+    out,
   }) {
     this.sensitivity = sensitivity;
     this.interval = interval;
@@ -27,7 +26,6 @@ class HoverIntent {
     elem.addEventListener("mouseout", this.onMouseOut);
 
     // continue from this point
-
   }
 
   onMouseOver(event) {
@@ -42,10 +40,8 @@ class HoverIntent {
     /* ... */
   }
 
-
   destroy() {
     /* your code to "disable" the functionality, remove all handlers */
     /* it's needed for the tests to work */
   }
-
 }

@@ -403,7 +403,7 @@ Here’s the picture:
 - <a href="static-properties-methods.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="static-properties-methods.html#tasks" class="sidebar__link">Tasks (1)</a>
-- <a href="static-properties-methods.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fstatic-properties-methods" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fstatic-properties-methods" class="share share_fb sidebar__share"></a>
+- <a href="static-properties-methods.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fstatic-properties-methods" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fstatic-properties-methods" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/09-classes/03-static-properties-methods" class="sidebar__link">Edit on GitHub</a>
 

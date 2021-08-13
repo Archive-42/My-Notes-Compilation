@@ -206,7 +206,7 @@ And if we’re going to send a `File` over a network, that’s also easy: networ
 - <a href="file.html#filereader" class="sidebar__link">FileReader</a>
 - <a href="file.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="file.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ffile" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffile" class="share share_fb sidebar__share"></a>
+- <a href="file.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ffile" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffile" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/4-binary/04-file" class="sidebar__link">Edit on GitHub</a>
 

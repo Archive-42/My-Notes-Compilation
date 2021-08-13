@@ -275,7 +275,7 @@ Such cases are rare, `encode*` functions work well most of the time.
 - <a href="url.html#searchparams" class="sidebar__link">SearchParams “?…”</a>
 - <a href="url.html#encoding" class="sidebar__link">Encoding</a>
 
-- <a href="url.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Furl" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Furl" class="share share_fb sidebar__share"></a>
+- <a href="url.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Furl" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Furl" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/07-url" class="sidebar__link">Edit on GitHub</a>
 

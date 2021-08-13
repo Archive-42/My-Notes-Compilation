@@ -240,7 +240,7 @@ In-depth knowledge of engines is good when you need low-level optimizations. It 
 - <a href="garbage-collection.html#internal-algorithms" class="sidebar__link">Internal algorithms</a>
 - <a href="garbage-collection.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="garbage-collection.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fgarbage-collection" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fgarbage-collection" class="share share_fb sidebar__share"></a>
+- <a href="garbage-collection.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fgarbage-collection" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fgarbage-collection" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/04-object-basics/03-garbage-collection" class="sidebar__link">Edit on GitHub</a>
 

@@ -359,7 +359,7 @@ P.S. We also can replace `mouse.onclick` with `mouse.onfocus`.
 - <a href="focus-blur.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="focus-blur.html#tasks" class="sidebar__link">Tasks (3)</a>
-- <a href="focus-blur.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ffocus-blur" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffocus-blur" class="share share_fb sidebar__share"></a>
+- <a href="focus-blur.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ffocus-blur" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffocus-blur" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/4-forms-controls/2-focus-blur" class="sidebar__link">Edit on GitHub</a>
 

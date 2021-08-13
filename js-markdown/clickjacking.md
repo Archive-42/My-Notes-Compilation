@@ -491,7 +491,7 @@ The attack is quite dangerous, because when we engineer the UI we usually don’
 - <a href="clickjacking.html#samesite-cookie-attribute" class="sidebar__link">Samesite cookie attribute</a>
 - <a href="clickjacking.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="clickjacking.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fclickjacking" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fclickjacking" class="share share_fb sidebar__share"></a>
+- <a href="clickjacking.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fclickjacking" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fclickjacking" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/3-frames-and-windows/06-clickjacking" class="sidebar__link">Edit on GitHub</a>
 

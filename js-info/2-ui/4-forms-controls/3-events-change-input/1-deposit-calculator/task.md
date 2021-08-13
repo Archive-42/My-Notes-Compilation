@@ -13,6 +13,7 @@ Here's the demo:
 Any input change should be processed immediately.
 
 The formula is:
+
 ```js
 // initial: the initial money sum
 // interest: e.g. 0.05 means 5% per year

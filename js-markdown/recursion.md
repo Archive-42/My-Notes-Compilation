@@ -1005,7 +1005,7 @@ Please note that the recursive solution actually does exactly the same: it follo
 - <a href="recursion.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="recursion.html#tasks" class="sidebar__link">Tasks (5)</a>
-- <a href="recursion.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Frecursion" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frecursion" class="share share_fb sidebar__share"></a>
+- <a href="recursion.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Frecursion" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frecursion" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/06-advanced-functions/01-recursion" class="sidebar__link">Edit on GitHub</a>
 

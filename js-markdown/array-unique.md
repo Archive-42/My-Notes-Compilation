@@ -1,5 +1,3 @@
-
-
 <a href="../data-types.html" Data types</span></a>
 
 <a href="../array-methods.html" Array methods</span></a>

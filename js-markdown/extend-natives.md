@@ -146,7 +146,7 @@ That’s an important difference of inheritance between built-in objects compare
 
 - <a href="extend-natives.html#no-static-inheritance-in-built-ins" class="sidebar__link">No static inheritance in built-ins</a>
 
-- <a href="extend-natives.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fextend-natives" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fextend-natives" class="share share_fb sidebar__share"></a>
+- <a href="extend-natives.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fextend-natives" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fextend-natives" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/09-classes/05-extend-natives" class="sidebar__link">Edit on GitHub</a>
 

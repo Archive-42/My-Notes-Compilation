@@ -1,4 +1,3 @@
-
 We should use two handlers: `document.onkeydown` and `document.onkeyup`.
 
 Let's create a set `pressed = new Set()` to keep currently pressed keys.

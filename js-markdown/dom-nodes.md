@@ -281,7 +281,7 @@ DOM nodes have properties and methods that allow us to travel between them, modi
 - <a href="dom-nodes.html#interaction-with-console" class="sidebar__link">Interaction with console</a>
 - <a href="dom-nodes.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="dom-nodes.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fdom-nodes" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdom-nodes" class="share share_fb sidebar__share"></a>
+- <a href="dom-nodes.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fdom-nodes" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdom-nodes" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/02-dom-nodes" class="sidebar__link">Edit on GitHub</a>
 

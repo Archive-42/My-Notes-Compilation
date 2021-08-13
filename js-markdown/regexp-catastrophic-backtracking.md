@@ -365,7 +365,7 @@ We covered two ways how to solve it:
 - <a href="regexp-catastrophic-backtracking.html#how-to-fix" class="sidebar__link">How to fix?</a>
 - <a href="regexp-catastrophic-backtracking.html#preventing-backtracking" class="sidebar__link">Preventing backtracking</a>
 
-- <a href="regexp-catastrophic-backtracking.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" class="share share_fb sidebar__share"></a>
+- <a href="regexp-catastrophic-backtracking.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/15-regexp-catastrophic-backtracking" class="sidebar__link">Edit on GitHub</a>
 

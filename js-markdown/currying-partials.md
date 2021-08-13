@@ -224,7 +224,7 @@ Currying allows us to easily get partials. As we’ve seen in the logging exampl
 - <a href="currying-partials.html#advanced-curry-implementation" class="sidebar__link">Advanced curry implementation</a>
 - <a href="currying-partials.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="currying-partials.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fcurrying-partials" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcurrying-partials" class="share share_fb sidebar__share"></a>
+- <a href="currying-partials.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fcurrying-partials" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcurrying-partials" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/99-js-misc/03-currying-partials" class="sidebar__link">Edit on GitHub</a>
 

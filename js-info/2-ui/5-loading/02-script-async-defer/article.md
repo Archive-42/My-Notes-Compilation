@@ -1,4 +1,3 @@
-
 # Scripts: async, defer
 
 In modern websites, scripts are often "heavier" than HTML: their download size is larger, and processing time is also longer.
@@ -44,7 +43,10 @@ Here's the same example as above, but with `defer`:
 ```html run height=100
 <p>...content before script...</p>
 
-<script defer src="https://javascript.info/article/script-async-defer/long.js?speed=1"></script>
+<script
+  defer
+  src="https://javascript.info/article/script-async-defer/long.js?speed=1"
+></script>
 
 <!-- visible immediately -->
 <p>...content after script...</p>
@@ -61,10 +63,15 @@ The following example demonstrates the second part:
 <p>...content before scripts...</p>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => alert("DOM ready after defer!"));
+  document.addEventListener("DOMContentLoaded", () =>
+    alert("DOM ready after defer!")
+  );
 </script>
 
-<script defer src="https://javascript.info/article/script-async-defer/long.js?speed=1"></script>
+<script
+  defer
+  src="https://javascript.info/article/script-async-defer/long.js?speed=1"
+></script>
 
 <p>...content after scripts...</p>
 ```
@@ -77,8 +84,14 @@ The following example demonstrates the second part:
 Let's say, we have two deferred scripts: the `long.js` and then `small.js`:
 
 ```html
-<script defer src="https://javascript.info/article/script-async-defer/long.js"></script>
-<script defer src="https://javascript.info/article/script-async-defer/small.js"></script>
+<script
+  defer
+  src="https://javascript.info/article/script-async-defer/long.js"
+></script>
+<script
+  defer
+  src="https://javascript.info/article/script-async-defer/small.js"
+></script>
 ```
 
 Browsers scan the page for scripts and download them in parallel, to improve performance. So in the example above both scripts download in parallel. The `small.js` probably finishes first.
@@ -87,9 +100,9 @@ Browsers scan the page for scripts and download them in parallel, to improve per
 
 That may be important for cases when we need to load a JavaScript library and then a script that depends on it.
 
-```smart header="The `defer` attribute is only for external scripts"
-The `defer` attribute is ignored if the `<script>` tag has no `src`.
-```
+```smart header="The `defer`attribute is only for external scripts" The`defer`attribute is ignored if the`<script>`tag has no`src`.
+
+````
 
 ## async
 
@@ -120,7 +133,7 @@ They don't wait for each other. Whatever loads first (probably `small.js`) -- ru
 <script async src="https://javascript.info/article/script-async-defer/small.js"></script>
 
 <p>...content after scripts...</p>
-```
+````
 
 - The page content shows up immediately: `async` doesn't block it.
 - `DOMContentLoaded` may happen both before and after `async`, no guarantees here.
@@ -134,13 +147,13 @@ Async scripts are great when we integrate an independent third-party script into
 ```
 
 ## Dynamic scripts
- 
+
 There's one more important way of adding a script to the page.
 
 We can create a script and append it to the document dynamically using JavaScript:
 
 ```js run
-let script = document.createElement('script');
+let script = document.createElement("script");
 script.src = "/article/script-async-defer/long.js";
 document.body.append(script); // (*)
 ```
@@ -150,6 +163,7 @@ The script starts loading as soon as it's appended to the document `(*)`.
 **Dynamic scripts behave as "async" by default.**
 
 That is:
+
 - They don't wait for anything, nothing waits for them.
 - The script that loads first -- runs first ("load-first" order).
 
@@ -161,7 +175,7 @@ So `long.js` always runs first (as it's added first):
 
 ```js run
 function loadScript(src) {
-  let script = document.createElement('script');
+  let script = document.createElement("script");
   script.src = src;
   script.async = false;
   document.body.append(script);
@@ -176,21 +190,20 @@ Without `script.async=false`, scripts would execute in default, load-first order
 
 Again, as with the `defer`, the order matters if we'd like to load a library and then another script that depends on it.
 
-
 ## Summary
 
 Both `async` and `defer` have one common thing: downloading of such scripts doesn't block page rendering. So the user can read page content and get acquainted with the page immediately.
 
 But there are also essential differences between them:
 
-|         | Order | `DOMContentLoaded` |
-|---------|---------|---------|
-| `async` | *Load-first order*. Their document order doesn't matter -- which loads first runs first |  Irrelevant. May load and execute while the document has not yet been fully downloaded. That happens if scripts are small or cached, and the document is long enough. |
-| `defer` | *Document order* (as they go in the document). |  Execute after the document is loaded and parsed (they wait if needed), right before `DOMContentLoaded`. |
+|         | Order                                                                                   | `DOMContentLoaded`                                                                                                                                                   |
+| ------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `async` | _Load-first order_. Their document order doesn't matter -- which loads first runs first | Irrelevant. May load and execute while the document has not yet been fully downloaded. That happens if scripts are small or cached, and the document is long enough. |
+| `defer` | _Document order_ (as they go in the document).                                          | Execute after the document is loaded and parsed (they wait if needed), right before `DOMContentLoaded`.                                                              |
 
-In practice, `defer` is used for scripts that need the whole DOM and/or their relative execution order is important. 
+In practice, `defer` is used for scripts that need the whole DOM and/or their relative execution order is important.
 
-And  `async` is used for independent scripts, like counters or ads. And their relative execution order does not matter.
+And `async` is used for independent scripts, like counters or ads. And their relative execution order does not matter.
 
 ```warn header="Page without scripts should be usable"
 Please note: if you're using `defer` or `async`, then user will see the the page *before* the script loads.

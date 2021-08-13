@@ -277,7 +277,7 @@ We can search by these properties as well. That requires flag `u`, covered in th
 - <a href="regexp-character-classes.html#a-dot-is-any-character" class="sidebar__link">A dot is “any character”</a>
 - <a href="regexp-character-classes.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="regexp-character-classes.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-character-classes" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-character-classes" class="share share_fb sidebar__share"></a>
+- <a href="regexp-character-classes.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-character-classes" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-character-classes" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/02-regexp-character-classes" class="sidebar__link">Edit on GitHub</a>
 

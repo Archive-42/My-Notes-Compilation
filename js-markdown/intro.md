@@ -188,7 +188,7 @@ There are more. Of course, even if we use one of transpiled languages, we should
 - <a href="intro.html#languages-over-javascript" class="sidebar__link">Languages “over” JavaScript</a>
 - <a href="intro.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="intro.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fintro" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fintro" class="share share_fb sidebar__share"></a>
+- <a href="intro.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fintro" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fintro" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/01-getting-started/1-intro" class="sidebar__link">Edit on GitHub</a>
 

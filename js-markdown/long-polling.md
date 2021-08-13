@@ -330,7 +330,7 @@ So, in this case, another method is preferred, such as [Websocket](websocket.htm
 - <a href="long-polling.html#demo-a-chat" class="sidebar__link">Demo: a chat</a>
 - <a href="long-polling.html#area-of-usage" class="sidebar__link">Area of usage</a>
 
-- <a href="long-polling.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Flong-polling" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Flong-polling" class="share share_fb sidebar__share"></a>
+- <a href="long-polling.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Flong-polling" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Flong-polling" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/10-long-polling" class="sidebar__link">Edit on GitHub</a>
 

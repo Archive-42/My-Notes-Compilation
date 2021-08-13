@@ -376,7 +376,7 @@ Right now, private fields are not well-supported among browsers, but can be poly
 - <a href="private-protected-properties-methods.html#private-waterlimit" class="sidebar__link">Private “#waterLimit”</a>
 - <a href="private-protected-properties-methods.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="private-protected-properties-methods.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fprivate-protected-properties-methods" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fprivate-protected-properties-methods" class="share share_fb sidebar__share"></a>
+- <a href="private-protected-properties-methods.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fprivate-protected-properties-methods" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fprivate-protected-properties-methods" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/09-classes/04-private-protected-properties-methods" class="sidebar__link">Edit on GitHub</a>
 

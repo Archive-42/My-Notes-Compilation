@@ -149,7 +149,7 @@ So, a `\n` in the pattern is used when we need newline characters in the result,
 - <a href="regexp-multiline-mode.html#searching-at-line-end" class="sidebar__link">Searching at line end $</a>
 - <a href="regexp-multiline-mode.html#searching-for-n-instead-of" class="sidebar__link">Searching for \n instead of ^ $</a>
 
-- <a href="regexp-multiline-mode.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-multiline-mode" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-multiline-mode" class="share share_fb sidebar__share"></a>
+- <a href="regexp-multiline-mode.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-multiline-mode" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-multiline-mode" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/05-regexp-multiline-mode" class="sidebar__link">Edit on GitHub</a>
 

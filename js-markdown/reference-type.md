@@ -271,7 +271,7 @@ Any operation on it except a method call (like assignment `=` or `||`) turns it 
 - <a href="reference-type.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="reference-type.html#tasks" class="sidebar__link">Tasks (2)</a>
-- <a href="reference-type.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Freference-type" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Freference-type" class="share share_fb sidebar__share"></a>
+- <a href="reference-type.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Freference-type" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Freference-type" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/99-js-misc/04-reference-type" class="sidebar__link">Edit on GitHub</a>
 

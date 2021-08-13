@@ -16,6 +16,7 @@ There are two main ways to submit a form:
 Both actions lead to `submit` event on the form. The handler can check the data, and if there are errors, show them and call `event.preventDefault()`, then the form won't be sent to the server.
 
 In the form below:
+
 1. Go into the text field and press `key:Enter`.
 2. Click `<input type="submit">`.
 
@@ -23,21 +24,21 @@ Both actions show `alert` and the form is not sent anywhere due to `return false
 
 ```html autorun height=60 no-beautify
 <form onsubmit="alert('submit!');return false">
-  First: Enter in the input field <input type="text" value="text"><br>
-  Second: Click "submit": <input type="submit" value="Submit">
+  First: Enter in the input field <input type="text" value="text" /><br />
+  Second: Click "submit": <input type="submit" value="Submit" />
 </form>
 ```
 
-````smart header="Relation between `submit` and `click`"
-When a form is sent using `key:Enter` on an input field, a `click` event triggers on the `<input type="submit">`.
+````smart header="Relation between `submit`and`click`" When a form is sent using `key:Enter`on an input field, a`click`event triggers on the`<input type="submit">`.
 
 That's rather funny, because there was no click at all.
 
 Here's the demo:
+
 ```html autorun height=60
 <form onsubmit="return false">
- <input type="text" size="30" value="Focus here and press enter">
- <input type="submit" value="Submit" *!*onclick="alert('click')"*/!*>
+  <input type="text" size="30" value="Focus here and press enter" />
+  <input type="submit" value="Submit" *!*onclick="alert('click')"*/!*>
 </form>
 ```
 
@@ -63,3 +64,4 @@ document.body.append(form);
 
 form.submit();
 ```
+````

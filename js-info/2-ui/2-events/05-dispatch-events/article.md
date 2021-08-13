@@ -18,10 +18,11 @@ let event = new Event(type[, options]);
 
 Arguments:
 
-- *type* -- event type, a string like `"click"` or our own like `"my-event"`.
-- *options* -- the object with two optional properties:
+- _type_ -- event type, a string like `"click"` or our own like `"my-event"`.
+- _options_ -- the object with two optional properties:
+
   - `bubbles: true/false` -- if `true`, then the event bubbles.
-  - `cancelable: true/false` -- if `true`, then the "default action"  may be prevented. Later we'll see what it means for custom events.
+  - `cancelable: true/false` -- if `true`, then the "default action" may be prevented. Later we'll see what it means for custom events.
 
   By default both are false: `{bubbles: false, cancelable: false}`.
 
@@ -59,19 +60,18 @@ All we need is to set `bubbles` to `true`:
 
 <script>
   // catch on document...
-  document.addEventListener("hello", function(event) { // (1)
+  document.addEventListener("hello", function (event) {
+    // (1)
     alert("Hello from " + event.target.tagName); // Hello from H1
   });
 
   // ...dispatch on elem!
-  let event = new Event("hello", {bubbles: true}); // (2)
+  let event = new Event("hello", { bubbles: true }); // (2)
   elem.dispatchEvent(event);
 
   // the handler on document will activate and display the message.
-
 </script>
 ```
-
 
 Notes:
 
@@ -143,16 +143,16 @@ For instance:
 <h1 id="elem">Hello for John!</h1>
 
 <script>
-  // additional details come with the event to the handler
-  elem.addEventListener("hello", function(event) {
-    alert(*!*event.detail.name*/!*);
-  });
+    // additional details come with the event to the handler
+    elem.addEventListener("hello", function(event) {
+      alert(*!*event.detail.name*/!*);
+    });
 
-  elem.dispatchEvent(new CustomEvent("hello", {
-*!*
-    detail: { name: "John" }
-*/!*
-  }));
+    elem.dispatchEvent(new CustomEvent("hello", {
+  *!*
+      detail: { name: "John" }
+  */!*
+    }));
 </script>
 ```
 
@@ -189,16 +189,16 @@ Any handler can listen for that event with `rabbit.addEventListener('hide',...)`
 <script>
   function hide() {
     let event = new CustomEvent("hide", {
-      cancelable: true // without that flag preventDefault doesn't work
+      cancelable: true, // without that flag preventDefault doesn't work
     });
     if (!rabbit.dispatchEvent(event)) {
-      alert('The action was prevented by a handler');
+      alert("The action was prevented by a handler");
     } else {
       rabbit.hidden = true;
     }
   }
 
-  rabbit.addEventListener('hide', function(event) {
+  rabbit.addEventListener("hide", function (event) {
     if (confirm("Call preventDefault?")) {
       event.preventDefault();
     }
@@ -218,23 +218,24 @@ For instance, in the code below the `menu-open` event is triggered during the `o
 
 It's processed immediately, without waiting for `onclick` handler to end:
 
-
 ```html run autorun
 <button id="menu">Menu (click me)</button>
 
 <script>
-  menu.onclick = function() {
+  menu.onclick = function () {
     alert(1);
 
-    menu.dispatchEvent(new CustomEvent("menu-open", {
-      bubbles: true
-    }));
+    menu.dispatchEvent(
+      new CustomEvent("menu-open", {
+        bubbles: true,
+      })
+    );
 
     alert(2);
   };
 
   // triggers between 1 and 2
-  document.addEventListener('menu-open', () => alert('nested'));
+  document.addEventListener("menu-open", () => alert("nested"));
 </script>
 ```
 
@@ -252,17 +253,21 @@ Then we can either put the `dispatchEvent` (or another event-triggering call) at
 <button id="menu">Menu (click me)</button>
 
 <script>
-  menu.onclick = function() {
+  menu.onclick = function () {
     alert(1);
 
-    setTimeout(() => menu.dispatchEvent(new CustomEvent("menu-open", {
-      bubbles: true
-    })));
+    setTimeout(() =>
+      menu.dispatchEvent(
+        new CustomEvent("menu-open", {
+          bubbles: true,
+        })
+      )
+    );
 
     alert(2);
   };
 
-  document.addEventListener('menu-open', () => alert('nested'));
+  document.addEventListener("menu-open", () => alert("nested"));
 </script>
 ```
 
@@ -275,6 +280,7 @@ The output order becomes: 1 -> 2 -> nested.
 To generate an event from code, we first need to create an event object.
 
 The generic `Event(name, options)` constructor accepts an arbitrary event name and the `options` object with two properties:
+
 - `bubbles: true` if the event should bubble.
 - `cancelable: true` if the `event.preventDefault()` should work.
 

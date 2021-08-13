@@ -150,7 +150,7 @@ P.S. Google Chrome is usually the most up-to-date with language features, try it
 - <a href="polyfills.html#polyfills" class="sidebar__link">Polyfills</a>
 - <a href="polyfills.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="polyfills.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fpolyfills" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fpolyfills" class="share share_fb sidebar__share"></a>
+- <a href="polyfills.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fpolyfills" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fpolyfills" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/03-code-quality/06-polyfills" class="sidebar__link">Edit on GitHub</a>
 

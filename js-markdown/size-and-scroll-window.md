@@ -237,7 +237,7 @@ Scrolling:
 - <a href="size-and-scroll-window.html#forbid-the-scrolling" class="sidebar__link">Forbid the scrolling</a>
 - <a href="size-and-scroll-window.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="size-and-scroll-window.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fsize-and-scroll-window" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fsize-and-scroll-window" class="share share_fb sidebar__share"></a>
+- <a href="size-and-scroll-window.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fsize-and-scroll-window" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fsize-and-scroll-window" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/10-size-and-scroll-window" class="sidebar__link">Edit on GitHub</a>
 

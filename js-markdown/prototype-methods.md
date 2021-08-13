@@ -363,7 +363,7 @@ So only the first call shows `Rabbit`, other ones show `undefined`:
 - <a href="prototype-methods.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="prototype-methods.html#tasks" class="sidebar__link">Tasks (2)</a>
-- <a href="prototype-methods.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fprototype-methods" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fprototype-methods" class="share share_fb sidebar__share"></a>
+- <a href="prototype-methods.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fprototype-methods" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fprototype-methods" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/08-prototypes/04-prototype-methods" class="sidebar__link">Edit on GitHub</a>
 

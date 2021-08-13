@@ -193,7 +193,7 @@ solution
 - <a href="events-change-input.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="events-change-input.html#tasks" class="sidebar__link">Tasks (1)</a>
-- <a href="events-change-input.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fevents-change-input" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevents-change-input" class="share share_fb sidebar__share"></a>
+- <a href="events-change-input.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fevents-change-input" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevents-change-input" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/4-forms-controls/3-events-change-input" class="sidebar__link">Edit on GitHub</a>
 

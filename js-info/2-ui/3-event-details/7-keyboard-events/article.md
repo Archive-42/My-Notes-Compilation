@@ -6,7 +6,6 @@ So if we want to track any input into an `<input>` field, then keyboard events a
 
 Keyboard events should be used when we want to handle keyboard actions (virtual keyboard also counts). For instance, to react on arrow keys `key:Up` and `key:Down` or hotkeys (including combinations of keys).
 
-
 ## Teststand [#keyboard-test-stand]
 
 ```offline
@@ -21,7 +20,6 @@ Try different key combinations in the text field.
 [codetabs src="keyboard-dump" height=480]
 ```
 
-
 ## Keydown and keyup
 
 The `keydown` events happens when a key is pressed down, and then `keyup` -- when it's released.
@@ -34,15 +32,14 @@ For instance, the same key `key:Z` can be pressed with or without `key:Shift`. T
 
 The `event.key` is exactly the character, and it will be different. But `event.code` is the same:
 
-| Key          | `event.key` | `event.code` |
-|--------------|-------------|--------------|
-| `key:Z`      |`z` (lowercase)         |`KeyZ`        |
-| `key:Shift+Z`|`Z` (uppercase)          |`KeyZ`        |
-
+| Key           | `event.key`     | `event.code` |
+| ------------- | --------------- | ------------ |
+| `key:Z`       | `z` (lowercase) | `KeyZ`       |
+| `key:Shift+Z` | `Z` (uppercase) | `KeyZ`       |
 
 If a user works with different languages, then switching to another language would make a totally different character instead of `"Z"`. That will become the value of `event.key`, while `event.code` is always the same: `"KeyZ"`.
 
-```smart header="\"KeyZ\" and other key codes"
+```smart header=""KeyZ" and other key codes"
 Every key has the code that depends on its location on the keyboard. Key codes described in the [UI Events code specification](https://www.w3.org/TR/uievents-code/).
 
 For instance:
@@ -59,7 +56,8 @@ Read the [alphanumeric section of the spec](https://www.w3.org/TR/uievents-code/
 Seems obvious, but people still make mistakes.
 
 Please evade mistypes: it's `KeyZ`, not `keyZ`. The check like `event.code=="keyZ"` won't work: the first letter of `"Key"` must be uppercase.
-```
+
+````
 
 What if a key does not give any character? For instance, `key:Shift` or `key:F1` or others. For those keys, `event.key` is approximately the same as `event.code`:
 
@@ -85,7 +83,7 @@ document.addEventListener('keydown', function(event) {
     alert('Undo!')
   }
 });
-```
+````
 
 On the other hand, there's a problem with `event.code`. For different keyboard layouts, the same key may have different characters.
 
@@ -119,7 +117,6 @@ If a key is being pressed for a long enough time, it starts to "auto-repeat": th
 
 For events triggered by auto-repeat, the event object has `event.repeat` property set to `true`.
 
-
 ## Default actions
 
 Default actions vary, as there are many possible things that may be initiated by the keyboard.
@@ -130,7 +127,7 @@ For instance:
 - A character is deleted (`key:Delete` key).
 - The page is scrolled (`key:PageDown` key).
 - The browser opens the "Save Page" dialog (`key:Ctrl+S`)
--  ...and so on.
+- ...and so on.
 
 Preventing the default action on `keydown` can cancel most of them, with the exception of OS-based special keys. For instance, on Windows `key:Alt+F4` closes the current browser window. And there's no way to stop it by preventing the default action in JavaScript.
 
@@ -138,11 +135,12 @@ For instance, the `<input>` below expects a phone number, so it does not accept 
 
 ```html autorun height=60 run
 <script>
-function checkPhoneKey(key) {
-  return (key >= '0' && key <= '9') || ['+','(',')','-'].includes(key);
-}
+  function checkPhoneKey(key) {
+    return (key >= "0" && key <= "9") || ["+", "(", ")", "-"].includes(key);
+  }
 </script>
-<input *!*onkeydown="return checkPhoneKey(event.key)"*/!* placeholder="Phone, please" type="tel">
+<input *!*onkeydown="return checkPhoneKey(event.key)"*/!* placeholder="Phone,
+please" type="tel">
 ```
 
 The `onkeydown` handler here uses `checkPhoneKey` to check for the key pressed. If it's valid (from `0..9` or one of `+-()`), then it returns `true`, otherwise `false`.
@@ -155,19 +153,23 @@ Let's relax the filter a little bit by allowing arrow keys `key:Left`, `key:Righ
 
 ```html autorun height=60 run
 <script>
-function checkPhoneKey(key) {
-  return (key >= '0' && key <= '9') ||
-    ['+','(',')','-',*!*'ArrowLeft','ArrowRight','Delete','Backspace'*/!*].includes(key);
-}
+  function checkPhoneKey(key) {
+    return (key >= '0' && key <= '9') ||
+      ['+','(',')','-',*!*'ArrowLeft','ArrowRight','Delete','Backspace'*/!*].includes(key);
+  }
 </script>
-<input onkeydown="return checkPhoneKey(event.key)" placeholder="Phone, please" type="tel">
+<input
+  onkeydown="return checkPhoneKey(event.key)"
+  placeholder="Phone, please"
+  type="tel"
+/>
 ```
 
 Now arrows and deletion works well.
 
 Even though we have the key filter, one still can enter anything using a mouse and right-click + Paste. Mobile devices provide other means to enter values. So the filter is not 100% reliable.
 
-The alternative approach would be to track the `oninput` event -- it triggers *after* any modification. There we can check the new `input.value` and modify it/highlight the `<input>` when it's invalid. Or we can use both event handlers together.
+The alternative approach would be to track the `oninput` event -- it triggers _after_ any modification. There we can check the new `input.value` and modify it/highlight the `<input>` when it's invalid. Or we can use both event handlers together.
 
 ## Legacy
 
@@ -193,7 +195,7 @@ Keyboard events:
 Main keyboard event properties:
 
 - `code` -- the "key code" (`"KeyA"`, `"ArrowLeft"` and so on), specific to the physical location of the key on keyboard.
-- `key` -- the character (`"A"`, `"a"` and so on), for non-character keys, such as `key:Esc`, usually has the same value  as `code`.
+- `key` -- the character (`"A"`, `"a"` and so on), for non-character keys, such as `key:Esc`, usually has the same value as `code`.
 
 In the past, keyboard events were sometimes used to track user input in form fields. That's not reliable, because the input can come from various sources. We have `input` and `change` events to handle any input (covered later in the chapter <info:events-change-input>). They trigger after any kind of input, including copy-pasting or speech recognition.
 

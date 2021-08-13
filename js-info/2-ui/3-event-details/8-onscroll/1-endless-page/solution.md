@@ -15,30 +15,29 @@ For instance, if the height of the whole HTML document is `2000px`, then:
 ```js
 // when we're on the top of the page
 // window-relative top = 0
-document.documentElement.getBoundingClientRect().top = 0
+document.documentElement.getBoundingClientRect().top = 0;
 
 // window-relative bottom = 2000
 // the document is long, so that is probably far beyond the window bottom
-document.documentElement.getBoundingClientRect().bottom = 2000
+document.documentElement.getBoundingClientRect().bottom = 2000;
 ```
 
 If we scroll `500px` below, then:
 
 ```js
 // document top is above the window 500px
-document.documentElement.getBoundingClientRect().top = -500
+document.documentElement.getBoundingClientRect().top = -500;
 // document bottom is 500px closer
-document.documentElement.getBoundingClientRect().bottom = 1500
+document.documentElement.getBoundingClientRect().bottom = 1500;
 ```
 
 When we scroll till the end, assuming that the window height is `600px`:
 
-
 ```js
 // document top is above the window 1400px
-document.documentElement.getBoundingClientRect().top = -1400
+document.documentElement.getBoundingClientRect().top = -1400;
 // document bottom is below the window 600px
-document.documentElement.getBoundingClientRect().bottom = 600
+document.documentElement.getBoundingClientRect().bottom = 600;
 ```
 
 Please note that the `bottom` can't be `0`, because it never reaches the window top. The lowest limit of the `bottom` coordinate is the window height (we assumed it to be `600`), we can't scroll it any more up.
@@ -51,13 +50,15 @@ So here's the function:
 
 ```js
 function populate() {
-  while(true) {
+  while (true) {
     // document bottom
-    let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
+    let windowRelativeBottom =
+      document.documentElement.getBoundingClientRect().bottom;
 
     // if the user hasn't scrolled far enough (>100px to the end)
-    if (windowRelativeBottom > document.documentElement.clientHeight + 100) break;
-    
+    if (windowRelativeBottom > document.documentElement.clientHeight + 100)
+      break;
+
     // let's add more data
     document.body.insertAdjacentHTML("beforeend", `<p>Date: ${new Date()}</p>`);
   }

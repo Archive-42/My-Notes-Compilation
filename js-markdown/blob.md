@@ -285,7 +285,7 @@ We can easily convert between `Blob` and low-level binary data types:
 - <a href="blob.html#from-blob-to-arraybuffer" class="sidebar__link">From Blob to ArrayBuffer</a>
 - <a href="blob.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="blob.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fblob" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fblob" class="share share_fb sidebar__share"></a>
+- <a href="blob.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fblob" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fblob" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/4-binary/03-blob" class="sidebar__link">Edit on GitHub</a>
 

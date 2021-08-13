@@ -251,7 +251,7 @@ Please note that in case of nested components, one shadow DOM may be nested into
 - <a href="shadow-dom-events.html#custom-events" class="sidebar__link">Custom events</a>
 - <a href="shadow-dom-events.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="shadow-dom-events.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fshadow-dom-events" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fshadow-dom-events" class="share share_fb sidebar__share"></a>
+- <a href="shadow-dom-events.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fshadow-dom-events" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fshadow-dom-events" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/8-web-components/7-shadow-dom-events" class="sidebar__link">Edit on GitHub</a>
 

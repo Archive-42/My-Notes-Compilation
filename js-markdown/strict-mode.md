@@ -144,7 +144,7 @@ All examples in this tutorial assume strict mode unless (very rarely) specified 
 - <a href="strict-mode.html#browser-console" class="sidebar__link">Browser console</a>
 - <a href="strict-mode.html#should-we-use-strict" class="sidebar__link">Should we “use strict”?</a>
 
-- <a href="strict-mode.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fstrict-mode" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fstrict-mode" class="share share_fb sidebar__share"></a>
+- <a href="strict-mode.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fstrict-mode" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fstrict-mode" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps/03-strict-mode" class="sidebar__link">Edit on GitHub</a>
 

@@ -16,7 +16,11 @@ For instance:
 <div data-tooltip="Here – is the house interior" id="house">
   <div data-tooltip="Here – is the roof" id="roof"></div>
   ...
-  <a href="https://en.wikipedia.org/wiki/The_Three_Little_Pigs" data-tooltip="Read on…">Hover over me</a>
+  <a
+    href="https://en.wikipedia.org/wiki/The_Three_Little_Pigs"
+    data-tooltip="Read on…"
+    >Hover over me</a
+  >
 </div>
 ```
 

@@ -132,7 +132,7 @@ In the example below the group with quotes is named `?<quote>`, so the backrefer
 - <a href="regexp-backreferences.html#backreference-by-number-n" class="sidebar__link">Backreference by number: \N</a>
 - <a href="regexp-backreferences.html#backreference-by-name-k" class="sidebar__link">Backreference by name: <code>\k&lt;name&gt;</code></a>
 
-- <a href="regexp-backreferences.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-backreferences" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-backreferences" class="share share_fb sidebar__share"></a>
+- <a href="regexp-backreferences.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-backreferences" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-backreferences" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/12-regexp-backreferences" class="sidebar__link">Edit on GitHub</a>
 

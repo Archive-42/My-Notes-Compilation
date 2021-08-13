@@ -4,10 +4,10 @@ EN
 - <a href="long-polling.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
 - <a href="https://es.javascript.info/long-polling" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
 - <a href="https://fr.javascript.info/long-polling" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
-- long-polling" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- long-polling" class="supported-langs**link"><span class="supported-langs**brief">IT</span><span>Italiano</span></a>
 - <a href="https://ja.javascript.info/long-polling" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
-/" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+/" class="supported-langs**link"><span class="supported-langs**brief">KO</span><span>한국어</span></a>
 
 <a href="long-polling%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
 
@@ -317,7 +317,7 @@ So, in this case, another method is preferred, such as [Websocket](websocket.htm
 
 - <a href="long-polling.html#comments" class="sidebar__link">Comments</a>
 
-<a s%3A%2F%2Fjavascript.info%2Flong-polling" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Flong-polling" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/10-long-polling" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Flong-polling" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Flong-polling" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/10-long-polling" class="sidebar__link">Edit on GitHub</a>
 
 - © 2007—2021  Ilya Kantor
 - <a href="about.html" class="page-footer__link">about the project</a>

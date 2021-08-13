@@ -195,7 +195,7 @@ We can use such JSBI code “as is” for engines that don’t support bigints a
 - <a href="bigint.html#polyfills" class="sidebar__link">Polyfills</a>
 - <a href="bigint.html#references" class="sidebar__link">References</a>
 
-- <a href="bigint.html class="sidebar\_\_link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fbigint" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbigint" class="share share_fb sidebar__share"></a>
+- <a href="bigint.html class="sidebar\_\_link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fbigint" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbigint" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/99-js-misc/05-bigint" class="sidebar__link">Edit on GitHub</a>
 

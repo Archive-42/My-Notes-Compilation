@@ -134,7 +134,7 @@ It has two methods:
 
 - <a href="text-decoder.html#textencoder" class="sidebar__link">TextEncoder</a>
 
-- <a href="text-decoder.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ftext-decoder" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftext-decoder" class="share share_fb sidebar__share"></a>
+- <a href="text-decoder.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ftext-decoder" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftext-decoder" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/4-binary/02-text-decoder" class="sidebar__link">Edit on GitHub</a>
 

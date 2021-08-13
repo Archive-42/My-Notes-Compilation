@@ -240,7 +240,7 @@ Full information about the methods is given in the article [Methods of RegExp an
 - <a href="regexp-introduction.html#testing-regexp-test" class="sidebar__link">Testing: regexp.test</a>
 - <a href="regexp-introduction.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="regexp-introduction.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-introduction" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-introduction" class="share share_fb sidebar__share"></a>
+- <a href="regexp-introduction.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-introduction" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-introduction" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/01-regexp-introduction" class="sidebar__link">Edit on GitHub</a>
 

@@ -1,13 +1,12 @@
-'use strict';
+"use strict";
 
 class HoverIntent {
-
   constructor({
     sensitivity = 0.1, // speed less than 0.1px/ms means "hovering over an element"
-    interval = 100,    // measure mouse speed once per 100ms
+    interval = 100, // measure mouse speed once per 100ms
     elem,
     over,
-    out
+    out,
   }) {
     this.sensitivity = sensitivity;
     this.interval = interval;
@@ -26,11 +25,9 @@ class HoverIntent {
     elem.addEventListener("mouseover", this.onMouseOver);
 
     elem.addEventListener("mouseout", this.onMouseOut);
-
   }
 
   onMouseOver(event) {
-
     if (this.isOverElement) {
       // if we're over the element, then ignore the event
       // we are already measuring the speed
@@ -47,7 +44,7 @@ class HoverIntent {
     this.prevY = event.pageY;
     this.prevTime = Date.now();
 
-    elem.addEventListener('mousemove', this.onMouseMove);
+    elem.addEventListener("mousemove", this.onMouseMove);
     this.checkSpeedInterval = setInterval(this.trackSpeed, this.interval);
   }
 
@@ -55,7 +52,7 @@ class HoverIntent {
     // if left the element
     if (!event.relatedTarget || !elem.contains(event.relatedTarget)) {
       this.isOverElement = false;
-      this.elem.removeEventListener('mousemove', this.onMouseMove);
+      this.elem.removeEventListener("mousemove", this.onMouseMove);
       clearInterval(this.checkSpeedInterval);
       if (this.isHover) {
         // if there was a stop over the element
@@ -72,17 +69,18 @@ class HoverIntent {
   }
 
   trackSpeed() {
-
     let speed;
 
     if (!this.lastTime || this.lastTime == this.prevTime) {
       // cursor didn't move
       speed = 0;
     } else {
-      speed = Math.sqrt(
-        Math.pow(this.prevX - this.lastX, 2) +
-        Math.pow(this.prevY - this.lastY, 2)
-      ) / (this.lastTime - this.prevTime);
+      speed =
+        Math.sqrt(
+          Math.pow(this.prevX - this.lastX, 2) +
+            Math.pow(this.prevY - this.lastY, 2)
+        ) /
+        (this.lastTime - this.prevTime);
     }
 
     if (speed < this.sensitivity) {
@@ -98,9 +96,8 @@ class HoverIntent {
   }
 
   destroy() {
-    elem.removeEventListener('mousemove', this.onMouseMove);
-    elem.removeEventListener('mouseover', this.onMouseOver);
-    elem.removeEventListener('mouseout', this.onMouseOut);
+    elem.removeEventListener("mousemove", this.onMouseMove);
+    elem.removeEventListener("mouseover", this.onMouseOver);
+    elem.removeEventListener("mouseout", this.onMouseOut);
   }
-
 }

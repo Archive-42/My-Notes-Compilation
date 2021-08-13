@@ -4,7 +4,7 @@ importance: 5
 
 # "Smart" tooltip
 
-Write a function that shows a tooltip over an element only if the visitor moves the mouse *to it*, but not *through it*.
+Write a function that shows a tooltip over an element only if the visitor moves the mouse _to it_, but not _through it_.
 
 In other words, if the visitor moves the mouse to the element and stops there -- show the tooltip. And if they just moved the mouse through, then no need, who wants extra blinking?
 
@@ -13,6 +13,7 @@ Technically, we can measure the mouse speed over the element, and if it's slow t
 Make a universal object `new HoverIntent(options)` for it.
 
 Its `options`:
+
 - `elem` -- element to track.
 - `over` -- a function to call if the mouse came to the element: that is, it moves slowly or stopped over it.
 - `out` -- a function to call when the mouse leaves the element (if `over` was called).
@@ -21,7 +22,7 @@ An example of using such object for the tooltip:
 
 ```js
 // a sample tooltip
-let tooltip = document.createElement('div');
+let tooltip = document.createElement("div");
 tooltip.className = "tooltip";
 tooltip.innerHTML = "Tooltip";
 
@@ -29,13 +30,13 @@ tooltip.innerHTML = "Tooltip";
 new HoverIntent({
   elem,
   over() {
-    tooltip.style.left = elem.getBoundingClientRect().left + 'px';
-    tooltip.style.top = elem.getBoundingClientRect().bottom + 5 + 'px';
+    tooltip.style.left = elem.getBoundingClientRect().left + "px";
+    tooltip.style.top = elem.getBoundingClientRect().bottom + 5 + "px";
     document.body.append(tooltip);
   },
   out() {
     tooltip.remove();
-  }
+  },
 });
 ```
 

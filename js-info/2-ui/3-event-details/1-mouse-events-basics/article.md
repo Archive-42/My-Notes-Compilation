@@ -56,27 +56,27 @@ From the other hand, `mousedown` and `mouseup` handlers may need `event.button`,
 
 The possible values of `event.button` are:
 
-| Button state | `event.button` |
-|--------------|----------------|
-| Left button (primary) | 0 |
-| Middle button (auxiliary) | 1 |
-| Right button (secondary) | 2 |
-| X1 button (back) | 3 |
-| X2 button (forward) | 4 |
+| Button state              | `event.button` |
+| ------------------------- | -------------- |
+| Left button (primary)     | 0              |
+| Middle button (auxiliary) | 1              |
+| Right button (secondary)  | 2              |
+| X1 button (back)          | 3              |
+| X2 button (forward)       | 4              |
 
 Most mouse devices only have the left and right buttons, so possible values are `0` or `2`. Touch devices also generate similar events when one taps on them.
 
 Also there's `event.buttons` property that has all currently pressed buttons as an integer, one bit per button. In practice this property is very rarely used, you can find details at [MDN](mdn:/api/MouseEvent/buttons) if you ever need it.
 
-```warn header="The outdated `event.which`"
-Old code may use `event.which` property that's an old non-standard way of getting a button, with possible values:
+```warn header="The outdated `event.which`" Old code may use `event.which` property that's an old non-standard way of getting a button, with possible values:
 
 - `event.which == 1` – left button,
 - `event.which == 2` – middle button,
 - `event.which == 3` – right button.
 
 As of now, `event.which` is deprecated, we shouldn't use it.
-```
+
+````
 
 ## Modifiers: shift, alt, ctrl and meta
 
@@ -105,10 +105,9 @@ For instance, the button below only works on `key:Alt+Shift`+click:
     }
   };
 </script>
-```
+````
 
-```warn header="Attention: on Mac it's usually `Cmd` instead of `Ctrl`"
-On Windows and Linux there are modifier keys `key:Alt`, `key:Shift` and `key:Ctrl`. On Mac there's one more: `key:Cmd`, corresponding to the property `metaKey`.
+```warn header="Attention: on Mac it's usually `Cmd`instead of`Ctrl`" On Windows and Linux there are modifier keys `key:Alt`, `key:Shift`and`key:Ctrl`. On Mac there's one more: `key:Cmd`, corresponding to the property `metaKey`.
 
 In most applications, when Windows/Linux uses `key:Ctrl`, on Mac `key:Cmd` is used.
 
@@ -116,18 +115,19 @@ That is: where a Windows user presses `key:Ctrl+Enter` or `key:Ctrl+A`, a Mac us
 
 So if we want to support combinations like `key:Ctrl`+click, then for Mac it makes sense to use `key:Cmd`+click. That's more comfortable for Mac users.
 
-Even if we'd like to force Mac users to `key:Ctrl`+click -- that's kind of difficult. The problem is: a left-click with `key:Ctrl` is interpreted as a *right-click* on MacOS, and it generates the `contextmenu` event, not `click` like Windows/Linux.
+Even if we'd like to force Mac users to `key:Ctrl`+click -- that's kind of difficult. The problem is: a left-click with `key:Ctrl` is interpreted as a _right-click_ on MacOS, and it generates the `contextmenu` event, not `click` like Windows/Linux.
 
 So if we want users of all operating systems to feel comfortable, then together with `ctrlKey` we should check `metaKey`.
 
 For JS-code it means that we should check `if (event.ctrlKey || event.metaKey)`.
-```
+
+````
 
 ```warn header="There are also mobile devices"
-Keyboard combinations are good as an addition to the workflow. So that if the visitor uses a keyboard -- they work. 
+Keyboard combinations are good as an addition to the workflow. So that if the visitor uses a keyboard -- they work.
 
 But if their device doesn't have it -- then there should be a way to live without modifier keys.
-```
+````
 
 ## Coordinates: clientX/Y, pageX/Y
 
@@ -140,7 +140,7 @@ We already covered the difference between them in the chapter <info:coordinates>
 
 In short, document-relative coordinates `pageX/Y` are counted from the left-upper corner of the document, and do not change when the page is scrolled, while `clientX/Y` are counted from the current window left-upper corner. When the page is scrolled, they change.
 
-For instance, if we have a window of the size 500x500, and the mouse is in the left-upper corner, then `clientX` and `clientY` are `0`, no matter how the page is scrolled. 
+For instance, if we have a window of the size 500x500, and the mouse is in the left-upper corner, then `clientX` and `clientY` are `0`, no matter how the page is scrolled.
 
 And if the mouse is in the center, then `clientX` and `clientY` are `250`, no matter what place in the document it is. They are similar to `position:fixed` in that aspect.
 
@@ -201,6 +201,7 @@ Mouse events have the following properties:
 
 - Button: `button`.
 - Modifier keys (`true` if pressed): `altKey`, `ctrlKey`, `shiftKey` and `metaKey` (Mac).
+
   - If you want to handle `key:Ctrl`, then don't forget Mac users, they usually use `key:Cmd`, so it's better to check `if (e.metaKey || e.ctrlKey)`.
 
 - Window-relative coordinates: `clientX/clientY`.

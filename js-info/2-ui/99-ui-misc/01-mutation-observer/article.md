@@ -1,4 +1,3 @@
-
 # Mutation observer
 
 `MutationObserver` is a built-in object that observes a DOM element and fires a callback when it detects a change.
@@ -22,6 +21,7 @@ observer.observe(node, config);
 ```
 
 `config` is an object with boolean options "what kind of changes to react on":
+
 - `childList` -- changes in the direct children of `node`,
 - `subtree` -- in all descendants of `node`,
 - `attributes` -- attributes of `node`,
@@ -29,6 +29,7 @@ observer.observe(node, config);
 - `characterData` -- whether to observe `node.data` (text content),
 
 Few other options:
+
 - `attributeOldValue` -- if `true`, pass both the old and the new value of attribute to callback (see below), otherwise only the new one (needs `attributes` option),
 - `characterDataOldValue` -- if `true`, pass both the old and the new value of `node.data` to callback (see below), otherwise only the new one (needs `characterData` option).
 
@@ -37,11 +38,11 @@ Then after any changes, the `callback` is executed: changes are passed in the fi
 [MutationRecord](https://dom.spec.whatwg.org/#mutationrecord) objects have properties:
 
 - `type` -- mutation type, one of
-    - `"attributes"`: attribute modified
-    - `"characterData"`: data modified, used for text nodes,
-    - `"childList"`: child elements added/removed,
+  - `"attributes"`: attribute modified
+  - `"characterData"`: data modified, used for text nodes,
+  - `"childList"`: child elements added/removed,
 - `target` -- where the change occurred: an element for `"attributes"`, or text node for `"characterData"`, or an element for a `"childList"` mutation,
-- `addedNodes/removedNodes`  -- nodes that were added/removed,
+- `addedNodes/removedNodes` -- nodes that were added/removed,
 - `previousSibling/nextSibling` -- the previous and next sibling to added/removed nodes,
 - `attributeName/attributeNamespace` -- the name/namespace (for XML) of the changed attribute,
 - `oldValue` -- the previous value, only for attribute or text changes, if the corresponding option is set `attributeOldValue`/`characterDataOldValue`.
@@ -49,19 +50,19 @@ Then after any changes, the `callback` is executed: changes are passed in the fi
 For example, here's a `<div>` with a `contentEditable` attribute. That attribute allows us to focus on it and edit.
 
 ```html run
-<div contentEditable id="elem">Click and <b>edit</b>, please</div>
+<div contenteditable id="elem">Click and <b>edit</b>, please</div>
 
 <script>
-let observer = new MutationObserver(mutationRecords => {
-  console.log(mutationRecords); // console.log(the changes)
-});
+  let observer = new MutationObserver((mutationRecords) => {
+    console.log(mutationRecords); // console.log(the changes)
+  });
 
-// observe everything except attributes
-observer.observe(elem, {
-  childList: true, // observe direct children
-  subtree: true, // and lower descendants too
-  characterDataOldValue: true // pass old data to callback
-});
+  // observe everything except attributes
+  observer.observe(elem, {
+    childList: true, // observe direct children
+    subtree: true, // and lower descendants too
+    characterDataOldValue: true, // pass old data to callback
+  });
 </script>
 ```
 
@@ -134,7 +135,9 @@ When exactly should we run that highlighting method? Well, we can do it on `DOMC
 
 ```js
 // highlight all code snippets on the page
-document.querySelectorAll('pre[class*="language"]').forEach(Prism.highlightElem);
+document
+  .querySelectorAll('pre[class*="language"]')
+  .forEach(Prism.highlightElem);
 ```
 
 Everything's simple so far, right? We find code snippets in HTML and highlight them.
@@ -142,8 +145,9 @@ Everything's simple so far, right? We find code snippets in HTML and highlight t
 Now let's go on. Let's say we're going to dynamically fetch materials from a server. We'll study methods for that [later in the tutorial](info:fetch). For now it only matters that we fetch an HTML article from a webserver and display it on demand:
 
 ```js
-let article = /* fetch new content from server */
-articleElem.innerHTML = article;
+let article =
+  /* fetch new content from server */
+  (articleElem.innerHTML = article);
 ```
 
 The new `article` HTML may contain code snippets. We need to call `Prism.highlightElem` on them, otherwise they won't get highlighted.
@@ -179,12 +183,11 @@ Here's the working example.
 If you run this code, it starts observing the element below and highlighting any code snippets that appear there:
 
 ```js run
-let observer = new MutationObserver(mutations => {
-
-  for(let mutation of mutations) {
+let observer = new MutationObserver((mutations) => {
+  for (let mutation of mutations) {
     // examine new nodes, is there anything to highlight?
 
-    for(let node of mutation.addedNodes) {
+    for (let node of mutation.addedNodes) {
       // we track only elements, skip other nodes (e.g. text nodes)
       if (!(node instanceof HTMLElement)) continue;
 
@@ -194,17 +197,16 @@ let observer = new MutationObserver(mutations => {
       }
 
       // or maybe there's a code snippet somewhere in its subtree?
-      for(let elem of node.querySelectorAll('pre[class*="language-"]')) {
+      for (let elem of node.querySelectorAll('pre[class*="language-"]')) {
         Prism.highlightElement(elem);
       }
     }
   }
-
 });
 
-let demoElem = document.getElementById('highlight-demo');
+let demoElem = document.getElementById("highlight-demo");
 
-observer.observe(demoElem, {childList: true, subtree: true});
+observer.observe(demoElem, { childList: true, subtree: true });
 ```
 
 Here, below, there's an HTML-element and JavaScript that dynamically fills it using `innerHTML`.
@@ -216,7 +218,7 @@ Please run the previous code (above, observes that element), and then the code b
 The following code populates its `innerHTML`, that causes the `MutationObserver` to react and highlight its contents:
 
 ```js run
-let demoElem = document.getElementById('highlight-demo');
+let demoElem = document.getElementById("highlight-demo");
 
 // dynamically insert content with code snippets
 demoElem.innerHTML = `A code snippet is below:
@@ -253,18 +255,17 @@ observer.disconnect();
 ...
 ```
 
+```smart header="Records returned by `observer.takeRecords()`are removed from the processing queue" The callback won't be called for records, returned by`observer.takeRecords()`.
 
-```smart header="Records returned by `observer.takeRecords()` are removed from the processing queue"
-The callback won't be called for records, returned by `observer.takeRecords()`.
-```
+````
 
 ```smart header="Garbage collection interaction"
 Observers use weak references to nodes internally. That is, if a node is removed from the DOM, and becomes unreachable, then it can be garbage collected.
 
 The mere fact that a DOM node is observed doesn't prevent the garbage collection.
-```
+````
 
-## Summary  
+## Summary
 
 `MutationObserver` can react to changes in DOM - attributes, text content and adding/removing elements.
 

@@ -101,7 +101,7 @@ Please remember them (or this page) for the cases when you need in-depth informa
 - <a href="manuals-specifications.html#manuals" class="sidebar__link">Manuals</a>
 - <a href="manuals-specifications.html#compatibility-tables" class="sidebar__link">Compatibility tables</a>
 
-- <a href="manuals-specifications.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fmanuals-specifications" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmanuals-specifications" class="share share_fb sidebar__share"></a>
+- <a href="manuals-specifications.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fmanuals-specifications" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmanuals-specifications" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/01-getting-started/2-manuals-specifications" class="sidebar__link">Edit on GitHub</a>
 

@@ -284,7 +284,7 @@ P.S. The solution also has a variant of `isVisible` that “preloads” images t
 - <a href="onscroll.html#prevent-scrolling" class="sidebar__link">Prevent scrolling</a>
 
 - <a href="onscroll.html#tasks" class="sidebar__link">Tasks (3)</a>
-- <a href="onscroll.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fonscroll" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fonscroll" class="share share_fb sidebar__share"></a>
+- <a href="onscroll.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fonscroll" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fonscroll" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/3-event-details/8-onscroll" class="sidebar__link">Edit on GitHub</a>
 

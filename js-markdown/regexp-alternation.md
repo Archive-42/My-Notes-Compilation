@@ -338,7 +338,7 @@ In action:
 - <a href="regexp-alternation.html#example-regexp-for-time" class="sidebar__link">Example: regexp for time</a>
 
 - <a href="regexp-alternation.html#tasks" class="sidebar__link">Tasks (4)</a>
-- <a href="regexp-alternation.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-alternation" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-alternation" class="share share_fb sidebar__share"></a>
+- <a href="regexp-alternation.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-alternation" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-alternation" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/13-regexp-alternation" class="sidebar__link">Edit on GitHub</a>
 

@@ -214,7 +214,7 @@ With Unicode properties we can look for words in given languages, special charac
 - <a href="regexp-unicode.html#unicode-properties-p" class="sidebar__link">Unicode properties \p{…}</a>
 - <a href="regexp-unicode.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="regexp-unicode.html class="sidebar\_\_link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-unicode" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-unicode" class="share share_fb sidebar__share"></a>
+- <a href="regexp-unicode.html class="sidebar\_\_link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-unicode" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-unicode" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/03-regexp-unicode" class="sidebar__link">Edit on GitHub</a>
 

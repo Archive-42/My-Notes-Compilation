@@ -30,19 +30,19 @@ For instance:
 
 ```html run height=200 refresh
 <script>
-  function ready() {
-    alert('DOM is ready');
+    function ready() {
+      alert('DOM is ready');
 
-    // image is not yet loaded (unless it was cached), so the size is 0x0
-    alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
-  }
+      // image is not yet loaded (unless it was cached), so the size is 0x0
+      alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
+    }
 
-*!*
-  document.addEventListener("DOMContentLoaded", ready);
-*/!*
+  *!*
+    document.addEventListener("DOMContentLoaded", ready);
+  */!*
 </script>
 
-<img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0">
+<img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0" />
 ```
 
 In the example, the `DOMContentLoaded` handler runs when the document is loaded, so it can see all the elements, including `<img>` below.
@@ -86,7 +86,7 @@ External style sheets don't affect DOM, so `DOMContentLoaded` does not wait for 
 But there's a pitfall. If we have a script after the style, then that script must wait until the stylesheet loads:
 
 ```html run
-<link type="text/css" rel="stylesheet" href="style.css">
+<link type="text/css" rel="stylesheet" href="style.css" />
 <script>
   // the script doesn't not execute until the stylesheet is loaded
   alert(getComputedStyle(document.body).marginTop);
@@ -105,7 +105,6 @@ For instance, if the page has a form with login and password, and the browser re
 
 So if `DOMContentLoaded` is postponed by long-loading scripts, then autofill also awaits. You probably saw that on some sites (if you use browser autofill) -- the login/password fields don't get autofilled immediately, but there's a delay till the page fully loads. That's actually the delay until the `DOMContentLoaded` event.
 
-
 ## window.onload [#window-onload]
 
 The `load` event on the `window` object triggers when the whole page is loaded including styles, images and other resources. This event is available via the `onload` property.
@@ -114,15 +113,16 @@ The example below correctly shows image sizes, because `window.onload` waits for
 
 ```html run height=200 refresh
 <script>
-  window.onload = function() { // can also use window.addEventListener('load', (event) => {
-    alert('Page loaded');
+  window.onload = function () {
+    // can also use window.addEventListener('load', (event) => {
+    alert("Page loaded");
 
     // image is loaded at this time
     alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
   };
 </script>
 
-<img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0">
+<img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0" />
 ```
 
 ## window.onunload
@@ -140,10 +140,13 @@ There exists a special `navigator.sendBeacon(url, data)` method for such needs, 
 It sends the data in background. The transition to another page is not delayed: the browser leaves the page, but still performs `sendBeacon`.
 
 Here's how to use it:
-```js
-let analyticsData = { /* object with gathered data */ };
 
-window.addEventListener("unload", function() {
+```js
+let analyticsData = {
+  /* object with gathered data */
+};
+
+window.addEventListener("unload", function () {
   navigator.sendBeacon("/analytics", JSON.stringify(analyticsData));
 });
 ```
@@ -154,8 +157,7 @@ window.addEventListener("unload", function() {
 
 When the `sendBeacon` request is finished, the browser probably has already left the document, so there's no way to get server response (which is usually empty for analytics).
 
-There's also a `keepalive` flag for doing such "after-page-left" requests in  [fetch](info:fetch) method for generic network requests. You can find more information in the chapter <info:fetch-api>.
-
+There's also a `keepalive` flag for doing such "after-page-left" requests in [fetch](info:fetch) method for generic network requests. You can find more information in the chapter <info:fetch-api>.
 
 If we want to cancel the transition to another page, we can't do it here. But we can use another event -- `onbeforeunload`.
 
@@ -168,7 +170,7 @@ If we cancel the event, the browser may ask the visitor if they are sure.
 You can try it by running this code and then reloading the page:
 
 ```js run
-window.onbeforeunload = function() {
+window.onbeforeunload = function () {
   return false;
 };
 ```
@@ -178,7 +180,7 @@ For historical reasons, returning a non-empty string also counts as canceling th
 Here's an example:
 
 ```js run
-window.onbeforeunload = function() {
+window.onbeforeunload = function () {
   return "There are unsaved changes. Leave now?";
 };
 ```
@@ -206,11 +208,13 @@ So we can check `document.readyState` and setup a handler or execute the code im
 Like this:
 
 ```js
-function work() { /*...*/ }
+function work() {
+  /*...*/
+}
 
-if (document.readyState == 'loading') {
+if (document.readyState == "loading") {
   // still loading, wait for the event
-  document.addEventListener('DOMContentLoaded', work);
+  document.addEventListener("DOMContentLoaded", work);
 } else {
   // DOM is ready!
   work();
@@ -224,7 +228,9 @@ There's also the `readystatechange` event that triggers when the state changes, 
 console.log(document.readyState);
 
 // print state changes
-document.addEventListener('readystatechange', () => console.log(document.readyState));
+document.addEventListener("readystatechange", () =>
+  console.log(document.readyState)
+);
 ```
 
 The `readystatechange` event is an alternative mechanics of tracking the document loading state, it appeared long ago. Nowadays, it is rarely used.
@@ -235,25 +241,28 @@ Here's a document with `<iframe>`, `<img>` and handlers that log events:
 
 ```html
 <script>
-  log('initial readyState:' + document.readyState);
+  log("initial readyState:" + document.readyState);
 
-  document.addEventListener('readystatechange', () => log('readyState:' + document.readyState));
-  document.addEventListener('DOMContentLoaded', () => log('DOMContentLoaded'));
+  document.addEventListener("readystatechange", () =>
+    log("readyState:" + document.readyState)
+  );
+  document.addEventListener("DOMContentLoaded", () => log("DOMContentLoaded"));
 
-  window.onload = () => log('window onload');
+  window.onload = () => log("window onload");
 </script>
 
 <iframe src="iframe.html" onload="log('iframe onload')"></iframe>
 
-<img src="http://en.js.cx/clipart/train.gif" id="img">
+<img src="http://en.js.cx/clipart/train.gif" id="img" />
 <script>
-  img.onload = () => log('img onload');
+  img.onload = () => log("img onload");
 </script>
 ```
 
 The working example is [in the sandbox](sandbox:readystate).
 
 The typical output:
+
 1. [1] initial readyState:loading
 2. [2] readyState:interactive
 3. [2] DOMContentLoaded
@@ -266,7 +275,6 @@ The numbers in square brackets denote the approximate time of when it happens. E
 
 - `document.readyState` becomes `interactive` right before `DOMContentLoaded`. These two things actually mean the same.
 - `document.readyState` becomes `complete` when all resources (`iframe` and `img`) are loaded. Here we can see that it happens in about the same time as `img.onload` (`img` is the last resource) and `window.onload`. Switching to `complete` state means the same as `window.onload`. The difference is that `window.onload` always works after all other `load` handlers.
-
 
 ## Summary
 

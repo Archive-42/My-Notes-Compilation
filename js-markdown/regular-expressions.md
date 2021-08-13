@@ -72,7 +72,7 @@ Regular expressions is a powerful way of doing search and replace in strings.
 - <a href="data-storage.html" class="sidebar__link">Storing data in the browser</a>
 - <a href="animation.html" class="sidebar__link">Animation</a>
 - <a href="web-components.html" class="sidebar__link">Web components</a>
-- <a href="regular-expressions.html" class="sidebar__link">Regular expressions</a><a s%3A%2F%2Fjavascript.info%2Fregular-expressions" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregular-expressions" class="share share_fb sidebar__share"></a>
+- <a href="regular-expressions.html" class="sidebar__link">Regular expressions</a><a s%3A%2F%2Fjavascript.info%2Fregular-expressions" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregular-expressions" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions" class="sidebar__link">Edit on GitHub</a>
 

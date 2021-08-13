@@ -161,7 +161,7 @@ If there’s none (say, we’re in an old browser), we can create “polyfills�
 - <a href="global-object.html#using-for-polyfills" class="sidebar__link">Using for polyfills</a>
 - <a href="global-object.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="global-object.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fglobal-object" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fglobal-object" class="share share_fb sidebar__share"></a>
+- <a href="global-object.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fglobal-object" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fglobal-object" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/06-advanced-functions/05-global-object" class="sidebar__link">Edit on GitHub</a>
 

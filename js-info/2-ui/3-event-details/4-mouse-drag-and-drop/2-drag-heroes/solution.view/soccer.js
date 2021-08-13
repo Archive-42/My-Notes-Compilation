@@ -1,15 +1,14 @@
 let isDragging = false;
 
-document.addEventListener('mousedown', function(event) {
-
-  let dragElement = event.target.closest('.draggable');
+document.addEventListener("mousedown", function (event) {
+  let dragElement = event.target.closest(".draggable");
 
   if (!dragElement) return;
 
   event.preventDefault();
 
-  dragElement.ondragstart = function() {
-      return false;
+  dragElement.ondragstart = function () {
+    return false;
   };
 
   let coords, shiftX, shiftY;
@@ -18,7 +17,7 @@ document.addEventListener('mousedown', function(event) {
 
   function onMouseUp(event) {
     finishDrag();
-  };
+  }
 
   function onMouseMove(event) {
     moveAt(event.clientX, event.clientY);
@@ -28,36 +27,37 @@ document.addEventListener('mousedown', function(event) {
   //   remember the initial shift
   //   move the element position:fixed and a direct child of body
   function startDrag(element, clientX, clientY) {
-    if(isDragging) {
+    if (isDragging) {
       return;
     }
 
     isDragging = true;
 
-    document.addEventListener('mousemove', onMouseMove);
-    element.addEventListener('mouseup', onMouseUp);
+    document.addEventListener("mousemove", onMouseMove);
+    element.addEventListener("mouseup", onMouseUp);
 
     shiftX = clientX - element.getBoundingClientRect().left;
     shiftY = clientY - element.getBoundingClientRect().top;
 
-    element.style.position = 'fixed';
+    element.style.position = "fixed";
 
     moveAt(clientX, clientY);
-  };
+  }
 
   // switch to absolute coordinates at the end, to fix the element in the document
   function finishDrag() {
-    if(!isDragging) {
+    if (!isDragging) {
       return;
     }
 
     isDragging = false;
 
-    dragElement.style.top = parseInt(dragElement.style.top) + window.pageYOffset + 'px';
-    dragElement.style.position = 'absolute';
+    dragElement.style.top =
+      parseInt(dragElement.style.top) + window.pageYOffset + "px";
+    dragElement.style.position = "absolute";
 
-    document.removeEventListener('mousemove', onMouseMove);
-    dragElement.removeEventListener('mouseup', onMouseUp);
+    document.removeEventListener("mousemove", onMouseMove);
+    dragElement.removeEventListener("mouseup", onMouseUp);
   }
 
   function moveAt(clientX, clientY) {
@@ -87,7 +87,10 @@ document.addEventListener('mousedown', function(event) {
       // a swift mouse move make put the cursor beyond the document end
       // if that happens -
       // limit the new Y by the maximally possible (right at the bottom of the document)
-      newY = Math.min(newY, document.documentElement.clientHeight - dragElement.offsetHeight);
+      newY = Math.min(
+        newY,
+        document.documentElement.clientHeight - dragElement.offsetHeight
+      );
     }
 
     // check if the new coordinates are above the top window edge (similar logic)
@@ -101,7 +104,6 @@ document.addEventListener('mousedown', function(event) {
       newY = Math.max(newY, 0); // newY may not be below 0
     }
 
-
     // limit the new X within the window boundaries
     // there's no scroll here so it's simple
     if (newX < 0) newX = 0;
@@ -109,8 +111,7 @@ document.addEventListener('mousedown', function(event) {
       newX = document.documentElement.clientWidth - dragElement.offsetWidth;
     }
 
-    dragElement.style.left = newX + 'px';
-    dragElement.style.top = newY + 'px';
+    dragElement.style.left = newX + "px";
+    dragElement.style.top = newY + "px";
   }
-
 });

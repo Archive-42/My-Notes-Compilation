@@ -1,5 +1,5 @@
-
 The algorithm looks simple:
+
 1. Put `onmouseover/out` handlers on the element. Also can use `onmouseenter/leave` here, but they are less universal, won't work if we introduce delegation.
 2. When a mouse cursor entered the element, start measuring the speed on `mousemove`.
 3. If the speed is slow, then run `over`.

@@ -8,7 +8,7 @@ Working with forms will be much more convenient when we learn them.
 
 Document forms are members of the special collection `document.forms`.
 
-That's a so-called *"named collection"*: it's both named and ordered. We can use both the name or the number in the document to get the form.
+That's a so-called _"named collection"_: it's both named and ordered. We can use both the name or the number in the document to get the form.
 
 ```js no-beautify
 document.forms.my; // the form with name="my"
@@ -21,8 +21,8 @@ For instance:
 
 ```html run height=40
 <form name="my">
-  <input name="one" value="1">
-  <input name="two" value="2">
+  <input name="one" value="1" />
+  <input name="two" value="2" />
 </form>
 
 <script>
@@ -38,29 +38,28 @@ For instance:
 
 There may be multiple elements with the same name. This is typical with radio buttons and checkboxes.
 
-In that case, `form.elements[name]` is a *collection*. For instance:
+In that case, `form.elements[name]` is a _collection_. For instance:
 
 ```html run height=40
 <form>
-  <input type="radio" *!*name="age"*/!* value="10">
-  <input type="radio" *!*name="age"*/!* value="20">
+  <input type="radio" *!*name="age"*/!* value="10"> <input type="radio"
+  *!*name="age"*/!* value="20">
 </form>
 
 <script>
-let form = document.forms[0];
+  let form = document.forms[0];
 
-let ageElems = form.elements.age;
+  let ageElems = form.elements.age;
 
-*!*
-alert(ageElems[0]); // [object HTMLInputElement]
-*/!*
+  *!*
+  alert(ageElems[0]); // [object HTMLInputElement]
+  */!*
 </script>
 ```
 
 These navigation properties do not depend on the tag structure. All control elements, no matter how deep they are in the form, are available in `form.elements`.
 
-
-````smart header="Fieldsets as \"subforms\""
+````smart header="Fieldsets as "subforms""
 A form may have one or many `<fieldset>` elements inside it. They also have `elements` property that lists form controls inside them.
 
 For instance:
@@ -89,8 +88,7 @@ For instance:
 ```
 ````
 
-````warn header="Shorter notation: `form.name`"
-There's a shorter notation: we can access the element as `form[index/name]`.
+````warn header="Shorter notation: `form.name`" There's a shorter notation: we can access the element as `form[index/name]`.
 
 In other words, instead of `form.elements.login` we can write `form.login`.
 
@@ -100,22 +98,22 @@ That's easy to see in an example:
 
 ```html run height=40
 <form id="form">
-  <input name="login">
+  <input name="login" />
 </form>
 
 <script>
-  alert(form.elements.login == form.login); // true, the same <input>
+    alert(form.elements.login == form.login); // true, the same <input>
 
-  form.login.name = "username"; // change the name of the input
+    form.login.name = "username"; // change the name of the input
 
-  // form.elements updated the name:
-  alert(form.elements.login); // undefined
-  alert(form.elements.username); // input
+    // form.elements updated the name:
+    alert(form.elements.login); // undefined
+    alert(form.elements.username); // input
 
-*!*
-  // form allows both names: the new one and the old one
-  alert(form.username == form.login); // true
-*/!*
+  *!*
+    // form allows both names: the new one and the old one
+    alert(form.username == form.login); // true
+  */!*
 </script>
 ```
 
@@ -197,7 +195,7 @@ Here is an example of all three methods:
 
 <script>
   // all three lines do the same thing
-  select.options[2].selected = true; 
+  select.options[2].selected = true;
   select.selectedIndex = 2;
   select.value = 'banana';
   // please note: options start from zero, so index 2 means the 3rd option.
@@ -223,7 +221,7 @@ Here's an example of how to get selected values from a multi-select:
     .filter(option => option.selected)
     .map(option => option.value);
 
-  alert(selected); // blues,rock  
+  alert(selected); // blues,rock
 </script>
 ```
 
@@ -283,7 +281,7 @@ Form navigation:
 `document.forms`
 : A form is available as `document.forms[name/index]`.
 
-`form.elements`  
+`form.elements`
 : Form elements are available as `form.elements[name/index]`, or can use just `form[name/index]`. The `elements` property also works for `<fieldset>`.
 
 `element.form`
@@ -296,3 +294,4 @@ For `<select>`, one can also get the value by the index `select.selectedIndex` o
 These are the basics to start working with forms. We'll meet many examples further in the tutorial.
 
 In the next chapter we'll cover `focus` and `blur` events that may occur on any element, but are mostly handled on forms.
+````

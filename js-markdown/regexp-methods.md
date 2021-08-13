@@ -445,7 +445,7 @@ To work around that, we can set `regexp.lastIndex = 0` before each search. Or in
 - <a href="regexp-methods.html#regexp-exec-str" class="sidebar__link">regexp.exec(str)</a>
 - <a href="regexp-methods.html#regexp-test-str" class="sidebar__link">regexp.test(str)</a>
 
-- <a href="regexp-methods.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-methods" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-methods" class="share share_fb sidebar__share"></a>
+- <a href="regexp-methods.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-methods" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-methods" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/17-regexp-methods" class="sidebar__link">Edit on GitHub</a>
 

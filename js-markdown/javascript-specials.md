@@ -348,7 +348,7 @@ That was a brief list of JavaScript features. As of now we’ve studied only bas
 - <a href="javascript-specials.html#functions" class="sidebar__link">Functions</a>
 - <a href="javascript-specials.html#more-to-come" class="sidebar__link">More to come</a>
 
-- <a href="javascript-specials.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fjavascript-specials" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjavascript-specials" class="share share_fb sidebar__share"></a>
+- <a href="javascript-specials.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fjavascript-specials" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjavascript-specials" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps/18-javascript-specials" class="sidebar__link">Edit on GitHub</a>
 

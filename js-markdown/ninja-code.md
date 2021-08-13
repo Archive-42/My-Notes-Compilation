@@ -301,7 +301,7 @@ All “pieces of advice” above are from the real code… Sometimes, written by
 - <a href="ninja-code.html#powerful-functions" class="sidebar__link">Powerful functions!</a>
 - <a href="ninja-code.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="ninja-code.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fninja-code" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fninja-code" class="share share_fb sidebar__share"></a>
+- <a href="ninja-code.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fninja-code" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fninja-code" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/03-code-quality/04-ninja-code" class="sidebar__link">Edit on GitHub</a>
 

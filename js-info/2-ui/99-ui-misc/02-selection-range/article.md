@@ -1,6 +1,7 @@
 libs:
-  - d3
-  - domtree
+
+- d3
+- domtree
 
 ---
 
@@ -42,7 +43,7 @@ For example, given the element `<p>Hello</p>`, we can create the range containin
   let range = new Range();
   range.setStart(p.firstChild, 2);
   range.setEnd(p.firstChild, 4);
-  
+
   // toString of a range returns its content as text
   console.log(range); // ll
 </script>
@@ -54,7 +55,7 @@ Here we take the first child of `<p>` (that's the text node) and specify the tex
 
 ### Selecting element nodes
 
-**Alternatively, if `node` is an element node, then `offset` must be the child number.** 
+**Alternatively, if `node` is an element node, then `offset` must be the child number.**
 
 That's handy for making ranges that contain nodes as a whole, not stop somewhere inside their text.
 
@@ -110,10 +111,11 @@ As we can see, this phrase consists of exactly two children of `<p>`, with index
 
 - The starting point has `<p>` as the parent `node`, and `0` as the offset.
 
-    So we can set it as `range.setStart(p, 0)`.
+  So we can set it as `range.setStart(p, 0)`.
+
 - The ending point also has `<p>` as the parent `node`, but `2` as the offset (it specifies the range up to, but not including `offset`).
 
-    So we can set it as `range.setEnd(p, 2)`.
+  So we can set it as `range.setEnd(p, 2)`.
 
 Here's the demo. If you run it, you can see that the text gets selected:
 
@@ -121,18 +123,18 @@ Here's the demo. If you run it, you can see that the text gets selected:
 <p id="p">Example: <i>italic</i> and <b>bold</b></p>
 
 <script>
-*!*
-  let range = new Range();
+  *!*
+    let range = new Range();
 
-  range.setStart(p, 0);
-  range.setEnd(p, 2);
-*/!*
+    range.setStart(p, 0);
+    range.setEnd(p, 2);
+  */!*
 
-  // toString of a range returns its content as text, without tags
-  console.log(range); // Example: italic
+    // toString of a range returns its content as text, without tags
+    console.log(range); // Example: italic
 
-  // apply this range for document selection (explained later below)
-  document.getSelection().addRange(range);
+    // apply this range for document selection (explained later below)
+    document.getSelection().addRange(range);
 </script>
 ```
 
@@ -141,7 +143,8 @@ Here's a more flexible test stand where you can set range start/end numbers and 
 ```html run autorun
 <p id="p">Example: <i>italic</i> and <b>bold</b></p>
 
-From <input id="start" type="number" value=1> – To <input id="end" type="number" value=4>
+From <input id="start" type="number" value="1" /> – To
+<input id="end" type="number" value="4" />
 <button id="button">Click to select</button>
 <script>
   button.onclick = () => {
@@ -176,6 +179,7 @@ Let's make a bigger selection in our example, like this:
 We already know how to do that. We just need to set the start and the end as a relative offset in text nodes.
 
 We need to create a range, that:
+
 - starts from position 2 in `<p>` first child (taking all but two first letters of "Ex<b>ample:</b> ")
 - ends at the position 3 in `<b>` first child (taking first three letters of "<b>bol</b>d", but no more):
 
@@ -186,7 +190,7 @@ We need to create a range, that:
   let range = new Range();
 
   range.setStart(p.firstChild, 2);
-  range.setEnd(p.querySelector('b').firstChild, 3);
+  range.setEnd(p.querySelector("b").firstChild, 3);
 
   console.log(range); // ample: italic and bol
 
@@ -197,7 +201,7 @@ We need to create a range, that:
 
 As you can see, it's fairly easy to make a range of whatever we want.
 
-If we'd like to take nodes as a whole, we can pass elements in `setStart/setEnd`. Otherwise, we can work on the text level. 
+If we'd like to take nodes as a whole, we can pass elements in `setStart/setEnd`. Otherwise, we can work on the text level.
 
 ## Range properties
 
@@ -213,7 +217,6 @@ The range object that we created in the example above has following properties:
   - in the example above: `false`
 - `commonAncestorContainer` -- the nearest common ancestor of all nodes within the range,
   - in the example above: `<p>`
-
 
 ## Range selection methods
 
@@ -238,6 +241,7 @@ Technically, `setStart/setEnd` can do anything, but more methods provide more co
 In all these methods, `node` can be both a text or element node: for text nodes `offset` skips that many of characters, while for element nodes that many child nodes.
 
 Even more methods to create ranges:
+
 - `selectNode(node)` set range to select the whole `node`
 - `selectNodeContents(node)` set range to select the whole `node` contents
 - `collapse(toStart)` if `toStart=true` set end=start, otherwise set start=end, thus collapsing the range
@@ -269,7 +273,7 @@ Click buttons to run methods on the selection, "resetExample" to reset it.
   // Each demonstrated method is represented here:
   let methods = {
     deleteContents() {
-      range.deleteContents()
+      range.deleteContents();
     },
     extractContents() {
       let content = range.extractContents();
@@ -282,30 +286,34 @@ Click buttons to run methods on the selection, "resetExample" to reset it.
       result.append("cloned: ", content);
     },
     insertNode() {
-      let newNode = document.createElement('u');
+      let newNode = document.createElement("u");
       newNode.innerHTML = "NEW NODE";
       range.insertNode(newNode);
     },
     surroundContents() {
-      let newNode = document.createElement('u');
+      let newNode = document.createElement("u");
       try {
         range.surroundContents(newNode);
-      } catch(e) { console.log(e) }
+      } catch (e) {
+        console.log(e);
+      }
     },
     resetExample() {
       p.innerHTML = `Example: <i>italic</i> and <b>bold</b>`;
       result.innerHTML = "";
 
       range.setStart(p.firstChild, 2);
-      range.setEnd(p.querySelector('b').firstChild, 3);
+      range.setEnd(p.querySelector("b").firstChild, 3);
 
-      window.getSelection().removeAllRanges();  
-      window.getSelection().addRange(range);  
-    }
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+    },
   };
 
-  for(let method in methods) {
-    document.write(`<div><button onclick="methods.${method}()">${method}</button></div>`);
+  for (let method in methods) {
+    document.write(
+      `<div><button onclick="methods.${method}()">${method}</button></div>`
+    );
   }
 
   methods.resetExample();
@@ -313,7 +321,6 @@ Click buttons to run methods on the selection, "resetExample" to reset it.
 ```
 
 There also exist methods to compare ranges, but these are rarely used. When you need them, please refer to the [spec](https://dom.spec.whatwg.org/#interface-range) or [MDN manual](mdn:/api/Range).
-
 
 ## Selection
 
@@ -356,7 +363,7 @@ The main selection properties are:
 
 There's an important differences of a selection anchor/focus compared with a `Range` start/end.
 
-As we know, `Range` objects always have their start before the end. 
+As we know, `Range` objects always have their start before the end.
 
 For selections, that's not always the case.
 
@@ -377,10 +384,10 @@ E.g. if the user starts selecting with mouse and goes from "Example" to "italic"
 
 There are events on to keep track of selection:
 
-- `elem.onselectstart` -- when a selection *starts* specifically on element `elem` (or inside it). For instance, when the user presses the mouse button on it and starts to move the pointer.
-    - Preventing the default action cancels the selection start. So starting a selection from this element becomes impossible, but the element is still selectable. The visitor just needs to start the selection from elsewhere.
+- `elem.onselectstart` -- when a selection _starts_ specifically on element `elem` (or inside it). For instance, when the user presses the mouse button on it and starts to move the pointer.
+  - Preventing the default action cancels the selection start. So starting a selection from this element becomes impossible, but the element is still selectable. The visitor just needs to start the selection from elsewhere.
 - `document.onselectionchange` -- whenever a selection changes or starts.
-    - Please note: this handler can be set only on `document`, it tracks all selections in it.
+  - Please note: this handler can be set only on `document`, it tracks all selections in it.
 
 ### Selection tracking demo
 
@@ -389,12 +396,12 @@ Here's a small demo. It tracks the current selection on the `document` and shows
 ```html run height=80
 <p id="p">Select me: <i>italic</i> and <b>bold</b></p>
 
-From <input id="from" disabled> – To <input id="to" disabled>
+From <input id="from" disabled /> – To <input id="to" disabled />
 <script>
-  document.onselectionchange = function() {
+  document.onselectionchange = function () {
     let selection = document.getSelection();
 
-    let {anchorNode, anchorOffset, focusNode, focusOffset} = selection;
+    let { anchorNode, anchorOffset, focusNode, focusOffset } = selection;
 
     // anchorNode and focusNode are text nodes usually
     from.value = `${anchorNode?.data}, offset ${anchorOffset}`;
@@ -416,11 +423,11 @@ Here's the demo of copying the selected content both as text and as DOM nodes:
 <p id="p">Select me: <i>italic</i> and <b>bold</b></p>
 
 Cloned: <span id="cloned"></span>
-<br>
+<br />
 As text: <span id="astext"></span>
 
 <script>
-  document.onselectionchange = function() {
+  document.onselectionchange = function () {
     let selection = document.getSelection();
 
     cloned.innerHTML = astext.innerHTML = "";
@@ -496,11 +503,13 @@ The exception is some selection methods, that replace the existing selection, su
 Form elements, such as `input` and `textarea` provide [special API for selection](https://html.spec.whatwg.org/#textFieldSelection), without `Selection` or `Range` objects. As an input value is a pure text, not HTML, there's no need for such objects, everything's much simpler.
 
 Properties:
+
 - `input.selectionStart` -- position of selection start (writeable),
 - `input.selectionEnd` -- position of selection end (writeable),
 - `input.selectionDirection` -- selection direction, one of: "forward", "backward" or "none" (if e.g. selected with a double mouse click),
 
 Events:
+
 - `input.onselect` -- triggers when something is selected.
 
 Methods:
@@ -509,14 +518,14 @@ Methods:
 - `input.setSelectionRange(start, end, [direction])` -- change the selection to span from position `start` till `end`, in the given direction (optional).
 - `input.setRangeText(replacement, [start], [end], [selectionMode])` -- replace a range of text with the new text.
 
-    Optional arguments `start` and `end`, if provided, set the range start and end, otherwise user selection is used.
+  Optional arguments `start` and `end`, if provided, set the range start and end, otherwise user selection is used.
 
-    The last argument, `selectionMode`, determines how the selection will be set after the text has been replaced. The possible values are:
+  The last argument, `selectionMode`, determines how the selection will be set after the text has been replaced. The possible values are:
 
-    - `"select"` -- the newly inserted text will be selected.
-    - `"start"` -- the selection range collapses just before the inserted text (the cursor will be immediately before it).
-    - `"end"` -- the selection range collapses just after the inserted text (the cursor will be right after it).
-    - `"preserve"` -- attempts to preserve the selection. This is the default.
+  - `"select"` -- the newly inserted text will be selected.
+  - `"start"` -- the selection range collapses just before the inserted text (the cursor will be immediately before it).
+  - `"end"` -- the selection range collapses just after the inserted text (the cursor will be right after it).
+  - `"preserve"` -- attempts to preserve the selection. This is the default.
 
 Now let's see these methods in action.
 
@@ -528,11 +537,11 @@ For example, this code uses `onselect` event to track selection:
 <textarea id="area" style="width:80%;height:60px">
 Selecting in this text updates values below.
 </textarea>
-<br>
-From <input id="from" disabled> – To <input id="to" disabled>
+<br />
+From <input id="from" disabled /> – To <input id="to" disabled />
 
 <script>
-  area.onselect = function() {
+  area.onselect = function () {
     from.value = area.selectionStart;
     to.value = area.selectionEnd;
   };
@@ -540,9 +549,9 @@ From <input id="from" disabled> – To <input id="to" disabled>
 ```
 
 Please note:
+
 - `onselect` triggers when something is selected, but not when the selection is removed.
 - `document.onselectionchange` event should not trigger for selections inside a form control, according to the [spec](https://w3c.github.io/selection-api/#dfn-selectionchange), as it's not related to `document` selection and ranges. Some browsers generate it, but we shouldn't rely on it.
-
 
 ### Example: moving cursor
 
@@ -580,18 +589,22 @@ That's a somewhat complex method. In its simplest one-argument form it replaces 
 For example, here the user selection will be wrapped by `*...*`:
 
 ```html run autorun
-<input id="input" style="width:200px" value="Select here and click the button">
+<input
+  id="input"
+  style="width:200px"
+  value="Select here and click the button"
+/>
 <button id="button">Wrap selection in stars *...*</button>
 
 <script>
-button.onclick = () => {
-  if (input.selectionStart == input.selectionEnd) {
-    return; // nothing is selected
-  }
+  button.onclick = () => {
+    if (input.selectionStart == input.selectionEnd) {
+      return; // nothing is selected
+    }
 
-  let selected = input.value.slice(input.selectionStart, input.selectionEnd);
-  input.setRangeText(`*${selected}*`);
-};
+    let selected = input.value.slice(input.selectionStart, input.selectionEnd);
+    input.setRangeText(`*${selected}*`);
+  };
 </script>
 ```
 
@@ -600,17 +613,17 @@ With more arguments, we can set range `start` and `end`.
 In this example we find `"THIS"` in the input text, replace it and keep the replacement selected:
 
 ```html run autorun
-<input id="input" style="width:200px" value="Replace THIS in text">
+<input id="input" style="width:200px" value="Replace THIS in text" />
 <button id="button">Replace THIS</button>
 
 <script>
-button.onclick = () => {
-  let pos = input.value.indexOf("THIS");
-  if (pos >= 0) {
-    input.setRangeText("*THIS*", pos, pos + 4, "select");
-    input.focus(); // focus to make selection visible
-  }
-};
+  button.onclick = () => {
+    let pos = input.value.indexOf("THIS");
+    if (pos >= 0) {
+      input.setRangeText("*THIS*", pos, pos + 4, "select");
+      input.focus(); // focus to make selection visible
+    }
+  };
 </script>
 ```
 
@@ -623,17 +636,21 @@ We can also insert something "at the cursor" using `setRangeText`.
 Here's a button that inserts `"HELLO"` at the cursor position and puts the cursor immediately after it. If the selection is not empty, then it gets replaced (we can detect it by comparing `selectionStart!=selectionEnd` and do something else instead):
 
 ```html run autorun
-<input id="input" style="width:200px" value="Text Text Text Text Text">
+<input id="input" style="width:200px" value="Text Text Text Text Text" />
 <button id="button">Insert "HELLO" at cursor</button>
 
 <script>
   button.onclick = () => {
-    input.setRangeText("HELLO", input.selectionStart, input.selectionEnd, "end");
+    input.setRangeText(
+      "HELLO",
+      input.selectionStart,
+      input.selectionEnd,
+      "end"
+    );
     input.focus();
-  };    
+  };
 </script>
 ```
-
 
 ## Making unselectable
 
@@ -641,33 +658,40 @@ To make something unselectable, there are three ways:
 
 1. Use CSS property `user-select: none`.
 
-    ```html run
-    <style>
-    #elem {
-      user-select: none;
-    }
-    </style>
-    <div>Selectable <div id="elem">Unselectable</div> Selectable</div>
-    ```
+   ```html run
+   <style>
+     #elem {
+       user-select: none;
+     }
+   </style>
+   <div>
+     Selectable
+     <div id="elem">Unselectable</div>
+     Selectable
+   </div>
+   ```
 
-    This doesn't allow the selection to start at `elem`. But the user may start the selection elsewhere and include `elem` into it.
+   This doesn't allow the selection to start at `elem`. But the user may start the selection elsewhere and include `elem` into it.
 
-    Then `elem` will become a part of `document.getSelection()`, so the selection actually happens, but its content is usually ignored in copy-paste.
-
+   Then `elem` will become a part of `document.getSelection()`, so the selection actually happens, but its content is usually ignored in copy-paste.
 
 2. Prevent default action in `onselectstart` or `mousedown` events.
 
-    ```html run
-    <div>Selectable <div id="elem">Unselectable</div> Selectable</div>
+   ```html run
+   <div>
+     Selectable
+     <div id="elem">Unselectable</div>
+     Selectable
+   </div>
 
-    <script>
-      elem.onselectstart = () => false;
-    </script>
-    ```
+   <script>
+     elem.onselectstart = () => false;
+   </script>
+   ```
 
-    This prevents starting the selection on `elem`, but the visitor may start it at another element, then extend to `elem`.
+   This prevents starting the selection on `elem`, but the visitor may start it at another element, then extend to `elem`.
 
-    That's convenient when there's another event handler on the same action that triggers the select (e.g. `mousedown`). So we disable the selection to avoid conflict, still allowing `elem` contents to be copied.
+   That's convenient when there's another event handler on the same action that triggers the select (e.g. `mousedown`). So we disable the selection to avoid conflict, still allowing `elem` contents to be copied.
 
 3. We can also clear the selection post-factum after it happens with `document.getSelection().empty()`. That's rarely used, as this causes unwanted blinking as the selection appears-disappears.
 
@@ -676,7 +700,6 @@ To make something unselectable, there are three ways:
 - [DOM spec: Range](https://dom.spec.whatwg.org/#ranges)
 - [Selection API](https://www.w3.org/TR/selection-api/#dom-globaleventhandlers-onselectstart)
 - [HTML spec: APIs for the text control selections](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#textFieldSelection)
-
 
 ## Summary
 
@@ -690,27 +713,30 @@ The second API is very simple, as it works with text.
 The most used recipes are probably:
 
 1. Getting the selection:
-    ```js
-    let selection = document.getSelection();
 
-    let cloned = /* element to clone the selected nodes to */;
+   ```js
+   let selection = document.getSelection();
 
-    // then apply Range methods to selection.getRangeAt(0)
-    // or, like here, to all ranges to support multi-select
-    for (let i = 0; i < selection.rangeCount; i++) {
-      cloned.append(selection.getRangeAt(i).cloneContents());
-    }
-    ```
+   let cloned = /* element to clone the selected nodes to */;
+
+   // then apply Range methods to selection.getRangeAt(0)
+   // or, like here, to all ranges to support multi-select
+   for (let i = 0; i < selection.rangeCount; i++) {
+     cloned.append(selection.getRangeAt(i).cloneContents());
+   }
+   ```
+
 2. Setting the selection:
-    ```js
-    let selection = document.getSelection();
 
-    // directly:
-    selection.setBaseAndExtent(...from...to...);
+   ```js
+   let selection = document.getSelection();
 
-    // or we can create a range and:
-    selection.removeAllRanges();
-    selection.addRange(range);
-    ```
+   // directly:
+   selection.setBaseAndExtent(...from...to...);
 
-And finally, about the cursor. The cursor position in editable elements, like `<textarea>` is always at the start or the end of the selection. We can use it  to get cursor position or to move the cursor by setting `elem.selectionStart` and `elem.selectionEnd`.
+   // or we can create a range and:
+   selection.removeAllRanges();
+   selection.addRange(range);
+   ```
+
+And finally, about the cursor. The cursor position in editable elements, like `<textarea>` is always at the start or the end of the selection. We can use it to get cursor position or to move the cursor by setting `elem.selectionStart` and `elem.selectionEnd`.

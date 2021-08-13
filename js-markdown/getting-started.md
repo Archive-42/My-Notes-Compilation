@@ -67,7 +67,7 @@ About the JavaScript language and the environment to develop with it.
 - <a href="async.html" class="sidebar__link">Promises, async/await</a>
 - <a href="generators-iterators.html" class="sidebar__link">Generators, advanced iteration</a>
 - <a href="modules.html" class="sidebar__link">Modules</a>
-- <a href="js-misc.html" class="sidebar__link">Miscellaneous</a><a s%3A%2F%2Fjavascript.info%2Fgetting-started" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fgetting-started" class="share share_fb sidebar__share"></a>
+- <a href="js-misc.html" class="sidebar__link">Miscellaneous</a><a s%3A%2F%2Fjavascript.info%2Fgetting-started" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fgetting-started" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/01-getting-started" class="sidebar__link">Edit on GitHub</a>
 

@@ -23,19 +23,19 @@ These are the basics. Later we'll see how to other features, such as highlightin
 Here's the implementation of dragging a ball:
 
 ```js
-ball.onmousedown = function(event) { 
+ball.onmousedown = function (event) {
   // (1) prepare to moving: make absolute and on top by z-index
-  ball.style.position = 'absolute';
+  ball.style.position = "absolute";
   ball.style.zIndex = 1000;
 
   // move it out of any current parents directly into body
   // to make it positioned relative to the body
-  document.body.append(ball);  
+  document.body.append(ball);
 
   // centers the ball at (pageX, pageY) coordinates
   function moveAt(pageX, pageY) {
-    ball.style.left = pageX - ball.offsetWidth / 2 + 'px';
-    ball.style.top = pageY - ball.offsetHeight / 2 + 'px';
+    ball.style.left = pageX - ball.offsetWidth / 2 + "px";
+    ball.style.top = pageY - ball.offsetHeight / 2 + "px";
   }
 
   // move our absolutely positioned ball under the pointer
@@ -46,14 +46,13 @@ ball.onmousedown = function(event) {
   }
 
   // (2) move the ball on mousemove
-  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener("mousemove", onMouseMove);
 
   // (3) drop the ball, remove unneeded handlers
-  ball.onmouseup = function() {
-    document.removeEventListener('mousemove', onMouseMove);
+  ball.onmouseup = function () {
+    document.removeEventListener("mousemove", onMouseMove);
     ball.onmouseup = null;
   };
-
 };
 ```
 
@@ -72,7 +71,7 @@ That's because the browser has its own drag'n'drop support for images and some o
 To disable it:
 
 ```js
-ball.ondragstart = function() {
+ball.ondragstart = function () {
   return false;
 };
 ```
@@ -96,8 +95,8 @@ So we should listen on `document` to catch it.
 In the examples above the ball is always moved so, that it's center is under the pointer:
 
 ```js
-ball.style.left = pageX - ball.offsetWidth / 2 + 'px';
-ball.style.top = pageY - ball.offsetHeight / 2 + 'px';
+ball.style.left = pageX - ball.offsetWidth / 2 + "px";
+ball.style.top = pageY - ball.offsetHeight / 2 + "px";
 ```
 
 Not bad, but there's a side-effect. To initiate the drag'n'drop, we can `mousedown` anywhere on the ball. But if "take" it from its edge, then the ball suddenly "jumps" to become centered under the mouse pointer.
@@ -112,22 +111,22 @@ Let's update our algorithm:
 
 1. When a visitor presses the button (`mousedown`) - remember the distance from the pointer to the left-upper corner of the ball in variables `shiftX/shiftY`. We'll keep that distance while dragging.
 
-    To get these shifts we can substract the coordinates:
+   To get these shifts we can substract the coordinates:
 
-    ```js
-    // onmousedown
-    let shiftX = event.clientX - ball.getBoundingClientRect().left;
-    let shiftY = event.clientY - ball.getBoundingClientRect().top;
-    ```
+   ```js
+   // onmousedown
+   let shiftX = event.clientX - ball.getBoundingClientRect().left;
+   let shiftY = event.clientY - ball.getBoundingClientRect().top;
+   ```
 
 2. Then while dragging we position the ball on the same shift relative to the pointer, like this:
 
-    ```js
-    // onmousemove
-    // ball has position:absolute
-    ball.style.left = event.pageX - *!*shiftX*/!* + 'px';
-    ball.style.top = event.pageY - *!*shiftY*/!* + 'px';
-    ```
+   ```js
+   // onmousemove
+   // ball has position:absolute
+   ball.style.left = event.pageX - *!*shiftX*/!* + 'px';
+   ball.style.top = event.pageY - *!*shiftY*/!* + 'px';
+   ```
 
 The final code with better positioning:
 
@@ -187,6 +186,7 @@ In previous examples the ball could be dropped just "anywhere" to stay. In real-
 Speaking abstract, we take a "draggable" element and drop it onto "droppable" element.
 
 We need to know:
+
 - where the element was dropped at the end of Drag'n'Drop -- to do the corresponding action,
 - and, preferably, know the droppable we're dragging over, to highlight it.
 
@@ -255,7 +255,7 @@ function onMouseMove(event) {
   if (!elemBelow) return;
 
   // potential droppables are labeled with the class "droppable" (can be other logic)
-  let droppableBelow = elemBelow.closest('.droppable');
+  let droppableBelow = elemBelow.closest(".droppable");
 
   if (currentDroppable != droppableBelow) {
     // we're flying in or out...
@@ -297,7 +297,7 @@ We can lay a lot on this foundation.
 - On `mouseup` we can intellectually finalize the drop: change data, move elements around.
 - We can highlight the elements we're flying over.
 - We can limit dragging by a certain area or direction.
-- We can use event delegation for `mousedown/up`. A large-area event handler that checks  `event.target` can manage Drag'n'Drop for hundreds of elements.
+- We can use event delegation for `mousedown/up`. A large-area event handler that checks `event.target` can manage Drag'n'Drop for hundreds of elements.
 - And so on.
 
 There are frameworks that build architecture over it: `DragZone`, `Droppable`, `Draggable` and other classes. Most of them do the similar stuff to what's described above, so it should be easy to understand them now. Or roll your own, as you can see that that's easy enough to do, sometimes easier than adapting a third-party solution.

@@ -436,7 +436,7 @@ That’s an example of how low-level Promise API can still be useful even if we 
 - <a href="fetch.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="fetch.html#tasks" class="sidebar__link">Tasks (1)</a>
-- <a href="fetch.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ffetch" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch" class="share share_fb sidebar__share"></a>
+- <a href="fetch.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ffetch" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/01-fetch" class="sidebar__link">Edit on GitHub</a>
 

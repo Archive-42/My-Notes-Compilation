@@ -352,7 +352,7 @@ Bubbling and capturing lay the foundation for “event delegation” – an extr
 - <a href="bubbling-and-capturing.html#capturing" class="sidebar__link">Capturing</a>
 - <a href="bubbling-and-capturing.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="bubbling-and-capturing.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fbubbling-and-capturing" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbubbling-and-capturing" class="share share_fb sidebar__share"></a>
+- <a href="bubbling-and-capturing.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fbubbling-and-capturing" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbubbling-and-capturing" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/2-events/02-bubbling-and-capturing" class="sidebar__link">Edit on GitHub</a>
 

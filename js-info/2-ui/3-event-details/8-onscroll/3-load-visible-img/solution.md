@@ -10,7 +10,6 @@ Or put it at the `<body>` bottom:
 // ...the page content is above...
 
 function isVisible(elem) {
-
   let coords = elem.getBoundingClientRect();
 
   let windowHeight = document.documentElement.clientHeight;
