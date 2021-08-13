@@ -64,7 +64,7 @@ setTimeout("alert('Hello')", 1000);
 But using strings is not recommended, use arrow functions instead of them, like this:
 
 ```js run no-beautify
-setTimeout(() => alert('Hello'), 1000);
+setTimeout(() => alert("Hello"), 1000);
 ```
 
 ````smart header="Pass a function, but don't run it"
@@ -120,17 +120,20 @@ The following example will show the message every 2 seconds. After 5 seconds, th
 
 ```js run
 // repeat with the interval of 2 seconds
-let timerId = setInterval(() => alert('tick'), 2000);
+let timerId = setInterval(() => alert("tick"), 2000);
 
 // after 5 seconds stop
-setTimeout(() => { clearInterval(timerId); alert('stop'); }, 5000);
+setTimeout(() => {
+  clearInterval(timerId);
+  alert("stop");
+}, 5000);
 ```
 
-```smart header="Time goes on while `alert` is shown"
-In most browsers, including Chrome and Firefox the internal timer continues "ticking" while showing `alert/confirm/prompt`.
+```smart header="Time goes on while `alert`is shown" In most browsers, including Chrome and Firefox the internal timer continues "ticking" while showing`alert/confirm/prompt`.
 
 So if you run the code above and don't dismiss the `alert` window for some time, then the next `alert` will be shown immediately as you do it. The actual interval between alerts will be shorter than 2 seconds.
-```
+
+````
 
 ## Nested setTimeout
 
@@ -149,7 +152,7 @@ let timerId = setTimeout(function tick() {
   timerId = setTimeout(tick, 2000); // (*)
 */!*
 }, 2000);
-```
+````
 
 The `setTimeout` above schedules the next call right at the end of the current one `(*)`.
 
@@ -158,6 +161,7 @@ The nested `setTimeout` is a more flexible method than `setInterval`. This way t
 For instance, we need to write a service that sends a request to the server every 5 seconds asking for data, but in case the server is overloaded, it should increase the interval to 10, 20, 40 seconds...
 
 Here's the pseudocode:
+
 ```js
 let delay = 5000;
 
@@ -174,7 +178,6 @@ let timerId = setTimeout(function request() {
 }, delay);
 ```
 
-
 And if the functions that we're scheduling are CPU-hungry, then we can measure the time taken by the execution and plan the next call sooner or later.
 
 **Nested `setTimeout` allows to set the delay between the executions more precisely than `setInterval`.**
@@ -183,7 +186,7 @@ Let's compare two code fragments. The first one uses `setInterval`:
 
 ```js
 let i = 1;
-setInterval(function() {
+setInterval(function () {
   func(i++);
 }, 100);
 ```
@@ -210,7 +213,7 @@ That's normal, because the time taken by `func`'s execution "consumes" a part of
 
 It is possible that `func`'s execution turns out to be longer than we expected and takes more than 100ms.
 
-In this case the engine waits for `func` to complete, then checks the scheduler and if the time is up, runs it again *immediately*.
+In this case the engine waits for `func` to complete, then checks the scheduler and if the time is up, runs it again _immediately_.
 
 In the edge case, if the function always executes longer than `delay` ms, then the calls will happen without a pause at all.
 
@@ -288,13 +291,14 @@ For server-side JavaScript, that limitation does not exist, and there exist othe
 
 - Methods `setTimeout(func, delay, ...args)` and `setInterval(func, delay, ...args)` allow us to run the `func` once/regularly after `delay` milliseconds.
 - To cancel the execution, we should call `clearTimeout/clearInterval` with the value returned by `setTimeout/setInterval`.
-- Nested `setTimeout` calls are a more flexible alternative to `setInterval`, allowing us to set the time *between* executions more precisely.
+- Nested `setTimeout` calls are a more flexible alternative to `setInterval`, allowing us to set the time _between_ executions more precisely.
 - Zero delay scheduling with `setTimeout(func, 0)` (the same as `setTimeout(func)`) is used to schedule the call "as soon as possible, but after the current script is complete".
 - The browser limits the minimal delay for five or more nested calls of `setTimeout` or for `setInterval` (after 5th call) to 4ms. That's for historical reasons.
 
-Please note that all scheduling methods do not *guarantee* the exact delay.
+Please note that all scheduling methods do not _guarantee_ the exact delay.
 
 For example, the in-browser timer may slow down for a lot of reasons:
+
 - The CPU is overloaded.
 - The browser tab is in the background mode.
 - The laptop is on battery.

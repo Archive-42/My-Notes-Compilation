@@ -25,7 +25,7 @@ Values of factorials for different `n`:
 The task is to write a function `factorial(n)` that calculates `n!` using recursive calls.
 
 ```js
-alert( factorial(5) ); // 120
+alert(factorial(5)); // 120
 ```
 
 P.S. Hint: `n!` can be written as `n * (n-1)!` For instance: `3! = 3*2! = 3*2*1! = 6`

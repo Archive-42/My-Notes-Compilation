@@ -1,6 +1,4 @@
-
 function filterRangeInPlace(arr, a, b) {
-
   for (let i = 0; i < arr.length; i++) {
     let val = arr[i];
 
@@ -10,5 +8,4 @@ function filterRangeInPlace(arr, a, b) {
       i--;
     }
   }
-
 }

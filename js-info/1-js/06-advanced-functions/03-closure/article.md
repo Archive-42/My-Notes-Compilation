@@ -1,4 +1,3 @@
-
 # Variable scope, closure
 
 JavaScript is a very function-oriented language. It gives us a lot of freedom. A function can be created at any moment, passed as an argument to another function, and then called from a totally different place of code later.
@@ -11,13 +10,13 @@ And what if a function is passed along as a parameter and called from another pl
 
 Let's expand our knowledge to understand these scenarios and more complex ones.
 
-```smart header="We'll talk about `let/const` variables here"
-In JavaScript, there are 3 ways to declare a variable: `let`, `const` (the modern ones), and `var` (the remnant of the past).
+```smart header="We'll talk about `let/const`variables here" In JavaScript, there are 3 ways to declare a variable:`let`, `const`(the modern ones), and`var` (the remnant of the past).
 
 - In this article we'll use `let` variables in examples.
 - Variables, declared with `const`, behave the same, so this article is about `const` too.
 - The old `var` has some notable differences, they will be covered in the article <info:var>.
-```
+
+````
 
 ## Code blocks
 
@@ -35,7 +34,7 @@ For example:
 }
 
 alert(message); // Error: message is not defined
-```
+````
 
 We can use this to isolate a piece of code that does its own task, with variables that only belong to it:
 
@@ -108,19 +107,17 @@ We can use it to organize our code, like this:
 
 ```js
 function sayHiBye(firstName, lastName) {
-
   // helper nested function to use below
   function getFullName() {
     return firstName + " " + lastName;
   }
 
-  alert( "Hello, " + getFullName() );
-  alert( "Bye, " + getFullName() );
-
+  alert("Hello, " + getFullName());
+  alert("Bye, " + getFullName());
 }
 ```
 
-Here the *nested* function `getFullName()` is made for convenience. It can access the outer variables and so can return the full name. Nested functions are quite common in JavaScript.
+Here the _nested_ function `getFullName()` is made for convenience. It can access the outer variables and so can return the full name. Nested functions are quite common in JavaScript.
 
 What's much more interesting, a nested function can be returned: either as a property of a new object or as a result by itself. It can then be used somewhere else. No matter where, it still has access to the same outer variables.
 
@@ -130,16 +127,16 @@ Below, `makeCounter` creates the "counter" function that returns the next number
 function makeCounter() {
   let count = 0;
 
-  return function() {
+  return function () {
     return count++;
   };
 }
 
 let counter = makeCounter();
 
-alert( counter() ); // 0
-alert( counter() ); // 1
-alert( counter() ); // 2
+alert(counter()); // 0
+alert(counter()); // 1
+alert(counter()); // 2
 ```
 
 Despite being simple, slightly modified variants of that code have practical uses, for instance, as a [random number generator](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) to generate random values for automated tests.
@@ -160,12 +157,12 @@ For clarity, the explanation is split into multiple steps.
 
 ### Step 1. Variables
 
-In JavaScript, every running function, code block `{...}`, and the script as a whole have an internal (hidden) associated object known as the *Lexical Environment*.
+In JavaScript, every running function, code block `{...}`, and the script as a whole have an internal (hidden) associated object known as the _Lexical Environment_.
 
 The Lexical Environment object consists of two parts:
 
-1. *Environment Record* -- an object that stores all local variables as its properties (and some other information like the value of `this`).
-2. A reference to the *outer lexical environment*, the one associated with the outer code.
+1. _Environment Record_ -- an object that stores all local variables as its properties (and some other information like the value of `this`).
+2. A reference to the _outer lexical environment_, the one associated with the outer code.
 
 **A "variable" is just a property of the special internal object, `Environment Record`. "To get or change a variable" means "to get or change a property of that object".**
 
@@ -173,7 +170,7 @@ In this simple code without functions, there is only one Lexical Environment:
 
 ![lexical environment](lexical-environment-global.svg)
 
-This is the so-called *global* Lexical Environment, associated with the whole script.
+This is the so-called _global_ Lexical Environment, associated with the whole script.
 
 On the picture above, the rectangle means Environment Record (variable store) and the arrow means the outer reference. The global Lexical Environment has no outer reference, that's why the arrow points to `null`.
 
@@ -186,7 +183,7 @@ Here's a little bit longer code:
 Rectangles on the right-hand side demonstrate how the global Lexical Environment changes during the execution:
 
 1. When the script starts, the Lexical Environment is pre-populated with all declared variables.
-    - Initially, they are in the "Uninitialized" state. That's a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with `let`. It's almost the same as if the variable didn't exist.
+   - Initially, they are in the "Uninitialized" state. That's a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with `let`. It's almost the same as if the variable didn't exist.
 2. Then `let phrase` definition appears. There's no assignment yet, so its value is `undefined`. We can use the variable from this point forward.
 3. `phrase` is assigned a value.
 4. `phrase` changes the value.
@@ -255,7 +252,6 @@ In this example the search proceeds as follows:
 
 ![lexical environment lookup](lexical-environment-simple-lookup.svg)
 
-
 ### Step 4. Returning a function
 
 Let's return to the `makeCounter` example.
@@ -264,7 +260,7 @@ Let's return to the `makeCounter` example.
 function makeCounter() {
   let count = 0;
 
-  return function() {
+  return function () {
     return count++;
   };
 }
@@ -324,9 +320,9 @@ For example:
 function f() {
   let value = 123;
 
-  return function() {
+  return function () {
     alert(value);
-  }
+  };
 }
 
 let g = f(); // g.[[Environment]] stores a reference to the Lexical Environment
@@ -339,7 +335,9 @@ Please note that if `f()` is called many times, and resulting functions are save
 function f() {
   let value = Math.random();
 
-  return function() { alert(value); };
+  return function () {
+    alert(value);
+  };
 }
 
 // 3 functions in array, every one of them links to Lexical Environment
@@ -355,9 +353,9 @@ In the code below, after the nested function is removed, its enclosing Lexical E
 function f() {
   let value = 123;
 
-  return function() {
+  return function () {
     alert(value);
-  }
+  };
 }
 
 let g = f(); // while g function exists, the value stays in memory

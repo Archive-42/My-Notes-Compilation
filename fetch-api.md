@@ -269,7 +269,7 @@ It has a few limitations:
 - <a href="fetch-api.html#integrity" class="sidebar__link">integrity</a>
 - <a href="fetch-api.html#keepalive" class="sidebar__link">keepalive</a>
 
-- <a href="fetch-api.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ffetch-api" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-api" class="share share_fb sidebar__share"></a>
+- <a href="fetch-api.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ffetch-api" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-api" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/06-fetch-api" class="sidebar__link">Edit on GitHub</a>
 

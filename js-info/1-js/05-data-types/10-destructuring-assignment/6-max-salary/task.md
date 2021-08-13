@@ -2,15 +2,15 @@ importance: 5
 
 ---
 
-# The maximal salary 
+# The maximal salary
 
 There is a `salaries` object:
 
 ```js
 let salaries = {
-  "John": 100,
-  "Pete": 300,
-  "Mary": 250
+  John: 100,
+  Pete: 300,
+  Mary: 250,
 };
 ```
 

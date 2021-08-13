@@ -8,29 +8,27 @@ For instance, for `[-1, 2, 3, -9, 11]`:
 
 ```js no-beautify
 // Starting from -1:
--1
--1 + 2
--1 + 2 + 3
--1 + 2 + 3 + (-9)
--1 + 2 + 3 + (-9) + 11
+-1 - 1 + 2 - 1 + 2 + 3 - 1 + 2 + 3 + -9 - 1 + 2 + 3 + -9 + 11;
 
 // Starting from 2:
-2
-2 + 3
-2 + 3 + (-9)
-2 + 3 + (-9) + 11
+2;
+2 + 3;
+2 + 3 + -9;
+2 + 3 + -9 + 11;
 
 // Starting from 3:
-3
-3 + (-9)
-3 + (-9) + 11
-
-// Starting from -9
--9
--9 + 11
+3;
+3 + -9;
+3 +
+  -9 +
+  11 -
+  // Starting from -9
+  9 -
+  9 +
+  11;
 
 // Starting from 11
-11
+11;
 ```
 
 The code is actually a nested loop: the external loop over array elements, and the internal counts subsums starting with the current element.
@@ -50,11 +48,11 @@ function getMaxSubSum(arr) {
   return maxSum;
 }
 
-alert( getMaxSubSum([-1, 2, 3, -9]) ); // 5
-alert( getMaxSubSum([-1, 2, 3, -9, 11]) ); // 11
-alert( getMaxSubSum([-2, -1, 1, 2]) ); // 3
-alert( getMaxSubSum([1, 2, 3]) ); // 6
-alert( getMaxSubSum([100, -9, 2, -3, 5]) ); // 100
+alert(getMaxSubSum([-1, 2, 3, -9])); // 5
+alert(getMaxSubSum([-1, 2, 3, -9, 11])); // 11
+alert(getMaxSubSum([-2, -1, 1, 2])); // 3
+alert(getMaxSubSum([1, 2, 3])); // 6
+alert(getMaxSubSum([100, -9, 2, -3, 5])); // 100
 ```
 
 The solution has a time complexity of [O(n<sup>2</sup>)](https://en.wikipedia.org/wiki/Big_O_notation). In other words, if we increase the array size 2 times, the algorithm will work 4 times longer.
@@ -72,7 +70,8 @@ function getMaxSubSum(arr) {
   let maxSum = 0;
   let partialSum = 0;
 
-  for (let item of arr) { // for each item of arr
+  for (let item of arr) {
+    // for each item of arr
     partialSum += item; // add it to partialSum
     maxSum = Math.max(maxSum, partialSum); // remember the maximum
     if (partialSum < 0) partialSum = 0; // zero if negative
@@ -81,12 +80,12 @@ function getMaxSubSum(arr) {
   return maxSum;
 }
 
-alert( getMaxSubSum([-1, 2, 3, -9]) ); // 5
-alert( getMaxSubSum([-1, 2, 3, -9, 11]) ); // 11
-alert( getMaxSubSum([-2, -1, 1, 2]) ); // 3
-alert( getMaxSubSum([100, -9, 2, -3, 5]) ); // 100
-alert( getMaxSubSum([1, 2, 3]) ); // 6
-alert( getMaxSubSum([-1, -2, -3]) ); // 0
+alert(getMaxSubSum([-1, 2, 3, -9])); // 5
+alert(getMaxSubSum([-1, 2, 3, -9, 11])); // 11
+alert(getMaxSubSum([-2, -1, 1, 2])); // 3
+alert(getMaxSubSum([100, -9, 2, -3, 5])); // 100
+alert(getMaxSubSum([1, 2, 3])); // 6
+alert(getMaxSubSum([-1, -2, -3])); // 0
 ```
 
 The algorithm requires exactly 1 array pass, so the time complexity is O(n).

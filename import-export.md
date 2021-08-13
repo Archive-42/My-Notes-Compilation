@@ -467,7 +467,7 @@ We’ll see dynamic imports in the next article.
 - <a href="import-export.html#re-export" class="sidebar__link">Re-export</a>
 - <a href="import-export.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="import-export.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fimport-export" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fimport-export" class="share share_fb sidebar__share"></a>
+- <a href="import-export.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fimport-export" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fimport-export" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/13-modules/02-import-export" class="sidebar__link">Edit on GitHub</a>
 

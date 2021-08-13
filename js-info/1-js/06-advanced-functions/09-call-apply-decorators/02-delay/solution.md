@@ -2,11 +2,9 @@ The solution:
 
 ```js run demo
 function delay(f, ms) {
-
-  return function() {
+  return function () {
     setTimeout(() => f.apply(this, arguments), ms);
   };
-
 }
 
 let f1000 = delay(alert, 1000);
@@ -22,13 +20,11 @@ We still can pass the right `this` by using an intermediate variable, but that's
 
 ```js
 function delay(f, ms) {
-
-  return function(...args) {
+  return function (...args) {
     let savedThis = this; // store this into an intermediate variable
-    setTimeout(function() {
+    setTimeout(function () {
       f.apply(savedThis, args); // use it here
     }, ms);
   };
-
 }
 ```

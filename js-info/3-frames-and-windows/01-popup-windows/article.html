@@ -79,7 +79,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 id="popups-and-window-methods">Popups and window methods</h1>
 <p>A popup window is one of the oldest methods to show additional document to user.</p>
 <p>Basically, you just run:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">window</span>.<span class="at">open</span>(<span class="st">&#39;https://javascript.info/&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">window</span>.<span class="at">open</span>(<span class="st">&quot;https://javascript.info/&quot;</span>)<span class="op">;</span></a></code></pre></div>
 <p>…And it will open a new window with given URL. Most modern browsers are configured to open url in new tabs instead of separate windows.</p>
 <p>Popups exist from really ancient times. The initial idea was to show another content without closing the main window. As of now, there are other ways to do that: we can load content dynamically with <a href="info:fetch">fetch</a> and show it in a dynamically generated <code>&lt;div&gt;</code>. So, popups is not something we use everyday.</p>
 <p>Also, popups are tricky on mobile devices, that don’t show multiple windows simultaneously.</p>
@@ -94,19 +94,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Most browsers block popups if they are called outside of user-triggered event handlers like <code>onclick</code>.</strong></p>
 <p>For example:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="co">// popup blocked</span></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="va">window</span>.<span class="at">open</span>(<span class="st">&#39;https://javascript.info&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="va">window</span>.<span class="at">open</span>(<span class="st">&quot;https://javascript.info&quot;</span>)<span class="op">;</span></a>
 <a class="sourceLine" id="cb2-3" title="3"></a>
 <a class="sourceLine" id="cb2-4" title="4"><span class="co">// popup allowed</span></a>
 <a class="sourceLine" id="cb2-5" title="5"><span class="va">button</span>.<span class="at">onclick</span> <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
-<a class="sourceLine" id="cb2-6" title="6">  <span class="va">window</span>.<span class="at">open</span>(<span class="st">&#39;https://javascript.info&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">  <span class="va">window</span>.<span class="at">open</span>(<span class="st">&quot;https://javascript.info&quot;</span>)<span class="op">;</span></a>
 <a class="sourceLine" id="cb2-7" title="7"><span class="op">};</span></a></code></pre></div>
 <p>This way users are somewhat protected from unwanted popups, but the functionality is not disabled totally.</p>
 <p>What if the popup opens from <code>onclick</code>, but after <code>setTimeout</code>? That’s a bit tricky.</p>
 <p>Try this code:</p>
-<p><code>js run // open after 3 seconds setTimeout(() =&gt; window.open('http://google.com'), 3000);</code></p>
+<p><code>js run // open after 3 seconds setTimeout(() =&gt; window.open("http://google.com"), 3000);</code></p>
 <p>The popup opens in Chrome, but gets blocked in Firefox.</p>
 <p>…If we decrease the delay, the popup works in Firefox too:</p>
-<p><code>js run // open after 1 seconds setTimeout(() =&gt; window.open('http://google.com'), 1000);</code></p>
+<p><code>js run // open after 1 seconds setTimeout(() =&gt; window.open("http://google.com"), 1000);</code></p>
 <p>The difference is that Firefox treats a timeout of 2000ms or less are acceptable, but after it – removes the “trust”, assuming that now it’s “outside of the user action”. So the first one is blocked, and the second one is not.</p>
 <h2 id="window.open">window.open</h2>
 <p>The syntax to open a popup is: <code>window.open(url, name, params)</code>:</p>
@@ -142,11 +142,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 id="example-a-minimalistic-window">Example: a minimalistic window</h2>
 <p>Let’s open a window with minimal set of features, just to see which of them browser allows to disable:</p>
 <p>``<code>js run let params =</code>scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no, width=0,height=0,left=-1000,top=-1000`;</p>
-<p>open(‘/’, ‘test’, params); ```</p>
+<p>open(“/”, “test”, params); ```</p>
 <p>Here most “window features” are disabled and window is positioned offscreen. Run it and see what really happens. Most browsers “fix” odd things like zero <code>width/height</code> and offscreen <code>left/top</code>. For instance, Chrome open such a window with full width/height, so that it occupies the full screen.</p>
 <p>Let’s add normal positioning options and reasonable <code>width</code>, <code>height</code>, <code>left</code>, <code>top</code> coordinates:</p>
 <p>``<code>js run let params =</code>scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no, width=600,height=300,left=100,top=100`;</p>
-<p>open(‘/’, ‘test’, params); ```</p>
+<p>open(“/”, “test”, params); ```</p>
 <p>Most browsers show the example above as required.</p>
 <p>Rules for omitted settings:</p>
 <ul>
@@ -173,8 +173,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If you run the code below, it replaces the opener (current) window content with “Test”:</p>
 <p>```js run let newWin = window.open(“about:blank”, “hello”, “width=200,height=200”);</p>
 newWin.document.write( "
-<script>
-<p>window.opener.document.body.innerHTML = ‘Test’&lt;/script&gt;" ); ```</p>
+<script>window.opener.document.body.innerHTML = 'Test'</script>
+<p>" ); ```</p>
 <p>So the connection between the windows is bidirectional: the main window and the popup have a reference to each other.</p>
 <h2 id="closing-a-popup">Closing a popup</h2>
 <p>To close a window: <code>win.close()</code>.</p>
@@ -182,8 +182,8 @@ newWin.document.write( "
 <p>Technically, the <code>close()</code> method is available for any <code>window</code>, but <code>window.close()</code> is ignored by most browsers if <code>window</code> is not created with <code>window.open()</code>. So it’ll only work on a popup.</p>
 <p>The <code>closed</code> property is <code>true</code> if the window is closed. That’s useful to check if the popup (or the main window) is still open or not. A user can close it anytime, and our code should take that possibility into account.</p>
 <p>This code loads and then closes the window:</p>
-<p>```js run let newWindow = open(‘/’, ‘example’, ‘width=300,height=300’);</p>
-<p>newWindow.onload = function() { newWindow.close(); alert(newWindow.closed); // true }; ```</p>
+<p>```js run let newWindow = open(“/”, “example”, “width=300,height=300”);</p>
+<p>newWindow.onload = function () { newWindow.close(); alert(newWindow.closed); // true }; ```</p>
 <h2 id="moving-and-resizing">Moving and resizing</h2>
 <p>There are methods to move/resize a window:</p>
 <dl>

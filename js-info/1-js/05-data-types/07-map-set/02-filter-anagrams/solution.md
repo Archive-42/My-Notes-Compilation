@@ -38,9 +38,9 @@ For convenience let's split it into multiple lines:
 ```js
 let sorted = word // PAN
   .toLowerCase() // pan
-  .split('') // ['p','a','n']
+  .split("") // ['p','a','n']
   .sort() // ['a','n','p']
-  .join(''); // anp
+  .join(""); // anp
 ```
 
 Two different words `'PAN'` and `'nap'` receive the same letter-sorted form `'anp'`.
@@ -73,5 +73,5 @@ function aclean(arr) {
 
 let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
 
-alert( aclean(arr) );
+alert(aclean(arr));
 ```

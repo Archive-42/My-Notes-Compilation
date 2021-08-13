@@ -9,8 +9,7 @@ Write a function `checkSpam(str)` that returns `true` if `str` contains 'viagra'
 The function must be case-insensitive:
 
 ```js
-checkSpam('buy ViAgRA now') == true
-checkSpam('free xxxxx') == true
-checkSpam("innocent rabbit") == false
+checkSpam("buy ViAgRA now") == true;
+checkSpam("free xxxxx") == true;
+checkSpam("innocent rabbit") == false;
 ```
-

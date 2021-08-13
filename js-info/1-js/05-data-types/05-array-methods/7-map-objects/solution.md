@@ -1,4 +1,3 @@
-
 ```js run no-beautify
 let john = { name: "John", surname: "Smith", id: 1 };
 let pete = { name: "Pete", surname: "Hunt", id: 2 };
@@ -25,9 +24,10 @@ alert( usersMapped[0].id ); // 1
 alert( usersMapped[0].fullName ); // John Smith
 ```
 
-Please note that in the arrow functions we need to use additional brackets. 
+Please note that in the arrow functions we need to use additional brackets.
 
 We can't write like this:
+
 ```js
 let usersMapped = users.map(user => *!*{*/!*
   fullName: `${user.name} ${user.surname}`,
@@ -47,5 +47,3 @@ let usersMapped = users.map(user => *!*({*/!*
 ```
 
 Now fine.
-
-

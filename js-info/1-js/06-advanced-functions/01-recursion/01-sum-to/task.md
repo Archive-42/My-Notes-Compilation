@@ -26,11 +26,13 @@ Make 3 solution variants:
 An example of the result:
 
 ```js
-function sumTo(n) { /*... your code ... */ }
+function sumTo(n) {
+  /*... your code ... */
+}
 
-alert( sumTo(100) ); // 5050
+alert(sumTo(100)); // 5050
 ```
 
 P.S. Which solution variant is the fastest? The slowest? Why?
 
-P.P.S. Can we use recursion to count `sumTo(100000)`? 
+P.P.S. Can we use recursion to count `sumTo(100000)`?

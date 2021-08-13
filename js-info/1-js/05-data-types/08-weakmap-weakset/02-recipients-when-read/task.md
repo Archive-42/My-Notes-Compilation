@@ -8,9 +8,9 @@ There's an array of messages as in the [previous task](info:task/recipients-read
 
 ```js
 let messages = [
-  {text: "Hello", from: "John"},
-  {text: "How goes?", from: "John"},
-  {text: "See you soon", from: "Alice"}
+  { text: "Hello", from: "John" },
+  { text: "How goes?", from: "John" },
+  { text: "See you soon", from: "Alice" },
 ];
 ```
 

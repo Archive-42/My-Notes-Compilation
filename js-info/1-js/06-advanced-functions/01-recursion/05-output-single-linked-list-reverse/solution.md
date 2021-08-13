@@ -2,7 +2,7 @@
 
 The recursive logic is a little bit tricky here.
 
-We need to first output the rest of the list and *then* output the current one:
+We need to first output the rest of the list and _then_ output the current one:
 
 ```js run
 let list = {
@@ -13,14 +13,13 @@ let list = {
       value: 3,
       next: {
         value: 4,
-        next: null
-      }
-    }
-  }
+        next: null,
+      },
+    },
+  },
 };
 
 function printReverseList(list) {
-
   if (list.next) {
     printReverseList(list.next);
   }
@@ -48,10 +47,10 @@ let list = {
       value: 3,
       next: {
         value: 4,
-        next: null
-      }
-    }
-  }
+        next: null,
+      },
+    },
+  },
 };
 
 function printReverseList(list) {
@@ -64,11 +63,11 @@ function printReverseList(list) {
   }
 
   for (let i = arr.length - 1; i >= 0; i--) {
-    alert( arr[i] );
+    alert(arr[i]);
   }
 }
 
 printReverseList(list);
 ```
 
-Please note that the recursive solution actually does exactly the same: it follows the list, remembers the items in the chain of nested calls (in the execution context stack), and then outputs them. 
+Please note that the recursive solution actually does exactly the same: it follows the list, remembers the items in the chain of nested calls (in the execution context stack), and then outputs them.

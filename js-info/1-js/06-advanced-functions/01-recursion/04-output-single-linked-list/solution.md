@@ -11,10 +11,10 @@ let list = {
       value: 3,
       next: {
         value: 4,
-        next: null
-      }
-    }
-  }
+        next: null,
+      },
+    },
+  },
 };
 
 function printList(list) {
@@ -24,7 +24,6 @@ function printList(list) {
     alert(tmp.value);
     tmp = tmp.next;
   }
-
 }
 
 printList(list);
@@ -62,20 +61,18 @@ let list = {
       value: 3,
       next: {
         value: 4,
-        next: null
-      }
-    }
-  }
+        next: null,
+      },
+    },
+  },
 };
 
 function printList(list) {
-
   alert(list.value); // output the current item
 
   if (list.next) {
     printList(list.next); // do the same for the rest of the list
   }
-
 }
 
 printList(list);

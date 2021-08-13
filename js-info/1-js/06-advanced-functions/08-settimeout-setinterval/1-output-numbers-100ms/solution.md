@@ -1,11 +1,10 @@
-
 Using `setInterval`:
 
 ```js run
 function printNumbers(from, to) {
   let current = from;
 
-  let timerId = setInterval(function() {
+  let timerId = setInterval(function () {
     alert(current);
     if (current == to) {
       clearInterval(timerId);
@@ -19,7 +18,6 @@ printNumbers(5, 10);
 ```
 
 Using nested `setTimeout`:
-
 
 ```js run
 function printNumbers(from, to) {

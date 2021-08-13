@@ -1,4 +1,3 @@
-
 # Function object, NFE
 
 As we already know, a function in JavaScript is a value.
@@ -8,7 +7,6 @@ Every value in JavaScript has a type. What type is a function?
 In JavaScript, functions are objects.
 
 A good way to imagine functions is as callable "action objects". We can not only call them, but also treat them as objects: add/remove properties, pass by reference etc.
-
 
 ## The "name" property
 
@@ -27,7 +25,7 @@ alert(sayHi.name); // sayHi
 What's kind of funny, the name-assigning logic is smart. It also assigns the correct name to a function even if it's created without one, and then immediately assigned:
 
 ```js run
-let sayHi = function() {
+let sayHi = function () {
   alert("Hi");
 };
 
@@ -37,7 +35,7 @@ alert(sayHi.name); // sayHi (there's a name!)
 It also works if the assignment is done via a default value:
 
 ```js run
-function f(sayHi = function() {}) {
+function f(sayHi = function () {}) {
   alert(sayHi.name); // sayHi (works!)
 }
 
@@ -50,16 +48,14 @@ Object methods have names too:
 
 ```js run
 let user = {
-
   sayHi() {
     // ...
   },
 
-  sayBye: function() {
+  sayBye: function () {
     // ...
-  }
-
-}
+  },
+};
 
 alert(user.sayHi.name); // sayHi
 alert(user.sayBye.name); // sayBye
@@ -69,9 +65,9 @@ There's no magic though. There are cases when there's no way to figure out the r
 
 ```js run
 // function created inside array
-let arr = [function() {}];
+let arr = [function () {}];
 
-alert( arr[0].name ); // <empty string>
+alert(arr[0].name); // <empty string>
 // the engine has no way to set up the right name, so there is none
 ```
 
@@ -110,22 +106,25 @@ The idea is that we have a simple, no-arguments handler syntax for positive case
 function ask(question, ...handlers) {
   let isYes = confirm(question);
 
-  for(let handler of handlers) {
+  for (let handler of handlers) {
     if (handler.length == 0) {
       if (isYes) handler();
     } else {
       handler(isYes);
     }
   }
-
 }
 
 // for positive answer, both handlers are called
 // for negative answer, only the second one
-ask("Question?", () => alert('You said yes'), result => alert(result));
+ask(
+  "Question?",
+  () => alert("You said yes"),
+  (result) => alert(result)
+);
 ```
 
-This is a particular case of so-called [polymorphism](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)) -- treating arguments differently depending on their type or, in our case depending on the `length`. The idea does have a use in JavaScript libraries.
+This is a particular case of so-called [polymorphism](<https://en.wikipedia.org/wiki/Polymorphism_(computer_science)>) -- treating arguments differently depending on their type or, in our case depending on the `length`. The idea does have a use in JavaScript libraries.
 
 ## Custom properties
 
@@ -165,7 +164,7 @@ function makeCounter() {
 
   function counter() {
     return counter.count++;
-  };
+  }
 
   counter.count = 0;
 
@@ -173,8 +172,8 @@ function makeCounter() {
 }
 
 let counter = makeCounter();
-alert( counter() ); // 0
-alert( counter() ); // 1
+alert(counter()); // 0
+alert(counter()); // 1
 ```
 
 The `count` is now stored in the function directly, not in its outer Lexical Environment.
@@ -212,7 +211,7 @@ Named Function Expression, or NFE, is a term for Function Expressions that have 
 For instance, let's take an ordinary Function Expression:
 
 ```js
-let sayHi = function(who) {
+let sayHi = function (who) {
   alert(`Hello, ${who}`);
 };
 ```
@@ -266,7 +265,6 @@ func(); // Error, func is not defined (not visible outside of the function)
 ```
 
 Why do we use `func`? Maybe just use `sayHi` for the nested call?
-
 
 Actually, in most cases we can:
 
@@ -348,6 +346,5 @@ If the function is declared as a Function Expression (not in the main code flow)
 Also, functions may carry additional properties. Many well-known JavaScript libraries make great use of this feature.
 
 They create a "main" function and attach many other "helper" functions to it. For instance, the [jQuery](https://jquery.com) library creates a function named `$`. The [lodash](https://lodash.com) library creates a function `_`, and then adds `_.clone`, `_.keyBy` and other properties to it (see the [docs](https://lodash.com/docs) when you want to learn more about them). Actually, they do it to lessen their pollution of the global space, so that a single library gives only one global variable. That reduces the possibility of naming conflicts.
-
 
 So, a function can do a useful job by itself and also carry a bunch of other functionality in properties.

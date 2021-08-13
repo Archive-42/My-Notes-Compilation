@@ -15,12 +15,13 @@ In this chapter we'll learn how to do the same. And also, how to pass arrays to 
 A function can be called with any number of arguments, no matter how it is defined.
 
 Like here:
+
 ```js run
 function sum(a, b) {
   return a + b;
 }
 
-alert( sum(1, 2, 3, 4, 5) );
+alert(sum(1, 2, 3, 4, 5));
 ```
 
 There will be no error because of "excessive" arguments. But of course in the result only the first two will be counted.
@@ -30,7 +31,8 @@ The rest of the parameters can be included in the function definition by using t
 For instance, to gather all arguments into array `args`:
 
 ```js run
-function sumAll(...args) { // args is the name for the array
+function sumAll(...args) {
+  // args is the name for the array
   let sum = 0;
 
   for (let arg of args) sum += arg;
@@ -38,9 +40,9 @@ function sumAll(...args) { // args is the name for the array
   return sum;
 }
 
-alert( sumAll(1) ); // 1
-alert( sumAll(1, 2) ); // 3
-alert( sumAll(1, 2, 3) ); // 6
+alert(sumAll(1)); // 1
+alert(sumAll(1, 2)); // 3
+alert(sumAll(1, 2, 3)); // 6
 ```
 
 We can choose to get the first parameters as variables, and gather only the rest.
@@ -49,13 +51,13 @@ Here the first two arguments go into variables and the rest go into `titles` arr
 
 ```js run
 function showName(firstName, lastName, ...titles) {
-  alert( firstName + ' ' + lastName ); // Julius Caesar
+  alert(firstName + " " + lastName); // Julius Caesar
 
   // the rest go into titles array
   // i.e. titles = ["Consul", "Imperator"]
-  alert( titles[0] ); // Consul
-  alert( titles[1] ); // Imperator
-  alert( titles.length ); // 2
+  alert(titles[0]); // Consul
+  alert(titles[1]); // Imperator
+  alert(titles.length); // 2
 }
 
 showName("Julius", "Caesar", "Consul", "Imperator");
@@ -81,9 +83,9 @@ For instance:
 
 ```js run
 function showName() {
-  alert( arguments.length );
-  alert( arguments[0] );
-  alert( arguments[1] );
+  alert(arguments.length);
+  alert(arguments[0]);
+  alert(arguments[1]);
 
   // it's iterable
   // for(let arg of arguments) alert(arg);
@@ -104,8 +106,7 @@ Also, it always contains all arguments. We can't capture them partially, like we
 
 So when we need these features, then rest parameters are preferred.
 
-````smart header="Arrow functions do not have `\"arguments\"`"
-If we access the `arguments` object from an arrow function, it takes them from the outer "normal" function.
+````smart header="Arrow functions do not have `\"arguments\"`" If we access the `arguments` object from an arrow function, it takes them from the outer "normal" function.
 
 Here's an example:
 
@@ -119,6 +120,7 @@ f(1); // 1
 ```
 
 As we remember, arrow functions don't have their own `this`. Now we know they don't have the special `arguments` object either.
+
 ````
 
 
@@ -293,3 +295,4 @@ Use patterns:
 Together they help to travel between a list and an array of parameters with ease.
 
 All arguments of a function call are also available in "old-style" `arguments`: array-like iterable object.
+````

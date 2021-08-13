@@ -118,7 +118,7 @@ Now we have the environment ready. In the next section, we’ll get down to Java
 - <a href="devtools.html#safari" class="sidebar__link">Safari</a>
 - <a href="devtools.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="devtools.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fdevtools" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdevtools" class="share share_fb sidebar__share"></a>
+- <a href="devtools.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fdevtools" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdevtools" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/01-getting-started/4-devtools" class="sidebar__link">Edit on GitHub</a>
 

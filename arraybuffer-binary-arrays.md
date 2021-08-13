@@ -3,10 +3,10 @@ EN
 - <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
 - <a href="arraybuffer-binary-arrays.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
 - <a href="https://es.javascript.info/arraybuffer-binary-arrays" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
-- arraybuffer-binary-arrays" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- arraybuffer-binary-arrays" class="supported-langs**link"><span class="supported-langs**brief">IT</span><span>Italiano</span></a>
 - <a href="https://ja.javascript.info/arraybuffer-binary-arrays" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
-/" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+/" class="supported-langs**link"><span class="supported-langs**brief">KO</span><span>한국어</span></a>
 
 <a href="arraybuffer-binary-arrays%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
 
@@ -351,4 +351,4 @@ arraybuffer-binary-arrays.html\#tasks" &gt;Tasks (1)
 
 arraybuffer-binary-arrays.html &gt;Comments
 
-<a s%3A%2F%2Fjavascript.info%2Farraybuffer-binary-arrays" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Farraybuffer-binary-arrays" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/4-binary/01-arraybuffer-binary-arrays" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Farraybuffer-binary-arrays" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Farraybuffer-binary-arrays" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/4-binary/01-arraybuffer-binary-arrays" class="sidebar__link">Edit on GitHub</a>

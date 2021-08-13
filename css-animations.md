@@ -3,12 +3,12 @@ EN
 - <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
 - <a href="css-animations.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
 - <a href="https://es.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
-- css-animations" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- css-animations" class="supported-langs**link"><span class="supported-langs**brief">IT</span><span>Italiano</span></a>
 - <a href="https://ja.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
-- /css-animations" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- /css-animations" class="supported-langs**link"><span class="supported-langs**brief">KO</span><span>한국어</span></a>
 - <a href="css-animations%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
 - <a href="https://tr.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
 - <a href="https://zh.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
@@ -977,7 +977,7 @@ solution
 - <a href="css-animations.html#tasks" class="sidebar__link">Tasks (4)</a>
 - css-animations.html\#comments" &gt;Comments
 
-<a s%3A%2F%2Fjavascript.info%2Fcss-animations" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcss-animations" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/7-animation/2-css-animations" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Fcss-animations" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcss-animations" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/7-animation/2-css-animations" class="sidebar__link">Edit on GitHub</a>
 
 - © 2007—2021  Ilya Kantor
 - <a href="about.html" class="page-footer__link">about the project</a>

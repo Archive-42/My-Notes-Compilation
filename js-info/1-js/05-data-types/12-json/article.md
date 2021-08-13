@@ -27,7 +27,7 @@ Luckily, there's no need to write the code to handle all this. The task has been
 
 ## JSON.stringify
 
-The [JSON](http://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is a general format to represent values and objects. It is described as in [RFC 4627](http://tools.ietf.org/html/rfc4627) standard. Initially it was made for JavaScript, but many other languages have libraries to handle it as well.  So it's easy to use JSON for data exchange when the client uses JavaScript and the server is written on Ruby/PHP/Java/Whatever.
+The [JSON](http://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is a general format to represent values and objects. It is described as in [RFC 4627](http://tools.ietf.org/html/rfc4627) standard. Initially it was made for JavaScript, but many other languages have libraries to handle it as well. So it's easy to use JSON for data exchange when the client uses JavaScript and the server is written on Ruby/PHP/Java/Whatever.
 
 JavaScript provides methods:
 
@@ -35,6 +35,7 @@ JavaScript provides methods:
 - `JSON.parse` to convert JSON back into an object.
 
 For instance, here we `JSON.stringify` a student:
+
 ```js run
 let student = {
   name: 'John',
@@ -66,8 +67,7 @@ alert(json);
 
 The method `JSON.stringify(student)` takes the object and converts it into a string.
 
-The resulting `json` string is called a *JSON-encoded* or *serialized* or *stringified* or *marshalled* object. We are ready to send it over the wire or put into a plain data store.
-
+The resulting `json` string is called a _JSON-encoded_ or _serialized_ or _stringified_ or _marshalled_ object. We are ready to send it over the wire or put into a plain data store.
 
 Please note that a JSON-encoded object has several important differences from the object literal:
 
@@ -81,23 +81,23 @@ JSON supports following data types:
 - Objects `{ ... }`
 - Arrays `[ ... ]`
 - Primitives:
-    - strings,
-    - numbers,
-    - boolean values `true/false`,
-    - `null`.
+  - strings,
+  - numbers,
+  - boolean values `true/false`,
+  - `null`.
 
 For instance:
 
 ```js run
 // a number in JSON is just a number
-alert( JSON.stringify(1) ) // 1
+alert(JSON.stringify(1)); // 1
 
 // a string in JSON is still a string, but double-quoted
-alert( JSON.stringify('test') ) // "test"
+alert(JSON.stringify("test")); // "test"
 
-alert( JSON.stringify(true) ); // true
+alert(JSON.stringify(true)); // true
 
-alert( JSON.stringify([1, 2, 3]) ); // [1,2,3]
+alert(JSON.stringify([1, 2, 3])); // [1,2,3]
 ```
 
 JSON is data-only language-independent specification, so some JavaScript-specific object properties are skipped by `JSON.stringify`.
@@ -110,14 +110,15 @@ Namely:
 
 ```js run
 let user = {
-  sayHi() { // ignored
+  sayHi() {
+    // ignored
     alert("Hello");
   },
   [Symbol("id")]: 123, // ignored
-  something: undefined // ignored
+  something: undefined, // ignored
 };
 
-alert( JSON.stringify(user) ); // {} (empty object)
+alert(JSON.stringify(user)); // {} (empty object)
 ```
 
 Usually that's fine. If that's not what we want, then soon we'll see how to customize the process.
@@ -171,7 +172,6 @@ JSON.stringify(meetup); // Error: Converting circular structure to JSON
 Here, the conversion fails, because of circular reference: `room.occupiedBy` references `meetup`, and `meetup.place` references `room`:
 
 ![](json-meetup.svg)
-
 
 ## Excluding and transforming: replacer
 
@@ -250,21 +250,23 @@ In our case, we can return `value` "as is" for everything except `occupiedBy`. T
 
 ```js run
 let room = {
-  number: 23
+  number: 23,
 };
 
 let meetup = {
   title: "Conference",
-  participants: [{name: "John"}, {name: "Alice"}],
-  place: room // meetup references room
+  participants: [{ name: "John" }, { name: "Alice" }],
+  place: room, // meetup references room
 };
 
 room.occupiedBy = meetup; // room references meetup
 
-alert( JSON.stringify(meetup, function replacer(key, value) {
-  alert(`${key}: ${value}`);
-  return (key == 'occupiedBy') ? undefined : value;
-}));
+alert(
+  JSON.stringify(meetup, function replacer(key, value) {
+    alert(`${key}: ${value}`);
+    return key == "occupiedBy" ? undefined : value;
+  })
+);
 
 /* key:value pairs that come to replacer:
 :             [object Object]
@@ -286,7 +288,6 @@ The first call is special. It is made using a special "wrapper object": `{"": me
 
 The idea is to provide as much power for `replacer` as possible: it has a chance to analyze and replace/skip even the whole object if necessary.
 
-
 ## Formatting: space
 
 The third argument of `JSON.stringify(value, replacer, space)` is the number of spaces to use for pretty formatting.
@@ -301,8 +302,8 @@ let user = {
   age: 25,
   roles: {
     isAdmin: false,
-    isEditor: true
-  }
+    isEditor: true,
+  },
 };
 
 alert(JSON.stringify(user, null, 2));
@@ -398,12 +399,12 @@ alert( JSON.stringify(meetup) );
 
 As we can see, `toJSON` is used both for the direct call `JSON.stringify(room)` and when `room` is nested in another encoded object.
 
-
 ## JSON.parse
 
 To decode a JSON-string, we need another method named [JSON.parse](mdn:js/JSON/parse).
 
 The syntax:
+
 ```js
 let value = JSON.parse(str, [reviver]);
 ```
@@ -422,17 +423,18 @@ let numbers = "[0, 1, 2, 3]";
 
 numbers = JSON.parse(numbers);
 
-alert( numbers[1] ); // 1
+alert(numbers[1]); // 1
 ```
 
 Or for nested objects:
 
 ```js run
-let userData = '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }';
+let userData =
+  '{ "name": "John", "age": 35, "isAdmin": false, "friends": [0,1,2,3] }';
 
 let user = JSON.parse(userData);
 
-alert( user.friends[1] ); // 1
+alert(user.friends[1]); // 1
 ```
 
 The JSON may be as complex as necessary, objects and arrays can include other objects and arrays. But they must obey the same JSON format.
@@ -466,7 +468,7 @@ It looks like this:
 let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
 ```
 
-...And now we need to *deserialize* it, to turn back into JavaScript object.
+...And now we need to _deserialize_ it, to turn back into JavaScript object.
 
 Let's do it by calling `JSON.parse`:
 
@@ -518,8 +520,6 @@ schedule = JSON.parse(schedule, function(key, value) {
 alert( schedule.meetups[1].date.getDate() ); // works!
 */!*
 ```
-
-
 
 ## Summary
 

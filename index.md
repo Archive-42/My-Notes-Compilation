@@ -39,7 +39,7 @@ How it's done now. From the basics to advanced topics with simple, but detailed 
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/tree/master" class="frontpage-banner__updated-at">12th August 2021</a><a href="https://github.com/javascript-tutorial/en.javascript.info/tree/master" class="frontpage-banner__github"><span class="frontpage-banner__count">14706 ★</span><span class="frontpage-banner__text">github</span></a>
 
-<span class="frontpage-share__title">Share:</span><a s%3A%2F%2Fjavascript.info%2F" class="frontpage-share__icon frontpage-share__icon_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2F" class="frontpage-share__icon frontpage-share__icon_fb"></a>
+<span class="frontpage-share__title">Share:</span><a s%3A%2F%2Fjavascript.info%2F" class="frontpage-share**icon frontpage-share**icon_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2F" class="frontpage-share__icon frontpage-share__icon_fb"></a>
 
 Search
 

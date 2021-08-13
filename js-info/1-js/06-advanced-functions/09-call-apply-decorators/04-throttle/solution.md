@@ -1,13 +1,12 @@
 ```js demo
 function throttle(func, ms) {
-
   let isThrottled = false,
     savedArgs,
     savedThis;
 
   function wrapper() {
-
-    if (isThrottled) { // (2)
+    if (isThrottled) {
+      // (2)
       savedArgs = arguments;
       savedThis = this;
       return;
@@ -16,7 +15,7 @@ function throttle(func, ms) {
 
     func.apply(this, arguments); // (1)
 
-    setTimeout(function() {
+    setTimeout(function () {
       isThrottled = false; // (3)
       if (savedArgs) {
         wrapper.apply(savedThis, savedArgs);

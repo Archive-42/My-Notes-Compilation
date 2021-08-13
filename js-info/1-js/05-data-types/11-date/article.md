@@ -92,9 +92,9 @@ There are methods to access the year, month and so on from the `Date` object:
 [getHours()](mdn:js/Date/getHours), [getMinutes()](mdn:js/Date/getMinutes), [getSeconds()](mdn:js/Date/getSeconds), [getMilliseconds()](mdn:js/Date/getMilliseconds)
 : Get the corresponding time components.
 
-```warn header="Not `getYear()`, but `getFullYear()`"
-Many JavaScript engines implement a non-standard method `getYear()`. This method is deprecated. It returns 2-digit year sometimes. Please never use it. There is `getFullYear()` for the year.
-```
+```warn header="Not `getYear()`, but `getFullYear()`" Many JavaScript engines implement a non-standard method `getYear()`. This method is deprecated. It returns 2-digit year sometimes. Please never use it. There is `getFullYear()` for the year.
+
+````
 
 Additionally, we can get a day of week:
 
@@ -116,7 +116,7 @@ alert( date.getHours() );
 
 // the hour in UTC+0 time zone (London time without daylight savings)
 alert( date.getUTCHours() );
-```
+````
 
 Besides the given methods, there are two special ones that do not have a UTC-variant:
 
@@ -164,7 +164,7 @@ alert(today); // still today, now 00:00:00 sharp.
 
 ## Autocorrection
 
-The *autocorrection* is a very handy feature of `Date` objects. We can set out-of-range values, and it will auto-adjust itself.
+The _autocorrection_ is a very handy feature of `Date` objects. We can set out-of-range values, and it will auto-adjust itself.
 
 For instance:
 
@@ -192,7 +192,7 @@ That feature is often used to get the date after the given period of time. For i
 let date = new Date();
 date.setSeconds(date.getSeconds() + 70);
 
-alert( date ); // shows the correct date
+alert(date); // shows the correct date
 ```
 
 We can also set zero or even negative values. For example:
@@ -201,10 +201,10 @@ We can also set zero or even negative values. For example:
 let date = new Date(2016, 0, 2); // 2 Jan 2016
 
 date.setDate(1); // set day 1 of month
-alert( date );
+alert(date);
 
 date.setDate(0); // min day is 1, so the last day of the previous month is assumed
-alert( date ); // 31 Dec 2015
+alert(date); // 31 Dec 2015
 ```
 
 ## Date to number, date diff
@@ -230,7 +230,7 @@ for (let i = 0; i < 100000; i++) {
 
 let end = new Date(); // end measuring time
 
-alert( `The loop took ${end - start} ms` );
+alert(`The loop took ${end - start} ms`);
 ```
 
 ## Date.now()
@@ -308,8 +308,8 @@ function bench(f) {
   return Date.now() - start;
 }
 
-alert( 'Time of diffSubtract: ' + bench(diffSubtract) + 'ms' );
-alert( 'Time of diffGetTime: ' + bench(diffGetTime) + 'ms' );
+alert("Time of diffSubtract: " + bench(diffSubtract) + "ms");
+alert("Time of diffGetTime: " + bench(diffGetTime) + "ms");
 ```
 
 Wow! Using `getTime()` is so much faster! That's because there's no type conversion, it is much easier for engines to optimize.
@@ -397,7 +397,7 @@ The call to `Date.parse(str)` parses the string in the given format and returns 
 For instance:
 
 ```js run
-let ms = Date.parse('2012-01-26T13:51:50.417-07:00');
+let ms = Date.parse("2012-01-26T13:51:50.417-07:00");
 
 alert(ms); // 1327611110417  (timestamp)
 ```
@@ -405,9 +405,9 @@ alert(ms); // 1327611110417  (timestamp)
 We can instantly create a `new Date` object from the timestamp:
 
 ```js run
-let date = new Date( Date.parse('2012-01-26T13:51:50.417-07:00') );
+let date = new Date(Date.parse("2012-01-26T13:51:50.417-07:00"));
 
-alert(date);  
+alert(date);
 ```
 
 ## Summary

@@ -15,7 +15,9 @@ Write a function `fib(n)` that returns the `n-th` Fibonacci number.
 An example of work:
 
 ```js
-function fib(n) { /* your code */ }
+function fib(n) {
+  /* your code */
+}
 
 alert(fib(3)); // 2
 alert(fib(7)); // 13

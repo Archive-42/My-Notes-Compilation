@@ -3,6 +3,7 @@
 As we know from the chapter <info:garbage-collection>, JavaScript engine keeps a value in memory while it is "reachable" and can potentially be used.
 
 For instance:
+
 ```js
 let john = { name: "John" };
 
@@ -99,7 +100,7 @@ Compare it with the regular `Map` example above. Now if `john` only exists as th
 - `weakMap.delete(key)`
 - `weakMap.has(key)`
 
-Why such a limitation? That's for technical reasons. If an object has lost all other references (like `john` in the code above), then it is to be garbage-collected automatically. But technically it's not exactly specified *when the cleanup happens*.
+Why such a limitation? That's for technical reasons. If an object has lost all other references (like `john` in the code above), then it is to be garbage-collected automatically. But technically it's not exactly specified _when the cleanup happens_.
 
 The JavaScript engine decides that. It may choose to perform the memory cleanup immediately or to wait and do the cleaning later when more deletions happen. So, technically, the current element count of a `WeakMap` is not known. The engine may have cleaned it up or not, or did it partially. For that reason, methods that access all keys/values are not supported.
 
@@ -107,7 +108,7 @@ Now, where do we need such a data structure?
 
 ## Use case: additional data
 
-The main area of application for `WeakMap` is an *additional data storage*.
+The main area of application for `WeakMap` is an _additional data storage_.
 
 If we're working with an object that "belongs" to another code, maybe even a third-party library, and would like to store some data associated with it, that should only exist while the object is alive - then `WeakMap` is exactly what's needed.
 

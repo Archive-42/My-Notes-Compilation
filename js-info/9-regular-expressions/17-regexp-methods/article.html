@@ -85,11 +85,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>If the <code>regexp</code> doesn’t have flag <code>pattern:g</code>, then it returns the first match as an array with capturing groups and properties <code>index</code> (position of the match), <code>input</code> (input string, equals <code>str</code>):</p>
 <p>```js run let str = “I love JavaScript”;</p>
 <p>let result = str.match(/Java(Script)/);</p>
-<p>alert( result[0] ); // JavaScript (full match) alert( result[1] ); // Script (first capturing group) alert( result.length ); // 2</p>
-<p>// Additional information: alert( result.index ); // 7 (match position) alert( result.input ); // I love JavaScript (source string) ```</p></li>
-<li><p>If the <code>regexp</code> has flag <code>pattern:g</code>, then it returns an array of all matches as strings, without capturing groups and other details. ```js run let str = “I love JavaScript”;</p>
+<p>alert(result[0]); // JavaScript (full match) alert(result[1]); // Script (first capturing group) alert(result.length); // 2</p>
+<p>// Additional information: alert(result.index); // 7 (match position) alert(result.input); // I love JavaScript (source string) ```</p></li>
+<li><p>If the <code>regexp</code> has flag <code>pattern:g</code>, then it returns an array of all matches as strings, without capturing groups and other details.</p>
+<p>```js run let str = “I love JavaScript”;</p>
 <p>let result = str.match(/Java(Script)/g);</p>
-<p>alert( result[0] ); // JavaScript alert( result.length ); // 1 ```</p></li>
+<p>alert(result[0]); // JavaScript alert(result.length); // 1 ```</p></li>
 <li><p>If there are no matches, no matter if there’s flag <code>pattern:g</code> or not, <code>null</code> is returned.</p>
 <p>That’s an important nuance. If there are no matches, we don’t get an empty array, but <code>null</code>. It’s easy to make a mistake forgetting about it, e.g.:</p>
 <p>```js run let str = “I love JavaScript”;</p>
@@ -109,17 +110,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>If there are no results, it returns an empty iterable object instead of <code>null</code>.</li>
 </ol>
 <p>Usage example:</p>
-```js run let str = ’
+```js run let str = "
 <h1>
 Hello, world!
 </h1>
-<p>’; let regexp = /&lt;(.*?)&gt;/g;</p>
+<p>"; let regexp = /&lt;(.*?)&gt;/g;</p>
 <p>let matchAll = str.matchAll(regexp);</p>
 <p>alert(matchAll); // [object RegExp String Iterator], not array, but an iterable</p>
 <p>matchAll = Array.from(matchAll); // array now</p>
-let firstMatch = matchAll[0]; alert( firstMatch[0] ); //
+let firstMatch = matchAll[0]; alert(firstMatch[0]); //
 <h1>
-alert( firstMatch[1] ); // h1 alert( firstMatch.index ); // 0 alert( firstMatch.input ); //
+alert(firstMatch[1]); // h1 alert(firstMatch.index); // 0 alert(firstMatch.input); //
 <h1>
 Hello, world!
 </h1>
@@ -128,19 +129,19 @@ Hello, world!
 <h2 id="str.splitregexpsubstr-limit">str.split(regexp|substr, limit)</h2>
 <p>Splits the string using the regexp (or a substring) as a delimiter.</p>
 <p>We can use <code>split</code> with strings, like this:</p>
-<p><code>js run alert('12-34-56'.split('-')) // array of ['12', '34', '56']</code></p>
+<p><code>js run alert("12-34-56".split("-")); // array of ['12', '34', '56']</code></p>
 <p>But we can split by a regular expression, the same way:</p>
-<p><code>js run alert('12, 34, 56'.split(/,\s*/)) // array of ['12', '34', '56']</code></p>
+<p><code>js run alert("12, 34, 56".split(/,\s*/)); // array of ['12', '34', '56']</code></p>
 <h2 id="str.searchregexp">str.search(regexp)</h2>
 <p>The method <code>str.search(regexp)</code> returns the position of the first match or <code>-1</code> if none found:</p>
 <p>```js run let str = “A drop of ink may make a million think”;</p>
-<p>alert( str.search( /ink/i ) ); // 10 (first match position) ```</p>
+<p>alert(str.search(/ink/i)); // 10 (first match position) ```</p>
 <p><strong>The important limitation: <code>search</code> only finds the first match.</strong></p>
 <p>If we need positions of further matches, we should use other means, such as finding them all with <code>str.matchAll(regexp)</code>.</p>
 <h2 id="str.replacestrregexp-strfunc">str.replace(str|regexp, str|func)</h2>
 <p>This is a generic method for searching and replacing, one of most useful ones. The swiss army knife for searching and replacing.</p>
 <p>We can use it without regexps, to search and replace a substring:</p>
-<p><code>js run // replace a dash by a colon alert('12-34-56'.replace("-", ":")) // 12:34-56</code></p>
+<p><code>js run // replace a dash by a colon alert("12-34-56".replace("-", ":")); // 12:34-56</code></p>
 <p>There’s a pitfall though.</p>
 <p><strong>When the first argument of <code>replace</code> is a string, it only replaces the first match.</strong></p>
 <p>You can see that in the example above: only the first <code>"-"</code> is replaced by <code>":"</code>.</p>
@@ -149,8 +150,8 @@ Hello, world!
 <p>The second argument is a replacement string. We can use special characters in it:</p>
 <table>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 14%" />
+<col style="width: 85%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -164,14 +165,14 @@ Hello, world!
 <td>inserts the whole match</td>
 </tr>
 <tr class="even">
-<td><code><span class="math inline">$&amp;#096;&lt;/code&gt;|inserts a part of the string before the match| |`$</span>’<code>|inserts a part of the string after the match| |</code><span class="math inline">$n`|if `n` is a 1-2 digit number, inserts the contents of n-th capturing group, for details see [](info:regexp-groups)| |`$</span><name><code>|inserts the contents of the parentheses with the given</code>name<code>, for details see [](info:regexp-groups)| |</code>$<span class="math inline">$`|inserts character `$</span>`</td>
+<td><code><span class="math inline">$&amp;#096;&lt;/code&gt; | inserts a part of the string before the match | | `$</span>’<code>| inserts a part of the string after the match                                                                       | |</code><span class="math inline">$n` | if `n` is a 1-2 digit number, inserts the contents of n-th capturing group, for details see [](info:regexp-groups) | | `$</span><name><code>| inserts the contents of the parentheses with the given</code>name<code>, for details see [](info:regexp-groups)              | |</code>$<span class="math inline">$` | inserts character `$</span>`</td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <p>For instance:</p>
 <p>```js run let str = “John Smith”;</p>
-<p>// swap first and last name alert(str.replace(/(john) (smith)/i, ‘$2, $1’)) // Smith, John ```</p>
+<p>// swap first and last name alert(str.replace(/(john) (smith)/i, “$2, $1”)); // Smith, John ```</p>
 <p><strong>For situations that require “smart” replacements, the second argument can be a function.</strong></p>
 <p>It will be called for each match, and the returned value will be inserted as a replacement.</p>
 <p>The function is called with arguments <code>func(match, p1, p2, ..., pn, offset, input, groups)</code>:</p>
@@ -185,17 +186,17 @@ Hello, world!
 <p>If there are no parentheses in the regexp, then there are only 3 arguments: <code>func(str, offset, input)</code>.</p>
 <p>For example, let’s uppercase all matches:</p>
 <p>```js run let str = “html and css”;</p>
-<p>let result = str.replace(/html|css/gi, str =&gt; str.toUpperCase());</p>
+<p>let result = str.replace(/html|css/gi, (str) =&gt; str.toUpperCase());</p>
 <p>alert(result); // HTML and CSS ```</p>
 <p>Replace each match by its position in the string:</p>
 <p><code>js run alert("Ho-Ho-ho".replace(/ho/gi, (match, offset) =&gt; offset)); // 0-3-6</code></p>
 <p>In the example below there are two parentheses, so the replacement function is called with 5 arguments: the first is the full match, then 2 parentheses, and after it (not used in the example) the match position and the source string:</p>
 <p>```js run let str = “John Smith”;</p>
-<p>let result = str.replace(/(+) (+)/, (match, name, surname) =&gt; <code>${surname}, ${name}</code>);</p>
+<p>let result = str.replace( /(+) (+)/, (match, name, surname) =&gt; <code>${surname}, ${name}</code> );</p>
 <p>alert(result); // Smith, John ```</p>
 <p>If there are many groups, it’s convenient to use rest parameters to access them:</p>
 <p>```js run let str = “John Smith”;</p>
-<p>let result = str.replace(/(+) (+)/, (…match) =&gt; <code>${match[2]}, ${match[1]}</code>);</p>
+<p>let result = str.replace( /(+) (+)/, (…match) =&gt; <code>${match[2]}, ${match[1]}</code> );</p>
 <p>alert(result); // Smith, John ```</p>
 <p>Or, if we’re using named groups, then <code>groups</code> object with them is always the last, so we can obtain it like this:</p>
 <p>```js run let str = “John Smith”;</p>
@@ -211,28 +212,34 @@ Hello, world!
 </ol>
 <p>The main use case for <code>replaceAll</code> is replacing all occurences of a string.</p>
 <p>Like this:</p>
-<p><code>js run // replace all dashes by a colon alert('12-34-56'.replaceAll("-", ":")) // 12:34:56</code></p>
+<p><code>js run // replace all dashes by a colon alert("12-34-56".replaceAll("-", ":")); // 12:34:56</code></p>
 <h2 id="regexp.execstr">regexp.exec(str)</h2>
 <p>The <code>regexp.exec(str)</code> method returns a match for <code>regexp</code> in the string <code>str</code>. Unlike previous methods, it’s called on a regexp, not on a string.</p>
 <p>It behaves differently depending on whether the regexp has flag <code>pattern:g</code>.</p>
 <p>If there’s no <code>pattern:g</code>, then <code>regexp.exec(str)</code> returns the first match exactly as <code>str.match(regexp)</code>. This behavior doesn’t bring anything new.</p>
-<p>But if there’s flag <code>pattern:g</code>, then: - A call to <code>regexp.exec(str)</code> returns the first match and saves the position immediately after it in the property <code>regexp.lastIndex</code>. - The next such call starts the search from position <code>regexp.lastIndex</code>, returns the next match and saves the position after it in <code>regexp.lastIndex</code>. - …And so on. - If there are no matches, <code>regexp.exec</code> returns <code>null</code> and resets <code>regexp.lastIndex</code> to <code>0</code>.</p>
+<p>But if there’s flag <code>pattern:g</code>, then:</p>
+<ul>
+<li>A call to <code>regexp.exec(str)</code> returns the first match and saves the position immediately after it in the property <code>regexp.lastIndex</code>.</li>
+<li>The next such call starts the search from position <code>regexp.lastIndex</code>, returns the next match and saves the position after it in <code>regexp.lastIndex</code>.</li>
+<li>…And so on.</li>
+<li>If there are no matches, <code>regexp.exec</code> returns <code>null</code> and resets <code>regexp.lastIndex</code> to <code>0</code>.</li>
+</ul>
 <p>So, repeated calls return all matches one after another, using property <code>regexp.lastIndex</code> to keep track of the current search position.</p>
 <p>In the past, before the method <code>str.matchAll</code> was added to JavaScript, calls of <code>regexp.exec</code> were used in the loop to get all matches with groups:</p>
-<p>```js run let str = ‘More about JavaScript at https://javascript.info’; let regexp = /javascript/ig;</p>
+<p>```js run let str = “More about JavaScript at https://javascript.info”; let regexp = /javascript/gi;</p>
 <p>let result;</p>
-<p>while (result = regexp.exec(str)) { alert( <code>Found ${result[0]} at position ${result.index}</code> ); // Found JavaScript at position 11, then // Found javascript at position 33 } ```</p>
+<p>while ((result = regexp.exec(str))) { alert(<code>Found ${result[0]} at position ${result.index}</code>); // Found JavaScript at position 11, then // Found javascript at position 33 } ```</p>
 <p>This works now as well, although for newer browsers <code>str.matchAll</code> is usually more convenient.</p>
 <p><strong>We can use <code>regexp.exec</code> to search from a given position by manually setting <code>lastIndex</code>.</strong></p>
 <p>For instance:</p>
-<p>```js run let str = ‘Hello, world!’;</p>
+<p>```js run let str = “Hello, world!”;</p>
 <p>let regexp = /+/g; // without flag “g”, lastIndex property is ignored regexp.lastIndex = 5; // search from 5th position (from the comma)</p>
-<p>alert( regexp.exec(str) ); // world ```</p>
+<p>alert(regexp.exec(str)); // world ```</p>
 <p>If the regexp has flag <code>pattern:y</code>, then the search will be performed exactly at the position <code>regexp.lastIndex</code>, not any further.</p>
 <p>Let’s replace flag <code>pattern:g</code> with <code>pattern:y</code> in the example above. There will be no matches, as there’s no word at position <code>5</code>:</p>
-<p>```js run let str = ‘Hello, world!’;</p>
+<p>```js run let str = “Hello, world!”;</p>
 <p>let regexp = /+/y; regexp.lastIndex = 5; // search exactly at position 5</p>
-<p>alert( regexp.exec(str) ); // null ```</p>
+<p>alert(regexp.exec(str)); // null ```</p>
 <p>That’s convenient for situations when we need to “read” something from the string by a regexp at the exact position, not somewhere further.</p>
 <h2 id="regexp.teststr">regexp.test(str)</h2>
 <p>The method <code>regexp.test(str)</code> looks for a match and returns <code>true/false</code> whether it exists.</p>
@@ -246,7 +253,7 @@ Hello, world!
 <p>So we can use it to search from a given position:</p>
 <p>```js run let regexp = /love/gi;</p>
 <p>let str = “I love JavaScript”;</p>
-<p>// start the search from position 10: regexp.lastIndex = 10; alert( regexp.test(str) ); // false (no match) ```</p>
+<p>// start the search from position 10: regexp.lastIndex = 10; alert(regexp.test(str)); // false (no match) ```</p>
 <p>```<code>warn header="Same global regexp tested repeatedly on different sources may fail" If we apply the same global regexp to different inputs, it may lead to wrong result, because</code>regexp.test<code>call advances</code>regexp.lastIndex` property, so the search in another string may start from non-zero position.</p>
 <p>For instance, here we call <code>regexp.test</code> twice on the same text, and the second time fails:</p>
 <p>```js run let regexp = /javascript/g; // (regexp just created: regexp.lastIndex=0)</p>

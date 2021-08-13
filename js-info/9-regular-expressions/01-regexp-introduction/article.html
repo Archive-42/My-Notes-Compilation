@@ -86,7 +86,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">regexp <span class="op">=</span> <span class="kw">new</span> <span class="at">RegExp</span>(<span class="st">&quot;pattern&quot;</span><span class="op">,</span> <span class="st">&quot;flags&quot;</span>)<span class="op">;</span></a></code></pre></div>
 <p>And the “short” one, using slashes <code>"/"</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">regexp <span class="op">=</span> <span class="ss">/pattern/</span><span class="op">;</span> <span class="co">// no flags</span></a>
-<a class="sourceLine" id="cb2-2" title="2">regexp <span class="op">=</span> <span class="ss">/pattern/gmi</span><span class="op">;</span> <span class="co">// with flags g,m and i (to be covered soon)</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-2" title="2">regexp <span class="op">=</span> <span class="ss">/pattern/gim</span><span class="op">;</span> <span class="co">// with flags g,m and i (to be covered soon)</span></a></code></pre></div>
 <p>Slashes <code>pattern:/.../</code> tell JavaScript that we are creating a regular expression. They play the same role as quotes for strings.</p>
 <p>In both cases <code>regexp</code> becomes an instance of the built-in <code>RegExp</code> class.</p>
 <p>The main difference between these two syntaxes is that pattern using slashes <code>/.../</code> does not allow for expressions to be inserted (like string template literals with <code>${...}</code>). They are fully static.</p>
@@ -128,12 +128,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The method <code>str.match(regexp)</code> finds all matches of <code>regexp</code> in the string <code>str</code>.</p>
 <p>It has 3 working modes:</p>
 <ol type="1">
-<li><p>If the regular expression has flag <code>pattern:g</code>, it returns an array of all matches: ```js run let str = “We will, we will rock you”;</p>
-<p>alert( str.match(/we/gi) ); // We,we (an array of 2 substrings that match) ``<code>Please note that both</code>match:We<code>and</code>match:we<code>are found, because flag</code>pattern:i` makes the regular expression case-insensitive.</p></li>
-<li><p>If there’s no such flag it returns only the first match in the form of an array, with the full match at index <code>0</code> and some additional details in properties: ```js run let str = “We will, we will rock you”;</p>
+<li><p>If the regular expression has flag <code>pattern:g</code>, it returns an array of all matches:</p>
+<p>```js run let str = “We will, we will rock you”;</p>
+<p>alert(str.match(/we/gi)); // We,we (an array of 2 substrings that match) ```</p>
+<p>Please note that both <code>match:We</code> and <code>match:we</code> are found, because flag <code>pattern:i</code> makes the regular expression case-insensitive.</p></li>
+<li><p>If there’s no such flag it returns only the first match in the form of an array, with the full match at index <code>0</code> and some additional details in properties:</p>
+<p>```js run let str = “We will, we will rock you”;</p>
 <p>let result = str.match(/we/i); // without flag g</p>
-<p>alert( result[0] ); // We (1st match) alert( result.length ); // 1</p>
-<p>// Details: alert( result.index ); // 0 (position of the match) alert( result.input ); // We will, we will rock you (source string) ``<code>The array may have other indexes, besides</code>0` if a part of the regular expression is enclosed in parentheses. We’ll cover that in the chapter <a href="info:regexp-groups" class="uri">info:regexp-groups</a>.</p></li>
+<p>alert(result[0]); // We (1st match) alert(result.length); // 1</p>
+<p>// Details: alert(result.index); // 0 (position of the match) alert(result.input); // We will, we will rock you (source string) ```</p>
+<p>The array may have other indexes, besides <code>0</code> if a part of the regular expression is enclosed in parentheses. We’ll cover that in the chapter <a href="info:regexp-groups" class="uri">info:regexp-groups</a>.</p></li>
 <li><p>And, finally, if there are no matches, <code>null</code> is returned (doesn’t matter if there’s flag <code>pattern:g</code> or not).</p>
 <p>This a very important nuance. If there are no matches, we don’t receive an empty array, but instead receive <code>null</code>. Forgetting about that may lead to errors, e.g.:</p>
 <p>```js run let matches = “JavaScript”.match(/HTML/); // = null</p>
@@ -145,13 +149,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 id="replacing-str.replace">Replacing: str.replace</h2>
 <p>The method <code>str.replace(regexp, replacement)</code> replaces matches found using <code>regexp</code> in string <code>str</code> with <code>replacement</code> (all matches if there’s flag <code>pattern:g</code>, otherwise, only the first one).</p>
 <p>For instance:</p>
-<p>```js run // no flag g alert( “We will, we will”.replace(/we/i, “I”) ); // I will, we will</p>
-<p>// with flag g alert( “We will, we will”.replace(/we/ig, “I”) ); // I will, I will ```</p>
+<p>```js run // no flag g alert(“We will, we will”.replace(/we/i, “I”)); // I will, we will</p>
+<p>// with flag g alert(“We will, we will”.replace(/we/gi, “I”)); // I will, I will ```</p>
 <p>The second argument is the <code>replacement</code> string. We can use special character combinations in it to insert fragments of the match:</p>
 <table>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 13%" />
+<col style="width: 86%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -165,17 +169,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>inserts the whole match</td>
 </tr>
 <tr class="even">
-<td><code><span class="math inline">$&amp;#096;&lt;/code&gt;|inserts a part of the string before the match| |`$</span>’<code>|inserts a part of the string after the match| |</code><span class="math inline">$n`|if `n` is a 1-2 digit number, then it inserts the contents of n-th parentheses, more about it in the chapter &lt;info:regexp-groups&gt;| |`$</span><name><code>|inserts the contents of the parentheses with the given</code>name<code>, more about it in the chapter &lt;info:regexp-groups&gt;| |</code>$<span class="math inline">$`|inserts character `$</span>`</td>
+<td><code><span class="math inline">$&amp;#096;&lt;/code&gt; | inserts a part of the string before the match | | `$</span>’<code>| inserts a part of the string after the match                                                                                      | |</code><span class="math inline">$n` | if `n` is a 1-2 digit number, then it inserts the contents of n-th parentheses, more about it in the chapter &lt;info:regexp-groups&gt; | | `$</span><name><code>| inserts the contents of the parentheses with the given</code>name<code>, more about it in the chapter &lt;info:regexp-groups&gt;                  | |</code>$<span class="math inline">$` | inserts character `$</span>`</td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <p>An example with <code>pattern:$&amp;</code>:</p>
-<p><code>js run alert( "I love HTML".replace(/HTML/, "$&amp; and JavaScript") ); // I love HTML and JavaScript</code></p>
+<p><code>js run alert("I love HTML".replace(/HTML/, "$&amp; and JavaScript")); // I love HTML and JavaScript</code></p>
 <h2 id="testing-regexp.test">Testing: regexp.test</h2>
 <p>The method <code>regexp.test(str)</code> looks for at least one match, if found, returns <code>true</code>, otherwise <code>false</code>.</p>
 <p>```js run let str = “I love JavaScript”; let regexp = /LOVE/i;</p>
-<p>alert( regexp.test(str) ); // true ```</p>
+<p>alert(regexp.test(str)); // true ```</p>
 <p>Later in this chapter we’ll study more regular expressions, walk through more examples, and also meet other methods.</p>
 <p>Full information about the methods is given in the article <a href="info:regexp-methods" class="uri">info:regexp-methods</a>.</p>
 <h2 id="summary">Summary</h2>

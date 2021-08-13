@@ -100,13 +100,9 @@ For the following table users
 
 <table><thead><tr class="header"><th>id</th><th>city</th></tr></thead><tbody><tr class="odd"><td>1</td><td>San Francisco</td></tr><tr class="even"><td>2</td><td>Moscow</td></tr><tr class="odd"><td>3</td><td>London</td></tr></tbody></table>
 
-
-
 and the following table cities
 
 <table><thead><tr class="header"><th>city</th><th>country</th></tr></thead><tbody><tr class="odd"><td>Moscow</td><td>Russia</td></tr><tr class="even"><td>Saint Petersburg</td><td>Russia</td></tr><tr class="odd"><td>San Francisco</td><td>USA</td></tr><tr class="even"><td>Washington</td><td>USA</td></tr><tr class="odd"><td>New York</td><td>USA</td></tr><tr class="even"><td>London</td><td>England</td></tr></tbody></table>
-
-
 
 the output should be
 

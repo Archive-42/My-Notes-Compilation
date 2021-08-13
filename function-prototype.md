@@ -4,12 +4,12 @@ EN
 - <a href="function-prototype.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
 - <a href="https://es.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
 - <a href="https://fr.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
-- function-prototype" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- function-prototype" class="supported-langs**link"><span class="supported-langs**brief">IT</span><span>Italiano</span></a>
 - <a href="https://ja.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
-- /function-prototype" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- /function-prototype" class="supported-langs**link"><span class="supported-langs**brief">KO</span><span>한국어</span></a>
 - <a href="function-prototype%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
 - <a href="https://tr.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
 - <a href="https://zh.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
@@ -387,7 +387,7 @@ Probably, that’s not what we want. We’d like to create `new User`, not `new 
 - function-prototype.html\#tasks" &gt;Tasks (2)
 - function-prototype.html\#comments" &gt;Comments
 
-<a s%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/08-prototypes/02-function-prototype" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/08-prototypes/02-function-prototype" class="sidebar__link">Edit on GitHub</a>
 
 - © 2007—2021  Ilya Kantor
 - <a href="about.html" class="page-footer__link">about the project</a>

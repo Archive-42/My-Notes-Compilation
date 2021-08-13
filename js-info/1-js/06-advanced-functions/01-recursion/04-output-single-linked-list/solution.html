@@ -1,110 +1,272 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>solution</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-  <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
-</head>
-<body>
-<h1 id="loop-based-solution">Loop-based solution</h1>
-<p>The loop-based variant of the solution:</p>
-<p>```js run let list = { value: 1, next: { value: 2, next: { value: 3, next: { value: 4, next: null } } } };</p>
-<p>function printList(list) { let tmp = list;</p>
-<p>while (tmp) { alert(tmp.value); tmp = tmp.next; }</p>
-<p>}</p>
-<p>printList(list); ```</p>
-<p>Please note that we use a temporary variable <code>tmp</code> to walk over the list. Technically, we could use a function parameter <code>list</code> instead:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">function</span> <span class="at">printList</span>(list) <span class="op">{</span></a>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>solution</title>
+    <style type="text/css">
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      span.underline {
+        text-decoration: underline;
+      }
+      div.column {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+      }
+    </style>
+    <style type="text/css">
+      a.sourceLine {
+        display: inline-block;
+        line-height: 1.25;
+      }
+      a.sourceLine {
+        pointer-events: none;
+        color: inherit;
+        text-decoration: inherit;
+      }
+      a.sourceLine:empty {
+        height: 1.2em;
+      }
+      .sourceCode {
+        overflow: visible;
+      }
+      code.sourceCode {
+        white-space: pre;
+        position: relative;
+      }
+      div.sourceCode {
+        margin: 1em 0;
+      }
+      pre.sourceCode {
+        margin: 0;
+      }
+      @media screen {
+        div.sourceCode {
+          overflow: auto;
+        }
+      }
+      @media print {
+        code.sourceCode {
+          white-space: pre-wrap;
+        }
+        a.sourceLine {
+          text-indent: -1em;
+          padding-left: 1em;
+        }
+      }
+      pre.numberSource a.sourceLine {
+        position: relative;
+        left: -4em;
+      }
+      pre.numberSource a.sourceLine::before {
+        content: attr(title);
+        position: relative;
+        left: -1em;
+        text-align: right;
+        vertical-align: baseline;
+        border: none;
+        pointer-events: all;
+        display: inline-block;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        padding: 0 4px;
+        width: 4em;
+        color: #aaaaaa;
+      }
+      pre.numberSource {
+        margin-left: 3em;
+        border-left: 1px solid #aaaaaa;
+        padding-left: 4px;
+      }
+      div.sourceCode {
+      }
+      @media screen {
+        a.sourceLine::before {
+          text-decoration: underline;
+        }
+      }
+      code span.al {
+        color: #ff0000;
+        font-weight: bold;
+      } /* Alert */
+      code span.an {
+        color: #60a0b0;
+        font-weight: bold;
+        font-style: italic;
+      } /* Annotation */
+      code span.at {
+        color: #7d9029;
+      } /* Attribute */
+      code span.bn {
+        color: #40a070;
+      } /* BaseN */
+      code span.bu {
+      } /* BuiltIn */
+      code span.cf {
+        color: #007020;
+        font-weight: bold;
+      } /* ControlFlow */
+      code span.ch {
+        color: #4070a0;
+      } /* Char */
+      code span.cn {
+        color: #880000;
+      } /* Constant */
+      code span.co {
+        color: #60a0b0;
+        font-style: italic;
+      } /* Comment */
+      code span.cv {
+        color: #60a0b0;
+        font-weight: bold;
+        font-style: italic;
+      } /* CommentVar */
+      code span.do {
+        color: #ba2121;
+        font-style: italic;
+      } /* Documentation */
+      code span.dt {
+        color: #902000;
+      } /* DataType */
+      code span.dv {
+        color: #40a070;
+      } /* DecVal */
+      code span.er {
+        color: #ff0000;
+        font-weight: bold;
+      } /* Error */
+      code span.ex {
+      } /* Extension */
+      code span.fl {
+        color: #40a070;
+      } /* Float */
+      code span.fu {
+        color: #06287e;
+      } /* Function */
+      code span.im {
+      } /* Import */
+      code span.in {
+        color: #60a0b0;
+        font-weight: bold;
+        font-style: italic;
+      } /* Information */
+      code span.kw {
+        color: #007020;
+        font-weight: bold;
+      } /* Keyword */
+      code span.op {
+        color: #666666;
+      } /* Operator */
+      code span.ot {
+        color: #007020;
+      } /* Other */
+      code span.pp {
+        color: #bc7a00;
+      } /* Preprocessor */
+      code span.sc {
+        color: #4070a0;
+      } /* SpecialChar */
+      code span.ss {
+        color: #bb6688;
+      } /* SpecialString */
+      code span.st {
+        color: #4070a0;
+      } /* String */
+      code span.va {
+        color: #19177c;
+      } /* Variable */
+      code span.vs {
+        color: #4070a0;
+      } /* VerbatimString */
+      code span.wa {
+        color: #60a0b0;
+        font-weight: bold;
+        font-style: italic;
+      } /* Warning */
+    </style>
+  </head>
+  <body>
+    <h1 id="loop-based-solution">Loop-based solution</h1>
+    <p>The loop-based variant of the solution:</p>
+    <p>
+      ```js run let list = { value: 1, next: { value: 2, next: { value: 3, next:
+      { value: 4, next: null } } } };
+    </p>
+    <p>function printList(list) { let tmp = list;</p>
+    <p>while (tmp) { alert(tmp.value); tmp = tmp.next; }</p>
+    <p>}</p>
+    <p>printList(list); ```</p>
+    <p>
+      Please note that we use a temporary variable <code>tmp</code> to walk over
+      the list. Technically, we could use a function parameter
+      <code>list</code> instead:
+    </p>
+    <div class="sourceCode" id="cb1">
+      <pre
+        class="sourceCode js"
+      ><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">function</span> <span class="at">printList</span>(list) <span class="op">{</span></a>
 <a class="sourceLine" id="cb1-2" title="2"></a>
 <a class="sourceLine" id="cb1-3" title="3">  <span class="cf">while</span>(<span class="op">*!*</span>list<span class="op">*</span><span class="ss">/!</span><span class="sc">*)</span><span class="ss"> {</span></a>
 <a class="sourceLine" id="cb1-4" title="4"><span class="ss">    alert</span><span class="sc">(</span><span class="ss">list.value</span><span class="sc">)</span><span class="ss">;</span></a>
 <a class="sourceLine" id="cb1-5" title="5"><span class="ss">    list = list.next;</span></a>
 <a class="sourceLine" id="cb1-6" title="6"><span class="ss">  }</span></a>
 <a class="sourceLine" id="cb1-7" title="7"></a>
-<a class="sourceLine" id="cb1-8" title="8"><span class="ss">}</span></a></code></pre></div>
-<p>…But that would be unwise. In the future we may need to extend a function, do something else with the list. If we change <code>list</code>, then we lose such ability.</p>
-<p>Talking about good variable names, <code>list</code> here is the list itself. The first element of it. And it should remain like that. That’s clear and reliable.</p>
-<p>From the other side, the role of <code>tmp</code> is exclusively a list traversal, like <code>i</code> in the <code>for</code> loop.</p>
-<h1 id="recursive-solution">Recursive solution</h1>
-<p>The recursive variant of <code>printList(list)</code> follows a simple logic: to output a list we should output the current element <code>list</code>, then do the same for <code>list.next</code>:</p>
-<p>```js run let list = { value: 1, next: { value: 2, next: { value: 3, next: { value: 4, next: null } } } };</p>
-<p>function printList(list) {</p>
-<p>alert(list.value); // output the current item</p>
-<p>if (list.next) { printList(list.next); // do the same for the rest of the list }</p>
-<p>}</p>
-<p>printList(list); ```</p>
-<p>Now what’s better?</p>
-<p>Technically, the loop is more effective. These two variants do the same, but the loop does not spend resources for nested function calls.</p>
-<p>From the other side, the recursive variant is shorter and sometimes easier to understand.</p>
-</body>
+<a class="sourceLine" id="cb1-8" title="8"><span class="ss">}</span></a></code></pre>
+    </div>
+    <p>
+      …But that would be unwise. In the future we may need to extend a function,
+      do something else with the list. If we change <code>list</code>, then we
+      lose such ability.
+    </p>
+    <p>
+      Talking about good variable names, <code>list</code> here is the list
+      itself. The first element of it. And it should remain like that. That’s
+      clear and reliable.
+    </p>
+    <p>
+      From the other side, the role of <code>tmp</code> is exclusively a list
+      traversal, like <code>i</code> in the <code>for</code> loop.
+    </p>
+    <h1 id="recursive-solution">Recursive solution</h1>
+    <p>
+      The recursive variant of <code>printList(list)</code> follows a simple
+      logic: to output a list we should output the current element
+      <code>list</code>, then do the same for <code>list.next</code>:
+    </p>
+    <p>
+      ```js run let list = { value: 1, next: { value: 2, next: { value: 3, next:
+      { value: 4, next: null } } } };
+    </p>
+    <p>function printList(list) {</p>
+    <p>alert(list.value); // output the current item</p>
+    <p>
+      if (list.next) { printList(list.next); // do the same for the rest of the
+      list }
+    </p>
+    <p>}</p>
+    <p>printList(list); ```</p>
+    <p>Now what’s better?</p>
+    <p>
+      Technically, the loop is more effective. These two variants do the same,
+      but the loop does not spend resources for nested function calls.
+    </p>
+    <p>
+      From the other side, the recursive variant is shorter and sometimes easier
+      to understand.
+    </p>
+  </body>
 </html>

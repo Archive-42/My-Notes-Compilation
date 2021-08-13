@@ -558,7 +558,7 @@ Just treat `async` call as promise and attach `.then` to it:
 - <a href="async-await.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="async-await.html#tasks" class="sidebar__link">Tasks (3)</a>
-- <a href="async-await.html class="sidebar\_\_link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fasync-await" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fasync-await" class="share share_fb sidebar__share"></a>
+- <a href="async-await.html class="sidebar\_\_link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fasync-await" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fasync-await" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/11-async/08-async-await" class="sidebar__link">Edit on GitHub</a>
 

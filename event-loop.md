@@ -410,7 +410,7 @@ Web Workers do not have access to DOM, so they are useful, mainly, for calculati
 - <a href="event-loop.html#macrotasks-and-microtasks" class="sidebar__link">Macrotasks and Microtasks</a>
 - <a href="event-loop.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="event-loop.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fevent-loop" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevent-loop" class="share share_fb sidebar__share"></a>
+- <a href="event-loop.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fevent-loop" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevent-loop" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/99-ui-misc/03-event-loop" class="sidebar__link">Edit on GitHub</a>
 

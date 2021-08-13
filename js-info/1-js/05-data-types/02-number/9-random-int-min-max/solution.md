@@ -4,11 +4,11 @@ The simplest, but wrong solution would be to generate a value from `min` to `max
 
 ```js run
 function randomInteger(min, max) {
-  let rand = min + Math.random() * (max - min); 
+  let rand = min + Math.random() * (max - min);
   return Math.round(rand);
 }
 
-alert( randomInteger(1, 3) );
+alert(randomInteger(1, 3));
 ```
 
 The function works, but it is incorrect. The probability to get edge values `min` and `max` is two times less than any other.

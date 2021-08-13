@@ -24,10 +24,10 @@ let arr = ["I", "go", "home"];
 
 delete arr[1]; // remove "go"
 
-alert( arr[1] ); // undefined
+alert(arr[1]); // undefined
 
 // now arr = ["I",  , "home"];
-alert( arr.length ); // 3
+alert(arr.length); // 3
 ```
 
 The element was removed, but the array still has 3 elements, we can see that `arr.length == 3`.
@@ -94,7 +94,7 @@ let arr = ["I", "study", "JavaScript"];
 // then insert "complex" and "language"
 arr.splice(2, 0, "complex", "language");
 
-alert( arr ); // "I", "study", "complex", "language", "JavaScript"
+alert(arr); // "I", "study", "complex", "language", "JavaScript"
 ```
 
 ````smart header="Negative indexes allowed"
@@ -119,7 +119,7 @@ The method [arr.slice](mdn:js/Array/slice) is much simpler than similar-looking 
 The syntax is:
 
 ```js
-arr.slice([start], [end])
+arr.slice([start], [end]);
 ```
 
 It returns a new array copying to it all items from index `start` to `end` (not including `end`). Both `start` and `end` can be negative, in that case position from array end is assumed.
@@ -131,9 +131,9 @@ For instance:
 ```js run
 let arr = ["t", "e", "s", "t"];
 
-alert( arr.slice(1, 3) ); // e,s (copy from 1 to 3)
+alert(arr.slice(1, 3)); // e,s (copy from 1 to 3)
 
-alert( arr.slice(-2) ); // s,t (copy from -2 till the end)
+alert(arr.slice(-2)); // s,t (copy from -2 till the end)
 ```
 
 We can also call it without arguments: `arr.slice()` creates a copy of `arr`. That's often used to obtain a copy for further transformations that should not affect the original array.
@@ -160,13 +160,13 @@ For instance:
 let arr = [1, 2];
 
 // create an array from: arr and [3,4]
-alert( arr.concat([3, 4]) ); // 1,2,3,4
+alert(arr.concat([3, 4])); // 1,2,3,4
 
 // create an array from: arr and [3,4] and [5,6]
-alert( arr.concat([3, 4], [5, 6]) ); // 1,2,3,4,5,6
+alert(arr.concat([3, 4], [5, 6])); // 1,2,3,4,5,6
 
 // create an array from: arr and [3,4], then add values 5 and 6
-alert( arr.concat([3, 4], 5, 6) ); // 1,2,3,4,5,6
+alert(arr.concat([3, 4], 5, 6)); // 1,2,3,4,5,6
 ```
 
 Normally, it only copies elements from arrays. Other objects, even if they look like arrays, are added as a whole:
@@ -176,10 +176,10 @@ let arr = [1, 2];
 
 let arrayLike = {
   0: "something",
-  length: 1
+  length: 1,
 };
 
-alert( arr.concat(arrayLike) ); // 1,2,[object Object]
+alert(arr.concat(arrayLike)); // 1,2,[object Object]
 ```
 
 ...But if an array-like object has a special `Symbol.isConcatSpreadable` property, then it's treated as an array by `concat`: its elements are added instead:
@@ -204,8 +204,9 @@ alert( arr.concat(arrayLike) ); // 1,2,something,else
 The [arr.forEach](mdn:js/Array/forEach) method allows to run a function for every element of the array.
 
 The syntax:
+
 ```js
-arr.forEach(function(item, index, array) {
+arr.forEach(function (item, index, array) {
   // ... do something with item
 });
 ```
@@ -227,7 +228,6 @@ And this code is more elaborate about their positions in the target array:
 
 The result of the function (if it returns any) is thrown away and ignored.
 
-
 ## Searching in array
 
 Now let's cover methods that search in an array.
@@ -245,11 +245,11 @@ For instance:
 ```js run
 let arr = [1, 0, false];
 
-alert( arr.indexOf(0) ); // 1
-alert( arr.indexOf(false) ); // 2
-alert( arr.indexOf(null) ); // -1
+alert(arr.indexOf(0)); // 1
+alert(arr.indexOf(false)); // 2
+alert(arr.indexOf(null)); // -1
 
-alert( arr.includes(1) ); // true
+alert(arr.includes(1)); // true
 ```
 
 Note that the methods use `===` comparison. So, if we look for `false`, it finds exactly `false` and not the zero.
@@ -260,8 +260,8 @@ Also, a very minor difference of `includes` is that it correctly handles `NaN`, 
 
 ```js run
 const arr = [NaN];
-alert( arr.indexOf(NaN) ); // -1 (should be 0, but === equality doesn't work for NaN)
-alert( arr.includes(NaN) );// true (correct)
+alert(arr.indexOf(NaN)); // -1 (should be 0, but === equality doesn't work for NaN)
+alert(arr.includes(NaN)); // true (correct)
 ```
 
 ### find and findIndex
@@ -271,8 +271,9 @@ Imagine we have an array of objects. How do we find an object with the specific 
 Here the [arr.find(fn)](mdn:js/Array/find) method comes in handy.
 
 The syntax is:
+
 ```js
-let result = arr.find(function(item, index, array) {
+let result = arr.find(function (item, index, array) {
   // if true is returned, item is returned and iteration is stopped
   // for falsy scenario returns undefined
 });
@@ -290,12 +291,12 @@ For example, we have an array of users, each with the fields `id` and `name`. Le
 
 ```js run
 let users = [
-  {id: 1, name: "John"},
-  {id: 2, name: "Pete"},
-  {id: 3, name: "Mary"}
+  { id: 1, name: "John" },
+  { id: 2, name: "Pete" },
+  { id: 3, name: "Mary" },
 ];
 
-let user = users.find(item => item.id == 1);
+let user = users.find((item) => item.id == 1);
 
 alert(user.name); // John
 ```
@@ -315,7 +316,7 @@ If there may be many, we can use [arr.filter(fn)](mdn:js/Array/filter).
 The syntax is similar to `find`, but `filter` returns an array of all matching elements:
 
 ```js
-let results = arr.filter(function(item, index, array) {
+let results = arr.filter(function (item, index, array) {
   // if true item is pushed to results and the iteration continues
   // returns empty array if nothing found
 });
@@ -325,13 +326,13 @@ For instance:
 
 ```js run
 let users = [
-  {id: 1, name: "John"},
-  {id: 2, name: "Pete"},
-  {id: 3, name: "Mary"}
+  { id: 1, name: "John" },
+  { id: 2, name: "Pete" },
+  { id: 3, name: "Mary" },
 ];
 
 // returns array of the first two users
-let someUsers = users.filter(item => item.id < 3);
+let someUsers = users.filter((item) => item.id < 3);
 
 alert(someUsers.length); // 2
 ```
@@ -349,7 +350,7 @@ It calls the function for each element of the array and returns the array of res
 The syntax is:
 
 ```js
-let result = arr.map(function(item, index, array) {
+let result = arr.map(function (item, index, array) {
   // returns the new value instead of item
 });
 ```
@@ -357,25 +358,25 @@ let result = arr.map(function(item, index, array) {
 For instance, here we transform each element into its length:
 
 ```js run
-let lengths = ["Bilbo", "Gandalf", "Nazgul"].map(item => item.length);
+let lengths = ["Bilbo", "Gandalf", "Nazgul"].map((item) => item.length);
 alert(lengths); // 5,7,6
 ```
 
 ### sort(fn)
 
-The call to [arr.sort()](mdn:js/Array/sort) sorts the array *in place*, changing its element order.
+The call to [arr.sort()](mdn:js/Array/sort) sorts the array _in place_, changing its element order.
 
 It also returns the sorted array, but the returned value is usually ignored, as `arr` itself is modified.
 
 For instance:
 
 ```js run
-let arr = [ 1, 2, 15 ];
+let arr = [1, 2, 15];
 
 // the method reorders the content of arr
 arr.sort();
 
-alert( arr );  // *!*1, 15, 2*/!*
+alert(arr); // *!*1, 15, 2*/!*
 ```
 
 Did you notice anything strange in the outcome?
@@ -389,6 +390,7 @@ Literally, all elements are converted to strings for comparisons. For strings, l
 To use our own sorting order, we need to supply a function as the argument of `arr.sort()`.
 
 The function should compare two arbitrary values and return:
+
 ```js
 function compare(a, b) {
   if (a > b) return 1; // if the first value is greater than the second
@@ -417,15 +419,15 @@ alert(arr);  // *!*1, 2, 15*/!*
 
 Now it works as intended.
 
-Let's step aside and think what's happening. The `arr` can be array of anything, right? It may contain numbers or strings or objects or whatever. We have a set of *some items*. To sort it, we need an *ordering function* that knows how to compare its elements. The default is a string order.
+Let's step aside and think what's happening. The `arr` can be array of anything, right? It may contain numbers or strings or objects or whatever. We have a set of _some items_. To sort it, we need an _ordering function_ that knows how to compare its elements. The default is a string order.
 
 The `arr.sort(fn)` method implements a generic sorting algorithm. We don't need to care how it internally works (an optimized [quicksort](https://en.wikipedia.org/wiki/Quicksort) or [Timsort](https://en.wikipedia.org/wiki/Timsort) most of the time). It will walk the array, compare its elements using the provided function and reorder them, all we need is to provide the `fn` which does the comparison.
 
 By the way, if we ever want to know which elements are compared -- nothing prevents from alerting them:
 
 ```js run
-[1, -2, 15, 2, 0, 8].sort(function(a, b) {
-  alert( a + " <> " + b );
+[1, -2, 15, 2, 0, 8].sort(function (a, b) {
+  alert(a + " <> " + b);
   return a - b;
 });
 ```
@@ -464,13 +466,14 @@ For many alphabets, it's better to use `str.localeCompare` method to correctly s
 For example, let's sort a few countries in German:
 
 ```js run
-let countries = ['Österreich', 'Andorra', 'Vietnam'];
+let countries = ["Österreich", "Andorra", "Vietnam"];
 
-alert( countries.sort( (a, b) => a > b ? 1 : -1) ); // Andorra, Vietnam, Österreich (wrong)
+alert(countries.sort((a, b) => (a > b ? 1 : -1))); // Andorra, Vietnam, Österreich (wrong)
 
-alert( countries.sort( (a, b) => a.localeCompare(b) ) ); // Andorra,Österreich,Vietnam (correct!)
+alert(countries.sort((a, b) => a.localeCompare(b))); // Andorra,Österreich,Vietnam (correct!)
 ```
-````
+
+`````
 
 ### reverse
 
@@ -521,18 +524,18 @@ let str = "test";
 
 alert( str.split('') ); // t,e,s,t
 ```
-````
+`````
 
 The call [arr.join(glue)](mdn:js/Array/join) does the reverse to `split`. It creates a string of `arr` items joined by `glue` between them.
 
 For instance:
 
 ```js run
-let arr = ['Bilbo', 'Gandalf', 'Nazgul'];
+let arr = ["Bilbo", "Gandalf", "Nazgul"];
 
-let str = arr.join(';'); // glue the array into a string using ;
+let str = arr.join(";"); // glue the array into a string using ;
 
-alert( str ); // Bilbo;Gandalf;Nazgul
+alert(str); // Bilbo;Gandalf;Nazgul
 ```
 
 ### reduce/reduceRight
@@ -546,9 +549,12 @@ The methods [arr.reduce](mdn:js/Array/reduce) and [arr.reduceRight](mdn:js/Array
 The syntax is:
 
 ```js
-let value = arr.reduce(function(accumulator, item, index, array) {
-  // ...
-}, [initial]);
+let value = arr.reduce(
+  function (accumulator, item, index, array) {
+    // ...
+  },
+  [initial]
+);
 ```
 
 The function is applied to all array elements one after another and "carries on" its result to the next call.
@@ -592,13 +598,13 @@ The calculation flow:
 
 Or in the form of a table, where each row represents a function call on the next array element:
 
-|   |`sum`|`current`|result|
-|---|-----|---------|---------|
-|the first call|`0`|`1`|`1`|
-|the second call|`1`|`2`|`3`|
-|the third call|`3`|`3`|`6`|
-|the fourth call|`6`|`4`|`10`|
-|the fifth call|`10`|`5`|`15`|
+|                 | `sum` | `current` | result |
+| --------------- | ----- | --------- | ------ |
+| the first call  | `0`   | `1`       | `1`    |
+| the second call | `1`   | `2`       | `3`    |
+| the third call  | `3`   | `3`       | `6`    |
+| the fourth call | `6`   | `4`       | `10`   |
+| the fifth call  | `10`  | `5`       | `15`   |
 
 Here we can clearly see how the result of the previous call becomes the first argument of the next one.
 
@@ -610,7 +616,7 @@ let arr = [1, 2, 3, 4, 5];
 // removed initial value from reduce (no 0)
 let result = arr.reduce((sum, current) => sum + current);
 
-alert( result ); // 15
+alert(result); // 15
 ```
 
 The result is the same. That's because if there's no initial, then `reduce` takes the first element of the array as the initial value and starts the iteration from the 2nd element.
@@ -632,7 +638,6 @@ arr.reduce((sum, current) => sum + current);
 So it's advised to always specify the initial value.
 
 The method [arr.reduceRight](mdn:js/Array/reduceRight) does the same, but goes from right to left.
-
 
 ## Array.isArray
 
@@ -708,6 +713,7 @@ A call to `users.filter(army.canJoin, army)` can be replaced with `users.filter(
 A cheat sheet of array methods:
 
 - To add/remove elements:
+
   - `push(...items)` -- adds items to the end,
   - `pop()` -- extracts an item from the end,
   - `shift()` -- extracts an item from the beginning,
@@ -717,15 +723,18 @@ A cheat sheet of array methods:
   - `concat(...items)` -- returns a new array: copies all members of the current one and adds `items` to it. If any of `items` is an array, then its elements are taken.
 
 - To search among elements:
+
   - `indexOf/lastIndexOf(item, pos)` -- look for `item` starting from position `pos`, return the index or `-1` if not found.
   - `includes(value)` -- returns `true` if the array has `value`, otherwise `false`.
   - `find/filter(func)` -- filter elements through the function, return first/all values that make it return `true`.
   - `findIndex` is like `find`, but returns the index instead of a value.
 
 - To iterate over elements:
+
   - `forEach(func)` -- calls `func` for every element, does not return anything.
 
 - To transform the array:
+
   - `map(func)` -- creates a new array from results of calling `func` for every element.
   - `sort(func)` -- sorts the array in-place, then returns it.
   - `reverse()` -- reverses the array in-place, then returns it.
@@ -746,17 +755,21 @@ These methods are the most used ones, they cover 99% of use cases. But there are
   These methods behave sort of like `||` and `&&` operators: if `fn` returns a truthy value, `arr.some()` immediately returns `true` and stops iterating over the rest of items; if `fn` returns a falsy value, `arr.every()` immediately returns `false` and stops iterating over the rest of items as well.
 
   We can use `every` to compare arrays:
+
   ```js run
   function arraysEqual(arr1, arr2) {
-    return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
+    return (
+      arr1.length === arr2.length &&
+      arr1.every((value, index) => value === arr2[index])
+    );
   }
 
-  alert( arraysEqual([1, 2], [1, 2])); // true
+  alert(arraysEqual([1, 2], [1, 2])); // true
   ```
 
 - [arr.fill(value, start, end)](mdn:js/Array/fill) -- fills the array with repeating `value` from index `start` to `end`.
 
-- [arr.copyWithin(target, start, end)](mdn:js/Array/copyWithin) -- copies its elements from position `start` till position `end` into *itself*, at position `target` (overwrites existing).
+- [arr.copyWithin(target, start, end)](mdn:js/Array/copyWithin) -- copies its elements from position `start` till position `end` into _itself_, at position `target` (overwrites existing).
 
 - [arr.flat(depth)](mdn:js/Array/flat)/[arr.flatMap(fn)](mdn:js/Array/flatMap) create a new flat array from a multidimensional array.
 

@@ -1,4 +1,3 @@
-
 The error occurs because `ask` gets functions `loginOk/loginFail` without the object.
 
 When it calls them, they naturally assume `this=undefined`.
@@ -33,11 +32,15 @@ askPassword(user.loginOk.bind(user), user.loginFail.bind(user));
 Now it works.
 
 An alternative solution could be:
+
 ```js
 //...
-askPassword(() => user.loginOk(), () => user.loginFail());
+askPassword(
+  () => user.loginOk(),
+  () => user.loginFail()
+);
 ```
 
 Usually that also works and looks good.
 
-It's a bit less reliable though in more complex situations where `user` variable might change *after* `askPassword` is called, but *before* the visitor answers and calls `() => user.loginOk()`. 
+It's a bit less reliable though in more complex situations where `user` variable might change _after_ `askPassword` is called, but _before_ the visitor answers and calls `() => user.loginOk()`.

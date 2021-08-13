@@ -2,12 +2,12 @@
 
 The two most used data structures in JavaScript are `Object` and `Array`.
 
-- Objects allow us to create a single entity that stores data items by key. 
+- Objects allow us to create a single entity that stores data items by key.
 - Arrays allow us to gather data items into an ordered list.
 
 Although, when we pass those to a function, it may need not an object/array as a whole. It may need individual pieces.
 
-*Destructuring assignment* is a special syntax that allows us to "unpack" arrays or objects into a bunch of variables, as sometimes that's more convenient. 
+_Destructuring assignment_ is a special syntax that allows us to "unpack" arrays or objects into a bunch of variables, as sometimes that's more convenient.
 
 Destructuring also works great with complex functions that have a lot of parameters, default values, and so on. Soon we'll see that.
 
@@ -35,14 +35,14 @@ Now we can work with variables instead of array members.
 It looks great when combined with `split` or other array-returning methods:
 
 ```js run
-let [firstName, surname] = "John Smith".split(' ');
+let [firstName, surname] = "John Smith".split(" ");
 alert(firstName); // John
-alert(surname);  // Smith
+alert(surname); // Smith
 ```
 
 As you can see, the syntax is simple. There are several peculiar details though. Let's see more examples, to better understand it.
 
-````smart header="\"Destructuring\" does not mean \"destructive\"."
+````smart header=""Destructuring" does not mean "destructive"."
 It's called "destructuring assignment," because it "destructurizes" by copying items into variables. But the array itself is not modified.
 
 It's just a shorter way to write:
@@ -78,7 +78,6 @@ let [one, two, three] = new Set([1, 2, 3]);
 ```
 That works, because internally a destructuring assignment works by iterating over the right value. It's kind of syntax sugar for calling `for..of` over the value to the right of `=` and assigning the values.
 ````
-
 
 ````smart header="Assign to anything at the left-side"
 We can use any "assignables" at the left side.
@@ -176,7 +175,7 @@ alert(rest.length); // 2
 */!*
 ```
 
-The value of `rest` is the array of the remaining array elements. 
+The value of `rest` is the array of the remaining array elements.
 
 We can use any other variable name in place of `rest`, just make sure it has three dots before it and goes last in the destructuring assignment.
 
@@ -216,9 +215,9 @@ For instance, here we use the `prompt` function for two defaults:
 
 ```js run
 // runs only prompt for surname
-let [name = prompt('name?'), surname = prompt('surname?')] = ["Julius"];
+let [name = prompt("name?"), surname = prompt("surname?")] = ["Julius"];
 
-alert(name);    // Julius (from array)
+alert(name); // Julius (from array)
 alert(surname); // whatever prompt gets
 ```
 
@@ -254,13 +253,13 @@ alert(width);  // 100
 alert(height); // 200
 ```
 
-Properties `options.title`, `options.width` and `options.height` are assigned to the corresponding variables. 
+Properties `options.title`, `options.width` and `options.height` are assigned to the corresponding variables.
 
 The order does not matter. This works too:
 
 ```js
 // changed the order in let {...}
-let {height, width, title} = { title: "Menu", height: 200, width: 100 }
+let { height, width, title } = { title: "Menu", height: 200, width: 100 };
 ```
 
 The pattern on the left side may be more complex and specify the mapping between properties and variables.
@@ -345,7 +344,7 @@ If we have a complex object with many properties, we can extract only what we ne
 let options = {
   title: "Menu",
   width: 100,
-  height: 200
+  height: 200,
 };
 
 // only extract title as a variable
@@ -380,10 +379,10 @@ alert(rest.height);  // 200
 alert(rest.width);   // 100
 ```
 
-````smart header="Gotcha if there's no `let`"
-In the examples above variables were declared right in the assignment: `let {…} = {…}`. Of course, we could use existing variables too, without `let`. But there's a catch.
+````smart header="Gotcha if there's no `let`" In the examples above variables were declared right in the assignment: `let {…} = {…}`. Of course, we could use existing variables too, without `let`. But there's a catch.
 
 This won't work:
+
 ```js run
 let title, width, height;
 
@@ -398,7 +397,7 @@ The problem is that JavaScript treats `{...}` in the main code flow (not inside 
   // a code block
   let message = "Hello";
   // ...
-  alert( message );
+  alert(message);
 }
 ```
 
@@ -414,6 +413,7 @@ let title, width, height;
 
 alert( title ); // Menu
 ```
+
 ````
 
 ## Nested destructuring
@@ -429,7 +429,7 @@ let options = {
     height: 200
   },
   items: ["Cake", "Donut"],
-  extra: true   
+  extra: true
 };
 
 // destructuring assignment split in multiple lines for clarity
@@ -577,3 +577,4 @@ In the code above, the whole arguments object is `{}` by default, so there's alw
     The first item goes to `item1`; the second goes into `item2`, all the rest makes the array `rest`.
 
 - It's possible to extract data from nested arrays/objects, for that the left side must have the same structure as the right one.
+````

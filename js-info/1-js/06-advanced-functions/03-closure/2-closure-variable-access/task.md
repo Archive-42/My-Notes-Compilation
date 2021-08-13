@@ -12,7 +12,7 @@ Will it have access to the outer variables from its creation place, or the invoc
 function makeWorker() {
   let name = "Pete";
 
-  return function() {
+  return function () {
     alert(name);
   };
 }

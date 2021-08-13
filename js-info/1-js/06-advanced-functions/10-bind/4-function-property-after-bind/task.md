@@ -20,4 +20,3 @@ let bound = sayHi.bind({
 alert( bound.test ); // what will be the output? why?
 */!*
 ```
-

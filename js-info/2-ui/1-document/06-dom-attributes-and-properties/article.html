@@ -84,13 +84,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We’ve already seen built-in DOM properties. There are a lot. But technically no one limits us, and if there aren’t enough, we can add our own.</p>
 <p>DOM nodes are regular JavaScript objects. We can alter them.</p>
 <p>For instance, let’s create a new property in <code>document.body</code>:</p>
-<p>```js run document.body.myData = { name: ‘Caesar’, title: ‘Imperator’ };</p>
+<p>```js run document.body.myData = { name: “Caesar”, title: “Imperator”, };</p>
 <p>alert(document.body.myData.title); // Imperator ```</p>
 <p>We can add a method as well:</p>
-<p>```js run document.body.sayTagName = function() { alert(this.tagName); };</p>
+<p>```js run document.body.sayTagName = function () { alert(this.tagName); };</p>
 <p>document.body.sayTagName(); // BODY (the value of “this” in the method is document.body) ```</p>
 <p>We can also modify built-in prototypes like <code>Element.prototype</code> and add new methods to all elements:</p>
-<p>``<code>js run Element.prototype.sayHi = function() {   alert(</code>Hello, I’m ${this.tagName}`); };</p>
+<p>``<code>js run Element.prototype.sayHi = function () {   alert(</code>Hello, I’m ${this.tagName}`); };</p>
 <p>document.documentElement.sayHi(); // Hello, I’m HTML document.body.sayHi(); // Hello, I’m BODY ```</p>
 <p>So, DOM properties and methods behave just like those of regular JavaScript objects:</p>
 <ul>
@@ -100,9 +100,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 id="html-attributes">HTML attributes</h2>
 <p>In HTML, tags may have attributes. When the browser parses the HTML to create DOM objects for tags, it recognizes <em>standard</em> attributes and creates DOM properties from them.</p>
 <p>So when an element has <code>id</code> or another <em>standard</em> attribute, the corresponding property gets created. But that doesn’t happen if the attribute is non-standard.</p>
-<p>For instance: <code>html run &lt;body id="test" something="non-standard"&gt;   &lt;script&gt;     alert(document.body.id); // test *!*     // non-standard attribute does not yield a property     alert(document.body.something); // undefined */!*   &lt;/script&gt; &lt;/body&gt;</code></p>
+<p>For instance:</p>
+<p><code>html run &lt;body id="test" something="non-standard"&gt;   &lt;script&gt;         alert(document.body.id); // test     *!*         // non-standard attribute does not yield a property         alert(document.body.something); // undefined     */!*   &lt;/script&gt; &lt;/body&gt;</code></p>
 <p>Please note that a standard attribute for one element can be unknown for another one. For instance, <code>"type"</code> is standard for <code>&lt;input&gt;</code> (<a href="https://html.spec.whatwg.org/#htmlinputelement">HTMLInputElement</a>), but not for <code>&lt;body&gt;</code> (<a href="https://html.spec.whatwg.org/#htmlbodyelement">HTMLBodyElement</a>). Standard attributes are described in the specification for the corresponding element class.</p>
-<p>Here we can see it: <code>html run &lt;body id="body" type="..."&gt;   &lt;input id="input" type="text"&gt;   &lt;script&gt;     alert(input.type); // text *!*     alert(body.type); // undefined: DOM property not created, because it's non-standard */!*   &lt;/script&gt; &lt;/body&gt;</code></p>
+<p>Here we can see it:</p>
+<p><code>html run &lt;body id="body" type="..."&gt;   &lt;input id="input" type="text" /&gt;   &lt;script&gt;         alert(input.type); // text     *!*         alert(body.type); // undefined: DOM property not created, because it's non-standard     */!*   &lt;/script&gt; &lt;/body&gt;</code></p>
 <p>So, if an attribute is non-standard, there won’t be a DOM-property for it. Is there a way to access such attributes?</p>
 <p>Sure. All attributes are accessible by using the following methods:</p>
 <ul>
@@ -114,7 +116,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>These methods operate exactly with what’s written in HTML.</p>
 <p>Also one can read all attributes using <code>elem.attributes</code>: a collection of objects that belong to a built-in <a href="https://dom.spec.whatwg.org/#attr">Attr</a> class, with <code>name</code> and <code>value</code> properties.</p>
 <p>Here’s a demo of reading a non-standard property:</p>
-<p><code>html run &lt;body something="non-standard"&gt;   &lt;script&gt; *!*     alert(document.body.getAttribute('something')); // non-standard */!*   &lt;/script&gt; &lt;/body&gt;</code></p>
+<p><code>html run &lt;body something="non-standard"&gt;   &lt;script&gt;     *!*         alert(document.body.getAttribute('something')); // non-standard     */!*   &lt;/script&gt; &lt;/body&gt;</code></p>
 <p>HTML attributes have the following features:</p>
 <ul>
 <li>Their name is case-insensitive (<code>id</code> is same as <code>ID</code>).</li>
@@ -127,14 +129,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 <script>
-    alert( elem.getAttribute('About') ); // (1) 'Elephant', reading
+    alert(elem.getAttribute("About")); // (1) 'Elephant', reading
 
-    elem.setAttribute('Test', 123); // (2), writing
+    elem.setAttribute("Test", 123); // (2), writing
 
-    alert( elem.outerHTML ); // (3), see if the attribute is in HTML (yes)
+    alert(elem.outerHTML); // (3), see if the attribute is in HTML (yes)
 
-    for (let attr of elem.attributes) { // (4) list all
-      alert( `${attr.name} = ${attr.value}` );
+    for (let attr of elem.attributes) {
+      // (4) list all
+      alert(`${attr.name} = ${attr.value}`);
     }
   </script>
 </body>
@@ -149,42 +152,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 id="property-attribute-synchronization">Property-attribute synchronization</h2>
 <p>When a standard attribute changes, the corresponding property is auto-updated, and (with some exceptions) vice versa.</p>
 <p>In the example below <code>id</code> is modified as an attribute, and we can see the property changed too. And then the same backwards:</p>
-<p>```html run <input></p>
+<p>```html run <input /></p>
 <script>
-  let input = document.querySelector('input');
+  let input = document.querySelector("input");
 
   // attribute => property
-  input.setAttribute('id', 'id');
+  input.setAttribute("id", "id");
   alert(input.id); // id (updated)
 
   // property => attribute
-  input.id = 'newId';
-  alert(input.getAttribute('id')); // newId (updated)
+  input.id = "newId";
+  alert(input.getAttribute("id")); // newId (updated)
 </script>
 <p>```</p>
 <p>But there are exclusions, for instance <code>input.value</code> synchronizes only from attribute -&gt; to property, but not back:</p>
-<p>```html run <input></p>
+<p>```html run <input /></p>
 <script>
-  let input = document.querySelector('input');
+    let input = document.querySelector('input');
 
-  // attribute => property
-  input.setAttribute('value', 'text');
-  alert(input.value); // text
+    // attribute => property
+    input.setAttribute('value', 'text');
+    alert(input.value); // text
 
-*!*
-  // NOT property => attribute
-  input.value = 'newValue';
-  alert(input.getAttribute('value')); // text (not updated!)
-*/!*
+  *!*
+    // NOT property => attribute
+    input.value = 'newValue';
+    alert(input.getAttribute('value')); // text (not updated!)
+  */!*
 </script>
 <p>```</p>
-<p>In the example above: - Changing the attribute <code>value</code> updates the property. - But the property change does not affect the attribute.</p>
+<p>In the example above:</p>
+<ul>
+<li>Changing the attribute <code>value</code> updates the property.</li>
+<li>But the property change does not affect the attribute.</li>
+</ul>
 <p>That “feature” may actually come in handy, because the user actions may lead to <code>value</code> changes, and then after them, if we want to recover the “original” value from HTML, it’s in the attribute.</p>
 <h2 id="dom-properties-are-typed">DOM properties are typed</h2>
 <p>DOM properties are not always strings. For instance, the <code>input.checked</code> property (for checkboxes) is a boolean:</p>
-<p>```html run <input id="input" type="checkbox" checked> checkbox</p>
+<p>```html run <input id="input" type="checkbox" checked /> checkbox</p>
 <script>
-  alert(input.getAttribute('checked')); // the attribute value is: empty string
+  alert(input.getAttribute("checked")); // the attribute value is: empty string
   alert(input.checked); // the property value is: true
 </script>
 <p>```</p>
@@ -195,7 +202,7 @@ Hello
 </div>
 <script>
   // string
-  alert(div.getAttribute('style')); // color:red;font-size:120%
+  alert(div.getAttribute("style")); // color:red;font-size:120%
 
   // object
   alert(div.style); // [object CSSStyleDeclaration]
@@ -208,10 +215,10 @@ Hello
 ```html height=30 run <a id="a" href="#hello">link</a>
 <script>
   // attribute
-  alert(a.getAttribute('href')); // #hello
+  alert(a.getAttribute("href")); // #hello
 
   // property
-  alert(a.href ); // full URL in the form http://site.com/page#hello
+  alert(a.href); // full URL in the form http://site.com/page#hello
 </script>
 <p>```</p>
 <p>If we need the value of <code>href</code> or any other attribute exactly as written in the HTML, we can use <code>getAttribute</code>.</p>
@@ -255,25 +262,25 @@ Hello
   }
 </style>
 <div class="order" data-order-state="new">
-<p>A new order.</p>
+A new order.
 </div>
 <div class="order" data-order-state="pending">
-<p>A pending order.</p>
+A pending order.
 </div>
 <div class="order" data-order-state="canceled">
-<p>A canceled order.</p>
+A canceled order.
 </div>
 <p>```</p>
 <p>Why would using an attribute be preferable to having classes like <code>.order-state-new</code>, <code>.order-state-pending</code>, <code>.order-state-canceled</code>?</p>
 <p>Because an attribute is more convenient to manage. The state can be changed as easy as:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="co">// a bit simpler than removing old/adding a new class</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="va">div</span>.<span class="at">setAttribute</span>(<span class="st">&#39;order-state&#39;</span><span class="op">,</span> <span class="st">&#39;canceled&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-2" title="2"><span class="va">div</span>.<span class="at">setAttribute</span>(<span class="st">&quot;order-state&quot;</span><span class="op">,</span> <span class="st">&quot;canceled&quot;</span>)<span class="op">;</span></a></code></pre></div>
 <p>But there may be a possible problem with custom attributes. What if we use a non-standard attribute for our purposes and later the standard introduces it and makes it do something? The HTML language is alive, it grows, and more attributes appear to suit the needs of developers. There may be unexpected effects in such case.</p>
 <p>To avoid conflicts, there exist <a href="https://html.spec.whatwg.org/#embedding-custom-non-visible-data-with-the-data-*-attributes">data-*</a> attributes.</p>
 <p><strong>All attributes starting with “data-” are reserved for programmers’ use. They are available in the <code>dataset</code> property.</strong></p>
 <p>For instance, if an <code>elem</code> has an attribute named <code>"data-about"</code>, it’s available as <code>elem.dataset.about</code>.</p>
 <p>Like this:</p>
-<p><code>html run &lt;body data-about="Elephants"&gt; &lt;script&gt;   alert(document.body.dataset.about); // Elephants &lt;/script&gt;</code></p>
+<p><code>html run &lt;body data-about="Elephants"&gt;   &lt;script&gt;     alert(document.body.dataset.about); // Elephants   &lt;/script&gt; &lt;/body&gt;</code></p>
 <p>Multiword attributes like <code>data-order-state</code> become camel-cased: <code>dataset.orderState</code>.</p>
 <p>Here’s a rewritten “order state” example:</p>
 ```html run
@@ -291,7 +298,7 @@ Hello
   }
 </style>
 <div id="order" class="order" data-order-state="new">
-<p>A new order.</p>
+A new order.
 </div>
 <script>
   // read
@@ -309,11 +316,11 @@ Hello
 <li>Properties – is what’s in DOM objects.</li>
 </ul>
 <p>A small comparison:</p>
-<table>
+<table style="width:100%;">
 <colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
+<col style="width: 4%" />
+<col style="width: 67%" />
+<col style="width: 27%" />
 </colgroup>
 <thead>
 <tr class="header">

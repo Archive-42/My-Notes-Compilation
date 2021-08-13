@@ -3,10 +3,10 @@ EN
 - <a href="https://ar.javascript.info/basic-dom-node-properties" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
 - <a href="basic-dom-node-properties.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
 - <a href="https://es.javascript.info/basic-dom-node-properties" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
-- basic-dom-node-properties" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- basic-dom-node-properties" class="supported-langs**link"><span class="supported-langs**brief">IT</span><span>Italiano</span></a>
 - <a href="https://ja.javascript.info/basic-dom-node-properties" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
-/basic-dom-node-properties" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+/basic-dom-node-properties" class="supported-langs**link"><span class="supported-langs**brief">KO</span><span>한국어</span></a>
 
 <a href="basic-dom-node-properties%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
 
@@ -740,4 +740,4 @@ basic-dom-node-properties.html\#tasks" &gt;Tasks (4)
 
 basic-dom-node-properties.html &gt;Comments
 
-<a s%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/05-basic-dom-node-properties" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/05-basic-dom-node-properties" class="sidebar__link">Edit on GitHub</a>

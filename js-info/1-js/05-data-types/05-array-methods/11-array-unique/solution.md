@@ -1,4 +1,5 @@
 Let's walk the array items:
+
 - For each item we'll check if the resulting array already has that item.
 - If it is so, then ignore, otherwise add to results.
 
@@ -15,11 +16,19 @@ function unique(arr) {
   return result;
 }
 
-let strings = ["Hare", "Krishna", "Hare", "Krishna",
-  "Krishna", "Krishna", "Hare", "Hare", ":-O"
+let strings = [
+  "Hare",
+  "Krishna",
+  "Hare",
+  "Krishna",
+  "Krishna",
+  "Krishna",
+  "Hare",
+  "Hare",
+  ":-O",
 ];
 
-alert( unique(strings) ); // Hare, Krishna, :-O
+alert(unique(strings)); // Hare, Krishna, :-O
 ```
 
 The code works, but there's a potential performance problem in it.

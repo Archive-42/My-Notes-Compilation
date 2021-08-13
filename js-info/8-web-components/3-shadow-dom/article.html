@@ -92,12 +92,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In the example above, we can see a useful attribute <code>pseudo</code>. It’s non-standard, exists for historical reasons. We can use it style subelements with CSS, like this:</p>
 ```html run autorun
 <style>
-/* make the slider track red */
-input::-webkit-slider-runnable-track {
-  background: red;
-}
+  /* make the slider track red */
+  input::-webkit-slider-runnable-track {
+    background: red;
+  }
 </style>
-<p><input type="range"> ```</p>
+<p><input type="range" /> ```</p>
 <p>Once again, <code>pseudo</code> is a non-standard attribute. Chronologically, browsers first started to experiment with internal DOM structures to implement controls, and then, after time, shadow DOM was standardized to allow us, developers, to do the similar thing.</p>
 <p>Further on, we’ll use the modern shadow DOM standard, covered by <a href="https://dom.spec.whatwg.org/#shadow-trees">DOM spec</a> and other related specifications.</p>
 <h2 id="shadow-tree">Shadow tree</h2>
@@ -109,28 +109,32 @@ input::-webkit-slider-runnable-track {
 <p>If an element has both, then the browser renders only the shadow tree. But we can setup a kind of composition between shadow and light trees as well. We’ll see the details later in the chapter <a href="info:slots-composition" class="uri">info:slots-composition</a>.</p>
 <p>Shadow tree can be used in Custom Elements to hide component internals and apply component-local styles.</p>
 <p>For example, this <code>&lt;show-hello&gt;</code> element hides its internal DOM in shadow tree:</p>
-``<code>html run autorun height=60 &lt;script&gt; customElements.define('show-hello', class extends HTMLElement {   connectedCallback() {     const shadow = this.attachShadow({mode: 'open'});     shadow.innerHTML =</code>
+``<code>html run autorun height=60 &lt;script&gt;   customElements.define(     "show-hello",     class extends HTMLElement {       connectedCallback() {         const shadow = this.attachShadow({ mode: "open" });         shadow.innerHTML =</code>
 <p>
-Hello, ${this.getAttribute(‘name’)}
+Hello, ${this.getAttribute(“name”)}
 </p>
-`; }<br />
-});
+`; } } );
 </script>
 <p><show-hello name="John"></show-hello> ```</p>
 <p>That’s how the resulting DOM looks in Chrome dev tools, all the content is under “#shadow-root”:</p>
 <p><img src="shadow-dom-say-hello.png" /></p>
 <p>First, the call to <code>elem.attachShadow({mode: …})</code> creates a shadow tree.</p>
-<p>There are two limitations: 1. We can create only one shadow root per element. 2. The <code>elem</code> must be either a custom element, or one of: “article”, “aside”, “blockquote”, “body”, “div”, “footer”, “h1..h6”, “header”, “main” “nav”, “p”, “section”, or “span”. Other elements, like <code>&lt;img&gt;</code>, can’t host shadow tree.</p>
-<p>The <code>mode</code> option sets the encapsulation level. It must have any of two values: - <code>"open"</code> – the shadow root is available as <code>elem.shadowRoot</code>.</p>
-<pre><code>Any code is able to access the shadow tree of `elem`.   </code></pre>
+<p>There are two limitations:</p>
+<ol type="1">
+<li>We can create only one shadow root per element.</li>
+<li>The <code>elem</code> must be either a custom element, or one of: “article”, “aside”, “blockquote”, “body”, “div”, “footer”, “h1..h6”, “header”, “main” “nav”, “p”, “section”, or “span”. Other elements, like <code>&lt;img&gt;</code>, can’t host shadow tree.</li>
+</ol>
+<p>The <code>mode</code> option sets the encapsulation level. It must have any of two values:</p>
 <ul>
+<li><p><code>"open"</code> – the shadow root is available as <code>elem.shadowRoot</code>.</p>
+<p>Any code is able to access the shadow tree of <code>elem</code>.</p></li>
 <li><p><code>"closed"</code> – <code>elem.shadowRoot</code> is always <code>null</code>.</p>
 <p>We can only access the shadow DOM by the reference returned by <code>attachShadow</code> (and probably hidden inside a class). Browser-native shadow trees, such as <code>&lt;input type="range"&gt;</code>, are closed. There’s no way to access them.</p></li>
 </ul>
 <p>The <a href="https://dom.spec.whatwg.org/#shadowroot">shadow root</a>, returned by <code>attachShadow</code>, is like an element: we can use <code>innerHTML</code> or DOM methods, such as <code>append</code>, to populate it.</p>
 <p>The element with a shadow root is called a “shadow tree host”, and is available as the shadow root <code>host</code> property:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="co">// assuming {mode: &quot;open&quot;}, otherwise elem.shadowRoot is null</span></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="at">alert</span>(<span class="va">elem</span>.<span class="va">shadowRoot</span>.<span class="at">host</span> <span class="op">===</span> elem)<span class="op">;</span> <span class="co">// true</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="co">// assuming {mode: &quot;open&quot;}, otherwise elem.shadowRoot is null</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="at">alert</span>(<span class="va">elem</span>.<span class="va">shadowRoot</span>.<span class="at">host</span> <span class="op">===</span> elem)<span class="op">;</span> <span class="co">// true</span></a></code></pre></div>
 <h2 id="encapsulation">Encapsulation</h2>
 <p>Shadow DOM is strongly delimited from the main document:</p>
 <ol type="1">
@@ -140,29 +144,31 @@ Hello, ${this.getAttribute(‘name’)}
 <p>For example:</p>
 ```html run untrusted height=40
 <style>
-*!*
+  *!*
   /* document style won't apply to the shadow tree inside #elem (1) */
 */!*
-  p { color: red; }
+  p {
+    color: red;
+  }
 </style>
 <div id="elem">
 
 </div>
 <script>
-  elem.attachShadow({mode: 'open'});
-*!*
-    // shadow tree has its own style (2)
-*/!*
-  elem.shadowRoot.innerHTML = `
-    <style> p { font-weight: bold; } </style>
-    <p>Hello, John!</p>
-  `;
+    elem.attachShadow({mode: 'open'});
+  *!*
+      // shadow tree has its own style (2)
+  */!*
+    elem.shadowRoot.innerHTML = `
+      <style> p { font-weight: bold; } </style>
+      <p>Hello, John!</p>
+    `;
 
-*!*
-  // <p> is only visible from queries inside the shadow tree (3)
-*/!*
-  alert(document.querySelectorAll('p').length); // 0
-  alert(elem.shadowRoot.querySelectorAll('p').length); // 1
+  *!*
+    // <p> is only visible from queries inside the shadow tree (3)
+  */!*
+    alert(document.querySelectorAll('p').length); // 0
+    alert(elem.shadowRoot.querySelectorAll('p').length); // 1
 </script>
 <p>```</p>
 <ol type="1">
@@ -182,7 +188,12 @@ Hello, ${this.getAttribute(‘name’)}
 <li><code>shadowRoot = elem.attachShadow({mode: open|closed})</code> – creates shadow DOM for <code>elem</code>. If <code>mode="open"</code>, then it’s accessible as <code>elem.shadowRoot</code> property.</li>
 <li>We can populate <code>shadowRoot</code> using <code>innerHTML</code> or other DOM methods.</li>
 </ol>
-<p>Shadow DOM elements: - Have their own ids space, - Invisible to JavaScript selectors from the main document, such as <code>querySelector</code>, - Use styles only from the shadow tree, not from the main document.</p>
+<p>Shadow DOM elements:</p>
+<ul>
+<li>Have their own ids space,</li>
+<li>Invisible to JavaScript selectors from the main document, such as <code>querySelector</code>,</li>
+<li>Use styles only from the shadow tree, not from the main document.</li>
+</ul>
 <p>Shadow DOM, if exists, is rendered by the browser instead of so-called “light DOM” (regular children). In the chapter <a href="info:slots-composition" class="uri">info:slots-composition</a> we’ll see how to compose them.</p>
 </body>
 </html>

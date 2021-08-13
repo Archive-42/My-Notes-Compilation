@@ -87,7 +87,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s try it:</p>
 <p>```js run let regexp = /“.+”/g;</p>
 <p>let str = ‘a “witch” and her “broom” is one’;</p>
-<p>alert( str.match(regexp) ); // “witch” and her “broom” ```</p>
+<p>alert(str.match(regexp)); // “witch” and her “broom” ```</p>
 <p>…We can see that it works not as intended!</p>
 <p>Instead of finding two matches <code>match:"witch"</code> and <code>match:"broom"</code>, it finds one: <code>match:"witch" and her "broom"</code>.</p>
 <p>That can be described as “greediness is the cause of all evil”.</p>
@@ -137,7 +137,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The regexp <code>pattern:/".+?"/g</code> works as intended: it finds <code>match:"witch"</code> and <code>match:"broom"</code>:</p>
 <p>```js run let regexp = /“.+?”/g;</p>
 <p>let str = ‘a “witch” and her “broom” is one’;</p>
-<p>alert( str.match(regexp) ); // “witch”, “broom” ```</p>
+<p>alert(str.match(regexp)); // “witch”, “broom” ```</p>
 <p>To clearly understand the change, let’s trace the search step by step.</p>
 <ol type="1">
 <li><p>The first step is the same: it finds the pattern start <code>pattern:'"'</code> at the 3rd position:</p>
@@ -146,10 +146,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="witch_greedy2.svg" /></p></li>
 <li><p>And now the search goes differently. Because we have a lazy mode for <code>pattern:+?</code>, the engine doesn’t try to match a dot one more time, but stops and tries to match the rest of the pattern <code>pattern:'"'</code> right now:</p>
 <p><img src="witch_lazy3.svg" /></p>
-If there were a quote there, then the search would end, but there’s <code>'i'</code>, so there’s no match.</li>
+<p>If there were a quote there, then the search would end, but there’s <code>'i'</code>, so there’s no match.</p></li>
 <li><p>Then the regular expression engine increases the number of repetitions for the dot and tries one more time:</p>
 <p><img src="witch_lazy4.svg" /></p>
-Failure again. Then the number of repetitions is increased again and again…</li>
+<p>Failure again. Then the number of repetitions is increased again and again…</p></li>
 <li><p>…Till the match for the rest of the pattern is found:</p>
 <p><img src="witch_lazy5.svg" /></p></li>
 <li><p>The next search starts from the end of the current match and yield one more result:</p>
@@ -159,7 +159,7 @@ Failure again. Then the number of repetitions is increased again and again…</l
 <p><strong>Laziness is only enabled for the quantifier with <code>?</code>.</strong></p>
 <p>Other quantifiers remain greedy.</p>
 <p>For instance:</p>
-<p><code>js run alert( "123 456".match(/\d+ \d+?/) ); // 123 4</code></p>
+<p><code>js run alert("123 456".match(/\d+ \d+?/)); // 123 4</code></p>
 <ol type="1">
 <li>The pattern <code>pattern:\d+</code> tries to match as many digits as it can (greedy mode), so it finds <code>match:123</code> and stops, because the next character is a space <code>pattern:' '</code>.</li>
 <li>Then there’s a space in the pattern, it matches.</li>
@@ -175,7 +175,7 @@ Failure again. Then the number of repetitions is increased again and again…</l
 <p>In our case we can find quoted strings without lazy mode using the regexp <code>pattern:"[^"]+"</code>:</p>
 <p>```js run let regexp = /“[^"]+”/g;</p>
 <p>let str = ‘a “witch” and her “broom” is one’;</p>
-<p>alert( str.match(regexp) ); // “witch”, “broom” ```</p>
+<p>alert(str.match(regexp)); // “witch”, “broom” ```</p>
 <p>The regexp <code>pattern:"[^"]+"</code> gives correct results, because it looks for a quote <code>pattern:'"'</code> followed by one or more non-quotes <code>pattern:[^"]</code>, and then the closing quote.</p>
 <p>When the regexp engine looks for <code>pattern:[^"]+</code> it stops the repetitions when it meets the closing quote, and we’re done.</p>
 <p>Please note, that this logic does not replace lazy quantifiers!</p>
@@ -184,26 +184,30 @@ Failure again. Then the number of repetitions is increased again and again…</l
 <p>For instance, we want to find links of the form <code>&lt;a href="..." class="doc"&gt;</code>, with any <code>href</code>.</p>
 <p>Which regular expression to use?</p>
 <p>The first idea might be: <code>pattern:/&lt;a href=".*" class="doc"&gt;/g</code>.</p>
-<p>Let’s check it: ```js run let str = ‘…<a href="link" class="doc">…’; let regexp = /<a href=".*" class="doc">/g;</p>
-<p>// Works! alert( str.match(regexp) ); // <a href="link" class="doc"> ```</p>
+<p>Let’s check it:</p>
+<p>```js run let str = ‘…<a href="link" class="doc">…’; let regexp = /<a href=".*" class="doc">/g;</p>
+<p>// Works! alert(str.match(regexp)); // <a href="link" class="doc"> ```</p>
 <p>It worked. But let’s see what happens if there are many links in the text?</p>
 <p>```js run let str = ‘…<a href="link1" class="doc">… <a href="link2" class="doc">…’; let regexp = /<a href=".*" class="doc">/g;</p>
-<p>// Whoops! Two links in one match! alert( str.match(regexp) ); // <a href="link1" class="doc">… <a href="link2" class="doc"> ```</p>
+<p>// Whoops! Two links in one match! alert(str.match(regexp)); // <a href="link1" class="doc">… <a href="link2" class="doc"> ```</p>
 <p>Now the result is wrong for the same reason as our “witches” example. The quantifier <code>pattern:.*</code> took too many characters.</p>
 <p>The match looks like this:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;.....................................&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;link1&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;</span>... <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;link2&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;link1&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;</span>... <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;link2&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;&lt;/a&gt;&lt;/a</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">&gt;&lt;/a&gt;</span></a></code></pre></div>
 <p>Let’s modify the pattern by making the quantifier <code>pattern:.*?</code> lazy:</p>
 <p>```js run let str = ‘…<a href="link1" class="doc">… <a href="link2" class="doc">…’; let regexp = /<a href=".*?" class="doc">/g;</p>
-<p>// Works! alert( str.match(regexp) ); // <a href="link1" class="doc">, <a href="link2" class="doc"> ```</p>
+<p>// Works! alert(str.match(regexp)); // <a href="link1" class="doc">, <a href="link2" class="doc"> ```</p>
 <p>Now it seems to work, there are two matches:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;.....&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;</span>    <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;.....&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;</span></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;link1&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;</span>... <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;link2&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;.....&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;.....&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;link1&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;</span>... <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;link2&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;&lt;/a&gt;&lt;/a&gt;&lt;/a</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="kw">&gt;&lt;/a&gt;</span></a></code></pre></div>
 <p>…But let’s test it on one more text input:</p>
 ```js run let str = ’…<a href="link1" class="wrong">…
 <p style="" class="doc">
 <p>…’; let regexp = /<a href=".*?" class="doc">/g;</p>
-// Wrong match! alert( str.match(regexp) ); // <a href="link1" class="wrong">…
+// Wrong match! alert(str.match(regexp)); // <a href="link1" class="wrong">…
 <p style="" class="doc">
 <p>```</p>
 <p>Now it fails. The match includes not just a link, but also a lot of text after it, including <code>&lt;p...&gt;</code>.</p>
@@ -217,14 +221,17 @@ Failure again. Then the number of repetitions is increased again and again…</l
 <p>But the problem is: that’s already beyond the link <code>&lt;a...&gt;</code>, in another tag <code>&lt;p&gt;</code>. Not what we want.</p>
 <p>Here’s the picture of the match aligned with the text:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;...................................&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;</span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;link1&quot;</span><span class="ot"> class=</span><span class="st">&quot;wrong&quot;</span><span class="kw">&gt;</span>... <span class="kw">&lt;p</span><span class="ot"> style=</span><span class="st">&quot;&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;link1&quot;</span><span class="ot"> class=</span><span class="st">&quot;wrong&quot;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">&gt;</span>...</a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="kw">&lt;p</span><span class="ot"> style=</span><span class="st">&quot;&quot;</span><span class="ot"> class=</span><span class="st">&quot;doc&quot;</span><span class="kw">&gt;&lt;/p&gt;&lt;/a</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw">&gt;&lt;/a&gt;</span></a></code></pre></div>
 <p>So, we need the pattern to look for <code>&lt;a href="...something..." class="doc"&gt;</code>, but both greedy and lazy variants have problems.</p>
 <p>The correct variant can be: <code>pattern:href="[^"]*"</code>. It will take all characters inside the <code>href</code> attribute till the nearest quote, just what we need.</p>
 <p>A working example:</p>
 ```js run let str1 = ’…<a href="link1" class="wrong">…
 <p style="" class="doc">
 <p>…‘; let str2 =’…<a href="link1" class="doc">… <a href="link2" class="doc">…’; let regexp = /&lt;a href="[^"]*" class=“doc”&gt;/g;</p>
-<p>// Works! alert( str1.match(regexp) ); // null, no matches, that’s correct alert( str2.match(regexp) ); // <a href="link1" class="doc">, <a href="link2" class="doc"> ```</p>
+<p>// Works! alert(str1.match(regexp)); // null, no matches, that’s correct alert(str2.match(regexp)); // <a href="link1" class="doc">, <a href="link2" class="doc"> ```</p>
 <h2 id="summary">Summary</h2>
 <p>Quantifiers have two modes of work:</p>
 <dl>

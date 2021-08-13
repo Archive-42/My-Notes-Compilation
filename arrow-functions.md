@@ -3,12 +3,12 @@ EN
 - <a href="https://ar.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
 - <a href="arrow-functions.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
 - <a href="https://es.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
-- arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- arrow-functions" class="supported-langs**link"><span class="supported-langs**brief">IT</span><span>Italiano</span></a>
 - <a href="https://ja.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
-- /arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- /arrow-functions" class="supported-langs**link"><span class="supported-langs**brief">KO</span><span>한국어</span></a>
 - <a href="arrow-functions%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
 - <a href="https://tr.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
 - <a href="https://zh.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
@@ -180,4 +180,4 @@ arrow-functions.html
 
 arrow-functions.html &gt;Comments
 
-<a s%3A%2F%2Fjavascript.info%2Farrow-functions" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Farrow-functions" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/06-advanced-functions/12-arrow-functions" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Farrow-functions" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Farrow-functions" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/06-advanced-functions/12-arrow-functions" class="sidebar__link">Edit on GitHub</a>

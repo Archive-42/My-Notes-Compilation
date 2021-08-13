@@ -1,6 +1,6 @@
 # Decorators and forwarding, call/apply
 
-JavaScript gives exceptional flexibility when dealing with functions. They can be passed around, used as objects, and now we'll see how to *forward* calls between them and *decorate* them.
+JavaScript gives exceptional flexibility when dealing with functions. They can be passed around, used as objects, and now we'll see how to _forward_ calls between them and _decorate_ them.
 
 ## Transparent caching
 
@@ -22,28 +22,29 @@ function slow(x) {
 function cachingDecorator(func) {
   let cache = new Map();
 
-  return function(x) {
-    if (cache.has(x)) {    // if there's such key in cache
+  return function (x) {
+    if (cache.has(x)) {
+      // if there's such key in cache
       return cache.get(x); // read the result from it
     }
 
-    let result = func(x);  // otherwise call func
+    let result = func(x); // otherwise call func
 
-    cache.set(x, result);  // and cache (remember) the result
+    cache.set(x, result); // and cache (remember) the result
     return result;
   };
 }
 
 slow = cachingDecorator(slow);
 
-alert( slow(1) ); // slow(1) is cached and the result returned
-alert( "Again: " + slow(1) ); // slow(1) result returned from cache
+alert(slow(1)); // slow(1) is cached and the result returned
+alert("Again: " + slow(1)); // slow(1) result returned from cache
 
-alert( slow(2) ); // slow(2) is cached and the result returned
-alert( "Again: " + slow(2) ); // slow(2) result returned from cache
+alert(slow(2)); // slow(2) is cached and the result returned
+alert("Again: " + slow(2)); // slow(2) result returned from cache
 ```
 
-In the code above `cachingDecorator` is a *decorator*: a special function that takes another function and alters its behavior.
+In the code above `cachingDecorator` is a _decorator_: a special function that takes another function and alters its behavior.
 
 The idea is that we can call `cachingDecorator` for any function, and it will return the caching wrapper. That's great, because we can have many functions that could use such a feature, and all we need to do is to apply `cachingDecorator` to them.
 
@@ -75,7 +76,7 @@ let worker = {
   },
 
   slow(x) {
-    // scary CPU-heavy task here  
+    // scary CPU-heavy task here
     alert("Called with " + x);
     return x * this.someMethod(); // (*)
   }
@@ -131,9 +132,10 @@ func.call(context, arg1, arg2, ...)
 It runs `func` providing the first argument as `this`, and the next as the arguments.
 
 To put it simply, these two calls do almost the same:
+
 ```js
 func(1, 2, 3);
-func.call(obj, 1, 2, 3)
+func.call(obj, 1, 2, 3);
 ```
 
 They both call `func` with arguments `1`, `2` and `3`. The only difference is that `func.call` also sets `this` to `obj`.
@@ -149,22 +151,21 @@ let user = { name: "John" };
 let admin = { name: "Admin" };
 
 // use call to pass different objects as "this"
-sayHi.call( user ); // John
-sayHi.call( admin ); // Admin
+sayHi.call(user); // John
+sayHi.call(admin); // Admin
 ```
 
 And here we use `call` to call `say` with the given context and phrase:
 
-
 ```js run
 function say(phrase) {
-  alert(this.name + ': ' + phrase);
+  alert(this.name + ": " + phrase);
 }
 
 let user = { name: "John" };
 
 // user becomes this, and "Hello" becomes the first argument
-say.call( user, "Hello" ); // John: Hello
+say.call(user, "Hello"); // John: Hello
 ```
 
 In our case, we can use `call` in the wrapper to pass the context to the original function:
@@ -219,20 +220,20 @@ Now how to cache the multi-argument `worker.slow` method?
 let worker = {
   slow(min, max) {
     return min + max; // scary CPU-hogger is assumed
-  }
+  },
 };
 
 // should remember same-argument calls
 worker.slow = cachingDecorator(worker.slow);
 ```
 
-Previously, for a single argument `x` we could just `cache.set(x, result)` to save the result and `cache.get(x)` to retrieve it. But now we need to remember the result for a *combination of arguments* `(min,max)`. The native `Map` takes single value only as the key.
+Previously, for a single argument `x` we could just `cache.set(x, result)` to save the result and `cache.get(x)` to retrieve it. But now we need to remember the result for a _combination of arguments_ `(min,max)`. The native `Map` takes single value only as the key.
 
 There are many solutions possible:
 
 1. Implement a new (or use a third-party) map-like data structure that is more versatile and allows multi-keys.
 2. Use nested maps: `cache.set(min)` will be a `Map` that stores the pair `(max, result)`. So we can get `result` as `cache.get(min).get(max)`.
-3. Join two values into one. In our particular case we can just use a string `"min,max"` as the `Map` key. For flexibility, we can allow to provide a *hashing function* for the decorator, that knows how to make one value from many.
+3. Join two values into one. In our particular case we can just use a string `"min,max"` as the `Map` key. For flexibility, we can allow to provide a _hashing function_ for the decorator, that knows how to make one value from many.
 
 For many practical applications, the 3rd variant is good enough, so we'll stick to it.
 
@@ -291,7 +292,7 @@ Instead of `func.call(this, ...arguments)` we could use `func.apply(this, argume
 The syntax of built-in method [func.apply](mdn:js/Function/apply) is:
 
 ```js
-func.apply(context, args)
+func.apply(context, args);
 ```
 
 It runs the `func` setting `this=context` and using an array-like object `args` as the list of arguments.
@@ -309,17 +310,17 @@ They perform the same call of `func` with given context and arguments.
 
 There's only a subtle difference regarding `args`:
 
-- The spread syntax `...` allows to pass *iterable* `args` as the list to `call`.
-- The `apply` accepts only *array-like* `args`.
+- The spread syntax `...` allows to pass _iterable_ `args` as the list to `call`.
+- The `apply` accepts only _array-like_ `args`.
 
 ...And for objects that are both iterable and array-like, such as a real array, we can use any of them, but `apply` will probably be faster, because most JavaScript engines internally optimize it better.
 
-Passing all arguments along with the context to another function is called *call forwarding*.
+Passing all arguments along with the context to another function is called _call forwarding_.
 
 That's the simplest form of it:
 
 ```js
-let wrapper = function() {
+let wrapper = function () {
   return func.apply(this, arguments);
 };
 ```
@@ -332,7 +333,7 @@ Now let's make one more minor improvement in the hashing function:
 
 ```js
 function hash(args) {
-  return args[0] + ',' + args[1];
+  return args[0] + "," + args[1];
 }
 ```
 
@@ -372,7 +373,7 @@ function hash() {
 hash(1, 2);
 ```
 
-The trick is called *method borrowing*.
+The trick is called _method borrowing_.
 
 We take (borrow) a join method from a regular array (`[].join`) and use `[].join.call` to run it in the context of `arguments`.
 
@@ -404,7 +405,7 @@ There exists a way to create decorators that keep access to function properties,
 
 ## Summary
 
-*Decorator* is a wrapper around a function that alters its behavior. The main job is still carried out by the function.
+_Decorator_ is a wrapper around a function that alters its behavior. The main job is still carried out by the function.
 
 Decorators can be seen as "features" or "aspects" that can be added to a function. We can add one or add many. And all this without changing its code!
 
@@ -413,14 +414,14 @@ To implement `cachingDecorator`, we studied methods:
 - [func.call(context, arg1, arg2...)](mdn:js/Function/call) -- calls `func` with given context and arguments.
 - [func.apply(context, args)](mdn:js/Function/apply) -- calls `func` passing `context` as `this` and array-like `args` into a list of arguments.
 
-The generic *call forwarding* is usually done with `apply`:
+The generic _call forwarding_ is usually done with `apply`:
 
 ```js
-let wrapper = function() {
+let wrapper = function () {
   return original.apply(this, arguments);
 };
 ```
 
-We also saw an example of *method borrowing* when we take a method from an object and `call` it in the context of another object. It is quite common to take array methods and apply them to `arguments`. The alternative is to use rest parameters object that is a real array.
+We also saw an example of _method borrowing_ when we take a method from an object and `call` it in the context of another object. It is quite common to take array methods and apply them to `arguments`. The alternative is to use rest parameters object that is a real array.
 
 There are many decorators there in the wild. Check how well you got them by solving the tasks of this chapter.

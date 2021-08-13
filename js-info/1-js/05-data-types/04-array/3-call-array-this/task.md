@@ -9,10 +9,9 @@ What is the result? Why?
 ```js
 let arr = ["a", "b"];
 
-arr.push(function() {
-  alert( this );
-})
+arr.push(function () {
+  alert(this);
+});
 
 arr[2](); // ?
 ```
-

@@ -107,57 +107,71 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb1-15" title="15">  <span class="op">}</span></a>
 <a class="sourceLine" id="cb1-16" title="16"></a>
 <a class="sourceLine" id="cb1-17" title="17">  <span class="kw">static</span> get <span class="at">observedAttributes</span>() <span class="op">{</span></a>
-<a class="sourceLine" id="cb1-18" title="18">    <span class="cf">return</span> [<span class="co">/* array of attribute names to monitor for changes */</span>]<span class="op">;</span></a>
-<a class="sourceLine" id="cb1-19" title="19">  <span class="op">}</span></a>
-<a class="sourceLine" id="cb1-20" title="20"></a>
-<a class="sourceLine" id="cb1-21" title="21">  <span class="at">attributeChangedCallback</span>(name<span class="op">,</span> oldValue<span class="op">,</span> newValue) <span class="op">{</span></a>
-<a class="sourceLine" id="cb1-22" title="22">    <span class="co">// called when one of attributes listed above is modified</span></a>
-<a class="sourceLine" id="cb1-23" title="23">  <span class="op">}</span></a>
-<a class="sourceLine" id="cb1-24" title="24"></a>
-<a class="sourceLine" id="cb1-25" title="25">  <span class="at">adoptedCallback</span>() <span class="op">{</span></a>
-<a class="sourceLine" id="cb1-26" title="26">    <span class="co">// called when the element is moved to a new document</span></a>
-<a class="sourceLine" id="cb1-27" title="27">    <span class="co">// (happens in document.adoptNode, very rarely used)</span></a>
-<a class="sourceLine" id="cb1-28" title="28">  <span class="op">}</span></a>
-<a class="sourceLine" id="cb1-29" title="29"></a>
-<a class="sourceLine" id="cb1-30" title="30">  <span class="co">// there can be other element methods and properties</span></a>
-<a class="sourceLine" id="cb1-31" title="31"><span class="op">}</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-18" title="18">    <span class="cf">return</span> [</a>
+<a class="sourceLine" id="cb1-19" title="19">      <span class="co">/* array of attribute names to monitor for changes */</span></a>
+<a class="sourceLine" id="cb1-20" title="20">    ]<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-21" title="21">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-22" title="22"></a>
+<a class="sourceLine" id="cb1-23" title="23">  <span class="at">attributeChangedCallback</span>(name<span class="op">,</span> oldValue<span class="op">,</span> newValue) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-24" title="24">    <span class="co">// called when one of attributes listed above is modified</span></a>
+<a class="sourceLine" id="cb1-25" title="25">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-26" title="26"></a>
+<a class="sourceLine" id="cb1-27" title="27">  <span class="at">adoptedCallback</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-28" title="28">    <span class="co">// called when the element is moved to a new document</span></a>
+<a class="sourceLine" id="cb1-29" title="29">    <span class="co">// (happens in document.adoptNode, very rarely used)</span></a>
+<a class="sourceLine" id="cb1-30" title="30">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-31" title="31"></a>
+<a class="sourceLine" id="cb1-32" title="32">  <span class="co">// there can be other element methods and properties</span></a>
+<a class="sourceLine" id="cb1-33" title="33"><span class="op">}</span></a></code></pre></div>
 <p>After that, we need to register the element:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="co">// let the browser know that &lt;my-element&gt; is served by our new class</span></a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="va">customElements</span>.<span class="at">define</span>(<span class="st">&quot;my-element&quot;</span><span class="op">,</span> MyElement)<span class="op">;</span></a></code></pre></div>
 <p>Now for any HTML elements with tag <code>&lt;my-element&gt;</code>, an instance of <code>MyElement</code> is created, and the aforementioned methods are called. We also can <code>document.createElement('my-element')</code> in JavaScript.</p>
 <p>``<code>smart header="Custom element name must contain a hyphen</code>-<code>" Custom element name must have a hyphen</code>-<code>, e.g.</code>my-element<code>and</code>super-button<code>are valid names, but</code>myelement` is not.</p>
-<p>That’s to ensure that there are no name conflicts between built-in and custom HTML elements. ```</p>
-<h2 id="example-time-formatted">Example: “time-formatted”</h2>
-<p>For example, there already exists <code>&lt;time&gt;</code> element in HTML, for date/time. But it doesn’t do any formatting by itself.</p>
-<p>Let’s create <code>&lt;time-formatted&gt;</code> element that displays the time in a nice, language-aware format:</p>
-```html run height=50 autorun=“no-epub”
-<script>
+<p>That’s to ensure that there are no name conflicts between built-in and custom HTML elements.</p>
+<pre><code>
+## Example: &quot;time-formatted&quot;
+
+For example, there already exists `&lt;time&gt;` element in HTML, for date/time. But it doesn&#39;t do any formatting by itself.
+
+Let&#39;s create `&lt;time-formatted&gt;` element that displays the time in a nice, language-aware format:
+
+
+```html run height=50 autorun=&quot;no-epub&quot;
+&lt;script&gt;
 *!*
 class TimeFormatted extends HTMLElement { // (1)
 */!*
 
   connectedCallback() {
-    let date = new Date(this.getAttribute('datetime') || Date.now());
+    let date = new Date(this.getAttribute(&#39;datetime&#39;) || Date.now());
 
-    this.innerHTML = new Intl.DateTimeFormat("default", {
-      year: this.getAttribute('year') || undefined,
-      month: this.getAttribute('month') || undefined,
-      day: this.getAttribute('day') || undefined,
-      hour: this.getAttribute('hour') || undefined,
-      minute: this.getAttribute('minute') || undefined,
-      second: this.getAttribute('second') || undefined,
-      timeZoneName: this.getAttribute('time-zone-name') || undefined,
+    this.innerHTML = new Intl.DateTimeFormat(&quot;default&quot;, {
+      year: this.getAttribute(&#39;year&#39;) || undefined,
+      month: this.getAttribute(&#39;month&#39;) || undefined,
+      day: this.getAttribute(&#39;day&#39;) || undefined,
+      hour: this.getAttribute(&#39;hour&#39;) || undefined,
+      minute: this.getAttribute(&#39;minute&#39;) || undefined,
+      second: this.getAttribute(&#39;second&#39;) || undefined,
+      timeZoneName: this.getAttribute(&#39;time-zone-name&#39;) || undefined,
     }).format(date);
   }
 
 }
 
 *!*
-customElements.define("time-formatted", TimeFormatted); // (2)
+customElements.define(&quot;time-formatted&quot;, TimeFormatted); // (2)
 */!*
-</script>
-<!-- (3) -->
-<p><em>!</em> &lt;time-formatted datetime=“2019-12-01” <em>/!</em> year=“numeric” month=“long” day=“numeric” hour=“numeric” minute=“numeric” second=“numeric” time-zone-name=“short” &gt;</time-formatted> ```</p>
+&lt;/script&gt;
+
+&lt;!-- (3) --&gt;
+*!*
+&lt;time-formatted datetime=&quot;2019-12-01&quot;
+*/!*
+  year=&quot;numeric&quot; month=&quot;long&quot; day=&quot;numeric&quot;
+  hour=&quot;numeric&quot; minute=&quot;numeric&quot; second=&quot;numeric&quot;
+  time-zone-name=&quot;short&quot;
+&gt;&lt;/time-formatted&gt;</code></pre>
 <ol type="1">
 <li>The class has only one method <code>connectedCallback()</code> – the browser calls it when <code>&lt;time-formatted&gt;</code> element is added to page (or when HTML parser detects it), and it uses the built-in <a href="mdn:/JavaScript/Reference/Global_Objects/DateTimeFormat">Intl.DateTimeFormat</a> data formatter, well-supported across the browsers, to show a nicely formatted time.</li>
 <li>We need to register our new element by <code>customElements.define(tag, class)</code>.</li>
@@ -171,28 +185,33 @@ customElements.define("time-formatted", TimeFormatted); // (2)
 <p>Why not in the <code>constructor</code>?</p>
 <p>The reason is simple: when <code>constructor</code> is called, it’s yet too early. The element is created, but the browser did not yet process/assign attributes at this stage: calls to <code>getAttribute</code> would return <code>null</code>. So we can’t really render there.</p>
 <p>Besides, if you think about it, that’s better performance-wise – to delay the work until it’s really needed.</p>
-<p>The <code>connectedCallback</code> triggers when the element is added to the document. Not just appended to another element as a child, but actually becomes a part of the page. So we can build detached DOM, create elements and prepare them for later use. They will only be actually rendered when they make it into the page. ```</p>
-<h2 id="observing-attributes">Observing attributes</h2>
-<p>In the current implementation of <code>&lt;time-formatted&gt;</code>, after the element is rendered, further attribute changes don’t have any effect. That’s strange for an HTML element. Usually, when we change an attribute, like <code>a.href</code>, we expect the change to be immediately visible. So let’s fix this.</p>
-<p>We can observe attributes by providing their list in <code>observedAttributes()</code> static getter. For such attributes, <code>attributeChangedCallback</code> is called when they are modified. It doesn’t trigger for other, unlisted attributes (that’s for performance reasons).</p>
-<p>Here’s a new <code>&lt;time-formatted&gt;</code>, that auto-updates when attributes change:</p>
-```html run autorun=“no-epub” height=50
-<script>
+<p>The <code>connectedCallback</code> triggers when the element is added to the document. Not just appended to another element as a child, but actually becomes a part of the page. So we can build detached DOM, create elements and prepare them for later use. They will only be actually rendered when they make it into the page.</p>
+<pre><code>
+## Observing attributes
+
+In the current implementation of `&lt;time-formatted&gt;`, after the element is rendered, further attribute changes don&#39;t have any effect. That&#39;s strange for an HTML element. Usually, when we change an attribute, like `a.href`, we expect the change to be immediately visible. So let&#39;s fix this.
+
+We can observe attributes by providing their list in `observedAttributes()` static getter. For such attributes, `attributeChangedCallback` is called when they are modified. It doesn&#39;t trigger for other, unlisted attributes (that&#39;s for performance reasons).
+
+Here&#39;s a new `&lt;time-formatted&gt;`, that auto-updates when attributes change:
+
+```html run autorun=&quot;no-epub&quot; height=50
+&lt;script&gt;
 class TimeFormatted extends HTMLElement {
 
 *!*
   render() { // (1)
 */!*
-    let date = new Date(this.getAttribute('datetime') || Date.now());
+    let date = new Date(this.getAttribute(&#39;datetime&#39;) || Date.now());
 
-    this.innerHTML = new Intl.DateTimeFormat("default", {
-      year: this.getAttribute('year') || undefined,
-      month: this.getAttribute('month') || undefined,
-      day: this.getAttribute('day') || undefined,
-      hour: this.getAttribute('hour') || undefined,
-      minute: this.getAttribute('minute') || undefined,
-      second: this.getAttribute('second') || undefined,
-      timeZoneName: this.getAttribute('time-zone-name') || undefined,
+    this.innerHTML = new Intl.DateTimeFormat(&quot;default&quot;, {
+      year: this.getAttribute(&#39;year&#39;) || undefined,
+      month: this.getAttribute(&#39;month&#39;) || undefined,
+      day: this.getAttribute(&#39;day&#39;) || undefined,
+      hour: this.getAttribute(&#39;hour&#39;) || undefined,
+      minute: this.getAttribute(&#39;minute&#39;) || undefined,
+      second: this.getAttribute(&#39;second&#39;) || undefined,
+      timeZoneName: this.getAttribute(&#39;time-zone-name&#39;) || undefined,
     }).format(date);
   }
 
@@ -208,7 +227,7 @@ class TimeFormatted extends HTMLElement {
 *!*
   static get observedAttributes() { // (3)
 */!*
-    return ['datetime', 'year', 'month', 'day', 'hour', 'minute', 'second', 'time-zone-name'];
+    return [&#39;datetime&#39;, &#39;year&#39;, &#39;month&#39;, &#39;day&#39;, &#39;hour&#39;, &#39;minute&#39;, &#39;second&#39;, &#39;time-zone-name&#39;];
   }
 
 *!*
@@ -219,15 +238,16 @@ class TimeFormatted extends HTMLElement {
 
 }
 
-customElements.define("time-formatted", TimeFormatted);
-</script>
-<p><time-formatted id="elem" hour="numeric" minute="numeric" second="numeric"></time-formatted></p>
-<script>
+customElements.define(&quot;time-formatted&quot;, TimeFormatted);
+&lt;/script&gt;
+
+&lt;time-formatted id=&quot;elem&quot; hour=&quot;numeric&quot; minute=&quot;numeric&quot; second=&quot;numeric&quot;&gt;&lt;/time-formatted&gt;
+
+&lt;script&gt;
 *!*
-setInterval(() => elem.setAttribute('datetime', new Date()), 1000); // (5)
+setInterval(() =&gt; elem.setAttribute(&#39;datetime&#39;, new Date()), 1000); // (5)
 */!*
-</script>
-<p>```</p>
+&lt;/script&gt;</code></pre>
 <ol type="1">
 <li>The rendering logic is moved to <code>render()</code> helper method.</li>
 <li>We call it once when the element is inserted into page.</li>
@@ -241,15 +261,15 @@ setInterval(() => elem.setAttribute('datetime', new Date()), 1000); // (5)
 <p>For example, if a custom element tries to access <code>innerHTML</code> in <code>connectedCallback</code>, it gets nothing:</p>
 ```html run height=40
 <script>
-customElements.define('user-info', class extends HTMLElement {
+  customElements.define('user-info', class extends HTMLElement {
 
-  connectedCallback() {
-*!*
-    alert(this.innerHTML); // empty (*)
-*/!*
-  }
+    connectedCallback() {
+  *!*
+      alert(this.innerHTML); // empty (*)
+  */!*
+    }
 
-});
+  });
 </script>
 <p><em>!</em> <user-info>John</user-info> <em>/!</em> ```</p>
 <p>If you run it, the <code>alert</code> is empty.</p>
@@ -259,22 +279,22 @@ customElements.define('user-info', class extends HTMLElement {
 <p>This works:</p>
 ```html run height=40
 <script>
-customElements.define('user-info', class extends HTMLElement {
+  customElements.define('user-info', class extends HTMLElement {
 
-  connectedCallback() {
-*!*
-    setTimeout(() => alert(this.innerHTML)); // John (*)
-*/!*
-  }
+    connectedCallback() {
+  *!*
+      setTimeout(() => alert(this.innerHTML)); // John (*)
+  */!*
+    }
 
-});
+  });
 </script>
 <p><em>!</em> <user-info>John</user-info> <em>/!</em> ```</p>
 <p>Now the <code>alert</code> in line <code>(*)</code> shows “John”, as we run it asynchronously, after the HTML parsing is complete. We can process children if needed and finish the initialization.</p>
 <p>On the other hand, this solution is also not perfect. If nested custom elements also use <code>setTimeout</code> to initialize themselves, then they queue up: the outer <code>setTimeout</code> triggers first, and then the inner one.</p>
 <p>So the outer element finishes the initialization before the inner one.</p>
 <p>Let’s demonstrate that on example:</p>
-``<code>html run height=0 &lt;script&gt; customElements.define('user-info', class extends HTMLElement {   connectedCallback() {     alert(</code><span class="math inline">${this.id} connected.`);  setTimeout(() =&gt; alert(`$</span>{this.id} initialized.`)); } });
+``<code>html run height=0 &lt;script&gt;   customElements.define(     "user-info",     class extends HTMLElement {       connectedCallback() {         alert(</code><span class="math inline">${this.id} connected.`);  setTimeout(() =&gt; alert(`$</span>{this.id} initialized.`)); } } );
 </script>
 <p><em>!</em> <user-info id="outer"> <user-info id="inner"></user-info> </user-info> <em>/!</em> ```</p>
 <p>Output order:</p>
@@ -293,30 +313,33 @@ customElements.define('user-info', class extends HTMLElement {
 <p>For example, buttons are instances of <code>HTMLButtonElement</code>, let’s build upon it.</p>
 <ol type="1">
 <li><p>Extend <code>HTMLButtonElement</code> with our class:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">class</span> HelloButton <span class="kw">extends</span> HTMLButtonElement <span class="op">{</span> <span class="co">/* custom element methods */</span> <span class="op">}</span></a></code></pre></div></li>
-<li><p>Provide the third argument to <code>customElements.define</code>, that specifies the tag: <code>js  customElements.define('hello-button', HelloButton, *!*{extends: 'button'}*/!*);</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">class</span> HelloButton <span class="kw">extends</span> HTMLButtonElement <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="co">/* custom element methods */</span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="op">}</span></a></code></pre></div></li>
+<li><p>Provide the third argument to <code>customElements.define</code>, that specifies the tag:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="va">customElements</span>.<span class="at">define</span>(<span class="st">&#39;hello-button&#39;</span><span class="op">,</span> HelloButton<span class="op">,</span> <span class="op">*!*{</span><span class="dt">extends</span><span class="op">:</span> <span class="st">&#39;button&#39;</span><span class="op">}*</span><span class="ss">/!</span><span class="sc">*)</span><span class="ss">;</span></a></code></pre></div>
 <p>There may be different tags that share the same DOM-class, that’s why specifying <code>extends</code> is needed.</p></li>
-<li><p>At the end, to use our custom element, insert a regular <code>&lt;button&gt;</code> tag, but add <code>is="hello-button"</code> to it: <code>html  &lt;button is="hello-button"&gt;...&lt;/button&gt;</code></p></li>
+<li><p>At the end, to use our custom element, insert a regular <code>&lt;button&gt;</code> tag, but add <code>is="hello-button"</code> to it:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;button</span><span class="ot"> is=</span><span class="st">&quot;hello-button&quot;</span><span class="kw">&gt;</span>...<span class="kw">&lt;/button&gt;</span></a></code></pre></div></li>
 </ol>
 <p>Here’s a full example:</p>
 ```html run autorun=“no-epub”
 <script>
-// The button that says "hello" on click
-class HelloButton extends HTMLButtonElement {
-*!*
-  constructor() {
-*/!*
-    super();
-    this.addEventListener('click', () => alert("Hello!"));
+  // The button that says "hello" on click
+  class HelloButton extends HTMLButtonElement {
+  *!*
+    constructor() {
+  */!*
+      super();
+      this.addEventListener('click', () => alert("Hello!"));
+    }
   }
-}
 
-*!*
-customElements.define('hello-button', HelloButton, {extends: 'button'});
-*/!*
+  *!*
+  customElements.define('hello-button', HelloButton, {extends: 'button'});
+  */!*
 </script>
-<p><em>!</em> <button is="hello-button">Click me</button> <em>/!</em></p>
-<p><em>!</em> <button is="hello-button" disabled>Disabled</button> <em>/!</em> ```</p>
+<p><em>!</em> <button is="hello-button">Click me</button> <em>/!</em> <em>!</em> <button is="hello-button" disabled>Disabled</button> <em>/!</em> ```</p>
 <p>Our new button extends the built-in one. So it keeps the same styles and standard features like <code>disabled</code> attribute.</p>
 <h2 id="references">References</h2>
 <ul>
@@ -328,18 +351,37 @@ customElements.define('hello-button', HelloButton, {extends: 'button'});
 <ol type="1">
 <li><p>“Autonomous” – new tags, extending <code>HTMLElement</code>.</p>
 <p>Definition scheme:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">class</span> MyElement <span class="kw">extends</span> HTMLElement <span class="op">{</span></a>
-<a class="sourceLine" id="cb4-2" title="2">  <span class="at">constructor</span>() <span class="op">{</span> <span class="kw">super</span>()<span class="op">;</span> <span class="co">/* ... */</span> <span class="op">}</span></a>
-<a class="sourceLine" id="cb4-3" title="3">  <span class="at">connectedCallback</span>() <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">}</span></a>
-<a class="sourceLine" id="cb4-4" title="4">  <span class="at">disconnectedCallback</span>() <span class="op">{</span> <span class="co">/* ... */</span>  <span class="op">}</span></a>
-<a class="sourceLine" id="cb4-5" title="5">  <span class="kw">static</span> get <span class="at">observedAttributes</span>() <span class="op">{</span> <span class="cf">return</span> [<span class="co">/* ... */</span>]<span class="op">;</span> <span class="op">}</span></a>
-<a class="sourceLine" id="cb4-6" title="6">  <span class="at">attributeChangedCallback</span>(name<span class="op">,</span> oldValue<span class="op">,</span> newValue) <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">}</span></a>
-<a class="sourceLine" id="cb4-7" title="7">  <span class="at">adoptedCallback</span>() <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">}</span></a>
-<a class="sourceLine" id="cb4-8" title="8"> <span class="op">}</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="va">customElements</span>.<span class="at">define</span>(<span class="st">&#39;my-element&#39;</span><span class="op">,</span> MyElement)<span class="op">;</span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">/* &lt;my-element&gt; */</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">class</span> MyElement <span class="kw">extends</span> HTMLElement <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="at">constructor</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="kw">super</span>()<span class="op">;</span> <span class="co">/* ... */</span></a>
+<a class="sourceLine" id="cb8-4" title="4">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-5" title="5">  <span class="at">connectedCallback</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-6" title="6">    <span class="co">/* ... */</span></a>
+<a class="sourceLine" id="cb8-7" title="7">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-8" title="8">  <span class="at">disconnectedCallback</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-9" title="9">    <span class="co">/* ... */</span></a>
+<a class="sourceLine" id="cb8-10" title="10">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-11" title="11">  <span class="kw">static</span> get <span class="at">observedAttributes</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-12" title="12">    <span class="cf">return</span> [</a>
+<a class="sourceLine" id="cb8-13" title="13">      <span class="co">/* ... */</span></a>
+<a class="sourceLine" id="cb8-14" title="14">    ]<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-15" title="15">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-16" title="16">  <span class="at">attributeChangedCallback</span>(name<span class="op">,</span> oldValue<span class="op">,</span> newValue) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-17" title="17">    <span class="co">/* ... */</span></a>
+<a class="sourceLine" id="cb8-18" title="18">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-19" title="19">  <span class="at">adoptedCallback</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-20" title="20">    <span class="co">/* ... */</span></a>
+<a class="sourceLine" id="cb8-21" title="21">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-22" title="22"><span class="op">}</span></a>
+<a class="sourceLine" id="cb8-23" title="23"><span class="va">customElements</span>.<span class="at">define</span>(<span class="st">&quot;my-element&quot;</span><span class="op">,</span> MyElement)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-24" title="24"><span class="co">/* &lt;my-element&gt; */</span></a></code></pre></div></li>
 <li><p>“Customized built-in elements” – extensions of existing elements.</p>
-<p>Requires one more <code>.define</code> argument, and <code>is="..."</code> in HTML: <code>js  class MyButton extends HTMLButtonElement { /*...*/ }  customElements.define('my-button', MyElement, {extends: 'button'});  /* &lt;button is="my-button"&gt; */</code></p></li>
+<p>Requires one more <code>.define</code> argument, and <code>is="..."</code> in HTML:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">class</span> MyButton <span class="kw">extends</span> HTMLButtonElement <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-2" title="2">  <span class="co">/*...*/</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="op">}</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="va">customElements</span>.<span class="at">define</span>(<span class="st">&quot;my-button&quot;</span><span class="op">,</span> MyElement<span class="op">,</span> <span class="op">{</span> <span class="dt">extends</span><span class="op">:</span> <span class="st">&quot;button&quot;</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">/* &lt;button is=&quot;my-button&quot;&gt; */</span></a></code></pre></div></li>
 </ol>
 <p>Custom elements are well-supported among browsers. There’s a polyfill <a href="https://github.com/webcomponents/polyfills/tree/master/packages/webcomponentsjs" class="uri">https://github.com/webcomponents/polyfills/tree/master/packages/webcomponentsjs</a>.</p>
 </body>

@@ -15,11 +15,19 @@ function unique(arr) {
   /* your code */
 }
 
-let values = ["Hare", "Krishna", "Hare", "Krishna",
-  "Krishna", "Krishna", "Hare", "Hare", ":-O"
+let values = [
+  "Hare",
+  "Krishna",
+  "Hare",
+  "Krishna",
+  "Krishna",
+  "Krishna",
+  "Hare",
+  "Hare",
+  ":-O",
 ];
 
-alert( unique(values) ); // Hare, Krishna, :-O
+alert(unique(values)); // Hare, Krishna, :-O
 ```
 
 P.S. Here strings are used, but can be values of any type.

@@ -9,4 +9,3 @@ Write a function `ucFirst(str)` that returns the string `str` with the uppercase
 ```js
 ucFirst("john") == "John";
 ```
-

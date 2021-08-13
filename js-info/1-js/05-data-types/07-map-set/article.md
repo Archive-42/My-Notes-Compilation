@@ -1,4 +1,3 @@
-
 # Map and Set
 
 Till now, we've learned about the following complex data structures:
@@ -27,25 +26,25 @@ For instance:
 ```js run
 let map = new Map();
 
-map.set('1', 'str1');   // a string key
-map.set(1, 'num1');     // a numeric key
-map.set(true, 'bool1'); // a boolean key
+map.set("1", "str1"); // a string key
+map.set(1, "num1"); // a numeric key
+map.set(true, "bool1"); // a boolean key
 
 // remember the regular Object? it would convert keys to string
 // Map keeps the type, so these two are different:
-alert( map.get(1)   ); // 'num1'
-alert( map.get('1') ); // 'str1'
+alert(map.get(1)); // 'num1'
+alert(map.get("1")); // 'str1'
 
-alert( map.size ); // 3
+alert(map.size); // 3
 ```
 
 As we can see, unlike objects, keys are not converted to strings. Any type of key is possible.
 
-```smart header="`map[key]` isn't the right way to use a `Map`"
-Although `map[key]` also works, e.g. we can set `map[key] = 2`, this is treating `map` as a plain JavaScript object, so it implies all corresponding limitations (only string/symbol keys and so on).
+```smart header="`map[key]`isn't the right way to use a`Map`" Although `map[key]`also works, e.g. we can set`map[key] = 2`, this is treating `map` as a plain JavaScript object, so it implies all corresponding limitations (only string/symbol keys and so on).
 
 So we should use `map` methods: `set`, `get` and so on.
-```
+
+````
 
 **Map can also use objects as keys.**
 
@@ -61,7 +60,7 @@ let visitsCountMap = new Map();
 visitsCountMap.set(john, 123);
 
 alert( visitsCountMap.get(john) ); // 123
-```
+````
 
 Using objects as keys is one of the most notable and important `Map` features. The same does not count for `Object`. String as a key in `Object` is fine, but we can't use another `Object` as a key in `Object`.
 
@@ -78,17 +77,17 @@ visitsCountObj[john] = 123; // try to use john object as the key, ben object wil
 
 *!*
 // That's what got written!
-alert( visitsCountObj["[object Object]"] ); // 123 
+alert( visitsCountObj["[object Object]"] ); // 123
 */!*
 ```
 
 As `visitsCountObj` is an object, it converts all `Object` keys, such as `john` and `ben` above, to same string `"[object Object]"`. Definitely not what we want.
 
-```smart header="How `Map` compares keys"
-To test keys for equivalence, `Map` uses the algorithm [SameValueZero](https://tc39.github.io/ecma262/#sec-samevaluezero). It is roughly the same as strict equality `===`, but the difference is that `NaN` is considered equal to `NaN`. So `NaN` can be used as the key as well.
+```smart header="How `Map`compares keys" To test keys for equivalence,`Map`uses the algorithm [SameValueZero](https://tc39.github.io/ecma262/#sec-samevaluezero). It is roughly the same as strict equality`===`, but the difference is that `NaN`is considered equal to`NaN`. So `NaN` can be used as the key as well.
 
 This algorithm can't be changed or customized.
-```
+
+`````
 
 ````smart header="Chaining"
 Every `map.set` call returns the map itself, so we can "chain" the calls:
@@ -97,7 +96,8 @@ Every `map.set` call returns the map itself, so we can "chain" the calls:
 map.set('1', 'str1')
   .set(1, 'num1')
   .set(true, 'bool1');
-```
+`````
+
 ````
 
 
@@ -330,3 +330,4 @@ Methods and properties:
 - `set.size` -- is the elements count.
 
 Iteration over `Map` and `Set` is always in the insertion order, so we can't say that these collections are unordered, but we can't reorder elements or directly get an element by its number.
+````

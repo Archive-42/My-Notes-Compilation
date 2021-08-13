@@ -35,7 +35,6 @@ army[2](); // 10 ...and so on.
 */!*
 ```
 
-Why do all of the shooters show the same value? 
+Why do all of the shooters show the same value?
 
 Fix the code so that they work as intended.
-

@@ -14,6 +14,5 @@ let shoppingCart = fruits;
 shoppingCart.push("Banana");
 
 // what's in fruits?
-alert( fruits.length ); // ?
+alert(fruits.length); // ?
 ```
-

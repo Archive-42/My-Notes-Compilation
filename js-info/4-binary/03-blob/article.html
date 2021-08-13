@@ -93,12 +93,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>For example:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="co">// create Blob from a string</span></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw">let</span> blob <span class="op">=</span> <span class="kw">new</span> <span class="at">Blob</span>([<span class="st">&quot;&lt;html&gt;…&lt;/html&gt;&quot;</span>]<span class="op">,</span> <span class="op">{</span><span class="dt">type</span><span class="op">:</span> <span class="st">&#39;text/html&#39;</span><span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">let</span> blob <span class="op">=</span> <span class="kw">new</span> <span class="at">Blob</span>([<span class="st">&quot;&lt;html&gt;…&lt;/html&gt;&quot;</span>]<span class="op">,</span> <span class="op">{</span> <span class="dt">type</span><span class="op">:</span> <span class="st">&quot;text/html&quot;</span> <span class="op">}</span>)<span class="op">;</span></a>
 <a class="sourceLine" id="cb2-3" title="3"><span class="co">// please note: the first argument must be an array [...]</span></a></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">// create Blob from a typed array and strings</span></a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="kw">let</span> hello <span class="op">=</span> <span class="kw">new</span> <span class="at">Uint8Array</span>([<span class="dv">72</span><span class="op">,</span> <span class="dv">101</span><span class="op">,</span> <span class="dv">108</span><span class="op">,</span> <span class="dv">108</span><span class="op">,</span> <span class="dv">111</span>])<span class="op">;</span> <span class="co">// &quot;Hello&quot; in binary form</span></a>
 <a class="sourceLine" id="cb3-3" title="3"></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="kw">let</span> blob <span class="op">=</span> <span class="kw">new</span> <span class="at">Blob</span>([hello<span class="op">,</span> <span class="st">&#39; &#39;</span><span class="op">,</span> <span class="st">&#39;world&#39;</span>]<span class="op">,</span> <span class="op">{</span><span class="dt">type</span><span class="op">:</span> <span class="st">&#39;text/plain&#39;</span><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-4" title="4"><span class="kw">let</span> blob <span class="op">=</span> <span class="kw">new</span> <span class="at">Blob</span>([hello<span class="op">,</span> <span class="st">&quot; &quot;</span><span class="op">,</span> <span class="st">&quot;world&quot;</span>]<span class="op">,</span> <span class="op">{</span> <span class="dt">type</span><span class="op">:</span> <span class="st">&quot;text/plain&quot;</span> <span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
 <p>We can extract <code>Blob</code> slices with:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">blob</span>.<span class="at">slice</span>([byteStart]<span class="op">,</span> [byteEnd]<span class="op">,</span> [contentType])<span class="op">;</span></a></code></pre></div>
 <ul>
@@ -108,22 +108,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>The arguments are similar to <code>array.slice</code>, negative numbers are allowed too.</p>
 <p>``<code>smart header="</code>Blob<code>objects are immutable" We can't change data directly in a</code>Blob<code>, but we can slice parts of a</code>Blob<code>, create new</code>Blob<code>objects from them, mix them into a new</code>Blob` and so on.</p>
-<p>This behavior is similar to JavaScript strings: we can’t change a character in a string, but we can make a new corrected string. ```</p>
-<h2 id="blob-as-url">Blob as URL</h2>
-<p>A Blob can be easily used as a URL for <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code> or other tags, to show its contents.</p>
-<p>Thanks to <code>type</code>, we can also download/upload <code>Blob</code> objects, and the <code>type</code> naturally becomes <code>Content-Type</code> in network requests.</p>
-<p>Let’s start with a simple example. By clicking on a link you download a dynamically-generated <code>Blob</code> with <code>hello world</code> contents as a file:</p>
-<p>```html run <!-- download attribute forces the browser to download instead of navigating --> <a download="hello.txt" href='#' id="link">Download</a></p>
-<script>
-let blob = new Blob(["Hello, world!"], {type: 'text/plain'});
+<p>This behavior is similar to JavaScript strings: we can’t change a character in a string, but we can make a new corrected string.</p>
+<pre><code>
+## Blob as URL
+
+A Blob can be easily used as a URL for `&lt;a&gt;`, `&lt;img&gt;` or other tags, to show its contents.
+
+Thanks to `type`, we can also download/upload `Blob` objects, and the `type` naturally becomes `Content-Type` in network requests.
+
+Let&#39;s start with a simple example. By clicking on a link you download a dynamically-generated `Blob` with `hello world` contents as a file:
+
+```html run
+&lt;!-- download attribute forces the browser to download instead of navigating --&gt;
+&lt;a download=&quot;hello.txt&quot; href=&#39;#&#39; id=&quot;link&quot;&gt;Download&lt;/a&gt;
+
+&lt;script&gt;
+let blob = new Blob([&quot;Hello, world!&quot;], {type: &#39;text/plain&#39;});
 
 link.href = URL.createObjectURL(blob);
-</script>
-<p>```</p>
+&lt;/script&gt;</code></pre>
 <p>We can also create a link dynamically in JavaScript and simulate a click by <code>link.click()</code>, then download starts automatically.</p>
 <p>Here’s the similar code that causes user to download the dynamically created <code>Blob</code>, without any HTML:</p>
-<p>```js run let link = document.createElement(‘a’); link.download = ‘hello.txt’;</p>
-<p>let blob = new Blob([‘Hello, world!’], {type: ‘text/plain’});</p>
+<p>```js run let link = document.createElement(“a”); link.download = “hello.txt”;</p>
+<p>let blob = new Blob([“Hello, world!”], { type: “text/plain” });</p>
 <p>link.href = URL.createObjectURL(blob);</p>
 <p>link.click();</p>
 <p>URL.revokeObjectURL(link.href);</p>
@@ -146,7 +153,9 @@ That&#39;s what the value of `link.href` looks like:
 <p>That encoding represents binary data as a string of ultra-safe “readable” characters with ASCII-codes from 0 to 64. And what’s more important – we can use this encoding in “data-urls”.</p>
 <p>A <a href="mdn:/http/Data_URIs">data url</a> has the form <code>data:[&lt;mediatype&gt;][;base64],&lt;data&gt;</code>. We can use such urls everywhere, on par with “regular” urls.</p>
 <p>For instance, here’s a smiley:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7&quot;</span><span class="kw">&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;img</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="ot">  src=</span><span class="st">&quot;data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7&quot;</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="kw">/&gt;</span></a></code></pre></div>
 <p>The browser will decode the string and show the image: <img src="data:image/png;base64,R0lGODlhDAAMAKIFAF5LAP/zxAAAANyuAP/gaP///wAAAAAAACH5BAEAAAUALAAAAAAMAAwAAAMlWLPcGjDKFYi9lxKBOaGcF35DhWHamZUW0K4mAbiwWtuf0uxFAgA7"></p>
 <p>To transform a <code>Blob</code> into base64, we’ll use the built-in <code>FileReader</code> object. It can read data from Blobs in multiple formats. In the <a href="info:file">next chapter</a> we’ll cover it more in-depth.</p>
 <p>Here’s the demo of downloading a blob, now via base-64:</p>
@@ -164,31 +173,33 @@ That&#39;s what the value of `link.href` looks like:
 <li>Call canvas method <a href="mdn:/api/HTMLCanvasElement/toBlob">.toBlob(callback, format, quality)</a> that creates a <code>Blob</code> and runs <code>callback</code> with it when done.</li>
 </ol>
 <p>In the example below, an image is just copied, but we could cut from it, or transform it on canvas prior to making a blob:</p>
-<p>```js run // take any image let img = document.querySelector(‘img’);</p>
+<p>```js run // take any image let img = document.querySelector(“img”);</p>
 // make
 <canvas>
-<p>of the same size let canvas = document.createElement(‘canvas’); canvas.width = img.clientWidth; canvas.height = img.clientHeight;</p>
-<p>let context = canvas.getContext(‘2d’);</p>
+<p>of the same size let canvas = document.createElement(“canvas”); canvas.width = img.clientWidth; canvas.height = img.clientHeight;</p>
+<p>let context = canvas.getContext(“2d”);</p>
 <p>// copy image to it (this method allows to cut image) context.drawImage(img, 0, 0); // we can context.rotate(), and do many other things on canvas</p>
-<p>// toBlob is async operation, callback is called when done canvas.toBlob(function(blob) { // blob ready, download it let link = document.createElement(‘a’); link.download = ‘example.png’;</p>
+<p>// toBlob is async operation, callback is called when done canvas.toBlob(function (blob) { // blob ready, download it let link = document.createElement(“a”); link.download = “example.png”;</p>
 <p>link.href = URL.createObjectURL(blob); link.click();</p>
-<p>// delete the internal blob reference, to let the browser clear memory from it URL.revokeObjectURL(link.href); }, ‘image/png’); ```</p>
+<p>// delete the internal blob reference, to let the browser clear memory from it URL.revokeObjectURL(link.href); }, “image/png”); ```</p>
 <p>If we prefer <code>async/await</code> instead of callbacks:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">let</span> blob <span class="op">=</span> <span class="cf">await</span> <span class="kw">new</span> <span class="at">Promise</span>(resolve <span class="kw">=&gt;</span> <span class="va">canvasElem</span>.<span class="at">toBlob</span>(resolve<span class="op">,</span> <span class="st">&#39;image/png&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">let</span> blob <span class="op">=</span> <span class="cf">await</span> <span class="kw">new</span> <span class="at">Promise</span>((resolve) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="va">canvasElem</span>.<span class="at">toBlob</span>(resolve<span class="op">,</span> <span class="st">&quot;image/png&quot;</span>)</a>
+<a class="sourceLine" id="cb8-3" title="3">)<span class="op">;</span></a></code></pre></div>
 <p>For screenshotting a page, we can use a library such as <a href="https://github.com/niklasvh/html2canvas" class="uri">https://github.com/niklasvh/html2canvas</a>. What it does is just walks the page and draws it on <code>&lt;canvas&gt;</code>. Then we can get a <code>Blob</code> of it the same way as above.</p>
 <h2 id="from-blob-to-arraybuffer">From Blob to ArrayBuffer</h2>
 <p>The <code>Blob</code> constructor allows to create a blob from almost anything, including any <code>BufferSource</code>.</p>
 <p>But if we need to perform low-level processing, we can get the lowest-level <code>ArrayBuffer</code> from it using <code>FileReader</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="co">// get arrayBuffer from blob</span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="kw">let</span> fileReader <span class="op">=</span> <span class="kw">new</span> <span class="at">FileReader</span>()<span class="op">;</span></a>
-<a class="sourceLine" id="cb8-3" title="3"></a>
-<a class="sourceLine" id="cb8-4" title="4"><span class="op">*!*</span></a>
-<a class="sourceLine" id="cb8-5" title="5"><span class="va">fileReader</span>.<span class="at">readAsArrayBuffer</span>(blob)<span class="op">;</span></a>
-<a class="sourceLine" id="cb8-6" title="6"><span class="op">*</span><span class="ss">/!</span><span class="sc">*</span></a>
-<a class="sourceLine" id="cb8-7" title="7"></a>
-<a class="sourceLine" id="cb8-8" title="8"><span class="ss">fileReader.onload = function</span><span class="sc">(</span><span class="ss">event</span><span class="sc">)</span><span class="ss"> {</span></a>
-<a class="sourceLine" id="cb8-9" title="9"><span class="ss">  let arrayBuffer = fileReader.result;</span></a>
-<a class="sourceLine" id="cb8-10" title="10"><span class="ss">};</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="co">// get arrayBuffer from blob</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw">let</span> fileReader <span class="op">=</span> <span class="kw">new</span> <span class="at">FileReader</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-3" title="3"></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="op">*!*</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="va">fileReader</span>.<span class="at">readAsArrayBuffer</span>(blob)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="op">*</span><span class="ss">/!</span><span class="sc">*</span></a>
+<a class="sourceLine" id="cb9-7" title="7"></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="ss">fileReader.onload = function</span><span class="sc">(</span><span class="ss">event</span><span class="sc">)</span><span class="ss"> {</span></a>
+<a class="sourceLine" id="cb9-9" title="9"><span class="ss">  let arrayBuffer = fileReader.result;</span></a>
+<a class="sourceLine" id="cb9-10" title="10"><span class="ss">};</span></a></code></pre></div>
 <h2 id="summary">Summary</h2>
 <p>While <code>ArrayBuffer</code>, <code>Uint8Array</code> and other <code>BufferSource</code> are “binary data”, a <a href="https://www.w3.org/TR/FileAPI/#dfn-Blob">Blob</a> represents “binary data with type”.</p>
 <p>That makes Blobs convenient for upload/download operations, that are so common in the browser.</p>

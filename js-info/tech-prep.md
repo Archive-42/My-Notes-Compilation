@@ -2210,3 +2210,4 @@ sed ‘s/foo/bar/g’ filename \# standard replace command sed ‘/foo/ s/foo/ba
 On line selection or deletion in which you only need to output lines from the first part of the file, a “quit” command (q) in the script will drastically reduce processing time for large files. Thus:
 
 sed -n ‘45,50p’ filename \# print line nos. 45-50 of a file sed -n ‘51q;45,50p’ filename \# same, but executes much faster
+.

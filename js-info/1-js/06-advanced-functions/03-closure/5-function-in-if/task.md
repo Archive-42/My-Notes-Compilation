@@ -1,4 +1,3 @@
-
 # Function in if
 
 Look at the code. What will be the result of the call at the last line?

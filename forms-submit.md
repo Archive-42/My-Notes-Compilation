@@ -186,7 +186,7 @@ The form should be not in the `<div>`, but next to it, because we don’t want i
 - <a href="forms-submit.html#method-submit" class="sidebar__link">Method: submit</a>
 
 - <a href="forms-submit.html#tasks" class="sidebar__link">Tasks (1)</a>
-- <a href="forms-submit.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fforms-submit" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fforms-submit" class="share share_fb sidebar__share"></a>
+- <a href="forms-submit.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fforms-submit" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fforms-submit" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/4-forms-controls/4-forms-submit" class="sidebar__link">Edit on GitHub</a>
 

@@ -4,11 +4,10 @@ To make the search case-insensitive, let's bring the string to lower case and th
 function checkSpam(str) {
   let lowerStr = str.toLowerCase();
 
-  return lowerStr.includes('viagra') || lowerStr.includes('xxx');
+  return lowerStr.includes("viagra") || lowerStr.includes("xxx");
 }
 
-alert( checkSpam('buy ViAgRA now') );
-alert( checkSpam('free xxxxx') );
-alert( checkSpam("innocent rabbit") );
+alert(checkSpam("buy ViAgRA now"));
+alert(checkSpam("free xxxxx"));
+alert(checkSpam("innocent rabbit"));
 ```
-

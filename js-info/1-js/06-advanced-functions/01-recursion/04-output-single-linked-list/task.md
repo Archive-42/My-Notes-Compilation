@@ -15,10 +15,10 @@ let list = {
       value: 3,
       next: {
         value: 4,
-        next: null
-      }
-    }
-  }
+        next: null,
+      },
+    },
+  },
 };
 ```
 

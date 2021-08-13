@@ -175,7 +175,7 @@ Also, if the size is unknown, we should check `receivedLength` in the loop and b
 
 - <a href="network.html" class="sidebar__link">Network requests</a>
 
-- <a href="fetch-progress.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ffetch-progress" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-progress" class="share share_fb sidebar__share"></a>
+- <a href="fetch-progress.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ffetch-progress" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-progress" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/03-fetch-progress" class="sidebar__link">Edit on GitHub</a>
 
