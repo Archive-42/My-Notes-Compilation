@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Forms: event and method submit</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="forms-submit.html"
+    />
+
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Forms: event and method submit" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Forms: event and method submit" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="events-change-input.html" />
+    <link rel="next" href="loading.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Forms: event and method submit" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="forms-submit.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/forms-submit"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                    forms-submit"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/forms-submit"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/forms-submit"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/forms-submit"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=forms-submit"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/forms-submit"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/forms-submit"</a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fforms-submit"
+                  rel="nofollow"
+                ></a
+                >2Fforms-submit
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option value="https://javascript.info/forms-submit" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/forms-submit">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/forms-submit">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/forms-submit">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/forms-submit">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/forms-submit">
+                  한국어
+                </option>
+                <option value=forms-submit">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/forms-submit">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/forms-submit">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="26"
+          max="32"
+          data-tooltip="Lesson 26 of 32"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="ui.html"
+                        ><span>Browser: Document, Events, Interfaces</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="forms-controls.html"
+                        ><span>Forms, controls</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Browser: Document, Events, Interfaces",
+                            "item": "https://javascript.info/ui"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Forms, controls",
+                            "item": "https://javascript.info/forms-controls"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 3rd July 2019"
+                  >
+                    <div class="updated-at__content">3rd July 2019</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">
+                  Forms: event and method submit
+                </h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta
+                  itemprop="name"
+                  content="Forms: event and method submit"
+                />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    The <code>submit</code> event triggers when the form is
+                    submitted, it is usually used to validate the form before
+                    sending it to the server or to abort the submission and
+                    process it in JavaScript.
+                  </p>
+                  <p>
+                    The method <code>form.submit()</code> allows to initiate
+                    form sending from JavaScript. We can use it to dynamically
+                    create and send our own forms to server.
+                  </p>
+                  <p>Let’s see more details of them.</p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="event-submit"
+                      href="forms-submit.html#event-submit"
+                      >Event: submit</a
+                    >
+                  </h2>
+                  <p>There are two main ways to submit a form:</p>
+                  <ol>
+                    <li>
+                      The first – to click
+                      <code>&lt;input type=&quot;submit&quot;&gt;</code> or
+                      <code>&lt;input type=&quot;image&quot;&gt;</code>.
+                    </li>
+                    <li>
+                      The second – press <kbd class="shortcut">Enter</kbd> on an
+                      input field.
+                    </li>
+                  </ol>
+                  <p>
+                    Both actions lead to <code>submit</code> event on the form.
+                    The handler can check the data, and if there are errors,
+                    show them and call <code>event.preventDefault()</code>, then
+                    the form won’t be sent to the server.
+                  </p>
+                  <p>In the form below:</p>
+                  <ol>
+                    <li>
+                      Go into the text field and press
+                      <kbd class="shortcut">Enter</kbd>.
+                    </li>
+                    <li>
+                      Click <code>&lt;input type=&quot;submit&quot;&gt;</code>.
+                    </li>
+                  </ol>
+                  <p>
+                    Both actions show <code>alert</code> and the form is not
+                    sent anywhere due to <code>return false</code>:
+                  </p>
+                  <div
+                    id="fqw43wcur1"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="60"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;form onsubmit=&quot;alert('submit!');return false&quot;&gt;
+  First: Enter in the input field &lt;input type=&quot;text&quot; value=&quot;text&quot;&gt;&lt;br&gt;
+  Second: Click &quot;submit&quot;: &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
+&lt;/form&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-fqw43wcur1"
+                        style="height: 60px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Relation between <code>submit</code> and
+                        <code>click</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        When a form is sent using
+                        <kbd class="shortcut">Enter</kbd> on an input field, a
+                        <code>click</code> event triggers on the
+                        <code>&lt;input type=&quot;submit&quot;&gt;</code>.
+                      </p>
+                      <p>
+                        That’s rather funny, because there was no click at all.
+                      </p>
+                      <p>Here’s the demo:</p>
+                      <div
+                        id="0qjwxyypuq"
+                        data-trusted="1"
+                        class="code-example"
+                        data-demo-height="60"
+                        data-highlight='[{"start":2,"cols":[{"start":37,"end":61}]}]'
+                        data-autorun="true"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-markup"
+                            ><code>&lt;form onsubmit=&quot;return false&quot;&gt;
+ &lt;input type=&quot;text&quot; size=&quot;30&quot; value=&quot;Focus here and press enter&quot;&gt;
+ &lt;input type=&quot;submit&quot; value=&quot;Submit&quot; onclick=&quot;alert('click')&quot;&gt;
+&lt;/form&gt;</code></pre>
+                          </div>
+                        </div>
+                        <div class="code-result code-example__result">
+                          <iframe
+                            class="code-result__iframe"
+                            name="test-0qjwxyypuq"
+                            style="height: 60px"
+                            src="about:blank"
+                          ></iframe>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="method-submit"
+                      href="forms-submit.html#method-submit"
+                      >Method: submit</a
+                    >
+                  </h2>
+                  <p>
+                    To submit a form to the server manually, we can call
+                    <code>form.submit()</code>.
+                  </p>
+                  <p>
+                    Then the <code>submit</code> event is not generated. It is
+                    assumed that if the programmer calls
+                    <code>form.submit()</code>, then the script already did all
+                    related processing.
+                  </p>
+                  <p>
+                    Sometimes that’s used to manually create and send a form,
+                    like this:
+                  </p>
+                  <div id="tvmkhw83cv" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="forms-submit.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="forms-submit.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let form = document.createElement('form');
+form.action = 'https://google.com/search';
+form.method = 'GET';
+
+form.innerHTML = '&lt;input name=&quot;q&quot; value=&quot;test&quot;&gt;';
+
+// the form must be in the document to submit it
+document.body.append(form);
+
+form.submit();</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="forms-submit.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="forms-submit.html#modal-form"
+                          name="modal-form"
+                          >Modal form</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/modal-dialog.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Create a function
+                          <code>showPrompt(html, callback)</code> that shows a
+                          form with the message <code>html</code>, an input
+                          field and buttons <code>OK/CANCEL</code>.
+                        </p>
+                        <ul>
+                          <li>
+                            A user should type something into a text field and
+                            press <kbd class="shortcut">Enter</kbd> or the OK
+                            button, then <code>callback(value)</code> is called
+                            with the value they entered.
+                          </li>
+                          <li>
+                            Otherwise if the user presses
+                            <kbd class="shortcut">Esc</kbd> or CANCEL, then
+                            <code>callback(null)</code> is called.
+                          </li>
+                        </ul>
+                        <p>
+                          In both cases that ends the input process and removes
+                          the form.
+                        </p>
+                        <p>Requirements:</p>
+                        <ul>
+                          <li>
+                            The form should be in the center of the window.
+                          </li>
+                          <li>
+                            The form is <em>modal</em>. In other words, no
+                            interaction with the rest of the page is possible
+                            until the user closes it.
+                          </li>
+                          <li>
+                            When the form is shown, the focus should be inside
+                            the <code>&lt;input&gt;</code> for the user.
+                          </li>
+                          <li>
+                            Keys <kbd class="shortcut">Tab</kbd>/<kbd
+                              class="shortcut"
+                              >Shift<span class="shortcut__plus">+</span
+                              >Tab</kbd
+                            >
+                            should shift the focus between form fields, don’t
+                            allow it to leave for other page elements.
+                          </li>
+                        </ul>
+                        <p>Usage example:</p>
+                        <div
+                          id="9pqhfaxekc"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>showPrompt(&quot;Enter something&lt;br&gt;...smart :)&quot;, function(value) {
+  alert(value);
+});</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>A demo in the iframe:</p>
+                        <div class="code-result">
+                          <div class="code-result__toolbar toolbar"></div>
+                          <iframe
+                            class="code-result__iframe"
+                            data-trusted="1"
+                            style="height: 160px"
+                            src="https://en.js.cx/task/modal-dialog/solution/"
+                          ></iframe>
+                        </div>
+                        <p>
+                          P.S. The source document has HTML/CSS for the form
+                          with fixed positioning, but it’s up to you to make it
+                          modal.
+                        </p>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/uZtz29nBZSMuAixB?p=preview"
+                            target="_blank"
+                            data-plunk-id="uZtz29nBZSMuAixB"
+                            >Open a sandbox for the task.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              A modal window can be implemented using a
+                              half-transparent
+                              <code>&lt;div id=&quot;cover-div&quot;&gt;</code>
+                              that covers the whole window, like this:
+                            </p>
+                            <div
+                              id="cwtrv69uue"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-css"
+                                  ><code>#cover-div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9000;
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  opacity: 0.3;
+}</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              Because the <code>&lt;div&gt;</code> covers
+                              everything, it gets all clicks, not the page below
+                              it.
+                            </p>
+                            <p>
+                              Also we can prevent page scroll by setting
+                              <code>body.style.overflowY='hidden'</code>.
+                            </p>
+                            <p>
+                              The form should be not in the
+                              <code>&lt;div&gt;</code>, but next to it, because
+                              we don’t want it to have <code>opacity</code>.
+                            </p>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/RYj0BZzi9FSEyTy0?p=preview"
+                                target="_blank"
+                                data-plunk-id="RYj0BZzi9FSEyTy0"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="events-change-input.html"
+                data-tooltip="Events: change, input, cut, copy, paste"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="loading.html"
+                data-tooltip="Document and resource loading"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fforms-submit"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fforms-submit"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="forms-submit.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                        
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/forms-submit",
+                    identifier: "\/forms-submit",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="forms-controls.html"
+                        >Forms, controls</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   forms-submit.html#event-submit"
+                        >Event: submit</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   forms-submit.html#method-submit"
+                        >Method: submit</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="forms-submit.html#tasks"
+                        >Tasks (1)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="forms-submit.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fforms-submit"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fforms-submit"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/4-forms-controls/4-forms-submit"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Currying</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      href="img/favicon/apple-touch-icon-precomposed.png"
+    />
+    <link rel="canonical" href="currying-partials.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Currying" />
+
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Currying" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="eval.html" />
+    <link rel="next" href="reference-type.html" />
+
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.0/lodash.min.js"></script>
+    <meta property="og:title" content="Currying" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/currying-partials"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="currying-partials.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/currying-partials"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                    currying-partials"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/currying-partials"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/currying-partials"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/currying-partials"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=currying-partials"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/currying-partials"</a
+            >
+
+
+   
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fcurrying-partials"
+                  rel="nofollow"
+                ></a
+                >2Fcurrying-partials
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/currying-partials">
+                  عربي
+                </option>
+                <option
+                  value="https://javascript.info/currying-partials"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/currying-partials">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/currying-partials">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/currying-partials">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/currying-partials">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/currying-partials">
+                  한국어
+                </option>
+                <option value=currying-partials">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/">Türkçe</option>
+                <option value="https://zh.javascript.info/currying-partials">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="90"
+          max="92"
+          data-tooltip="Lesson 90 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="js-misc.html"
+                        ><span>Miscellaneous</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Miscellaneous",
+                            "item": "https://javascript.info/js-misc"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 10th January 2021"
+                  >
+                    <div class="updated-at__content">10th January 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Currying</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Currying" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    <a href="https://en.wikipedia.org/wiki/Currying"
+                      >Currying</a
+                    >
+                    is an advanced technique of working with functions. It’s
+                    used not only in JavaScript, but in other languages as well.
+                  </p>
+                  <p>
+                    Currying is a transformation of functions that translates a
+                    function from callable as <code>f(a, b, c)</code> into
+                    callable as <code>f(a)(b)(c)</code>.
+                  </p>
+                  <p>
+                    Currying doesn’t call a function. It just transforms it.
+                  </p>
+                  <p>
+                    Let’s see an example first, to better understand what we’re
+                    talking about, and then practical applications.
+                  </p>
+                  <p>
+                    We’ll create a helper function <code>curry(f)</code> that
+                    performs currying for a two-argument <code>f</code>. In
+                    other words, <code>curry(f)</code> for two-argument
+                    <code>f(a, b)</code> translates it into a function that runs
+                    as <code>f(a)(b)</code>:
+                  </p>
+                  <div
+                    id="ktdlo2ppmp"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":0,"end":6}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="currying-partials.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="currying-partials.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function curry(f) { // curry(f) does the currying transform
+  return function(a) {
+    return function(b) {
+      return f(a, b);
+    };
+  };
+}
+
+// usage
+function sum(a, b) {
+  return a + b;
+}
+
+let curriedSum = curry(sum);
+
+alert( curriedSum(1)(2) ); // 3</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As you can see, the implementation is straightforward: it’s
+                    just two wrappers.
+                  </p>
+                  <ul>
+                    <li>
+                      The result of <code>curry(func)</code> is a wrapper
+                      <code>function(a)</code>.
+                    </li>
+                    <li>
+                      When it is called like <code>curriedSum(1)</code>, the
+                      argument is saved in the Lexical Environment, and a new
+                      wrapper is returned <code>function(b)</code>.
+                    </li>
+                    <li>
+                      Then this wrapper is called with <code>2</code> as an
+                      argument, and it passes the call to the original
+                      <code>sum</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    More advanced implementations of currying, such as
+                    <a href="https://lodash.com/docs#curry">_.curry</a> from
+                    lodash library, return a wrapper that allows a function to
+                    be called both normally and partially:
+                  </p>
+                  <div id="qgw6q7emih" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="currying-partials.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="currying-partials.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function sum(a, b) {
+  return a + b;
+}
+
+let curriedSum = _.curry(sum); // using _.curry from lodash library
+
+alert( curriedSum(1, 2) ); // 3, still callable normally
+alert( curriedSum(1)(2) ); // 3, called partially</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="currying-what-for"
+                      href="currying-partials.html#currying-what-for"
+                      >Currying? What for?</a
+                    >
+                  </h2>
+                  <p>
+                    To understand the benefits we need a worthy real-life
+                    example.
+                  </p>
+                  <p>
+                    For instance, we have the logging function
+                    <code>log(date, importance, message)</code> that formats and
+                    outputs the information. In real projects such functions
+                    have many useful features like sending logs over the
+                    network, here we’ll just use <code>alert</code>:
+                  </p>
+                  <div id="3u37ae8l3i" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function log(date, importance, message) {
+  alert(`[${date.getHours()}:${date.getMinutes()}] [${importance}] ${message}`);
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Let’s curry it!</p>
+                  <div id="qwjws3f97e" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>log = _.curry(log);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>After that <code>log</code> works normally:</p>
+                  <div id="c7b8jlzdqz" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>log(new Date(), &quot;DEBUG&quot;, &quot;some debug&quot;); // log(a, b, c)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>…But also works in the curried form:</p>
+                  <div id="1x44szr4m8" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>log(new Date())(&quot;DEBUG&quot;)(&quot;some debug&quot;); // log(a)(b)(c)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now we can easily make a convenience function for current
+                    logs:
+                  </p>
+                  <div id="64htsiuz3t" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// logNow will be the partial of log with fixed first argument
+let logNow = log(new Date());
+
+// use it
+logNow(&quot;INFO&quot;, &quot;message&quot;); // [HH:mm] INFO message</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now <code>logNow</code> is <code>log</code> with fixed first
+                    argument, in other words “partially applied function” or
+                    “partial” for short.
+                  </p>
+                  <p>
+                    We can go further and make a convenience function for
+                    current debug logs:
+                  </p>
+                  <div id="l90wli9z8t" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let debugNow = logNow(&quot;DEBUG&quot;);
+
+debugNow(&quot;message&quot;); // [HH:mm] DEBUG message</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>So:</p>
+                  <ol>
+                    <li>
+                      We didn’t lose anything after currying:
+                      <code>log</code> is still callable normally.
+                    </li>
+                    <li>
+                      We can easily generate partial functions such as for
+                      today’s logs.
+                    </li>
+                  </ol>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="advanced-curry-implementation"
+                      href="currying-partials.html#advanced-curry-implementation"
+                      >Advanced curry implementation</a
+                    >
+                  </h2>
+                  <p>
+                    In case you’d like to get in to the details, here’s the
+                    “advanced” curry implementation for multi-argument functions
+                    that we could use above.
+                  </p>
+                  <p>It’s pretty short:</p>
+                  <div id="wjibp70unb" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function curry(func) {
+
+  return function curried(...args) {
+    if (args.length &gt;= func.length) {
+      return func.apply(this, args);
+    } else {
+      return function(...args2) {
+        return curried.apply(this, args.concat(args2));
+      }
+    }
+  };
+
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Usage examples:</p>
+                  <div id="aijv6oudlm" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function sum(a, b, c) {
+  return a + b + c;
+}
+
+let curriedSum = curry(sum);
+
+alert( curriedSum(1, 2, 3) ); // 6, still callable normally
+alert( curriedSum(1)(2,3) ); // 6, currying of 1st arg
+alert( curriedSum(1)(2)(3) ); // 6, full currying</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The new <code>curry</code> may look complicated, but it’s
+                    actually easy to understand.
+                  </p>
+                  <p>
+                    The result of <code>curry(func)</code> call is the wrapper
+                    <code>curried</code> that looks like this:
+                  </p>
+                  <div id="2dcc3g6az9" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// func is the function to transform
+function curried(...args) {
+  if (args.length &gt;= func.length) { // (1)
+    return func.apply(this, args);
+  } else {
+    return function(...args2) { // (2)
+      return curried.apply(this, args.concat(args2));
+    }
+  }
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    When we run it, there are two <code>if</code> execution
+                    branches:
+                  </p>
+                  <ol>
+                    <li>
+                      If passed <code>args</code> count is the same or more than
+                      the original function has in its definition
+                      (<code>func.length</code>) , then just pass the call to it
+                      using <code>func.apply</code>.
+                    </li>
+                    <li>
+                      Otherwise, get a partial: we don’t call
+                      <code>func</code> just yet. Instead, another wrapper is
+                      returned, that will re-apply
+                      <code>curried</code> providing previous arguments together
+                      with the new ones.
+                    </li>
+                  </ol>
+                  <p>
+                    Then, if we call it, again, we’ll get either a new partial
+                    (if not enough arguments) or, finally, the result.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Fixed-length functions only</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        The currying requires the function to have a fixed
+                        number of arguments.
+                      </p>
+                      <p>
+                        A function that uses rest parameters, such as
+                        <code>f(...args)</code>, can’t be curried this way.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >A little more than currying</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        By definition, currying should convert
+                        <code>sum(a, b, c)</code> into
+                        <code>sum(a)(b)(c)</code>.
+                      </p>
+                      <p>
+                        But most implementations of currying in JavaScript are
+                        advanced, as described: they also keep the function
+                        callable in the multi-argument variant.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="currying-partials.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    <em>Currying</em> is a transform that makes
+                    <code>f(a,b,c)</code> callable as <code>f(a)(b)(c)</code>.
+                    JavaScript implementations usually both keep the function
+                    callable normally and return the partial if the arguments
+                    count is not enough.
+                  </p>
+                  <p>
+                    Currying allows us to easily get partials. As we’ve seen in
+                    the logging example, after currying the three argument
+                    universal function
+                    <code>log(date, importance, message)</code> gives us
+                    partials when called with one argument (like
+                    <code>log(date)</code>) or two arguments (like
+                    <code>log(date, importance)</code>).
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="eval.html"
+                data-tooltip="Eval: run a code string"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="reference-type.html"
+                data-tooltip="Reference Type"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcurrying-partials"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcurrying-partials"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="currying-partials.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                        
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/currying-partials",
+                    identifier: "\/currying-partials",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="js-misc.html"
+                        >Miscellaneous</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   currying-partials.html#currying-what-for"
+                        >Currying? What for?</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   currying-partials.html#advanced-curry-implementation"
+                        >Advanced curry implementation</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   currying-partials.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   currying-partials.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcurrying-partials"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fcurrying-partials"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/99-js-misc/03-currying-partials"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

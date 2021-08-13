@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Walking the DOM</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="dom-navigation.html"
+    />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Walking the DOM" />
+
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Walking the DOM" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="dom-nodes.html" />
+    <link rel="next" href="searching-elements-dom.html" />
+
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <link rel="stylesheet" href="https://en.js.cx/libs/domtree.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://en.js.cx/libs/domtree.js"></script>
+    <style>
+      #travel-dom-comment {
+        font-style: italic;
+      }
+      #travel-dom-control ul {
+        margin: 6px 0;
+      }
+    </style>
+    <meta property="og:title" content="Walking the DOM" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="dom-navigation.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/dom-navigation"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                    dom-navigation"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/dom-navigation"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/dom-navigation"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/dom-navigation"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=dom-navigation"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/dom-navigation"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/dom-navigation"</a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fdom-navigation"
+                  rel="nofollow"
+                ></a
+                >2Fdom-navigation
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option value="https://javascript.info/dom-navigation" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/dom-navigation">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/dom-navigation">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/dom-navigation">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/dom-navigation">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/dom-navigation">
+                  한국어
+                </option>
+                <option value=dom-navigation">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/dom-navigation">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/dom-navigation">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="3"
+          max="32"
+          data-tooltip="Lesson 3 of 32"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="ui.html"
+                        ><span>Browser: Document, Events, Interfaces</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="document.html"
+                        ><span>Document</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Browser: Document, Events, Interfaces",
+                            "item": "https://javascript.info/ui"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Document",
+                            "item": "https://javascript.info/document"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 1st April 2021"
+                  >
+                    <div class="updated-at__content">1st April 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Walking the DOM</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Walking the DOM" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    The DOM allows us to do anything with elements and their
+                    contents, but first we need to reach the corresponding DOM
+                    object.
+                  </p>
+                  <p>
+                    All operations on the DOM start with the
+                    <code>document</code> object. That’s the main “entry point”
+                    to DOM. From it we can access any node.
+                  </p>
+                  <p>
+                    Here’s a picture of links that allow for travel between DOM
+                    nodes:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 420px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 92.38095238095238%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/dom-navigation/dom-links.svg"
+                        width="420"
+                        height="388"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/dom-navigation/dom-links.svg"
+                          alt=""
+                          width="420"
+                          height="388"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>Let’s discuss them in more detail.</p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="on-top-documentelement-and-body"
+                      href="dom-navigation.html#on-top-documentelement-and-body"
+                      >On top: documentElement and body</a
+                    >
+                  </h2>
+                  <p>
+                    The topmost tree nodes are available directly as
+                    <code>document</code> properties:
+                  </p>
+                  <dl>
+                    <dt>
+                      <code>&lt;html&gt;</code> =
+                      <code>document.documentElement</code>
+                    </dt>
+                    <dd>
+                      The topmost document node is
+                      <code>document.documentElement</code>. That’s the DOM node
+                      of the <code>&lt;html&gt;</code> tag.
+                    </dd>
+                    <dt>
+                      <code>&lt;body&gt;</code> = <code>document.body</code>
+                    </dt>
+                    <dd>
+                      Another widely used DOM node is the
+                      <code>&lt;body&gt;</code> element –
+                      <code>document.body</code>.
+                    </dd>
+                    <dt>
+                      <code>&lt;head&gt;</code> = <code>document.head</code>
+                    </dt>
+                    <dd>
+                      The <code>&lt;head&gt;</code> tag is available as
+                      <code>document.head</code>.
+                    </dd>
+                  </dl>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >There’s a catch: <code>document.body</code> can be
+                        <code>null</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        A script cannot access an element that doesn’t exist at
+                        the moment of running.
+                      </p>
+                      <p>
+                        In particular, if a script is inside
+                        <code>&lt;head&gt;</code>, then
+                        <code>document.body</code> is unavailable, because the
+                        browser did not read it yet.
+                      </p>
+                      <p>
+                        So, in the example below the first
+                        <code>alert</code> shows <code>null</code>:
+                      </p>
+                      <div
+                        id="tlakq32y0s"
+                        data-trusted="1"
+                        class="code-example"
+                        data-highlight='[{"start":4,"end":4}]'
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="dom-navigation.html#"
+                                title="show"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="dom-navigation.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-markup"
+                            ><code>&lt;html&gt;
+
+&lt;head&gt;
+  &lt;script&gt;
+    alert( &quot;From HEAD: &quot; + document.body ); // null, there's no &lt;body&gt; yet
+  &lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;script&gt;
+    alert( &quot;From BODY: &quot; + document.body ); // HTMLBodyElement, now it exists
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >In the DOM world <code>null</code> means “doesn’t
+                        exist”</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        In the DOM, the <code>null</code> value means “doesn’t
+                        exist” or “no such node”.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="children-childnodes-firstchild-lastchild"
+                      href="dom-navigation.html#children-childnodes-firstchild-lastchild"
+                      >Children: childNodes, firstChild, lastChild</a
+                    >
+                  </h2>
+                  <p>There are two terms that we’ll use from now on:</p>
+                  <ul>
+                    <li>
+                      <strong>Child nodes (or children)</strong> – elements that
+                      are direct children. In other words, they are nested
+                      exactly in the given one. For instance,
+                      <code>&lt;head&gt;</code> and
+                      <code>&lt;body&gt;</code> are children of
+                      <code>&lt;html&gt;</code> element.
+                    </li>
+                    <li>
+                      <strong>Descendants</strong> – all elements that are
+                      nested in the given one, including children, their
+                      children and so on.
+                    </li>
+                  </ul>
+                  <p>
+                    For instance, here <code>&lt;body&gt;</code> has children
+                    <code>&lt;div&gt;</code> and <code>&lt;ul&gt;</code> (and
+                    few blank text nodes):
+                  </p>
+                  <div id="pbszeq9g17" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;html&gt;
+&lt;body&gt;
+  &lt;div&gt;Begin&lt;/div&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;b&gt;Information&lt;/b&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …And descendants of <code>&lt;body&gt;</code> are not only
+                    direct children <code>&lt;div&gt;</code>,
+                    <code>&lt;ul&gt;</code> but also more deeply nested
+                    elements, such as <code>&lt;li&gt;</code> (a child of
+                    <code>&lt;ul&gt;</code>) and <code>&lt;b&gt;</code> (a child
+                    of <code>&lt;li&gt;</code>) – the entire subtree.
+                  </p>
+                  <p>
+                    <strong
+                      >The <code>childNodes</code> collection lists all child
+                      nodes, including text nodes.</strong
+                    >
+                  </p>
+                  <p>
+                    The example below shows children of
+                    <code>document.body</code>:
+                  </p>
+                  <div
+                    id="kerf7r208e"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":11,"end":13}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;html&gt;
+&lt;body&gt;
+  &lt;div&gt;Begin&lt;/div&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;Information&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;div&gt;End&lt;/div&gt;
+
+  &lt;script&gt;
+    for (let i = 0; i &lt; document.body.childNodes.length; i++) {
+      alert( document.body.childNodes[i] ); // Text, DIV, Text, UL, ..., SCRIPT
+    }
+  &lt;/script&gt;
+  ...more stuff...
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Please note an interesting detail here. If we run the
+                    example above, the last element shown is
+                    <code>&lt;script&gt;</code>. In fact, the document has more
+                    stuff below, but at the moment of the script execution the
+                    browser did not read it yet, so the script doesn’t see it.
+                  </p>
+                  <p>
+                    <strong
+                      >Properties <code>firstChild</code> and
+                      <code>lastChild</code> give fast access to the first and
+                      last children.</strong
+                    >
+                  </p>
+                  <p>
+                    They are just shorthands. If there exist child nodes, then
+                    the following is always true:
+                  </p>
+                  <div id="edw0v72n0q" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>elem.childNodes[0] === elem.firstChild
+elem.childNodes[elem.childNodes.length - 1] === elem.lastChild</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    There’s also a special function
+                    <code>elem.hasChildNodes()</code> to check whether there are
+                    any child nodes.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="dom-collections"
+                      href="dom-navigation.html#dom-collections"
+                      >DOM collections</a
+                    >
+                  </h3>
+                  <p>
+                    As we can see, <code>childNodes</code> looks like an array.
+                    But actually it’s not an array, but rather a
+                    <em>collection</em> – a special array-like iterable object.
+                  </p>
+                  <p>There are two important consequences:</p>
+                  <ol>
+                    <li>We can use <code>for..of</code> to iterate over it:</li>
+                  </ol>
+                  <div id="f9t0l77npf" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>for (let node of document.body.childNodes) {
+  alert(node); // shows all nodes from the collection
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    That’s because it’s iterable (provides the
+                    <code>Symbol.iterator</code> property, as required).
+                  </p>
+                  <ol start="2">
+                    <li>
+                      Array methods won’t work, because it’s not an array:
+                    </li>
+                  </ol>
+                  <div id="6zwx9yrtbl" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>alert(document.body.childNodes.filter); // undefined (there's no filter method!)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The first thing is nice. The second is tolerable, because we
+                    can use <code>Array.from</code> to create a “real” array
+                    from the collection, if we want array methods:
+                  </p>
+                  <div id="ljr8p5ylxp" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>alert( Array.from(document.body.childNodes).filter ); // function</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >DOM collections are read-only</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        DOM collections, and even more – <em>all</em> navigation
+                        properties listed in this chapter are read-only.
+                      </p>
+                      <p>
+                        We can’t replace a child by something else by assigning
+                        <code>childNodes[i] = ...</code>.
+                      </p>
+                      <p>
+                        Changing DOM needs other methods. We will see them in
+                        the next chapter.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >DOM collections are live</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Almost all DOM collections with minor exceptions are
+                        <em>live</em>. In other words, they reflect the current
+                        state of DOM.
+                      </p>
+                      <p>
+                        If we keep a reference to <code>elem.childNodes</code>,
+                        and add/remove nodes into DOM, then they appear in the
+                        collection automatically.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Don’t use <code>for..in</code> to loop over
+                        collections</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Collections are iterable using <code>for..of</code>.
+                        Sometimes people try to use <code>for..in</code> for
+                        that.
+                      </p>
+                      <p>
+                        Please, don’t. The <code>for..in</code> loop iterates
+                        over all enumerable properties. And collections have
+                        some “extra” rarely used properties that we usually do
+                        not want to get:
+                      </p>
+                      <div
+                        id="a3j4na0alp"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="dom-navigation.html#"
+                                title="show"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="dom-navigation.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-markup"
+                            ><code>&lt;body&gt;
+&lt;script&gt;
+  // shows 0, 1, length, item, values and more.
+  for (let prop in document.body.childNodes) alert(prop);
+&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="siblings-and-the-parent"
+                      href="dom-navigation.html#siblings-and-the-parent"
+                      >Siblings and the parent</a
+                    >
+                  </h2>
+                  <p>
+                    <em>Siblings</em> are nodes that are children of the same
+                    parent.
+                  </p>
+                  <p>
+                    For instance, here <code>&lt;head&gt;</code> and
+                    <code>&lt;body&gt;</code> are siblings:
+                  </p>
+                  <div id="7riuyx3cxf" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;html&gt;
+  &lt;head&gt;...&lt;/head&gt;&lt;body&gt;...&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>
+                      <code>&lt;body&gt;</code> is said to be the “next” or
+                      “right” sibling of <code>&lt;head&gt;</code>,
+                    </li>
+                    <li>
+                      <code>&lt;head&gt;</code> is said to be the “previous” or
+                      “left” sibling of <code>&lt;body&gt;</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    The next sibling is in <code>nextSibling</code> property,
+                    and the previous one – in <code>previousSibling</code>.
+                  </p>
+                  <p>The parent is available as <code>parentNode</code>.</p>
+                  <p>For example:</p>
+                  <div id="0mwpz71dll" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// parent of &lt;body&gt; is &lt;html&gt;
+alert( document.body.parentNode === document.documentElement ); // true
+
+// after &lt;head&gt; goes &lt;body&gt;
+alert( document.head.nextSibling ); // HTMLBodyElement
+
+// before &lt;body&gt; goes &lt;head&gt;
+alert( document.body.previousSibling ); // HTMLHeadElement</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="element-only-navigation"
+                      href="dom-navigation.html#element-only-navigation"
+                      >Element-only navigation</a
+                    >
+                  </h2>
+                  <p>
+                    Navigation properties listed above refer to
+                    <em>all</em> nodes. For instance, in
+                    <code>childNodes</code> we can see both text nodes, element
+                    nodes, and even comment nodes if they exist.
+                  </p>
+                  <p>
+                    But for many tasks we don’t want text or comment nodes. We
+                    want to manipulate element nodes that represent tags and
+                    form the structure of the page.
+                  </p>
+                  <p>
+                    So let’s see more navigation links that only take
+                    <em>element nodes</em> into account:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 440px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 71.81818181818181%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/dom-navigation/dom-links-elements.svg"
+                        width="440"
+                        height="316"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/dom-navigation/dom-links-elements.svg"
+                          alt=""
+                          width="440"
+                          height="316"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    The links are similar to those given above, just with
+                    <code>Element</code> word inside:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>children</code> – only those children that are
+                      element nodes.
+                    </li>
+                    <li>
+                      <code>firstElementChild</code>,
+                      <code>lastElementChild</code> – first and last element
+                      children.
+                    </li>
+                    <li>
+                      <code>previousElementSibling</code>,
+                      <code>nextElementSibling</code> – neighbor elements.
+                    </li>
+                    <li><code>parentElement</code> – parent element.</li>
+                  </ul>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Why <code>parentElement</code>? Can the parent be
+                        <em>not</em> an element?</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        The <code>parentElement</code> property returns the
+                        “element” parent, while <code>parentNode</code> returns
+                        “any node” parent. These properties are usually the
+                        same: they both get the parent.
+                      </p>
+                      <p>
+                        With the one exception of
+                        <code>document.documentElement</code>:
+                      </p>
+                      <div
+                        id="te746aejkt"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="dom-navigation.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="dom-navigation.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>alert( document.documentElement.parentNode ); // document
+alert( document.documentElement.parentElement ); // null</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        The reason is that the root node
+                        <code>document.documentElement</code>
+                        (<code>&lt;html&gt;</code>) has <code>document</code> as
+                        its parent. But <code>document</code> is not an element
+                        node, so <code>parentNode</code> returns it and
+                        <code>parentElement</code> does not.
+                      </p>
+                      <p>
+                        This detail may be useful when we want to travel up from
+                        an arbitrary element <code>elem</code> to
+                        <code>&lt;html&gt;</code>, but not to the
+                        <code>document</code>:
+                      </p>
+                      <div
+                        id="5zhfs1hsv3"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>while(elem = elem.parentElement) { // go up till &lt;html&gt;
+  alert( elem );
+}</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Let’s modify one of the examples above: replace
+                    <code>childNodes</code> with <code>children</code>. Now it
+                    shows only elements:
+                  </p>
+                  <div
+                    id="nft339re3r"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":11,"end":13}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;html&gt;
+&lt;body&gt;
+  &lt;div&gt;Begin&lt;/div&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;Information&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;div&gt;End&lt;/div&gt;
+
+  &lt;script&gt;
+    for (let elem of document.body.children) {
+      alert(elem); // DIV, UL, DIV, SCRIPT
+    }
+  &lt;/script&gt;
+  ...
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="dom-navigation-tables"
+                      href="dom-navigation.html#dom-navigation-tables"
+                      >More links: tables</a
+                    >
+                  </h2>
+                  <p>Till now we described the basic navigation properties.</p>
+                  <p>
+                    Certain types of DOM elements may provide additional
+                    properties, specific to their type, for convenience.
+                  </p>
+                  <p>
+                    Tables are a great example of that, and represent a
+                    particularly important case:
+                  </p>
+                  <p>
+                    <strong>The <code>&lt;table&gt;</code></strong> element
+                    supports (in addition to the given above) these properties:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>table.rows</code> – the collection of
+                      <code>&lt;tr&gt;</code> elements of the table.
+                    </li>
+                    <li>
+                      <code>table.caption/tHead/tFoot</code> – references to
+                      elements <code>&lt;caption&gt;</code>,
+                      <code>&lt;thead&gt;</code>, <code>&lt;tfoot&gt;</code>.
+                    </li>
+                    <li>
+                      <code>table.tBodies</code> – the collection of
+                      <code>&lt;tbody&gt;</code> elements (can be many according
+                      to the standard, but there will always be at least one –
+                      even if it is not in the source HTML, the browser will put
+                      it in the DOM).
+                    </li>
+                  </ul>
+                  <p>
+                    <strong
+                      ><code>&lt;thead&gt;</code>, <code>&lt;tfoot&gt;</code>,
+                      <code>&lt;tbody&gt;</code></strong
+                    >
+                    elements provide the <code>rows</code> property:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>tbody.rows</code> – the collection of
+                      <code>&lt;tr&gt;</code> inside.
+                    </li>
+                  </ul>
+                  <p>
+                    <strong><code>&lt;tr&gt;</code>:</strong>
+                  </p>
+                  <ul>
+                    <li>
+                      <code>tr.cells</code> – the collection of
+                      <code>&lt;td&gt;</code> and <code>&lt;th&gt;</code> cells
+                      inside the given <code>&lt;tr&gt;</code>.
+                    </li>
+                    <li>
+                      <code>tr.sectionRowIndex</code> – the position (index) of
+                      the given <code>&lt;tr&gt;</code> inside the enclosing
+                      <code>&lt;thead&gt;/&lt;tbody&gt;/&lt;tfoot&gt;</code>.
+                    </li>
+                    <li>
+                      <code>tr.rowIndex</code> – the number of the
+                      <code>&lt;tr&gt;</code> in the table as a whole (including
+                      all table rows).
+                    </li>
+                  </ul>
+                  <p>
+                    <strong
+                      ><code>&lt;td&gt;</code> and
+                      <code>&lt;th&gt;</code>:</strong
+                    >
+                  </p>
+                  <ul>
+                    <li>
+                      <code>td.cellIndex</code> – the number of the cell inside
+                      the enclosing <code>&lt;tr&gt;</code>.
+                    </li>
+                  </ul>
+                  <p>An example of usage:</p>
+                  <div
+                    id="eg13xdeyuj"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="100"
+                    data-highlight='[{"start":11,"cols":[{"start":17,"end":33}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="dom-navigation.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;table id=&quot;table&quot;&gt;
+  &lt;tr&gt;
+    &lt;td&gt;one&lt;/td&gt;&lt;td&gt;two&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;three&lt;/td&gt;&lt;td&gt;four&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;script&gt;
+  // get td with &quot;two&quot; (first row, second column)
+  let td = table.rows[0].cells[1];
+  td.style.backgroundColor = &quot;red&quot;; // highlight it
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The specification:
+                    <a href="https://html.spec.whatwg.org/multipage/tables.html"
+                      >tabular data</a
+                    >.
+                  </p>
+                  <p>
+                    There are also additional navigation properties for HTML
+                    forms. We’ll look at them later when we start working with
+                    forms.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="dom-navigation.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    Given a DOM node, we can go to its immediate neighbors using
+                    navigation properties.
+                  </p>
+                  <p>There are two main sets of them:</p>
+                  <ul>
+                    <li>
+                      For all nodes: <code>parentNode</code>,
+                      <code>childNodes</code>, <code>firstChild</code>,
+                      <code>lastChild</code>, <code>previousSibling</code>,
+                      <code>nextSibling</code>.
+                    </li>
+                    <li>
+                      For element nodes only: <code>parentElement</code>,
+                      <code>children</code>, <code>firstElementChild</code>,
+                      <code>lastElementChild</code>,
+                      <code>previousElementSibling</code>,
+                      <code>nextElementSibling</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    Some types of DOM elements, e.g. tables, provide additional
+                    properties and collections to access their content.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="dom-navigation.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="dom-navigation.html#dom-children"
+                          name="dom-children"
+                          >DOM children</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/dom-children.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>Look at this page:</p>
+                        <div
+                          id="uduoqf525w"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-markup"
+                              ><code>&lt;html&gt;
+&lt;body&gt;
+  &lt;div&gt;Users:&lt;/div&gt;
+  &lt;ul&gt;
+    &lt;li&gt;John&lt;/li&gt;
+    &lt;li&gt;Pete&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          For each of the following, give at least one way of
+                          how to access them:
+                        </p>
+                        <ul>
+                          <li>The <code>&lt;div&gt;</code> DOM node?</li>
+                          <li>The <code>&lt;ul&gt;</code> DOM node?</li>
+                          <li>
+                            The second <code>&lt;li&gt;</code> (with Pete)?
+                          </li>
+                        </ul>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>There are many ways, for instance:</p>
+                            <p>The <code>&lt;div&gt;</code> DOM node:</p>
+                            <div
+                              id="vbb4p0iylk"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>document.body.firstElementChild
+// or
+document.body.children[0]
+// or (the first node is space, so we take 2nd)
+document.body.childNodes[1]</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>The <code>&lt;ul&gt;</code> DOM node:</p>
+                            <div
+                              id="xyf2myhb2p"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>document.body.lastElementChild
+// or
+document.body.children[1]</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              The second <code>&lt;li&gt;</code> (with Pete):
+                            </p>
+                            <div
+                              id="s0vnaeerso"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>// get &lt;ul&gt;, and then get its last element child
+document.body.lastElementChild.lastElementChild</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="dom-navigation.html#the-sibling-question"
+                          name="the-sibling-question"
+                          >The sibling question</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/navigation-links-which-null.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          If <code>elem</code> – is an arbitrary DOM element
+                          node…
+                        </p>
+                        <ul>
+                          <li>
+                            Is it true that
+                            <code>elem.lastChild.nextSibling</code> is always
+                            <code>null</code>?
+                          </li>
+                          <li>
+                            Is it true that
+                            <code>elem.children[0].previousSibling</code> is
+                            always <code>null</code> ?
+                          </li>
+                        </ul>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <ol>
+                              <li>
+                                Yes, true. The element
+                                <code>elem.lastChild</code> is always the last
+                                one, it has no <code>nextSibling</code>.
+                              </li>
+                              <li>
+                                No, wrong, because
+                                <code>elem.children[0]</code> is the first child
+                                <em>among elements</em>. But there may exist
+                                non-element nodes before it. So
+                                <code>previousSibling</code> may be a text node.
+                              </li>
+                            </ol>
+                            <p>
+                              Please note: for both cases if there are no
+                              children, then there will be an error.
+                            </p>
+                            <p>
+                              If there are no children,
+                              <code>elem.lastChild</code> is <code>null</code>,
+                              so we can’t access
+                              <code>elem.lastChild.nextSibling</code>. And the
+                              collection <code>elem.children</code> is empty
+                              (like an empty array <code>[]</code>).
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="dom-navigation.html#select-all-diagonal-cells"
+                          name="select-all-diagonal-cells"
+                          >Select all diagonal cells</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/select-diagonal-cells.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Write the code to paint all diagonal table cells in
+                          red.
+                        </p>
+                        <p>
+                          You’ll need to get all diagonal
+                          <code>&lt;td&gt;</code> from the
+                          <code>&lt;table&gt;</code> and paint them using the
+                          code:
+                        </p>
+                        <div
+                          id="d7vy3l31ad"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>// td should be the reference to the table cell
+td.style.backgroundColor = 'red';</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>The result should be:</p>
+                        <div class="code-result">
+                          <div class="code-result__toolbar toolbar"></div>
+                          <iframe
+                            class="code-result__iframe"
+                            data-trusted="1"
+                            style="height: 180px"
+                            src="https://en.js.cx/task/select-diagonal-cells/solution/"
+                          ></iframe>
+                        </div>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/nuNlB97squ4Hgwrg?p=preview"
+                            target="_blank"
+                            data-plunk-id="nuNlB97squ4Hgwrg"
+                            >Open a sandbox for the task.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              We’ll be using <code>rows</code> and
+                              <code>cells</code> properties to access diagonal
+                              table cells.
+                            </p>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/mT7Hlxa5XBhtHzLt?p=preview"
+                                target="_blank"
+                                data-plunk-id="mT7Hlxa5XBhtHzLt"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="dom-nodes.html"
+                data-tooltip="DOM tree"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="searching-elements-dom.html"
+                data-tooltip="Searching: getElement*, querySelector*"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fdom-navigation"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdom-navigation"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="dom-navigation.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                        
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/dom-navigation",
+                    identifier: "\/dom-navigation",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="document.html">Document</a>
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   dom-navigation.html#on-top-documentelement-and-body"
+                        >On top: documentElement and body</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   dom-navigation.html#children-childnodes-firstchild-lastchild"
+                        >Children: childNodes, firstChild, lastChild</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   dom-navigation.html#siblings-and-the-parent"
+                        >Siblings and the parent</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   dom-navigation.html#element-only-navigation"
+                        >Element-only navigation</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   dom-navigation.html#dom-navigation-tables"
+                        >More links: tables</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   dom-navigation.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="dom-navigation.html#tasks"
+                        >Tasks (3)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   dom-navigation.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fdom-navigation"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fdom-navigation"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/03-dom-navigation"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

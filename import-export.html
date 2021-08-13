@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Export and Import</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="import-export.html"
+    />
+
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Export and Import" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Export and Import" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="modules-intro.html" />
+    <link rel="next" href="modules-dynamic-imports.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Export and Import" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/import-export"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="import-export.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/import-export"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/import-export"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/import-export"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/import-export"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/import-export"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=import-export"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/import-export"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/import-export"</a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fimport-export"
+                  rel="nofollow"
+                ></a
+                >2Fimport-export
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/import-export">
+                  عربي
+                </option>
+                <option value="https://javascript.info/import-export" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/import-export">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/import-export">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/import-export">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/import-export">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/import-export">
+                  한국어
+                </option>
+                <option value=import-export">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/import-export">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/import-export">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="86"
+          max="92"
+          data-tooltip="Lesson 86 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="modules.html"
+                        ><span>Modules</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Modules",
+                            "item": "https://javascript.info/modules"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 13th March 2021"
+                  >
+                    <div class="updated-at__content">13th March 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Export and Import</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Export and Import" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Export and import directives have several syntax variants.
+                  </p>
+                  <p>
+                    In the previous article we saw a simple use, now let’s
+                    explore more examples.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="export-before-declarations"
+                      href="import-export.html#export-before-declarations"
+                      >Export before declarations</a
+                    >
+                  </h2>
+                  <p>
+                    We can label any declaration as exported by placing
+                    <code>export</code> before it, be it a variable, function or
+                    a class.
+                  </p>
+                  <p>For instance, here all exports are valid:</p>
+                  <div
+                    id="6bl4jzr6bh"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":7,"cols":[{"start":0,"end":6}]},{"start":4,"cols":[{"start":0,"end":6}]},{"start":1,"cols":[{"start":0,"end":6}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// export an array
+export let months = ['Jan', 'Feb', 'Mar','Apr', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// export a constant
+export const MODULES_BECAME_STANDARD_YEAR = 2015;
+
+// export a class
+export class User {
+  constructor(name) {
+    this.name = name;
+  }
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >No semicolons after export class/function</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Please note that <code>export</code> before a class or a
+                        function does not make it a
+                        <a href="function-expressions.html"
+                          >function expression</a
+                        >. It’s still a function declaration, albeit exported.
+                      </p>
+                      <p>
+                        Most JavaScript style guides don’t recommend semicolons
+                        after function and class declarations.
+                      </p>
+                      <p>
+                        That’s why there’s no need for a semicolon at the end of
+                        <code>export class</code> and
+                        <code>export function</code>:
+                      </p>
+                      <div
+                        id="7cgbcc1h6h"
+                        data-trusted="1"
+                        class="code-example"
+                        data-highlight='[{"start":2,"cols":[{"start":2,"end":22}]}]'
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>export function sayHi(user) {
+  alert(`Hello, ${user}!`);
+}  // no ; at the end</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="export-apart-from-declarations"
+                      href="import-export.html#export-apart-from-declarations"
+                      >Export apart from declarations</a
+                    >
+                  </h2>
+                  <p>Also, we can put <code>export</code> separately.</p>
+                  <p>Here we first declare, and then export:</p>
+                  <div
+                    id="dw0idoucjq"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":9,"end":9}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 say.js
+function sayHi(user) {
+  alert(`Hello, ${user}!`);
+}
+
+function sayBye(user) {
+  alert(`Bye, ${user}!`);
+}
+
+export {sayHi, sayBye}; // a list of exported variables</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …Or, technically we could put <code>export</code> above
+                    functions as well.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="import"
+                      href="import-export.html#import"
+                      >Import *</a
+                    >
+                  </h2>
+                  <p>
+                    Usually, we put a list of what to import in curly braces
+                    <code>import {...}</code>, like this:
+                  </p>
+                  <div
+                    id="pej3ddy2uh"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":1,"end":1}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 main.js
+import {sayHi, sayBye} from './say.js';
+
+sayHi('John'); // Hello, John!
+sayBye('John'); // Bye, John!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    But if there’s a lot to import, we can import everything as
+                    an object using <code>import * as &lt;obj&gt;</code>, for
+                    instance:
+                  </p>
+                  <div
+                    id="gmu79jgg1d"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":1,"end":1}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 main.js
+import * as say from './say.js';
+
+say.sayHi('John');
+say.sayBye('John');</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    At first sight, “import everything” seems such a cool thing,
+                    short to write, why should we ever explicitly list what we
+                    need to import?
+                  </p>
+                  <p>Well, there are few reasons.</p>
+                  <ol>
+                    <li>
+                      <p>
+                        Modern build tools (<a href="http://webpack.github.io"
+                          >webpack</a
+                        >
+                        and others) bundle modules together and optimize them to
+                        speedup loading and remove unused stuff.
+                      </p>
+                      <p>
+                        Let’s say, we added a 3rd-party library
+                        <code>say.js</code> to our project with many functions:
+                      </p>
+                      <div
+                        id="vrd7pwmhid"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>// 📁 say.js
+export function sayHi() { ... }
+export function sayBye() { ... }
+export function becomeSilent() { ... }</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        Now if we only use one of <code>say.js</code> functions
+                        in our project:
+                      </p>
+                      <div id="qmt2qzys4" data-trusted="1" class="code-example">
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>// 📁 main.js
+import {sayHi} from './say.js';</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        …Then the optimizer will see that and remove the other
+                        functions from the bundled code, thus making the build
+                        smaller. That is called “tree-shaking”.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Explicitly listing what to import gives shorter names:
+                        <code>sayHi()</code> instead of
+                        <code>say.sayHi()</code>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Explicit list of imports gives better overview of the
+                        code structure: what is used and where. It makes code
+                        support and refactoring easier.
+                      </p>
+                    </li>
+                  </ol>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="import-as"
+                      href="import-export.html#import-as"
+                      >Import “as”</a
+                    >
+                  </h2>
+                  <p>
+                    We can also use <code>as</code> to import under different
+                    names.
+                  </p>
+                  <p>
+                    For instance, let’s import <code>sayHi</code> into the local
+                    variable <code>hi</code> for brevity, and import
+                    <code>sayBye</code> as <code>bye</code>:
+                  </p>
+                  <div
+                    id="vl39v561nn"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":1,"end":1}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 main.js
+import {sayHi as hi, sayBye as bye} from './say.js';
+
+hi('John'); // Hello, John!
+bye('John'); // Bye, John!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="export-as"
+                      href="import-export.html#export-as"
+                      >Export “as”</a
+                    >
+                  </h2>
+                  <p>The similar syntax exists for <code>export</code>.</p>
+                  <p>
+                    Let’s export functions as <code>hi</code> and
+                    <code>bye</code>:
+                  </p>
+                  <div id="lw8sjxw01i" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 say.js
+...
+export {sayHi as hi, sayBye as bye};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now <code>hi</code> and <code>bye</code> are official names
+                    for outsiders, to be used in imports:
+                  </p>
+                  <div
+                    id="dxrq2jeqc6"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"cols":[{"start":4,"end":7}]},{"start":3,"cols":[{"start":4,"end":6}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 main.js
+import * as say from './say.js';
+
+say.hi('John'); // Hello, John!
+say.bye('John'); // Bye, John!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="export-default"
+                      href="import-export.html#export-default"
+                      >Export default</a
+                    >
+                  </h2>
+                  <p>In practice, there are mainly two kinds of modules.</p>
+                  <ol>
+                    <li>
+                      Modules that contain a library, pack of functions, like
+                      <code>say.js</code> above.
+                    </li>
+                    <li>
+                      Modules that declare a single entity, e.g. a module
+                      <code>user.js</code> exports only <code>class User</code>.
+                    </li>
+                  </ol>
+                  <p>
+                    Mostly, the second approach is preferred, so that every
+                    “thing” resides in its own module.
+                  </p>
+                  <p>
+                    Naturally, that requires a lot of files, as everything wants
+                    its own module, but that’s not a problem at all. Actually,
+                    code navigation becomes easier if files are well-named and
+                    structured into folders.
+                  </p>
+                  <p>
+                    Modules provide a special <code>export default</code> (“the
+                    default export”) syntax to make the “one thing per module”
+                    way look better.
+                  </p>
+                  <p>
+                    Put <code>export default</code> before the entity to export:
+                  </p>
+                  <div
+                    id="i9ziw51xnz"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":1,"cols":[{"start":7,"end":14}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 user.js
+export default class User { // just add &quot;default&quot;
+  constructor(name) {
+    this.name = name;
+  }
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    There may be only one <code>export default</code> per file.
+                  </p>
+                  <p>…And then import it without curly braces:</p>
+                  <div
+                    id="5tzi3o02zk"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":1,"cols":[{"start":7,"end":11}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 main.js
+import User from './user.js'; // not {User}, just User
+
+new User('John');</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Imports without curly braces look nicer. A common mistake
+                    when starting to use modules is to forget curly braces at
+                    all. So, remember, <code>import</code> needs curly braces
+                    for named exports and doesn’t need them for the default one.
+                  </p>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Named export</th>
+                        <th>Default export</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>export class User {...}</code></td>
+                        <td><code>export default class User {...}</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>import {User} from ...</code></td>
+                        <td><code>import User from ...</code></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>
+                    Technically, we may have both default and named exports in a
+                    single module, but in practice people usually don’t mix
+                    them. A module has either named exports or the default one.
+                  </p>
+                  <p>
+                    As there may be at most one default export per file, the
+                    exported entity may have no name.
+                  </p>
+                  <p>
+                    For instance, these are all perfectly valid default exports:
+                  </p>
+                  <div id="i9435jbnrh" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>export default class { // no class name
+  constructor() { ... }
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="pikr4ruek0" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>export default function(user) { // no function name
+  alert(`Hello, ${user}!`);
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="w71o699bxy" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// export a single value, without making a variable
+export default ['Jan', 'Feb', 'Mar','Apr', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Not giving a name is fine, because there is only one
+                    <code>export default</code> per file, so
+                    <code>import</code> without curly braces knows what to
+                    import.
+                  </p>
+                  <p>
+                    Without <code>default</code>, such an export would give an
+                    error:
+                  </p>
+                  <div id="1xc8878ral" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>export class { // Error! (non-default export needs a name)
+  constructor() {}
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="the-default-name"
+                      href="import-export.html#the-default-name"
+                      >The “default” name</a
+                    >
+                  </h3>
+                  <p>
+                    In some situations the <code>default</code> keyword is used
+                    to reference the default export.
+                  </p>
+                  <p>
+                    For example, to export a function separately from its
+                    definition:
+                  </p>
+                  <div id="pvc9n32581" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function sayHi(user) {
+  alert(`Hello, ${user}!`);
+}
+
+// same as if we added &quot;export default&quot; before the function
+export {sayHi as default};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Or, another situation, let’s say a module
+                    <code>user.js</code> exports one main “default” thing, and a
+                    few named ones (rarely the case, but it happens):
+                  </p>
+                  <div id="8bjmcrjr97" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 user.js
+export default class User {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+export function sayHi(user) {
+  alert(`Hello, ${user}!`);
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here’s how to import the default export along with a named
+                    one:
+                  </p>
+                  <div
+                    id="u32umxx6oq"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":1,"cols":[{"start":8,"end":23}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 main.js
+import {default as User, sayHi} from './user.js';
+
+new User('John');</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    And, finally, if importing everything <code>*</code> as an
+                    object, then the <code>default</code> property is exactly
+                    the default export:
+                  </p>
+                  <div id="m8gaqdfioj" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 main.js
+import * as user from './user.js';
+
+let User = user.default; // the default export
+new User('John');</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="a-word-against-default-exports"
+                      href="import-export.html#a-word-against-default-exports"
+                      >A word against default exports</a
+                    >
+                  </h3>
+                  <p>
+                    Named exports are explicit. They exactly name what they
+                    import, so we have that information from them; that’s a good
+                    thing.
+                  </p>
+                  <p>
+                    Named exports force us to use exactly the right name to
+                    import:
+                  </p>
+                  <div id="433ihg21kw" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>import {User} from './user.js';
+// import {MyUser} won't work, the name must be {User}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …While for a default export, we always choose the name when
+                    importing:
+                  </p>
+                  <div id="1jsogrrv6i" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>import User from './user.js'; // works
+import MyUser from './user.js'; // works too
+// could be import Anything... and it'll still work</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    So team members may use different names to import the same
+                    thing, and that’s not good.
+                  </p>
+                  <p>
+                    Usually, to avoid that and keep the code consistent, there’s
+                    a rule that imported variables should correspond to file
+                    names, e.g:
+                  </p>
+                  <div id="qy4ezkzik7" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>import User from './user.js';
+import LoginForm from './loginForm.js';
+import func from '/path/to/func.js';
+...</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Still, some teams consider it a serious drawback of default
+                    exports. So they prefer to always use named exports. Even if
+                    only a single thing is exported, it’s still exported under a
+                    name, without <code>default</code>.
+                  </p>
+                  <p>
+                    That also makes re-export (see below) a little bit easier.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="re-export"
+                      href="import-export.html#re-export"
+                      >Re-export</a
+                    >
+                  </h2>
+                  <p>
+                    “Re-export” syntax <code>export ... from ...</code> allows
+                    to import things and immediately export them (possibly under
+                    another name), like this:
+                  </p>
+                  <div id="12gsemzniw" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>export {sayHi} from './say.js'; // re-export sayHi
+
+export {default as User} from './user.js'; // re-export default</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Why would that be needed? Let’s see a practical use case.
+                  </p>
+                  <p>
+                    Imagine, we’re writing a “package”: a folder with a lot of
+                    modules, with some of the functionality exported outside
+                    (tools like NPM allow us to publish and distribute such
+                    packages, but we don’t have to use them), and many modules
+                    are just “helpers”, for internal use in other package
+                    modules.
+                  </p>
+                  <p>The file structure could be like this:</p>
+                  <div id="7auzxt7782" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre class="line-numbers language-none"><code>auth/
+    index.js
+    user.js
+    helpers.js
+    tests/
+        login.js
+    providers/
+        github.js
+        facebook.js
+        ...</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We’d like to expose the package functionality via a single
+                    entry point.
+                  </p>
+                  <p>
+                    In other words, a person who would like to use our package,
+                    should import only from the “main file”
+                    <code>auth/index.js</code>.
+                  </p>
+                  <p>Like this:</p>
+                  <div id="zt0rra0yln" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>import {login, logout} from 'auth/index.js'</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The “main file”, <code>auth/index.js</code> exports all the
+                    functionality that we’d like to provide in our package.
+                  </p>
+                  <p>
+                    The idea is that outsiders, other programmers who use our
+                    package, should not meddle with its internal structure,
+                    search for files inside our package folder. We export only
+                    what’s necessary in <code>auth/index.js</code> and keep the
+                    rest hidden from prying eyes.
+                  </p>
+                  <p>
+                    As the actual exported functionality is scattered among the
+                    package, we can import it into
+                    <code>auth/index.js</code> and export from it:
+                  </p>
+                  <div id="10gguk5xy4" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 auth/index.js
+
+// import login/logout and immediately export them
+import {login, logout} from './helpers.js';
+export {login, logout};
+
+// import default as User and export it
+import User from './user.js';
+export {User};
+...</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now users of our package can
+                    <code>import {login} from &quot;auth/index.js&quot;</code>.
+                  </p>
+                  <p>
+                    The syntax <code>export ... from ...</code> is just a
+                    shorter notation for such import-export:
+                  </p>
+                  <div id="04xy7xehw8" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 auth/index.js
+// re-export login/logout
+export {login, logout} from './helpers.js';
+
+// re-export the default export as User
+export {default as User} from './user.js';
+...</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The notable difference of
+                    <code>export ... from</code> compared to
+                    <code>import/export</code> is that re-exported modules
+                    aren’t available in the current file. So inside the above
+                    example of <code>auth/index.js</code> we can’t use
+                    re-exported <code>login/logout</code> functions.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="re-exporting-the-default-export"
+                      href="import-export.html#re-exporting-the-default-export"
+                      >Re-exporting the default export</a
+                    >
+                  </h3>
+                  <p>
+                    The default export needs separate handling when
+                    re-exporting.
+                  </p>
+                  <p>
+                    Let’s say we have <code>user.js</code> with the
+                    <code>export default class User</code> and would like to
+                    re-export it:
+                  </p>
+                  <div id="ncbwgmjfpw" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 user.js
+export default class User {
+  // ...
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>We can come across two problems with it:</p>
+                  <ol>
+                    <li>
+                      <p>
+                        <code>export User from './user.js'</code> won’t work.
+                        That would lead to a syntax error.
+                      </p>
+                      <p>
+                        To re-export the default export, we have to write
+                        <code>export {default as User}</code>, as in the example
+                        above.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <code>export * from './user.js'</code> re-exports only
+                        named exports, but ignores the default one.
+                      </p>
+                      <p>
+                        If we’d like to re-export both named and the default
+                        export, then two statements are needed:
+                      </p>
+                      <div
+                        id="zvkvlxx03t"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>export * from './user.js'; // to re-export named exports
+export {default} from './user.js'; // to re-export the default export</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ol>
+                  <p>
+                    Such oddities of re-exporting a default export are one of
+                    the reasons why some developers don’t like default exports
+                    and prefer named ones.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="import-export.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    Here are all types of <code>export</code> that we covered in
+                    this and previous articles.
+                  </p>
+                  <p>
+                    You can check yourself by reading them and recalling what
+                    they mean:
+                  </p>
+                  <ul>
+                    <li>
+                      Before declaration of a class/function/…:
+                      <ul>
+                        <li>
+                          <code
+                            >export [default] class/function/variable ...</code
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      Standalone export:
+                      <ul>
+                        <li><code>export {x [as y], ...}</code>.</li>
+                      </ul>
+                    </li>
+                    <li>
+                      Re-export:
+                      <ul>
+                        <li>
+                          <code
+                            >export {x [as y], ...} from
+                            &quot;module&quot;</code
+                          >
+                        </li>
+                        <li>
+                          <code>export * from &quot;module&quot;</code> (doesn’t
+                          re-export default).
+                        </li>
+                        <li>
+                          <code
+                            >export {default [as y]} from
+                            &quot;module&quot;</code
+                          >
+                          (re-export default).
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p>Import:</p>
+                  <ul>
+                    <li>
+                      Importing named exports:
+                      <ul>
+                        <li>
+                          <code
+                            >import {x [as y], ...} from
+                            &quot;module&quot;</code
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      Importing the default export:
+                      <ul>
+                        <li><code>import x from &quot;module&quot;</code></li>
+                        <li>
+                          <code
+                            >import {default as x} from &quot;module&quot;</code
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      Import all:
+                      <ul>
+                        <li>
+                          <code>import * as obj from &quot;module&quot;</code>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      Import the module (its code runs), but do not assign any
+                      of its exports to variables:
+                      <ul>
+                        <li><code>import &quot;module&quot;</code></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p>
+                    We can put <code>import/export</code> statements at the top
+                    or at the bottom of a script, that doesn’t matter.
+                  </p>
+                  <p>So, technically this code is fine:</p>
+                  <div id="tmg4kasi7o" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>sayHi();
+
+// ...
+
+import {sayHi} from './say.js'; // import at the end of the file</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    In practice imports are usually at the start of the file,
+                    but that’s only for more convenience.
+                  </p>
+                  <p>
+                    <strong
+                      >Please note that import/export statements don’t work if
+                      inside <code>{...}</code>.</strong
+                    >
+                  </p>
+                  <p>A conditional import, like this, won’t work:</p>
+                  <div id="45jgmibvu2" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>if (something) {
+  import {sayHi} from &quot;./say.js&quot;; // Error: import must be at top level
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …But what if we really need to import something
+                    conditionally? Or at the right time? Like, load a module
+                    upon request, when it’s really needed?
+                  </p>
+                  <p>We’ll see dynamic imports in the next article.</p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="modules-intro.html"
+                data-tooltip="Modules, introduction"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="modules-dynamic-imports.html"
+                data-tooltip="Dynamic imports"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fimport-export"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fimport-export"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="import-export.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/import-export",
+                    identifier: "\/import-export",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="modules.html">Modules</a>
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   import-export.html#export-before-declarations"
+                        >Export before declarations</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   import-export.html#export-apart-from-declarations"
+                        >Export apart from declarations</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="import-export.html#import"
+                        >Import *</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   import-export.html#import-as"
+                        >Import “as”</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   import-export.html#export-as"
+                        >Export “as”</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   import-export.html#export-default"
+                        >Export default</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   import-export.html#re-export"
+                        >Re-export</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="import-export.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   import-export.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fimport-export"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fimport-export"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/13-modules/02-import-export"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

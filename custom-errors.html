@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Custom errors, extending Error</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="custom-errors.html"
+    />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Custom errors, extending Error" />
+
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Custom errors, extending Error" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="try-catch.html" />
+    <link rel="next" href="async.html" />
+
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Custom errors, extending Error" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/custom-errors"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="custom-errors.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/custom-errors"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                    custom-errors"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/custom-errors"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/custom-errors"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/custom-errors"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=custom-errors"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/custom-errors"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/custom-errors"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span>简体中文</span></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a>
+                        the content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+   
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fcustom-errors"
+                  rel="nofollow"
+                ></a
+                >2Fcustom-errors
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/custom-errors">
+                  عربي
+                </option>
+                <option value="https://javascript.info/custom-errors" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/custom-errors">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/custom-errors">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/custom-errors">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/custom-errors">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/custom-errors">
+                  한국어
+                </option>
+                <option value=custom-errors">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/custom-errors">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/custom-errors">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="74"
+          max="92"
+          data-tooltip="Lesson 74 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="error-handling.html"
+                        ><span>Error handling</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Error handling",
+                            "item": "https://javascript.info/error-handling"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 26th June 2021"
+                  >
+                    <div class="updated-at__content">26th June 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">
+                  Custom errors, extending Error
+                </h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta
+                  itemprop="name"
+                  content="Custom errors, extending Error"
+                />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    When we develop something, we often need our own error
+                    classes to reflect specific things that may go wrong in our
+                    tasks. For errors in network operations we may need
+                    <code>HttpError</code>, for database operations
+                    <code>DbError</code>, for searching operations
+                    <code>NotFoundError</code> and so on.
+                  </p>
+                  <p>
+                    Our errors should support basic error properties like
+                    <code>message</code>, <code>name</code> and, preferably,
+                    <code>stack</code>. But they also may have other properties
+                    of their own, e.g. <code>HttpError</code> objects may have a
+                    <code>statusCode</code> property with a value like
+                    <code>404</code> or <code>403</code> or <code>500</code>.
+                  </p>
+                  <p>
+                    JavaScript allows to use <code>throw</code> with any
+                    argument, so technically our custom error classes don’t need
+                    to inherit from <code>Error</code>. But if we inherit, then
+                    it becomes possible to use
+                    <code>obj instanceof Error</code> to identify error objects.
+                    So it’s better to inherit from it.
+                  </p>
+                  <p>
+                    As the application grows, our own errors naturally form a
+                    hierarchy. For instance, <code>HttpTimeoutError</code> may
+                    inherit from <code>HttpError</code>, and so on.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="extending-error"
+                      href="custom-errors.html#extending-error"
+                      >Extending Error</a
+                    >
+                  </h2>
+                  <p>
+                    As an example, let’s consider a function
+                    <code>readUser(json)</code> that should read JSON with user
+                    data.
+                  </p>
+                  <p>
+                    Here’s an example of how a valid <code>json</code> may look:
+                  </p>
+                  <div id="du2bdkb2is" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let json = `{ &quot;name&quot;: &quot;John&quot;, &quot;age&quot;: 30 }`;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Internally, we’ll use <code>JSON.parse</code>. If it
+                    receives malformed <code>json</code>, then it throws
+                    <code>SyntaxError</code>. But even if <code>json</code> is
+                    syntactically correct, that doesn’t mean that it’s a valid
+                    user, right? It may miss the necessary data. For instance,
+                    it may not have <code>name</code> and
+                    <code>age</code> properties that are essential for our
+                    users.
+                  </p>
+                  <p>
+                    Our function <code>readUser(json)</code> will not only read
+                    JSON, but check (“validate”) the data. If there are no
+                    required fields, or the format is wrong, then that’s an
+                    error. And that’s not a <code>SyntaxError</code>, because
+                    the data is syntactically correct, but another kind of
+                    error. We’ll call it <code>ValidationError</code> and create
+                    a class for it. An error of that kind should also carry the
+                    information about the offending field.
+                  </p>
+                  <p>
+                    Our <code>ValidationError</code> class should inherit from
+                    the <code>Error</code> class.
+                  </p>
+                  <p>
+                    The <code>Error</code> class is built-in, but here’s its
+                    approximate code so we can understand what we’re extending:
+                  </p>
+                  <div id="yqyo1y27fm" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// The &quot;pseudocode&quot; for the built-in Error class defined by JavaScript itself
+class Error {
+  constructor(message) {
+    this.message = message;
+    this.name = &quot;Error&quot;; // (different names for different built-in error classes)
+    this.stack = &lt;call stack&gt;; // non-standard, but most environments support it
+  }
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now let’s inherit <code>ValidationError</code> from it and
+                    try it in action:
+                  </p>
+                  <div
+                    id="8ac5fbkvz8"
+                    data-trusted="0"
+                    class="code-example"
+                    data-highlight='[{"start":0,"end":0}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="custom-errors.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="custom-errors.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>class ValidationError extends Error {
+  constructor(message) {
+    super(message); // (1)
+    this.name = &quot;ValidationError&quot;; // (2)
+  }
+}
+
+function test() {
+  throw new ValidationError(&quot;Whoops!&quot;);
+}
+
+try {
+  test();
+} catch(err) {
+  alert(err.message); // Whoops!
+  alert(err.name); // ValidationError
+  alert(err.stack); // a list of nested calls with line numbers for each
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Please note: in the line <code>(1)</code> we call the parent
+                    constructor. JavaScript requires us to call
+                    <code>super</code> in the child constructor, so that’s
+                    obligatory. The parent constructor sets the
+                    <code>message</code> property.
+                  </p>
+                  <p>
+                    The parent constructor also sets the
+                    <code>name</code> property to
+                    <code>&quot;Error&quot;</code>, so in the line
+                    <code>(2)</code> we reset it to the right value.
+                  </p>
+                  <p>Let’s try to use it in <code>readUser(json)</code>:</p>
+                  <div
+                    id="8wnwww3fdu"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":27,"end":27}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="custom-errors.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="custom-errors.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = &quot;ValidationError&quot;;
+  }
+}
+
+// Usage
+function readUser(json) {
+  let user = JSON.parse(json);
+
+  if (!user.age) {
+    throw new ValidationError(&quot;No field: age&quot;);
+  }
+  if (!user.name) {
+    throw new ValidationError(&quot;No field: name&quot;);
+  }
+
+  return user;
+}
+
+// Working example with try..catch
+
+try {
+  let user = readUser('{ &quot;age&quot;: 25 }');
+} catch (err) {
+  if (err instanceof ValidationError) {
+    alert(&quot;Invalid data: &quot; + err.message); // Invalid data: No field: name
+  } else if (err instanceof SyntaxError) { // (*)
+    alert(&quot;JSON Syntax Error: &quot; + err.message);
+  } else {
+    throw err; // unknown error, rethrow it (**)
+  }
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The <code>try..catch</code> block in the code above handles
+                    both our <code>ValidationError</code> and the built-in
+                    <code>SyntaxError</code> from <code>JSON.parse</code>.
+                  </p>
+                  <p>
+                    Please take a look at how we use <code>instanceof</code> to
+                    check for the specific error type in the line
+                    <code>(*)</code>.
+                  </p>
+                  <p>We could also look at <code>err.name</code>, like this:</p>
+                  <div id="gerjtrffrc" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// ...
+// instead of (err instanceof SyntaxError)
+} else if (err.name == &quot;SyntaxError&quot;) { // (*)
+// ...</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The <code>instanceof</code> version is much better, because
+                    in the future we are going to extend
+                    <code>ValidationError</code>, make subtypes of it, like
+                    <code>PropertyRequiredError</code>. And
+                    <code>instanceof</code> check will continue to work for new
+                    inheriting classes. So that’s future-proof.
+                  </p>
+                  <p>
+                    Also it’s important that if <code>catch</code> meets an
+                    unknown error, then it rethrows it in the line
+                    <code>(**)</code>. The <code>catch</code> block only knows
+                    how to handle validation and syntax errors, other kinds
+                    (caused by a typo in the code or other unknown reasons)
+                    should fall through.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="further-inheritance"
+                      href="custom-errors.html#further-inheritance"
+                      >Further inheritance</a
+                    >
+                  </h2>
+                  <p>
+                    The <code>ValidationError</code> class is very generic. Many
+                    things may go wrong. The property may be absent or it may be
+                    in a wrong format (like a string value for
+                    <code>age</code> instead of a number). Let’s make a more
+                    concrete class <code>PropertyRequiredError</code>, exactly
+                    for absent properties. It will carry additional information
+                    about the property that’s missing.
+                  </p>
+                  <div
+                    id="17fbv43rv8"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":35,"end":37},{"start":7,"end":13}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="custom-errors.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="custom-errors.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = &quot;ValidationError&quot;;
+  }
+}
+
+class PropertyRequiredError extends ValidationError {
+  constructor(property) {
+    super(&quot;No property: &quot; + property);
+    this.name = &quot;PropertyRequiredError&quot;;
+    this.property = property;
+  }
+}
+
+// Usage
+function readUser(json) {
+  let user = JSON.parse(json);
+
+  if (!user.age) {
+    throw new PropertyRequiredError(&quot;age&quot;);
+  }
+  if (!user.name) {
+    throw new PropertyRequiredError(&quot;name&quot;);
+  }
+
+  return user;
+}
+
+// Working example with try..catch
+
+try {
+  let user = readUser('{ &quot;age&quot;: 25 }');
+} catch (err) {
+  if (err instanceof ValidationError) {
+    alert(&quot;Invalid data: &quot; + err.message); // Invalid data: No property: name
+    alert(err.name); // PropertyRequiredError
+    alert(err.property); // name
+  } else if (err instanceof SyntaxError) {
+    alert(&quot;JSON Syntax Error: &quot; + err.message);
+  } else {
+    throw err; // unknown error, rethrow it
+  }
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The new class <code>PropertyRequiredError</code> is easy to
+                    use: we only need to pass the property name:
+                    <code>new PropertyRequiredError(property)</code>. The
+                    human-readable <code>message</code> is generated by the
+                    constructor.
+                  </p>
+                  <p>
+                    Please note that <code>this.name</code> in
+                    <code>PropertyRequiredError</code> constructor is again
+                    assigned manually. That may become a bit tedious – to assign
+                    <code>this.name = &lt;class name&gt;</code> in every custom
+                    error class. We can avoid it by making our own “basic error”
+                    class that assigns
+                    <code>this.name = this.constructor.name</code>. And then
+                    inherit all our custom errors from it.
+                  </p>
+                  <p>Let’s call it <code>MyError</code>.</p>
+                  <p>
+                    Here’s the code with <code>MyError</code> and other custom
+                    error classes, simplified:
+                  </p>
+                  <div
+                    id="fvr3v3lp6l"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":3,"end":3}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="custom-errors.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="custom-errors.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>class MyError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = this.constructor.name;
+  }
+}
+
+class ValidationError extends MyError { }
+
+class PropertyRequiredError extends ValidationError {
+  constructor(property) {
+    super(&quot;No property: &quot; + property);
+    this.property = property;
+  }
+}
+
+// name is correct
+alert( new PropertyRequiredError(&quot;field&quot;).name ); // PropertyRequiredError</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now custom errors are much shorter, especially
+                    <code>ValidationError</code>, as we got rid of the
+                    <code>&quot;this.name = ...&quot;</code> line in the
+                    constructor.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="wrapping-exceptions"
+                      href="custom-errors.html#wrapping-exceptions"
+                      >Wrapping exceptions</a
+                    >
+                  </h2>
+                  <p>
+                    The purpose of the function <code>readUser</code> in the
+                    code above is “to read the user data”. There may occur
+                    different kinds of errors in the process. Right now we have
+                    <code>SyntaxError</code> and <code>ValidationError</code>,
+                    but in the future <code>readUser</code> function may grow
+                    and probably generate other kinds of errors.
+                  </p>
+                  <p>
+                    The code which calls <code>readUser</code> should handle
+                    these errors. Right now it uses multiple <code>if</code>s in
+                    the <code>catch</code> block, that check the class and
+                    handle known errors and rethrow the unknown ones.
+                  </p>
+                  <p>The scheme is like this:</p>
+                  <div id="vcs8b0njoz" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>try {
+  ...
+  readUser()  // the potential error source
+  ...
+} catch (err) {
+  if (err instanceof ValidationError) {
+    // handle validation errors
+  } else if (err instanceof SyntaxError) {
+    // handle syntax errors
+  } else {
+    throw err; // unknown error, rethrow it
+  }
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    In the code above we can see two types of errors, but there
+                    can be more.
+                  </p>
+                  <p>
+                    If the <code>readUser</code> function generates several
+                    kinds of errors, then we should ask ourselves: do we really
+                    want to check for all error types one-by-one every time?
+                  </p>
+                  <p>
+                    Often the answer is “No”: we’d like to be “one level above
+                    all that”. We just want to know if there was a “data reading
+                    error” – why exactly it happened is often irrelevant (the
+                    error message describes it). Or, even better, we’d like to
+                    have a way to get the error details, but only if we need to.
+                  </p>
+                  <p>
+                    The technique that we describe here is called “wrapping
+                    exceptions”.
+                  </p>
+                  <ol>
+                    <li>
+                      We’ll make a new class <code>ReadError</code> to represent
+                      a generic “data reading” error.
+                    </li>
+                    <li>
+                      The function <code>readUser</code> will catch data reading
+                      errors that occur inside it, such as
+                      <code>ValidationError</code> and <code>SyntaxError</code>,
+                      and generate a <code>ReadError</code> instead.
+                    </li>
+                    <li>
+                      The <code>ReadError</code> object will keep the reference
+                      to the original error in its <code>cause</code> property.
+                    </li>
+                  </ol>
+                  <p>
+                    Then the code that calls <code>readUser</code> will only
+                    have to check for <code>ReadError</code>, not for every kind
+                    of data reading errors. And if it needs more details of an
+                    error, it can check its <code>cause</code> property.
+                  </p>
+                  <p>
+                    Here’s the code that defines <code>ReadError</code> and
+                    demonstrates its use in <code>readUser</code> and
+                    <code>try..catch</code>:
+                  </p>
+                  <div
+                    id="f4tzjvo7yy"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":50,"end":52},{"start":37,"end":41},{"start":27,"end":31}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="custom-errors.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="custom-errors.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>class ReadError extends Error {
+  constructor(message, cause) {
+    super(message);
+    this.cause = cause;
+    this.name = 'ReadError';
+  }
+}
+
+class ValidationError extends Error { /*...*/ }
+class PropertyRequiredError extends ValidationError { /* ... */ }
+
+function validateUser(user) {
+  if (!user.age) {
+    throw new PropertyRequiredError(&quot;age&quot;);
+  }
+
+  if (!user.name) {
+    throw new PropertyRequiredError(&quot;name&quot;);
+  }
+}
+
+function readUser(json) {
+  let user;
+
+  try {
+    user = JSON.parse(json);
+  } catch (err) {
+    if (err instanceof SyntaxError) {
+      throw new ReadError(&quot;Syntax Error&quot;, err);
+    } else {
+      throw err;
+    }
+  }
+
+  try {
+    validateUser(user);
+  } catch (err) {
+    if (err instanceof ValidationError) {
+      throw new ReadError(&quot;Validation Error&quot;, err);
+    } else {
+      throw err;
+    }
+  }
+
+}
+
+try {
+  readUser('{bad json}');
+} catch (e) {
+  if (e instanceof ReadError) {
+    alert(e);
+    // Original error: SyntaxError: Unexpected token b in JSON at position 1
+    alert(&quot;Original error: &quot; + e.cause);
+  } else {
+    throw e;
+  }
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    In the code above, <code>readUser</code> works exactly as
+                    described – catches syntax and validation errors and throws
+                    <code>ReadError</code> errors instead (unknown errors are
+                    rethrown as usual).
+                  </p>
+                  <p>
+                    So the outer code checks
+                    <code>instanceof ReadError</code> and that’s it. No need to
+                    list all possible error types.
+                  </p>
+                  <p>
+                    The approach is called “wrapping exceptions”, because we
+                    take “low level” exceptions and “wrap” them into
+                    <code>ReadError</code> that is more abstract. It is widely
+                    used in object-oriented programming.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="custom-errors.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <ul>
+                    <li>
+                      We can inherit from <code>Error</code> and other built-in
+                      error classes normally. We just need to take care of the
+                      <code>name</code> property and don’t forget to call
+                      <code>super</code>.
+                    </li>
+                    <li>
+                      We can use <code>instanceof</code> to check for particular
+                      errors. It also works with inheritance. But sometimes we
+                      have an error object coming from a 3rd-party library and
+                      there’s no easy way to get its class. Then
+                      <code>name</code> property can be used for such checks.
+                    </li>
+                    <li>
+                      Wrapping exceptions is a widespread technique: a function
+                      handles low-level exceptions and creates higher-level
+                      errors instead of various low-level ones. Low-level
+                      exceptions sometimes become properties of that object like
+                      <code>err.cause</code> in the examples above, but that’s
+                      not strictly required.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="custom-errors.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="custom-errors.html#inherit-from-syntaxerror"
+                          name="inherit-from-syntaxerror"
+                          >Inherit from SyntaxError</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/format-error.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Create a class <code>FormatError</code> that inherits
+                          from the built-in <code>SyntaxError</code> class.
+                        </p>
+                        <p>
+                          It should support <code>message</code>,
+                          <code>name</code> and <code>stack</code> properties.
+                        </p>
+                        <p>Usage example:</p>
+                        <div
+                          id="5v4241620h"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let err = new FormatError(&quot;formatting error&quot;);
+
+alert( err.message ); // formatting error
+alert( err.name ); // FormatError
+alert( err.stack ); // stack
+
+alert( err instanceof FormatError ); // true
+alert( err instanceof SyntaxError ); // true (because inherits from SyntaxError)</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <div
+                              id="ycvaic7yud"
+                              data-trusted="0"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="custom-errors.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="custom-errors.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>class FormatError extends SyntaxError {
+  constructor(message) {
+    super(message);
+    this.name = this.constructor.name;
+  }
+}
+
+let err = new FormatError(&quot;formatting error&quot;);
+
+alert( err.message ); // formatting error
+alert( err.name ); // FormatError
+alert( err.stack ); // stack
+
+alert( err instanceof SyntaxError ); // true</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="try-catch.html"
+                data-tooltip='Error handling, "try...catch"'
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="async.html"
+                data-tooltip="Promises, async/await"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcustom-errors"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcustom-errors"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="custom-errors.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                        
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/custom-errors",
+                    identifier: "\/custom-errors",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="error-handling.html"
+                        >Error handling</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   custom-errors.html#extending-error"
+                        >Extending Error</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   custom-errors.html#further-inheritance"
+                        >Further inheritance</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   custom-errors.html#wrapping-exceptions"
+                        >Wrapping exceptions</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="custom-errors.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="custom-errors.html#tasks"
+                        >Tasks (1)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   custom-errors.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcustom-errors"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fcustom-errors"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/10-error-handling/2-custom-errors"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Garbage collection</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="garbage-collection.html"
+    />
+
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Garbage collection" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Garbage collection" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="object-copy.html" />
+    <link rel="next" href="object-methods.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Garbage collection" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/garbage-collection"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="garbage-collection.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/garbage-collection"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/garbage-collection"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/garbage-collection"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/garbage-collection"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/garbage-collection"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=garbage-collection"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/garbage-collection"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/garbage-collection"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span>简体中文</span></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a>
+                        the content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fgarbage-collection"
+                  rel="nofollow"
+                ></a
+                >2Fgarbage-collection
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/garbage-collection">
+                  عربي
+                </option>
+                <option
+                  value="https://javascript.info/garbage-collection"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/garbage-collection">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/garbage-collection">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/garbage-collection">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/garbage-collection">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/garbage-collection">
+                  한국어
+                </option>
+                <option value=garbage-collection">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/garbage-collection">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/garbage-collection">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="31"
+          max="92"
+          data-tooltip="Lesson 31 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="object-basics.html"
+                        ><span>Objects: the basics</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Objects: the basics",
+                            "item": "https://javascript.info/object-basics"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 13th January 2021"
+                  >
+                    <div class="updated-at__content">13th January 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Garbage collection</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Garbage collection" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Memory management in JavaScript is performed automatically
+                    and invisibly to us. We create primitives, objects,
+                    functions… All that takes memory.
+                  </p>
+                  <p>
+                    What happens when something is not needed any more? How does
+                    the JavaScript engine discover it and clean it up?
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="reachability"
+                      href="garbage-collection.html#reachability"
+                      >Reachability</a
+                    >
+                  </h2>
+                  <p>
+                    The main concept of memory management in JavaScript is
+                    <em>reachability</em>.
+                  </p>
+                  <p>
+                    Simply put, “reachable” values are those that are accessible
+                    or usable somehow. They are guaranteed to be stored in
+                    memory.
+                  </p>
+                  <ol>
+                    <li>
+                      <p>
+                        There’s a base set of inherently reachable values, that
+                        cannot be deleted for obvious reasons.
+                      </p>
+                      <p>For instance:</p>
+                      <ul>
+                        <li>
+                          The currently executing function, its local variables
+                          and parameters.
+                        </li>
+                        <li>
+                          Other functions on the current chain of nested calls,
+                          their local variables and parameters.
+                        </li>
+                        <li>Global variables.</li>
+                        <li>(there are some other, internal ones as well)</li>
+                      </ul>
+                      <p>These values are called <em>roots</em>.</p>
+                    </li>
+                    <li>
+                      <p>
+                        Any other value is considered reachable if it’s
+                        reachable from a root by a reference or by a chain of
+                        references.
+                      </p>
+                      <p>
+                        For instance, if there’s an object in a global variable,
+                        and that object has a property referencing another
+                        object, <em>that</em> object is considered reachable.
+                        And those that it references are also reachable.
+                        Detailed examples to follow.
+                      </p>
+                    </li>
+                  </ol>
+                  <p>
+                    There’s a background process in the JavaScript engine that
+                    is called
+                    <a
+                      href="https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)"
+                      >garbage collector</a
+                    >. It monitors all objects and removes those that have
+                    become unreachable.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="a-simple-example"
+                      href="garbage-collection.html#a-simple-example"
+                      >A simple example</a
+                    >
+                  </h2>
+                  <p>Here’s the simplest example:</p>
+                  <div id="2mvsnvlw4f" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// user has a reference to the object
+let user = {
+  name: &quot;John&quot;
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <figure>
+                    <div class="image" style="width: 144px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 104.16666666666667%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/garbage-collection/memory-user-john.svg"
+                        width="144"
+                        height="150"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/garbage-collection/memory-user-john.svg"
+                          alt=""
+                          width="144"
+                          height="150"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    Here the arrow depicts an object reference. The global
+                    variable <code>&quot;user&quot;</code> references the object
+                    <code>{name: &quot;John&quot;}</code> (we’ll call it John
+                    for brevity). The <code>&quot;name&quot;</code> property of
+                    John stores a primitive, so it’s painted inside the object.
+                  </p>
+                  <p>
+                    If the value of <code>user</code> is overwritten, the
+                    reference is lost:
+                  </p>
+                  <div id="teqmbi4ju2" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>user = null;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <figure>
+                    <div class="image" style="width: 225px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 70.66666666666667%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/garbage-collection/memory-user-john-lost.svg"
+                        width="225"
+                        height="159"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/garbage-collection/memory-user-john-lost.svg"
+                          alt=""
+                          width="225"
+                          height="159"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    Now John becomes unreachable. There’s no way to access it,
+                    no references to it. Garbage collector will junk the data
+                    and free the memory.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="two-references"
+                      href="garbage-collection.html#two-references"
+                      >Two references</a
+                    >
+                  </h2>
+                  <p>
+                    Now let’s imagine we copied the reference from
+                    <code>user</code> to <code>admin</code>:
+                  </p>
+                  <div
+                    id="hdan5mhugr"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":5,"end":5}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// user has a reference to the object
+let user = {
+  name: &quot;John&quot;
+};
+
+let admin = user;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <figure>
+                    <div class="image" style="width: 144px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 110.41666666666667%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/garbage-collection/memory-user-john-admin.svg"
+                        width="144"
+                        height="159"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/garbage-collection/memory-user-john-admin.svg"
+                          alt=""
+                          width="144"
+                          height="159"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>Now if we do the same:</p>
+                  <div id="q3rk3hey9s" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>user = null;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …Then the object is still reachable via
+                    <code>admin</code> global variable, so it’s in memory. If we
+                    overwrite <code>admin</code> too, then it can be removed.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="interlinked-objects"
+                      href="garbage-collection.html#interlinked-objects"
+                      >Interlinked objects</a
+                    >
+                  </h2>
+                  <p>Now a more complex example. The family:</p>
+                  <div id="sdeyn3dg2j" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function marry(man, woman) {
+  woman.husband = man;
+  man.wife = woman;
+
+  return {
+    father: man,
+    mother: woman
+  }
+}
+
+let family = marry({
+  name: &quot;John&quot;
+}, {
+  name: &quot;Ann&quot;
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Function <code>marry</code> “marries” two objects by giving
+                    them references to each other and returns a new object that
+                    contains them both.
+                  </p>
+                  <p>The resulting memory structure:</p>
+                  <figure>
+                    <div class="image" style="width: 337px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 60.534124629080125%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/garbage-collection/family.svg"
+                        width="337"
+                        height="204"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/garbage-collection/family.svg"
+                          alt=""
+                          width="337"
+                          height="204"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>As of now, all objects are reachable.</p>
+                  <p>Now let’s remove two references:</p>
+                  <div id="88cmucpkxo" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>delete family.father;
+delete family.mother.husband;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <figure>
+                    <div class="image" style="width: 337px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 60.534124629080125%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/garbage-collection/family-delete-refs.svg"
+                        width="337"
+                        height="204"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/garbage-collection/family-delete-refs.svg"
+                          alt=""
+                          width="337"
+                          height="204"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    It’s not enough to delete only one of these two references,
+                    because all objects would still be reachable.
+                  </p>
+                  <p>
+                    But if we delete both, then we can see that John has no
+                    incoming reference any more:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 399px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 56.390977443609025%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/garbage-collection/family-no-father.svg"
+                        width="399"
+                        height="225"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/garbage-collection/family-no-father.svg"
+                          alt=""
+                          width="399"
+                          height="225"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    Outgoing references do not matter. Only incoming ones can
+                    make an object reachable. So, John is now unreachable and
+                    will be removed from the memory with all its data that also
+                    became unaccessible.
+                  </p>
+                  <p>After garbage collection:</p>
+                  <figure>
+                    <div class="image" style="width: 144px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 156.25%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/garbage-collection/family-no-father-2.svg"
+                        width="144"
+                        height="225"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/garbage-collection/family-no-father-2.svg"
+                          alt=""
+                          width="144"
+                          height="225"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="unreachable-island"
+                      href="garbage-collection.html#unreachable-island"
+                      >Unreachable island</a
+                    >
+                  </h2>
+                  <p>
+                    It is possible that the whole island of interlinked objects
+                    becomes unreachable and is removed from the memory.
+                  </p>
+                  <p>The source object is the same as above. Then:</p>
+                  <div id="mzj1vvtiv5" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>family = null;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The in-memory picture becomes:</p>
+                  <figure>
+                    <div class="image" style="width: 420px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 66.42857142857143%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/garbage-collection/family-no-family.svg"
+                        width="420"
+                        height="279"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/garbage-collection/family-no-family.svg"
+                          alt=""
+                          width="420"
+                          height="279"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    This example demonstrates how important the concept of
+                    reachability is.
+                  </p>
+                  <p>
+                    It’s obvious that John and Ann are still linked, both have
+                    incoming references. But that’s not enough.
+                  </p>
+                  <p>
+                    The former <code>&quot;family&quot;</code> object has been
+                    unlinked from the root, there’s no reference to it any more,
+                    so the whole island becomes unreachable and will be removed.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="internal-algorithms"
+                      href="garbage-collection.html#internal-algorithms"
+                      >Internal algorithms</a
+                    >
+                  </h2>
+                  <p>
+                    The basic garbage collection algorithm is called
+                    “mark-and-sweep”.
+                  </p>
+                  <p>
+                    The following “garbage collection” steps are regularly
+                    performed:
+                  </p>
+                  <ul>
+                    <li>
+                      The garbage collector takes roots and “marks” (remembers)
+                      them.
+                    </li>
+                    <li>
+                      Then it visits and “marks” all references from them.
+                    </li>
+                    <li>
+                      Then it visits marked objects and marks
+                      <em>their</em> references. All visited objects are
+                      remembered, so as not to visit the same object twice in
+                      the future.
+                    </li>
+                    <li>
+                      …And so on until every reachable (from the roots)
+                      references are visited.
+                    </li>
+                    <li>All objects except marked ones are removed.</li>
+                  </ul>
+                  <p>For instance, let our object structure look like this:</p>
+                  <figure>
+                    <div class="image" style="width: 463px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 44.06047516198704%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/garbage-collection/garbage-collection-1.svg"
+                        width="463"
+                        height="204"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/garbage-collection/garbage-collection-1.svg"
+                          alt=""
+                          width="463"
+                          height="204"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    We can clearly see an “unreachable island” to the right
+                    side. Now let’s see how “mark-and-sweep” garbage collector
+                    deals with it.
+                  </p>
+                  <p>The first step marks the roots:</p>
+                  <figure>
+                    <div class="image" style="width: 463px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 44.06047516198704%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/garbage-collection/garbage-collection-2.svg"
+                        width="463"
+                        height="204"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/garbage-collection/garbage-collection-2.svg"
+                          alt=""
+                          width="463"
+                          height="204"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>Then their references are marked:</p>
+                  <figure>
+                    <div class="image" style="width: 463px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 44.06047516198704%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/garbage-collection/garbage-collection-3.svg"
+                        width="463"
+                        height="204"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/garbage-collection/garbage-collection-3.svg"
+                          alt=""
+                          width="463"
+                          height="204"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>…And their references, while possible:</p>
+                  <figure>
+                    <div class="image" style="width: 463px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 44.06047516198704%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/garbage-collection/garbage-collection-4.svg"
+                        width="463"
+                        height="204"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/garbage-collection/garbage-collection-4.svg"
+                          alt=""
+                          width="463"
+                          height="204"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    Now the objects that could not be visited in the process are
+                    considered unreachable and will be removed:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 463px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 44.06047516198704%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/garbage-collection/garbage-collection-5.svg"
+                        width="463"
+                        height="204"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/garbage-collection/garbage-collection-5.svg"
+                          alt=""
+                          width="463"
+                          height="204"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    We can also imagine the process as spilling a huge bucket of
+                    paint from the roots, that flows through all references and
+                    marks all reachable objects. The unmarked ones are then
+                    removed.
+                  </p>
+                  <p>
+                    That’s the concept of how garbage collection works.
+                    JavaScript engines apply many optimizations to make it run
+                    faster and not affect the execution.
+                  </p>
+                  <p>Some of the optimizations:</p>
+                  <ul>
+                    <li>
+                      <strong>Generational collection</strong> – objects are
+                      split into two sets: “new ones” and “old ones”. Many
+                      objects appear, do their job and die fast, they can be
+                      cleaned up aggressively. Those that survive for long
+                      enough, become “old” and are examined less often.
+                    </li>
+                    <li>
+                      <strong>Incremental collection</strong> – if there are
+                      many objects, and we try to walk and mark the whole object
+                      set at once, it may take some time and introduce visible
+                      delays in the execution. So the engine tries to split the
+                      garbage collection into pieces. Then the pieces are
+                      executed one by one, separately. That requires some extra
+                      bookkeeping between them to track changes, but we have
+                      many tiny delays instead of a big one.
+                    </li>
+                    <li>
+                      <strong>Idle-time collection</strong> – the garbage
+                      collector tries to run only while the CPU is idle, to
+                      reduce the possible effect on the execution.
+                    </li>
+                  </ul>
+                  <p>
+                    There exist other optimizations and flavours of garbage
+                    collection algorithms. As much as I’d like to describe them
+                    here, I have to hold off, because different engines
+                    implement different tweaks and techniques. And, what’s even
+                    more important, things change as engines develop, so
+                    studying deeper “in advance”, without a real need is
+                    probably not worth that. Unless, of course, it is a matter
+                    of pure interest, then there will be some links for you
+                    below.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="garbage-collection.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>The main things to know:</p>
+                  <ul>
+                    <li>
+                      Garbage collection is performed automatically. We cannot
+                      force or prevent it.
+                    </li>
+                    <li>
+                      Objects are retained in memory while they are reachable.
+                    </li>
+                    <li>
+                      Being referenced is not the same as being reachable (from
+                      a root): a pack of interlinked objects can become
+                      unreachable as a whole.
+                    </li>
+                  </ul>
+                  <p>
+                    Modern engines implement advanced algorithms of garbage
+                    collection.
+                  </p>
+                  <p>
+                    A general book “The Garbage Collection Handbook: The Art of
+                    Automatic Memory Management” (R. Jones et al) covers some of
+                    them.
+                  </p>
+                  <p>
+                    If you are familiar with low-level programming, the more
+                    detailed information about V8 garbage collector is in the
+                    article
+                    <a
+                      href="http://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection"
+                      >A tour of V8: Garbage Collection</a
+                    >.
+                  </p>
+                  <p>
+                    <a href="https://v8.dev/">V8 blog</a> also publishes
+                    articles about changes in memory management from time to
+                    time. Naturally, to learn the garbage collection, you’d
+                    better prepare by learning about V8 internals in general and
+                    read the blog of
+                    <a href="http://mrale.ph">Vyacheslav Egorov</a> who worked
+                    as one of V8 engineers. I’m saying: “V8”, because it is best
+                    covered with articles in the internet. For other engines,
+                    many approaches are similar, but garbage collection differs
+                    in many aspects.
+                  </p>
+                  <p>
+                    In-depth knowledge of engines is good when you need
+                    low-level optimizations. It would be wise to plan that as
+                    the next step after you’re familiar with the language.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="object-copy.html"
+                data-tooltip="Object references and copying"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="object-methods.html"
+                data-tooltip='Object methods, "this"'
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fgarbage-collection"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fgarbage-collection"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="garbage-collection.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/garbage-collection",
+                    identifier: "\/garbage-collection",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="object-basics.html"
+                        >Objects: the basics</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   garbage-collection.html#reachability"
+                        >Reachability</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   garbage-collection.html#a-simple-example"
+                        >A simple example</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   garbage-collection.html#two-references"
+                        >Two references</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   garbage-collection.html#interlinked-objects"
+                        >Interlinked objects</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   garbage-collection.html#unreachable-island"
+                        >Unreachable island</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   garbage-collection.html#internal-algorithms"
+                        >Internal algorithms</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   garbage-collection.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   garbage-collection.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fgarbage-collection"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fgarbage-collection"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/04-object-basics/03-garbage-collection"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

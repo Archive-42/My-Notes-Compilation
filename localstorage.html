@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">LocalStorage, sessionStorage</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="localstorage.html"
+    />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="LocalStorage, sessionStorage" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="LocalStorage, sessionStorage" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="cookie.html" />
+    <link rel="next" href="indexeddb.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="LocalStorage, sessionStorage" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="localstorage.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/localstorage"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/localstorage"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/localstorage"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/localstorage"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=localstorage"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/localstorage"</a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Flocalstorage"
+                  rel="nofollow"
+                ></a
+                >2Flocalstorage
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option value="https://javascript.info/localstorage" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/localstorage">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/">Français</option>
+                <option value="https://it.javascript.info/localstorage">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/localstorage">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/localstorage">
+                  한국어
+                </option>
+                <option value=localstorage">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/">Türkçe</option>
+                <option value="https://zh.javascript.info/localstorage">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="2"
+          max="3"
+          data-tooltip="Lesson 2 of 3"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="data-storage.html"
+                        ><span>Storing data in the browser</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Storing data in the browser",
+                            "item": "https://javascript.info/data-storage"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 23rd July 2021"
+                  >
+                    <div class="updated-at__content">23rd July 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">LocalStorage, sessionStorage</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="LocalStorage, sessionStorage" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Web storage objects <code>localStorage</code> and
+                    <code>sessionStorage</code> allow to save key/value pairs in
+                    the browser.
+                  </p>
+                  <p>
+                    What’s interesting about them is that the data survives a
+                    page refresh (for <code>sessionStorage</code>) and even a
+                    full browser restart (for <code>localStorage</code>). We’ll
+                    see that very soon.
+                  </p>
+                  <p>We already have cookies. Why additional objects?</p>
+                  <ul>
+                    <li>
+                      Unlike cookies, web storage objects are not sent to server
+                      with each request. Because of that, we can store much
+                      more. Most browsers allow at least 2 megabytes of data (or
+                      more) and have settings to configure that.
+                    </li>
+                    <li>
+                      Also unlike cookies, the server can’t manipulate storage
+                      objects via HTTP headers. Everything’s done in JavaScript.
+                    </li>
+                    <li>
+                      The storage is bound to the origin (domain/protocol/port
+                      triplet). That is, different protocols or subdomains infer
+                      different storage objects, they can’t access data from
+                      each other.
+                    </li>
+                  </ul>
+                  <p>
+                    Both storage objects provide same methods and properties:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>setItem(key, value)</code> – store key/value pair.
+                    </li>
+                    <li><code>getItem(key)</code> – get the value by key.</li>
+                    <li>
+                      <code>removeItem(key)</code> – remove the key with its
+                      value.
+                    </li>
+                    <li><code>clear()</code> – delete everything.</li>
+                    <li>
+                      <code>key(index)</code> – get the key on a given position.
+                    </li>
+                    <li><code>length</code> – the number of stored items.</li>
+                  </ul>
+                  <p>
+                    As you can see, it’s like a <code>Map</code> collection
+                    (<code>setItem/getItem/removeItem</code>), but also allows
+                    access by index with <code>key(index)</code>.
+                  </p>
+                  <p>Let’s see how it works.</p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="localstorage-demo"
+                      href="localstorage.html#localstorage-demo"
+                      >localStorage demo</a
+                    >
+                  </h2>
+                  <p>The main features of <code>localStorage</code> are:</p>
+                  <ul>
+                    <li>
+                      Shared between all tabs and windows from the same origin.
+                    </li>
+                    <li>
+                      The data does not expire. It remains after the browser
+                      restart and even OS reboot.
+                    </li>
+                  </ul>
+                  <p>For instance, if you run this code…</p>
+                  <div id="2r61xpa0t3" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>localStorage.setItem('test', 1);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …And close/open the browser or just open the same page in a
+                    different window, then you can get it like this:
+                  </p>
+                  <div id="v3dead2myf" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>alert( localStorage.getItem('test') ); // 1</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We only have to be on the same origin
+                    (domain/port/protocol), the url path can be different.
+                  </p>
+                  <p>
+                    The <code>localStorage</code> is shared between all windows
+                    with the same origin, so if we set the data in one window,
+                    the change becomes visible in another one.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="object-like-access"
+                      href="localstorage.html#object-like-access"
+                      >Object-like access</a
+                    >
+                  </h2>
+                  <p>
+                    We can also use a plain object way of getting/setting keys,
+                    like this:
+                  </p>
+                  <div id="nemeytuzr4" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// set key
+localStorage.test = 2;
+
+// get key
+alert( localStorage.test ); // 2
+
+// remove key
+delete localStorage.test;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    That’s allowed for historical reasons, and mostly works, but
+                    generally not recommended, because:
+                  </p>
+                  <ol>
+                    <li>
+                      <p>
+                        If the key is user-generated, it can be anything, like
+                        <code>length</code> or <code>toString</code>, or another
+                        built-in method of <code>localStorage</code>. In that
+                        case <code>getItem/setItem</code> work fine, while
+                        object-like access fails:
+                      </p>
+                      <div
+                        id="l6p38p20ak"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="localstorage.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="localstorage.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let key = 'length';
+localStorage[key] = 5; // Error, can't assign length</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        There’s a <code>storage</code> event, it triggers when
+                        we modify the data. That event does not happen for
+                        object-like access. We’ll see that later in this
+                        chapter.
+                      </p>
+                    </li>
+                  </ol>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="looping-over-keys"
+                      href="localstorage.html#looping-over-keys"
+                      >Looping over keys</a
+                    >
+                  </h2>
+                  <p>
+                    As we’ve seen, the methods provide “get/set/remove by key”
+                    functionality. But how to get all saved values or keys?
+                  </p>
+                  <p>Unfortunately, storage objects are not iterable.</p>
+                  <p>One way is to loop over them as over an array:</p>
+                  <div id="ssx136w6zj" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>for(let i=0; i&lt;localStorage.length; i++) {
+  let key = localStorage.key(i);
+  alert(`${key}: ${localStorage.getItem(key)}`);
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Another way is to use
+                    <code>for key in localStorage</code> loop, just as we do
+                    with regular objects.
+                  </p>
+                  <p>
+                    It iterates over keys, but also outputs few built-in fields
+                    that we don’t need:
+                  </p>
+                  <div id="4co8gthwaf" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// bad try
+for(let key in localStorage) {
+  alert(key); // shows getItem, setItem and other built-in stuff
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …So we need either to filter fields from the prototype with
+                    <code>hasOwnProperty</code> check:
+                  </p>
+                  <div id="l4gb88wrms" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>for(let key in localStorage) {
+  if (!localStorage.hasOwnProperty(key)) {
+    continue; // skip keys like &quot;setItem&quot;, &quot;getItem&quot; etc
+  }
+  alert(`${key}: ${localStorage.getItem(key)}`);
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …Or just get the “own” keys with
+                    <code>Object.keys</code> and then loop over them if needed:
+                  </p>
+                  <div id="l3jsogxfve" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let keys = Object.keys(localStorage);
+for(let key of keys) {
+  alert(`${key}: ${localStorage.getItem(key)}`);
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The latter works, because <code>Object.keys</code> only
+                    returns the keys that belong to the object, ignoring the
+                    prototype.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="strings-only"
+                      href="localstorage.html#strings-only"
+                      >Strings only</a
+                    >
+                  </h2>
+                  <p>Please note that both key and value must be strings.</p>
+                  <p>
+                    If were any other type, like a number, or an object, it gets
+                    converted to string automatically:
+                  </p>
+                  <div id="ff0vs3u27t" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>localStorage.user = {name: &quot;John&quot;};
+alert(localStorage.user); // [object Object]</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>We can use <code>JSON</code> to store objects though:</p>
+                  <div id="mkifcd0e6y" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>localStorage.user = JSON.stringify({name: &quot;John&quot;});
+
+// sometime later
+let user = JSON.parse( localStorage.user );
+alert( user.name ); // John</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Also it is possible to stringify the whole storage object,
+                    e.g. for debugging purposes:
+                  </p>
+                  <div id="gs9xtzw6p7" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// added formatting options to JSON.stringify to make the object look nicer
+alert( JSON.stringify(localStorage, null, 2) );</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="sessionstorage"
+                      href="localstorage.html#sessionstorage"
+                      >sessionStorage</a
+                    >
+                  </h2>
+                  <p>
+                    The <code>sessionStorage</code> object is used much less
+                    often than <code>localStorage</code>.
+                  </p>
+                  <p>
+                    Properties and methods are the same, but it’s much more
+                    limited:
+                  </p>
+                  <ul>
+                    <li>
+                      The <code>sessionStorage</code> exists only within the
+                      current browser tab.
+                      <ul>
+                        <li>
+                          Another tab with the same page will have a different
+                          storage.
+                        </li>
+                        <li>
+                          But it is shared between iframes in the same tab
+                          (assuming they come from the same origin).
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      The data survives page refresh, but not closing/opening
+                      the tab.
+                    </li>
+                  </ul>
+                  <p>Let’s see that in action.</p>
+                  <p>Run this code…</p>
+                  <div id="khadrqj9cg" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>sessionStorage.setItem('test', 1);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>…Then refresh the page. Now you can still get the data:</p>
+                  <div id="9vws64lbwv" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>alert( sessionStorage.getItem('test') ); // after refresh: 1</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …But if you open the same page in another tab, and try again
+                    there, the code above returns <code>null</code>, meaning
+                    “nothing found”.
+                  </p>
+                  <p>
+                    That’s exactly because <code>sessionStorage</code> is bound
+                    not only to the origin, but also to the browser tab. For
+                    that reason, <code>sessionStorage</code> is used sparingly.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="storage-event"
+                      href="localstorage.html#storage-event"
+                      >Storage event</a
+                    >
+                  </h2>
+                  <p>
+                    When the data gets updated in <code>localStorage</code> or
+                    <code>sessionStorage</code>,
+                    <a
+                      href="https://www.w3.org/TR/webstorage/#the-storage-event"
+                      >storage</a
+                    >
+                    event triggers, with properties:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>key</code> – the key that was changed (<code
+                        >null</code
+                      >
+                      if <code>.clear()</code> is called).
+                    </li>
+                    <li>
+                      <code>oldValue</code> – the old value (<code>null</code>
+                      if the key is newly added).
+                    </li>
+                    <li>
+                      <code>newValue</code> – the new value (<code>null</code>
+                      if the key is removed).
+                    </li>
+                    <li>
+                      <code>url</code> – the url of the document where the
+                      update happened.
+                    </li>
+                    <li>
+                      <code>storageArea</code> – either
+                      <code>localStorage</code> or
+                      <code>sessionStorage</code> object where the update
+                      happened.
+                    </li>
+                  </ul>
+                  <p>
+                    The important thing is: the event triggers on all
+                    <code>window</code> objects where the storage is accessible,
+                    except the one that caused it.
+                  </p>
+                  <p>Let’s elaborate.</p>
+                  <p>
+                    Imagine, you have two windows with the same site in each. So
+                    <code>localStorage</code> is shared between them.
+                  </p>
+                  <p>
+                    You might want to open this page in two browser windows to
+                    test the code below.
+                  </p>
+                  <p>
+                    If both windows are listening for
+                    <code>window.onstorage</code>, then each one will react on
+                    updates that happened in the other one.
+                  </p>
+                  <div id="glo45o3x8g" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="localstorage.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// triggers on updates made to the same storage from other documents
+window.onstorage = event =&gt; { // can also use window.addEventListener('storage', event =&gt; {
+  if (event.key != 'now') return;
+  alert(event.key + ':' + event.newValue + &quot; at &quot; + event.url);
+};
+
+localStorage.setItem('now', Date.now());</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Please note that the event also contains:
+                    <code>event.url</code> – the url of the document where the
+                    data was updated.
+                  </p>
+                  <p>
+                    Also, <code>event.storageArea</code> contains the storage
+                    object – the event is the same for both
+                    <code>sessionStorage</code> and <code>localStorage</code>,
+                    so <code>event.storageArea</code> references the one that
+                    was modified. We may even want to set something back in it,
+                    to “respond” to a change.
+                  </p>
+                  <p>
+                    <strong
+                      >That allows different windows from the same origin to
+                      exchange messages.</strong
+                    >
+                  </p>
+                  <p>
+                    Modern browsers also support
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/api/Broadcast_Channel_API"
+                      >Broadcast channel API</a
+                    >, the special API for same-origin inter-window
+                    communication, it’s more full featured, but less supported.
+                    There are libraries that polyfill that API, based on
+                    <code>localStorage</code>, that make it available
+                    everywhere.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="localstorage.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    Web storage objects <code>localStorage</code> and
+                    <code>sessionStorage</code> allow to store key/value in the
+                    browser.
+                  </p>
+                  <ul>
+                    <li>
+                      Both <code>key</code> and <code>value</code> must be
+                      strings.
+                    </li>
+                    <li>The limit is 5mb+, depends on the browser.</li>
+                    <li>They do not expire.</li>
+                    <li>
+                      The data is bound to the origin (domain/port/protocol).
+                    </li>
+                  </ul>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th><code>localStorage</code></th>
+                        <th><code>sessionStorage</code></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          Shared between all tabs and windows with the same
+                          origin
+                        </td>
+                        <td>
+                          Visible within a browser tab, including iframes from
+                          the same origin
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Survives browser restart</td>
+                        <td>Survives page refresh (but not tab close)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>API:</p>
+                  <ul>
+                    <li>
+                      <code>setItem(key, value)</code> – store key/value pair.
+                    </li>
+                    <li><code>getItem(key)</code> – get the value by key.</li>
+                    <li>
+                      <code>removeItem(key)</code> – remove the key with its
+                      value.
+                    </li>
+                    <li><code>clear()</code> – delete everything.</li>
+                    <li>
+                      <code>key(index)</code> – get the key number
+                      <code>index</code>.
+                    </li>
+                    <li><code>length</code> – the number of stored items.</li>
+                    <li>Use <code>Object.keys</code> to get all keys.</li>
+                    <li>
+                      We access keys as object properties, in that case
+                      <code>storage</code> event isn’t triggered.
+                    </li>
+                  </ul>
+                  <p>Storage event:</p>
+                  <ul>
+                    <li>
+                      Triggers on <code>setItem</code>, <code>removeItem</code>,
+                      <code>clear</code> calls.
+                    </li>
+                    <li>
+                      Contains all the data about the operation
+                      (<code>key/oldValue/newValue</code>), the document
+                      <code>url</code> and the storage object
+                      <code>storageArea</code>.
+                    </li>
+                    <li>
+                      Triggers on all <code>window</code> objects that have
+                      access to the storage except the one that generated it
+                      (within a tab for <code>sessionStorage</code>, globally
+                      for <code>localStorage</code>).
+                    </li>
+                  </ul>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="localstorage.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="localstorage.html#autosave-a-form-field"
+                          name="autosave-a-form-field"
+                          >Autosave a form field</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/form-autosave.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note"></div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Create a <code>textarea</code> field that “autosaves”
+                          its value on every change.
+                        </p>
+                        <p>
+                          So, if the user accidentally closes the page, and
+                          opens it again, he’ll find his unfinished input at
+                          place.
+                        </p>
+                        <p>Like this:</p>
+                        <div class="code-result">
+                          <div class="code-result__toolbar toolbar"></div>
+                          <iframe
+                            class="code-result__iframe"
+                            data-trusted="1"
+                            style="height: 120px"
+                            src="https://en.js.cx/task/form-autosave/solution/"
+                          ></iframe>
+                        </div>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/cShtUwrQINhUFnnK?p=preview"
+                            target="_blank"
+                            data-plunk-id="cShtUwrQINhUFnnK"
+                            >Open a sandbox for the task.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/IUtAagHWvtGEX3NT?p=preview"
+                                target="_blank"
+                                data-plunk-id="IUtAagHWvtGEX3NT"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="cookie.html"
+                data-tooltip="Cookies, document.cookie"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="indexeddb.html"
+                data-tooltip="IndexedDB"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Flocalstorage"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Flocalstorage"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="localstorage.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/localstorage",
+                    identifier: "\/localstorage",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="data-storage.html"
+                        >Storing data in the browser</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   localstorage.html#localstorage-demo"
+                        >localStorage demo</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   localstorage.html#object-like-access"
+                        >Object-like access</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   localstorage.html#looping-over-keys"
+                        >Looping over keys</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   localstorage.html#strings-only"
+                        >Strings only</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   localstorage.html#sessionstorage"
+                        >sessionStorage</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   localstorage.html#storage-event"
+                        >Storage event</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="localstorage.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="localstorage.html#tasks"
+                        >Tasks (1)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="localstorage.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Flocalstorage"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Flocalstorage"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/6-data-storage/02-localstorage"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

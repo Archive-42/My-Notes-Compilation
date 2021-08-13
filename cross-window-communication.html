@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Cross-window communication</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="cross-window-communication.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Cross-window communication" />
+
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Cross-window communication" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="popup-windows.html" />
+    <link rel="next" href="clickjacking.html" />
+
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Cross-window communication" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="cross-window-communication.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/cross-window-communication"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                    cross-window-communication"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/cross-window-communication"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/cross-window-communication"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=cross-window-communication"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/cross-window-communication"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/cross-window-communication"</a
+            >
+
+
+   
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fcross-window-communication"
+                  rel="nofollow"
+                ></a
+                >2Fcross-window-communication
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option
+                  value="https://javascript.info/cross-window-communication"
+                  selected
+                >
+                  English
+                </option>
+                <option
+                  value="https://es.javascript.info/cross-window-communication"
+                >
+                  Español
+                </option>
+                <option
+                  value="https://fr.javascript.info/cross-window-communication"
+                >
+                  Français
+                </option>
+                <option
+                  value="https://it.javascript.info/cross-window-communication"
+                >
+                  Italiano
+                </option>
+                <option
+                  value="https://ja.javascript.info/cross-window-communication"
+                >
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/">한국어</option>
+                <option
+                  value=cross-window-communication"
+         cross-window-communication"
+       cross-window-communication"
+   
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="2"
+          max="3"
+          data-tooltip="Lesson 2 of 3"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a
+                        class="breadcrumbs__link"
+                        href="frames-and-windows.html"
+                        ><span>Frames and windows</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Frames and windows",
+                            "item": "https://javascript.info/frames-and-windows"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 12th September 2020"
+                  >
+                    <div class="updated-at__content">12th September 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Cross-window communication</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Cross-window communication" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    The “Same Origin” (same site) policy limits access of
+                    windows and frames to each other.
+                  </p>
+                  <p>
+                    The idea is that if a user has two pages open: one from
+                    <code>john-smith.com</code>, and another one is
+                    <code>gmail.com</code>, then they wouldn’t want a script
+                    from <code>john-smith.com</code> to read our mail from
+                    <code>gmail.com</code>. So, the purpose of the “Same Origin”
+                    policy is to protect users from information theft.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="same-origin"
+                      href="cross-window-communication.html#same-origin"
+                      >Same Origin</a
+                    >
+                  </h2>
+                  <p>
+                    Two URLs are said to have the “same origin” if they have the
+                    same protocol, domain and port.
+                  </p>
+                  <p>These URLs all share the same origin:</p>
+                  <ul>
+                    <li><code>http://site.com</code></li>
+                    <li><code>http://site.com/</code></li>
+                    <li><code>http://site.com/my/page.html</code></li>
+                  </ul>
+                  <p>These ones do not:</p>
+                  <ul>
+                    <li>
+                      <code>http://<b>www.</b>site.com</code> (another domain:
+                      <code>www.</code> matters)
+                    </li>
+                    <li>
+                      <code>http://<b>site.org</b></code> (another domain:
+                      <code>.org</code> matters)
+                    </li>
+                    <li>
+                      <code><b>https://</b>site.com</code> (another protocol:
+                      <code>https</code>)
+                    </li>
+                    <li>
+                      <code>http://site.com:<b>8080</b></code> (another port:
+                      <code>8080</code>)
+                    </li>
+                  </ul>
+                  <p>The “Same Origin” policy states that:</p>
+                  <ul>
+                    <li>
+                      if we have a reference to another window, e.g. a popup
+                      created by <code>window.open</code> or a window inside
+                      <code>&lt;iframe&gt;</code>, and that window comes from
+                      the same origin, then we have full access to that window.
+                    </li>
+                    <li>
+                      otherwise, if it comes from another origin, then we can’t
+                      access the content of that window: variables, document,
+                      anything. The only exception is <code>location</code>: we
+                      can change it (thus redirecting the user). But we cannot
+                      <em>read</em> location (so we can’t see where the user is
+                      now, no information leak).
+                    </li>
+                  </ul>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="in-action-iframe"
+                      href="cross-window-communication.html#in-action-iframe"
+                      >In action: iframe</a
+                    >
+                  </h3>
+                  <p>
+                    An <code>&lt;iframe&gt;</code> tag hosts a separate embedded
+                    window, with its own separate <code>document</code> and
+                    <code>window</code> objects.
+                  </p>
+                  <p>We can access them using properties:</p>
+                  <ul>
+                    <li>
+                      <code>iframe.contentWindow</code> to get the window inside
+                      the <code>&lt;iframe&gt;</code>.
+                    </li>
+                    <li>
+                      <code>iframe.contentDocument</code> to get the document
+                      inside the <code>&lt;iframe&gt;</code>, shorthand for
+                      <code>iframe.contentWindow.document</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    When we access something inside the embedded window, the
+                    browser checks if the iframe has the same origin. If that’s
+                    not so then the access is denied (writing to
+                    <code>location</code> is an exception, it’s still
+                    permitted).
+                  </p>
+                  <p>
+                    For instance, let’s try reading and writing to
+                    <code>&lt;iframe&gt;</code> from another origin:
+                  </p>
+                  <div
+                    id="n7ikkmbayq"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":22,"end":22},{"start":16,"end":16},{"start":8,"end":8},{"start":5,"end":5}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;iframe src=&quot;https://example.com&quot; id=&quot;iframe&quot;&gt;&lt;/iframe&gt;
+
+&lt;script&gt;
+  iframe.onload = function() {
+    // we can get the reference to the inner window
+    let iframeWindow = iframe.contentWindow; // OK
+    try {
+      // ...but not to the document inside it
+      let doc = iframe.contentDocument; // ERROR
+    } catch(e) {
+      alert(e); // Security Error (another origin)
+    }
+
+    // also we can't READ the URL of the page in iframe
+    try {
+      // Can't read URL from the Location object
+      let href = iframe.contentWindow.location.href; // ERROR
+    } catch(e) {
+      alert(e); // Security Error
+    }
+
+    // ...we can WRITE into location (and thus load something else into the iframe)!
+    iframe.contentWindow.location = '/'; // OK
+
+    iframe.onload = null; // clear the handler, not to run it after the location change
+  };
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The code above shows errors for any operations except:</p>
+                  <ul>
+                    <li>
+                      Getting the reference to the inner window
+                      <code>iframe.contentWindow</code> – that’s allowed.
+                    </li>
+                    <li>Writing to <code>location</code>.</li>
+                  </ul>
+                  <p>
+                    Contrary to that, if the <code>&lt;iframe&gt;</code> has the
+                    same origin, we can do anything with it:
+                  </p>
+                  <div id="wyxbs0esz0" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;!-- iframe from the same site --&gt;
+&lt;iframe src=&quot;/&quot; id=&quot;iframe&quot;&gt;&lt;/iframe&gt;
+
+&lt;script&gt;
+  iframe.onload = function() {
+    // just do anything
+    iframe.contentDocument.body.prepend(&quot;Hello, world!&quot;);
+  };
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        ><code>iframe.onload</code> vs
+                        <code>iframe.contentWindow.onload</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        The <code>iframe.onload</code> event (on the
+                        <code>&lt;iframe&gt;</code> tag) is essentially the same
+                        as <code>iframe.contentWindow.onload</code> (on the
+                        embedded window object). It triggers when the embedded
+                        window fully loads with all resources.
+                      </p>
+                      <p>
+                        …But we can’t access
+                        <code>iframe.contentWindow.onload</code> for an iframe
+                        from another origin, so using
+                        <code>iframe.onload</code>.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="windows-on-subdomains-document-domain"
+                      href="cross-window-communication.html#windows-on-subdomains-document-domain"
+                      >Windows on subdomains: document.domain</a
+                    >
+                  </h2>
+                  <p>
+                    By definition, two URLs with different domains have
+                    different origins.
+                  </p>
+                  <p>
+                    But if windows share the same second-level domain, for
+                    instance <code>john.site.com</code>,
+                    <code>peter.site.com</code> and <code>site.com</code> (so
+                    that their common second-level domain is
+                    <code>site.com</code>), we can make the browser ignore that
+                    difference, so that they can be treated as coming from the
+                    “same origin” for the purposes of cross-window
+                    communication.
+                  </p>
+                  <p>To make it work, each such window should run the code:</p>
+                  <div id="qb08ggnbdk" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>document.domain = 'site.com';</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    That’s all. Now they can interact without limitations.
+                    Again, that’s only possible for pages with the same
+                    second-level domain.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="iframe-wrong-document-pitfall"
+                      href="cross-window-communication.html#iframe-wrong-document-pitfall"
+                      >Iframe: wrong document pitfall</a
+                    >
+                  </h2>
+                  <p>
+                    When an iframe comes from the same origin, and we may access
+                    its <code>document</code>, there’s a pitfall. It’s not
+                    related to cross-origin things, but important to know.
+                  </p>
+                  <p>
+                    Upon its creation an iframe immediately has a document. But
+                    that document is different from the one that loads into it!
+                  </p>
+                  <p>
+                    So if we do something with the document immediately, that
+                    will probably be lost.
+                  </p>
+                  <p>Here, look:</p>
+                  <div
+                    id="ef5hi4i2o0"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":6,"end":7}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;iframe src=&quot;/&quot; id=&quot;iframe&quot;&gt;&lt;/iframe&gt;
+
+&lt;script&gt;
+  let oldDoc = iframe.contentDocument;
+  iframe.onload = function() {
+    let newDoc = iframe.contentDocument;
+    // the loaded document is not the same as initial!
+    alert(oldDoc == newDoc); // false
+  };
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We shouldn’t work with the document of a not-yet-loaded
+                    iframe, because that’s the <em>wrong document</em>. If we
+                    set any event handlers on it, they will be ignored.
+                  </p>
+                  <p>How to detect the moment when the document is there?</p>
+                  <p>
+                    The right document is definitely at place when
+                    <code>iframe.onload</code> triggers. But it only triggers
+                    when the whole iframe with all resources is loaded.
+                  </p>
+                  <p>
+                    We can try to catch the moment earlier using checks in
+                    <code>setInterval</code>:
+                  </p>
+                  <div id="mcvudib8hu" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;iframe src=&quot;/&quot; id=&quot;iframe&quot;&gt;&lt;/iframe&gt;
+
+&lt;script&gt;
+  let oldDoc = iframe.contentDocument;
+
+  // every 100 ms check if the document is the new one
+  let timer = setInterval(() =&gt; {
+    let newDoc = iframe.contentDocument;
+    if (newDoc == oldDoc) return;
+
+    alert(&quot;New document is here!&quot;);
+
+    clearInterval(timer); // cancel setInterval, don't need it any more
+  }, 100);
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="collection-window-frames"
+                      href="cross-window-communication.html#collection-window-frames"
+                      >Collection: window.frames</a
+                    >
+                  </h2>
+                  <p>
+                    An alternative way to get a window object for
+                    <code>&lt;iframe&gt;</code> – is to get it from the named
+                    collection <code>window.frames</code>:
+                  </p>
+                  <ul>
+                    <li>
+                      By number: <code>window.frames[0]</code> – the window
+                      object for the first frame in the document.
+                    </li>
+                    <li>
+                      By name: <code>window.frames.iframeName</code> – the
+                      window object for the frame with
+                      <code>name=&quot;iframeName&quot;</code>.
+                    </li>
+                  </ul>
+                  <p>For instance:</p>
+                  <div id="4axv9f8bx8" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;iframe src=&quot;/&quot; style=&quot;height:80px&quot; name=&quot;win&quot; id=&quot;iframe&quot;&gt;&lt;/iframe&gt;
+
+&lt;script&gt;
+  alert(iframe.contentWindow == frames[0]); // true
+  alert(iframe.contentWindow == frames.win); // true
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    An iframe may have other iframes inside. The corresponding
+                    <code>window</code> objects form a hierarchy.
+                  </p>
+                  <p>Navigation links are:</p>
+                  <ul>
+                    <li>
+                      <code>window.frames</code> – the collection of “children”
+                      windows (for nested frames).
+                    </li>
+                    <li>
+                      <code>window.parent</code> – the reference to the “parent”
+                      (outer) window.
+                    </li>
+                    <li>
+                      <code>window.top</code> – the reference to the topmost
+                      parent window.
+                    </li>
+                  </ul>
+                  <p>For instance:</p>
+                  <div id="rf02kwroux" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>window.frames[0].parent === window; // true</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We can use the <code>top</code> property to check if the
+                    current document is open inside a frame or not:
+                  </p>
+                  <div id="5avi7avc4a" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="cross-window-communication.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>if (window == top) { // current window == window.top?
+  alert('The script is in the topmost window, not in a frame');
+} else {
+  alert('The script runs in a frame!');
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="the-sandbox-iframe-attribute"
+                      href="cross-window-communication.html#the-sandbox-iframe-attribute"
+                      >The “sandbox” iframe attribute</a
+                    >
+                  </h2>
+                  <p>
+                    The <code>sandbox</code> attribute allows for the exclusion
+                    of certain actions inside an <code>&lt;iframe&gt;</code> in
+                    order to prevent it executing untrusted code. It “sandboxes”
+                    the iframe by treating it as coming from another origin
+                    and/or applying other limitations.
+                  </p>
+                  <p>
+                    There’s a “default set” of restrictions applied for
+                    <code>&lt;iframe sandbox src=&quot;...&quot;&gt;</code>. But
+                    it can be relaxed if we provide a space-separated list of
+                    restrictions that should not be applied as a value of the
+                    attribute, like this:
+                    <code
+                      >&lt;iframe sandbox=&quot;allow-forms
+                      allow-popups&quot;&gt;</code
+                    >.
+                  </p>
+                  <p>
+                    In other words, an empty
+                    <code>&quot;sandbox&quot;</code> attribute puts the
+                    strictest limitations possible, but we can put a
+                    space-delimited list of those that we want to lift.
+                  </p>
+                  <p>Here’s a list of limitations:</p>
+                  <dl>
+                    <dt><code>allow-same-origin</code></dt>
+                    <dd>
+                      By default <code>&quot;sandbox&quot;</code> forces the
+                      “different origin” policy for the iframe. In other words,
+                      it makes the browser to treat the <code>iframe</code> as
+                      coming from another origin, even if its
+                      <code>src</code> points to the same site. With all implied
+                      restrictions for scripts. This option removes that
+                      feature.
+                    </dd>
+                    <dt><code>allow-top-navigation</code></dt>
+                    <dd>
+                      Allows the <code>iframe</code> to change
+                      <code>parent.location</code>.
+                    </dd>
+                    <dt><code>allow-forms</code></dt>
+                    <dd>Allows to submit forms from <code>iframe</code>.</dd>
+                    <dt><code>allow-scripts</code></dt>
+                    <dd>Allows to run scripts from the <code>iframe</code>.</dd>
+                    <dt><code>allow-popups</code></dt>
+                    <dd>
+                      Allows to <code>window.open</code> popups from the
+                      <code>iframe</code>
+                    </dd>
+                  </dl>
+                  <p>
+                    See
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe"
+                      >the manual</a
+                    >
+                    for more.
+                  </p>
+                  <p>
+                    The example below demonstrates a sandboxed iframe with the
+                    default set of restrictions:
+                    <code>&lt;iframe sandbox src=&quot;...&quot;&gt;</code>. It
+                    has some JavaScript and a form.
+                  </p>
+                  <p>
+                    Please note that nothing works. So the default set is really
+                    harsh:
+                  </p>
+                  <div class="code-tabs code-tabs_result_on">
+                    <div class="code-tabs__tools">
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_left
+                          "
+                          title="&amp;larr;"
+                          data-code-tabs-left="data-code-tabs-left"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__switches-wrap">
+                        <div
+                          class="code-tabs__switches"
+                          data-code-tabs-switches="data-code-tabs-switches"
+                        >
+                          <div class="code-tabs__switches-items">
+                            <div
+                              class="
+                                code-tabs__switch code-tabs__switch_current
+                              "
+                            >
+                              Result
+                            </div>
+                            <div class="code-tabs__switch">index.html</div>
+                            <div class="code-tabs__switch">sandboxed.html</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_right
+                          "
+                          title="&amp;rarr;"
+                          data-code-tabs-right="data-code-tabs-right"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__buttons">
+                        <a
+                          class="code-tabs__button code-tabs__button_external"
+                          target="_blank"
+                          title="open in a new window"
+                          href="article/cross-window-communication/sandbox/index.html"
+                        ></a
+                        ><a
+                          class="code-tabs__button code-tabs__button_edit"
+                          target="_blank"
+                          title="edit in the sandbox"
+                          href="https://plnkr.co/edit/KdOaJdnKKBVrHYuz?p=preview"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      class="code-tabs__content"
+                      data-code-tabs-content="data-code-tabs-content"
+                      style="height: 140px"
+                    >
+                      <div
+                        class="code-tabs__section code-tabs__section_current"
+                      >
+                        <iframe
+                          class="code-tabs__result"
+                          src="article/cross-window-communication/sandbox/index.html"
+                        ></iframe>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-markup line-numbers"
+                        ><code>&lt;!doctype html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;div&gt;The iframe below has the &lt;code&gt;sandbox&lt;/code&gt; attribute.&lt;/div&gt;
+
+  &lt;iframe sandbox src=&quot;sandboxed.html&quot; style=&quot;height:60px;width:90%&quot;&gt;&lt;/iframe&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-markup line-numbers"
+                        ><code>&lt;!doctype html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;button onclick=&quot;alert(123)&quot;&gt;Click to run a script (doesn't work)&lt;/button&gt;
+
+  &lt;form action=&quot;http://google.com&quot;&gt;
+    &lt;input type=&quot;text&quot;&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Submit (doesn't work)&quot;&gt;
+  &lt;/form&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Please note:</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        The purpose of the
+                        <code>&quot;sandbox&quot;</code> attribute is only to
+                        <em>add more</em> restrictions. It cannot remove them.
+                        In particular, it can’t relax same-origin restrictions
+                        if the iframe comes from another origin.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="cross-window-messaging"
+                      href="cross-window-communication.html#cross-window-messaging"
+                      >Cross-window messaging</a
+                    >
+                  </h2>
+                  <p>
+                    The <code>postMessage</code> interface allows windows to
+                    talk to each other no matter which origin they are from.
+                  </p>
+                  <p>
+                    So, it’s a way around the “Same Origin” policy. It allows a
+                    window from <code>john-smith.com</code> to talk to
+                    <code>gmail.com</code> and exchange information, but only if
+                    they both agree and call corresponding JavaScript functions.
+                    That makes it safe for users.
+                  </p>
+                  <p>The interface has two parts.</p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="postmessage"
+                      href="cross-window-communication.html#postmessage"
+                      >postMessage</a
+                    >
+                  </h3>
+                  <p>
+                    The window that wants to send a message calls
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/API/Window.postMessage"
+                      >postMessage</a
+                    >
+                    method of the receiving window. In other words, if we want
+                    to send the message to <code>win</code>, we should call
+                    <code>win.postMessage(data, targetOrigin)</code>.
+                  </p>
+                  <p>Arguments:</p>
+                  <dl>
+                    <dt><code>data</code></dt>
+                    <dd>
+                      The data to send. Can be any object, the data is cloned
+                      using the “structured serialization algorithm”. IE
+                      supports only strings, so we should
+                      <code>JSON.stringify</code> complex objects to support
+                      that browser.
+                    </dd>
+                    <dt><code>targetOrigin</code></dt>
+                    <dd>
+                      Specifies the origin for the target window, so that only a
+                      window from the given origin will get the message.
+                    </dd>
+                  </dl>
+                  <p>
+                    The <code>targetOrigin</code> is a safety measure. Remember,
+                    if the target window comes from another origin, we can’t
+                    read it’s <code>location</code> in the sender window. So we
+                    can’t be sure which site is open in the intended window
+                    right now: the user could navigate away, and the sender
+                    window has no idea about it.
+                  </p>
+                  <p>
+                    Specifying <code>targetOrigin</code> ensures that the window
+                    only receives the data if it’s still at the right site.
+                    Important when the data is sensitive.
+                  </p>
+                  <p>
+                    For instance, here <code>win</code> will only receive the
+                    message if it has a document from the origin
+                    <code>http://example.com</code>:
+                  </p>
+                  <div id="j2nvzormbu" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;iframe src=&quot;http://example.com&quot; name=&quot;example&quot;&gt;
+
+&lt;script&gt;
+  let win = window.frames.example;
+
+  win.postMessage(&quot;message&quot;, &quot;http://example.com&quot;);
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    If we don’t want that check, we can set
+                    <code>targetOrigin</code> to <code>*</code>.
+                  </p>
+                  <div
+                    id="u0dbwg2r7e"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":5,"end":5}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;iframe src=&quot;http://example.com&quot; name=&quot;example&quot;&gt;
+
+&lt;script&gt;
+  let win = window.frames.example;
+
+  win.postMessage(&quot;message&quot;, &quot;*&quot;);
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="onmessage"
+                      href="cross-window-communication.html#onmessage"
+                      >onmessage</a
+                    >
+                  </h3>
+                  <p>
+                    To receive a message, the target window should have a
+                    handler on the <code>message</code> event. It triggers when
+                    <code>postMessage</code> is called (and
+                    <code>targetOrigin</code> check is successful).
+                  </p>
+                  <p>The event object has special properties:</p>
+                  <dl>
+                    <dt><code>data</code></dt>
+                    <dd>The data from <code>postMessage</code>.</dd>
+                    <dt><code>origin</code></dt>
+                    <dd>
+                      The origin of the sender, for instance
+                      <code>http://javascript.info</code>.
+                    </dd>
+                    <dt><code>source</code></dt>
+                    <dd>
+                      The reference to the sender window. We can immediately
+                      <code>source.postMessage(...)</code> back if we want.
+                    </dd>
+                  </dl>
+                  <p>
+                    To assign that handler, we should use
+                    <code>addEventListener</code>, a short syntax
+                    <code>window.onmessage</code> does not work.
+                  </p>
+                  <p>Here’s an example:</p>
+                  <div id="jn040l7o92" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>window.addEventListener(&quot;message&quot;, function(event) {
+  if (event.origin != 'http://javascript.info') {
+    // something from an unknown domain, let's ignore it
+    return;
+  }
+
+  alert( &quot;received: &quot; + event.data );
+
+  // can message back using event.source.postMessage(...)
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The full example:</p>
+                  <div class="code-tabs code-tabs_result_on">
+                    <div class="code-tabs__tools">
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_left
+                          "
+                          title="&amp;larr;"
+                          data-code-tabs-left="data-code-tabs-left"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__switches-wrap">
+                        <div
+                          class="code-tabs__switches"
+                          data-code-tabs-switches="data-code-tabs-switches"
+                        >
+                          <div class="code-tabs__switches-items">
+                            <div
+                              class="
+                                code-tabs__switch code-tabs__switch_current
+                              "
+                            >
+                              Result
+                            </div>
+                            <div class="code-tabs__switch">iframe.html</div>
+                            <div class="code-tabs__switch">index.html</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_right
+                          "
+                          title="&amp;rarr;"
+                          data-code-tabs-right="data-code-tabs-right"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__buttons">
+                        <a
+                          class="code-tabs__button code-tabs__button_external"
+                          target="_blank"
+                          title="open in a new window"
+                          href="article/cross-window-communication/postmessage/index.html"
+                        ></a
+                        ><a
+                          class="code-tabs__button code-tabs__button_edit"
+                          target="_blank"
+                          title="edit in the sandbox"
+                          href="https://plnkr.co/edit/Ck5PbEJ8XvDIARFV?p=preview"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      class="code-tabs__content"
+                      data-code-tabs-content="data-code-tabs-content"
+                      style="height: 120px"
+                    >
+                      <div
+                        class="code-tabs__section code-tabs__section_current"
+                      >
+                        <iframe
+                          class="code-tabs__result"
+                          src="article/cross-window-communication/postmessage/index.html"
+                        ></iframe>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-markup line-numbers"
+                        ><code>&lt;!doctype html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  Receiving iframe.
+  &lt;script&gt;
+    window.addEventListener('message', function(event) {
+      alert(`Received ${event.data} from ${event.origin}`);
+    });
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-markup line-numbers"
+                        ><code>&lt;!doctype html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;form id=&quot;form&quot;&gt;
+    &lt;input type=&quot;text&quot; placeholder=&quot;Enter message&quot; name=&quot;message&quot;&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Click to send&quot;&gt;
+  &lt;/form&gt;
+
+  &lt;iframe src=&quot;iframe.html&quot; id=&quot;iframe&quot; style=&quot;display:block;height:60px&quot;&gt;&lt;/iframe&gt;
+
+  &lt;script&gt;
+    form.onsubmit = function() {
+      iframe.contentWindow.postMessage(this.message.value, '*');
+      return false;
+    };
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="cross-window-communication.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    To call methods and access the content of another window, we
+                    should first have a reference to it.
+                  </p>
+                  <p>For popups we have these references:</p>
+                  <ul>
+                    <li>
+                      From the opener window: <code>window.open</code> – opens a
+                      new window and returns a reference to it,
+                    </li>
+                    <li>
+                      From the popup: <code>window.opener</code> – is a
+                      reference to the opener window from a popup.
+                    </li>
+                  </ul>
+                  <p>
+                    For iframes, we can access parent/children windows using:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>window.frames</code> – a collection of nested window
+                      objects,
+                    </li>
+                    <li>
+                      <code>window.parent</code>, <code>window.top</code> are
+                      the references to parent and top windows,
+                    </li>
+                    <li>
+                      <code>iframe.contentWindow</code> is the window inside an
+                      <code>&lt;iframe&gt;</code> tag.
+                    </li>
+                  </ul>
+                  <p>
+                    If windows share the same origin (host, port, protocol),
+                    then windows can do whatever they want with each other.
+                  </p>
+                  <p>Otherwise, only possible actions are:</p>
+                  <ul>
+                    <li>
+                      Change the <code>location</code> of another window
+                      (write-only access).
+                    </li>
+                    <li>Post a message to it.</li>
+                  </ul>
+                  <p>Exceptions are:</p>
+                  <ul>
+                    <li>
+                      Windows that share the same second-level domain:
+                      <code>a.site.com</code> and <code>b.site.com</code>. Then
+                      setting <code>document.domain='site.com'</code> in both of
+                      them puts them into the “same origin” state.
+                    </li>
+                    <li>
+                      If an iframe has a <code>sandbox</code> attribute, it is
+                      forcefully put into the “different origin” state, unless
+                      the <code>allow-same-origin</code> is specified in the
+                      attribute value. That can be used to run untrusted code in
+                      iframes from the same site.
+                    </li>
+                  </ul>
+                  <p>
+                    The <code>postMessage</code> interface allows two windows
+                    with any origins to talk:
+                  </p>
+                  <ol>
+                    <li>
+                      <p>
+                        The sender calls
+                        <code>targetWin.postMessage(data, targetOrigin)</code>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If <code>targetOrigin</code> is not <code>'*'</code>,
+                        then the browser checks if window
+                        <code>targetWin</code> has the origin
+                        <code>targetOrigin</code>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        If it is so, then <code>targetWin</code> triggers the
+                        <code>message</code> event with special properties:
+                      </p>
+                      <ul>
+                        <li>
+                          <code>origin</code> – the origin of the sender window
+                          (like <code>http://my.site.com</code>)
+                        </li>
+                        <li>
+                          <code>source</code> – the reference to the sender
+                          window.
+                        </li>
+                        <li>
+                          <code>data</code> – the data, any object in everywhere
+                          except IE that supports only strings.
+                        </li>
+                      </ul>
+                      <p>
+                        We should use <code>addEventListener</code> to set the
+                        handler for this event inside the target window.
+                      </p>
+                    </li>
+                  </ol>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="popup-windows.html"
+                data-tooltip="Popups and window methods"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="clickjacking.html"
+                data-tooltip="The clickjacking attack"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcross-window-communication"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcross-window-communication"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a
+                    href="cross-window-communication.html#comments"
+                 
+                        <li>
+                          If you have suggestions what to improve - please
+                        
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/cross-window-communication",
+                    identifier: "\/cross-window-communication",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="frames-and-windows.html"
+                        >Frames and windows</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   cross-window-communication.html#same-origin"
+                        >Same Origin</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   cross-window-communication.html#windows-on-subdomains-document-domain"
+                        >Windows on subdomains: document.domain</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   cross-window-communication.html#iframe-wrong-document-pitfall"
+                        >Iframe: wrong document pitfall</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   cross-window-communication.html#collection-window-frames"
+                        >Collection: window.frames</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   cross-window-communication.html#the-sandbox-iframe-attribute"
+                        >The “sandbox” iframe attribute</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   cross-window-communication.html#cross-window-messaging"
+                        >Cross-window messaging</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   cross-window-communication.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   cross-window-communication.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcross-window-communication"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fcross-window-communication"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/3-frames-and-windows/03-cross-window-communication"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

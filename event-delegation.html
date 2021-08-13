@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Event delegation</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="event-delegation.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Event delegation" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Event delegation" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="bubbling-and-capturing.html" />
+    <link rel="next" href="default-browser-action.html" />
+
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Event delegation" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="event-delegation.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/event-delegation"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                    event-delegation"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/event-delegation"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/event-delegation"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/event-delegation"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=event-delegation"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/event-delegation"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fevent-delegation"
+                  rel="nofollow"
+                ></a
+                >2Fevent-delegation
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option
+                  value="https://javascript.info/event-delegation"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/event-delegation">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/event-delegation">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/event-delegation">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/event-delegation">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/event-delegation">
+                  한국어
+                </option>
+                <option value=event-delegation">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/">Türkçe</option>
+                <option value="https://zh.javascript.info/event-delegation">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="14"
+          max="32"
+          data-tooltip="Lesson 14 of 32"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="ui.html"
+                        ><span>Browser: Document, Events, Interfaces</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="events.html"
+                        ><span>Introduction to Events</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Browser: Document, Events, Interfaces",
+                            "item": "https://javascript.info/ui"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Introduction to Events",
+                            "item": "https://javascript.info/events"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 19th October 2020"
+                  >
+                    <div class="updated-at__content">19th October 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Event delegation</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Event delegation" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Capturing and bubbling allow us to implement one of most
+                    powerful event handling patterns called
+                    <em>event delegation</em>.
+                  </p>
+                  <p>
+                    The idea is that if we have a lot of elements handled in a
+                    similar way, then instead of assigning a handler to each of
+                    them – we put a single handler on their common ancestor.
+                  </p>
+                  <p>
+                    In the handler we get <code>event.target</code> to see where
+                    the event actually happened and handle it.
+                  </p>
+                  <p>
+                    Let’s see an example – the
+                    <a href="http://en.wikipedia.org/wiki/Ba_gua"
+                      >Ba-Gua diagram</a
+                    >
+                    reflecting the ancient Chinese philosophy.
+                  </p>
+                  <p>Here it is:</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar">
+                      <div class="toolbar__tool">
+                        <a
+                          href="https://en.js.cx/article/event-delegation/bagua/"
+                          target="_blank"
+                          title="open in new window"
+                          class="toolbar__button toolbar__button_external"
+                        ></a>
+                      </div>
+                      <div class="toolbar__tool">
+                        <a
+                          href="https://plnkr.co/edit/Q6Aafx11IW6CnC8k?p=preview"
+                          target="_blank"
+                          title="open in sandbox"
+                          data-plunk-id="Q6Aafx11IW6CnC8k"
+                          class="toolbar__button toolbar__button_edit"
+                        ></a>
+                      </div>
+                    </div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 350px"
+                      src="https://en.js.cx/article/event-delegation/bagua/"
+                    ></iframe>
+                  </div>
+                  <p>The HTML is like this:</p>
+                  <div id="vty6c0dbpv" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th colspan=&quot;3&quot;&gt;&lt;em&gt;Bagua&lt;/em&gt; Chart: Direction, Element, Color, Meaning&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&quot;nw&quot;&gt;&lt;strong&gt;Northwest&lt;/strong&gt;&lt;br&gt;Metal&lt;br&gt;Silver&lt;br&gt;Elders&lt;/td&gt;
+    &lt;td class=&quot;n&quot;&gt;...&lt;/td&gt;
+    &lt;td class=&quot;ne&quot;&gt;...&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;...2 more lines of this kind...&lt;/tr&gt;
+  &lt;tr&gt;...2 more lines of this kind...&lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The table has 9 cells, but there could be 99 or 9999,
+                    doesn’t matter.
+                  </p>
+                  <p>
+                    <strong
+                      >Our task is to highlight a cell
+                      <code>&lt;td&gt;</code> on click.</strong
+                    >
+                  </p>
+                  <p>
+                    Instead of assign an <code>onclick</code> handler to each
+                    <code>&lt;td&gt;</code> (can be many) – we’ll setup the
+                    “catch-all” handler on <code>&lt;table&gt;</code> element.
+                  </p>
+                  <p>
+                    It will use <code>event.target</code> to get the clicked
+                    element and highlight it.
+                  </p>
+                  <p>The code:</p>
+                  <div
+                    id="mg0tef6prf"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":2,"end":8}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let selectedTd;
+
+table.onclick = function(event) {
+  let target = event.target; // where was the click?
+
+  if (target.tagName != 'TD') return; // not on TD? Then we're not interested
+
+  highlight(target); // highlight it
+};
+
+function highlight(td) {
+  if (selectedTd) { // remove the existing highlight if any
+    selectedTd.classList.remove('highlight');
+  }
+  selectedTd = td;
+  selectedTd.classList.add('highlight'); // highlight the new td
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Such a code doesn’t care how many cells there are in the
+                    table. We can add/remove <code>&lt;td&gt;</code> dynamically
+                    at any time and the highlighting will still work.
+                  </p>
+                  <p>Still, there’s a drawback.</p>
+                  <p>
+                    The click may occur not on the <code>&lt;td&gt;</code>, but
+                    inside it.
+                  </p>
+                  <p>
+                    In our case if we take a look inside the HTML, we can see
+                    nested tags inside <code>&lt;td&gt;</code>, like
+                    <code>&lt;strong&gt;</code>:
+                  </p>
+                  <div
+                    id="v6cxwrhm8f"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":1,"end":1}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;td&gt;
+  &lt;strong&gt;Northwest&lt;/strong&gt;
+  ...
+&lt;/td&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Naturally, if a click happens on that
+                    <code>&lt;strong&gt;</code> then it becomes the value of
+                    <code>event.target</code>.
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 369px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 58.536585365853654%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/event-delegation/bagua-bubble.svg"
+                        width="369"
+                        height="216"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/event-delegation/bagua-bubble.svg"
+                          alt=""
+                          width="369"
+                          height="216"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    In the handler <code>table.onclick</code> we should take
+                    such <code>event.target</code> and find out whether the
+                    click was inside <code>&lt;td&gt;</code> or not.
+                  </p>
+                  <p>Here’s the improved code:</p>
+                  <div id="07cle9ch6v" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>table.onclick = function(event) {
+  let td = event.target.closest('td'); // (1)
+
+  if (!td) return; // (2)
+
+  if (!table.contains(td)) return; // (3)
+
+  highlight(td); // (4)
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Explanations:</p>
+                  <ol>
+                    <li>
+                      The method <code>elem.closest(selector)</code> returns the
+                      nearest ancestor that matches the selector. In our case we
+                      look for <code>&lt;td&gt;</code> on the way up from the
+                      source element.
+                    </li>
+                    <li>
+                      If <code>event.target</code> is not inside any
+                      <code>&lt;td&gt;</code>, then the call returns
+                      immediately, as there’s nothing to do.
+                    </li>
+                    <li>
+                      In case of nested tables, <code>event.target</code> may be
+                      a <code>&lt;td&gt;</code>, but lying outside of the
+                      current table. So we check if that’s actually
+                      <em>our table’s</em> <code>&lt;td&gt;</code>.
+                    </li>
+                    <li>And, if it’s so, then highlight it.</li>
+                  </ol>
+                  <p>
+                    As the result, we have a fast, efficient highlighting code,
+                    that doesn’t care about the total number of
+                    <code>&lt;td&gt;</code> in the table.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="delegation-example-actions-in-markup"
+                      href="event-delegation.html#delegation-example-actions-in-markup"
+                      >Delegation example: actions in markup</a
+                    >
+                  </h2>
+                  <p>There are other uses for event delegation.</p>
+                  <p>
+                    Let’s say, we want to make a menu with buttons “Save”,
+                    “Load”, “Search” and so on. And there’s an object with
+                    methods <code>save</code>, <code>load</code>,
+                    <code>search</code>… How to match them?
+                  </p>
+                  <p>
+                    The first idea may be to assign a separate handler to each
+                    button. But there’s a more elegant solution. We can add a
+                    handler for the whole menu and
+                    <code>data-action</code> attributes for buttons that has the
+                    method to call:
+                  </p>
+                  <div
+                    id="jjp2a4jgob"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":0,"cols":[{"start":8,"end":26}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;button data-action=&quot;save&quot;&gt;Click to Save&lt;/button&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The handler reads the attribute and executes the method.
+                    Take a look at the working example:
+                  </p>
+                  <div
+                    id="v0pisjt7s8"
+                    data-trusted="0"
+                    class="code-example"
+                    data-demo-height="60"
+                    data-highlight='[{"start":26,"end":29}]'
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="event-delegation.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="event-delegation.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;div id=&quot;menu&quot;&gt;
+  &lt;button data-action=&quot;save&quot;&gt;Save&lt;/button&gt;
+  &lt;button data-action=&quot;load&quot;&gt;Load&lt;/button&gt;
+  &lt;button data-action=&quot;search&quot;&gt;Search&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  class Menu {
+    constructor(elem) {
+      this._elem = elem;
+      elem.onclick = this.onClick.bind(this); // (*)
+    }
+
+    save() {
+      alert('saving');
+    }
+
+    load() {
+      alert('loading');
+    }
+
+    search() {
+      alert('searching');
+    }
+
+    onClick(event) {
+      let action = event.target.dataset.action;
+      if (action) {
+        this[action]();
+      }
+    };
+  }
+
+  new Menu(menu);
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-v0pisjt7s8"
+                        style="height: 60px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>
+                    Please note that <code>this.onClick</code> is bound to
+                    <code>this</code> in <code>(*)</code>. That’s important,
+                    because otherwise <code>this</code> inside it would
+                    reference the DOM element (<code>elem</code>), not the
+                    <code>Menu</code> object, and
+                    <code>this[action]</code> would not be what we need.
+                  </p>
+                  <p>So, what advantages does delegation give us here?</p>
+                  <div class="balance balance_single">
+                    <div class="balance__pluses">
+                      <div class="balance__content">
+                        <ul class="balance__list">
+                          <li>
+                            We don’t need to write the code to assign a handler
+                            to each button. Just make a method and put it in the
+                            markup.
+                          </li>
+                          <li>
+                            The HTML structure is flexible, we can add/remove
+                            buttons at any time.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We could also use classes <code>.action-save</code>,
+                    <code>.action-load</code>, but an attribute
+                    <code>data-action</code> is better semantically. And we can
+                    use it in CSS rules too.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="the-behavior-pattern"
+                      href="event-delegation.html#the-behavior-pattern"
+                      >The “behavior” pattern</a
+                    >
+                  </h2>
+                  <p>
+                    We can also use event delegation to add “behaviors” to
+                    elements <em>declaratively</em>, with special attributes and
+                    classes.
+                  </p>
+                  <p>The pattern has two parts:</p>
+                  <ol>
+                    <li>
+                      We add a custom attribute to an element that describes its
+                      behavior.
+                    </li>
+                    <li>
+                      A document-wide handler tracks events, and if an event
+                      happens on an attributed element – performs the action.
+                    </li>
+                  </ol>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="behavior-counter"
+                      href="event-delegation.html#behavior-counter"
+                      >Behavior: Counter</a
+                    >
+                  </h3>
+                  <p>
+                    For instance, here the attribute
+                    <code>data-counter</code> adds a behavior: “increase value
+                    on click” to buttons:
+                  </p>
+                  <div
+                    id="3twzutybe3"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="60"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="event-delegation.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="event-delegation.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>Counter: &lt;input type=&quot;button&quot; value=&quot;1&quot; data-counter&gt;
+One more counter: &lt;input type=&quot;button&quot; value=&quot;2&quot; data-counter&gt;
+
+&lt;script&gt;
+  document.addEventListener('click', function(event) {
+
+    if (event.target.dataset.counter != undefined) { // if the attribute exists...
+      event.target.value++;
+    }
+
+  });
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-3twzutybe3"
+                        style="height: 60px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>
+                    If we click a button – its value is increased. Not buttons,
+                    but the general approach is important here.
+                  </p>
+                  <p>
+                    There can be as many attributes with
+                    <code>data-counter</code> as we want. We can add new ones to
+                    HTML at any moment. Using the event delegation we “extended”
+                    HTML, added an attribute that describes a new behavior.
+                  </p>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >For document-level handlers – always
+                        <code>addEventListener</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        When we assign an event handler to the
+                        <code>document</code> object, we should always use
+                        <code>addEventListener</code>, not
+                        <code>document.on&lt;event&gt;</code>, because the
+                        latter will cause conflicts: new handlers overwrite old
+                        ones.
+                      </p>
+                      <p>
+                        For real projects it’s normal that there are many
+                        handlers on <code>document</code> set by different parts
+                        of the code.
+                      </p>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="behavior-toggler"
+                      href="event-delegation.html#behavior-toggler"
+                      >Behavior: Toggler</a
+                    >
+                  </h3>
+                  <p>
+                    One more example of behavior. A click on an element with the
+                    attribute <code>data-toggle-id</code> will show/hide the
+                    element with the given <code>id</code>:
+                  </p>
+                  <div
+                    id="u1ly17hq4j"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="60"
+                    data-highlight='[{"start":9,"end":16},{"start":0,"cols":[{"start":8,"end":39}]}]'
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="event-delegation.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="event-delegation.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;button data-toggle-id=&quot;subscribe-mail&quot;&gt;
+  Show the subscription form
+&lt;/button&gt;
+
+&lt;form id=&quot;subscribe-mail&quot; hidden&gt;
+  Your mail: &lt;input type=&quot;email&quot;&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+  document.addEventListener('click', function(event) {
+    let id = event.target.dataset.toggleId;
+    if (!id) return;
+
+    let elem = document.getElementById(id);
+
+    elem.hidden = !elem.hidden;
+  });
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-u1ly17hq4j"
+                        style="height: 60px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>
+                    Let’s note once again what we did. Now, to add toggling
+                    functionality to an element – there’s no need to know
+                    JavaScript, just use the attribute
+                    <code>data-toggle-id</code>.
+                  </p>
+                  <p>
+                    That may become really convenient – no need to write
+                    JavaScript for every such element. Just use the behavior.
+                    The document-level handler makes it work for any element of
+                    the page.
+                  </p>
+                  <p>
+                    We can combine multiple behaviors on a single element as
+                    well.
+                  </p>
+                  <p>
+                    The “behavior” pattern can be an alternative to
+                    mini-fragments of JavaScript.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="event-delegation.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    Event delegation is really cool! It’s one of the most
+                    helpful patterns for DOM events.
+                  </p>
+                  <p>
+                    It’s often used to add the same handling for many similar
+                    elements, but not only for that.
+                  </p>
+                  <p>The algorithm:</p>
+                  <ol>
+                    <li>Put a single handler on the container.</li>
+                    <li>
+                      In the handler – check the source element
+                      <code>event.target</code>.
+                    </li>
+                    <li>
+                      If the event happened inside an element that interests us,
+                      then handle the event.
+                    </li>
+                  </ol>
+                  <p>Benefits:</p>
+                  <div class="balance balance_single">
+                    <div class="balance__pluses">
+                      <div class="balance__content">
+                        <ul class="balance__list">
+                          <li>
+                            Simplifies initialization and saves memory: no need
+                            to add many handlers.
+                          </li>
+                          <li>
+                            Less code: when adding or removing elements, no need
+                            to add/remove handlers.
+                          </li>
+                          <li>
+                            DOM modifications: we can mass add/remove elements
+                            with <code>innerHTML</code> and the like.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The delegation has its limitations of course:</p>
+                  <div class="balance balance_single">
+                    <div class="balance__minuses">
+                      <div class="balance__content">
+                        <ul class="balance__list">
+                          <li>
+                            First, the event must be bubbling. Some events do
+                            not bubble. Also, low-level handlers should not use
+                            <code>event.stopPropagation()</code>.
+                          </li>
+                          <li>
+                            Second, the delegation may add CPU load, because the
+                            container-level handler reacts on events in any
+                            place of the container, no matter whether they
+                            interest us or not. But usually the load is
+                            negligible, so we don’t take it into account.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="event-delegation.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="event-delegation.html#hide-messages-with-delegation"
+                          name="hide-messages-with-delegation"
+                          >Hide messages with delegation</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/hide-message-delegate.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          There’s a list of messages with removal buttons
+                          <code>[x]</code>. Make the buttons work.
+                        </p>
+                        <p>Like this:</p>
+                        <div class="code-result">
+                          <div class="code-result__toolbar toolbar"></div>
+                          <iframe
+                            class="code-result__iframe"
+                            data-trusted="1"
+                            style="height: 420px"
+                            src="https://en.js.cx/task/hide-message-delegate/solution/"
+                          ></iframe>
+                        </div>
+                        <p>
+                          P.S. Should be only one event listener on the
+                          container, use event delegation.
+                        </p>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/yJWlA1LCUowhwVGG?p=preview"
+                            target="_blank"
+                            data-plunk-id="yJWlA1LCUowhwVGG"
+                            >Open a sandbox for the task.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/06hFpY54nWey2nDO?p=preview"
+                                target="_blank"
+                                data-plunk-id="06hFpY54nWey2nDO"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="event-delegation.html#tree-menu"
+                          name="tree-menu"
+                          >Tree menu</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/sliding-tree.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Create a tree that shows/hides node children on click:
+                        </p>
+                        <div class="code-result">
+                          <div class="code-result__toolbar toolbar"></div>
+                          <iframe
+                            class="code-result__iframe"
+                            data-trusted="1"
+                            style="height: 300px"
+                            src="https://en.js.cx/task/sliding-tree/solution/"
+                          ></iframe>
+                        </div>
+                        <p>Requirements:</p>
+                        <ul>
+                          <li>Only one event handler (use delegation)</li>
+                          <li>
+                            A click outside the node title (on an empty space)
+                            should not do anything.
+                          </li>
+                        </ul>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/zQFuLhTPX4lkrokp?p=preview"
+                            target="_blank"
+                            data-plunk-id="zQFuLhTPX4lkrokp"
+                            >Open a sandbox for the task.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>The solution has two parts.</p>
+                            <ol>
+                              <li>
+                                Wrap every tree node title into
+                                <code>&lt;span&gt;</code>. Then we can CSS-style
+                                them on <code>:hover</code> and handle clicks
+                                exactly on text, because
+                                <code>&lt;span&gt;</code> width is exactly the
+                                text width (unlike without it).
+                              </li>
+                              <li>
+                                Set a handler to the <code>tree</code> root node
+                                and handle clicks on that
+                                <code>&lt;span&gt;</code> titles.
+                              </li>
+                            </ol>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/efPMXY7fSzxUXW5H?p=preview"
+                                target="_blank"
+                                data-plunk-id="efPMXY7fSzxUXW5H"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="event-delegation.html#sortable-table"
+                          name="sortable-table"
+                          >Sortable table</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/sortable-table.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 4</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Make the table sortable: clicks on
+                          <code>&lt;th&gt;</code> elements should sort it by
+                          corresponding column.
+                        </p>
+                        <p>
+                          Each <code>&lt;th&gt;</code> has the type in the
+                          attribute, like this:
+                        </p>
+                        <div
+                          id="caeo776wgk"
+                          data-trusted="1"
+                          class="code-example"
+                          data-highlight='[{"start":3,"end":4}]'
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-markup"
+                              ><code>&lt;table id=&quot;grid&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th data-type=&quot;number&quot;&gt;Age&lt;/th&gt;
+      &lt;th data-type=&quot;string&quot;&gt;Name&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;John&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;10&lt;/td&gt;
+      &lt;td&gt;Ann&lt;/td&gt;
+    &lt;/tr&gt;
+    ...
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          In the example above the first column has numbers, and
+                          the second one – strings. The sorting function should
+                          handle sort according to the type.
+                        </p>
+                        <p>
+                          Only <code>&quot;string&quot;</code> and
+                          <code>&quot;number&quot;</code> types should be
+                          supported.
+                        </p>
+                        <p>The working example:</p>
+                        <div class="code-result">
+                          <div class="code-result__toolbar toolbar"></div>
+                          <iframe
+                            class="code-result__iframe"
+                            data-trusted="1"
+                            style="height: 190px"
+                            src="https://en.js.cx/task/sortable-table/solution/"
+                          ></iframe>
+                        </div>
+                        <p>
+                          P.S. The table can be big, with any number of rows and
+                          columns.
+                        </p>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/Xy6bIm1THcPADrDN?p=preview"
+                            target="_blank"
+                            data-plunk-id="Xy6bIm1THcPADrDN"
+                            >Open a sandbox for the task.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/Rj3l3JQZitAV3wPm?p=preview"
+                                target="_blank"
+                                data-plunk-id="Rj3l3JQZitAV3wPm"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="event-delegation.html#tooltip-behavior"
+                          name="tooltip-behavior"
+                          >Tooltip behavior</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/behavior-tooltip.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>Create JS-code for the tooltip behavior.</p>
+                        <p>
+                          When a mouse comes over an element with
+                          <code>data-tooltip</code>, the tooltip should appear
+                          over it, and when it’s gone then hide.
+                        </p>
+                        <p>An example of annotated HTML:</p>
+                        <div
+                          id="slofyv86u3"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-markup"
+                              ><code>&lt;button data-tooltip=&quot;the tooltip is longer than the element&quot;&gt;Short button&lt;/button&gt;
+&lt;button data-tooltip=&quot;HTML&lt;br&gt;tooltip&quot;&gt;One more button&lt;/button&gt;</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>Should work like this:</p>
+                        <div class="code-result">
+                          <div class="code-result__toolbar toolbar"></div>
+                          <iframe
+                            class="code-result__iframe"
+                            data-trusted="1"
+                            style="height: 200px"
+                            src="https://en.js.cx/task/behavior-tooltip/solution/"
+                          ></iframe>
+                        </div>
+                        <p>
+                          In this task we assume that all elements with
+                          <code>data-tooltip</code> have only text inside. No
+                          nested tags (yet).
+                        </p>
+                        <p>Details:</p>
+                        <ul>
+                          <li>
+                            The distance between the element and the tooltip
+                            should be <code>5px</code>.
+                          </li>
+                          <li>
+                            The tooltip should be centered relative to the
+                            element, if possible.
+                          </li>
+                          <li>
+                            The tooltip should not cross window edges. Normally
+                            it should be above the element, but if the element
+                            is at the page top and there’s no space for the
+                            tooltip, then below it.
+                          </li>
+                          <li>
+                            The tooltip content is given in the
+                            <code>data-tooltip</code> attribute. It can be
+                            arbitrary HTML.
+                          </li>
+                        </ul>
+                        <p>You’ll need two events here:</p>
+                        <ul>
+                          <li>
+                            <code>mouseover</code> triggers when a pointer comes
+                            over an element.
+                          </li>
+                          <li>
+                            <code>mouseout</code> triggers when a pointer leaves
+                            an element.
+                          </li>
+                        </ul>
+                        <p>
+                          Please use event delegation: set up two handlers on
+                          <code>document</code> to track all “overs” and “outs”
+                          from elements with <code>data-tooltip</code> and
+                          manage tooltips from there.
+                        </p>
+                        <p>
+                          After the behavior is implemented, even people
+                          unfamiliar with JavaScript can add annotated elements.
+                        </p>
+                        <p>P.S. Only one tooltip may show up at a time.</p>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/qzyeY4q7GxRXgqc2?p=preview"
+                            target="_blank"
+                            data-plunk-id="qzyeY4q7GxRXgqc2"
+                            >Open a sandbox for the task.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/YkcXZKcB8AUpLuZN?p=preview"
+                                target="_blank"
+                                data-plunk-id="YkcXZKcB8AUpLuZN"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="bubbling-and-capturing.html"
+                data-tooltip="Bubbling and capturing"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="default-browser-action.html"
+                data-tooltip="Browser default actions"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fevent-delegation"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevent-delegation"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="event-delegation.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/event-delegation",
+                    identifier: "\/event-delegation",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="events.html"
+                        >Introduction to Events</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   event-delegation.html#delegation-example-actions-in-markup"
+                        >Delegation example: actions in markup</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   event-delegation.html#the-behavior-pattern"
+                        >The “behavior” pattern</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   event-delegation.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   event-delegation.html#tasks"
+                        >Tasks (4)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   event-delegation.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fevent-delegation"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fevent-delegation"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/2-events/03-event-delegation"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
