@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Arrow functions, the basics</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="arrow-functions-basics.html" />
+
+    <link rel="icon" href="img/favicon/favicon.png" />
+  
+    <meta property="og:title" content="Arrow functions, the basics" />
+
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Arrow functions, the basics" />
+
+
+    <link rel="prev" href="function-expressions.html" />
+    <link rel="next" href="javascript-specials.html" />
+
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Arrow functions, the basics" />
+
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/arrow-functions-basics"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="arrow-functions-basics.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/arrow-functions-basics"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                    arrow-functions-basics"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/arrow-functions-basics"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/arrow-functions-basics"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/arrow-functions-basics"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=arrow-functions-basics"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/arrow-functions-basics"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/arrow-functions-basics"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span>简体中文</span></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a>
+                        the content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+   
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Farrow-functions-basics"
+                  rel="nofollow"
+                ></a
+                >2Farrow-functions-basics
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option
+                  value="https://ar.javascript.info/arrow-functions-basics"
+                >
+                  عربي
+                </option>
+                <option
+                  value="https://javascript.info/arrow-functions-basics"
+                  selected
+                >
+                  English
+                </option>
+                <option
+                  value="https://es.javascript.info/arrow-functions-basics"
+                >
+                  Español
+                </option>
+                <option
+                  value="https://fr.javascript.info/arrow-functions-basics"
+                >
+                  Français
+                </option>
+                <option
+                  value="https://it.javascript.info/arrow-functions-basics"
+                >
+                  Italiano
+                </option>
+                <option
+                  value="https://ja.javascript.info/arrow-functions-basics"
+                >
+                  日本語
+                </option>
+                <option
+                  value="https://ko.javascript.info/arrow-functions-basics"
+                >
+                  한국어
+                </option>
+                <option
+                  value=arrow-functions-basics"
+         arrow-functions-basics"
+       arrow-functions-basics"
+   
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="21"
+          max="92"
+          data-tooltip="Lesson 21 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="first-steps.html"
+                        ><span>JavaScript Fundamentals</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "JavaScript Fundamentals",
+                            "item": "https://javascript.info/first-steps"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 15th March 2021"
+                  >
+                    <div class="updated-at__content">15th March 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Arrow functions, the basics</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Arrow functions, the basics" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    There’s another very simple and concise syntax for creating
+                    functions, that’s often better than Function Expressions.
+                  </p>
+                  <p>
+                    It’s called “arrow functions”, because it looks like this:
+                  </p>
+                  <div id="euzuuyzjgg" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let func = (arg1, arg2, ..., argN) =&gt; expression</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …This creates a function <code>func</code> that accepts
+                    arguments <code>arg1..argN</code>, then evaluates the
+                    <code>expression</code> on the right side with their use and
+                    returns its result.
+                  </p>
+                  <p>In other words, it’s the shorter version of:</p>
+                  <div id="3z6oe5d0pa" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let func = function(arg1, arg2, ..., argN) {
+  return expression;
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Let’s see a concrete example:</p>
+                  <div id="7k0ppxy55z" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="arrow-functions-basics.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="arrow-functions-basics.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let sum = (a, b) =&gt; a + b;
+
+/* This arrow function is a shorter form of:
+
+let sum = function(a, b) {
+  return a + b;
+};
+*/
+
+alert( sum(1, 2) ); // 3</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As you can, see <code>(a, b) =&gt; a + b</code> means a
+                    function that accepts two arguments named <code>a</code> and
+                    <code>b</code>. Upon the execution, it evaluates the
+                    expression <code>a + b</code> and returns the result.
+                  </p>
+                  <ul>
+                    <li>
+                      <p>
+                        If we have only one argument, then parentheses around
+                        parameters can be omitted, making that even shorter.
+                      </p>
+                      <p>For example:</p>
+                      <div
+                        id="i7a3dg6atj"
+                        data-trusted="1"
+                        class="code-example"
+                        data-highlight='[{"start":0,"end":1}]'
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="arrow-functions-basics.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="arrow-functions-basics.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let double = n =&gt; n * 2;
+// roughly the same as: let double = function(n) { return n * 2 }
+
+alert( double(3) ); // 6</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        If there are no arguments, parentheses will be empty
+                        (but they should be present):
+                      </p>
+                      <div
+                        id="d7cpf34amy"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="arrow-functions-basics.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="arrow-functions-basics.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let sayHi = () =&gt; alert(&quot;Hello!&quot;);
+
+sayHi();</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <p>
+                    Arrow functions can be used in the same way as Function
+                    Expressions.
+                  </p>
+                  <p>For instance, to dynamically create a function:</p>
+                  <div id="8x3eqbtkeb" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="arrow-functions-basics.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="arrow-functions-basics.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let age = prompt(&quot;What is your age?&quot;, 18);
+
+let welcome = (age &lt; 18) ?
+  () =&gt; alert('Hello') :
+  () =&gt; alert(&quot;Greetings!&quot;);
+
+welcome();</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Arrow functions may appear unfamiliar and not very readable
+                    at first, but that quickly changes as the eyes get used to
+                    the structure.
+                  </p>
+                  <p>
+                    They are very convenient for simple one-line actions, when
+                    we’re just too lazy to write many words.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="multiline-arrow-functions"
+                      href="arrow-functions-basics.html#multiline-arrow-functions"
+                      >Multiline arrow functions</a
+                    >
+                  </h2>
+                  <p>
+                    The examples above took arguments from the left of
+                    <code>=&gt;</code> and evaluated the right-side expression
+                    with them.
+                  </p>
+                  <p>
+                    Sometimes we need something a little bit more complex, like
+                    multiple expressions or statements. It is also possible, but
+                    we should enclose them in curly braces. Then use a normal
+                    <code>return</code> within them.
+                  </p>
+                  <p>Like this:</p>
+                  <div
+                    id="8akvpmr0gv"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":2,"end":2}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="arrow-functions-basics.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="arrow-functions-basics.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let sum = (a, b) =&gt; {  // the curly brace opens a multiline function
+  let result = a + b;
+  return result; // if we use curly braces, then we need an explicit &quot;return&quot;
+};
+
+alert( sum(1, 2) ); // 3</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">More to come</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Here we praised arrow functions for brevity. But that’s
+                        not all!
+                      </p>
+                      <p>Arrow functions have other interesting features.</p>
+                      <p>
+                        To study them in-depth, we first need to get to know
+                        some other aspects of JavaScript, so we’ll return to
+                        arrow functions later in the chapter
+                        <a href="arrow-functions.html"
+                          >Arrow functions revisited</a
+                        >.
+                      </p>
+                      <p>
+                        For now, we can already use arrow functions for one-line
+                        actions and callbacks.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="arrow-functions-basics.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    Arrow functions are handy for one-liners. They come in two
+                    flavors:
+                  </p>
+                  <ol>
+                    <li>
+                      Without curly braces:
+                      <code>(...args) =&gt; expression</code> – the right side
+                      is an expression: the function evaluates it and returns
+                      the result.
+                    </li>
+                    <li>
+                      With curly braces: <code>(...args) =&gt; { body }</code> –
+                      brackets allow us to write multiple statements inside the
+                      function, but we need an explicit <code>return</code> to
+                      return something.
+                    </li>
+                  </ol>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="arrow-functions-basics.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="arrow-functions-basics.html#rewrite-with-arrow-functions"
+                          name="rewrite-with-arrow-functions"
+                          >Rewrite with arrow functions</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/rewrite-arrow.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note"></div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Replace Function Expressions with arrow functions in
+                          the code below:
+                        </p>
+                        <div
+                          id="voecqclzbr"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="toolbar codebox__toolbar">
+                              <div class="toolbar__tool">
+                                <a
+                                  href="arrow-functions-basics.html#"
+                                  title="run"
+                                  data-action="run"
+                                  class="toolbar__button toolbar__button_run"
+                                ></a>
+                              </div>
+                              <div class="toolbar__tool">
+                                <a
+                                  href="arrow-functions-basics.html#"
+                                  title="open in sandbox"
+                                  target="_blank"
+                                  data-action="edit"
+                                  class="toolbar__button toolbar__button_edit"
+                                ></a>
+                              </div>
+                            </div>
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function ask(question, yes, no) {
+  if (confirm(question)) yes();
+  else no();
+}
+
+ask(
+  &quot;Do you agree?&quot;,
+  function() { alert(&quot;You agreed.&quot;); },
+  function() { alert(&quot;You canceled the execution.&quot;); }
+);</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <div
+                              id="ym8ni0o6n8"
+                              data-trusted="1"
+                              class="code-example"
+                              data-highlight='[{"start":7,"end":8}]'
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="arrow-functions-basics.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="arrow-functions-basics.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function ask(question, yes, no) {
+  if (confirm(question)) yes();
+  else no();
+}
+
+ask(
+  &quot;Do you agree?&quot;,
+  () =&gt; alert(&quot;You agreed.&quot;),
+  () =&gt; alert(&quot;You canceled the execution.&quot;)
+);</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>Looks short and clean, right?</p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="function-expressions.html"
+                data-tooltip="Function expressions"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="javascript-specials.html"
+                data-tooltip="JavaScript specials"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Farrow-functions-basics"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Farrow-functions-basics"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="arrow-functions-basics.html name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                        
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/arrow-functions-basics",
+                    identifier: "\/arrow-functions-basics",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+
+                      <a class="sidebar__link" href="first-steps.html"
+                        >JavaScript Fundamentals</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+
+                   arrow-functions-basics.html#multiline-arrow-functions"
+                        >Multiline arrow functions</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   arrow-functions-basics.html
+                  </ul>
+                </nav>
+
+                   arrow-functions-basics.html#tasks"
+                        >Tasks (1)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   arrow-functions-basics.html
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Farrow-functions-basics"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Farrow-functions-basics"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps/17-arrow-functions-basics"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      
+    </div>
+  </body>
+</html>

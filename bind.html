@@ -1,0 +1,2105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Function binding</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="bind.html" />
+
+    <link rel="icon" href="img/favicon/favicon.png" />
+  
+    <meta property="og:title" content="Function binding" />
+
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Function binding" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="call-apply-decorators.html" />
+    <link rel="next" href="arrow-functions.html" />
+
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.0/lodash.min.js"></script>
+    <script>
+      function mul(a, b) {
+        return a * b;
+      }
+
+      function ask(question, answer, ok, fail) {
+        let result = prompt(question, "");
+        if (result.toLowerCase() == answer.toLowerCase()) ok();
+        else fail();
+      }
+
+      function bind(func, context /*, args*/) {
+        let bindArgs = [].slice.call(arguments, 2); // (1)
+        function wrapper() {
+          // (2)
+          let args = [].slice.call(arguments);
+          let unshiftArgs = bindArgs.concat(args); // (3)
+          return func.apply(context, unshiftArgs); // (4)
+        }
+        return wrapper;
+      }
+    </script>
+    <meta property="og:title" content="Function binding" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/bind"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a class="supported-langs__link" href="bind.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/bind"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                    "
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/bind"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/bind"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/bind"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=bind"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/bind"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/bind"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span>简体中文</span></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a>
+                        the content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+   
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fbind"
+                  rel="nofollow"
+                ></a
+                >2Fbind
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/bind">عربي</option>
+                <option value="https://javascript.info/bind" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/bind">Español</option>
+                <option value="https://fr.javascript.info/">Français</option>
+                <option value="https://it.javascript.info/bind">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/bind">日本語</option>
+                <option value="https://ko.javascript.info/bind">한국어</option>
+                <option value=bind">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/bind">Türkçe</option>
+                <option value="https://zh.javascript.info/bind">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="58"
+          max="92"
+          data-tooltip="Lesson 58 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a
+                        class="breadcrumbs__link"
+                        href="advanced-functions.html"
+                        ><span>Advanced working with functions</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Advanced working with functions",
+                            "item": "https://javascript.info/advanced-functions"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 8th January 2021"
+                  >
+                    <div class="updated-at__content">8th January 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Function binding</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Function binding" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    When passing object methods as callbacks, for instance to
+                    <code>setTimeout</code>, there’s a known problem:
+                    &quot;losing <code>this</code>&quot;.
+                  </p>
+                  <p>In this chapter we’ll see the ways to fix it.</p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="losing-this"
+                      href="bind.html#losing-this"
+                      >Losing “this”</a
+                    >
+                  </h2>
+                  <p>
+                    We’ve already seen examples of losing <code>this</code>.
+                    Once a method is passed somewhere separately from the object
+                    – <code>this</code> is lost.
+                  </p>
+                  <p>Here’s how it may happen with <code>setTimeout</code>:</p>
+                  <div
+                    id="uhqixl0l4l"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":7,"end":7}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  firstName: &quot;John&quot;,
+  sayHi() {
+    alert(`Hello, ${this.firstName}!`);
+  }
+};
+
+setTimeout(user.sayHi, 1000); // Hello, undefined!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As we can see, the output shows not “John” as
+                    <code>this.firstName</code>, but <code>undefined</code>!
+                  </p>
+                  <p>
+                    That’s because <code>setTimeout</code> got the function
+                    <code>user.sayHi</code>, separately from the object. The
+                    last line can be rewritten as:
+                  </p>
+                  <div id="vkfukgj66i" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let f = user.sayHi;
+setTimeout(f, 1000); // lost user context</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The method <code>setTimeout</code> in-browser is a little
+                    special: it sets <code>this=window</code> for the function
+                    call (for Node.js, <code>this</code> becomes the timer
+                    object, but doesn’t really matter here). So for
+                    <code>this.firstName</code> it tries to get
+                    <code>window.firstName</code>, which does not exist. In
+                    other similar cases, usually <code>this</code> just becomes
+                    <code>undefined</code>.
+                  </p>
+                  <p>
+                    The task is quite typical – we want to pass an object method
+                    somewhere else (here – to the scheduler) where it will be
+                    called. How to make sure that it will be called in the right
+                    context?
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="solution-1-a-wrapper"
+                      href="bind.html#solution-1-a-wrapper"
+                      >Solution 1: a wrapper</a
+                    >
+                  </h2>
+                  <p>The simplest solution is to use a wrapping function:</p>
+                  <div
+                    id="uhd6fcpvc5"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":7,"end":9}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  firstName: &quot;John&quot;,
+  sayHi() {
+    alert(`Hello, ${this.firstName}!`);
+  }
+};
+
+setTimeout(function() {
+  user.sayHi(); // Hello, John!
+}, 1000);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now it works, because it receives <code>user</code> from the
+                    outer lexical environment, and then calls the method
+                    normally.
+                  </p>
+                  <p>The same, but shorter:</p>
+                  <div id="sq2nxd27ln" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>setTimeout(() =&gt; user.sayHi(), 1000); // Hello, John!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Looks fine, but a slight vulnerability appears in our code
+                    structure.
+                  </p>
+                  <p>
+                    What if before <code>setTimeout</code> triggers (there’s one
+                    second delay!) <code>user</code> changes value? Then,
+                    suddenly, it will call the wrong object!
+                  </p>
+                  <div id="400cb5gh47" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  firstName: &quot;John&quot;,
+  sayHi() {
+    alert(`Hello, ${this.firstName}!`);
+  }
+};
+
+setTimeout(() =&gt; user.sayHi(), 1000);
+
+// ...the value of user changes within 1 second
+user = {
+  sayHi() { alert(&quot;Another user in setTimeout!&quot;); }
+};
+
+// Another user in setTimeout!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The next solution guarantees that such thing won’t happen.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="solution-2-bind"
+                      href="bind.html#solution-2-bind"
+                      >Solution 2: bind</a
+                    >
+                  </h2>
+                  <p>
+                    Functions provide a built-in method
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind"
+                      >bind</a
+                    >
+                    that allows to fix <code>this</code>.
+                  </p>
+                  <p>The basic syntax is:</p>
+                  <div id="x3vb8i832p" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// more complex syntax will come a little later
+let boundFunc = func.bind(context);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The result of <code>func.bind(context)</code> is a special
+                    function-like “exotic object”, that is callable as function
+                    and transparently passes the call to
+                    <code>func</code> setting <code>this=context</code>.
+                  </p>
+                  <p>
+                    In other words, calling <code>boundFunc</code> is like
+                    <code>func</code> with fixed <code>this</code>.
+                  </p>
+                  <p>
+                    For instance, here <code>funcUser</code> passes a call to
+                    <code>func</code> with <code>this=user</code>:
+                  </p>
+                  <div
+                    id="4w90eanj49"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":8,"end":9}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  firstName: &quot;John&quot;
+};
+
+function func() {
+  alert(this.firstName);
+}
+
+let funcUser = func.bind(user);
+funcUser(); // John</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here <code>func.bind(user)</code> as a “bound variant” of
+                    <code>func</code>, with fixed <code>this=user</code>.
+                  </p>
+                  <p>
+                    All arguments are passed to the original
+                    <code>func</code> “as is”, for instance:
+                  </p>
+                  <div
+                    id="crvyjnu7x4"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":11,"end":11}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  firstName: &quot;John&quot;
+};
+
+function func(phrase) {
+  alert(phrase + ', ' + this.firstName);
+}
+
+// bind this to user
+let funcUser = func.bind(user);
+
+funcUser(&quot;Hello&quot;); // Hello, John (argument &quot;Hello&quot; is passed, and this=user)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Now let’s try with an object method:</p>
+                  <div
+                    id="vn4c05dcu5"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":7,"end":7}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  firstName: &quot;John&quot;,
+  sayHi() {
+    alert(`Hello, ${this.firstName}!`);
+  }
+};
+
+let sayHi = user.sayHi.bind(user); // (*)
+
+// can run it without an object
+sayHi(); // Hello, John!
+
+setTimeout(sayHi, 1000); // Hello, John!
+
+// even if the value of user changes within 1 second
+// sayHi uses the pre-bound value which is reference to the old user object
+user = {
+  sayHi() { alert(&quot;Another user in setTimeout!&quot;); }
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    In the line <code>(*)</code> we take the method
+                    <code>user.sayHi</code> and bind it to <code>user</code>.
+                    The <code>sayHi</code> is a “bound” function, that can be
+                    called alone or passed to <code>setTimeout</code> – doesn’t
+                    matter, the context will be right.
+                  </p>
+                  <p>
+                    Here we can see that arguments are passed “as is”, only
+                    <code>this</code> is fixed by <code>bind</code>:
+                  </p>
+                  <div id="j5424wgddn" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  firstName: &quot;John&quot;,
+  say(phrase) {
+    alert(`${phrase}, ${this.firstName}!`);
+  }
+};
+
+let say = user.say.bind(user);
+
+say(&quot;Hello&quot;); // Hello, John (&quot;Hello&quot; argument is passed to say)
+say(&quot;Bye&quot;); // Bye, John (&quot;Bye&quot; is passed to say)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Convenience method: <code>bindAll</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        If an object has many methods and we plan to actively
+                        pass it around, then we could bind them all in a loop:
+                      </p>
+                      <div
+                        id="ejno20vmlc"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>for (let key in user) {
+  if (typeof user[key] == 'function') {
+    user[key] = user[key].bind(user);
+  }
+}</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        JavaScript libraries also provide functions for
+                        convenient mass binding , e.g.
+                        <a href="http://lodash.com/docs#bindAll"
+                          >_.bindAll(object, methodNames)</a
+                        >
+                        in lodash.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="partial-functions"
+                      href="bind.html#partial-functions"
+                      >Partial functions</a
+                    >
+                  </h2>
+                  <p>
+                    Until now we have only been talking about binding
+                    <code>this</code>. Let’s take it a step further.
+                  </p>
+                  <p>
+                    We can bind not only <code>this</code>, but also arguments.
+                    That’s rarely done, but sometimes can be handy.
+                  </p>
+                  <p>The full syntax of <code>bind</code>:</p>
+                  <div id="pzl21f63pn" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let bound = func.bind(context, [arg1], [arg2], ...);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    It allows to bind context as <code>this</code> and starting
+                    arguments of the function.
+                  </p>
+                  <p>
+                    For instance, we have a multiplication function
+                    <code>mul(a, b)</code>:
+                  </p>
+                  <div id="e9gbh3vzq4" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function mul(a, b) {
+  return a * b;
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Let’s use <code>bind</code> to create a function
+                    <code>double</code> on its base:
+                  </p>
+                  <div
+                    id="q1uxz39yyh"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"end":4}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function mul(a, b) {
+  return a * b;
+}
+
+let double = mul.bind(null, 2);
+
+alert( double(3) ); // = mul(2, 3) = 6
+alert( double(4) ); // = mul(2, 4) = 8
+alert( double(5) ); // = mul(2, 5) = 10</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The call to <code>mul.bind(null, 2)</code> creates a new
+                    function <code>double</code> that passes calls to
+                    <code>mul</code>, fixing <code>null</code> as the context
+                    and <code>2</code> as the first argument. Further arguments
+                    are passed “as is”.
+                  </p>
+                  <p>
+                    That’s called
+                    <a href="https://en.wikipedia.org/wiki/Partial_application"
+                      >partial function application</a
+                    >
+                    – we create a new function by fixing some parameters of the
+                    existing one.
+                  </p>
+                  <p>
+                    Please note that we actually don’t use
+                    <code>this</code> here. But <code>bind</code> requires it,
+                    so we must put in something like <code>null</code>.
+                  </p>
+                  <p>
+                    The function <code>triple</code> in the code below triples
+                    the value:
+                  </p>
+                  <div
+                    id="3j4jdlo8p4"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"end":4}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function mul(a, b) {
+  return a * b;
+}
+
+let triple = mul.bind(null, 3);
+
+alert( triple(3) ); // = mul(3, 3) = 9
+alert( triple(4) ); // = mul(3, 4) = 12
+alert( triple(5) ); // = mul(3, 5) = 15</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Why do we usually make a partial function?</p>
+                  <p>
+                    The benefit is that we can create an independent function
+                    with a readable name (<code>double</code>,
+                    <code>triple</code>). We can use it and not provide the
+                    first argument every time as it’s fixed with
+                    <code>bind</code>.
+                  </p>
+                  <p>
+                    In other cases, partial application is useful when we have a
+                    very generic function and want a less universal variant of
+                    it for convenience.
+                  </p>
+                  <p>
+                    For instance, we have a function
+                    <code>send(from, to, text)</code>. Then, inside a
+                    <code>user</code> object we may want to use a partial
+                    variant of it: <code>sendTo(to, text)</code> that sends from
+                    the current user.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="going-partial-without-context"
+                      href="bind.html#going-partial-without-context"
+                      >Going partial without context</a
+                    >
+                  </h2>
+                  <p>
+                    What if we’d like to fix some arguments, but not the context
+                    <code>this</code>? For example, for an object method.
+                  </p>
+                  <p>
+                    The native <code>bind</code> does not allow that. We can’t
+                    just omit the context and jump to arguments.
+                  </p>
+                  <p>
+                    Fortunately, a function <code>partial</code> for binding
+                    only arguments can be easily implemented.
+                  </p>
+                  <p>Like this:</p>
+                  <div
+                    id="dkis1apsjj"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":0,"end":4}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="bind.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function partial(func, ...argsBound) {
+  return function(...args) { // (*)
+    return func.call(this, ...argsBound, ...args);
+  }
+}
+
+// Usage:
+let user = {
+  firstName: &quot;John&quot;,
+  say(time, phrase) {
+    alert(`[${time}] ${this.firstName}: ${phrase}!`);
+  }
+};
+
+// add a partial method with fixed time
+user.sayNow = partial(user.say, new Date().getHours() + ':' + new Date().getMinutes());
+
+user.sayNow(&quot;Hello&quot;);
+// Something like:
+// [10:00] John: Hello!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The result of
+                    <code>partial(func[, arg1, arg2...])</code> call is a
+                    wrapper <code>(*)</code> that calls <code>func</code> with:
+                  </p>
+                  <ul>
+                    <li>
+                      Same <code>this</code> as it gets (for
+                      <code>user.sayNow</code> call it’s <code>user</code>)
+                    </li>
+                    <li>
+                      Then gives it <code>...argsBound</code> – arguments from
+                      the <code>partial</code> call
+                      (<code>&quot;10:00&quot;</code>)
+                    </li>
+                    <li>
+                      Then gives it <code>...args</code> – arguments given to
+                      the wrapper (<code>&quot;Hello&quot;</code>)
+                    </li>
+                  </ul>
+                  <p>So easy to do it with the spread syntax, right?</p>
+                  <p>
+                    Also there’s a ready
+                    <a href="https://lodash.com/docs#partial">_.partial</a>
+                    implementation from lodash library.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="bind.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    Method <code>func.bind(context, ...args)</code> returns a
+                    “bound variant” of function <code>func</code> that fixes the
+                    context <code>this</code> and first arguments if given.
+                  </p>
+                  <p>
+                    Usually we apply <code>bind</code> to fix
+                    <code>this</code> for an object method, so that we can pass
+                    it somewhere. For example, to <code>setTimeout</code>.
+                  </p>
+                  <p>
+                    When we fix some arguments of an existing function, the
+                    resulting (less universal) function is called
+                    <em>partially applied</em> or <em>partial</em>.
+                  </p>
+                  <p>
+                    Partials are convenient when we don’t want to repeat the
+                    same argument over and over again. Like if we have a
+                    <code>send(from, to)</code> function, and
+                    <code>from</code> should always be the same for our task, we
+                    can get a partial and go on with it.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="bind.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="bind.html#bound-function-as-a-method"
+                          name="bound-function-as-a-method"
+                          >Bound function as a method</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/write-to-object-after-bind.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>What will be the output?</p>
+                        <div
+                          id="3kz0zy52hb"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function f() {
+  alert( this ); // ?
+}
+
+let user = {
+  g: f.bind(null)
+};
+
+user.g();</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>The answer: <code>null</code>.</p>
+                            <div
+                              id="79vwgqf10e"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="bind.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="bind.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function f() {
+  alert( this ); // null
+}
+
+let user = {
+  g: f.bind(null)
+};
+
+user.g();</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              The context of a bound function is hard-fixed.
+                              There’s just no way to further change it.
+                            </p>
+                            <p>
+                              So even while we run <code>user.g()</code>, the
+                              original function is called with
+                              <code>this=null</code>.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="bind.html#second-bind"
+                          name="second-bind"
+                          >Second bind</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/second-bind.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Can we change <code>this</code> by additional binding?
+                        </p>
+                        <p>What will be the output?</p>
+                        <div
+                          id="qo4l5wb9lz"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function f() {
+  alert(this.name);
+}
+
+f = f.bind( {name: &quot;John&quot;} ).bind( {name: &quot;Ann&quot; } );
+
+f();</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>The answer: <strong>John</strong>.</p>
+                            <div
+                              id="5iu9s7mx0r"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="bind.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="bind.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function f() {
+  alert(this.name);
+}
+
+f = f.bind( {name: &quot;John&quot;} ).bind( {name: &quot;Pete&quot;} );
+
+f(); // John</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              The exotic
+                              <a
+                                href="https://tc39.github.io/ecma262/#sec-bound-function-exotic-objects"
+                                >bound function</a
+                              >
+                              object returned by
+                              <code>f.bind(...)</code> remembers the context
+                              (and arguments if provided) only at creation time.
+                            </p>
+                            <p>A function cannot be re-bound.</p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="bind.html#function-property-after-bind"
+                          name="function-property-after-bind"
+                          >Function property after bind</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/function-property-after-bind.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          There’s a value in the property of a function. Will it
+                          change after <code>bind</code>? Why, or why not?
+                        </p>
+                        <div
+                          id="5cl624emaq"
+                          data-trusted="1"
+                          class="code-example"
+                          data-highlight='[{"start":5,"end":9}]'
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="toolbar codebox__toolbar">
+                              <div class="toolbar__tool">
+                                <a
+                                  href="bind.html#"
+                                  title="run"
+                                  data-action="run"
+                                  class="toolbar__button toolbar__button_run"
+                                ></a>
+                              </div>
+                              <div class="toolbar__tool">
+                                <a
+                                  href="bind.html#"
+                                  title="open in sandbox"
+                                  target="_blank"
+                                  data-action="edit"
+                                  class="toolbar__button toolbar__button_edit"
+                                ></a>
+                              </div>
+                            </div>
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function sayHi() {
+  alert( this.name );
+}
+sayHi.test = 5;
+
+let bound = sayHi.bind({
+  name: &quot;John&quot;
+});
+
+alert( bound.test ); // what will be the output? why?</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>The answer: <code>undefined</code>.</p>
+                            <p>
+                              The result of <code>bind</code> is another object.
+                              It does not have the <code>test</code> property.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="bind.html#fix-a-function-that-loses-this"
+                          name="fix-a-function-that-loses-this"
+                          >Fix a function that loses &quot;this&quot;</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/question-use-bind.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          The call to <code>askPassword()</code> in the code
+                          below should check the password and then call
+                          <code>user.loginOk/loginFail</code> depending on the
+                          answer.
+                        </p>
+                        <p>But it leads to an error. Why?</p>
+                        <p>
+                          Fix the highlighted line for everything to start
+                          working right (other lines are not to be changed).
+                        </p>
+                        <div
+                          id="bi9x7yysye"
+                          data-trusted="1"
+                          class="code-example"
+                          data-highlight='[{"start":19,"end":19}]'
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="toolbar codebox__toolbar">
+                              <div class="toolbar__tool">
+                                <a
+                                  href="bind.html#"
+                                  title="run"
+                                  data-action="run"
+                                  class="toolbar__button toolbar__button_run"
+                                ></a>
+                              </div>
+                              <div class="toolbar__tool">
+                                <a
+                                  href="bind.html#"
+                                  title="open in sandbox"
+                                  target="_blank"
+                                  data-action="edit"
+                                  class="toolbar__button toolbar__button_edit"
+                                ></a>
+                              </div>
+                            </div>
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function askPassword(ok, fail) {
+  let password = prompt(&quot;Password?&quot;, '');
+  if (password == &quot;rockstar&quot;) ok();
+  else fail();
+}
+
+let user = {
+  name: 'John',
+
+  loginOk() {
+    alert(`${this.name} logged in`);
+  },
+
+  loginFail() {
+    alert(`${this.name} failed to log in`);
+  },
+
+};
+
+askPassword(user.loginOk, user.loginFail);</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              The error occurs because <code>ask</code> gets
+                              functions <code>loginOk/loginFail</code> without
+                              the object.
+                            </p>
+                            <p>
+                              When it calls them, they naturally assume
+                              <code>this=undefined</code>.
+                            </p>
+                            <p>Let’s <code>bind</code> the context:</p>
+                            <div
+                              id="xg1l3t1cy8"
+                              data-trusted="1"
+                              class="code-example"
+                              data-highlight='[{"start":19,"end":19}]'
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="bind.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="bind.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function askPassword(ok, fail) {
+  let password = prompt(&quot;Password?&quot;, '');
+  if (password == &quot;rockstar&quot;) ok();
+  else fail();
+}
+
+let user = {
+  name: 'John',
+
+  loginOk() {
+    alert(`${this.name} logged in`);
+  },
+
+  loginFail() {
+    alert(`${this.name} failed to log in`);
+  },
+
+};
+
+askPassword(user.loginOk.bind(user), user.loginFail.bind(user));</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>Now it works.</p>
+                            <p>An alternative solution could be:</p>
+                            <div
+                              id="i9igjx9209"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>//...
+askPassword(() =&gt; user.loginOk(), () =&gt; user.loginFail());</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>Usually that also works and looks good.</p>
+                            <p>
+                              It’s a bit less reliable though in more complex
+                              situations where <code>user</code> variable might
+                              change <em>after</em> <code>askPassword</code> is
+                              called, but <em>before</em> the visitor answers
+                              and calls <code>() =&gt; user.loginOk()</code>.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="bind.html#partial-application-for-login"
+                          name="partial-application-for-login"
+                          >Partial application for login</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/ask-partial.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          The task is a little more complex variant of
+                          <a href="task/question-use-bind.html"
+                            >Fix a function that loses &quot;this&quot;</a
+                          >.
+                        </p>
+                        <p>
+                          The <code>user</code> object was modified. Now instead
+                          of two functions <code>loginOk/loginFail</code>, it
+                          has a single function
+                          <code>user.login(true/false)</code>.
+                        </p>
+                        <p>
+                          What should we pass <code>askPassword</code> in the
+                          code below, so that it calls
+                          <code>user.login(true)</code> as <code>ok</code> and
+                          <code>user.login(false)</code> as <code>fail</code>?
+                        </p>
+                        <div
+                          id="nuvjlj6ixo"
+                          data-trusted="1"
+                          class="code-example"
+                          data-highlight='[{"start":14,"end":14}]'
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function askPassword(ok, fail) {
+  let password = prompt(&quot;Password?&quot;, '');
+  if (password == &quot;rockstar&quot;) ok();
+  else fail();
+}
+
+let user = {
+  name: 'John',
+
+  login(result) {
+    alert( this.name + (result ? ' logged in' : ' failed to log in') );
+  }
+};
+
+askPassword(?, ?); // ?</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          Your changes should only modify the highlighted
+                          fragment.
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <ol>
+                              <li>
+                                <p>
+                                  Either use a wrapper function, an arrow to be
+                                  concise:
+                                </p>
+                                <div
+                                  id="dmwpfjjfi7"
+                                  data-trusted="1"
+                                  class="code-example"
+                                >
+                                  <div class="codebox code-example__codebox">
+                                    <div class="codebox__code" data-code="1">
+                                      <pre
+                                        class="line-numbers language-javascript"
+                                      ><code>askPassword(() =&gt; user.login(true), () =&gt; user.login(false));</code></pre>
+                                    </div>
+                                  </div>
+                                </div>
+                                <p>
+                                  Now it gets <code>user</code> from outer
+                                  variables and runs it the normal way.
+                                </p>
+                              </li>
+                              <li>
+                                <p>
+                                  Or create a partial function from
+                                  <code>user.login</code> that uses
+                                  <code>user</code> as the context and has the
+                                  correct first argument:
+                                </p>
+                                <div
+                                  id="1ujf0kphkz"
+                                  data-trusted="1"
+                                  class="code-example"
+                                >
+                                  <div class="codebox code-example__codebox">
+                                    <div class="codebox__code" data-code="1">
+                                      <pre
+                                        class="line-numbers language-javascript"
+                                      ><code>askPassword(user.login.bind(user, true), user.login.bind(user, false));</code></pre>
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                            </ol>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="call-apply-decorators.html"
+                data-tooltip="Decorators and forwarding, call/apply"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="arrow-functions.html"
+                data-tooltip="Arrow functions revisited"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbind"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbind"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="bind.html name="comments">Comments</a>
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                        
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/bind",
+                    identifier: "\/bind",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+
+                      <a class="sidebar__link" href="advanced-functions.html"
+                        >Advanced working with functions</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+
+                      <a class="sidebar__link" href="bind.html#losing-this"
+                        >Losing “this”</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   bind.html#solution-1-a-wrapper"
+                        >Solution 1: a wrapper</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="bind.html#solution-2-bind"
+                        >Solution 2: bind</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   bind.html#partial-functions"
+                        >Partial functions</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   bind.html#going-partial-without-context"
+                        >Going partial without context</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="bind.html
+                  </ul>
+                </nav>
+
+                      <a class="sidebar__link" href="bind.html#tasks"
+                        >Tasks (5)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="bind.html
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbind"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fbind"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/06-advanced-functions/10-bind"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

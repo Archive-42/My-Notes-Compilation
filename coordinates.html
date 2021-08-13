@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Coordinates</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="coordinates.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Coordinates" />
+
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Coordinates" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="size-and-scroll-window.html" />
+    <link rel="next" href="events.html" />
+
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let elem = document.getElementById("coords-show-mark");
+
+        // no elem in ebook (pdf/epub) mode
+        if (elem) {
+          elem.onclick = function () {
+            function createMessageUnder(elem, text) {
+              let coords = elem.getBoundingClientRect();
+              let message = document.createElement("div");
+              message.style.cssText = "position:fixed; color: red";
+
+              message.style.left = coords.left + "px";
+              message.style.top = coords.bottom + "px";
+
+              message.innerHTML = text;
+
+              return message;
+            }
+
+            let message = createMessageUnder(elem, "Hello, world!");
+            document.body.append(message);
+            setTimeout(() => message.remove(), 5000);
+          };
+        }
+      });
+    </script>
+    <meta property="og:title" content="Coordinates" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/coordinates"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="coordinates.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/coordinates"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                    coordinates"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/coordinates"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/coordinates"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/coordinates"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=coordinates"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/coordinates"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/coordinates"</a
+            >
+
+
+   
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fcoordinates"
+                  rel="nofollow"
+                ></a
+                >2Fcoordinates
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/coordinates">
+                  عربي
+                </option>
+                <option value="https://javascript.info/coordinates" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/coordinates">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/coordinates">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/coordinates">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/coordinates">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/coordinates">
+                  한국어
+                </option>
+                <option value=coordinates">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/coordinates">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/coordinates">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="11"
+          max="32"
+          data-tooltip="Lesson 11 of 32"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="ui.html"
+                        ><span>Browser: Document, Events, Interfaces</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="document.html"
+                        ><span>Document</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Browser: Document, Events, Interfaces",
+                            "item": "https://javascript.info/ui"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Document",
+                            "item": "https://javascript.info/document"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 13th August 2020"
+                  >
+                    <div class="updated-at__content">13th August 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Coordinates</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Coordinates" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    To move elements around we should be familiar with
+                    coordinates.
+                  </p>
+                  <p>
+                    Most JavaScript methods deal with one of two coordinate
+                    systems:
+                  </p>
+                  <ol>
+                    <li>
+                      <strong>Relative to the window</strong> – similar to
+                      <code>position:fixed</code>, calculated from the window
+                      top/left edge.
+                      <ul>
+                        <li>
+                          we’ll denote these coordinates as
+                          <code>clientX/clientY</code>, the reasoning for such
+                          name will become clear later, when we study event
+                          properties.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <strong>Relative to the document</strong> – similar to
+                      <code>position:absolute</code> in the document root,
+                      calculated from the document top/left edge.
+                      <ul>
+                        <li>we’ll denote them <code>pageX/pageY</code>.</li>
+                      </ul>
+                    </li>
+                  </ol>
+                  <p>
+                    When the page is scrolled to the very beginning, so that the
+                    top/left corner of the window is exactly the document
+                    top/left corner, these coordinates equal each other. But
+                    after the document shifts, window-relative coordinates of
+                    elements change, as elements move across the window, while
+                    document-relative coordinates remain the same.
+                  </p>
+                  <p>
+                    On this picture we take a point in the document and
+                    demonstrate its coordinates before the scroll (left) and
+                    after it (right):
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 728px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 49.175824175824175%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/coordinates/document-and-window-coordinates-scrolled.svg"
+                        width="728"
+                        height="358"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/coordinates/document-and-window-coordinates-scrolled.svg"
+                          alt=""
+                          width="728"
+                          height="358"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>When the document scrolled:</p>
+                  <ul>
+                    <li>
+                      <code>pageY</code> – document-relative coordinate stayed
+                      the same, it’s counted from the document top (now scrolled
+                      out).
+                    </li>
+                    <li>
+                      <code>clientY</code> – window-relative coordinate did
+                      change (the arrow became shorter), as the same point
+                      became closer to window top.
+                    </li>
+                  </ul>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="element-coordinates-getboundingclientrect"
+                      href="coordinates.html#element-coordinates-getboundingclientrect"
+                      >Element coordinates: getBoundingClientRect</a
+                    >
+                  </h2>
+                  <p>
+                    The method <code>elem.getBoundingClientRect()</code> returns
+                    window coordinates for a minimal rectangle that encloses
+                    <code>elem</code> as an object of built-in
+                    <a href="https://www.w3.org/TR/geometry-1/#domrect"
+                      >DOMRect</a
+                    >
+                    class.
+                  </p>
+                  <p>Main <code>DOMRect</code> properties:</p>
+                  <ul>
+                    <li>
+                      <code>x/y</code> – X/Y-coordinates of the rectangle origin
+                      relative to window,
+                    </li>
+                    <li>
+                      <code>width/height</code> – width/height of the rectangle
+                      (can be negative).
+                    </li>
+                  </ul>
+                  <p>Additionally, there are derived properties:</p>
+                  <ul>
+                    <li>
+                      <code>top/bottom</code> – Y-coordinate for the top/bottom
+                      rectangle edge,
+                    </li>
+                    <li>
+                      <code>left/right</code> – X-coordinate for the left/right
+                      rectangle edge.
+                    </li>
+                  </ul>
+                  <p>
+                    For instance click this button to see its window
+                    coordinates:
+                  </p>
+                  <p>
+                    <input
+                      id="brTest"
+                      type="button"
+                      value="Get coordinates using button.getBoundingClientRect() for this button"
+                      onclick="showRect(this)"
+                    />
+                  </p>
+                  <script>
+                    function showRect(elem) {
+                      let r = elem.getBoundingClientRect();
+                      alert(`x:${r.x}
+y:${r.y}
+width:${r.width}
+height:${r.height}
+top:${r.top}
+bottom:${r.bottom}
+left:${r.left}
+right:${r.right}
+`);
+                    }
+                  </script>
+                  <p>
+                    If you scroll the page and repeat, you’ll notice that as
+                    window-relative button position changes, its window
+                    coordinates (<code>y/top/bottom</code> if you scroll
+                    vertically) change as well.
+                  </p>
+                  <p>
+                    Here’s the picture of
+                    <code>elem.getBoundingClientRect()</code> output:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 521px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 78.88675623800384%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/coordinates/coordinates.svg"
+                        width="521"
+                        height="411"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/coordinates/coordinates.svg"
+                          alt=""
+                          width="521"
+                          height="411"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    As you can see, <code>x/y</code> and
+                    <code>width/height</code> fully describe the rectangle.
+                    Derived properties can be easily calculated from them:
+                  </p>
+                  <ul>
+                    <li><code>left = x</code></li>
+                    <li><code>top = y</code></li>
+                    <li><code>right = x + width</code></li>
+                    <li><code>bottom = y + height</code></li>
+                  </ul>
+                  <p>Please note:</p>
+                  <ul>
+                    <li>
+                      Coordinates may be decimal fractions, such as
+                      <code>10.5</code>. That’s normal, internally browser uses
+                      fractions in calculations. We don’t have to round them
+                      when setting to <code>style.left/top</code>.
+                    </li>
+                    <li>
+                      Coordinates may be negative. For instance, if the page is
+                      scrolled so that <code>elem</code> is now above the
+                      window, then
+                      <code>elem.getBoundingClientRect().top</code> is negative.
+                    </li>
+                  </ul>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Why derived properties are needed? Why does
+                        <code>top/left</code> exist if there’s
+                        <code>x/y</code>?</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Mathematically, a rectangle is uniquely defined with its
+                        starting point <code>(x,y)</code> and the direction
+                        vector <code>(width,height)</code>. So the additional
+                        derived properties are for convenience.
+                      </p>
+                      <p>
+                        Technically it’s possible for
+                        <code>width/height</code> to be negative, that allows
+                        for “directed” rectangle, e.g. to represent mouse
+                        selection with properly marked start and end.
+                      </p>
+                      <p>
+                        Negative <code>width/height</code> values mean that the
+                        rectangle starts at its bottom-right corner and then
+                        “grows” left-upwards.
+                      </p>
+                      <p>
+                        Here’s a rectangle with negative <code>width</code> and
+                        <code>height</code> (e.g. <code>width=-200</code>,
+                        <code>height=-100</code>):
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 521px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 68.13819577735126%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/coordinates/coordinates-negative.svg"
+                            width="521"
+                            height="355"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/coordinates/coordinates-negative.svg"
+                              alt=""
+                              width="521"
+                              height="355"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                      <p>
+                        As you can see, <code>left/top</code> do not equal
+                        <code>x/y</code> in such case.
+                      </p>
+                      <p>
+                        In practice though,
+                        <code>elem.getBoundingClientRect()</code> always returns
+                        positive width/height, here we mention negative
+                        <code>width/height</code> only for you to understand why
+                        these seemingly duplicate properties are not actually
+                        duplicates.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Internet Explorer: no support for
+                        <code>x/y</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Internet Explorer doesn’t support
+                        <code>x/y</code> properties for historical reasons.
+                      </p>
+                      <p>
+                        So we can either make a polyfill (add getters in
+                        <code>DomRect.prototype</code>) or just use
+                        <code>top/left</code>, as they are always the same as
+                        <code>x/y</code> for positive <code>width/height</code>,
+                        in particular in the result of
+                        <code>elem.getBoundingClientRect()</code>.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Coordinates right/bottom are different from CSS
+                        position properties</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        There are obvious similarities between window-relative
+                        coordinates and CSS <code>position:fixed</code>.
+                      </p>
+                      <p>
+                        But in CSS positioning, <code>right</code> property
+                        means the distance from the right edge, and
+                        <code>bottom</code> property means the distance from the
+                        bottom edge.
+                      </p>
+                      <p>
+                        If we just look at the picture above, we can see that in
+                        JavaScript it is not so. All window coordinates are
+                        counted from the top-left corner, including these ones.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="elementFromPoint"
+                      href="coordinates.html#elementFromPoint"
+                      >elementFromPoint(x, y)</a
+                    >
+                  </h2>
+                  <p>
+                    The call to
+                    <code>document.elementFromPoint(x, y)</code> returns the
+                    most nested element at window coordinates
+                    <code>(x, y)</code>.
+                  </p>
+                  <p>The syntax is:</p>
+                  <div id="sr088qtz5n" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let elem = document.elementFromPoint(x, y);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    For instance, the code below highlights and outputs the tag
+                    of the element that is now in the middle of the window:
+                  </p>
+                  <div id="4czsshe33r" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="coordinates.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="coordinates.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let centerX = document.documentElement.clientWidth / 2;
+let centerY = document.documentElement.clientHeight / 2;
+
+let elem = document.elementFromPoint(centerX, centerY);
+
+elem.style.background = &quot;red&quot;;
+alert(elem.tagName);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As it uses window coordinates, the element may be different
+                    depending on the current scroll position.
+                  </p>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >For out-of-window coordinates the
+                        <code>elementFromPoint</code> returns
+                        <code>null</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        The method
+                        <code>document.elementFromPoint(x,y)</code> only works
+                        if <code>(x,y)</code> are inside the visible area.
+                      </p>
+                      <p>
+                        If any of the coordinates is negative or exceeds the
+                        window width/height, then it returns <code>null</code>.
+                      </p>
+                      <p>
+                        Here’s a typical error that may occur if we don’t check
+                        for it:
+                      </p>
+                      <div
+                        id="49t5l6n6q1"
+                        data-trusted="1"
+                        class="code-example"
+                        data-highlight='[{"start":2,"end":2}]'
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let elem = document.elementFromPoint(x, y);
+// if the coordinates happen to be out of the window, then elem = null
+elem.style.background = ''; // Error!</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="using-for-fixed-positioning"
+                      href="coordinates.html#using-for-fixed-positioning"
+                      >Using for “fixed” positioning</a
+                    >
+                  </h2>
+                  <p>
+                    Most of time we need coordinates in order to position
+                    something.
+                  </p>
+                  <p>
+                    To show something near an element, we can use
+                    <code>getBoundingClientRect</code> to get its coordinates,
+                    and then CSS <code>position</code> together with
+                    <code>left/top</code> (or <code>right/bottom</code>).
+                  </p>
+                  <p>
+                    For instance, the function
+                    <code>createMessageUnder(elem, html)</code> below shows the
+                    message under <code>elem</code>:
+                  </p>
+                  <div
+                    id="bvm8xehdjw"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":8,"end":12}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let elem = document.getElementById(&quot;coords-show-mark&quot;);
+
+function createMessageUnder(elem, html) {
+  // create message element
+  let message = document.createElement('div');
+  // better to use a css class for the style here
+  message.style.cssText = &quot;position:fixed; color: red&quot;;
+
+  // assign coordinates, don't forget &quot;px&quot;!
+  let coords = elem.getBoundingClientRect();
+
+  message.style.left = coords.left + &quot;px&quot;;
+  message.style.top = coords.bottom + &quot;px&quot;;
+
+  message.innerHTML = html;
+
+  return message;
+}
+
+// Usage:
+// add it for 5 seconds in the document
+let message = createMessageUnder(elem, 'Hello, world!');
+document.body.append(message);
+setTimeout(() =&gt; message.remove(), 5000);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Click the button to run it:</p>
+                  <p>
+                    <button id="coords-show-mark">
+                      Button with id=“coords-show-mark”, the message will appear
+                      under it
+                    </button>
+                  </p>
+                  <p>
+                    The code can be modified to show the message at the left,
+                    right, below, apply CSS animations to “fade it in” and so
+                    on. That’s easy, as we have all the coordinates and sizes of
+                    the element.
+                  </p>
+                  <p>
+                    But note the important detail: when the page is scrolled,
+                    the message flows away from the button.
+                  </p>
+                  <p>
+                    The reason is obvious: the message element relies on
+                    <code>position:fixed</code>, so it remains at the same place
+                    of the window while the page scrolls away.
+                  </p>
+                  <p>
+                    To change that, we need to use document-based coordinates
+                    and <code>position:absolute</code>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="getCoords"
+                      href="coordinates.html#getCoords"
+                      >Document coordinates</a
+                    >
+                  </h2>
+                  <p>
+                    Document-relative coordinates start from the upper-left
+                    corner of the document, not the window.
+                  </p>
+                  <p>
+                    In CSS, window coordinates correspond to
+                    <code>position:fixed</code>, while document coordinates are
+                    similar to <code>position:absolute</code> on top.
+                  </p>
+                  <p>
+                    We can use <code>position:absolute</code> and
+                    <code>top/left</code> to put something at a certain place of
+                    the document, so that it remains there during a page scroll.
+                    But we need the right coordinates first.
+                  </p>
+                  <p>
+                    There’s no standard method to get the document coordinates
+                    of an element. But it’s easy to write it.
+                  </p>
+                  <p>
+                    The two coordinate systems are connected by the formula:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>pageY</code> = <code>clientY</code> + height of the
+                      scrolled-out vertical part of the document.
+                    </li>
+                    <li>
+                      <code>pageX</code> = <code>clientX</code> + width of the
+                      scrolled-out horizontal part of the document.
+                    </li>
+                  </ul>
+                  <p>
+                    The function <code>getCoords(elem)</code> will take window
+                    coordinates from
+                    <code>elem.getBoundingClientRect()</code> and add the
+                    current scroll to them:
+                  </p>
+                  <div id="3jmotq5m95" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// get document coordinates of the element
+function getCoords(elem) {
+  let box = elem.getBoundingClientRect();
+
+  return {
+    top: box.top + window.pageYOffset,
+    right: box.right + window.pageXOffset,
+    bottom: box.bottom + window.pageYOffset,
+    left: box.left + window.pageXOffset
+  };
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    If in the example above we used it with
+                    <code>position:absolute</code>, then the message would stay
+                    near the element on scroll.
+                  </p>
+                  <p>The modified <code>createMessageUnder</code> function:</p>
+                  <div
+                    id="m65rnn2fxh"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"cols":[{"start":15,"end":31}]},{"start":2,"cols":[{"start":27,"end":44}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function createMessageUnder(elem, html) {
+  let message = document.createElement('div');
+  message.style.cssText = &quot;position:absolute; color: red&quot;;
+
+  let coords = getCoords(elem);
+
+  message.style.left = coords.left + &quot;px&quot;;
+  message.style.top = coords.bottom + &quot;px&quot;;
+
+  message.innerHTML = html;
+
+  return message;
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="coordinates.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>Any point on the page has coordinates:</p>
+                  <ol>
+                    <li>
+                      Relative to the window –
+                      <code>elem.getBoundingClientRect()</code>.
+                    </li>
+                    <li>
+                      Relative to the document –
+                      <code>elem.getBoundingClientRect()</code> plus the current
+                      page scroll.
+                    </li>
+                  </ol>
+                  <p>
+                    Window coordinates are great to use with
+                    <code>position:fixed</code>, and document coordinates do
+                    well with <code>position:absolute</code>.
+                  </p>
+                  <p>
+                    Both coordinate systems have their pros and cons; there are
+                    times we need one or the other one, just like CSS
+                    <code>position</code> <code>absolute</code> and
+                    <code>fixed</code>.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="coordinates.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="coordinates.html#find-window-coordinates-of-the-field"
+                          name="find-window-coordinates-of-the-field"
+                          >Find window coordinates of the field</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/find-point-coordinates.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          In the iframe below you can see a document with the
+                          green “field”.
+                        </p>
+                        <p>
+                          Use JavaScript to find window coordinates of corners
+                          pointed by with arrows.
+                        </p>
+                        <p>
+                          There’s a small feature implemented in the document
+                          for convenience. A click at any place shows
+                          coordinates there.
+                        </p>
+                        <div class="code-result">
+                          <div class="code-result__toolbar toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="https://en.js.cx/task/find-point-coordinates/source/"
+                                target="_blank"
+                                title="open in new window"
+                                class="toolbar__button toolbar__button_external"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="https://plnkr.co/edit/EDtjdNk6S43g1SAB?p=preview"
+                                target="_blank"
+                                title="open in sandbox"
+                                data-plunk-id="EDtjdNk6S43g1SAB"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <iframe
+                            class="code-result__iframe"
+                            data-trusted="1"
+                            style="height: 360px"
+                            src="https://en.js.cx/task/find-point-coordinates/source/"
+                          ></iframe>
+                        </div>
+                        <p>
+                          Your code should use DOM to get window coordinates of:
+                        </p>
+                        <ol>
+                          <li>Upper-left, outer corner (that’s simple).</li>
+                          <li>Bottom-right, outer corner (simple too).</li>
+                          <li>Upper-left, inner corner (a bit harder).</li>
+                          <li>
+                            Bottom-right, inner corner (there are several ways,
+                            choose one).
+                          </li>
+                        </ol>
+                        <p>
+                          The coordinates that you calculate should be the same
+                          as those returned by the mouse click.
+                        </p>
+                        <p>
+                          P.S. The code should also work if the element has
+                          another size or border, not bound to any fixed values.
+                        </p>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/EDtjdNk6S43g1SAB?p=preview"
+                            target="_blank"
+                            data-plunk-id="EDtjdNk6S43g1SAB"
+                            >Open a sandbox for the task.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__step task__step_open">
+                          <button
+                            class="task__step-show"
+                            type="button"
+                            onclick="showStep(this)"
+                          >
+                            Outer corners
+                          </button>
+                          <div class="task__answer-content">
+                            <h4 class="task__step-title">Outer corners</h4>
+                            <div class="formatted">
+                              <p>
+                                Outer corners are basically what we get from
+                                <a
+                                  href="https://developer.mozilla.org/en-US/docs/DOM/element.getBoundingClientRect"
+                                  >elem.getBoundingClientRect()</a
+                                >.
+                              </p>
+                              <p>
+                                Coordinates of the upper-left corner
+                                <code>answer1</code> and the bottom-right corner
+                                <code>answer2</code>:
+                              </p>
+                              <div
+                                id="pypej6lig8"
+                                data-trusted="1"
+                                class="code-example"
+                              >
+                                <div class="codebox code-example__codebox">
+                                  <div class="codebox__code" data-code="1">
+                                    <pre
+                                      class="line-numbers language-javascript"
+                                    ><code>let coords = elem.getBoundingClientRect();
+
+let answer1 = [coords.left, coords.top];
+let answer2 = [coords.right, coords.bottom];</code></pre>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="task__step task__step_open">
+                          <button
+                            class="task__step-show"
+                            type="button"
+                            onclick="showStep(this)"
+                          >
+                            Left-upper inner corner
+                          </button>
+                          <div class="task__answer-content">
+                            <h4 class="task__step-title">
+                              Left-upper inner corner
+                            </h4>
+                            <div class="formatted">
+                              <p>
+                                That differs from the outer corner by the border
+                                width. A reliable way to get the distance is
+                                <code>clientLeft/clientTop</code>:
+                              </p>
+                              <div
+                                id="g0yj82i80q"
+                                data-trusted="1"
+                                class="code-example"
+                              >
+                                <div class="codebox code-example__codebox">
+                                  <div class="codebox__code" data-code="1">
+                                    <pre
+                                      class="line-numbers language-javascript"
+                                    ><code>let answer3 = [coords.left + field.clientLeft, coords.top + field.clientTop];</code></pre>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="task__step task__step_open">
+                          <button
+                            class="task__step-show"
+                            type="button"
+                            onclick="showStep(this)"
+                          >
+                            Right-bottom inner corner
+                          </button>
+                          <div class="task__answer-content">
+                            <h4 class="task__step-title">
+                              Right-bottom inner corner
+                            </h4>
+                            <div class="formatted">
+                              <p>
+                                In our case we need to substract the border size
+                                from the outer coordinates.
+                              </p>
+                              <p>We could use CSS way:</p>
+                              <div
+                                id="ld37o90h6s"
+                                data-trusted="1"
+                                class="code-example"
+                              >
+                                <div class="codebox code-example__codebox">
+                                  <div class="codebox__code" data-code="1">
+                                    <pre
+                                      class="line-numbers language-javascript"
+                                    ><code>let answer4 = [
+  coords.right - parseInt(getComputedStyle(field).borderRightWidth),
+  coords.bottom - parseInt(getComputedStyle(field).borderBottomWidth)
+];</code></pre>
+                                  </div>
+                                </div>
+                              </div>
+                              <p>
+                                An alternative way would be to add
+                                <code>clientWidth/clientHeight</code> to
+                                coordinates of the left-upper corner. That’s
+                                probably even better:
+                              </p>
+                              <div
+                                id="os84gip9cs"
+                                data-trusted="1"
+                                class="code-example"
+                              >
+                                <div class="codebox code-example__codebox">
+                                  <div class="codebox__code" data-code="1">
+                                    <pre
+                                      class="line-numbers language-javascript"
+                                    ><code>let answer4 = [
+  coords.left + elem.clientLeft + elem.clientWidth,
+  coords.top + elem.clientTop + elem.clientHeight
+];</code></pre>
+                                  </div>
+                                </div>
+                              </div>
+                              <p>
+                                <a
+                                  href="https://plnkr.co/edit/K35otM66PlWyBgbb?p=preview"
+                                  target="_blank"
+                                  data-plunk-id="K35otM66PlWyBgbb"
+                                  >Open the solution in a sandbox.</a
+                                >
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="coordinates.html#show-a-note-near-the-element"
+                          name="show-a-note-near-the-element"
+                          >Show a note near the element</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/position-at.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Create a function
+                          <code>positionAt(anchor, position, elem)</code> that
+                          positions <code>elem</code>, depending on
+                          <code>position</code> near
+                          <code>anchor</code> element.
+                        </p>
+                        <p>
+                          The <code>position</code> must be a string with any
+                          one of 3 values:
+                        </p>
+                        <ul>
+                          <li>
+                            <code>&quot;top&quot;</code> – position
+                            <code>elem</code> right above <code>anchor</code>
+                          </li>
+                          <li>
+                            <code>&quot;right&quot;</code> – position
+                            <code>elem</code> immediately at the right of
+                            <code>anchor</code>
+                          </li>
+                          <li>
+                            <code>&quot;bottom&quot;</code> – position
+                            <code>elem</code> right below <code>anchor</code>
+                          </li>
+                        </ul>
+                        <p>
+                          It’s used inside function
+                          <code>showNote(anchor, position, html)</code>,
+                          provided in the task source code, that creates a
+                          “note” element with given <code>html</code> and shows
+                          it at the given <code>position</code> near the
+                          <code>anchor</code>.
+                        </p>
+                        <p>Here’s the demo of notes:</p>
+                        <div class="code-result">
+                          <div class="code-result__toolbar toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="https://en.js.cx/task/position-at/solution/"
+                                target="_blank"
+                                title="open in new window"
+                                class="toolbar__button toolbar__button_external"
+                              ></a>
+                            </div>
+                          </div>
+                          <iframe
+                            class="code-result__iframe"
+                            data-trusted="1"
+                            style="height: 350px"
+                            src="https://en.js.cx/task/position-at/solution/"
+                          ></iframe>
+                        </div>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/nwn7WjPXNeRuuTg8?p=preview"
+                            target="_blank"
+                            data-plunk-id="nwn7WjPXNeRuuTg8"
+                            >Open a sandbox for the task.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              In this task we only need to accurately calculate
+                              the coordinates. See the code for details.
+                            </p>
+                            <p>
+                              Please note: the elements must be in the document
+                              to read <code>offsetHeight</code> and other
+                              properties. A hidden (<code>display:none</code>)
+                              or out of the document element has no size.
+                            </p>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/VyAb5Fjkqui3CRmS?p=preview"
+                                target="_blank"
+                                data-plunk-id="VyAb5Fjkqui3CRmS"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="coordinates.html#show-a-note-near-the-element-absolute"
+                          name="show-a-note-near-the-element-absolute"
+                          >Show a note near the element (absolute)</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/position-at-absolute.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Modify the solution of the
+                          <a href="task/position-at.html">previous task</a> so
+                          that the note uses
+                          <code>position:absolute</code> instead of
+                          <code>position:fixed</code>.
+                        </p>
+                        <p>
+                          That will prevent its “runaway” from the element when
+                          the page scrolls.
+                        </p>
+                        <p>
+                          Take the solution of that task as a starting point. To
+                          test the scroll, add the style
+                          <code
+                            >&lt;body style=&quot;height: 2000px&quot;&gt;</code
+                          >.
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>The solution is actually pretty simple:</p>
+                            <ul>
+                              <li>
+                                Use <code>position:absolute</code> in CSS
+                                instead of <code>position:fixed</code> for
+                                <code>.note</code>.
+                              </li>
+                              <li>
+                                Use the function
+                                <a href="coordinates.html#getCoords"
+                                  >getCoords()</a
+                                >
+                                from the chapter
+                                <a href="coordinates.html">Coordinates</a> to
+                                get document-relative coordinates.
+                              </li>
+                            </ul>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/IltvUDuUTs6bVjl3?p=preview"
+                                target="_blank"
+                                data-plunk-id="IltvUDuUTs6bVjl3"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="coordinates.html#position-the-note-inside-absolute"
+                          name="position-the-note-inside-absolute"
+                          >Position the note inside (absolute)</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/position-inside-absolute.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Extend the previous task
+                          <a href="task/position-at-absolute.html"
+                            >Show a note near the element (absolute)</a
+                          >: teach the function
+                          <code>positionAt(anchor, position, elem)</code> to
+                          insert <code>elem</code> inside the
+                          <code>anchor</code>.
+                        </p>
+                        <p>New values for <code>position</code>:</p>
+                        <ul>
+                          <li>
+                            <code>top-out</code>, <code>right-out</code>,
+                            <code>bottom-out</code> – work the same as before,
+                            they insert the <code>elem</code> over/right/under
+                            <code>anchor</code>.
+                          </li>
+                          <li>
+                            <code>top-in</code>, <code>right-in</code>,
+                            <code>bottom-in</code> – insert
+                            <code>elem</code> inside the <code>anchor</code>:
+                            stick it to the upper/right/bottom edge.
+                          </li>
+                        </ul>
+                        <p>For instance:</p>
+                        <div
+                          id="1c3uyetzd8"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>// shows the note above blockquote
+positionAt(blockquote, &quot;top-out&quot;, note);
+
+// shows the note inside blockquote, at the top
+positionAt(blockquote, &quot;top-in&quot;, note);</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>The result:</p>
+                        <div class="code-result">
+                          <div class="code-result__toolbar toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="https://en.js.cx/task/position-inside-absolute/solution/"
+                                target="_blank"
+                                title="open in new window"
+                                class="toolbar__button toolbar__button_external"
+                              ></a>
+                            </div>
+                          </div>
+                          <iframe
+                            class="code-result__iframe"
+                            data-trusted="1"
+                            style="height: 310px"
+                            src="https://en.js.cx/task/position-inside-absolute/solution/"
+                          ></iframe>
+                        </div>
+                        <p>
+                          As the source code, take the solution of the task
+                          <a href="task/position-at-absolute.html"
+                            >Show a note near the element (absolute)</a
+                          >.
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/KkS3sLDgUKFy4XUU?p=preview"
+                                target="_blank"
+                                data-plunk-id="KkS3sLDgUKFy4XUU"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="size-and-scroll-window.html"
+                data-tooltip="Window sizes and scrolling"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="events.html"
+                data-tooltip="Introduction to Events"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcoordinates"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcoordinates"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="coordinates.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                        
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/coordinates",
+                    identifier: "\/coordinates",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="document.html">Document</a>
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   coordinates.html#element-coordinates-getboundingclientrect"
+                        >Element coordinates: getBoundingClientRect</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   coordinates.html#elementFromPoint"
+                        >elementFromPoint(x, y)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   coordinates.html#using-for-fixed-positioning"
+                        >Using for “fixed” positioning</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="coordinates.html#getCoords"
+                        >Document coordinates</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="coordinates.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="coordinates.html#tasks"
+                        >Tasks (4)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="coordinates.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcoordinates"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fcoordinates"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/11-coordinates"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

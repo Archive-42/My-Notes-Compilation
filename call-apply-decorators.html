@@ -1,0 +1,2444 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Decorators and forwarding, call/apply</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="call-apply-decorators.html" />
+
+    <link rel="icon" href="img/favicon/favicon.png" />
+  
+    <meta property="og:title" content="Decorators and forwarding, call/apply" />
+
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Decorators and forwarding, call/apply"
+    />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="settimeout-setinterval.html" />
+    <link rel="next" href="bind.html" />
+
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Decorators and forwarding, call/apply" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/call-apply-decorators"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="call-apply-decorators.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/call-apply-decorators"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                    call-apply-decorators"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/call-apply-decorators"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/call-apply-decorators"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/call-apply-decorators"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=call-apply-decorators"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/call-apply-decorators"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/call-apply-decorators"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span>简体中文</span></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a>
+                        the content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+   
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fcall-apply-decorators"
+                  rel="nofollow"
+                ></a
+                >2Fcall-apply-decorators
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option
+                  value="https://ar.javascript.info/call-apply-decorators"
+                >
+                  عربي
+                </option>
+                <option
+                  value="https://javascript.info/call-apply-decorators"
+                  selected
+                >
+                  English
+                </option>
+                <option
+                  value="https://es.javascript.info/call-apply-decorators"
+                >
+                  Español
+                </option>
+                <option
+                  value="https://fr.javascript.info/call-apply-decorators"
+                >
+                  Français
+                </option>
+                <option
+                  value="https://it.javascript.info/call-apply-decorators"
+                >
+                  Italiano
+                </option>
+                <option
+                  value="https://ja.javascript.info/call-apply-decorators"
+                >
+                  日本語
+                </option>
+                <option
+                  value="https://ko.javascript.info/call-apply-decorators"
+                >
+                  한국어
+                </option>
+                <option
+                  value=call-apply-decorators"
+         call-apply-decorators"
+       call-apply-decorators"
+   
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="57"
+          max="92"
+          data-tooltip="Lesson 57 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a
+                        class="breadcrumbs__link"
+                        href="advanced-functions.html"
+                        ><span>Advanced working with functions</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Advanced working with functions",
+                            "item": "https://javascript.info/advanced-functions"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 13th May 2021"
+                  >
+                    <div class="updated-at__content">13th May 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">
+                  Decorators and forwarding, call/apply
+                </h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta
+                  itemprop="name"
+                  content="Decorators and forwarding, call/apply"
+                />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    JavaScript gives exceptional flexibility when dealing with
+                    functions. They can be passed around, used as objects, and
+                    now we’ll see how to <em>forward</em> calls between them and
+                    <em>decorate</em> them.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="transparent-caching"
+                      href="call-apply-decorators.html#transparent-caching"
+                      >Transparent caching</a
+                    >
+                  </h2>
+                  <p>
+                    Let’s say we have a function <code>slow(x)</code> which is
+                    CPU-heavy, but its results are stable. In other words, for
+                    the same <code>x</code> it always returns the same result.
+                  </p>
+                  <p>
+                    If the function is called often, we may want to cache
+                    (remember) the results to avoid spending extra-time on
+                    recalculations.
+                  </p>
+                  <p>
+                    But instead of adding that functionality into
+                    <code>slow()</code> we’ll create a wrapper function, that
+                    adds caching. As we’ll see, there are many benefits of doing
+                    so.
+                  </p>
+                  <p>Here’s the code, and explanations follow:</p>
+                  <div id="5fdynm3f4s" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function slow(x) {
+  // there can be a heavy CPU-intensive job here
+  alert(`Called with ${x}`);
+  return x;
+}
+
+function cachingDecorator(func) {
+  let cache = new Map();
+
+  return function(x) {
+    if (cache.has(x)) {    // if there's such key in cache
+      return cache.get(x); // read the result from it
+    }
+
+    let result = func(x);  // otherwise call func
+
+    cache.set(x, result);  // and cache (remember) the result
+    return result;
+  };
+}
+
+slow = cachingDecorator(slow);
+
+alert( slow(1) ); // slow(1) is cached and the result returned
+alert( &quot;Again: &quot; + slow(1) ); // slow(1) result returned from cache
+
+alert( slow(2) ); // slow(2) is cached and the result returned
+alert( &quot;Again: &quot; + slow(2) ); // slow(2) result returned from cache</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    In the code above <code>cachingDecorator</code> is a
+                    <em>decorator</em>: a special function that takes another
+                    function and alters its behavior.
+                  </p>
+                  <p>
+                    The idea is that we can call
+                    <code>cachingDecorator</code> for any function, and it will
+                    return the caching wrapper. That’s great, because we can
+                    have many functions that could use such a feature, and all
+                    we need to do is to apply <code>cachingDecorator</code> to
+                    them.
+                  </p>
+                  <p>
+                    By separating caching from the main function code we also
+                    keep the main code simpler.
+                  </p>
+                  <p>
+                    The result of <code>cachingDecorator(func)</code> is a
+                    “wrapper”: <code>function(x)</code> that “wraps” the call of
+                    <code>func(x)</code> into caching logic:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 458px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 56.76855895196506%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/call-apply-decorators/decorator-makecaching-wrapper.svg"
+                        width="458"
+                        height="260"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/call-apply-decorators/decorator-makecaching-wrapper.svg"
+                          alt=""
+                          width="458"
+                          height="260"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    From an outside code, the wrapped <code>slow</code> function
+                    still does the same. It just got a caching aspect added to
+                    its behavior.
+                  </p>
+                  <p>
+                    To summarize, there are several benefits of using a separate
+                    <code>cachingDecorator</code> instead of altering the code
+                    of <code>slow</code> itself:
+                  </p>
+                  <ul>
+                    <li>
+                      The <code>cachingDecorator</code> is reusable. We can
+                      apply it to another function.
+                    </li>
+                    <li>
+                      The caching logic is separate, it did not increase the
+                      complexity of <code>slow</code> itself (if there was any).
+                    </li>
+                    <li>
+                      We can combine multiple decorators if needed (other
+                      decorators will follow).
+                    </li>
+                  </ul>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="using-func-call-for-the-context"
+                      href="call-apply-decorators.html#using-func-call-for-the-context"
+                      >Using “func.call” for the context</a
+                    >
+                  </h2>
+                  <p>
+                    The caching decorator mentioned above is not suited to work
+                    with object methods.
+                  </p>
+                  <p>
+                    For instance, in the code below
+                    <code>worker.slow()</code> stops working after the
+                    decoration:
+                  </p>
+                  <div
+                    id="ks1maa1ca6"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":30,"end":30},{"start":20,"end":20}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// we'll make worker.slow caching
+let worker = {
+  someMethod() {
+    return 1;
+  },
+
+  slow(x) {
+    // scary CPU-heavy task here
+    alert(&quot;Called with &quot; + x);
+    return x * this.someMethod(); // (*)
+  }
+};
+
+// same code as before
+function cachingDecorator(func) {
+  let cache = new Map();
+  return function(x) {
+    if (cache.has(x)) {
+      return cache.get(x);
+    }
+    let result = func(x); // (**)
+    cache.set(x, result);
+    return result;
+  };
+}
+
+alert( worker.slow(1) ); // the original method works
+
+worker.slow = cachingDecorator(worker.slow); // now make it caching
+
+alert( worker.slow(2) ); // Whoops! Error: Cannot read property 'someMethod' of undefined</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The error occurs in the line <code>(*)</code> that tries to
+                    access <code>this.someMethod</code> and fails. Can you see
+                    why?
+                  </p>
+                  <p>
+                    The reason is that the wrapper calls the original function
+                    as <code>func(x)</code> in the line <code>(**)</code>. And,
+                    when called like that, the function gets
+                    <code>this = undefined</code>.
+                  </p>
+                  <p>We would observe a similar symptom if we tried to run:</p>
+                  <div id="fscc47509n" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let func = worker.slow;
+func(2);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    So, the wrapper passes the call to the original method, but
+                    without the context <code>this</code>. Hence the error.
+                  </p>
+                  <p>Let’s fix it.</p>
+                  <p>
+                    There’s a special built-in function method
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call"
+                      >func.call(context, …args)</a
+                    >
+                    that allows to call a function explicitly setting
+                    <code>this</code>.
+                  </p>
+                  <p>The syntax is:</p>
+                  <div id="wqcy1tfzuv" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>func.call(context, arg1, arg2, ...)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    It runs <code>func</code> providing the first argument as
+                    <code>this</code>, and the next as the arguments.
+                  </p>
+                  <p>To put it simply, these two calls do almost the same:</p>
+                  <div id="kfhioteh2h" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>func(1, 2, 3);
+func.call(obj, 1, 2, 3)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    They both call <code>func</code> with arguments
+                    <code>1</code>, <code>2</code> and <code>3</code>. The only
+                    difference is that <code>func.call</code> also sets
+                    <code>this</code> to <code>obj</code>.
+                  </p>
+                  <p>
+                    As an example, in the code below we call
+                    <code>sayHi</code> in the context of different objects:
+                    <code>sayHi.call(user)</code> runs
+                    <code>sayHi</code> providing <code>this=user</code>, and the
+                    next line sets <code>this=admin</code>:
+                  </p>
+                  <div id="7kq74324qj" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function sayHi() {
+  alert(this.name);
+}
+
+let user = { name: &quot;John&quot; };
+let admin = { name: &quot;Admin&quot; };
+
+// use call to pass different objects as &quot;this&quot;
+sayHi.call( user ); // John
+sayHi.call( admin ); // Admin</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    And here we use <code>call</code> to call
+                    <code>say</code> with the given context and phrase:
+                  </p>
+                  <div id="yt2i41ff8z" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function say(phrase) {
+  alert(this.name + ': ' + phrase);
+}
+
+let user = { name: &quot;John&quot; };
+
+// user becomes this, and &quot;Hello&quot; becomes the first argument
+say.call( user, &quot;Hello&quot; ); // John: Hello</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    In our case, we can use <code>call</code> in the wrapper to
+                    pass the context to the original function:
+                  </p>
+                  <div
+                    id="3r3hfzu53y"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":17,"end":17}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let worker = {
+  someMethod() {
+    return 1;
+  },
+
+  slow(x) {
+    alert(&quot;Called with &quot; + x);
+    return x * this.someMethod(); // (*)
+  }
+};
+
+function cachingDecorator(func) {
+  let cache = new Map();
+  return function(x) {
+    if (cache.has(x)) {
+      return cache.get(x);
+    }
+    let result = func.call(this, x); // &quot;this&quot; is passed correctly now
+    cache.set(x, result);
+    return result;
+  };
+}
+
+worker.slow = cachingDecorator(worker.slow); // now make it caching
+
+alert( worker.slow(2) ); // works
+alert( worker.slow(2) ); // works, doesn't call the original (cached)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Now everything is fine.</p>
+                  <p>
+                    To make it all clear, let’s see more deeply how
+                    <code>this</code> is passed along:
+                  </p>
+                  <ol>
+                    <li>
+                      After the decoration <code>worker.slow</code> is now the
+                      wrapper <code>function (x) { ... }</code>.
+                    </li>
+                    <li>
+                      So when <code>worker.slow(2)</code> is executed, the
+                      wrapper gets <code>2</code> as an argument and
+                      <code>this=worker</code> (it’s the object before dot).
+                    </li>
+                    <li>
+                      Inside the wrapper, assuming the result is not yet cached,
+                      <code>func.call(this, x)</code> passes the current
+                      <code>this</code> (<code>=worker</code>) and the current
+                      argument (<code>=2</code>) to the original method.
+                    </li>
+                  </ol>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="going-multi-argument"
+                      href="call-apply-decorators.html#going-multi-argument"
+                      >Going multi-argument</a
+                    >
+                  </h2>
+                  <p>
+                    Now let’s make <code>cachingDecorator</code> even more
+                    universal. Till now it was working only with single-argument
+                    functions.
+                  </p>
+                  <p>
+                    Now how to cache the multi-argument
+                    <code>worker.slow</code> method?
+                  </p>
+                  <div id="69h3c13xla" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let worker = {
+  slow(min, max) {
+    return min + max; // scary CPU-hogger is assumed
+  }
+};
+
+// should remember same-argument calls
+worker.slow = cachingDecorator(worker.slow);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Previously, for a single argument <code>x</code> we could
+                    just <code>cache.set(x, result)</code> to save the result
+                    and <code>cache.get(x)</code> to retrieve it. But now we
+                    need to remember the result for a
+                    <em>combination of arguments</em> <code>(min,max)</code>.
+                    The native <code>Map</code> takes single value only as the
+                    key.
+                  </p>
+                  <p>There are many solutions possible:</p>
+                  <ol>
+                    <li>
+                      Implement a new (or use a third-party) map-like data
+                      structure that is more versatile and allows multi-keys.
+                    </li>
+                    <li>
+                      Use nested maps: <code>cache.set(min)</code> will be a
+                      <code>Map</code> that stores the pair
+                      <code>(max, result)</code>. So we can get
+                      <code>result</code> as
+                      <code>cache.get(min).get(max)</code>.
+                    </li>
+                    <li>
+                      Join two values into one. In our particular case we can
+                      just use a string <code>&quot;min,max&quot;</code> as the
+                      <code>Map</code> key. For flexibility, we can allow to
+                      provide a <em>hashing function</em> for the decorator,
+                      that knows how to make one value from many.
+                    </li>
+                  </ol>
+                  <p>
+                    For many practical applications, the 3rd variant is good
+                    enough, so we’ll stick to it.
+                  </p>
+                  <p>
+                    Also we need to pass not just <code>x</code>, but all
+                    arguments in <code>func.call</code>. Let’s recall that in a
+                    <code>function()</code> we can get a pseudo-array of its
+                    arguments as <code>arguments</code>, so
+                    <code>func.call(this, x)</code> should be replaced with
+                    <code>func.call(this, ...arguments)</code>.
+                  </p>
+                  <p>Here’s a more powerful <code>cachingDecorator</code>:</p>
+                  <div
+                    id="4xrw9wodg8"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":15,"end":15},{"start":10,"end":10}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let worker = {
+  slow(min, max) {
+    alert(`Called with ${min},${max}`);
+    return min + max;
+  }
+};
+
+function cachingDecorator(func, hash) {
+  let cache = new Map();
+  return function() {
+    let key = hash(arguments); // (*)
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+
+    let result = func.call(this, ...arguments); // (**)
+
+    cache.set(key, result);
+    return result;
+  };
+}
+
+function hash(args) {
+  return args[0] + ',' + args[1];
+}
+
+worker.slow = cachingDecorator(worker.slow, hash);
+
+alert( worker.slow(3, 5) ); // works
+alert( &quot;Again &quot; + worker.slow(3, 5) ); // same (cached)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now it works with any number of arguments (though the hash
+                    function would also need to be adjusted to allow any number
+                    of arguments. An interesting way to handle this will be
+                    covered below).
+                  </p>
+                  <p>There are two changes:</p>
+                  <ul>
+                    <li>
+                      In the line <code>(*)</code> it calls <code>hash</code> to
+                      create a single key from <code>arguments</code>. Here we
+                      use a simple “joining” function that turns arguments
+                      <code>(3, 5)</code> into the key
+                      <code>&quot;3,5&quot;</code>. More complex cases may
+                      require other hashing functions.
+                    </li>
+                    <li>
+                      Then <code>(**)</code> uses
+                      <code>func.call(this, ...arguments)</code> to pass both
+                      the context and all arguments the wrapper got (not just
+                      the first one) to the original function.
+                    </li>
+                  </ul>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="func-apply"
+                      href="call-apply-decorators.html#func-apply"
+                      >func.apply</a
+                    >
+                  </h2>
+                  <p>
+                    Instead of <code>func.call(this, ...arguments)</code> we
+                    could use <code>func.apply(this, arguments)</code>.
+                  </p>
+                  <p>
+                    The syntax of built-in method
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply"
+                      >func.apply</a
+                    >
+                    is:
+                  </p>
+                  <div id="icbxxpt4zg" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>func.apply(context, args)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    It runs the <code>func</code> setting
+                    <code>this=context</code> and using an array-like object
+                    <code>args</code> as the list of arguments.
+                  </p>
+                  <p>
+                    The only syntax difference between <code>call</code> and
+                    <code>apply</code> is that <code>call</code> expects a list
+                    of arguments, while <code>apply</code> takes an array-like
+                    object with them.
+                  </p>
+                  <p>So these two calls are almost equivalent:</p>
+                  <div id="807kekwvct" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>func.call(context, ...args);
+func.apply(context, args);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    They perform the same call of <code>func</code> with given
+                    context and arguments.
+                  </p>
+                  <p>
+                    There’s only a subtle difference regarding
+                    <code>args</code>:
+                  </p>
+                  <ul>
+                    <li>
+                      The spread syntax <code>...</code> allows to pass
+                      <em>iterable</em> <code>args</code> as the list to
+                      <code>call</code>.
+                    </li>
+                    <li>
+                      The <code>apply</code> accepts only <em>array-like</em>
+                      <code>args</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    …And for objects that are both iterable and array-like, such
+                    as a real array, we can use any of them, but
+                    <code>apply</code> will probably be faster, because most
+                    JavaScript engines internally optimize it better.
+                  </p>
+                  <p>
+                    Passing all arguments along with the context to another
+                    function is called <em>call forwarding</em>.
+                  </p>
+                  <p>That’s the simplest form of it:</p>
+                  <div id="t8jtu2b575" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let wrapper = function() {
+  return func.apply(this, arguments);
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    When an external code calls such <code>wrapper</code>, it is
+                    indistinguishable from the call of the original function
+                    <code>func</code>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="method-borrowing"
+                      href="call-apply-decorators.html#method-borrowing"
+                      >Borrowing a method</a
+                    >
+                  </h2>
+                  <p>
+                    Now let’s make one more minor improvement in the hashing
+                    function:
+                  </p>
+                  <div id="yhba9jaa2g" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function hash(args) {
+  return args[0] + ',' + args[1];
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As of now, it works only on two arguments. It would be
+                    better if it could glue any number of <code>args</code>.
+                  </p>
+                  <p>
+                    The natural solution would be to use
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join"
+                      >arr.join</a
+                    >
+                    method:
+                  </p>
+                  <div id="7scp0d4kpa" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function hash(args) {
+  return args.join();
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …Unfortunately, that won’t work. Because we are calling
+                    <code>hash(arguments)</code>, and
+                    <code>arguments</code> object is both iterable and
+                    array-like, but not a real array.
+                  </p>
+                  <p>
+                    So calling <code>join</code> on it would fail, as we can see
+                    below:
+                  </p>
+                  <div
+                    id="92zf2allpy"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":1,"end":1}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function hash() {
+  alert( arguments.join() ); // Error: arguments.join is not a function
+}
+
+hash(1, 2);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Still, there’s an easy way to use array join:</p>
+                  <div
+                    id="amljwhpizq"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":1,"end":1}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="call-apply-decorators.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function hash() {
+  alert( [].join.call(arguments) ); // 1,2
+}
+
+hash(1, 2);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The trick is called <em>method borrowing</em>.</p>
+                  <p>
+                    We take (borrow) a join method from a regular array
+                    (<code>[].join</code>) and use <code>[].join.call</code> to
+                    run it in the context of <code>arguments</code>.
+                  </p>
+                  <p>Why does it work?</p>
+                  <p>
+                    That’s because the internal algorithm of the native method
+                    <code>arr.join(glue)</code> is very simple.
+                  </p>
+                  <p>Taken from the specification almost “as-is”:</p>
+                  <ol>
+                    <li>
+                      Let <code>glue</code> be the first argument or, if no
+                      arguments, then a comma <code>&quot;,&quot;</code>.
+                    </li>
+                    <li>Let <code>result</code> be an empty string.</li>
+                    <li>Append <code>this[0]</code> to <code>result</code>.</li>
+                    <li>Append <code>glue</code> and <code>this[1]</code>.</li>
+                    <li>Append <code>glue</code> and <code>this[2]</code>.</li>
+                    <li>
+                      …Do so until <code>this.length</code> items are glued.
+                    </li>
+                    <li>Return <code>result</code>.</li>
+                  </ol>
+                  <p>
+                    So, technically it takes <code>this</code> and joins
+                    <code>this[0]</code>, <code>this[1]</code> …etc together.
+                    It’s intentionally written in a way that allows any
+                    array-like <code>this</code> (not a coincidence, many
+                    methods follow this practice). That’s why it also works with
+                    <code>this=arguments</code>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="decorators-and-function-properties"
+                      href="call-apply-decorators.html#decorators-and-function-properties"
+                      >Decorators and function properties</a
+                    >
+                  </h2>
+                  <p>
+                    It is generally safe to replace a function or a method with
+                    a decorated one, except for one little thing. If the
+                    original function had properties on it, like
+                    <code>func.calledCount</code> or whatever, then the
+                    decorated one will not provide them. Because that is a
+                    wrapper. So one needs to be careful if one uses them.
+                  </p>
+                  <p>
+                    E.g. in the example above if <code>slow</code> function had
+                    any properties on it, then
+                    <code>cachingDecorator(slow)</code> is a wrapper without
+                    them.
+                  </p>
+                  <p>
+                    Some decorators may provide their own properties. E.g. a
+                    decorator may count how many times a function was invoked
+                    and how much time it took, and expose this information via
+                    wrapper properties.
+                  </p>
+                  <p>
+                    There exists a way to create decorators that keep access to
+                    function properties, but this requires using a special
+                    <code>Proxy</code> object to wrap a function. We’ll discuss
+                    it later in the article
+                    <a href="proxy.html#proxy-apply">Proxy and Reflect</a>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="call-apply-decorators.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    <em>Decorator</em> is a wrapper around a function that
+                    alters its behavior. The main job is still carried out by
+                    the function.
+                  </p>
+                  <p>
+                    Decorators can be seen as “features” or “aspects” that can
+                    be added to a function. We can add one or add many. And all
+                    this without changing its code!
+                  </p>
+                  <p>
+                    To implement <code>cachingDecorator</code>, we studied
+                    methods:
+                  </p>
+                  <ul>
+                    <li>
+                      <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call"
+                        >func.call(context, arg1, arg2…)</a
+                      >
+                      – calls <code>func</code> with given context and
+                      arguments.
+                    </li>
+                    <li>
+                      <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply"
+                        >func.apply(context, args)</a
+                      >
+                      – calls <code>func</code> passing <code>context</code> as
+                      <code>this</code> and array-like <code>args</code> into a
+                      list of arguments.
+                    </li>
+                  </ul>
+                  <p>
+                    The generic <em>call forwarding</em> is usually done with
+                    <code>apply</code>:
+                  </p>
+                  <div id="wykstwepec" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let wrapper = function() {
+  return original.apply(this, arguments);
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We also saw an example of <em>method borrowing</em> when we
+                    take a method from an object and <code>call</code> it in the
+                    context of another object. It is quite common to take array
+                    methods and apply them to <code>arguments</code>. The
+                    alternative is to use rest parameters object that is a real
+                    array.
+                  </p>
+                  <p>
+                    There are many decorators there in the wild. Check how well
+                    you got them by solving the tasks of this chapter.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="call-apply-decorators.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="call-apply-decorators.html#spy-decorator"
+                          name="spy-decorator"
+                          >Spy decorator</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/spy-decorator.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Create a decorator <code>spy(func)</code> that should
+                          return a wrapper that saves all calls to function in
+                          its <code>calls</code> property.
+                        </p>
+                        <p>Every call is saved as an array of arguments.</p>
+                        <p>For instance:</p>
+                        <div
+                          id="8tjl35ipzy"
+                          data-trusted="1"
+                          class="code-example"
+                          data-highlight='[{"start":4,"end":4}]'
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function work(a, b) {
+  alert( a + b ); // work is an arbitrary function or method
+}
+
+work = spy(work);
+
+work(1, 2); // 3
+work(4, 5); // 9
+
+for (let args of work.calls) {
+  alert( 'call:' + args.join() ); // &quot;call:1,2&quot;, &quot;call:4,5&quot;
+}</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          P.S. That decorator is sometimes useful for
+                          unit-testing. Its advanced form is
+                          <code>sinon.spy</code> in
+                          <a href="http://sinonjs.org/">Sinon.JS</a> library.
+                        </p>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/STraI11P0hzMLa14?p=preview"
+                            target="_blank"
+                            data-plunk-id="STraI11P0hzMLa14"
+                            >Open a sandbox with tests.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              The wrapper returned by <code>spy(f)</code> should
+                              store all arguments and then use
+                              <code>f.apply</code> to forward the call.
+                            </p>
+                            <div
+                              id="gshrbzij7d"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function spy(func) {
+
+  function wrapper(...args) {
+    // using ...args instead of arguments to store &quot;real&quot; array in wrapper.calls
+    wrapper.calls.push(args);
+    return func.apply(this, args);
+  }
+
+  wrapper.calls = [];
+
+  return wrapper;
+}</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/R7efK9wZmOFKktML?p=preview"
+                                target="_blank"
+                                data-plunk-id="R7efK9wZmOFKktML"
+                                >Open the solution with tests in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="call-apply-decorators.html#delaying-decorator"
+                          name="delaying-decorator"
+                          >Delaying decorator</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/delay.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Create a decorator <code>delay(f, ms)</code> that
+                          delays each call of <code>f</code> by
+                          <code>ms</code> milliseconds.
+                        </p>
+                        <p>For instance:</p>
+                        <div
+                          id="ycrzkwr6gd"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function f(x) {
+  alert(x);
+}
+
+// create wrappers
+let f1000 = delay(f, 1000);
+let f1500 = delay(f, 1500);
+
+f1000(&quot;test&quot;); // shows &quot;test&quot; after 1000ms
+f1500(&quot;test&quot;); // shows &quot;test&quot; after 1500ms</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          In other words, <code>delay(f, ms)</code> returns a
+                          &quot;delayed by <code>ms</code>&quot; variant of
+                          <code>f</code>.
+                        </p>
+                        <p>
+                          In the code above, <code>f</code> is a function of a
+                          single argument, but your solution should pass all
+                          arguments and the context <code>this</code>.
+                        </p>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/S979fqC4ga95OKUV?p=preview"
+                            target="_blank"
+                            data-plunk-id="S979fqC4ga95OKUV"
+                            >Open a sandbox with tests.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>The solution:</p>
+                            <div
+                              id="1k187o5ss7"
+                              data-trusted="1"
+                              class="code-example"
+                              data-demo="1"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="call-apply-decorators.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="call-apply-decorators.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function delay(f, ms) {
+
+  return function() {
+    setTimeout(() =&gt; f.apply(this, arguments), ms);
+  };
+
+}
+
+let f1000 = delay(alert, 1000);
+
+f1000(&quot;test&quot;); // shows &quot;test&quot; after 1000ms</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              Please note how an arrow function is used here. As
+                              we know, arrow functions do not have own
+                              <code>this</code> and <code>arguments</code>, so
+                              <code>f.apply(this, arguments)</code> takes
+                              <code>this</code> and <code>arguments</code> from
+                              the wrapper.
+                            </p>
+                            <p>
+                              If we pass a regular function,
+                              <code>setTimeout</code> would call it without
+                              arguments and <code>this=window</code> (assuming
+                              we’re in the browser).
+                            </p>
+                            <p>
+                              We still can pass the right <code>this</code> by
+                              using an intermediate variable, but that’s a
+                              little bit more cumbersome:
+                            </p>
+                            <div
+                              id="5sztglljur"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function delay(f, ms) {
+
+  return function(...args) {
+    let savedThis = this; // store this into an intermediate variable
+    setTimeout(function() {
+      f.apply(savedThis, args); // use it here
+    }, ms);
+  };
+
+}</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/sE5fOcbTxHuLo1fm?p=preview"
+                                target="_blank"
+                                data-plunk-id="sE5fOcbTxHuLo1fm"
+                                >Open the solution with tests in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="call-apply-decorators.html#debounce-decorator"
+                          name="debounce-decorator"
+                          >Debounce decorator</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/debounce.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          The result of <code>debounce(f, ms)</code> decorator
+                          is a wrapper that suspends calls to
+                          <code>f</code> until there’s
+                          <code>ms</code> milliseconds of inactivity (no calls,
+                          “cooldown period”), then invokes <code>f</code> once
+                          with the latest arguments.
+                        </p>
+                        <p>
+                          In other words, <code>debounce</code> is like a
+                          secretary that accepts “phone calls”, and waits until
+                          there’s <code>ms</code> milliseconds of being quiet.
+                          And only then it transfers the latest call information
+                          to “the boss” (calls the actual <code>f</code>).
+                        </p>
+                        <p>
+                          For instance, we had a function <code>f</code> and
+                          replaced it with <code>f = debounce(f, 1000)</code>.
+                        </p>
+                        <p>
+                          Then if the wrapped function is called at 0ms, 200ms
+                          and 500ms, and then there are no calls, then the
+                          actual <code>f</code> will be only called once, at
+                          1500ms. That is: after the cooldown period of 1000ms
+                          from the last call.
+                        </p>
+                        <figure>
+                          <div class="image" style="width: 500px">
+                            <div
+                              class="image__ratio"
+                              style="padding-top: 36.6%"
+                            ></div>
+                            <object
+                              type="image/svg+xml"
+                              data="task/debounce/debounce.svg"
+                              width="500"
+                              height="183"
+                              class="image__image"
+                            >
+                              <img
+                                src="task/debounce/debounce.svg"
+                                alt=""
+                                width="500"
+                                height="183"
+                              />
+                            </object>
+                          </div>
+                        </figure>
+                        <p>
+                          …And it will get the arguments of the very last call,
+                          other calls are ignored.
+                        </p>
+                        <p>
+                          Here’s the code for it (uses the debounce decorator
+                          from the
+                          <a href="https://lodash.com/docs/4.17.15#debounce"
+                            >Lodash library</a
+                          >):
+                        </p>
+                        <div
+                          id="8frongczxm"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let f = _.debounce(alert, 1000);
+
+f(&quot;a&quot;);
+setTimeout( () =&gt; f(&quot;b&quot;), 200);
+setTimeout( () =&gt; f(&quot;c&quot;), 500);
+// debounced function waits 1000ms after the last call and then runs: alert(&quot;c&quot;)</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          Now a practical example. Let’s say, the user types
+                          something, and we’d like to send a request to the
+                          server when the input is finished.
+                        </p>
+                        <p>
+                          There’s no point in sending the request for every
+                          character typed. Instead we’d like to wait, and then
+                          process the whole result.
+                        </p>
+                        <p>
+                          In a web-browser, we can setup an event handler – a
+                          function that’s called on every change of an input
+                          field. Normally, an event handler is called very
+                          often, for every typed key. But if we
+                          <code>debounce</code> it by 1000ms, then it will be
+                          only called once, after 1000ms after the last input.
+                        </p>
+                        <p>
+                          In this live example, the handler puts the result into
+                          a box below, try it:
+                        </p>
+                        <div class="code-result">
+                          <div class="code-result__toolbar toolbar"></div>
+                          <iframe
+                            class="code-result__iframe"
+                            data-trusted="1"
+                            style="height: 200px"
+                            src="https://en.js.cx/task/debounce/debounce/"
+                          ></iframe>
+                        </div>
+                        <p>
+                          See? The second input calls the debounced function, so
+                          its content is processed after 1000ms from the last
+                          input.
+                        </p>
+                        <p>
+                          So, <code>debounce</code> is a great way to process a
+                          sequence of events: be it a sequence of key presses,
+                          mouse movements or something else.
+                        </p>
+                        <p>
+                          It waits the given time after the last call, and then
+                          runs its function, that can process the result.
+                        </p>
+                        <p>
+                          The task is to implement
+                          <code>debounce</code> decorator.
+                        </p>
+                        <p>
+                          Hint: that’s just a few lines if you think about it :)
+                        </p>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/QkMa1Ph67nQYEpAs?p=preview"
+                            target="_blank"
+                            data-plunk-id="QkMa1Ph67nQYEpAs"
+                            >Open a sandbox with tests.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <div
+                              id="gvdnp89cur"
+                              data-trusted="1"
+                              class="code-example"
+                              data-demo="1"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function debounce(func, ms) {
+  let timeout;
+  return function() {
+    clearTimeout(timeout);
+    timeout = setTimeout(() =&gt; func.apply(this, arguments), ms);
+  };
+}</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              A call to <code>debounce</code> returns a wrapper.
+                              When called, it schedules the original function
+                              call after given <code>ms</code> and cancels the
+                              previous such timeout.
+                            </p>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/ydqASHtEI8mS5AlD?p=preview"
+                                target="_blank"
+                                data-plunk-id="ydqASHtEI8mS5AlD"
+                                >Open the solution with tests in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="call-apply-decorators.html#throttle-decorator"
+                          name="throttle-decorator"
+                          >Throttle decorator</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/throttle.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Create a “throttling” decorator
+                          <code>throttle(f, ms)</code> – that returns a wrapper.
+                        </p>
+                        <p>
+                          When it’s called multiple times, it passes the call to
+                          <code>f</code> at maximum once per
+                          <code>ms</code> milliseconds.
+                        </p>
+                        <p>
+                          The difference with debounce is that it’s completely
+                          different decorator:
+                        </p>
+                        <ul>
+                          <li>
+                            <code>debounce</code> runs the function once after
+                            the “cooldown” period. Good for processing the final
+                            result.
+                          </li>
+                          <li>
+                            <code>throttle</code> runs it not more often than
+                            given <code>ms</code> time. Good for regular updates
+                            that shouldn’t be very often.
+                          </li>
+                        </ul>
+                        <p>
+                          In other words, <code>throttle</code> is like a
+                          secretary that accepts phone calls, but bothers the
+                          boss (calls the actual <code>f</code>) not more often
+                          than once per <code>ms</code> milliseconds.
+                        </p>
+                        <p>
+                          Let’s check the real-life application to better
+                          understand that requirement and to see where it comes
+                          from.
+                        </p>
+                        <p>
+                          <strong
+                            >For instance, we want to track mouse
+                            movements.</strong
+                          >
+                        </p>
+                        <p>
+                          In a browser we can setup a function to run at every
+                          mouse movement and get the pointer location as it
+                          moves. During an active mouse usage, this function
+                          usually runs very frequently, can be something like
+                          100 times per second (every 10 ms).
+                          <strong
+                            >We’d like to update some information on the
+                            web-page when the pointer moves.</strong
+                          >
+                        </p>
+                        <p>
+                          …But updating function <code>update()</code> is too
+                          heavy to do it on every micro-movement. There is also
+                          no sense in updating more often than once per 100ms.
+                        </p>
+                        <p>
+                          So we’ll wrap it into the decorator: use
+                          <code>throttle(update, 100)</code> as the function to
+                          run on each mouse move instead of the original
+                          <code>update()</code>. The decorator will be called
+                          often, but forward the call to
+                          <code>update()</code> at maximum once per 100ms.
+                        </p>
+                        <p>Visually, it will look like this:</p>
+                        <ol>
+                          <li>
+                            For the first mouse movement the decorated variant
+                            immediately passes the call to <code>update</code>.
+                            That’s important, the user sees our reaction to
+                            their move immediately.
+                          </li>
+                          <li>
+                            Then as the mouse moves on, until
+                            <code>100ms</code> nothing happens. The decorated
+                            variant ignores calls.
+                          </li>
+                          <li>
+                            At the end of <code>100ms</code> – one more
+                            <code>update</code> happens with the last
+                            coordinates.
+                          </li>
+                          <li>
+                            Then, finally, the mouse stops somewhere. The
+                            decorated variant waits until
+                            <code>100ms</code> expire and then runs
+                            <code>update</code> with last coordinates. So, quite
+                            important, the final mouse coordinates are
+                            processed.
+                          </li>
+                        </ol>
+                        <p>A code example:</p>
+                        <div
+                          id="kebh58sxnj"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function f(a) {
+  console.log(a);
+}
+
+// f1000 passes calls to f at maximum once per 1000 ms
+let f1000 = throttle(f, 1000);
+
+f1000(1); // shows 1
+f1000(2); // (throttling, 1000ms not out yet)
+f1000(3); // (throttling, 1000ms not out yet)
+
+// when 1000 ms time out...
+// ...outputs 3, intermediate value 2 was ignored</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          P.S. Arguments and the context
+                          <code>this</code> passed to <code>f1000</code> should
+                          be passed to the original <code>f</code>.
+                        </p>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/hXYTiNGcB0hq2ZV2?p=preview"
+                            target="_blank"
+                            data-plunk-id="hXYTiNGcB0hq2ZV2"
+                            >Open a sandbox with tests.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <div
+                              id="kn38zaa942"
+                              data-trusted="1"
+                              class="code-example"
+                              data-demo="1"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function throttle(func, ms) {
+
+  let isThrottled = false,
+    savedArgs,
+    savedThis;
+
+  function wrapper() {
+
+    if (isThrottled) { // (2)
+      savedArgs = arguments;
+      savedThis = this;
+      return;
+    }
+    isThrottled = true;
+
+    func.apply(this, arguments); // (1)
+
+    setTimeout(function() {
+      isThrottled = false; // (3)
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs);
+        savedArgs = savedThis = null;
+      }
+    }, ms);
+  }
+
+  return wrapper;
+}</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              A call to <code>throttle(func, ms)</code> returns
+                              <code>wrapper</code>.
+                            </p>
+                            <ol>
+                              <li>
+                                During the first call, the
+                                <code>wrapper</code> just runs
+                                <code>func</code> and sets the cooldown state
+                                (<code>isThrottled = true</code>).
+                              </li>
+                              <li>
+                                In this state all calls are memorized in
+                                <code>savedArgs/savedThis</code>. Please note
+                                that both the context and the arguments are
+                                equally important and should be memorized. We
+                                need them simultaneously to reproduce the call.
+                              </li>
+                              <li>
+                                After <code>ms</code> milliseconds pass,
+                                <code>setTimeout</code> triggers. The cooldown
+                                state is removed (<code
+                                  >isThrottled = false</code
+                                >) and, if we had ignored calls,
+                                <code>wrapper</code> is executed with the last
+                                memorized arguments and context.
+                              </li>
+                            </ol>
+                            <p>
+                              The 3rd step runs not <code>func</code>, but
+                              <code>wrapper</code>, because we not only need to
+                              execute <code>func</code>, but once again enter
+                              the cooldown state and setup the timeout to reset
+                              it.
+                            </p>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/7jLStqfW8AQCyE96?p=preview"
+                                target="_blank"
+                                data-plunk-id="7jLStqfW8AQCyE96"
+                                >Open the solution with tests in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="settimeout-setinterval.html"
+                data-tooltip="Scheduling: setTimeout and setInterval"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="bind.html"
+                data-tooltip="Function binding"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcall-apply-decorators"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcall-apply-decorators"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="call-apply-decorators.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                        
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/call-apply-decorators",
+                    identifier: "\/call-apply-decorators",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+
+                      <a class="sidebar__link" href="advanced-functions.html"
+                        >Advanced working with functions</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   call-apply-decorators.html#transparent-caching"
+                        >Transparent caching</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   call-apply-decorators.html#using-func-call-for-the-context"
+                        >Using “func.call” for the context</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   call-apply-decorators.html#going-multi-argument"
+                        >Going multi-argument</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   call-apply-decorators.html#func-apply"
+                        >func.apply</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   call-apply-decorators.html#method-borrowing"
+                        >Borrowing a method</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   call-apply-decorators.html#decorators-and-function-properties"
+                        >Decorators and function properties</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   call-apply-decorators.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   call-apply-decorators.html#tasks"
+                        >Tasks (4)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   call-apply-decorators.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcall-apply-decorators"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fcall-apply-decorators"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/06-advanced-functions/09-call-apply-decorators"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
