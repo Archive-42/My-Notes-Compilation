@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">WeakMap and WeakSet</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="weakmap-weakset.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="WeakMap and WeakSet" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+
+    <meta name="twitter:title" content="WeakMap and WeakSet" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="map-set.html" />
+    <link rel="next" href="keys-values-entries.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="WeakMap and WeakSet" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/weakmap-weakset"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="weakmap-weakset.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/weakmap-weakset"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/weakmap-weakset"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/weakmap-weakset"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/weakmap-weakset"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/weakmap-weakset"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=weakmap-weakset"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/weakmap-weakset"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fweakmap-weakset"
+                  rel="nofollow"
+                ></a
+                >2Fweakmap-weakset"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/weakmap-weakset">
+                  عربي
+                </option>
+                <option
+                  value="https://javascript.info/weakmap-weakset"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/weakmap-weakset">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/weakmap-weakset">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/weakmap-weakset">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/weakmap-weakset">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/weakmap-weakset">
+                  한국어
+                </option>
+                <option value=weakmap-weakset">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/">Türkçe</option>
+                <option value="https://zh.javascript.info/weakmap-weakset">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="44"
+          max="92"
+          data-tooltip="Lesson 44 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="data-types.html"
+                        ><span>Data types</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Data types",
+                            "item": "https://javascript.info/data-types"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 12th April 2021"
+                  >
+                    <div class="updated-at__content">12th April 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">WeakMap and WeakSet</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="WeakMap and WeakSet" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    As we know from the chapter
+                    <a href="garbage-collection.html">Garbage collection</a>,
+                    JavaScript engine keeps a value in memory while it is
+                    “reachable” and can potentially be used.
+                  </p>
+                  <p>For instance:</p>
+                  <div
+                    id="y1tjzes7of"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":7,"end":7}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let john = { name: &quot;John&quot; };
+
+// the object can be accessed, john is the reference to it
+
+// overwrite the reference
+john = null;
+
+// the object will be removed from memory</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Usually, properties of an object or elements of an array or
+                    another data structure are considered reachable and kept in
+                    memory while that data structure is in memory.
+                  </p>
+                  <p>
+                    For instance, if we put an object into an array, then while
+                    the array is alive, the object will be alive as well, even
+                    if there are no other references to it.
+                  </p>
+                  <p>Like this:</p>
+                  <div
+                    id="gwpbqjntok"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":6,"end":8}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let john = { name: &quot;John&quot; };
+
+let array = [ john ];
+
+john = null; // overwrite the reference
+
+// the object previously referenced by john is stored inside the array
+// therefore it won't be garbage-collected
+// we can get it as array[0]</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Similar to that, if we use an object as the key in a regular
+                    <code>Map</code>, then while the <code>Map</code> exists,
+                    that object exists as well. It occupies memory and may not
+                    be garbage collected.
+                  </p>
+                  <p>For instance:</p>
+                  <div
+                    id="tfz69pzg44"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":7,"end":8}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let john = { name: &quot;John&quot; };
+
+let map = new Map();
+map.set(john, &quot;...&quot;);
+
+john = null; // overwrite the reference
+
+// john is stored inside the map,
+// we can get it by using map.keys()</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    <code>WeakMap</code> is fundamentally different in this
+                    aspect. It doesn’t prevent garbage-collection of key
+                    objects.
+                  </p>
+                  <p>Let’s see what it means on examples.</p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="weakmap"
+                      href="weakmap-weakset.html#weakmap"
+                      >WeakMap</a
+                    >
+                  </h2>
+                  <p>
+                    The first difference between <code>Map</code> and
+                    <code>WeakMap</code> is that keys must be objects, not
+                    primitive values:
+                  </p>
+                  <div
+                    id="d3oaunx3he"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":6,"end":7}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="weakmap-weakset.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="weakmap-weakset.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let weakMap = new WeakMap();
+
+let obj = {};
+
+weakMap.set(obj, &quot;ok&quot;); // works fine (object key)
+
+// can't use a string as the key
+weakMap.set(&quot;test&quot;, &quot;Whoops&quot;); // Error, because &quot;test&quot; is not an object</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now, if we use an object as the key in it, and there are no
+                    other references to that object – it will be removed from
+                    memory (and from the map) automatically.
+                  </p>
+                  <div id="lnz7xmeqha" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let john = { name: &quot;John&quot; };
+
+let weakMap = new WeakMap();
+weakMap.set(john, &quot;...&quot;);
+
+john = null; // overwrite the reference
+
+// john is removed from memory!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Compare it with the regular <code>Map</code> example above.
+                    Now if <code>john</code> only exists as the key of
+                    <code>WeakMap</code> – it will be automatically deleted from
+                    the map (and memory).
+                  </p>
+                  <p>
+                    <code>WeakMap</code> does not support iteration and methods
+                    <code>keys()</code>, <code>values()</code>,
+                    <code>entries()</code>, so there’s no way to get all keys or
+                    values from it.
+                  </p>
+                  <p><code>WeakMap</code> has only the following methods:</p>
+                  <ul>
+                    <li><code>weakMap.get(key)</code></li>
+                    <li><code>weakMap.set(key, value)</code></li>
+                    <li><code>weakMap.delete(key)</code></li>
+                    <li><code>weakMap.has(key)</code></li>
+                  </ul>
+                  <p>
+                    Why such a limitation? That’s for technical reasons. If an
+                    object has lost all other references (like
+                    <code>john</code> in the code above), then it is to be
+                    garbage-collected automatically. But technically it’s not
+                    exactly specified <em>when the cleanup happens</em>.
+                  </p>
+                  <p>
+                    The JavaScript engine decides that. It may choose to perform
+                    the memory cleanup immediately or to wait and do the
+                    cleaning later when more deletions happen. So, technically,
+                    the current element count of a <code>WeakMap</code> is not
+                    known. The engine may have cleaned it up or not, or did it
+                    partially. For that reason, methods that access all
+                    keys/values are not supported.
+                  </p>
+                  <p>Now, where do we need such a data structure?</p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="use-case-additional-data"
+                      href="weakmap-weakset.html#use-case-additional-data"
+                      >Use case: additional data</a
+                    >
+                  </h2>
+                  <p>
+                    The main area of application for <code>WeakMap</code> is an
+                    <em>additional data storage</em>.
+                  </p>
+                  <p>
+                    If we’re working with an object that “belongs” to another
+                    code, maybe even a third-party library, and would like to
+                    store some data associated with it, that should only exist
+                    while the object is alive – then <code>WeakMap</code> is
+                    exactly what’s needed.
+                  </p>
+                  <p>
+                    We put the data to a <code>WeakMap</code>, using the object
+                    as the key, and when the object is garbage collected, that
+                    data will automatically disappear as well.
+                  </p>
+                  <div id="9t7jsrj3rp" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>weakMap.set(john, &quot;secret documents&quot;);
+// if john dies, secret documents will be destroyed automatically</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Let’s look at an example.</p>
+                  <p>
+                    For instance, we have code that keeps a visit count for
+                    users. The information is stored in a map: a user object is
+                    the key and the visit count is the value. When a user leaves
+                    (its object gets garbage collected), we don’t want to store
+                    their visit count anymore.
+                  </p>
+                  <p>
+                    Here’s an example of a counting function with
+                    <code>Map</code>:
+                  </p>
+                  <div id="u83viwhwjk" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 visitsCount.js
+let visitsCountMap = new Map(); // map: user =&gt; visits count
+
+// increase the visits count
+function countUser(user) {
+  let count = visitsCountMap.get(user) || 0;
+  visitsCountMap.set(user, count + 1);
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    And here’s another part of the code, maybe another file
+                    using it:
+                  </p>
+                  <div id="tkezje3g1t" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 main.js
+let john = { name: &quot;John&quot; };
+
+countUser(john); // count his visits
+
+// later john leaves us
+john = null;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now, <code>john</code> object should be garbage collected,
+                    but remains in memory, as it’s a key in
+                    <code>visitsCountMap</code>.
+                  </p>
+                  <p>
+                    We need to clean <code>visitsCountMap</code> when we remove
+                    users, otherwise it will grow in memory indefinitely. Such
+                    cleaning can become a tedious task in complex architectures.
+                  </p>
+                  <p>
+                    We can avoid it by switching to
+                    <code>WeakMap</code> instead:
+                  </p>
+                  <div id="nmptnhp9by" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 visitsCount.js
+let visitsCountMap = new WeakMap(); // weakmap: user =&gt; visits count
+
+// increase the visits count
+function countUser(user) {
+  let count = visitsCountMap.get(user) || 0;
+  visitsCountMap.set(user, count + 1);
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now we don’t have to clean <code>visitsCountMap</code>.
+                    After <code>john</code> object becomes unreachable, by all
+                    means except as a key of <code>WeakMap</code>, it gets
+                    removed from memory, along with the information by that key
+                    from <code>WeakMap</code>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="use-case-caching"
+                      href="weakmap-weakset.html#use-case-caching"
+                      >Use case: caching</a
+                    >
+                  </h2>
+                  <p>
+                    Another common example is caching. We can store (“cache”)
+                    results from a function, so that future calls on the same
+                    object can reuse it.
+                  </p>
+                  <p>
+                    To achieve that, we can use <code>Map</code> (not optimal
+                    scenario):
+                  </p>
+                  <div
+                    id="i6ixxojqlv"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":14,"end":14}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="weakmap-weakset.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="weakmap-weakset.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 cache.js
+let cache = new Map();
+
+// calculate and remember the result
+function process(obj) {
+  if (!cache.has(obj)) {
+    let result = /* calculations of the result for */ obj;
+
+    cache.set(obj, result);
+  }
+
+  return cache.get(obj);
+}
+
+// Now we use process() in another file:
+
+// 📁 main.js
+let obj = {/* let's say we have an object */};
+
+let result1 = process(obj); // calculated
+
+// ...later, from another place of the code...
+let result2 = process(obj); // remembered result taken from cache
+
+// ...later, when the object is not needed any more:
+obj = null;
+
+alert(cache.size); // 1 (Ouch! The object is still in cache, taking memory!)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    For multiple calls of <code>process(obj)</code> with the
+                    same object, it only calculates the result the first time,
+                    and then just takes it from <code>cache</code>. The downside
+                    is that we need to clean <code>cache</code> when the object
+                    is not needed any more.
+                  </p>
+                  <p>
+                    If we replace <code>Map</code> with <code>WeakMap</code>,
+                    then this problem disappears. The cached result will be
+                    removed from memory automatically after the object gets
+                    garbage collected.
+                  </p>
+                  <div
+                    id="nnainq4grm"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":1,"end":1}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="weakmap-weakset.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="weakmap-weakset.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 cache.js
+let cache = new WeakMap();
+
+// calculate and remember the result
+function process(obj) {
+  if (!cache.has(obj)) {
+    let result = /* calculate the result for */ obj;
+
+    cache.set(obj, result);
+  }
+
+  return cache.get(obj);
+}
+
+// 📁 main.js
+let obj = {/* some object */};
+
+let result1 = process(obj);
+let result2 = process(obj);
+
+// ...later, when the object is not needed any more:
+obj = null;
+
+// Can't get cache.size, as it's a WeakMap,
+// but it's 0 or soon be 0
+// When obj gets garbage collected, cached data will be removed as well</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="weakset"
+                      href="weakmap-weakset.html#weakset"
+                      >WeakSet</a
+                    >
+                  </h2>
+                  <p><code>WeakSet</code> behaves similarly:</p>
+                  <ul>
+                    <li>
+                      It is analogous to <code>Set</code>, but we may only add
+                      objects to <code>WeakSet</code> (not primitives).
+                    </li>
+                    <li>
+                      An object exists in the set while it is reachable from
+                      somewhere else.
+                    </li>
+                    <li>
+                      Like <code>Set</code>, it supports <code>add</code>,
+                      <code>has</code> and <code>delete</code>, but not
+                      <code>size</code>, <code>keys()</code> and no iterations.
+                    </li>
+                  </ul>
+                  <p>
+                    Being “weak”, it also serves as additional storage. But not
+                    for arbitrary data, rather for “yes/no” facts. A membership
+                    in <code>WeakSet</code> may mean something about the object.
+                  </p>
+                  <p>
+                    For instance, we can add users to <code>WeakSet</code> to
+                    keep track of those who visited our site:
+                  </p>
+                  <div id="2s7k4irofb" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="weakmap-weakset.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="weakmap-weakset.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let visitedSet = new WeakSet();
+
+let john = { name: &quot;John&quot; };
+let pete = { name: &quot;Pete&quot; };
+let mary = { name: &quot;Mary&quot; };
+
+visitedSet.add(john); // John visited us
+visitedSet.add(pete); // Then Pete
+visitedSet.add(john); // John again
+
+// visitedSet has 2 users now
+
+// check if John visited?
+alert(visitedSet.has(john)); // true
+
+// check if Mary visited?
+alert(visitedSet.has(mary)); // false
+
+john = null;
+
+// visitedSet will be cleaned automatically</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The most notable limitation of <code>WeakMap</code> and
+                    <code>WeakSet</code> is the absence of iterations, and the
+                    inability to get all current content. That may appear
+                    inconvenient, but does not prevent
+                    <code>WeakMap/WeakSet</code> from doing their main job – be
+                    an “additional” storage of data for objects which are
+                    stored/managed at another place.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="weakmap-weakset.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    <code>WeakMap</code> is <code>Map</code>-like collection
+                    that allows only objects as keys and removes them together
+                    with associated value once they become inaccessible by other
+                    means.
+                  </p>
+                  <p>
+                    <code>WeakSet</code> is <code>Set</code>-like collection
+                    that stores only objects and removes them once they become
+                    inaccessible by other means.
+                  </p>
+                  <p>
+                    Their main advantages are that they have weak reference to
+                    objects, so they can easily be removed by garbage collector.
+                  </p>
+                  <p>
+                    That comes at the cost of not having support for
+                    <code>clear</code>, <code>size</code>, <code>keys</code>,
+                    <code>values</code>…
+                  </p>
+                  <p>
+                    <code>WeakMap</code> and <code>WeakSet</code> are used as
+                    “secondary” data structures in addition to the “primary”
+                    object storage. Once the object is removed from the primary
+                    storage, if it is only found as the key of
+                    <code>WeakMap</code> or in a <code>WeakSet</code>, it will
+                    be cleaned up automatically.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="weakmap-weakset.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="weakmap-weakset.html#store-unread-flags"
+                          name="store-unread-flags"
+                          >Store &quot;unread&quot; flags</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/recipients-read.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>There’s an array of messages:</p>
+                        <div
+                          id="qepd2l7zdx"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let messages = [
+  {text: &quot;Hello&quot;, from: &quot;John&quot;},
+  {text: &quot;How goes?&quot;, from: &quot;John&quot;},
+  {text: &quot;See you soon&quot;, from: &quot;Alice&quot;}
+];</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          Your code can access it, but the messages are managed
+                          by someone else’s code. New messages are added, old
+                          ones are removed regularly by that code, and you don’t
+                          know the exact moments when it happens.
+                        </p>
+                        <p>
+                          Now, which data structure could you use to store
+                          information about whether the message “has been read”?
+                          The structure must be well-suited to give the answer
+                          “was it read?” for the given message object.
+                        </p>
+                        <p>
+                          P.S. When a message is removed from
+                          <code>messages</code>, it should disappear from your
+                          structure as well.
+                        </p>
+                        <p>
+                          P.P.S. We shouldn’t modify message objects, add our
+                          properties to them. As they are managed by someone
+                          else’s code, that may lead to bad consequences.
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              Let’s store read messages in <code>WeakSet</code>:
+                            </p>
+                            <div
+                              id="l3eehgnxgt"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="weakmap-weakset.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="weakmap-weakset.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let messages = [
+  {text: &quot;Hello&quot;, from: &quot;John&quot;},
+  {text: &quot;How goes?&quot;, from: &quot;John&quot;},
+  {text: &quot;See you soon&quot;, from: &quot;Alice&quot;}
+];
+
+let readMessages = new WeakSet();
+
+// two messages have been read
+readMessages.add(messages[0]);
+readMessages.add(messages[1]);
+// readMessages has 2 elements
+
+// ...let's read the first message again!
+readMessages.add(messages[0]);
+// readMessages still has 2 unique elements
+
+// answer: was the message[0] read?
+alert(&quot;Read message 0: &quot; + readMessages.has(messages[0])); // true
+
+messages.shift();
+// now readMessages has 1 element (technically memory may be cleaned later)</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              The <code>WeakSet</code> allows to store a set of
+                              messages and easily check for the existence of a
+                              message in it.
+                            </p>
+                            <p>
+                              It cleans up itself automatically. The tradeoff is
+                              that we can’t iterate over it, can’t get “all read
+                              messages” from it directly. But we can do it by
+                              iterating over all messages and filtering those
+                              that are in the set.
+                            </p>
+                            <p>
+                              Another, different solution could be to add a
+                              property like <code>message.isRead=true</code> to
+                              a message after it’s read. As messages objects are
+                              managed by another code, that’s generally
+                              discouraged, but we can use a symbolic property to
+                              avoid conflicts.
+                            </p>
+                            <p>Like this:</p>
+                            <div
+                              id="zdiiwe67g"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>// the symbolic property is only known to our code
+let isRead = Symbol(&quot;isRead&quot;);
+messages[0][isRead] = true;</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              Now third-party code probably won’t see our extra
+                              property.
+                            </p>
+                            <p>
+                              Although symbols allow to lower the probability of
+                              problems, using <code>WeakSet</code> is better
+                              from the architectural point of view.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="weakmap-weakset.html#store-read-dates"
+                          name="store-read-dates"
+                          >Store read dates</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/recipients-when-read.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          There’s an array of messages as in the
+                          <a href="task/recipients-read.html">previous task</a>.
+                          The situation is similar.
+                        </p>
+                        <div
+                          id="1uqqu2u7cc"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let messages = [
+  {text: &quot;Hello&quot;, from: &quot;John&quot;},
+  {text: &quot;How goes?&quot;, from: &quot;John&quot;},
+  {text: &quot;See you soon&quot;, from: &quot;Alice&quot;}
+];</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          The question now is: which data structure you’d
+                          suggest to store the information: “when the message
+                          was read?”.
+                        </p>
+                        <p>
+                          In the previous task we only needed to store the
+                          “yes/no” fact. Now we need to store the date, and it
+                          should only remain in memory until the message is
+                          garbage collected.
+                        </p>
+                        <p>
+                          P.S. Dates can be stored as objects of built-in
+                          <code>Date</code> class, that we’ll cover later.
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              To store a date, we can use <code>WeakMap</code>:
+                            </p>
+                            <div
+                              id="kgrcf87mzy"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let messages = [
+  {text: &quot;Hello&quot;, from: &quot;John&quot;},
+  {text: &quot;How goes?&quot;, from: &quot;John&quot;},
+  {text: &quot;See you soon&quot;, from: &quot;Alice&quot;}
+];
+
+let readMap = new WeakMap();
+
+readMap.set(messages[0], new Date(2017, 1, 1));
+// Date object we'll study later</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="map-set.html"
+                data-tooltip="Map and Set"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="keys-values-entries.html"
+                data-tooltip="Object.keys, values, entries"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fweakmap-weakset"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fweakmap-weakset"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="weakmap-weakset.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/weakmap-weakset",
+                    identifier: "\/weakmap-weakset",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="data-types.html"
+                        >Data types</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   weakmap-weakset.html#weakmap"
+                        >WeakMap</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   weakmap-weakset.html#use-case-additional-data"
+                        >Use case: additional data</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   weakmap-weakset.html#use-case-caching"
+                        >Use case: caching</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   weakmap-weakset.html#weakset"
+                        >WeakSet</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   weakmap-weakset.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="weakmap-weakset.html#tasks"
+                        >Tasks (2)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   weakmap-weakset.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fweakmap-weakset"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fweakmap-weakset"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/05-data-types/08-weakmap-weakset"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">URL objects</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="url.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="URL objects" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+
+    <meta name="twitter:title" content="URL objects" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="fetch-api.html" />
+    <link rel="next" href="xmlhttprequest.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="URL objects" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a class="supported-langs__link" href="url.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/url"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/url"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/url"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/url"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=url"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/url"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/url"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Furl"
+                  rel="nofollow"
+                ></a
+                >2Furl"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option value="https://javascript.info/url" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/url">Español</option>
+                <option value="https://fr.javascript.info/url">Français</option>
+                <option value="https://it.javascript.info/url">Italiano</option>
+                <option value="https://ja.javascript.info/url">日本語</option>
+                <option value="https://ko.javascript.info/">한국어</option>
+                <option value=url">Русский</option>
+                <option value="https://tr.javascript.info/url">Türkçe</option>
+                <option value="https://zh.javascript.info/url">简体中文</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="7"
+          max="12"
+          data-tooltip="Lesson 7 of 12"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="network.html"
+                        ><span>Network requests</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Network requests",
+                            "item": "https://javascript.info/network"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 14th December 2020"
+                  >
+                    <div class="updated-at__content">14th December 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">URL objects</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="URL objects" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    The built-in
+                    <a href="https://url.spec.whatwg.org/#api">URL</a> class
+                    provides a convenient interface for creating and parsing
+                    URLs.
+                  </p>
+                  <p>
+                    There are no networking methods that require exactly a
+                    <code>URL</code> object, strings are good enough. So
+                    technically we don’t have to use <code>URL</code>. But
+                    sometimes it can be really helpful.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="creating-a-url"
+                      href="url.html#creating-a-url"
+                      >Creating a URL</a
+                    >
+                  </h2>
+                  <p>The syntax to create a new <code>URL</code> object:</p>
+                  <div id="xoeqnsldgt" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>new URL(url, [base])</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>
+                      <strong><code>url</code></strong> – the full URL or only
+                      path (if base is set, see below),
+                    </li>
+                    <li>
+                      <strong><code>base</code></strong> – an optional base URL:
+                      if set and <code>url</code> argument has only path, then
+                      the URL is generated relative to <code>base</code>.
+                    </li>
+                  </ul>
+                  <p>For example:</p>
+                  <div id="w2xpydsag9" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let url = new URL('https://javascript.info/profile/admin');</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>These two URLs are same:</p>
+                  <div id="ytf95uo4w7" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let url1 = new URL('https://javascript.info/profile/admin');
+let url2 = new URL('/profile/admin', 'https://javascript.info');
+
+alert(url1); // https://javascript.info/profile/admin
+alert(url2); // https://javascript.info/profile/admin</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We can easily create a new URL based on the path relative to
+                    an existing URL:
+                  </p>
+                  <div id="pcuya8dg1h" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let url = new URL('https://javascript.info/profile/admin');
+let newUrl = new URL('tester', url);
+
+alert(newUrl); // https://javascript.info/profile/tester</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The <code>URL</code> object immediately allows us to access
+                    its components, so it’s a nice way to parse the url, e.g.:
+                  </p>
+                  <div id="57hqqs5y6h" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let url = new URL('https://javascript.info/url');
+
+alert(url.protocol); // https:
+alert(url.host);     // javascript.info
+alert(url.pathname); // /url</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Here’s the cheatsheet for URL components:</p>
+                  <figure>
+                    <div class="image" style="width: 698px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 35.24355300859599%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/url/url-object.svg"
+                        width="698"
+                        height="246"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/url/url-object.svg"
+                          alt=""
+                          width="698"
+                          height="246"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <ul>
+                    <li>
+                      <code>href</code> is the full url, same as
+                      <code>url.toString()</code>
+                    </li>
+                    <li>
+                      <code>protocol</code> ends with the colon character
+                      <code>:</code>
+                    </li>
+                    <li>
+                      <code>search</code> – a string of parameters, starts with
+                      the question mark <code>?</code>
+                    </li>
+                    <li>
+                      <code>hash</code> starts with the hash character
+                      <code>#</code>
+                    </li>
+                    <li>
+                      there may be also <code>user</code> and
+                      <code>password</code> properties if HTTP authentication is
+                      present: <code>http://login:password@site.com</code> (not
+                      painted above, rarely used).
+                    </li>
+                  </ul>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >We can pass <code>URL</code> objects to networking (and
+                        most other) methods instead of a string</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        We can use a <code>URL</code> object in
+                        <code>fetch</code> or <code>XMLHttpRequest</code>,
+                        almost everywhere where a URL-string is expected.
+                      </p>
+                      <p>
+                        Generally, the <code>URL</code> object can be passed to
+                        any method instead of a string, as most methods will
+                        perform the string conversion, that turns a
+                        <code>URL</code> object into a string with full URL.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="searchparams"
+                      href="url.html#searchparams"
+                      >SearchParams “?…”</a
+                    >
+                  </h2>
+                  <p>
+                    Let’s say we want to create a url with given search params,
+                    for instance,
+                    <code>https://google.com/search?query=JavaScript</code>.
+                  </p>
+                  <p>We can provide them in the URL string:</p>
+                  <div id="qh4cu7qgup" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>new URL('https://google.com/search?query=JavaScript')</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …But parameters need to be encoded if they contain spaces,
+                    non-latin letters, etc (more about that below).
+                  </p>
+                  <p>
+                    So there’s a URL property for that:
+                    <code>url.searchParams</code>, an object of type
+                    <a href="https://url.spec.whatwg.org/#urlsearchparams"
+                      >URLSearchParams</a
+                    >.
+                  </p>
+                  <p>It provides convenient methods for search parameters:</p>
+                  <ul>
+                    <li>
+                      <strong><code>append(name, value)</code></strong> – add
+                      the parameter by <code>name</code>,
+                    </li>
+                    <li>
+                      <strong><code>delete(name)</code></strong> – remove the
+                      parameter by <code>name</code>,
+                    </li>
+                    <li>
+                      <strong><code>get(name)</code></strong> – get the
+                      parameter by <code>name</code>,
+                    </li>
+                    <li>
+                      <strong><code>getAll(name)</code></strong> – get all
+                      parameters with the same <code>name</code> (that’s
+                      possible, e.g. <code>?user=John&amp;user=Pete</code>),
+                    </li>
+                    <li>
+                      <strong><code>has(name)</code></strong> – check for the
+                      existence of the parameter by <code>name</code>,
+                    </li>
+                    <li>
+                      <strong><code>set(name, value)</code></strong> –
+                      set/replace the parameter,
+                    </li>
+                    <li>
+                      <strong><code>sort()</code></strong> – sort parameters by
+                      name, rarely needed,
+                    </li>
+                    <li>
+                      …and it’s also iterable, similar to <code>Map</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    An example with parameters that contain spaces and
+                    punctuation marks:
+                  </p>
+                  <div id="dng75rwekb" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let url = new URL('https://google.com/search');
+
+url.searchParams.set('q', 'test me!'); // added parameter with a space and !
+
+alert(url); // https://google.com/search?q=test+me%21
+
+url.searchParams.set('tbs', 'qdr:y'); // added parameter with a colon :
+
+// parameters are automatically encoded
+alert(url); // https://google.com/search?q=test+me%21&amp;tbs=qdr%3Ay
+
+// iterate over search parameters (decoded)
+for(let [name, value] of url.searchParams) {
+  alert(`${name}=${value}`); // q=test me!, then tbs=qdr:y
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="encoding"
+                      href="url.html#encoding"
+                      >Encoding</a
+                    >
+                  </h2>
+                  <p>
+                    There’s a standard
+                    <a href="https://tools.ietf.org/html/rfc3986">RFC3986</a>
+                    that defines which characters are allowed in URLs and which
+                    are not.
+                  </p>
+                  <p>
+                    Those that are not allowed, must be encoded, for instance
+                    non-latin letters and spaces – replaced with their UTF-8
+                    codes, prefixed by <code>%</code>, such as
+                    <code>%20</code> (a space can be encoded by <code>+</code>,
+                    for historical reasons, but that’s an exception).
+                  </p>
+                  <p>
+                    The good news is that <code>URL</code> objects handle all
+                    that automatically. We just supply all parameters unencoded,
+                    and then convert the <code>URL</code> to string:
+                  </p>
+                  <div id="c38zx9hbek" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// using some cyrillic characters for this example
+
+let url = new URL('https://ru.wikipedia.org/wiki/Тест');
+
+url.searchParams.set('key', 'ъ');
+alert(url); //https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D1%81%D1%82?key=%D1%8A</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As you can see, both <code>Тест</code> in the url path and
+                    <code>ъ</code> in the parameter are encoded.
+                  </p>
+                  <p>
+                    The URL became longer, because each cyrillic letter is
+                    represented with two bytes in UTF-8, so there are two
+                    <code>%..</code> entities.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="encoding-strings"
+                      href="url.html#encoding-strings"
+                      >Encoding strings</a
+                    >
+                  </h3>
+                  <p>
+                    In old times, before <code>URL</code> objects appeared,
+                    people used strings for URLs.
+                  </p>
+                  <p>
+                    As of now, <code>URL</code> objects are often more
+                    convenient, but strings can still be used as well. In many
+                    cases using a string makes the code shorter.
+                  </p>
+                  <p>
+                    If we use a string though, we need to encode/decode special
+                    characters manually.
+                  </p>
+                  <p>There are built-in functions for that:</p>
+                  <ul>
+                    <li>
+                      <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI"
+                        >encodeURI</a
+                      >
+                      – encodes URL as a whole.
+                    </li>
+                    <li>
+                      <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURI"
+                        >decodeURI</a
+                      >
+                      – decodes it back.
+                    </li>
+                    <li>
+                      <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent"
+                        >encodeURIComponent</a
+                      >
+                      – encodes a URL component, such as a search parameter, or
+                      a hash, or a pathname.
+                    </li>
+                    <li>
+                      <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent"
+                        >decodeURIComponent</a
+                      >
+                      – decodes it back.
+                    </li>
+                  </ul>
+                  <p>
+                    A natural question is: “What’s the difference between
+                    <code>encodeURIComponent</code> and <code>encodeURI</code>?
+                    When we should use either?”
+                  </p>
+                  <p>
+                    That’s easy to understand if we look at the URL, that’s
+                    split into components in the picture above:
+                  </p>
+                  <div id="el3k0lw3q" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-none"
+                        ><code>https://site.com:8080/path/page?p1=v1&amp;p2=v2#hash</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As we can see, characters such as <code>:</code>,
+                    <code>?</code>, <code>=</code>, <code>&amp;</code>,
+                    <code>#</code> are allowed in URL.
+                  </p>
+                  <p>
+                    …On the other hand, if we look at a single URL component,
+                    such as a search parameter, these characters must be
+                    encoded, not to break the formatting.
+                  </p>
+                  <ul>
+                    <li>
+                      <code>encodeURI</code> encodes only characters that are
+                      totally forbidden in URL.
+                    </li>
+                    <li>
+                      <code>encodeURIComponent</code> encodes same characters,
+                      and, in addition to them, characters <code>#</code>,
+                      <code>$</code>, <code>&amp;</code>, <code>+</code>,
+                      <code>,</code>, <code>/</code>, <code>:</code>,
+                      <code>;</code>, <code>=</code>, <code>?</code> and
+                      <code>@</code>.
+                    </li>
+                  </ul>
+                  <p>So, for a whole URL we can use <code>encodeURI</code>:</p>
+                  <div id="vy8ppdtvlf" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// using cyrillic characters in url path
+let url = encodeURI('http://site.com/привет');
+
+alert(url); // http://site.com/%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …While for URL parameters we should use
+                    <code>encodeURIComponent</code> instead:
+                  </p>
+                  <div id="u0gv7racdq" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let music = encodeURIComponent('Rock&amp;Roll');
+
+let url = `https://google.com/search?q=${music}`;
+alert(url); // https://google.com/search?q=Rock%26Roll</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Compare it with <code>encodeURI</code>:</p>
+                  <div id="4i9utfns18" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="url.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let music = encodeURI('Rock&amp;Roll');
+
+let url = `https://google.com/search?q=${music}`;
+alert(url); // https://google.com/search?q=Rock&amp;Roll</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As we can see, <code>encodeURI</code> does not encode
+                    <code>&amp;</code>, as this is a legit character in URL as a
+                    whole.
+                  </p>
+                  <p>
+                    But we should encode <code>&amp;</code> inside a search
+                    parameter, otherwise, we get <code>q=Rock&amp;Roll</code> –
+                    that is actually <code>q=Rock</code> plus some obscure
+                    parameter <code>Roll</code>. Not as intended.
+                  </p>
+                  <p>
+                    So we should use only <code>encodeURIComponent</code> for
+                    each search parameter, to correctly insert it in the URL
+                    string. The safest is to encode both name and value, unless
+                    we’re absolutely sure that it has only allowed characters.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Encoding difference compared to <code>URL</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Classes
+                        <a href="https://url.spec.whatwg.org/#url-class">URL</a>
+                        and
+                        <a
+                          href="https://url.spec.whatwg.org/#interface-urlsearchparams"
+                          >URLSearchParams</a
+                        >
+                        are based on the latest URI specification:
+                        <a href="https://tools.ietf.org/html/rfc3986">RFC3986</a
+                        >, while <code>encode*</code> functions are based on the
+                        obsolete version
+                        <a href="https://www.ietf.org/rfc/rfc2396.txt"
+                          >RFC2396</a
+                        >.
+                      </p>
+                      <p>
+                        There are a few differences, e.g. IPv6 addresses are
+                        encoded differently:
+                      </p>
+                      <div
+                        id="hp9xtx9g9v"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="url.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="url.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>// valid url with IPv6 address
+let url = 'http://[2607:f8b0:4005:802::1007]/';
+
+alert(encodeURI(url)); // http://%5B2607:f8b0:4005:802::1007%5D/
+alert(new URL(url)); // http://[2607:f8b0:4005:802::1007]/</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        As we can see, <code>encodeURI</code> replaced square
+                        brackets <code>[...]</code>, that’s not correct, the
+                        reason is: IPv6 urls did not exist at the time of
+                        RFC2396 (August 1998).
+                      </p>
+                      <p>
+                        Such cases are rare, <code>encode*</code> functions work
+                        well most of the time.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="fetch-api.html"
+                data-tooltip="Fetch API"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="xmlhttprequest.html"
+                data-tooltip="XMLHttpRequest"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Furl"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Furl"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="url.html#comments" name="comments">Comments</a>
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/url",
+                    identifier: "\/url",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="network.html"
+                        >Network requests</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="url.html#creating-a-url"
+                        >Creating a URL</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="url.html#searchparams"
+                        >SearchParams “?…”</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="url.html#encoding"
+                        >Encoding</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="url.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Furl"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Furl"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/07-url"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

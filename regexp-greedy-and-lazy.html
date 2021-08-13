@@ -1,0 +1,2148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Greedy and lazy quantifiers</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="regexp-greedy-and-lazy.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Greedy and lazy quantifiers" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+
+    <meta name="twitter:title" content="Greedy and lazy quantifiers" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="regexp-quantifiers.html" />
+    <link rel="next" href="regexp-groups.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Greedy and lazy quantifiers" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="regexp-greedy-and-lazy.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/regexp-greedy-and-lazy"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/regexp-greedy-and-lazy"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/regexp-greedy-and-lazy"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/regexp-greedy-and-lazy"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=regexp-greedy-and-lazy"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/regexp-greedy-and-lazy"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fregexp-greedy-and-lazy"
+                  rel="nofollow"
+                ></a
+                >2Fregexp-greedy-and-lazy"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option
+                  value="https://javascript.info/regexp-greedy-and-lazy"
+                  selected
+                >
+                  English
+                </option>
+                <option
+                  value="https://es.javascript.info/regexp-greedy-and-lazy"
+                >
+                  Español
+                </option>
+                <option
+                  value="https://fr.javascript.info/regexp-greedy-and-lazy"
+                >
+                  Français
+                </option>
+                <option
+                  value="https://it.javascript.info/regexp-greedy-and-lazy"
+                >
+                  Italiano
+                </option>
+                <option
+                  value="https://ja.javascript.info/regexp-greedy-and-lazy"
+                >
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/">한국어</option>
+                <option
+                  value=regexp-greedy-and-lazy"
+                >
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/">Türkçe</option>
+                <option
+                  value="https://zh.javascript.info/regexp-greedy-and-lazy"
+   
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="10"
+          max="17"
+          data-tooltip="Lesson 10 of 17"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a
+                        class="breadcrumbs__link"
+                        href="regular-expressions.html"
+                        ><span>Regular expressions</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Regular expressions",
+                            "item": "https://javascript.info/regular-expressions"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 8th December 2020"
+                  >
+                    <div class="updated-at__content">8th December 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Greedy and lazy quantifiers</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Greedy and lazy quantifiers" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Quantifiers are very simple from the first sight, but in
+                    fact they can be tricky.
+                  </p>
+                  <p>
+                    We should understand how the search works very well if we
+                    plan to look for something more complex than
+                    <code class="pattern">/\d+/</code>.
+                  </p>
+                  <p>Let’s take the following task as an example.</p>
+                  <p>
+                    We have a text and need to replace all quotes
+                    <code>&quot;...&quot;</code> with guillemet marks:
+                    <code>«...»</code>. They are preferred for typography in
+                    many countries.
+                  </p>
+                  <p>
+                    For instance: <code>&quot;Hello, world&quot;</code> should
+                    become <code>«Hello, world»</code>. There exist other
+                    quotes, such as <code>„Witam, świat!”</code> (Polish) or
+                    <code>「你好，世界」</code> (Chinese), but for our task
+                    let’s choose <code>«...»</code>.
+                  </p>
+                  <p>
+                    The first thing to do is to locate quoted strings, and then
+                    we can replace them.
+                  </p>
+                  <p>
+                    A regular expression like
+                    <code class="pattern">/&quot;.+&quot;/g</code> (a quote,
+                    then something, then the other quote) may seem like a good
+                    fit, but it isn’t!
+                  </p>
+                  <p>Let’s try it:</p>
+                  <div id="wnrrh3te8y" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let regexp = /&quot;.+&quot;/g;
+
+let str = 'a &quot;witch&quot; and her &quot;broom&quot; is one';
+
+alert( str.match(regexp) ); // &quot;witch&quot; and her &quot;broom&quot;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>…We can see that it works not as intended!</p>
+                  <p>
+                    Instead of finding two matches
+                    <code class="match">&quot;witch&quot;</code> and
+                    <code class="match">&quot;broom&quot;</code>, it finds one:
+                    <code class="match"
+                      >&quot;witch&quot; and her &quot;broom&quot;</code
+                    >.
+                  </p>
+                  <p>
+                    That can be described as “greediness is the cause of all
+                    evil”.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="greedy-search"
+                      href="regexp-greedy-and-lazy.html#greedy-search"
+                      >Greedy search</a
+                    >
+                  </h2>
+                  <p>
+                    To find a match, the regular expression engine uses the
+                    following algorithm:
+                  </p>
+                  <ul>
+                    <li>
+                      For every position in the string
+                      <ul>
+                        <li>Try to match the pattern at that position.</li>
+                        <li>If there’s no match, go to the next position.</li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p>
+                    These common words do not make it obvious why the regexp
+                    fails, so let’s elaborate how the search works for the
+                    pattern <code class="pattern">&quot;.+&quot;</code>.
+                  </p>
+                  <ol>
+                    <li>
+                      <p>
+                        The first pattern character is a quote
+                        <code class="pattern">&quot;</code>.
+                      </p>
+                      <p>
+                        The regular expression engine tries to find it at the
+                        zero position of the source string
+                        <code class="subject"
+                          >a &quot;witch&quot; and her &quot;broom&quot; is
+                          one</code
+                        >, but there’s <code class="subject">a</code> there, so
+                        there’s immediately no match.
+                      </p>
+                      <p>
+                        Then it advances: goes to the next positions in the
+                        source string and tries to find the first character of
+                        the pattern there, fails again, and finally finds the
+                        quote at the 3rd position:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 463px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 28.077753779697623%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/regexp-greedy-and-lazy/witch_greedy1.svg"
+                            width="463"
+                            height="130"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/regexp-greedy-and-lazy/witch_greedy1.svg"
+                              alt=""
+                              width="463"
+                              height="130"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                    </li>
+                    <li>
+                      <p>
+                        The quote is detected, and then the engine tries to find
+                        a match for the rest of the pattern. It tries to see if
+                        the rest of the subject string conforms to
+                        <code class="pattern">.+&quot;</code>.
+                      </p>
+                      <p>
+                        In our case the next pattern character is
+                        <code class="pattern">.</code> (a dot). It denotes “any
+                        character except a newline”, so the next string letter
+                        <code class="match">'w'</code> fits:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 463px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 28.077753779697623%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/regexp-greedy-and-lazy/witch_greedy2.svg"
+                            width="463"
+                            height="130"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/regexp-greedy-and-lazy/witch_greedy2.svg"
+                              alt=""
+                              width="463"
+                              height="130"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                    </li>
+                    <li>
+                      <p>
+                        Then the dot repeats because of the quantifier
+                        <code class="pattern">.+</code>. The regular expression
+                        engine adds to the match one character after another.
+                      </p>
+                      <p>
+                        …Until when? All characters match the dot, so it only
+                        stops when it reaches the end of the string:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 463px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 28.077753779697623%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/regexp-greedy-and-lazy/witch_greedy3.svg"
+                            width="463"
+                            height="130"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/regexp-greedy-and-lazy/witch_greedy3.svg"
+                              alt=""
+                              width="463"
+                              height="130"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                    </li>
+                    <li>
+                      <p>
+                        Now the engine finished repeating
+                        <code class="pattern">.+</code> and tries to find the
+                        next character of the pattern. It’s the quote
+                        <code class="pattern">&quot;</code>. But there’s a
+                        problem: the string has finished, there are no more
+                        characters!
+                      </p>
+                      <p>
+                        The regular expression engine understands that it took
+                        too many <code class="pattern">.+</code> and starts to
+                        <em>backtrack</em>.
+                      </p>
+                      <p>
+                        In other words, it shortens the match for the quantifier
+                        by one character:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 463px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 28.077753779697623%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/regexp-greedy-and-lazy/witch_greedy4.svg"
+                            width="463"
+                            height="130"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/regexp-greedy-and-lazy/witch_greedy4.svg"
+                              alt=""
+                              width="463"
+                              height="130"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                      <p>
+                        Now it assumes that <code class="pattern">.+</code> ends
+                        one character before the string end and tries to match
+                        the rest of the pattern from that position.
+                      </p>
+                      <p>
+                        If there were a quote there, then the search would end,
+                        but the last character is
+                        <code class="subject">'e'</code>, so there’s no match.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        …So the engine decreases the number of repetitions of
+                        <code class="pattern">.+</code> by one more character:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 463px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 28.077753779697623%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/regexp-greedy-and-lazy/witch_greedy5.svg"
+                            width="463"
+                            height="130"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/regexp-greedy-and-lazy/witch_greedy5.svg"
+                              alt=""
+                              width="463"
+                              height="130"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                      <p>
+                        The quote <code class="pattern">'&quot;'</code> does not
+                        match <code class="subject">'n'</code>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        The engine keep backtracking: it decreases the count of
+                        repetition for <code class="pattern">'.'</code> until
+                        the rest of the pattern (in our case
+                        <code class="pattern">'&quot;'</code>) matches:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 463px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 28.077753779697623%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/regexp-greedy-and-lazy/witch_greedy6.svg"
+                            width="463"
+                            height="130"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/regexp-greedy-and-lazy/witch_greedy6.svg"
+                              alt=""
+                              width="463"
+                              height="130"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                    </li>
+                    <li>
+                      <p>The match is complete.</p>
+                    </li>
+                    <li>
+                      <p>
+                        So the first match is
+                        <code class="match"
+                          >&quot;witch&quot; and her &quot;broom&quot;</code
+                        >. If the regular expression has flag
+                        <code class="pattern">g</code>, then the search will
+                        continue from where the first match ends. There are no
+                        more quotes in the rest of the string
+                        <code class="subject">is one</code>, so no more results.
+                      </p>
+                    </li>
+                  </ol>
+                  <p>
+                    That’s probably not what we expected, but that’s how it
+                    works.
+                  </p>
+                  <p>
+                    <strong
+                      >In the greedy mode (by default) a quantified character is
+                      repeated as many times as possible.</strong
+                    >
+                  </p>
+                  <p>
+                    The regexp engine adds to the match as many characters as it
+                    can for <code class="pattern">.+</code>, and then shortens
+                    that one by one, if the rest of the pattern doesn’t match.
+                  </p>
+                  <p>
+                    For our task we want another thing. That’s where a lazy mode
+                    can help.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="lazy-mode"
+                      href="regexp-greedy-and-lazy.html#lazy-mode"
+                      >Lazy mode</a
+                    >
+                  </h2>
+                  <p>
+                    The lazy mode of quantifiers is an opposite to the greedy
+                    mode. It means: “repeat minimal number of times”.
+                  </p>
+                  <p>
+                    We can enable it by putting a question mark
+                    <code class="pattern">'?'</code> after the quantifier, so
+                    that it becomes <code class="pattern">*?</code> or
+                    <code class="pattern">+?</code> or even
+                    <code class="pattern">??</code> for
+                    <code class="pattern">'?'</code>.
+                  </p>
+                  <p>
+                    To make things clear: usually a question mark
+                    <code class="pattern">?</code> is a quantifier by itself
+                    (zero or one), but if added
+                    <em>after another quantifier (or even itself)</em> it gets
+                    another meaning – it switches the matching mode from greedy
+                    to lazy.
+                  </p>
+                  <p>
+                    The regexp
+                    <code class="pattern">/&quot;.+?&quot;/g</code> works as
+                    intended: it finds
+                    <code class="match">&quot;witch&quot;</code> and
+                    <code class="match">&quot;broom&quot;</code>:
+                  </p>
+                  <div id="kx0010g55r" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let regexp = /&quot;.+?&quot;/g;
+
+let str = 'a &quot;witch&quot; and her &quot;broom&quot; is one';
+
+alert( str.match(regexp) ); // &quot;witch&quot;, &quot;broom&quot;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    To clearly understand the change, let’s trace the search
+                    step by step.
+                  </p>
+                  <ol>
+                    <li>
+                      <p>
+                        The first step is the same: it finds the pattern start
+                        <code class="pattern">'&quot;'</code> at the 3rd
+                        position:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 463px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 28.077753779697623%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/regexp-greedy-and-lazy/witch_greedy1.svg"
+                            width="463"
+                            height="130"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/regexp-greedy-and-lazy/witch_greedy1.svg"
+                              alt=""
+                              width="463"
+                              height="130"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                    </li>
+                    <li>
+                      <p>
+                        The next step is also similar: the engine finds a match
+                        for the dot <code class="pattern">'.'</code>:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 463px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 28.077753779697623%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/regexp-greedy-and-lazy/witch_greedy2.svg"
+                            width="463"
+                            height="130"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/regexp-greedy-and-lazy/witch_greedy2.svg"
+                              alt=""
+                              width="463"
+                              height="130"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                    </li>
+                    <li>
+                      <p>
+                        And now the search goes differently. Because we have a
+                        lazy mode for <code class="pattern">+?</code>, the
+                        engine doesn’t try to match a dot one more time, but
+                        stops and tries to match the rest of the pattern
+                        <code class="pattern">'&quot;'</code> right now:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 463px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 28.077753779697623%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/regexp-greedy-and-lazy/witch_lazy3.svg"
+                            width="463"
+                            height="130"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/regexp-greedy-and-lazy/witch_lazy3.svg"
+                              alt=""
+                              width="463"
+                              height="130"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                      <p>
+                        If there were a quote there, then the search would end,
+                        but there’s <code>'i'</code>, so there’s no match.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Then the regular expression engine increases the number
+                        of repetitions for the dot and tries one more time:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 463px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 28.077753779697623%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/regexp-greedy-and-lazy/witch_lazy4.svg"
+                            width="463"
+                            height="130"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/regexp-greedy-and-lazy/witch_lazy4.svg"
+                              alt=""
+                              width="463"
+                              height="130"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                      <p>
+                        Failure again. Then the number of repetitions is
+                        increased again and again…
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        …Till the match for the rest of the pattern is found:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 463px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 28.077753779697623%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/regexp-greedy-and-lazy/witch_lazy5.svg"
+                            width="463"
+                            height="130"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/regexp-greedy-and-lazy/witch_lazy5.svg"
+                              alt=""
+                              width="463"
+                              height="130"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                    </li>
+                    <li>
+                      <p>
+                        The next search starts from the end of the current match
+                        and yield one more result:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 463px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 28.077753779697623%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/regexp-greedy-and-lazy/witch_lazy6.svg"
+                            width="463"
+                            height="130"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/regexp-greedy-and-lazy/witch_lazy6.svg"
+                              alt=""
+                              width="463"
+                              height="130"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                    </li>
+                  </ol>
+                  <p>
+                    In this example we saw how the lazy mode works for
+                    <code class="pattern">+?</code>. Quantifiers
+                    <code class="pattern">*?</code> and
+                    <code class="pattern">??</code> work the similar way – the
+                    regexp engine increases the number of repetitions only if
+                    the rest of the pattern can’t match on the given position.
+                  </p>
+                  <p>
+                    <strong
+                      >Laziness is only enabled for the quantifier with
+                      <code>?</code>.</strong
+                    >
+                  </p>
+                  <p>Other quantifiers remain greedy.</p>
+                  <p>For instance:</p>
+                  <div id="senlsd15ku" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>alert( &quot;123 456&quot;.match(/\d+ \d+?/) ); // 123 4</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ol>
+                    <li>
+                      <p>
+                        The pattern <code class="pattern">\d+</code> tries to
+                        match as many digits as it can (greedy mode), so it
+                        finds <code class="match">123</code> and stops, because
+                        the next character is a space
+                        <code class="pattern">' '</code>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>Then there’s a space in the pattern, it matches.</p>
+                    </li>
+                    <li>
+                      <p>
+                        Then there’s <code class="pattern">\d+?</code>. The
+                        quantifier is in lazy mode, so it finds one digit
+                        <code class="match">4</code> and tries to check if the
+                        rest of the pattern matches from there.
+                      </p>
+                      <p>
+                        …But there’s nothing in the pattern after
+                        <code class="pattern">\d+?</code>.
+                      </p>
+                      <p>
+                        The lazy mode doesn’t repeat anything without a need.
+                        The pattern finished, so we’re done. We have a match
+                        <code class="match">123 4</code>.
+                      </p>
+                    </li>
+                  </ol>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Optimizations</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Modern regular expression engines can optimize internal
+                        algorithms to work faster. So they may work a bit
+                        differently from the described algorithm.
+                      </p>
+                      <p>
+                        But to understand how regular expressions work and to
+                        build regular expressions, we don’t need to know about
+                        that. They are only used internally to optimize things.
+                      </p>
+                      <p>
+                        Complex regular expressions are hard to optimize, so the
+                        search may work exactly as described as well.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="alternative-approach"
+                      href="regexp-greedy-and-lazy.html#alternative-approach"
+                      >Alternative approach</a
+                    >
+                  </h2>
+                  <p>
+                    With regexps, there’s often more than one way to do the same
+                    thing.
+                  </p>
+                  <p>
+                    In our case we can find quoted strings without lazy mode
+                    using the regexp
+                    <code class="pattern">&quot;[^&quot;]+&quot;</code>:
+                  </p>
+                  <div id="c9qib11w2r" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let regexp = /&quot;[^&quot;]+&quot;/g;
+
+let str = 'a &quot;witch&quot; and her &quot;broom&quot; is one';
+
+alert( str.match(regexp) ); // &quot;witch&quot;, &quot;broom&quot;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The regexp
+                    <code class="pattern">&quot;[^&quot;]+&quot;</code> gives
+                    correct results, because it looks for a quote
+                    <code class="pattern">'&quot;'</code> followed by one or
+                    more non-quotes <code class="pattern">[^&quot;]</code>, and
+                    then the closing quote.
+                  </p>
+                  <p>
+                    When the regexp engine looks for
+                    <code class="pattern">[^&quot;]+</code> it stops the
+                    repetitions when it meets the closing quote, and we’re done.
+                  </p>
+                  <p>
+                    Please note, that this logic does not replace lazy
+                    quantifiers!
+                  </p>
+                  <p>
+                    It is just different. There are times when we need one or
+                    another.
+                  </p>
+                  <p>
+                    <strong
+                      >Let’s see an example where lazy quantifiers fail and this
+                      variant works right.</strong
+                    >
+                  </p>
+                  <p>
+                    For instance, we want to find links of the form
+                    <code
+                      >&lt;a href=&quot;...&quot;
+                      class=&quot;doc&quot;&gt;</code
+                    >, with any <code>href</code>.
+                  </p>
+                  <p>Which regular expression to use?</p>
+                  <p>
+                    The first idea might be:
+                    <code class="pattern"
+                      >/&lt;a href=&quot;.*&quot;
+                      class=&quot;doc&quot;&gt;/g</code
+                    >.
+                  </p>
+                  <p>Let’s check it:</p>
+                  <div id="dvq5gpq6jt" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let str = '...&lt;a href=&quot;link&quot; class=&quot;doc&quot;&gt;...';
+let regexp = /&lt;a href=&quot;.*&quot; class=&quot;doc&quot;&gt;/g;
+
+// Works!
+alert( str.match(regexp) ); // &lt;a href=&quot;link&quot; class=&quot;doc&quot;&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    It worked. But let’s see what happens if there are many
+                    links in the text?
+                  </p>
+                  <div id="5p5d3f9ml6" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let str = '...&lt;a href=&quot;link1&quot; class=&quot;doc&quot;&gt;... &lt;a href=&quot;link2&quot; class=&quot;doc&quot;&gt;...';
+let regexp = /&lt;a href=&quot;.*&quot; class=&quot;doc&quot;&gt;/g;
+
+// Whoops! Two links in one match!
+alert( str.match(regexp) ); // &lt;a href=&quot;link1&quot; class=&quot;doc&quot;&gt;... &lt;a href=&quot;link2&quot; class=&quot;doc&quot;&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now the result is wrong for the same reason as our “witches”
+                    example. The quantifier <code class="pattern">.*</code> took
+                    too many characters.
+                  </p>
+                  <p>The match looks like this:</p>
+                  <div id="8eujrro6vk" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;a href=&quot;.....................................&quot; class=&quot;doc&quot;&gt;
+&lt;a href=&quot;link1&quot; class=&quot;doc&quot;&gt;... &lt;a href=&quot;link2&quot; class=&quot;doc&quot;&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Let’s modify the pattern by making the quantifier
+                    <code class="pattern">.*?</code> lazy:
+                  </p>
+                  <div id="018o11cru5" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let str = '...&lt;a href=&quot;link1&quot; class=&quot;doc&quot;&gt;... &lt;a href=&quot;link2&quot; class=&quot;doc&quot;&gt;...';
+let regexp = /&lt;a href=&quot;.*?&quot; class=&quot;doc&quot;&gt;/g;
+
+// Works!
+alert( str.match(regexp) ); // &lt;a href=&quot;link1&quot; class=&quot;doc&quot;&gt;, &lt;a href=&quot;link2&quot; class=&quot;doc&quot;&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Now it seems to work, there are two matches:</p>
+                  <div id="lgk2lhquxt" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;a href=&quot;.....&quot; class=&quot;doc&quot;&gt;    &lt;a href=&quot;.....&quot; class=&quot;doc&quot;&gt;
+&lt;a href=&quot;link1&quot; class=&quot;doc&quot;&gt;... &lt;a href=&quot;link2&quot; class=&quot;doc&quot;&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>…But let’s test it on one more text input:</p>
+                  <div id="tvywfnapyq" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let str = '...&lt;a href=&quot;link1&quot; class=&quot;wrong&quot;&gt;... &lt;p style=&quot;&quot; class=&quot;doc&quot;&gt;...';
+let regexp = /&lt;a href=&quot;.*?&quot; class=&quot;doc&quot;&gt;/g;
+
+// Wrong match!
+alert( str.match(regexp) ); // &lt;a href=&quot;link1&quot; class=&quot;wrong&quot;&gt;... &lt;p style=&quot;&quot; class=&quot;doc&quot;&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now it fails. The match includes not just a link, but also a
+                    lot of text after it, including <code>&lt;p...&gt;</code>.
+                  </p>
+                  <p>Why?</p>
+                  <p>That’s what’s going on:</p>
+                  <ol>
+                    <li>
+                      First the regexp finds a link start
+                      <code class="match">&lt;a href=&quot;</code>.
+                    </li>
+                    <li>
+                      Then it looks for <code class="pattern">.*?</code>: takes
+                      one character (lazily!), check if there’s a match for
+                      <code class="pattern"
+                        >&quot; class=&quot;doc&quot;&gt;</code
+                      >
+                      (none).
+                    </li>
+                    <li>
+                      Then takes another character into
+                      <code class="pattern">.*?</code>, and so on… until it
+                      finally reaches
+                      <code class="match">&quot; class=&quot;doc&quot;&gt;</code
+                      >.
+                    </li>
+                  </ol>
+                  <p>
+                    But the problem is: that’s already beyond the link
+                    <code>&lt;a...&gt;</code>, in another tag
+                    <code>&lt;p&gt;</code>. Not what we want.
+                  </p>
+                  <p>Here’s the picture of the match aligned with the text:</p>
+                  <div id="aatatzx1vr" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;a href=&quot;...................................&quot; class=&quot;doc&quot;&gt;
+&lt;a href=&quot;link1&quot; class=&quot;wrong&quot;&gt;... &lt;p style=&quot;&quot; class=&quot;doc&quot;&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    So, we need the pattern to look for
+                    <code
+                      >&lt;a href=&quot;...something...&quot;
+                      class=&quot;doc&quot;&gt;</code
+                    >, but both greedy and lazy variants have problems.
+                  </p>
+                  <p>
+                    The correct variant can be:
+                    <code class="pattern">href=&quot;[^&quot;]*&quot;</code>. It
+                    will take all characters inside the
+                    <code>href</code> attribute till the nearest quote, just
+                    what we need.
+                  </p>
+                  <p>A working example:</p>
+                  <div id="dyeze7rifx" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-greedy-and-lazy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let str1 = '...&lt;a href=&quot;link1&quot; class=&quot;wrong&quot;&gt;... &lt;p style=&quot;&quot; class=&quot;doc&quot;&gt;...';
+let str2 = '...&lt;a href=&quot;link1&quot; class=&quot;doc&quot;&gt;... &lt;a href=&quot;link2&quot; class=&quot;doc&quot;&gt;...';
+let regexp = /&lt;a href=&quot;[^&quot;]*&quot; class=&quot;doc&quot;&gt;/g;
+
+// Works!
+alert( str1.match(regexp) ); // null, no matches, that's correct
+alert( str2.match(regexp) ); // &lt;a href=&quot;link1&quot; class=&quot;doc&quot;&gt;, &lt;a href=&quot;link2&quot; class=&quot;doc&quot;&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="regexp-greedy-and-lazy.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>Quantifiers have two modes of work:</p>
+                  <dl>
+                    <dt>Greedy</dt>
+                    <dd>
+                      By default the regular expression engine tries to repeat
+                      the quantified character as many times as possible. For
+                      instance, <code class="pattern">\d+</code> consumes all
+                      possible digits. When it becomes impossible to consume
+                      more (no more digits or string end), then it continues to
+                      match the rest of the pattern. If there’s no match then it
+                      decreases the number of repetitions (backtracks) and tries
+                      again.
+                    </dd>
+                    <dt>Lazy</dt>
+                    <dd>
+                      Enabled by the question mark
+                      <code class="pattern">?</code> after the quantifier. The
+                      regexp engine tries to match the rest of the pattern
+                      before each repetition of the quantified character.
+                    </dd>
+                  </dl>
+                  <p>
+                    As we’ve seen, the lazy mode is not a “panacea” from the
+                    greedy search. An alternative is a “fine-tuned” greedy
+                    search, with exclusions, as in the pattern
+                    <code class="pattern">&quot;[^&quot;]+&quot;</code>.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="regexp-greedy-and-lazy.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="regexp-greedy-and-lazy.html#a-match-for-d-d"
+                          name="a-match-for-d-d"
+                          >A match for /d+? d+?/</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/lazy-greedy.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note"></div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>What’s the match here?</p>
+                        <div
+                          id="ic25k5gbxg"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>alert( &quot;123 456&quot;.match(/\d+? \d+?/g) ); // ?</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              The result is: <code class="match">123 4</code>.
+                            </p>
+                            <p>
+                              First the lazy
+                              <code class="pattern">\d+?</code> tries to take as
+                              little digits as it can, but it has to reach the
+                              space, so it takes <code class="match">123</code>.
+                            </p>
+                            <p>
+                              Then the second <code>\d+?</code> takes only one
+                              digit, because that’s enough.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="regexp-greedy-and-lazy.html#find-html-comments"
+                          name="find-html-comments"
+                          >Find HTML comments</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/find-html-comments.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note"></div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>Find all HTML comments in the text:</p>
+                        <div
+                          id="ug8l8xsndq"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let regexp = /your regexp/g;
+
+let str = `... &lt;!-- My -- comment
+ test --&gt; ..  &lt;!----&gt; ..
+`;
+
+alert( str.match(regexp) ); // '&lt;!-- My -- comment \n test --&gt;', '&lt;!----&gt;'</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              We need to find the beginning of the comment
+                              <code class="match">&lt;!--</code>, then
+                              everything till the end of
+                              <code class="match">--&gt;</code>.
+                            </p>
+                            <p>
+                              An acceptable variant is
+                              <code class="pattern">&lt;!--.*?--&gt;</code> –
+                              the lazy quantifier makes the dot stop right
+                              before <code class="match">--&gt;</code>. We also
+                              need to add flag
+                              <code class="pattern">s</code> for the dot to
+                              include newlines.
+                            </p>
+                            <p>Otherwise multiline comments won’t be found:</p>
+                            <div
+                              id="amq7ghjkqu"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-greedy-and-lazy.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-greedy-and-lazy.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let regexp = /&lt;!--.*?--&gt;/gs;
+
+let str = `... &lt;!-- My -- comment
+ test --&gt; ..  &lt;!----&gt; ..
+`;
+
+alert( str.match(regexp) ); // '&lt;!-- My -- comment \n test --&gt;', '&lt;!----&gt;'</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="regexp-greedy-and-lazy.html#find-html-tags"
+                          name="find-html-tags"
+                          >Find HTML tags</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/find-html-tags-greedy-lazy.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note"></div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Create a regular expression to find all (opening and
+                          closing) HTML tags with their attributes.
+                        </p>
+                        <p>An example of use:</p>
+                        <div
+                          id="7uilah8yab"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="toolbar codebox__toolbar">
+                              <div class="toolbar__tool">
+                                <a
+                                  href="regexp-greedy-and-lazy.html#"
+                                  title="run"
+                                  data-action="run"
+                                  class="toolbar__button toolbar__button_run"
+                                ></a>
+                              </div>
+                              <div class="toolbar__tool">
+                                <a
+                                  href="regexp-greedy-and-lazy.html#"
+                                  title="open in sandbox"
+                                  target="_blank"
+                                  data-action="edit"
+                                  class="toolbar__button toolbar__button_edit"
+                                ></a>
+                              </div>
+                            </div>
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let regexp = /your regexp/g;
+
+let str = '&lt;&gt; &lt;a href=&quot;/&quot;&gt; &lt;input type=&quot;radio&quot; checked&gt; &lt;b&gt;';
+
+alert( str.match(regexp) ); // '&lt;a href=&quot;/&quot;&gt;', '&lt;input type=&quot;radio&quot; checked&gt;', '&lt;b&gt;'</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          Here we assume that tag attributes may not contain
+                          <code>&lt;</code> and <code>&gt;</code> (inside quotes
+                          too), that simplifies things a bit.
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              The solution is
+                              <code class="pattern">&lt;[^&lt;&gt;]+&gt;</code>.
+                            </p>
+                            <div
+                              id="4mo2p361cl"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-greedy-and-lazy.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-greedy-and-lazy.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let regexp = /&lt;[^&lt;&gt;]+&gt;/g;
+
+let str = '&lt;&gt; &lt;a href=&quot;/&quot;&gt; &lt;input type=&quot;radio&quot; checked&gt; &lt;b&gt;';
+
+alert( str.match(regexp) ); // '&lt;a href=&quot;/&quot;&gt;', '&lt;input type=&quot;radio&quot; checked&gt;', '&lt;b&gt;'</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="regexp-quantifiers.html"
+                data-tooltip="Quantifiers +, *, ? and {n}"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="regexp-groups.html"
+                data-tooltip="Capturing groups"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-greedy-and-lazy"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-greedy-and-lazy"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="regexp-greedy-and-lazy.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/regexp-greedy-and-lazy",
+                    identifier: "\/regexp-greedy-and-lazy",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="regular-expressions.html"
+                        >Regular expressions</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   regexp-greedy-and-lazy.html#greedy-search"
+                        >Greedy search</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-greedy-and-lazy.html#lazy-mode"
+                        >Lazy mode</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-greedy-and-lazy.html#alternative-approach"
+                        >Alternative approach</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-greedy-and-lazy.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   regexp-greedy-and-lazy.html#tasks"
+                        >Tasks (3)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-greedy-and-lazy.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-greedy-and-lazy"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fregexp-greedy-and-lazy"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/10-regexp-greedy-and-lazy"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Type Conversions</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="type-conversions.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Type Conversions" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+
+    <meta name="twitter:title" content="Type Conversions" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="alert-prompt-confirm.html" />
+    <link rel="next" href="operators.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Type Conversions" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/type-conversions"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="type-conversions.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/type-conversions"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/type-conversions"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/type-conversions"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/type-conversions"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/type-conversions"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=type-conversions"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/type-conversions"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/type-conversions"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Ftype-conversions"
+                  rel="nofollow"
+                ></a
+                >2Ftype-conversions"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/type-conversions">
+                  عربي
+                </option>
+                <option
+                  value="https://javascript.info/type-conversions"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/type-conversions">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/type-conversions">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/type-conversions">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/type-conversions">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/type-conversions">
+                  한국어
+                </option>
+                <option value=type-conversions">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/type-conversions">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/type-conversions">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="11"
+          max="92"
+          data-tooltip="Lesson 11 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="first-steps.html"
+                        ><span>JavaScript Fundamentals</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "JavaScript Fundamentals",
+                            "item": "https://javascript.info/first-steps"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 5th May 2020"
+                  >
+                    <div class="updated-at__content">5th May 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Type Conversions</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Type Conversions" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Most of the time, operators and functions automatically
+                    convert the values given to them to the right type.
+                  </p>
+                  <p>
+                    For example, <code>alert</code> automatically converts any
+                    value to a string to show it. Mathematical operations
+                    convert values to numbers.
+                  </p>
+                  <p>
+                    There are also cases when we need to explicitly convert a
+                    value to the expected type.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Not talking about objects yet</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        In this chapter, we won’t cover objects. For now we’ll
+                        just be talking about primitives.
+                      </p>
+                      <p>
+                        Later, after we learn about objects, in the chapter
+                        <a href="object-toprimitive.html"
+                          >Object to primitive conversion</a
+                        >
+                        we’ll see how objects fit in.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="string-conversion"
+                      href="type-conversions.html#string-conversion"
+                      >String Conversion</a
+                    >
+                  </h2>
+                  <p>
+                    String conversion happens when we need the string form of a
+                    value.
+                  </p>
+                  <p>
+                    For example, <code>alert(value)</code> does it to show the
+                    value.
+                  </p>
+                  <p>
+                    We can also call the <code>String(value)</code> function to
+                    convert a value to a string:
+                  </p>
+                  <div
+                    id="g46u1yzgu1"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":3,"end":4}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="type-conversions.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="type-conversions.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let value = true;
+alert(typeof value); // boolean
+
+value = String(value); // now value is a string &quot;true&quot;
+alert(typeof value); // string</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    String conversion is mostly obvious. A
+                    <code>false</code> becomes <code>&quot;false&quot;</code>,
+                    <code>null</code> becomes <code>&quot;null&quot;</code>,
+                    etc.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="numeric-conversion"
+                      href="type-conversions.html#numeric-conversion"
+                      >Numeric Conversion</a
+                    >
+                  </h2>
+                  <p>
+                    Numeric conversion happens in mathematical functions and
+                    expressions automatically.
+                  </p>
+                  <p>
+                    For example, when division <code>/</code> is applied to
+                    non-numbers:
+                  </p>
+                  <div id="ugphl7o7rs" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="type-conversions.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="type-conversions.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>alert( &quot;6&quot; / &quot;2&quot; ); // 3, strings are converted to numbers</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We can use the <code>Number(value)</code> function to
+                    explicitly convert a <code>value</code> to a number:
+                  </p>
+                  <div id="9rc458osrk" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="type-conversions.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="type-conversions.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let str = &quot;123&quot;;
+alert(typeof str); // string
+
+let num = Number(str); // becomes a number 123
+
+alert(typeof num); // number</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Explicit conversion is usually required when we read a value
+                    from a string-based source like a text form but expect a
+                    number to be entered.
+                  </p>
+                  <p>
+                    If the string is not a valid number, the result of such a
+                    conversion is <code>NaN</code>. For instance:
+                  </p>
+                  <div id="j8fudj0brt" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="type-conversions.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="type-conversions.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let age = Number(&quot;an arbitrary string instead of a number&quot;);
+
+alert(age); // NaN, conversion failed</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Numeric conversion rules:</p>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Value</th>
+                        <th>Becomes…</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>undefined</code></td>
+                        <td><code>NaN</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>null</code></td>
+                        <td><code>0</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>true and false</code></td>
+                        <td><code>1</code> and <code>0</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>string</code></td>
+                        <td>
+                          Whitespaces from the start and end are removed. If the
+                          remaining string is empty, the result is
+                          <code>0</code>. Otherwise, the number is “read” from
+                          the string. An error gives <code>NaN</code>.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>Examples:</p>
+                  <div id="am1g575ekl" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="type-conversions.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="type-conversions.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>alert( Number(&quot;   123   &quot;) ); // 123
+alert( Number(&quot;123z&quot;) );      // NaN (error reading a number at &quot;z&quot;)
+alert( Number(true) );        // 1
+alert( Number(false) );       // 0</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Please note that <code>null</code> and
+                    <code>undefined</code> behave differently here:
+                    <code>null</code> becomes zero while
+                    <code>undefined</code> becomes <code>NaN</code>.
+                  </p>
+                  <p>
+                    Most mathematical operators also perform such conversion,
+                    we’ll see that in the next chapter.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="boolean-conversion"
+                      href="type-conversions.html#boolean-conversion"
+                      >Boolean Conversion</a
+                    >
+                  </h2>
+                  <p>Boolean conversion is the simplest one.</p>
+                  <p>
+                    It happens in logical operations (later we’ll meet condition
+                    tests and other similar things) but can also be performed
+                    explicitly with a call to <code>Boolean(value)</code>.
+                  </p>
+                  <p>The conversion rule:</p>
+                  <ul>
+                    <li>
+                      Values that are intuitively “empty”, like <code>0</code>,
+                      an empty string, <code>null</code>,
+                      <code>undefined</code>, and <code>NaN</code>, become
+                      <code>false</code>.
+                    </li>
+                    <li>Other values become <code>true</code>.</li>
+                  </ul>
+                  <p>For instance:</p>
+                  <div id="lap7dg5oxa" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="type-conversions.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="type-conversions.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>alert( Boolean(1) ); // true
+alert( Boolean(0) ); // false
+
+alert( Boolean(&quot;hello&quot;) ); // true
+alert( Boolean(&quot;&quot;) ); // false</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Please note: the string with zero
+                        <code>&quot;0&quot;</code> is <code>true</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Some languages (namely PHP) treat
+                        <code>&quot;0&quot;</code> as <code>false</code>. But in
+                        JavaScript, a non-empty string is always
+                        <code>true</code>.
+                      </p>
+                      <div
+                        id="vrfon2din4"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="type-conversions.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="type-conversions.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>alert( Boolean(&quot;0&quot;) ); // true
+alert( Boolean(&quot; &quot;) ); // spaces, also true (any non-empty string is true)</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="type-conversions.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    The three most widely used type conversions are to string,
+                    to number, and to boolean.
+                  </p>
+                  <p>
+                    <strong><code>String Conversion</code></strong> – Occurs
+                    when we output something. Can be performed with
+                    <code>String(value)</code>. The conversion to string is
+                    usually obvious for primitive values.
+                  </p>
+                  <p>
+                    <strong><code>Numeric Conversion</code></strong> – Occurs in
+                    math operations. Can be performed with
+                    <code>Number(value)</code>.
+                  </p>
+                  <p>The conversion follows the rules:</p>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Value</th>
+                        <th>Becomes…</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>undefined</code></td>
+                        <td><code>NaN</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>null</code></td>
+                        <td><code>0</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>true / false</code></td>
+                        <td><code>1 / 0</code></td>
+                      </tr>
+                      <tr>
+                        <td><code>string</code></td>
+                        <td>
+                          The string is read “as is”, whitespaces from both
+                          sides are ignored. An empty string becomes
+                          <code>0</code>. An error gives <code>NaN</code>.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>
+                    <strong><code>Boolean Conversion</code></strong> – Occurs in
+                    logical operations. Can be performed with
+                    <code>Boolean(value)</code>.
+                  </p>
+                  <p>Follows the rules:</p>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Value</th>
+                        <th>Becomes…</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <code>0</code>, <code>null</code>,
+                          <code>undefined</code>, <code>NaN</code>,
+                          <code>&quot;&quot;</code>
+                        </td>
+                        <td><code>false</code></td>
+                      </tr>
+                      <tr>
+                        <td>any other value</td>
+                        <td><code>true</code></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>
+                    Most of these rules are easy to understand and memorize. The
+                    notable exceptions where people usually make mistakes are:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>undefined</code> is <code>NaN</code> as a number,
+                      not <code>0</code>.
+                    </li>
+                    <li>
+                      <code>&quot;0&quot;</code> and space-only strings like
+                      <code>&quot; &quot;</code> are true as a boolean.
+                    </li>
+                  </ul>
+                  <p>
+                    Objects aren’t covered here. We’ll return to them later in
+                    the chapter
+                    <a href="object-toprimitive.html"
+                      >Object to primitive conversion</a
+                    >
+                    that is devoted exclusively to objects after we learn more
+                    basic things about JavaScript.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="alert-prompt-confirm.html"
+                data-tooltip="Interaction: alert, prompt, confirm"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="operators.html"
+                data-tooltip="Basic operators, maths"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ftype-conversions"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftype-conversions"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="type-conversions.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/type-conversions",
+                    identifier: "\/type-conversions",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="first-steps.html"
+                        >JavaScript Fundamentals</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   type-conversions.html#string-conversion"
+                        >String Conversion</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   type-conversions.html#numeric-conversion"
+                        >Numeric Conversion</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   type-conversions.html#boolean-conversion"
+                        >Boolean Conversion</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   type-conversions.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   type-conversions.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ftype-conversions"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Ftype-conversions"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps/07-type-conversions"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

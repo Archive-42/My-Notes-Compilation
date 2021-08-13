@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Shadow DOM slots, composition</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="slots-composition.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Shadow DOM slots, composition" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+
+    <meta name="twitter:title" content="Shadow DOM slots, composition" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="template-element.html" />
+    <link rel="next" href="shadow-dom-style.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Shadow DOM slots, composition" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="slots-composition.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/slots-composition"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/slots-composition"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=slots-composition"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/slots-composition"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fslots-composition"
+                  rel="nofollow"
+                ></a
+                >2Fslots-composition"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option
+                  value="https://javascript.info/slots-composition"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/">Español</option>
+                <option value="https://fr.javascript.info/">Français</option>
+                <option value="https://it.javascript.info/slots-composition">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/slots-composition">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/">한국어</option>
+                <option value=slots-composition">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/">Türkçe</option>
+                <option value="https://zh.javascript.info/slots-composition">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="5"
+          max="7"
+          data-tooltip="Lesson 5 of 7"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="web-components.html"
+                        ><span>Web components</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Web components",
+                            "item": "https://javascript.info/web-components"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 7th December 2020"
+                  >
+                    <div class="updated-at__content">7th December 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">
+                  Shadow DOM slots, composition
+                </h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Shadow DOM slots, composition" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Many types of components, such as tabs, menus, image
+                    galleries, and so on, need the content to render.
+                  </p>
+                  <p>
+                    Just like built-in browser
+                    <code>&lt;select&gt;</code> expects
+                    <code>&lt;option&gt;</code> items, our
+                    <code>&lt;custom-tabs&gt;</code> may expect the actual tab
+                    content to be passed. And a
+                    <code>&lt;custom-menu&gt;</code> may expect menu items.
+                  </p>
+                  <p>
+                    The code that makes use of
+                    <code>&lt;custom-menu&gt;</code> can look like this:
+                  </p>
+                  <div id="5qcc5oh2p2" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;custom-menu&gt;
+  &lt;title&gt;Candy menu&lt;/title&gt;
+  &lt;item&gt;Lollipop&lt;/item&gt;
+  &lt;item&gt;Fruit Toast&lt;/item&gt;
+  &lt;item&gt;Cup Cake&lt;/item&gt;
+&lt;/custom-menu&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …Then our component should render it properly, as a nice
+                    menu with given title and items, handle menu events, etc.
+                  </p>
+                  <p>How to implement it?</p>
+                  <p>
+                    We could try to analyze the element content and dynamically
+                    copy-rearrange DOM nodes. That’s possible, but if we’re
+                    moving elements to shadow DOM, then CSS styles from the
+                    document do not apply in there, so the visual styling may be
+                    lost. Also that requires some coding.
+                  </p>
+                  <p>
+                    Luckily, we don’t have to. Shadow DOM supports
+                    <code>&lt;slot&gt;</code> elements, that are automatically
+                    filled by the content from light DOM.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="named-slots"
+                      href="slots-composition.html#named-slots"
+                      >Named slots</a
+                    >
+                  </h2>
+                  <p>Let’s see how slots work on a simple example.</p>
+                  <p>
+                    Here, <code>&lt;user-card&gt;</code> shadow DOM provides two
+                    slots, filled from light DOM:
+                  </p>
+                  <div
+                    id="sbbtngoxwo"
+                    data-trusted="0"
+                    class="code-example"
+                    data-demo-height="80"
+                    data-highlight='[{"start":18,"cols":[{"start":8,"end":23}]},{"start":17,"cols":[{"start":8,"end":23}]},{"start":9,"end":9},{"start":6,"end":6}]'
+                    data-autorun="no-epub"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="slots-composition.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="slots-composition.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;script&gt;
+customElements.define('user-card', class extends HTMLElement {
+  connectedCallback() {
+    this.attachShadow({mode: 'open'});
+    this.shadowRoot.innerHTML = `
+      &lt;div&gt;Name:
+        &lt;slot name=&quot;username&quot;&gt;&lt;/slot&gt;
+      &lt;/div&gt;
+      &lt;div&gt;Birthday:
+        &lt;slot name=&quot;birthday&quot;&gt;&lt;/slot&gt;
+      &lt;/div&gt;
+    `;
+  }
+});
+&lt;/script&gt;
+
+&lt;user-card&gt;
+  &lt;span slot=&quot;username&quot;&gt;John Smith&lt;/span&gt;
+  &lt;span slot=&quot;birthday&quot;&gt;01.01.2001&lt;/span&gt;
+&lt;/user-card&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-sbbtngoxwo"
+                        style="height: 80px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>
+                    In the shadow DOM,
+                    <code>&lt;slot name=&quot;X&quot;&gt;</code> defines an
+                    “insertion point”, a place where elements with
+                    <code>slot=&quot;X&quot;</code> are rendered.
+                  </p>
+                  <p>
+                    Then the browser performs “composition”: it takes elements
+                    from the light DOM and renders them in corresponding slots
+                    of the shadow DOM. At the end, we have exactly what we want
+                    – a component that can be filled with data.
+                  </p>
+                  <p>
+                    Here’s the DOM structure after the script, not taking
+                    composition into account:
+                  </p>
+                  <div id="vk1tlkati6" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;user-card&gt;
+  #shadow-root
+    &lt;div&gt;Name:
+      &lt;slot name=&quot;username&quot;&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+    &lt;div&gt;Birthday:
+      &lt;slot name=&quot;birthday&quot;&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+  &lt;span slot=&quot;username&quot;&gt;John Smith&lt;/span&gt;
+  &lt;span slot=&quot;birthday&quot;&gt;01.01.2001&lt;/span&gt;
+&lt;/user-card&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We created the shadow DOM, so here it is, under
+                    <code>#shadow-root</code>. Now the element has both light
+                    and shadow DOM.
+                  </p>
+                  <p>
+                    For rendering purposes, for each
+                    <code>&lt;slot name=&quot;...&quot;&gt;</code> in shadow
+                    DOM, the browser looks for
+                    <code>slot=&quot;...&quot;</code> with the same name in the
+                    light DOM. These elements are rendered inside the slots:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 440px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 64.77272727272727%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/slots-composition/shadow-dom-user-card.svg"
+                        width="440"
+                        height="285"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/slots-composition/shadow-dom-user-card.svg"
+                          alt=""
+                          width="440"
+                          height="285"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>The result is called “flattened” DOM:</p>
+                  <div id="ueae5305op" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;user-card&gt;
+  #shadow-root
+    &lt;div&gt;Name:
+      &lt;slot name=&quot;username&quot;&gt;
+        &lt;!-- slotted element is inserted into the slot --&gt;
+        &lt;span slot=&quot;username&quot;&gt;John Smith&lt;/span&gt;
+      &lt;/slot&gt;
+    &lt;/div&gt;
+    &lt;div&gt;Birthday:
+      &lt;slot name=&quot;birthday&quot;&gt;
+        &lt;span slot=&quot;birthday&quot;&gt;01.01.2001&lt;/span&gt;
+      &lt;/slot&gt;
+    &lt;/div&gt;
+&lt;/user-card&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …But the flattened DOM exists only for rendering and
+                    event-handling purposes. It’s kind of “virtual”. That’s how
+                    things are shown. But the nodes in the document are actually
+                    not moved around!
+                  </p>
+                  <p>
+                    That can be easily checked if we run
+                    <code>querySelectorAll</code>: nodes are still at their
+                    places.
+                  </p>
+                  <div id="a66eqnk7bg" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// light DOM &lt;span&gt; nodes are still at the same place, under `&lt;user-card&gt;`
+alert( document.querySelectorAll('user-card span').length ); // 2</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    So, the flattened DOM is derived from shadow DOM by
+                    inserting slots. The browser renders it and uses for style
+                    inheritance, event propagation (more about that later). But
+                    JavaScript still sees the document “as is”, before
+                    flattening.
+                  </p>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Only top-level children may have slot=&quot;…&quot;
+                        attribute</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        The <code>slot=&quot;...&quot;</code> attribute is only
+                        valid for direct children of the shadow host (in our
+                        example, <code>&lt;user-card&gt;</code> element). For
+                        nested elements it’s ignored.
+                      </p>
+                      <p>
+                        For example, the second <code>&lt;span&gt;</code> here
+                        is ignored (as it’s not a top-level child of
+                        <code>&lt;user-card&gt;</code>):
+                      </p>
+                      <div
+                        id="xkpfarsu7k"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-markup"
+                            ><code>&lt;user-card&gt;
+  &lt;span slot=&quot;username&quot;&gt;John Smith&lt;/span&gt;
+  &lt;div&gt;
+    &lt;!-- invalid slot, must be direct child of user-card --&gt;
+    &lt;span slot=&quot;birthday&quot;&gt;01.01.2001&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/user-card&gt;</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    If there are multiple elements in light DOM with the same
+                    slot name, they are appended into the slot, one after
+                    another.
+                  </p>
+                  <p>For example, this:</p>
+                  <div id="724gkqtyiq" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;user-card&gt;
+  &lt;span slot=&quot;username&quot;&gt;John&lt;/span&gt;
+  &lt;span slot=&quot;username&quot;&gt;Smith&lt;/span&gt;
+&lt;/user-card&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Gives this flattened DOM with two elements in
+                    <code>&lt;slot name=&quot;username&quot;&gt;</code>:
+                  </p>
+                  <div id="uchqjb5f19" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;user-card&gt;
+  #shadow-root
+    &lt;div&gt;Name:
+      &lt;slot name=&quot;username&quot;&gt;
+        &lt;span slot=&quot;username&quot;&gt;John&lt;/span&gt;
+        &lt;span slot=&quot;username&quot;&gt;Smith&lt;/span&gt;
+      &lt;/slot&gt;
+    &lt;/div&gt;
+    &lt;div&gt;Birthday:
+      &lt;slot name=&quot;birthday&quot;&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+&lt;/user-card&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="slot-fallback-content"
+                      href="slots-composition.html#slot-fallback-content"
+                      >Slot fallback content</a
+                    >
+                  </h2>
+                  <p>
+                    If we put something inside a <code>&lt;slot&gt;</code>, it
+                    becomes the fallback, “default” content. The browser shows
+                    it if there’s no corresponding filler in light DOM.
+                  </p>
+                  <p>
+                    For example, in this piece of shadow DOM,
+                    <code>Anonymous</code> renders if there’s no
+                    <code>slot=&quot;username&quot;</code> in light DOM.
+                  </p>
+                  <div id="95ue9s17ud" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;div&gt;Name:
+  &lt;slot name=&quot;username&quot;&gt;Anonymous&lt;/slot&gt;
+&lt;/div&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="default-slot-first-unnamed"
+                      href="slots-composition.html#default-slot-first-unnamed"
+                      >Default slot: first unnamed</a
+                    >
+                  </h2>
+                  <p>
+                    The first <code>&lt;slot&gt;</code> in shadow DOM that
+                    doesn’t have a name is a “default” slot. It gets all nodes
+                    from the light DOM that aren’t slotted elsewhere.
+                  </p>
+                  <p>
+                    For example, let’s add the default slot to our
+                    <code>&lt;user-card&gt;</code> that shows all unslotted
+                    information about the user:
+                  </p>
+                  <div
+                    id="s1k45x21h"
+                    data-trusted="0"
+                    class="code-example"
+                    data-demo-height="140"
+                    data-highlight='[{"start":24,"end":24},{"start":21,"end":21},{"start":13,"end":13}]'
+                    data-autorun="no-epub"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="slots-composition.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="slots-composition.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;script&gt;
+customElements.define('user-card', class extends HTMLElement {
+  connectedCallback() {
+    this.attachShadow({mode: 'open'});
+    this.shadowRoot.innerHTML = `
+    &lt;div&gt;Name:
+      &lt;slot name=&quot;username&quot;&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+    &lt;div&gt;Birthday:
+      &lt;slot name=&quot;birthday&quot;&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+    &lt;fieldset&gt;
+      &lt;legend&gt;Other information&lt;/legend&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/fieldset&gt;
+    `;
+  }
+});
+&lt;/script&gt;
+
+&lt;user-card&gt;
+  &lt;div&gt;I like to swim.&lt;/div&gt;
+  &lt;span slot=&quot;username&quot;&gt;John Smith&lt;/span&gt;
+  &lt;span slot=&quot;birthday&quot;&gt;01.01.2001&lt;/span&gt;
+  &lt;div&gt;...And play volleyball too!&lt;/div&gt;
+&lt;/user-card&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-s1k45x21h"
+                        style="height: 140px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>
+                    All the unslotted light DOM content gets into the “Other
+                    information” fieldset.
+                  </p>
+                  <p>
+                    Elements are appended to a slot one after another, so both
+                    unslotted pieces of information are in the default slot
+                    together.
+                  </p>
+                  <p>The flattened DOM looks like this:</p>
+                  <div
+                    id="0sabnf5lkh"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":14,"end":17}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;user-card&gt;
+  #shadow-root
+    &lt;div&gt;Name:
+      &lt;slot name=&quot;username&quot;&gt;
+        &lt;span slot=&quot;username&quot;&gt;John Smith&lt;/span&gt;
+      &lt;/slot&gt;
+    &lt;/div&gt;
+    &lt;div&gt;Birthday:
+      &lt;slot name=&quot;birthday&quot;&gt;
+        &lt;span slot=&quot;birthday&quot;&gt;01.01.2001&lt;/span&gt;
+      &lt;/slot&gt;
+    &lt;/div&gt;
+    &lt;fieldset&gt;
+      &lt;legend&gt;Other information&lt;/legend&gt;
+      &lt;slot&gt;
+        &lt;div&gt;I like to swim.&lt;/div&gt;
+        &lt;div&gt;...And play volleyball too!&lt;/div&gt;
+      &lt;/slot&gt;
+    &lt;/fieldset&gt;
+&lt;/user-card&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="menu-example"
+                      href="slots-composition.html#menu-example"
+                      >Menu example</a
+                    >
+                  </h2>
+                  <p>
+                    Now let’s back to <code>&lt;custom-menu&gt;</code>,
+                    mentioned at the beginning of the chapter.
+                  </p>
+                  <p>We can use slots to distribute elements.</p>
+                  <p>Here’s the markup for <code>&lt;custom-menu&gt;</code>:</p>
+                  <div id="03vqfbd6mg" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;custom-menu&gt;
+  &lt;span slot=&quot;title&quot;&gt;Candy menu&lt;/span&gt;
+  &lt;li slot=&quot;item&quot;&gt;Lollipop&lt;/li&gt;
+  &lt;li slot=&quot;item&quot;&gt;Fruit Toast&lt;/li&gt;
+  &lt;li slot=&quot;item&quot;&gt;Cup Cake&lt;/li&gt;
+&lt;/custom-menu&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The shadow DOM template with proper slots:</p>
+                  <div id="edyuelujsu" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;template id=&quot;tmpl&quot;&gt;
+  &lt;style&gt; /* menu styles */ &lt;/style&gt;
+  &lt;div class=&quot;menu&quot;&gt;
+    &lt;slot name=&quot;title&quot;&gt;&lt;/slot&gt;
+    &lt;ul&gt;&lt;slot name=&quot;item&quot;&gt;&lt;/slot&gt;&lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ol>
+                    <li>
+                      <code>&lt;span slot=&quot;title&quot;&gt;</code> goes into
+                      <code>&lt;slot name=&quot;title&quot;&gt;</code>.
+                    </li>
+                    <li>
+                      There are many
+                      <code>&lt;li slot=&quot;item&quot;&gt;</code> in the
+                      template, but only one
+                      <code>&lt;slot name=&quot;item&quot;&gt;</code> in the
+                      template. So all such
+                      <code>&lt;li slot=&quot;item&quot;&gt;</code> are appended
+                      to <code>&lt;slot name=&quot;item&quot;&gt;</code> one
+                      after another, thus forming the list.
+                    </li>
+                  </ol>
+                  <p>The flattened DOM becomes:</p>
+                  <div id="a58w4mf05z" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;custom-menu&gt;
+  #shadow-root
+    &lt;style&gt; /* menu styles */ &lt;/style&gt;
+    &lt;div class=&quot;menu&quot;&gt;
+      &lt;slot name=&quot;title&quot;&gt;
+        &lt;span slot=&quot;title&quot;&gt;Candy menu&lt;/span&gt;
+      &lt;/slot&gt;
+      &lt;ul&gt;
+        &lt;slot name=&quot;item&quot;&gt;
+          &lt;li slot=&quot;item&quot;&gt;Lollipop&lt;/li&gt;
+          &lt;li slot=&quot;item&quot;&gt;Fruit Toast&lt;/li&gt;
+          &lt;li slot=&quot;item&quot;&gt;Cup Cake&lt;/li&gt;
+        &lt;/slot&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/custom-menu&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    One might notice that, in a valid DOM,
+                    <code>&lt;li&gt;</code> must be a direct child of
+                    <code>&lt;ul&gt;</code>. But that’s flattened DOM, it
+                    describes how the component is rendered, such thing happens
+                    naturally here.
+                  </p>
+                  <p>
+                    We just need to add a <code>click</code> handler to
+                    open/close the list, and the
+                    <code>&lt;custom-menu&gt;</code> is ready:
+                  </p>
+                  <div id="q7hb8878ng" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>customElements.define('custom-menu', class extends HTMLElement {
+  connectedCallback() {
+    this.attachShadow({mode: 'open'});
+
+    // tmpl is the shadow DOM template (above)
+    this.shadowRoot.append( tmpl.content.cloneNode(true) );
+
+    // we can't select light DOM nodes, so let's handle clicks on the slot
+    this.shadowRoot.querySelector('slot[name=&quot;title&quot;]').onclick = () =&gt; {
+      // open/close the menu
+      this.shadowRoot.querySelector('.menu').classList.toggle('closed');
+    };
+  }
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Here’s the full demo:</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar">
+                      <div class="toolbar__tool">
+                        <a
+                          href="https://plnkr.co/edit/5vVCsBTQYGfoNnDB?p=preview"
+                          target="_blank"
+                          title="open in sandbox"
+                          data-plunk-id="5vVCsBTQYGfoNnDB"
+                          class="toolbar__button toolbar__button_edit"
+                        ></a>
+                      </div>
+                    </div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 140px"
+                      src="https://en.js.cx/article/slots-composition/menu/"
+                    ></iframe>
+                  </div>
+                  <p>
+                    Of course, we can add more functionality to it: events,
+                    methods and so on.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="updating-slots"
+                      href="slots-composition.html#updating-slots"
+                      >Updating slots</a
+                    >
+                  </h2>
+                  <p>
+                    What if the outer code wants to add/remove menu items
+                    dynamically?
+                  </p>
+                  <p>
+                    <strong
+                      >The browser monitors slots and updates the rendering if
+                      slotted elements are added/removed.</strong
+                    >
+                  </p>
+                  <p>
+                    Also, as light DOM nodes are not copied, but just rendered
+                    in slots, the changes inside them immediately become
+                    visible.
+                  </p>
+                  <p>
+                    So we don’t have to do anything to update rendering. But if
+                    the component code wants to know about slot changes, then
+                    <code>slotchange</code> event is available.
+                  </p>
+                  <p>
+                    For example, here the menu item is inserted dynamically
+                    after 1 second, and the title changes after 2 seconds:
+                  </p>
+                  <div
+                    id="sgnn7p2coz"
+                    data-trusted="0"
+                    class="code-example"
+                    data-demo-height="80"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="slots-composition.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="slots-composition.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;custom-menu id=&quot;menu&quot;&gt;
+  &lt;span slot=&quot;title&quot;&gt;Candy menu&lt;/span&gt;
+&lt;/custom-menu&gt;
+
+&lt;script&gt;
+customElements.define('custom-menu', class extends HTMLElement {
+  connectedCallback() {
+    this.attachShadow({mode: 'open'});
+    this.shadowRoot.innerHTML = `&lt;div class=&quot;menu&quot;&gt;
+      &lt;slot name=&quot;title&quot;&gt;&lt;/slot&gt;
+      &lt;ul&gt;&lt;slot name=&quot;item&quot;&gt;&lt;/slot&gt;&lt;/ul&gt;
+    &lt;/div&gt;`;
+
+    // shadowRoot can't have event handlers, so using the first child
+    this.shadowRoot.firstElementChild.addEventListener('slotchange',
+      e =&gt; alert(&quot;slotchange: &quot; + e.target.name)
+    );
+  }
+});
+
+setTimeout(() =&gt; {
+  menu.insertAdjacentHTML('beforeEnd', '&lt;li slot=&quot;item&quot;&gt;Lollipop&lt;/li&gt;')
+}, 1000);
+
+setTimeout(() =&gt; {
+  menu.querySelector('[slot=&quot;title&quot;]').innerHTML = &quot;New menu&quot;;
+}, 2000);
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The menu rendering updates each time without our
+                    intervention.
+                  </p>
+                  <p>There are two <code>slotchange</code> events here:</p>
+                  <ol>
+                    <li>
+                      <p>At initialization:</p>
+                      <p>
+                        <code>slotchange: title</code> triggers immediately, as
+                        the <code>slot=&quot;title&quot;</code> from the light
+                        DOM gets into the corresponding slot.
+                      </p>
+                    </li>
+                    <li>
+                      <p>After 1 second:</p>
+                      <p>
+                        <code>slotchange: item</code> triggers, when a new
+                        <code>&lt;li slot=&quot;item&quot;&gt;</code> is added.
+                      </p>
+                    </li>
+                  </ol>
+                  <p>
+                    Please note: there’s no <code>slotchange</code> event after
+                    2 seconds, when the content of
+                    <code>slot=&quot;title&quot;</code> is modified. That’s
+                    because there’s no slot change. We modify the content inside
+                    the slotted element, that’s another thing.
+                  </p>
+                  <p>
+                    If we’d like to track internal modifications of light DOM
+                    from JavaScript, that’s also possible using a more generic
+                    mechanism:
+                    <a href="mutation-observer.html">MutationObserver</a>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="slot-api"
+                      href="slots-composition.html#slot-api"
+                      >Slot API</a
+                    >
+                  </h2>
+                  <p>
+                    Finally, let’s mention the slot-related JavaScript methods.
+                  </p>
+                  <p>
+                    As we’ve seen before, JavaScript looks at the “real” DOM,
+                    without flattening. But, if the shadow tree has
+                    <code>{mode: 'open'}</code>, then we can figure out which
+                    elements assigned to a slot and, vise-versa, the slot by the
+                    element inside it:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>node.assignedSlot</code> – returns the
+                      <code>&lt;slot&gt;</code> element that the
+                      <code>node</code> is assigned to.
+                    </li>
+                    <li>
+                      <code>slot.assignedNodes({flatten: true/false})</code> –
+                      DOM nodes, assigned to the slot. The
+                      <code>flatten</code> option is <code>false</code> by
+                      default. If explicitly set to <code>true</code>, then it
+                      looks more deeply into the flattened DOM, returning nested
+                      slots in case of nested components and the fallback
+                      content if no node assigned.
+                    </li>
+                    <li>
+                      <code>slot.assignedElements({flatten: true/false})</code>
+                      – DOM elements, assigned to the slot (same as above, but
+                      only element nodes).
+                    </li>
+                  </ul>
+                  <p>
+                    These methods are useful when we need not just show the
+                    slotted content, but also track it in JavaScript.
+                  </p>
+                  <p>
+                    For example, if <code>&lt;custom-menu&gt;</code> component
+                    wants to know, what it shows, then it could track
+                    <code>slotchange</code> and get the items from
+                    <code>slot.assignedElements</code>:
+                  </p>
+                  <div
+                    id="i9g577a4cc"
+                    data-trusted="0"
+                    class="code-example"
+                    data-demo-height="120"
+                    data-highlight='[{"start":18,"end":24}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="slots-composition.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="slots-composition.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;custom-menu id=&quot;menu&quot;&gt;
+  &lt;span slot=&quot;title&quot;&gt;Candy menu&lt;/span&gt;
+  &lt;li slot=&quot;item&quot;&gt;Lollipop&lt;/li&gt;
+  &lt;li slot=&quot;item&quot;&gt;Fruit Toast&lt;/li&gt;
+&lt;/custom-menu&gt;
+
+&lt;script&gt;
+customElements.define('custom-menu', class extends HTMLElement {
+  items = []
+
+  connectedCallback() {
+    this.attachShadow({mode: 'open'});
+    this.shadowRoot.innerHTML = `&lt;div class=&quot;menu&quot;&gt;
+      &lt;slot name=&quot;title&quot;&gt;&lt;/slot&gt;
+      &lt;ul&gt;&lt;slot name=&quot;item&quot;&gt;&lt;/slot&gt;&lt;/ul&gt;
+    &lt;/div&gt;`;
+
+    // triggers when slot content changes
+    this.shadowRoot.firstElementChild.addEventListener('slotchange', e =&gt; {
+      let slot = e.target;
+      if (slot.name == 'item') {
+        this.items = slot.assignedElements().map(elem =&gt; elem.textContent);
+        alert(&quot;Items: &quot; + this.items);
+      }
+    });
+  }
+});
+
+// items update after 1 second
+setTimeout(() =&gt; {
+  menu.insertAdjacentHTML('beforeEnd', '&lt;li slot=&quot;item&quot;&gt;Cup Cake&lt;/li&gt;')
+}, 1000);
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="slots-composition.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    Usually, if an element has shadow DOM, then its light DOM is
+                    not displayed. Slots allow to show elements from light DOM
+                    in specified places of shadow DOM.
+                  </p>
+                  <p>There are two kinds of slots:</p>
+                  <ul>
+                    <li>
+                      Named slots:
+                      <code
+                        >&lt;slot name=&quot;X&quot;&gt;...&lt;/slot&gt;</code
+                      >
+                      – gets light children with
+                      <code>slot=&quot;X&quot;</code>.
+                    </li>
+                    <li>
+                      Default slot: the first <code>&lt;slot&gt;</code> without
+                      a name (subsequent unnamed slots are ignored) – gets
+                      unslotted light children.
+                    </li>
+                    <li>
+                      If there are many elements for the same slot – they are
+                      appended one after another.
+                    </li>
+                    <li>
+                      The content of <code>&lt;slot&gt;</code> element is used
+                      as a fallback. It’s shown if there are no light children
+                      for the slot.
+                    </li>
+                  </ul>
+                  <p>
+                    The process of rendering slotted elements inside their slots
+                    is called “composition”. The result is called a “flattened
+                    DOM”.
+                  </p>
+                  <p>
+                    Composition does not really move nodes, from JavaScript
+                    point of view the DOM is still same.
+                  </p>
+                  <p>JavaScript can access slots using methods:</p>
+                  <ul>
+                    <li>
+                      <code>slot.assignedNodes/Elements()</code> – returns
+                      nodes/elements inside the <code>slot</code>.
+                    </li>
+                    <li>
+                      <code>node.assignedSlot</code> – the reverse property,
+                      returns slot by a node.
+                    </li>
+                  </ul>
+                  <p>
+                    If we’d like to know what we’re showing, we can track slot
+                    contents using:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>slotchange</code> event – triggers the first time a
+                      slot is filled, and on any add/remove/replace operation of
+                      the slotted element, but not its children. The slot is
+                      <code>event.target</code>.
+                    </li>
+                    <li>
+                      <a href="mutation-observer.html">MutationObserver</a> to
+                      go deeper into slot content, watch changes inside it.
+                    </li>
+                  </ul>
+                  <p>
+                    Now, as we know how to show elements from light DOM in
+                    shadow DOM, let’s see how to style them properly. The basic
+                    rule is that shadow elements are styled inside, and light
+                    elements – outside, but there are notable exceptions.
+                  </p>
+                  <p>We’ll see the details in the next chapter.</p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="template-element.html"
+                data-tooltip="Template element"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="shadow-dom-style.html"
+                data-tooltip="Shadow DOM styling"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fslots-composition"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fslots-composition"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="slots-composition.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/slots-composition",
+                    identifier: "\/slots-composition",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="web-components.html"
+                        >Web components</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   slots-composition.html#named-slots"
+                        >Named slots</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   slots-composition.html#slot-fallback-content"
+                        >Slot fallback content</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   slots-composition.html#default-slot-first-unnamed"
+                        >Default slot: first unnamed</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   slots-composition.html#menu-example"
+                        >Menu example</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   slots-composition.html#updating-slots"
+                        >Updating slots</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   slots-composition.html#slot-api"
+                        >Slot API</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   slots-composition.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   slots-composition.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fslots-composition"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fslots-composition"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/8-web-components/5-slots-composition"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,2553 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Capturing groups</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="regexp-groups.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Capturing groups" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+
+    <meta name="twitter:title" content="Capturing groups" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="regexp-greedy-and-lazy.html" />
+    <link rel="next" href="regexp-backreferences.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Capturing groups" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/regexp-groups"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="regexp-groups.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/regexp-groups"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/regexp-groups"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/regexp-groups"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=regexp-groups"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/regexp-groups"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fregexp-groups"
+                  rel="nofollow"
+                ></a
+                >2Fregexp-groups"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/regexp-groups">
+                  عربي
+                </option>
+                <option value="https://javascript.info/regexp-groups" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/regexp-groups">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/">Français</option>
+                <option value="https://it.javascript.info/regexp-groups">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/regexp-groups">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/">한국어</option>
+                <option value=regexp-groups">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/">Türkçe</option>
+                <option value="https://zh.javascript.info/regexp-groups">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="11"
+          max="17"
+          data-tooltip="Lesson 11 of 17"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a
+                        class="breadcrumbs__link"
+                        href="regular-expressions.html"
+                        ><span>Regular expressions</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Regular expressions",
+                            "item": "https://javascript.info/regular-expressions"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 10th June 2021"
+                  >
+                    <div class="updated-at__content">10th June 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Capturing groups</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Capturing groups" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    A part of a pattern can be enclosed in parentheses
+                    <code class="pattern">(...)</code>. This is called a
+                    “capturing group”.
+                  </p>
+                  <p>That has two effects:</p>
+                  <ol>
+                    <li>
+                      It allows to get a part of the match as a separate item in
+                      the result array.
+                    </li>
+                    <li>
+                      If we put a quantifier after the parentheses, it applies
+                      to the parentheses as a whole.
+                    </li>
+                  </ol>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="examples"
+                      href="regexp-groups.html#examples"
+                      >Examples</a
+                    >
+                  </h2>
+                  <p>Let’s see how parentheses work in examples.</p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="example-gogogo"
+                      href="regexp-groups.html#example-gogogo"
+                      >Example: gogogo</a
+                    >
+                  </h3>
+                  <p>
+                    Without parentheses, the pattern
+                    <code class="pattern">go+</code> means
+                    <code class="subject">g</code> character, followed by
+                    <code class="subject">o</code> repeated one or more times.
+                    For instance, <code class="match">goooo</code> or
+                    <code class="match">gooooooooo</code>.
+                  </p>
+                  <p>
+                    Parentheses group characters together, so
+                    <code class="pattern">(go)+</code> means
+                    <code class="match">go</code>,
+                    <code class="match">gogo</code>,
+                    <code class="match">gogogo</code> and so on.
+                  </p>
+                  <div id="8kj3yxgdin" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>alert( 'Gogogo now!'.match(/(go)+/ig) ); // &quot;Gogogo&quot;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="example-domain"
+                      href="regexp-groups.html#example-domain"
+                      >Example: domain</a
+                    >
+                  </h3>
+                  <p>
+                    Let’s make something more complex – a regular expression to
+                    search for a website domain.
+                  </p>
+                  <p>For example:</p>
+                  <div id="1aiid8414c" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre class="line-numbers language-none"><code>mail.com
+users.mail.com
+smith.users.mail.com</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As we can see, a domain consists of repeated words, a dot
+                    after each one except the last one.
+                  </p>
+                  <p>
+                    In regular expressions that’s
+                    <code class="pattern">(\w+\.)+\w+</code>:
+                  </p>
+                  <div id="nx2uzlzbfe" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let regexp = /(\w+\.)+\w+/g;
+
+alert( &quot;site.com my.site.com&quot;.match(regexp) ); // site.com,my.site.com</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The search works, but the pattern can’t match a domain with
+                    a hyphen, e.g. <code>my-site.com</code>, because the hyphen
+                    does not belong to class <code class="pattern">\w</code>.
+                  </p>
+                  <p>
+                    We can fix it by replacing
+                    <code class="pattern">\w</code> with
+                    <code class="pattern">[\w-]</code> in every word except the
+                    last one: <code class="pattern">([\w-]+\.)+\w+</code>.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="example-email"
+                      href="regexp-groups.html#example-email"
+                      >Example: email</a
+                    >
+                  </h3>
+                  <p>
+                    The previous example can be extended. We can create a
+                    regular expression for emails based on it.
+                  </p>
+                  <p>
+                    The email format is: <code>name@domain</code>. Any word can
+                    be the name, hyphens and dots are allowed. In regular
+                    expressions that’s <code class="pattern">[-.\w]+</code>.
+                  </p>
+                  <p>The pattern:</p>
+                  <div id="hmkejdd9mq" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let regexp = /[-.\w]+@([\w-]+\.)+[\w-]+/g;
+
+alert(&quot;my@mail.com @ his@site.com.uk&quot;.match(regexp)); // my@mail.com, his@site.com.uk</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    That regexp is not perfect, but mostly works and helps to
+                    fix accidental mistypes. The only truly reliable check for
+                    an email can only be done by sending a letter.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="parentheses-contents-in-the-match"
+                      href="regexp-groups.html#parentheses-contents-in-the-match"
+                      >Parentheses contents in the match</a
+                    >
+                  </h2>
+                  <p>
+                    Parentheses are numbered from left to right. The search
+                    engine memorizes the content matched by each of them and
+                    allows to get it in the result.
+                  </p>
+                  <p>
+                    The method <code>str.match(regexp)</code>, if
+                    <code>regexp</code> has no flag <code>g</code>, looks for
+                    the first match and returns it as an array:
+                  </p>
+                  <ol>
+                    <li>At index <code>0</code>: the full match.</li>
+                    <li>
+                      At index <code>1</code>: the contents of the first
+                      parentheses.
+                    </li>
+                    <li>
+                      At index <code>2</code>: the contents of the second
+                      parentheses.
+                    </li>
+                    <li>…and so on…</li>
+                  </ol>
+                  <p>
+                    For instance, we’d like to find HTML tags
+                    <code class="pattern">&lt;.*?&gt;</code>, and process them.
+                    It would be convenient to have tag content (what’s inside
+                    the angles), in a separate variable.
+                  </p>
+                  <p>
+                    Let’s wrap the inner content into parentheses, like this:
+                    <code class="pattern">&lt;(.*?)&gt;</code>.
+                  </p>
+                  <p>
+                    Now we’ll get both the tag as a whole
+                    <code class="match">&lt;h1&gt;</code> and its contents
+                    <code class="match">h1</code> in the resulting array:
+                  </p>
+                  <div id="wrjjmczoiz" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let str = '&lt;h1&gt;Hello, world!&lt;/h1&gt;';
+
+let tag = str.match(/&lt;(.*?)&gt;/);
+
+alert( tag[0] ); // &lt;h1&gt;
+alert( tag[1] ); // h1</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="nested-groups"
+                      href="regexp-groups.html#nested-groups"
+                      >Nested groups</a
+                    >
+                  </h3>
+                  <p>
+                    Parentheses can be nested. In this case the numbering also
+                    goes from left to right.
+                  </p>
+                  <p>
+                    For instance, when searching a tag in
+                    <code class="subject"
+                      >&lt;span class=&quot;my&quot;&gt;</code
+                    >
+                    we may be interested in:
+                  </p>
+                  <ol>
+                    <li>
+                      The tag content as a whole:
+                      <code class="match">span class=&quot;my&quot;</code>.
+                    </li>
+                    <li>The tag name: <code class="match">span</code>.</li>
+                    <li>
+                      The tag attributes:
+                      <code class="match">class=&quot;my&quot;</code>.
+                    </li>
+                  </ol>
+                  <p>
+                    Let’s add parentheses for them:
+                    <code class="pattern">&lt;(([a-z]+)\s*([^&gt;]*))&gt;</code
+                    >.
+                  </p>
+                  <p>
+                    Here’s how they are numbered (left to right, by the opening
+                    paren):
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 320px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 40.625%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/regexp-groups/regexp-nested-groups-pattern.svg"
+                        width="320"
+                        height="130"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/regexp-groups/regexp-nested-groups-pattern.svg"
+                          alt=""
+                          width="320"
+                          height="130"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>In action:</p>
+                  <div id="p2hxmzbxla" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let str = '&lt;span class=&quot;my&quot;&gt;';
+
+let regexp = /&lt;(([a-z]+)\s*([^&gt;]*))&gt;/;
+
+let result = str.match(regexp);
+alert(result[0]); // &lt;span class=&quot;my&quot;&gt;
+alert(result[1]); // span class=&quot;my&quot;
+alert(result[2]); // span
+alert(result[3]); // class=&quot;my&quot;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The zero index of <code>result</code> always holds the full
+                    match.
+                  </p>
+                  <p>
+                    Then groups, numbered from left to right by an opening
+                    paren. The first group is returned as
+                    <code>result[1]</code>. Here it encloses the whole tag
+                    content.
+                  </p>
+                  <p>
+                    Then in <code>result[2]</code> goes the group from the
+                    second opening paren <code class="pattern">([a-z]+)</code> –
+                    tag name, then in <code>result[3]</code> the tag:
+                    <code class="pattern">([^&gt;]*)</code>.
+                  </p>
+                  <p>The contents of every group in the string:</p>
+                  <figure>
+                    <div class="image" style="width: 320px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 40.625%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/regexp-groups/regexp-nested-groups-matches.svg"
+                        width="320"
+                        height="130"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/regexp-groups/regexp-nested-groups-matches.svg"
+                          alt=""
+                          width="320"
+                          height="130"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="optional-groups"
+                      href="regexp-groups.html#optional-groups"
+                      >Optional groups</a
+                    >
+                  </h3>
+                  <p>
+                    Even if a group is optional and doesn’t exist in the match
+                    (e.g. has the quantifier
+                    <code class="pattern">(...)?</code>), the corresponding
+                    <code>result</code> array item is present and equals
+                    <code>undefined</code>.
+                  </p>
+                  <p>
+                    For instance, let’s consider the regexp
+                    <code class="pattern">a(z)?(c)?</code>. It looks for
+                    <code>&quot;a&quot;</code> optionally followed by
+                    <code>&quot;z&quot;</code> optionally followed by
+                    <code>&quot;c&quot;</code>.
+                  </p>
+                  <p>
+                    If we run it on the string with a single letter
+                    <code class="subject">a</code>, then the result is:
+                  </p>
+                  <div id="stzbyr9gnc" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let match = 'a'.match(/a(z)?(c)?/);
+
+alert( match.length ); // 3
+alert( match[0] ); // a (whole match)
+alert( match[1] ); // undefined
+alert( match[2] ); // undefined</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The array has the length of <code>3</code>, but all groups
+                    are empty.
+                  </p>
+                  <p>
+                    And here’s a more complex match for the string
+                    <code class="subject">ac</code>:
+                  </p>
+                  <div id="kncmrgi6l9" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let match = 'ac'.match(/a(z)?(c)?/)
+
+alert( match.length ); // 3
+alert( match[0] ); // ac (whole match)
+alert( match[1] ); // undefined, because there's nothing for (z)?
+alert( match[2] ); // c</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The array length is permanent: <code>3</code>. But there’s
+                    nothing for the group <code class="pattern">(z)?</code>, so
+                    the result is
+                    <code>[&quot;ac&quot;, undefined, &quot;c&quot;]</code>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="searching-for-all-matches-with-groups-matchall"
+                      href="regexp-groups.html#searching-for-all-matches-with-groups-matchall"
+                      >Searching for all matches with groups: matchAll</a
+                    >
+                  </h2>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        ><code>matchAll</code> is a new method, polyfill may be
+                        needed</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        The method <code>matchAll</code> is not supported in old
+                        browsers.
+                      </p>
+                      <p>
+                        A polyfill may be required, such as
+                        <a
+                          href="https://github.com/ljharb/String.prototype.matchAll"
+                          >https://github.com/ljharb/String.prototype.matchAll</a
+                        >.
+                      </p>
+                    </div>
+                  </div>
+                  <p>
+                    When we search for all matches (flag
+                    <code class="pattern">g</code>), the
+                    <code>match</code> method does not return contents for
+                    groups.
+                  </p>
+                  <p>For example, let’s find all tags in a string:</p>
+                  <div id="gorss36r9m" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let str = '&lt;h1&gt; &lt;h2&gt;';
+
+let tags = str.match(/&lt;(.*?)&gt;/g);
+
+alert( tags ); // &lt;h1&gt;,&lt;h2&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The result is an array of matches, but without details about
+                    each of them. But in practice we usually need contents of
+                    capturing groups in the result.
+                  </p>
+                  <p>
+                    To get them, we should search using the method
+                    <code>str.matchAll(regexp)</code>.
+                  </p>
+                  <p>
+                    It was added to JavaScript language long after
+                    <code>match</code>, as its “new and improved version”.
+                  </p>
+                  <p>
+                    Just like <code>match</code>, it looks for matches, but
+                    there are 3 differences:
+                  </p>
+                  <ol>
+                    <li>It returns not an array, but an iterable object.</li>
+                    <li>
+                      When the flag <code class="pattern">g</code> is present,
+                      it returns every match as an array with groups.
+                    </li>
+                    <li>
+                      If there are no matches, it returns not <code>null</code>,
+                      but an empty iterable object.
+                    </li>
+                  </ol>
+                  <p>For instance:</p>
+                  <div id="zr88un8oty" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let results = '&lt;h1&gt; &lt;h2&gt;'.matchAll(/&lt;(.*?)&gt;/gi);
+
+// results - is not an array, but an iterable object
+alert(results); // [object RegExp String Iterator]
+
+alert(results[0]); // undefined (*)
+
+results = Array.from(results); // let's turn it into array
+
+alert(results[0]); // &lt;h1&gt;,h1 (1st tag)
+alert(results[1]); // &lt;h2&gt;,h2 (2nd tag)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As we can see, the first difference is very important, as
+                    demonstrated in the line <code>(*)</code>. We can’t get the
+                    match as <code>results[0]</code>, because that object isn’t
+                    pseudoarray. We can turn it into a real
+                    <code>Array</code> using <code>Array.from</code>. There are
+                    more details about pseudoarrays and iterables in the article
+                    <a href="iterable.html">Iterables</a>.
+                  </p>
+                  <p>
+                    There’s no need in <code>Array.from</code> if we’re looping
+                    over results:
+                  </p>
+                  <div id="09hqzee8zk" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let results = '&lt;h1&gt; &lt;h2&gt;'.matchAll(/&lt;(.*?)&gt;/gi);
+
+for(let result of results) {
+  alert(result);
+  // first alert: &lt;h1&gt;,h1
+  // second: &lt;h2&gt;,h2
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>…Or using destructuring:</p>
+                  <div id="zuzo2tmsuq" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let [tag1, tag2] = '&lt;h1&gt; &lt;h2&gt;'.matchAll(/&lt;(.*?)&gt;/gi);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Every match, returned by <code>matchAll</code>, has the same
+                    format as returned by <code>match</code> without flag
+                    <code class="pattern">g</code>: it’s an array with
+                    additional properties <code>index</code> (match index in the
+                    string) and <code>input</code> (source string):
+                  </p>
+                  <div id="kj39mx948b" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let results = '&lt;h1&gt; &lt;h2&gt;'.matchAll(/&lt;(.*?)&gt;/gi);
+
+let [tag1, tag2] = results;
+
+alert( tag1[0] ); // &lt;h1&gt;
+alert( tag1[1] ); // h1
+alert( tag1.index ); // 0
+alert( tag1.input ); // &lt;h1&gt; &lt;h2&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Why is a result of <code>matchAll</code> an iterable
+                        object, not an array?</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Why is the method designed like that? The reason is
+                        simple – for the optimization.
+                      </p>
+                      <p>
+                        The call to <code>matchAll</code> does not perform the
+                        search. Instead, it returns an iterable object, without
+                        the results initially. The search is performed each time
+                        we iterate over it, e.g. in the loop.
+                      </p>
+                      <p>
+                        So, there will be found as many results as needed, not
+                        more.
+                      </p>
+                      <p>
+                        E.g. there are potentially 100 matches in the text, but
+                        in a <code>for..of</code> loop we found 5 of them, then
+                        decided it’s enough and made a <code>break</code>. Then
+                        the engine won’t spend time finding other 95 matches.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="named-groups"
+                      href="regexp-groups.html#named-groups"
+                      >Named groups</a
+                    >
+                  </h2>
+                  <p>
+                    Remembering groups by their numbers is hard. For simple
+                    patterns it’s doable, but for more complex ones counting
+                    parentheses is inconvenient. We have a much better option:
+                    give names to parentheses.
+                  </p>
+                  <p>
+                    That’s done by putting
+                    <code class="pattern">?&lt;name&gt;</code> immediately after
+                    the opening paren.
+                  </p>
+                  <p>
+                    For example, let’s look for a date in the format
+                    “year-month-day”:
+                  </p>
+                  <div
+                    id="6yxw2z8zdw"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":0,"end":0}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let dateRegexp = /(?&lt;year&gt;[0-9]{4})-(?&lt;month&gt;[0-9]{2})-(?&lt;day&gt;[0-9]{2})/;
+let str = &quot;2019-04-30&quot;;
+
+let groups = str.match(dateRegexp).groups;
+
+alert(groups.year); // 2019
+alert(groups.month); // 04
+alert(groups.day); // 30</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As you can see, the groups reside in the
+                    <code>.groups</code> property of the match.
+                  </p>
+                  <p>
+                    To look for all dates, we can add flag
+                    <code class="pattern">g</code>.
+                  </p>
+                  <p>
+                    We’ll also need <code>matchAll</code> to obtain full
+                    matches, together with groups:
+                  </p>
+                  <div id="g5lcw93slq" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let dateRegexp = /(?&lt;year&gt;[0-9]{4})-(?&lt;month&gt;[0-9]{2})-(?&lt;day&gt;[0-9]{2})/g;
+
+let str = &quot;2019-10-30 2020-01-01&quot;;
+
+let results = str.matchAll(dateRegexp);
+
+for(let result of results) {
+  let {year, month, day} = result.groups;
+
+  alert(`${day}.${month}.${year}`);
+  // first alert: 30.10.2019
+  // second: 01.01.2020
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="capturing-groups-in-replacement"
+                      href="regexp-groups.html#capturing-groups-in-replacement"
+                      >Capturing groups in replacement</a
+                    >
+                  </h2>
+                  <p>
+                    Method <code>str.replace(regexp, replacement)</code> that
+                    replaces all matches with <code>regexp</code> in
+                    <code>str</code> allows to use parentheses contents in the
+                    <code>replacement</code> string. That’s done using
+                    <code class="pattern">$n</code>, where
+                    <code class="pattern">n</code> is the group number.
+                  </p>
+                  <p>For example,</p>
+                  <div id="oq7b0poehq" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let str = &quot;John Bull&quot;;
+let regexp = /(\w+) (\w+)/;
+
+alert( str.replace(regexp, '$2, $1') ); // Bull, John</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    For named parentheses the reference will be
+                    <code class="pattern">$&lt;name&gt;</code>.
+                  </p>
+                  <p>
+                    For example, let’s reformat dates from “year-month-day” to
+                    “day.month.year”:
+                  </p>
+                  <div id="hjts33w4kw" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let regexp = /(?&lt;year&gt;[0-9]{4})-(?&lt;month&gt;[0-9]{2})-(?&lt;day&gt;[0-9]{2})/g;
+
+let str = &quot;2019-10-30, 2020-01-01&quot;;
+
+alert( str.replace(regexp, '$&lt;day&gt;.$&lt;month&gt;.$&lt;year&gt;') );
+// 30.10.2019, 01.01.2020</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="non-capturing-groups-with"
+                      href="regexp-groups.html#non-capturing-groups-with"
+                      >Non-capturing groups with ?:</a
+                    >
+                  </h2>
+                  <p>
+                    Sometimes we need parentheses to correctly apply a
+                    quantifier, but we don’t want their contents in results.
+                  </p>
+                  <p>
+                    A group may be excluded by adding
+                    <code class="pattern">?:</code> in the beginning.
+                  </p>
+                  <p>
+                    For instance, if we want to find
+                    <code class="pattern">(go)+</code>, but don’t want the
+                    parentheses contents (<code>go</code>) as a separate array
+                    item, we can write: <code class="pattern">(?:go)+</code>.
+                  </p>
+                  <p>
+                    In the example below we only get the name
+                    <code class="match">John</code> as a separate member of the
+                    match:
+                  </p>
+                  <div
+                    id="un5yjbvg9w"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":2,"end":3}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-groups.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let str = &quot;Gogogo John!&quot;;
+
+// ?: excludes 'go' from capturing
+let regexp = /(?:go)+ (\w+)/i;
+
+let result = str.match(regexp);
+
+alert( result[0] ); // Gogogo John (full match)
+alert( result[1] ); // John
+alert( result.length ); // 2 (no more items in the array)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="regexp-groups.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    Parentheses group together a part of the regular expression,
+                    so that the quantifier applies to it as a whole.
+                  </p>
+                  <p>
+                    Parentheses groups are numbered left-to-right, and can
+                    optionally be named with <code>(?&lt;name&gt;...)</code>.
+                  </p>
+                  <p>
+                    The content, matched by a group, can be obtained in the
+                    results:
+                  </p>
+                  <ul>
+                    <li>
+                      The method <code>str.match</code> returns capturing groups
+                      only without flag <code class="pattern">g</code>.
+                    </li>
+                    <li>
+                      The method <code>str.matchAll</code> always returns
+                      capturing groups.
+                    </li>
+                  </ul>
+                  <p>
+                    If the parentheses have no name, then their contents is
+                    available in the match array by its number. Named
+                    parentheses are also available in the property
+                    <code>groups</code>.
+                  </p>
+                  <p>
+                    We can also use parentheses contents in the replacement
+                    string in <code>str.replace</code>: by the number
+                    <code>$n</code> or the name <code>$&lt;name&gt;</code>.
+                  </p>
+                  <p>
+                    A group may be excluded from numbering by adding
+                    <code class="pattern">?:</code> in its start. That’s used
+                    when we need to apply a quantifier to the whole group, but
+                    don’t want it as a separate item in the results array. We
+                    also can’t reference such parentheses in the replacement
+                    string.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="regexp-groups.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="regexp-groups.html#check-mac-address"
+                          name="check-mac-address"
+                          >Check MAC-address</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/test-mac.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note"></div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          <a href="https://en.wikipedia.org/wiki/MAC_address"
+                            >MAC-address</a
+                          >
+                          of a network interface consists of 6 two-digit hex
+                          numbers separated by a colon.
+                        </p>
+                        <p>
+                          For instance:
+                          <code class="subject">'01:32:54:67:89:AB'</code>.
+                        </p>
+                        <p>
+                          Write a regexp that checks whether a string is
+                          MAC-address.
+                        </p>
+                        <p>Usage:</p>
+                        <div
+                          id="74vczsl4is"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let regexp = /your regexp/;
+
+alert( regexp.test('01:32:54:67:89:AB') ); // true
+
+alert( regexp.test('0132546789AB') ); // false (no colons)
+
+alert( regexp.test('01:32:54:67:89') ); // false (5 numbers, must be 6)
+
+alert( regexp.test('01:32:54:67:89:ZZ') ) // false (ZZ at the end)</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              A two-digit hex number is
+                              <code class="pattern">[0-9a-f]{2}</code> (assuming
+                              the flag <code class="pattern">i</code> is set).
+                            </p>
+                            <p>
+                              We need that number <code>NN</code>, and then
+                              <code>:NN</code> repeated 5 times (more numbers);
+                            </p>
+                            <p>
+                              The regexp is:
+                              <code class="pattern"
+                                >[0-9a-f]{2}(:[0-9a-f]{2}){5}</code
+                              >
+                            </p>
+                            <p>
+                              Now let’s show that the match should capture all
+                              the text: start at the beginning and end at the
+                              end. That’s done by wrapping the pattern in
+                              <code class="pattern">^...$</code>.
+                            </p>
+                            <p>Finally:</p>
+                            <div
+                              id="57vuspyywp"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-groups.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-groups.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let regexp = /^[0-9a-fA-F]{2}(:[0-9a-fA-F]{2}){5}$/i;
+
+alert( regexp.test('01:32:54:67:89:AB') ); // true
+
+alert( regexp.test('0132546789AB') ); // false (no colons)
+
+alert( regexp.test('01:32:54:67:89') ); // false (5 numbers, need 6)
+
+alert( regexp.test('01:32:54:67:89:ZZ') ) // false (ZZ in the end)</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="regexp-groups.html#find-color-in-the-format-abc-or-abcdef"
+                          name="find-color-in-the-format-abc-or-abcdef"
+                          >Find color in the format #abc or #abcdef</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/find-webcolor-3-or-6.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note"></div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Write a RegExp that matches colors in the format
+                          <code>#abc</code> or <code>#abcdef</code>. That is:
+                          <code>#</code> followed by 3 or 6 hexadecimal digits.
+                        </p>
+                        <p>Usage example:</p>
+                        <div
+                          id="2b8x3auykl"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let regexp = /your regexp/g;
+
+let str = &quot;color: #3f3; background-color: #AA00ef; and: #abcd&quot;;
+
+alert( str.match(regexp) ); // #3f3 #AA00ef</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          P.S. This should be exactly 3 or 6 hex digits. Values
+                          with 4 digits, such as <code>#abcd</code>, should not
+                          match.
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              A regexp to search 3-digit color
+                              <code>#abc</code>:
+                              <code class="pattern">/#[a-f0-9]{3}/i</code>.
+                            </p>
+                            <p>
+                              We can add exactly 3 more optional hex digits. We
+                              don’t need more or less. The color has either 3 or
+                              6 digits.
+                            </p>
+                            <p>
+                              Let’s use the quantifier
+                              <code class="pattern">{1,2}</code> for that: we’ll
+                              have
+                              <code class="pattern">/#([a-f0-9]{3}){1,2}/i</code
+                              >.
+                            </p>
+                            <p>
+                              Here the pattern
+                              <code class="pattern">[a-f0-9]{3}</code> is
+                              enclosed in parentheses to apply the quantifier
+                              <code class="pattern">{1,2}</code>.
+                            </p>
+                            <p>In action:</p>
+                            <div
+                              id="0vw320y7j8"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-groups.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-groups.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let regexp = /#([a-f0-9]{3}){1,2}/gi;
+
+let str = &quot;color: #3f3; background-color: #AA00ef; and: #abcd&quot;;
+
+alert( str.match(regexp) ); // #3f3 #AA00ef #abc</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              There’s a minor problem here: the pattern found
+                              <code class="match">#abc</code> in
+                              <code class="subject">#abcd</code>. To prevent
+                              that we can add <code class="pattern">\b</code> to
+                              the end:
+                            </p>
+                            <div
+                              id="n660v67tgw"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-groups.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-groups.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let regexp = /#([a-f0-9]{3}){1,2}\b/gi;
+
+let str = &quot;color: #3f3; background-color: #AA00ef; and: #abcd&quot;;
+
+alert( str.match(regexp) ); // #3f3 #AA00ef</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="regexp-groups.html#find-all-numbers"
+                          name="find-all-numbers"
+                          >Find all numbers</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/find-decimal-numbers.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note"></div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Write a regexp that looks for all decimal numbers
+                          including integer ones, with the floating point and
+                          negative ones.
+                        </p>
+                        <p>An example of use:</p>
+                        <div
+                          id="psc3sj79w6"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let regexp = /your regexp/g;
+
+let str = &quot;-1.5 0 2 -123.4.&quot;;
+
+alert( str.match(regexp) ); // -1.5, 0, 2, -123.4</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              A positive number with an optional decimal part
+                              is: <code class="pattern">\d+(\.\d+)?</code>.
+                            </p>
+                            <p>
+                              Let’s add the optional
+                              <code class="pattern">-</code> in the beginning:
+                            </p>
+                            <div
+                              id="8ggta9nyok"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-groups.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-groups.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let regexp = /-?\d+(\.\d+)?/g;
+
+let str = &quot;-1.5 0 2 -123.4.&quot;;
+
+alert( str.match(regexp) );   // -1.5, 0, 2, -123.4</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="regexp-groups.html#parse-an-expression"
+                          name="parse-an-expression"
+                          >Parse an expression</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/parse-expression.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note"></div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          An arithmetical expression consists of 2 numbers and
+                          an operator between them, for instance:
+                        </p>
+                        <ul>
+                          <li><code>1 + 2</code></li>
+                          <li><code>1.2 * 3.4</code></li>
+                          <li><code>-3 / -6</code></li>
+                          <li><code>-2 - 2</code></li>
+                        </ul>
+                        <p>
+                          The operator is one of: <code>&quot;+&quot;</code>,
+                          <code>&quot;-&quot;</code>,
+                          <code>&quot;*&quot;</code> or
+                          <code>&quot;/&quot;</code>.
+                        </p>
+                        <p>
+                          There may be extra spaces at the beginning, at the end
+                          or between the parts.
+                        </p>
+                        <p>
+                          Create a function <code>parse(expr)</code> that takes
+                          an expression and returns an array of 3 items:
+                        </p>
+                        <ol>
+                          <li>The first number.</li>
+                          <li>The operator.</li>
+                          <li>The second number.</li>
+                        </ol>
+                        <p>For example:</p>
+                        <div
+                          id="69behdvu2f"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let [a, op, b] = parse(&quot;1.2 * 3.4&quot;);
+
+alert(a); // 1.2
+alert(op); // *
+alert(b); // 3.4</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              A regexp for a number is:
+                              <code class="pattern">-?\d+(\.\d+)?</code>. We
+                              created it in the previous task.
+                            </p>
+                            <p>
+                              An operator is
+                              <code class="pattern">[-+*/]</code>. The hyphen
+                              <code class="pattern">-</code> goes first in the
+                              square brackets, because in the middle it would
+                              mean a character range, while we just want a
+                              character <code>-</code>.
+                            </p>
+                            <p>
+                              The slash <code>/</code> should be escaped inside
+                              a JavaScript regexp
+                              <code class="pattern">/.../</code>, we’ll do that
+                              later.
+                            </p>
+                            <p>
+                              We need a number, an operator, and then another
+                              number. And optional spaces between them.
+                            </p>
+                            <p>
+                              The full regular expression:
+                              <code class="pattern"
+                                >-?\d+(\.\d+)?\s*[-+*/]\s*-?\d+(\.\d+)?</code
+                              >.
+                            </p>
+                            <p>
+                              It has 3 parts, with
+                              <code class="pattern">\s*</code> between them:
+                            </p>
+                            <ol>
+                              <li>
+                                <code class="pattern">-?\d+(\.\d+)?</code> – the
+                                first number,
+                              </li>
+                              <li>
+                                <code class="pattern">[-+*/]</code> – the
+                                operator,
+                              </li>
+                              <li>
+                                <code class="pattern">-?\d+(\.\d+)?</code> – the
+                                second number.
+                              </li>
+                            </ol>
+                            <p>
+                              To make each of these parts a separate element of
+                              the result array, let’s enclose them in
+                              parentheses:
+                              <code class="pattern"
+                                >(-?\d+(\.\d+)?)\s*([-+*/])\s*(-?\d+(\.\d+)?)</code
+                              >.
+                            </p>
+                            <p>In action:</p>
+                            <div
+                              id="2hxy2mxrxa"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-groups.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-groups.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let regexp = /(-?\d+(\.\d+)?)\s*([-+*\/])\s*(-?\d+(\.\d+)?)/;
+
+alert( &quot;1.2 + 12&quot;.match(regexp) );</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>The result includes:</p>
+                            <ul>
+                              <li>
+                                <code>result[0] == &quot;1.2 + 12&quot;</code>
+                                (full match)
+                              </li>
+                              <li>
+                                <code>result[1] == &quot;1.2&quot;</code> (first
+                                group <code>(-?\d+(\.\d+)?)</code> – the first
+                                number, including the decimal part)
+                              </li>
+                              <li>
+                                <code>result[2] == &quot;.2&quot;</code> (second
+                                group<code>(\.\d+)?</code> – the first decimal
+                                part)
+                              </li>
+                              <li>
+                                <code>result[3] == &quot;+&quot;</code> (third
+                                group <code>([-+*\/])</code> – the operator)
+                              </li>
+                              <li>
+                                <code>result[4] == &quot;12&quot;</code> (forth
+                                group <code>(-?\d+(\.\d+)?)</code> – the second
+                                number)
+                              </li>
+                              <li>
+                                <code>result[5] == undefined</code> (fifth group
+                                <code>(\.\d+)?</code> – the last decimal part is
+                                absent, so it’s undefined)
+                              </li>
+                            </ul>
+                            <p>
+                              We only want the numbers and the operator, without
+                              the full match or the decimal parts, so let’s
+                              “clean” the result a bit.
+                            </p>
+                            <p>
+                              The full match (the arrays first item) can be
+                              removed by shifting the array
+                              <code>result.shift()</code>.
+                            </p>
+                            <p>
+                              Groups that contain decimal parts (number 2 and 4)
+                              <code class="pattern">(.\d+)</code> can be
+                              excluded by adding
+                              <code class="pattern">?:</code> to the beginning:
+                              <code class="pattern">(?:\.\d+)?</code>.
+                            </p>
+                            <p>The final solution:</p>
+                            <div
+                              id="zygkaumw05"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-groups.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="regexp-groups.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function parse(expr) {
+  let regexp = /(-?\d+(?:\.\d+)?)\s*([-+*\/])\s*(-?\d+(?:\.\d+)?)/;
+
+  let result = expr.match(regexp);
+
+  if (!result) return [];
+  result.shift();
+
+  return result;
+}
+
+alert( parse(&quot;-1.23 * 3.45&quot;) );  // -1.23, *, 3.45</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="regexp-greedy-and-lazy.html"
+                data-tooltip="Greedy and lazy quantifiers"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="regexp-backreferences.html"
+                data-tooltip="Backreferences in pattern: \N and \k&lt;name&gt;"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-groups"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-groups"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="regexp-groups.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/regexp-groups",
+                    identifier: "\/regexp-groups",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="regular-expressions.html"
+                        >Regular expressions</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   regexp-groups.html#examples"
+                        >Examples</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-groups.html#parentheses-contents-in-the-match"
+                        >Parentheses contents in the match</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-groups.html#searching-for-all-matches-with-groups-matchall"
+                        >Searching for all matches with groups: matchAll</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-groups.html#named-groups"
+                        >Named groups</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-groups.html#capturing-groups-in-replacement"
+                        >Capturing groups in replacement</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-groups.html#non-capturing-groups-with"
+                        >Non-capturing groups with ?:</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="regexp-groups.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="regexp-groups.html#tasks"
+                        >Tasks (4)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-groups.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-groups"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fregexp-groups"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/11-regexp-groups"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
