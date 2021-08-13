@@ -1,10 +1,10 @@
 EN
 
--   <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="dom-navigation.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/dom-navigation" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://it.javascript.info/dom-navigation" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/dom-navigation" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="dom-navigation.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/dom-navigation" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://it.javascript.info/dom-navigation" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/dom-navigation" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <a href="https://ko.javascript.info/dom-navigation" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
 
@@ -24,8 +24,7 @@ Search
 
 1st April 2021
 
-Walking the DOM
-===============
+# Walking the DOM
 
 The DOM allows us to do anything with elements and their contents, but first we need to reach the corresponding DOM object.
 
@@ -35,18 +34,17 @@ Here’s a picture of links that allow for travel between DOM nodes:
 
 <figure><img src="article/dom-navigation/dom-links.svg" width="420" height="388" /></figure>Let’s discuss them in more detail.
 
-<a href="dom-navigation.html#on-top-documentelement-and-body" id="on-top-documentelement-and-body" class="main__anchor">On top: documentElement and body</a>
-------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="dom-navigation.html#on-top-documentelement-and-body" id="on-top-documentelement-and-body" class="main__anchor">On top: documentElement and body</a>
 
 The topmost tree nodes are available directly as `document` properties:
 
- `<html>` = `document.documentElement`   
+`<html>` = `document.documentElement`  
 The topmost document node is `document.documentElement`. That’s the DOM node of the `<html>` tag.
 
- `<body>` = `document.body`   
+`<body>` = `document.body`  
 Another widely used DOM node is the `<body>` element – `document.body`.
 
- `<head>` = `document.head`   
+`<head>` = `document.head`  
 The `<head>` tag is available as `document.head`.
 
 <span class="important__type">There’s a catch: `document.body` can be `null`</span>
@@ -82,13 +80,12 @@ So, in the example below the first `alert` shows `null`:
 
 In the DOM, the `null` value means “doesn’t exist” or “no such node”.
 
-<a href="dom-navigation.html#children-childnodes-firstchild-lastchild" id="children-childnodes-firstchild-lastchild" class="main__anchor">Children: childNodes, firstChild, lastChild</a>
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="dom-navigation.html#children-childnodes-firstchild-lastchild" id="children-childnodes-firstchild-lastchild" class="main__anchor">Children: childNodes, firstChild, lastChild</a>
 
 There are two terms that we’ll use from now on:
 
--   **Child nodes (or children)** – elements that are direct children. In other words, they are nested exactly in the given one. For instance, `<head>` and `<body>` are children of `<html>` element.
--   **Descendants** – all elements that are nested in the given one, including children, their children and so on.
+- **Child nodes (or children)** – elements that are direct children. In other words, they are nested exactly in the given one. For instance, `<head>` and `<body>` are children of `<html>` element.
+- **Descendants** – all elements that are nested in the given one, including children, their children and so on.
 
 For instance, here `<body>` has children `<div>` and `<ul>` (and few blank text nodes):
 
@@ -150,14 +147,14 @@ There’s also a special function `elem.hasChildNodes()` to check whether there 
 
 ### <a href="dom-navigation.html#dom-collections" id="dom-collections" class="main__anchor">DOM collections</a>
 
-As we can see, `childNodes` looks like an array. But actually it’s not an array, but rather a *collection* – a special array-like iterable object.
+As we can see, `childNodes` looks like an array. But actually it’s not an array, but rather a _collection_ – a special array-like iterable object.
 
 There are two important consequences:
 
 1.  We can use `for..of` to iterate over it:
 
     for (let node of document.body.childNodes) {
-      alert(node); // shows all nodes from the collection
+    alert(node); // shows all nodes from the collection
     }
 
 That’s because it’s iterable (provides the `Symbol.iterator` property, as required).
@@ -180,7 +177,7 @@ The first thing is nice. The second is tolerable, because we can use `Array.from
 
 <span class="important__type">DOM collections are read-only</span>
 
-DOM collections, and even more – *all* navigation properties listed in this chapter are read-only.
+DOM collections, and even more – _all_ navigation properties listed in this chapter are read-only.
 
 We can’t replace a child by something else by assigning `childNodes[i] = ...`.
 
@@ -188,7 +185,7 @@ Changing DOM needs other methods. We will see them in the next chapter.
 
 <span class="important__type">DOM collections are live</span>
 
-Almost all DOM collections with minor exceptions are *live*. In other words, they reflect the current state of DOM.
+Almost all DOM collections with minor exceptions are _live_. In other words, they reflect the current state of DOM.
 
 If we keep a reference to `elem.childNodes`, and add/remove nodes into DOM, then they appear in the collection automatically.
 
@@ -209,10 +206,9 @@ Please, don’t. The `for..in` loop iterates over all enumerable properties. And
     </script>
     </body>
 
-<a href="dom-navigation.html#siblings-and-the-parent" id="siblings-and-the-parent" class="main__anchor">Siblings and the parent</a>
------------------------------------------------------------------------------------------------------------------------------------
+## <a href="dom-navigation.html#siblings-and-the-parent" id="siblings-and-the-parent" class="main__anchor">Siblings and the parent</a>
 
-*Siblings* are nodes that are children of the same parent.
+_Siblings_ are nodes that are children of the same parent.
 
 For instance, here `<head>` and `<body>` are siblings:
 
@@ -220,8 +216,8 @@ For instance, here `<head>` and `<body>` are siblings:
       <head>...</head><body>...</body>
     </html>
 
--   `<body>` is said to be the “next” or “right” sibling of `<head>`,
--   `<head>` is said to be the “previous” or “left” sibling of `<body>`.
+- `<body>` is said to be the “next” or “right” sibling of `<head>`,
+- `<head>` is said to be the “previous” or “left” sibling of `<body>`.
 
 The next sibling is in `nextSibling` property, and the previous one – in `previousSibling`.
 
@@ -242,23 +238,22 @@ For example:
     // before <body> goes <head>
     alert( document.body.previousSibling ); // HTMLHeadElement
 
-<a href="dom-navigation.html#element-only-navigation" id="element-only-navigation" class="main__anchor">Element-only navigation</a>
------------------------------------------------------------------------------------------------------------------------------------
+## <a href="dom-navigation.html#element-only-navigation" id="element-only-navigation" class="main__anchor">Element-only navigation</a>
 
-Navigation properties listed above refer to *all* nodes. For instance, in `childNodes` we can see both text nodes, element nodes, and even comment nodes if they exist.
+Navigation properties listed above refer to _all_ nodes. For instance, in `childNodes` we can see both text nodes, element nodes, and even comment nodes if they exist.
 
 But for many tasks we don’t want text or comment nodes. We want to manipulate element nodes that represent tags and form the structure of the page.
 
-So let’s see more navigation links that only take *element nodes* into account:
+So let’s see more navigation links that only take _element nodes_ into account:
 
 <figure><img src="article/dom-navigation/dom-links-elements.svg" width="440" height="316" /></figure>The links are similar to those given above, just with `Element` word inside:
 
--   `children` – only those children that are element nodes.
--   `firstElementChild`, `lastElementChild` – first and last element children.
--   `previousElementSibling`, `nextElementSibling` – neighbor elements.
--   `parentElement` – parent element.
+- `children` – only those children that are element nodes.
+- `firstElementChild`, `lastElementChild` – first and last element children.
+- `previousElementSibling`, `nextElementSibling` – neighbor elements.
+- `parentElement` – parent element.
 
-<span class="important__type">Why `parentElement`? Can the parent be *not* an element?</span>
+<span class="important__type">Why `parentElement`? Can the parent be _not_ an element?</span>
 
 The `parentElement` property returns the “element” parent, while `parentNode` returns “any node” parent. These properties are usually the same: they both get the parent.
 
@@ -304,8 +299,7 @@ Let’s modify one of the examples above: replace `childNodes` with `children`. 
     </body>
     </html>
 
-<a href="dom-navigation.html#dom-navigation-tables" id="dom-navigation-tables" class="main__anchor">More links: tables</a>
---------------------------------------------------------------------------------------------------------------------------
+## <a href="dom-navigation.html#dom-navigation-tables" id="dom-navigation-tables" class="main__anchor">More links: tables</a>
 
 Till now we described the basic navigation properties.
 
@@ -315,23 +309,23 @@ Tables are a great example of that, and represent a particularly important case:
 
 **The `<table>`** element supports (in addition to the given above) these properties:
 
--   `table.rows` – the collection of `<tr>` elements of the table.
--   `table.caption/tHead/tFoot` – references to elements `<caption>`, `<thead>`, `<tfoot>`.
--   `table.tBodies` – the collection of `<tbody>` elements (can be many according to the standard, but there will always be at least one – even if it is not in the source HTML, the browser will put it in the DOM).
+- `table.rows` – the collection of `<tr>` elements of the table.
+- `table.caption/tHead/tFoot` – references to elements `<caption>`, `<thead>`, `<tfoot>`.
+- `table.tBodies` – the collection of `<tbody>` elements (can be many according to the standard, but there will always be at least one – even if it is not in the source HTML, the browser will put it in the DOM).
 
 **`<thead>`, `<tfoot>`, `<tbody>`** elements provide the `rows` property:
 
--   `tbody.rows` – the collection of `<tr>` inside.
+- `tbody.rows` – the collection of `<tr>` inside.
 
 **`<tr>`:**
 
--   `tr.cells` – the collection of `<td>` and `<th>` cells inside the given `<tr>`.
--   `tr.sectionRowIndex` – the position (index) of the given `<tr>` inside the enclosing `<thead>/<tbody>/<tfoot>`.
--   `tr.rowIndex` – the number of the `<tr>` in the table as a whole (including all table rows).
+- `tr.cells` – the collection of `<td>` and `<th>` cells inside the given `<tr>`.
+- `tr.sectionRowIndex` – the position (index) of the given `<tr>` inside the enclosing `<thead>/<tbody>/<tfoot>`.
+- `tr.rowIndex` – the number of the `<tr>` in the table as a whole (including all table rows).
 
 **`<td>` and `<th>`:**
 
--   `td.cellIndex` – the number of the cell inside the enclosing `<tr>`.
+- `td.cellIndex` – the number of the cell inside the enclosing `<tr>`.
 
 An example of usage:
 
@@ -358,20 +352,18 @@ The specification: [tabular data](https://html.spec.whatwg.org/multipage/tables.
 
 There are also additional navigation properties for HTML forms. We’ll look at them later when we start working with forms.
 
-<a href="dom-navigation.html#summary" id="summary" class="main__anchor">Summary</a>
------------------------------------------------------------------------------------
+## <a href="dom-navigation.html#summary" id="summary" class="main__anchor">Summary</a>
 
 Given a DOM node, we can go to its immediate neighbors using navigation properties.
 
 There are two main sets of them:
 
--   For all nodes: `parentNode`, `childNodes`, `firstChild`, `lastChild`, `previousSibling`, `nextSibling`.
--   For element nodes only: `parentElement`, `children`, `firstElementChild`, `lastElementChild`, `previousElementSibling`, `nextElementSibling`.
+- For all nodes: `parentNode`, `childNodes`, `firstChild`, `lastChild`, `previousSibling`, `nextSibling`.
+- For element nodes only: `parentElement`, `children`, `firstElementChild`, `lastElementChild`, `previousElementSibling`, `nextElementSibling`.
 
 Some types of DOM elements, e.g. tables, provide additional properties and collections to access their content.
 
-<a href="dom-navigation.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
------------------------------------------------------------------------------------------------------------------------
+## <a href="dom-navigation.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="dom-navigation.html#dom-children" id="dom-children" class="main__anchor">DOM children</a>
 
@@ -393,9 +385,9 @@ Look at this page:
 
 For each of the following, give at least one way of how to access them:
 
--   The `<div>` DOM node?
--   The `<ul>` DOM node?
--   The second `<li>` (with Pete)?
+- The `<div>` DOM node?
+- The `<ul>` DOM node?
+- The second `<li>` (with Pete)?
 
 solution
 
@@ -428,13 +420,13 @@ The second `<li>` (with Pete):
 
 If `elem` – is an arbitrary DOM element node…
 
--   Is it true that `elem.lastChild.nextSibling` is always `null`?
--   Is it true that `elem.children[0].previousSibling` is always `null` ?
+- Is it true that `elem.lastChild.nextSibling` is always `null`?
+- Is it true that `elem.children[0].previousSibling` is always `null` ?
 
 solution
 
 1.  Yes, true. The element `elem.lastChild` is always the last one, it has no `nextSibling`.
-2.  No, wrong, because `elem.children[0]` is the first child *among elements*. But there may exist non-element nodes before it. So `previousSibling` may be a text node.
+2.  No, wrong, because `elem.children[0]` is the first child _among elements_. But there may exist non-element nodes before it. So `previousSibling` may be a text node.
 
 Please note: for both cases if there are no children, then there will be an error.
 
@@ -473,30 +465,30 @@ We’ll be using `rows` and `cells` properties to access diagonal table cells.
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="document.html" class="sidebar__link">Document</a>
+- <a href="document.html" class="sidebar__link">Document</a>
 
 #### Lesson navigation
 
--   dom-navigation.html\#on-top-documentelement-and-body" &gt;On top: documentElement and body
--   dom-navigation.html\#children-childnodes-firstchild-lastchild" &gt;Children: childNodes, firstChild, lastChild
--   dom-navigation.html\#siblings-and-the-parent" &gt;Siblings and the parent
--   dom-navigation.html\#element-only-navigation" &gt;Element-only navigation
--   dom-navigation.html\#dom-navigation-tables" &gt;More links: tables
--   dom-navigation.html
+- dom-navigation.html\#on-top-documentelement-and-body" &gt;On top: documentElement and body
+- dom-navigation.html\#children-childnodes-firstchild-lastchild" &gt;Children: childNodes, firstChild, lastChild
+- dom-navigation.html\#siblings-and-the-parent" &gt;Siblings and the parent
+- dom-navigation.html\#element-only-navigation" &gt;Element-only navigation
+- dom-navigation.html\#dom-navigation-tables" &gt;More links: tables
+- dom-navigation.html
 
 <!-- -->
 
--   <a href="dom-navigation.html#tasks" class="sidebar__link">Tasks (3)</a>
--   dom-navigation.html\#comments" &gt;Comments
+- <a href="dom-navigation.html#tasks" class="sidebar__link">Tasks (3)</a>
+- dom-navigation.html\#comments" &gt;Comments
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fdom-navigation" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdom-navigation" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/03-dom-navigation" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

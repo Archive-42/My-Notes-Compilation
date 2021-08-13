@@ -2,27 +2,19 @@ What data structure is needed to make a recursive procedure? Question:
 
 Answer: O Stack O Array O Priority list
 
-  
-
 ❓ Queue
 
 What’s the best use for a tree?
 
 Answer:
 
-  
-
 ❓ Recursion
 
 CO Index records in a data base
 
-  
-
 ❓ Print spooling
 
 CO Image processing
-
-  
 
 ❓ Multiplexing datagram
 
@@ -49,19 +41,11 @@ Given the following pseudo-code:
     2     7  18   31
         5
 
-  
-
 ❓ 2-5-5-7-10-18-23-31
-
-  
 
 ❓ 10-5-23-2-7-18-31-5
 
-  
-
 ❓ 2-5-7-5-18-31-23-10
-
-  
 
 ❓ 5-2-7-18-31-5-23-10
 
@@ -77,19 +61,13 @@ What method would you use to search a number in an organized array of numbers
 
 Answer:
 
-  
-
 ❓ Linear Search
 
 CO Fillin a hash table and then search by that hash CO Fill in a binary tree and then search in the tree
 
-  
-
 ❓ Binary Search ?Assuming that the executing time of an algorithm has a quadratic growth rate. For an input size of 1000 it has an execution time of 20 ms. Which would be your estimate time of execution for an input of size 10000
 
 Answer:
-
-  
 
 ❓ 2000 ms
 
@@ -97,21 +75,13 @@ There is a Testing method usually used to verify a code, among other things. How
 
 oO Gray box testing
 
-  
-
 ❓ Black box testing
 
-  
-
 ❓ White box testing oO Compatibility testing
-
-  
 
 ❓ Performance testing
 
 Answer: What’s the temporary complexity of the Merge Sort algorithm in the worst case?
-
-  
 
 ❓ o(n^2) O o(n)
 

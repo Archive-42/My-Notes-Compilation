@@ -18,7 +18,7 @@ Guaranteed constraints: 10 ≤ n ≤ 99.
 
 The sum of the first and second digits of the input number.
 
-------------------------------------------------------------------------
+---
 
 ### 2 Implement a function to calculate the average distance between three points in a single plane where the coordinates of these points are (x1, y1), (x2, y2), and (x3, y3).
 
@@ -34,7 +34,7 @@ For x1 = 1, y1 = 2, x2 = 3, y2 = 4, x3 = 5, and y3 = 6, the output should be ave
 
 The average distance between the three given points.
 
-------------------------------------------------------------------------
+---
 
 ### 3 A palindrome is a word, phrase, number, or other sequence of characters which reads the same backward or forward.
 
@@ -60,7 +60,7 @@ Guaranteed constraints: 1 ≤ word.length ≤ 106.
 
 Whether the string word is an almost palindrome.
 
-------------------------------------------------------------------------
+---
 
 ### 4 Implement a function that receives an array of positive integers numbers with values between 1 and 5000 and returns the number that most frequently appears in the array.
 
@@ -84,7 +84,7 @@ Guaranteed constraints: 1 ≤ numbers.length ≤ 105, 1 ≤ numbers\[i\] ≤ 500
 
 The lowest number that appears the most.
 
-------------------------------------------------------------------------
+---
 
 ### 5 You are really interested in statistics, and your new project is to gather some information about the users of a big social network.
 
@@ -100,17 +100,16 @@ For the following table users
 
 <table><thead><tr class="header"><th>id</th><th>city</th></tr></thead><tbody><tr class="odd"><td>1</td><td>San Francisco</td></tr><tr class="even"><td>2</td><td>Moscow</td></tr><tr class="odd"><td>3</td><td>London</td></tr></tbody></table>
 
- 
+
 
 and the following table cities
 
 <table><thead><tr class="header"><th>city</th><th>country</th></tr></thead><tbody><tr class="odd"><td>Moscow</td><td>Russia</td></tr><tr class="even"><td>Saint Petersburg</td><td>Russia</td></tr><tr class="odd"><td>San Francisco</td><td>USA</td></tr><tr class="even"><td>Washington</td><td>USA</td></tr><tr class="odd"><td>New York</td><td>USA</td></tr><tr class="even"><td>London</td><td>England</td></tr></tbody></table>
 
- 
 
-the output should be  
+
+the output should be
 
 <table><thead><tr class="header"><th>id</th><th>country</th></tr></thead><tbody><tr class="odd"><td>1</td><td>USA</td></tr><tr class="even"><td>2</td><td>Russia</td></tr><tr class="odd"><td>3</td><td>England</td></tr></tbody></table>
 
-Implement a function that receives an array of integers arr and an integer int, which returns the number of occurrences of element int in array arr. For instance, given arr = \[2,3,4,3,2,1\] and int = 3, the function should return 2.
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Implement a function that receives an array of integers arr and an integer int, which returns the number of occurrences of element int in array arr. For instance, given arr = \[2,3,4,3,2,1\] and int = 3, the function should return 2.

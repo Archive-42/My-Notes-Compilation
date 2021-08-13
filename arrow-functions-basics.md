@@ -1,17 +1,17 @@
 EN
 
--   <a href="https://ar.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="arrow-functions-basics.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://it.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="arrow-functions-basics.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://it.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="arrow-functions-basics%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="arrow-functions-basics%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/arrow-functions-basics" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -27,8 +27,7 @@ We want to make this open-source project available for people all around the wor
 
 15th March 2021
 
-Arrow functions, the basics
-===========================
+# Arrow functions, the basics
 
 There’s another very simple and concise syntax for creating functions, that’s often better than Function Expressions.
 
@@ -63,28 +62,28 @@ Let’s see a concrete example:
 
 As you can, see `(a, b) => a + b` means a function that accepts two arguments named `a` and `b`. Upon the execution, it evaluates the expression `a + b` and returns the result.
 
--   If we have only one argument, then parentheses around parameters can be omitted, making that even shorter.
+- If we have only one argument, then parentheses around parameters can be omitted, making that even shorter.
 
-    For example:
+  For example:
 
-    <a href="arrow-functions-basics.html#" class="toolbar__button toolbar__button_run" title="run"></a>
+  <a href="arrow-functions-basics.html#" class="toolbar__button toolbar__button_run" title="run"></a>
 
-    <a href="arrow-functions-basics.html#" class="toolbar__button toolbar__button_edit" title="open in sandbox"></a>
+  <a href="arrow-functions-basics.html#" class="toolbar__button toolbar__button_edit" title="open in sandbox"></a>
 
-        let double = n => n * 2;
-        // roughly the same as: let double = function(n) { return n * 2 }
+      let double = n => n * 2;
+      // roughly the same as: let double = function(n) { return n * 2 }
 
-        alert( double(3) ); // 6
+      alert( double(3) ); // 6
 
--   If there are no arguments, parentheses will be empty (but they should be present):
+- If there are no arguments, parentheses will be empty (but they should be present):
 
-    <a href="arrow-functions-basics.html#" class="toolbar__button toolbar__button_run" title="run"></a>
+  <a href="arrow-functions-basics.html#" class="toolbar__button toolbar__button_run" title="run"></a>
 
-    <a href="arrow-functions-basics.html#" class="toolbar__button toolbar__button_edit" title="open in sandbox"></a>
+  <a href="arrow-functions-basics.html#" class="toolbar__button toolbar__button_edit" title="open in sandbox"></a>
 
-        let sayHi = () => alert("Hello!");
+      let sayHi = () => alert("Hello!");
 
-        sayHi();
+      sayHi();
 
 Arrow functions can be used in the same way as Function Expressions.
 
@@ -106,8 +105,7 @@ Arrow functions may appear unfamiliar and not very readable at first, but that q
 
 They are very convenient for simple one-line actions, when we’re just too lazy to write many words.
 
-<a href="arrow-functions-basics.html#multiline-arrow-functions" id="multiline-arrow-functions" class="main__anchor">Multiline arrow functions</a>
--------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="arrow-functions-basics.html#multiline-arrow-functions" id="multiline-arrow-functions" class="main__anchor">Multiline arrow functions</a>
 
 The examples above took arguments from the left of `=>` and evaluated the right-side expression with them.
 
@@ -136,16 +134,14 @@ To study them in-depth, we first need to get to know some other aspects of JavaS
 
 For now, we can already use arrow functions for one-line actions and callbacks.
 
-<a href="arrow-functions-basics.html#summary" id="summary" class="main__anchor">Summary</a>
--------------------------------------------------------------------------------------------
+## <a href="arrow-functions-basics.html#summary" id="summary" class="main__anchor">Summary</a>
 
 Arrow functions are handy for one-liners. They come in two flavors:
 
 1.  Without curly braces: `(...args) => expression` – the right side is an expression: the function evaluates it and returns the result.
 2.  With curly braces: `(...args) => { body }` – brackets allow us to write multiple statements inside the function, but we need an explicit `return` to return something.
 
-<a href="arrow-functions-basics.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
--------------------------------------------------------------------------------------------------------------------------------
+## <a href="arrow-functions-basics.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="arrow-functions-basics.html#rewrite-with-arrow-functions" id="rewrite-with-arrow-functions" class="main__anchor">Rewrite with arrow functions</a>
 
@@ -197,9 +193,9 @@ Looks short and clean, right?
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
 <a href="first-steps.html" class="sidebar__link">JavaScript Fundamentals</a>
 

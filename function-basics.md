@@ -1,17 +1,17 @@
 EN
 
--   <a href="https://ar.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="function-basics.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://it.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="function-basics.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://it.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="function-basics%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="function-basics%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/function-basics" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -29,8 +29,7 @@ Search
 
 21st June 2021
 
-Functions
-=========
+# Functions
 
 Quite often we need to perform a similar action in many places of the script.
 
@@ -40,10 +39,9 @@ Functions are the main “building blocks” of the program. They allow the code
 
 We’ve already seen examples of built-in functions, like `alert(message)`, `prompt(message, default)` and `confirm(question)`. But we can create functions of our own as well.
 
-<a href="function-basics.html#function-declaration" id="function-declaration" class="main__anchor">Function Declaration</a>
----------------------------------------------------------------------------------------------------------------------------
+## <a href="function-basics.html#function-declaration" id="function-declaration" class="main__anchor">Function Declaration</a>
 
-To create a function we can use a *function declaration*.
+To create a function we can use a _function declaration_.
 
 It looks like this:
 
@@ -51,7 +49,7 @@ It looks like this:
       alert( 'Hello everyone!' );
     }
 
-The `function` keyword goes first, then goes the *name of the function*, then a list of *parameters* between the parentheses (comma-separated, empty in the example above, we’ll see examples later) and finally the code of the function, also named “the function body”, between curly braces.
+The `function` keyword goes first, then goes the _name of the function_, then a list of _parameters_ between the parentheses (comma-separated, empty in the example above, we’ll see examples later) and finally the code of the function, also named “the function body”, between curly braces.
 
     function name(parameter1, parameter2, ... parameterN) {
       ...body...
@@ -78,8 +76,7 @@ This example clearly demonstrates one of the main purposes of functions: to avoi
 
 If we ever need to change the message or the way it is shown, it’s enough to modify the code in one place: the function which outputs it.
 
-<a href="function-basics.html#local-variables" id="local-variables" class="main__anchor">Local variables</a>
-------------------------------------------------------------------------------------------------------------
+## <a href="function-basics.html#local-variables" id="local-variables" class="main__anchor">Local variables</a>
 
 A variable declared inside a function is only visible inside that function.
 
@@ -99,8 +96,7 @@ For example:
 
     alert( message ); // <-- Error! The variable is local to the function
 
-<a href="function-basics.html#outer-variables" id="outer-variables" class="main__anchor">Outer variables</a>
-------------------------------------------------------------------------------------------------------------
+## <a href="function-basics.html#outer-variables" id="outer-variables" class="main__anchor">Outer variables</a>
 
 A function can access an outer variable as well, for example:
 
@@ -142,7 +138,7 @@ For instance:
 
 The outer variable is only used if there’s no local one.
 
-If a same-named variable is declared inside the function then it *shadows* the outer one. For instance, in the code below the function uses the local `userName`. The outer one is ignored:
+If a same-named variable is declared inside the function then it _shadows_ the outer one. For instance, in the code below the function uses the local `userName`. The outer one is ignored:
 
 <a href="function-basics.html#" class="toolbar__button toolbar__button_run" title="run"></a>
 
@@ -164,14 +160,13 @@ If a same-named variable is declared inside the function then it *shadows* the o
 
 <span class="important__type">Global variables</span>
 
-Variables declared outside of any function, such as the outer `userName` in the code above, are called *global*.
+Variables declared outside of any function, such as the outer `userName` in the code above, are called _global_.
 
 Global variables are visible from any function (unless shadowed by locals).
 
 It’s a good practice to minimize the use of global variables. Modern code has few or no globals. Most variables reside in their functions. Sometimes though, they can be useful to store project-level data.
 
-<a href="function-basics.html#parameters" id="parameters" class="main__anchor">Parameters</a>
----------------------------------------------------------------------------------------------
+## <a href="function-basics.html#parameters" id="parameters" class="main__anchor">Parameters</a>
 
 We can pass arbitrary data to functions using parameters.
 
@@ -210,19 +205,18 @@ Here’s one more example: we have a variable `from` and pass it to the function
     // the value of "from" is the same, the function modified a local copy
     alert( from ); // Ann
 
-When a value is passed as a function parameter, it’s also called an *argument*.
+When a value is passed as a function parameter, it’s also called an _argument_.
 
 In other words, to put these terms straight:
 
--   A parameter is the variable listed inside the parentheses in the function declaration (it’s a declaration time term)
--   An argument is the value that is passed to the function when it is called (it’s a call time term).
+- A parameter is the variable listed inside the parentheses in the function declaration (it’s a declaration time term)
+- An argument is the value that is passed to the function when it is called (it’s a call time term).
 
 We declare functions listing their parameters, then call them passing arguments.
 
 In the example above, one might say: "the function `showMessage` is declared with two parameters, then called with two arguments: `from` and `"Hello"`".
 
-<a href="function-basics.html#default-values" id="default-values" class="main__anchor">Default values</a>
----------------------------------------------------------------------------------------------------------
+## <a href="function-basics.html#default-values" id="default-values" class="main__anchor">Default values</a>
 
 If a function is called, but an argument is not provided, then the corresponding value becomes `undefined`.
 
@@ -310,8 +304,7 @@ Modern JavaScript engines support the [nullish coalescing operator](nullish-coal
     showCount(null); // unknown
     showCount(); // unknown
 
-<a href="function-basics.html#returning-a-value" id="returning-a-value" class="main__anchor">Returning a value</a>
-------------------------------------------------------------------------------------------------------------------
+## <a href="function-basics.html#returning-a-value" id="returning-a-value" class="main__anchor">Returning a value</a>
 
 A function can return a value back into the calling code as the result.
 
@@ -415,8 +408,7 @@ If we want the returned expression to wrap across multiple lines, we should star
 
 And it will work just as we expect it to.
 
-<a href="function-basics.html#function-naming" id="function-naming" class="main__anchor">Naming a function</a>
---------------------------------------------------------------------------------------------------------------
+## <a href="function-basics.html#function-naming" id="function-naming" class="main__anchor">Naming a function</a>
 
 Functions are actions. So their name is usually a verb. It should be brief, as accurate as possible and describe what the function does, so that someone reading the code gets an indication of what the function does.
 
@@ -426,10 +418,10 @@ For instance, functions that start with `"show"` usually show something.
 
 Function starting with…
 
--   `"get…"` – return a value,
--   `"calc…"` – calculate something,
--   `"create…"` – create something,
--   `"check…"` – check something and return a boolean, etc.
+- `"get…"` – return a value,
+- `"calc…"` – calculate something,
+- `"create…"` – create something,
+- `"check…"` – check something and return a boolean, etc.
 
 Examples of such names:
 
@@ -449,22 +441,21 @@ Two independent actions usually deserve two functions, even if they are usually 
 
 A few examples of breaking this rule:
 
--   `getAge` – would be bad if it shows an `alert` with the age (should only get).
--   `createForm` – would be bad if it modifies the document, adding a form to it (should only create it and return).
--   `checkPermission` – would be bad if it displays the `access granted/denied` message (should only perform the check and return the result).
+- `getAge` – would be bad if it shows an `alert` with the age (should only get).
+- `createForm` – would be bad if it modifies the document, adding a form to it (should only create it and return).
+- `checkPermission` – would be bad if it displays the `access granted/denied` message (should only perform the check and return the result).
 
 These examples assume common meanings of prefixes. You and your team are free to agree on other meanings, but usually they’re not much different. In any case, you should have a firm understanding of what a prefix means, what a prefixed function can and cannot do. All same-prefixed functions should obey the rules. And the team should share the knowledge.
 
 <span class="important__type">Ultrashort function names</span>
 
-Functions that are used *very often* sometimes have ultrashort names.
+Functions that are used _very often_ sometimes have ultrashort names.
 
 For example, the [jQuery](http://jquery.com) framework defines a function with `$`. The [Lodash](http://lodash.com/) library has its core function named `_`.
 
 These are exceptions. Generally function names should be concise and descriptive.
 
-<a href="function-basics.html#functions-comments" id="functions-comments" class="main__anchor">Functions == Comments</a>
-------------------------------------------------------------------------------------------------------------------------
+## <a href="function-basics.html#functions-comments" id="functions-comments" class="main__anchor">Functions == Comments</a>
 
 Functions should be short and do exactly one thing. If that thing is big, maybe it’s worth it to split the function into a few smaller functions. Sometimes following this rule may not be that easy, but it’s definitely a good thing.
 
@@ -503,12 +494,11 @@ The second variant uses an additional function `isPrime(n)` to test for primalit
       return true;
     }
 
-The second variant is easier to understand, isn’t it? Instead of the code piece we see a name of the action (`isPrime`). Sometimes people refer to such code as *self-describing*.
+The second variant is easier to understand, isn’t it? Instead of the code piece we see a name of the action (`isPrime`). Sometimes people refer to such code as _self-describing_.
 
 So, functions can be created even if we don’t intend to reuse them. They structure the code and make it readable.
 
-<a href="function-basics.html#summary" id="summary" class="main__anchor">Summary</a>
-------------------------------------------------------------------------------------
+## <a href="function-basics.html#summary" id="summary" class="main__anchor">Summary</a>
 
 A function declaration looks like this:
 
@@ -516,9 +506,9 @@ A function declaration looks like this:
       /* code */
     }
 
--   Values passed to a function as parameters are copied to its local variables.
--   A function may access outer variables. But it works only from inside out. The code outside of the function doesn’t see its local variables.
--   A function can return a value. If it doesn’t, then its result is `undefined`.
+- Values passed to a function as parameters are copied to its local variables.
+- A function may access outer variables. But it works only from inside out. The code outside of the function doesn’t see its local variables.
+- A function can return a value. If it doesn’t, then its result is `undefined`.
 
 To make the code clean and easy to understand, it’s recommended to use mainly local variables and parameters in the function, not outer variables.
 
@@ -526,14 +516,13 @@ It is always easier to understand a function which gets parameters, works with t
 
 Function naming:
 
--   A name should clearly describe what the function does. When we see a function call in the code, a good name instantly gives us an understanding what it does and returns.
--   A function is an action, so function names are usually verbal.
--   There exist many well-known function prefixes like `create…`, `show…`, `get…`, `check…` and so on. Use them to hint what a function does.
+- A name should clearly describe what the function does. When we see a function call in the code, a good name instantly gives us an understanding what it does and returns.
+- A function is an action, so function names are usually verbal.
+- There exist many well-known function prefixes like `create…`, `show…`, `get…`, `check…` and so on. Use them to hint what a function does.
 
 Functions are the main building blocks of scripts. Now we’ve covered the basics, so we actually can start creating and using them. But that’s only the beginning of the path. We are going to return to them many times, going more deeply into their advanced features.
 
-<a href="function-basics.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
-------------------------------------------------------------------------------------------------------------------------
+## <a href="function-basics.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="function-basics.html#is-else-required" id="is-else-required" class="main__anchor">Is "else" required?</a>
 
@@ -698,33 +687,33 @@ solution
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="first-steps.html" class="sidebar__link">JavaScript Fundamentals</a>
+- <a href="first-steps.html" class="sidebar__link">JavaScript Fundamentals</a>
 
 #### Lesson navigation
 
--   function-basics.html\#function-declaration" &gt;Function Declaration
--   function-basics.html\#local-variables" &gt;Local variables
--   function-basics.html\#outer-variables" &gt;Outer variables
--   function-basics.html\#parameters" &gt;Parameters
--   function-basics.html\#default-values" &gt;Default values
--   function-basics.html\#returning-a-value" &gt;Returning a value
--   function-basics.html\#function-naming" &gt;Naming a function
--   function-basics.html\#functions-comments" &gt;Functions == Comments
--   function-basics.html
+- function-basics.html\#function-declaration" &gt;Function Declaration
+- function-basics.html\#local-variables" &gt;Local variables
+- function-basics.html\#outer-variables" &gt;Outer variables
+- function-basics.html\#parameters" &gt;Parameters
+- function-basics.html\#default-values" &gt;Default values
+- function-basics.html\#returning-a-value" &gt;Returning a value
+- function-basics.html\#function-naming" &gt;Naming a function
+- function-basics.html\#functions-comments" &gt;Functions == Comments
+- function-basics.html
 
 <!-- -->
 
--   <a href="function-basics.html#tasks" class="sidebar__link">Tasks (4)</a>
--   function-basics.html\#comments" &gt;Comments
+- <a href="function-basics.html#tasks" class="sidebar__link">Tasks (4)</a>
+- function-basics.html\#comments" &gt;Comments
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffunction-basics" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffunction-basics" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps/15-function-basics" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

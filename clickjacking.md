@@ -1,10 +1,10 @@
 EN
 
--   <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="clickjacking.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/clickjacking" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://it.javascript.info/clickjacking" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/clickjacking" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="clickjacking.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/clickjacking" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://it.javascript.info/clickjacking" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/clickjacking" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <a href="https://ko.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
 
@@ -19,15 +19,13 @@ EN
 
 29th June 2019
 
-The clickjacking attack
-=======================
+# The clickjacking attack
 
-The “clickjacking” attack allows an evil page to click on a “victim site” *on behalf of the visitor*.
+The “clickjacking” attack allows an evil page to click on a “victim site” _on behalf of the visitor_.
 
 Many sites were hacked this way, including Twitter, Facebook, Paypal and other sites. They have all been fixed, of course.
 
-<a href="clickjacking.html#the-idea" id="the-idea" class="main__anchor">The idea</a>
-------------------------------------------------------------------------------------
+## <a href="clickjacking.html#the-idea" id="the-idea" class="main__anchor">The idea</a>
 
 The idea is very simple.
 
@@ -38,8 +36,7 @@ Here’s how clickjacking was done with Facebook:
 3.  Over that link the evil page positions a transparent `<iframe>` with `src` from facebook.com, in such a way that the “Like” button is right above that link. Usually that’s done with `z-index`.
 4.  In attempting to click the link, the visitor in fact clicks the button.
 
-<a href="clickjacking.html#the-demo" id="the-demo" class="main__anchor">The demo</a>
-------------------------------------------------------------------------------------
+## <a href="clickjacking.html#the-demo" id="the-demo" class="main__anchor">The demo</a>
 
 Here’s how the evil page looks. To make things clear, the `<iframe>` is half-transparent (in real evil pages it’s fully transparent):
 
@@ -191,8 +188,7 @@ But then there’s a problem. Everything that the visitor types will be hidden, 
 
 People will usually stop typing when they can’t see their new characters printing on the screen.
 
-<a href="clickjacking.html#old-school-defences-weak" id="old-school-defences-weak" class="main__anchor">Old-school defences (weak)</a>
---------------------------------------------------------------------------------------------------------------------------------------
+## <a href="clickjacking.html#old-school-defences-weak" id="old-school-defences-weak" class="main__anchor">Old-school defences (weak)</a>
 
 The oldest defence is a bit of JavaScript which forbids opening the page in a frame (so-called “framebusting”).
 
@@ -303,12 +299,11 @@ Here’s the code:
 
 There are other ways to work around that simple protection too.
 
-<a href="clickjacking.html#x-frame-options" id="x-frame-options" class="main__anchor">X-Frame-Options</a>
----------------------------------------------------------------------------------------------------------
+## <a href="clickjacking.html#x-frame-options" id="x-frame-options" class="main__anchor">X-Frame-Options</a>
 
 The server-side header `X-Frame-Options` can permit or forbid displaying the page inside a frame.
 
-It must be sent exactly as HTTP-header: the browser will ignore it if found in HTML `<meta>` tag. So, `<meta                       http-equiv="X-Frame-Options"...>` won’t do anything.
+It must be sent exactly as HTTP-header: the browser will ignore it if found in HTML `<meta>` tag. So, `<meta http-equiv="X-Frame-Options"...>` won’t do anything.
 
 The header may have 3 values:
 
@@ -329,8 +324,7 @@ Here’s the result:
 
 Depending on your browser, the `iframe` above is either empty or alerting you that the browser won’t permit that page to be navigating in this way.
 
-<a href="clickjacking.html#showing-with-disabled-functionality" id="showing-with-disabled-functionality" class="main__anchor">Showing with disabled functionality</a>
----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="clickjacking.html#showing-with-disabled-functionality" id="showing-with-disabled-functionality" class="main__anchor">Showing with disabled functionality</a>
 
 The `X-Frame-Options` header has a side-effect. Other sites won’t be able to show our page in a frame, even if they have good reasons to do so.
 
@@ -426,8 +420,7 @@ index.html
     </body>
     </html>
 
-<a href="clickjacking.html#samesite-cookie-attribute" id="samesite-cookie-attribute" class="main__anchor">Samesite cookie attribute</a>
----------------------------------------------------------------------------------------------------------------------------------------
+## <a href="clickjacking.html#samesite-cookie-attribute" id="samesite-cookie-attribute" class="main__anchor">Samesite cookie attribute</a>
 
 The `samesite` cookie attribute can also prevent clickjacking attacks.
 
@@ -443,8 +436,7 @@ The `samesite` cookie attribute will not have an effect when cookies are not use
 
 However, this may also allow clickjacking attacks to work in a few limited cases. An anonymous polling website that prevents duplicate voting by checking IP addresses, for example, would still be vulnerable to clickjacking because it does not authenticate users using cookies.
 
-<a href="clickjacking.html#summary" id="summary" class="main__anchor">Summary</a>
----------------------------------------------------------------------------------
+## <a href="clickjacking.html#summary" id="summary" class="main__anchor">Summary</a>
 
 Clickjacking is a way to “trick” users into clicking on a victim site without even knowing what’s happening. That’s dangerous if there are important click-activated actions.
 
@@ -454,8 +446,8 @@ From one perspective – the attack is “not deep”: all a hacker is doing is 
 
 The attack is quite dangerous, because when we engineer the UI we usually don’t anticipate that a hacker may click on behalf of the visitor. So vulnerabilities can be found in totally unexpected places.
 
--   It is recommended to use `X-Frame-Options: SAMEORIGIN` on pages (or whole websites) which are not intended to be viewed inside frames.
--   Use a covering `<div>` if we want to allow our pages to be shown in iframes, but still stay safe.
+- It is recommended to use `X-Frame-Options: SAMEORIGIN` on pages (or whole websites) which are not intended to be viewed inside frames.
+- Use a covering `<div>` if we want to allow our pages to be shown in iframes, but still stay safe.
 
 <a href="cross-window-communication.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="binary.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
@@ -467,11 +459,11 @@ The attack is quite dangerous, because when we engineer the UI we usually don’
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="frames-and-windows.html" class="sidebar__link">Frames and windows</a>
+- <a href="frames-and-windows.html" class="sidebar__link">Frames and windows</a>
 
 #### Lesson navigation
 
@@ -489,12 +481,12 @@ clickjacking.html\#samesite-cookie-attribute" &gt;Samesite cookie attribute
 
 <a href="clickjacking.html%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/ul%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/nav%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cnav%20class=" class="sidebar__link"></a>
 
--   <a href="clickjacking.html#comments" class="sidebar__link">Comments</a>
+- <a href="clickjacking.html#comments" class="sidebar__link">Comments</a>
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fclickjacking" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fclickjacking" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/3-frames-and-windows/06-clickjacking" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

@@ -1,18 +1,18 @@
 EN
 
--   <a href="https://ar.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="ifelse.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="ifelse.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- <a href="https://it.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="ifelse%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="ifelse%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/ifelse" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -30,15 +30,13 @@ Search
 
 23rd January 2021
 
-Conditional branching: if, '?'
-==============================
+# Conditional branching: if, '?'
 
 Sometimes, we need to perform different actions based on different conditions.
 
 To do that, we can use the `if` statement and the conditional operator `?`, that’s also called a “question mark” operator.
 
-<a href="ifelse.html#the-if-statement" id="the-if-statement" class="main__anchor">The “if” statement</a>
---------------------------------------------------------------------------------------------------------
+## <a href="ifelse.html#the-if-statement" id="the-if-statement" class="main__anchor">The “if” statement</a>
 
 The `if(...)` statement evaluates a condition in parentheses and, if the result is `true`, executes a block of code.
 
@@ -63,15 +61,14 @@ If we want to execute more than one statement, we have to wrap our code block in
 
 We recommend wrapping your code block with curly braces `{}` every time you use an `if` statement, even if there is only one statement to execute. Doing so improves readability.
 
-<a href="ifelse.html#boolean-conversion" id="boolean-conversion" class="main__anchor">Boolean conversion</a>
-------------------------------------------------------------------------------------------------------------
+## <a href="ifelse.html#boolean-conversion" id="boolean-conversion" class="main__anchor">Boolean conversion</a>
 
 The `if (…)` statement evaluates the expression in its parentheses and converts the result to a boolean.
 
 Let’s recall the conversion rules from the chapter [Type Conversions](type-conversions.html):
 
--   A number `0`, an empty string `""`, `null`, `undefined`, and `NaN` all become `false`. Because of that they are called “falsy” values.
--   Other values become `true`, so they are called “truthy”.
+- A number `0`, an empty string `""`, `null`, `undefined`, and `NaN` all become `false`. Because of that they are called “falsy” values.
+- Other values become `true`, so they are called “truthy”.
 
 So, the code under this condition would never execute:
 
@@ -93,8 +90,7 @@ We can also pass a pre-evaluated boolean value to `if`, like this:
       ...
     }
 
-<a href="ifelse.html#the-else-clause" id="the-else-clause" class="main__anchor">The “else” clause</a>
------------------------------------------------------------------------------------------------------
+## <a href="ifelse.html#the-else-clause" id="the-else-clause" class="main__anchor">The “else” clause</a>
 
 The `if` statement may contain an optional “else” block. It executes when the condition is falsy.
 
@@ -112,8 +108,7 @@ For example:
       alert( 'How can you be so wrong?' ); // any value except 2015
     }
 
-<a href="ifelse.html#several-conditions-else-if" id="several-conditions-else-if" class="main__anchor">Several conditions: “else if”</a>
----------------------------------------------------------------------------------------------------------------------------------------
+## <a href="ifelse.html#several-conditions-else-if" id="several-conditions-else-if" class="main__anchor">Several conditions: “else if”</a>
 
 Sometimes, we’d like to test several variants of a condition. The `else if` clause lets us do that.
 
@@ -137,8 +132,7 @@ In the code above, JavaScript first checks `year < 2015`. If that is falsy, it g
 
 There can be more `else if` blocks. The final `else` is optional.
 
-<a href="ifelse.html#conditional-operator" id="conditional-operator" class="main__anchor">Conditional operator ‘?’</a>
-----------------------------------------------------------------------------------------------------------------------
+## <a href="ifelse.html#conditional-operator" id="conditional-operator" class="main__anchor">Conditional operator ‘?’</a>
 
 Sometimes, we need to assign a variable depending on a condition.
 
@@ -190,8 +184,7 @@ In the example above, you can avoid using the question mark operator because the
     // the same
     let accessAllowed = age > 18;
 
-<a href="ifelse.html#multiple" id="multiple" class="main__anchor">Multiple ‘?’</a>
-----------------------------------------------------------------------------------
+## <a href="ifelse.html#multiple" id="multiple" class="main__anchor">Multiple ‘?’</a>
 
 A sequence of question mark operators `?` can return a value that depends on more than one condition.
 
@@ -229,8 +222,7 @@ Here’s how this looks using `if..else`:
       message = 'What an unusual age!';
     }
 
-<a href="ifelse.html#non-traditional-use-of" id="non-traditional-use-of" class="main__anchor">Non-traditional use of ‘?’</a>
-----------------------------------------------------------------------------------------------------------------------------
+## <a href="ifelse.html#non-traditional-use-of" id="non-traditional-use-of" class="main__anchor">Non-traditional use of ‘?’</a>
 
 Sometimes the question mark `?` is used as a replacement for `if`:
 
@@ -269,8 +261,7 @@ Our eyes scan the code vertically. Code blocks which span several lines are easi
 
 The purpose of the question mark operator `?` is to return one value or another depending on its condition. Please use it for exactly that. Use `if` when you need to execute different branches of code.
 
-<a href="ifelse.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
----------------------------------------------------------------------------------------------------------------
+## <a href="ifelse.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="ifelse.html#if-a-string-with-zero" id="if-a-string-with-zero" class="main__anchor">if (a string with zero)</a>
 
@@ -347,9 +338,9 @@ solution
 
 Using `if..else`, write the code which gets a number via `prompt` and then shows in `alert`:
 
--   `1`, if the value is greater than zero,
--   `-1`, if less than zero,
--   `0`, if equals zero.
+- `1`, if the value is greater than zero,
+- `-1`, if less than zero,
+- `0`, if equals zero.
 
 In this task we assume that the input is always a number.
 
@@ -430,31 +421,31 @@ solution
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="first-steps.html" class="sidebar__link">JavaScript Fundamentals</a>
+- <a href="first-steps.html" class="sidebar__link">JavaScript Fundamentals</a>
 
 #### Lesson navigation
 
--   ifelse.html\#the-if-statement" &gt;The “if” statement
--   ifelse.html\#boolean-conversion" &gt;Boolean conversion
--   ifelse.html\#the-else-clause" &gt;The “else” clause
--   ifelse.html\#several-conditions-else-if" &gt;Several conditions: “else if”
--   ifelse.html\#conditional-operator" &gt;Conditional operator ‘?’
--   <a href="ifelse.html#multiple" class="sidebar__link">Multiple ‘?’</a>
--   ifelse.html\#non-traditional-use-of" &gt;Non-traditional use of ‘?’
+- ifelse.html\#the-if-statement" &gt;The “if” statement
+- ifelse.html\#boolean-conversion" &gt;Boolean conversion
+- ifelse.html\#the-else-clause" &gt;The “else” clause
+- ifelse.html\#several-conditions-else-if" &gt;Several conditions: “else if”
+- ifelse.html\#conditional-operator" &gt;Conditional operator ‘?’
+- <a href="ifelse.html#multiple" class="sidebar__link">Multiple ‘?’</a>
+- ifelse.html\#non-traditional-use-of" &gt;Non-traditional use of ‘?’
 
 <!-- -->
 
--   <a href="ifelse.html#tasks" class="sidebar__link">Tasks (5)</a>
--   <a href="ifelse.html#comments" class="sidebar__link">Comments</a>
+- <a href="ifelse.html#tasks" class="sidebar__link">Tasks (5)</a>
+- <a href="ifelse.html#comments" class="sidebar__link">Comments</a>
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fifelse" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fifelse" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps/10-ifelse" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

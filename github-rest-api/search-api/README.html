@@ -1,205 +1,460 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>README</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-</head>
-<body>
-<h1 id="search-api">Search API</h1>
-<h2 id="search">Search</h2>
-<h3 id="in-this-article"><a href="https://docs.github.com/en/rest/reference/search#in-this-article">In this article</a> <span id="in-this-article"></span></h3>
-<ul>
-<li><a href="https://docs.github.com/en/rest/reference/search#ranking-search-results">Ranking search results</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/search#rate-limit">Rate limit</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/search#constructing-a-search-query">Constructing a search query</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/search#limitations-on-query-length">Limitations on query length</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/search#timeouts-and-incomplete-results">Timeouts and incomplete results</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/search#access-errors-or-missing-search-results">Access errors or missing search results</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/search#search-code">Search code</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/search#search-commits">Search commits</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/search#search-issues-and-pull-requests">Search issues and pull requests</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/search#search-labels">Search labels</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/search#search-repositories">Search repositories</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/search#search-topics">Search topics</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/search#search-users">Search users</a></li>
-<li><a href="https://docs.github.com/en/rest/reference/search#text-match-metadata">Text match metadata</a></li>
-</ul>
-<p>The Search API helps you search for the specific item you want to find. For example, you can find a user or a specific file in a repository. Think of it the way you think of performing a search on Google. It’s designed to help you find the one result you’re looking for (or maybe the few results you’re looking for). Just like searching on Google, you sometimes want to see a few pages of search results so that you can find the item that best meets your needs. To satisfy that need, the GitHub Search API provides <strong>up to 1,000 results for each search</strong>.</p>
-<p>You can narrow your search using queries. To learn more about the search query syntax, see “<a href="https://docs.github.com/en/rest/reference/search#constructing-a-search-query">Constructing a search query</a>.”</p>
-<h4 id="ranking-search-results"><a href="https://docs.github.com/en/rest/reference/search#ranking-search-results">Ranking search results</a> <span id="ranking-search-results"></span></h4>
-<p>Unless another sort option is provided as a query parameter, results are sorted by best match in descending order. Multiple factors are combined to boost the most relevant item to the top of the result list.</p>
-<h4 id="rate-limit"><a href="https://docs.github.com/en/rest/reference/search#rate-limit">Rate limit</a> <span id="rate-limit"></span></h4>
-<p>The Search API has a custom rate limit. For requests using <a href="https://docs.github.com/en/rest#authentication">Basic Authentication</a>, <a href="https://docs.github.com/en/rest#authentication">OAuth</a>, or <a href="https://docs.github.com/en/rest#increasing-the-unauthenticated-rate-limit-for-oauth-applications">client ID and secret</a>, you can make up to 30 requests per minute. For unauthenticated requests, the rate limit allows you to make up to 10 requests per minute.</p>
-<p>See the <a href="https://docs.github.com/en/rest/reference/rate-limit">rate limit documentation</a> for details on determining your current rate limit status.</p>
-<h4 id="constructing-a-search-query"><a href="https://docs.github.com/en/rest/reference/search#constructing-a-search-query">Constructing a search query</a> <span id="constructing-a-search-query"></span></h4>
-<p>Each endpoint in the Search API uses <a href="https://en.wikipedia.org/wiki/Query_string">query parameters</a> to perform searches on GitHub. See the individual endpoint in the Search API for an example that includes the endpoint and query parameters.</p>
-<p>A query can contain any combination of search qualifiers supported on GitHub. The format of the search query is:</p>
-<pre><code>SEARCH_KEYWORD_1 SEARCH_KEYWORD_N QUALIFIER_1 QUALIFIER_N</code></pre>
-<p>For example, if you wanted to search for all <em>repositories</em> owned by <code>defunkt</code> that contained the word <code>GitHub</code> and <code>Octocat</code> in the README file, you would use the following query with the <em>search repositories</em> endpoint:</p>
-<pre><code>GitHub Octocat in:readme user:defunkt</code></pre>
-<p><strong>Note:</strong> Be sure to use your language’s preferred HTML-encoder to construct your query strings. For example:</p>
-<pre><code>// JavaScript
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>README</title>
+    <style type="text/css">
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      span.underline {
+        text-decoration: underline;
+      }
+      div.column {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="search-api">Search API</h1>
+    <h2 id="search">Search</h2>
+    <h3 id="in-this-article">
+      <a href="https://docs.github.com/en/rest/reference/search#in-this-article"
+        >In this article</a
+      >
+      <span id="in-this-article"></span>
+    </h3>
+    <ul>
+      <li>
+        <a
+          href="https://docs.github.com/en/rest/reference/search#ranking-search-results"
+          >Ranking search results</a
+        >
+      </li>
+      <li>
+        <a href="https://docs.github.com/en/rest/reference/search#rate-limit"
+          >Rate limit</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://docs.github.com/en/rest/reference/search#constructing-a-search-query"
+          >Constructing a search query</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://docs.github.com/en/rest/reference/search#limitations-on-query-length"
+          >Limitations on query length</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://docs.github.com/en/rest/reference/search#timeouts-and-incomplete-results"
+          >Timeouts and incomplete results</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://docs.github.com/en/rest/reference/search#access-errors-or-missing-search-results"
+          >Access errors or missing search results</a
+        >
+      </li>
+      <li>
+        <a href="https://docs.github.com/en/rest/reference/search#search-code"
+          >Search code</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://docs.github.com/en/rest/reference/search#search-commits"
+          >Search commits</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://docs.github.com/en/rest/reference/search#search-issues-and-pull-requests"
+          >Search issues and pull requests</a
+        >
+      </li>
+      <li>
+        <a href="https://docs.github.com/en/rest/reference/search#search-labels"
+          >Search labels</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://docs.github.com/en/rest/reference/search#search-repositories"
+          >Search repositories</a
+        >
+      </li>
+      <li>
+        <a href="https://docs.github.com/en/rest/reference/search#search-topics"
+          >Search topics</a
+        >
+      </li>
+      <li>
+        <a href="https://docs.github.com/en/rest/reference/search#search-users"
+          >Search users</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://docs.github.com/en/rest/reference/search#text-match-metadata"
+          >Text match metadata</a
+        >
+      </li>
+    </ul>
+    <p>
+      The Search API helps you search for the specific item you want to find.
+      For example, you can find a user or a specific file in a repository. Think
+      of it the way you think of performing a search on Google. It’s designed to
+      help you find the one result you’re looking for (or maybe the few results
+      you’re looking for). Just like searching on Google, you sometimes want to
+      see a few pages of search results so that you can find the item that best
+      meets your needs. To satisfy that need, the GitHub Search API provides
+      <strong>up to 1,000 results for each search</strong>.
+    </p>
+    <p>
+      You can narrow your search using queries. To learn more about the search
+      query syntax, see “<a
+        href="https://docs.github.com/en/rest/reference/search#constructing-a-search-query"
+        >Constructing a search query</a
+      >.”
+    </p>
+    <h4 id="ranking-search-results">
+      <a
+        href="https://docs.github.com/en/rest/reference/search#ranking-search-results"
+        >Ranking search results</a
+      >
+      <span id="ranking-search-results"></span>
+    </h4>
+    <p>
+      Unless another sort option is provided as a query parameter, results are
+      sorted by best match in descending order. Multiple factors are combined to
+      boost the most relevant item to the top of the result list.
+    </p>
+    <h4 id="rate-limit">
+      <a href="https://docs.github.com/en/rest/reference/search#rate-limit"
+        >Rate limit</a
+      >
+      <span id="rate-limit"></span>
+    </h4>
+    <p>
+      The Search API has a custom rate limit. For requests using
+      <a href="https://docs.github.com/en/rest#authentication"
+        >Basic Authentication</a
+      >, <a href="https://docs.github.com/en/rest#authentication">OAuth</a>, or
+      <a
+        href="https://docs.github.com/en/rest#increasing-the-unauthenticated-rate-limit-for-oauth-applications"
+        >client ID and secret</a
+      >, you can make up to 30 requests per minute. For unauthenticated
+      requests, the rate limit allows you to make up to 10 requests per minute.
+    </p>
+    <p>
+      See the
+      <a href="https://docs.github.com/en/rest/reference/rate-limit"
+        >rate limit documentation</a
+      >
+      for details on determining your current rate limit status.
+    </p>
+    <h4 id="constructing-a-search-query">
+      <a
+        href="https://docs.github.com/en/rest/reference/search#constructing-a-search-query"
+        >Constructing a search query</a
+      >
+      <span id="constructing-a-search-query"></span>
+    </h4>
+    <p>
+      Each endpoint in the Search API uses
+      <a href="https://en.wikipedia.org/wiki/Query_string">query parameters</a>
+      to perform searches on GitHub. See the individual endpoint in the Search
+      API for an example that includes the endpoint and query parameters.
+    </p>
+    <p>
+      A query can contain any combination of search qualifiers supported on
+      GitHub. The format of the search query is:
+    </p>
+    <pre><code>SEARCH_KEYWORD_1 SEARCH_KEYWORD_N QUALIFIER_1 QUALIFIER_N</code></pre>
+    <p>
+      For example, if you wanted to search for all <em>repositories</em> owned
+      by <code>defunkt</code> that contained the word <code>GitHub</code> and
+      <code>Octocat</code> in the README file, you would use the following query
+      with the <em>search repositories</em> endpoint:
+    </p>
+    <pre><code>GitHub Octocat in:readme user:defunkt</code></pre>
+    <p>
+      <strong>Note:</strong> Be sure to use your language’s preferred
+      HTML-encoder to construct your query strings. For example:
+    </p>
+    <pre><code>// JavaScript
 const queryString = &#39;q=&#39; + encodeURIComponent(&#39;GitHub Octocat in:readme user:defunkt&#39;);</code></pre>
-<p>See “<a href="https://docs.github.com/en/articles/searching-on-github">Searching on GitHub</a>” for a complete list of available qualifiers, their format, and an example of how to use them. For information about how to use operators to match specific quantities, dates, or to exclude results, see “<a href="https://docs.github.com/en/articles/understanding-the-search-syntax">Understanding the search syntax</a>.”</p>
-<h4 id="limitations-on-query-length"><a href="https://docs.github.com/en/rest/reference/search#limitations-on-query-length">Limitations on query length</a> <span id="limitations-on-query-length"></span></h4>
-<p>The Search API does not support queries that:</p>
-<ul>
-<li>are longer than 256 characters (not including operators or qualifiers).</li>
-<li>have more than five <code>AND</code>, <code>OR</code>, or <code>NOT</code> operators.</li>
-</ul>
-<p>These search queries will return a “Validation failed” error message.</p>
-<h4 id="timeouts-and-incomplete-results"><a href="https://docs.github.com/en/rest/reference/search#timeouts-and-incomplete-results">Timeouts and incomplete results</a> <span id="timeouts-and-incomplete-results"></span></h4>
-<p>To keep the Search API fast for everyone, we limit how long any individual query can run. For queries that <a href="https://developer.github.com/changes/2014-04-07-understanding-search-results-and-potential-timeouts/">exceed the time limit</a>, the API returns the matches that were already found prior to the timeout, and the response has the <code>incomplete_results</code> property set to <code>true</code>.</p>
-<p>Reaching a timeout does not necessarily mean that search results are incomplete. More results might have been found, but also might not.</p>
-<h4 id="access-errors-or-missing-search-results"><a href="https://docs.github.com/en/rest/reference/search#access-errors-or-missing-search-results">Access errors or missing search results</a> <span id="access-errors-or-missing-search-results"></span></h4>
-<p>You need to successfully authenticate and have access to the repositories in your search queries, otherwise, you’ll see a <code>422 Unprocessible Entry</code> error with a “Validation Failed” message. For example, your search will fail if your query includes <code>repo:</code>, <code>user:</code>, or <code>org:</code> qualifiers that request resources that you don’t have access to when you sign in on GitHub.</p>
-<p>When your search query requests multiple resources, the response will only contain the resources that you have access to and will <strong>not</strong> provide an error message listing the resources that were not returned.</p>
-<p>For example, if your search query searches for the <code>octocat/test</code> and <code>codertocat/test</code> repositories, but you only have access to <code>octocat/test</code>, your response will show search results for <code>octocat/test</code> and nothing for <code>codertocat/test</code>. This behavior mimics how search works on GitHub.</p>
-<h4 id="search-code"><a href="https://docs.github.com/en/rest/reference/search#search-code">Search code</a> <span id="search-code"></span></h4>
-<p>Searches for query terms inside of a file. This method returns up to 100 results <a href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination">per page</a>.</p>
-<p>When searching for code, you can get text match metadata for the file <strong>content</strong> and file <strong>path</strong> fields when you pass the <code>text-match</code> media type. For more details about how to receive highlighted search results, see <a href="https://docs.github.com/rest/reference/search#text-match-metadata">Text match metadata</a>.</p>
-<p>For example, if you want to find the definition of the <code>addClass</code> function inside <a href="https://github.com/jquery/jquery">jQuery</a> repository, your query would look something like this:</p>
-<p><code>q=addClass+in:file+language:js+repo:jquery/jquery</code></p>
-<p>This query searches for the keyword <code>addClass</code> within a file’s contents. The query limits the search to files where the language is JavaScript in the <code>jquery/jquery</code> repository.</p>
-<p><strong>Considerations for code search</strong></p>
-<p>Due to the complexity of searching code, there are a few restrictions on how searches are performed:</p>
-<ul>
-<li>Only the <em>default branch</em> is considered. In most cases, this will be the <code>master</code> branch.</li>
-<li>Only files smaller than 384 KB are searchable.</li>
-<li>You must always include at least one search term when searching source code. For example, searching for <a href="https://github.com/search?utf8=%E2%9C%93&amp;q=language%3Ago&amp;type=Code"><code>language:go</code></a> is not valid, while <a href="https://github.com/search?utf8=%E2%9C%93&amp;q=amazing+language%3Ago&amp;type=Code"><code>amazing language:go</code></a> is.</li>
-</ul>
-<!-- -->
-<pre><code>GET /search/code</code></pre>
-<p><strong>Parameters</strong></p>
-<table style="width:99%;">
-<colgroup>
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 95%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">
-Name
-</th>
-<th style="text-align: left;">
-Type
-</th>
-<th style="text-align: left;">
-In
-</th>
-<th style="text-align: left;">
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">
-<code>accept</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-header
-</td>
-<td style="text-align: left;">
-Setting to <code>application/vnd.github.v3+json</code> is recommended.
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>q</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see <a href="https://docs.github.com/rest/reference/search#constructing-a-search-query">Constructing a search query</a>. See “<a href="https://help.github.com/articles/searching-code/">Searching code</a>” for a detailed list of qualifiers.
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>sort</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Sorts the results of your query. Can only be <code>indexed</code>, which indicates how recently a file has been indexed by the GitHub search infrastructure. Default: <a href="https://docs.github.com/rest/reference/search#ranking-search-results">best match</a>
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>order</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Determines whether the first search result returned is the highest number of matches (<code>desc</code>) or lowest number of matches (<code>asc</code>). This parameter is ignored unless you provide <code>sort</code>.
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>per_page</code>
-</td>
-<td style="text-align: left;">
-integer
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Results per page (max 100).
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>page</code>
-</td>
-<td style="text-align: left;">
-integer
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Page number of the results to fetch.
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Code samples</strong></p>
-<p><strong>Shell</strong></p>
-<pre><code>curl \
+    <p>
+      See “<a href="https://docs.github.com/en/articles/searching-on-github"
+        >Searching on GitHub</a
+      >” for a complete list of available qualifiers, their format, and an
+      example of how to use them. For information about how to use operators to
+      match specific quantities, dates, or to exclude results, see “<a
+        href="https://docs.github.com/en/articles/understanding-the-search-syntax"
+        >Understanding the search syntax</a
+      >.”
+    </p>
+    <h4 id="limitations-on-query-length">
+      <a
+        href="https://docs.github.com/en/rest/reference/search#limitations-on-query-length"
+        >Limitations on query length</a
+      >
+      <span id="limitations-on-query-length"></span>
+    </h4>
+    <p>The Search API does not support queries that:</p>
+    <ul>
+      <li>
+        are longer than 256 characters (not including operators or qualifiers).
+      </li>
+      <li>
+        have more than five <code>AND</code>, <code>OR</code>, or
+        <code>NOT</code> operators.
+      </li>
+    </ul>
+    <p>These search queries will return a “Validation failed” error message.</p>
+    <h4 id="timeouts-and-incomplete-results">
+      <a
+        href="https://docs.github.com/en/rest/reference/search#timeouts-and-incomplete-results"
+        >Timeouts and incomplete results</a
+      >
+      <span id="timeouts-and-incomplete-results"></span>
+    </h4>
+    <p>
+      To keep the Search API fast for everyone, we limit how long any individual
+      query can run. For queries that
+      <a
+        href="https://developer.github.com/changes/2014-04-07-understanding-search-results-and-potential-timeouts/"
+        >exceed the time limit</a
+      >, the API returns the matches that were already found prior to the
+      timeout, and the response has the <code>incomplete_results</code> property
+      set to <code>true</code>.
+    </p>
+    <p>
+      Reaching a timeout does not necessarily mean that search results are
+      incomplete. More results might have been found, but also might not.
+    </p>
+    <h4 id="access-errors-or-missing-search-results">
+      <a
+        href="https://docs.github.com/en/rest/reference/search#access-errors-or-missing-search-results"
+        >Access errors or missing search results</a
+      >
+      <span id="access-errors-or-missing-search-results"></span>
+    </h4>
+    <p>
+      You need to successfully authenticate and have access to the repositories
+      in your search queries, otherwise, you’ll see a
+      <code>422 Unprocessible Entry</code> error with a “Validation Failed”
+      message. For example, your search will fail if your query includes
+      <code>repo:</code>, <code>user:</code>, or <code>org:</code> qualifiers
+      that request resources that you don’t have access to when you sign in on
+      GitHub.
+    </p>
+    <p>
+      When your search query requests multiple resources, the response will only
+      contain the resources that you have access to and will
+      <strong>not</strong> provide an error message listing the resources that
+      were not returned.
+    </p>
+    <p>
+      For example, if your search query searches for the
+      <code>octocat/test</code> and <code>codertocat/test</code> repositories,
+      but you only have access to <code>octocat/test</code>, your response will
+      show search results for <code>octocat/test</code> and nothing for
+      <code>codertocat/test</code>. This behavior mimics how search works on
+      GitHub.
+    </p>
+    <h4 id="search-code">
+      <a href="https://docs.github.com/en/rest/reference/search#search-code"
+        >Search code</a
+      >
+      <span id="search-code"></span>
+    </h4>
+    <p>
+      Searches for query terms inside of a file. This method returns up to 100
+      results
+      <a
+        href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination"
+        >per page</a
+      >.
+    </p>
+    <p>
+      When searching for code, you can get text match metadata for the file
+      <strong>content</strong> and file <strong>path</strong> fields when you
+      pass the <code>text-match</code> media type. For more details about how to
+      receive highlighted search results, see
+      <a
+        href="https://docs.github.com/rest/reference/search#text-match-metadata"
+        >Text match metadata</a
+      >.
+    </p>
+    <p>
+      For example, if you want to find the definition of the
+      <code>addClass</code> function inside
+      <a href="https://github.com/jquery/jquery">jQuery</a> repository, your
+      query would look something like this:
+    </p>
+    <p><code>q=addClass+in:file+language:js+repo:jquery/jquery</code></p>
+    <p>
+      This query searches for the keyword <code>addClass</code> within a file’s
+      contents. The query limits the search to files where the language is
+      JavaScript in the <code>jquery/jquery</code> repository.
+    </p>
+    <p><strong>Considerations for code search</strong></p>
+    <p>
+      Due to the complexity of searching code, there are a few restrictions on
+      how searches are performed:
+    </p>
+    <ul>
+      <li>
+        Only the <em>default branch</em> is considered. In most cases, this will
+        be the <code>master</code> branch.
+      </li>
+      <li>Only files smaller than 384 KB are searchable.</li>
+      <li>
+        You must always include at least one search term when searching source
+        code. For example, searching for
+        <a
+          href="https://github.com/search?utf8=%E2%9C%93&amp;q=language%3Ago&amp;type=Code"
+          ><code>language:go</code></a
+        >
+        is not valid, while
+        <a
+          href="https://github.com/search?utf8=%E2%9C%93&amp;q=amazing+language%3Ago&amp;type=Code"
+          ><code>amazing language:go</code></a
+        >
+        is.
+      </li>
+    </ul>
+    <!-- -->
+    <pre><code>GET /search/code</code></pre>
+    <p><strong>Parameters</strong></p>
+    <table style="width: 99%">
+      <colgroup>
+        <col style="width: 2%" />
+        <col style="width: 1%" />
+        <col style="width: 1%" />
+        <col style="width: 95%" />
+      </colgroup>
+      <thead>
+        <tr class="header">
+          <th style="text-align: left">Name</th>
+          <th style="text-align: left">Type</th>
+          <th style="text-align: left">In</th>
+          <th style="text-align: left">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>accept</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">header</td>
+          <td style="text-align: left">
+            Setting to <code>application/vnd.github.v3+json</code> is
+            recommended.
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>q</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            The query contains one or more search keywords and qualifiers.
+            Qualifiers allow you to limit your search to specific areas of
+            GitHub. The REST API supports the same qualifiers as GitHub.com. To
+            learn more about the format of the query, see
+            <a
+              href="https://docs.github.com/rest/reference/search#constructing-a-search-query"
+              >Constructing a search query</a
+            >. See “<a href="https://help.github.com/articles/searching-code/"
+              >Searching code</a
+            >” for a detailed list of qualifiers.
+          </td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>sort</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            Sorts the results of your query. Can only be <code>indexed</code>,
+            which indicates how recently a file has been indexed by the GitHub
+            search infrastructure. Default:
+            <a
+              href="https://docs.github.com/rest/reference/search#ranking-search-results"
+              >best match</a
+            >
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>order</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            Determines whether the first search result returned is the highest
+            number of matches (<code>desc</code>) or lowest number of matches
+            (<code>asc</code>). This parameter is ignored unless you provide
+            <code>sort</code>.
+          </td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>per_page</code>
+          </td>
+          <td style="text-align: left">integer</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">Results per page (max 100).</td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>page</code>
+          </td>
+          <td style="text-align: left">integer</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">Page number of the results to fetch.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Code samples</strong></p>
+    <p><strong>Shell</strong></p>
+    <pre><code>curl \
   -H &quot;Accept: application/vnd.github.v3+json&quot; \
   https://api.github.com/search/code</code></pre>
-<p><strong>JavaScript (<span class="citation" data-cites="octokit/core.js"><span class="citation" data-cites="octokit/core.js">@octokit/core.js</span></span>)</strong></p>
-<pre><code>await octokit.request(&#39;GET /search/code&#39;, {
+    <p>
+      <strong
+        >JavaScript (<span class="citation" data-cites="octokit/core.js"
+          ><span class="citation" data-cites="octokit/core.js"
+            >@octokit/core.js</span
+          ></span
+        >)</strong
+      >
+    </p>
+    <pre><code>await octokit.request(&#39;GET /search/code&#39;, {
   q: &#39;q&#39;
 })</code></pre>
-<p><strong>Response</strong></p>
-<pre><code>Status: 200 OK
+    <p><strong>Response</strong></p>
+    <pre><code>Status: 200 OK
 
 {
   &quot;total_count&quot;: 7,
@@ -283,142 +538,165 @@ Page number of the results to fetch.
     }
   ]
 }</code></pre>
-<p><strong>Not modified</strong></p>
-<pre><code>Status: 304 Not Modified</code></pre>
-<p><strong>Forbidden</strong></p>
-<pre><code>Status: 403 Forbidden</code></pre>
-<p><strong>Validation failed</strong></p>
-<pre><code>Status: 422 Unprocessable Entity</code></pre>
-<p><strong>Service unavailable</strong></p>
-<pre><code>Status: 503 Service Unavailable</code></pre>
-<p><strong>Notes</strong></p>
-<ul>
-<li><a href="https://docs.github.com/en/developers/apps">Works with GitHub Apps</a></li>
-</ul>
-<h4 id="search-commits"><a href="https://docs.github.com/en/rest/reference/search#search-commits">Search commits</a> <span id="search-commits"></span></h4>
-<p>Find commits via various criteria on the default branch (usually <code>master</code>). This method returns up to 100 results <a href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination">per page</a>.</p>
-<p>When searching for commits, you can get text match metadata for the <strong>message</strong> field when you provide the <code>text-match</code> media type. For more details about how to receive highlighted search results, see <a href="https://docs.github.com/rest/reference/search#text-match-metadata">Text match metadata</a>.</p>
-<p>For example, if you want to find commits related to CSS in the <a href="https://github.com/octocat/Spoon-Knife">octocat/Spoon-Knife</a> repository. Your query would look something like this:</p>
-<p><code>q=repo:octocat/Spoon-Knife+css</code></p>
-<pre><code>GET /search/commits</code></pre>
-<p><strong>Parameters</strong></p>
-<table style="width:99%;">
-<colgroup>
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 95%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">
-Name
-</th>
-<th style="text-align: left;">
-Type
-</th>
-<th style="text-align: left;">
-In
-</th>
-<th style="text-align: left;">
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">
-<code>accept</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-header
-</td>
-<td style="text-align: left;">
-This API is under preview and subject to change. <a href="https://docs.github.com/en/rest/reference/search#search-commits-preview-notices">See preview notice</a>
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>q</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see <a href="https://docs.github.com/rest/reference/search#constructing-a-search-query">Constructing a search query</a>. See “<a href="https://help.github.com/articles/searching-commits/">Searching commits</a>” for a detailed list of qualifiers.
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>sort</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Sorts the results of your query by <code>author-date</code> or <code>committer-date</code>. Default: <a href="https://docs.github.com/rest/reference/search#ranking-search-results">best match</a>
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>order</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Determines whether the first search result returned is the highest number of matches (<code>desc</code>) or lowest number of matches (<code>asc</code>). This parameter is ignored unless you provide <code>sort</code>.
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>per_page</code>
-</td>
-<td style="text-align: left;">
-integer
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Results per page (max 100).
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>page</code>
-</td>
-<td style="text-align: left;">
-integer
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Page number of the results to fetch.
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Code samples</strong></p>
-<p><strong>Shell</strong></p>
-<pre><code>curl \
+    <p><strong>Not modified</strong></p>
+    <pre><code>Status: 304 Not Modified</code></pre>
+    <p><strong>Forbidden</strong></p>
+    <pre><code>Status: 403 Forbidden</code></pre>
+    <p><strong>Validation failed</strong></p>
+    <pre><code>Status: 422 Unprocessable Entity</code></pre>
+    <p><strong>Service unavailable</strong></p>
+    <pre><code>Status: 503 Service Unavailable</code></pre>
+    <p><strong>Notes</strong></p>
+    <ul>
+      <li>
+        <a href="https://docs.github.com/en/developers/apps"
+          >Works with GitHub Apps</a
+        >
+      </li>
+    </ul>
+    <h4 id="search-commits">
+      <a href="https://docs.github.com/en/rest/reference/search#search-commits"
+        >Search commits</a
+      >
+      <span id="search-commits"></span>
+    </h4>
+    <p>
+      Find commits via various criteria on the default branch (usually
+      <code>master</code>). This method returns up to 100 results
+      <a
+        href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination"
+        >per page</a
+      >.
+    </p>
+    <p>
+      When searching for commits, you can get text match metadata for the
+      <strong>message</strong> field when you provide the
+      <code>text-match</code> media type. For more details about how to receive
+      highlighted search results, see
+      <a
+        href="https://docs.github.com/rest/reference/search#text-match-metadata"
+        >Text match metadata</a
+      >.
+    </p>
+    <p>
+      For example, if you want to find commits related to CSS in the
+      <a href="https://github.com/octocat/Spoon-Knife">octocat/Spoon-Knife</a>
+      repository. Your query would look something like this:
+    </p>
+    <p><code>q=repo:octocat/Spoon-Knife+css</code></p>
+    <pre><code>GET /search/commits</code></pre>
+    <p><strong>Parameters</strong></p>
+    <table style="width: 99%">
+      <colgroup>
+        <col style="width: 2%" />
+        <col style="width: 1%" />
+        <col style="width: 1%" />
+        <col style="width: 95%" />
+      </colgroup>
+      <thead>
+        <tr class="header">
+          <th style="text-align: left">Name</th>
+          <th style="text-align: left">Type</th>
+          <th style="text-align: left">In</th>
+          <th style="text-align: left">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>accept</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">header</td>
+          <td style="text-align: left">
+            This API is under preview and subject to change.
+            <a
+              href="https://docs.github.com/en/rest/reference/search#search-commits-preview-notices"
+              >See preview notice</a
+            >
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>q</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            The query contains one or more search keywords and qualifiers.
+            Qualifiers allow you to limit your search to specific areas of
+            GitHub. The REST API supports the same qualifiers as GitHub.com. To
+            learn more about the format of the query, see
+            <a
+              href="https://docs.github.com/rest/reference/search#constructing-a-search-query"
+              >Constructing a search query</a
+            >. See “<a
+              href="https://help.github.com/articles/searching-commits/"
+              >Searching commits</a
+            >” for a detailed list of qualifiers.
+          </td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>sort</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            Sorts the results of your query by <code>author-date</code> or
+            <code>committer-date</code>. Default:
+            <a
+              href="https://docs.github.com/rest/reference/search#ranking-search-results"
+              >best match</a
+            >
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>order</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            Determines whether the first search result returned is the highest
+            number of matches (<code>desc</code>) or lowest number of matches
+            (<code>asc</code>). This parameter is ignored unless you provide
+            <code>sort</code>.
+          </td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>per_page</code>
+          </td>
+          <td style="text-align: left">integer</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">Results per page (max 100).</td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>page</code>
+          </td>
+          <td style="text-align: left">integer</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">Page number of the results to fetch.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Code samples</strong></p>
+    <p><strong>Shell</strong></p>
+    <pre><code>curl \
   -H &quot;Accept: application/vnd.github.cloak-preview+json&quot; \
   https://api.github.com/search/commits</code></pre>
-<p><strong>JavaScript (<span class="citation" data-cites="octokit/core.js"><span class="citation" data-cites="octokit/core.js">@octokit/core.js</span></span>)</strong></p>
-<pre><code>await octokit.request(&#39;GET /search/commits&#39;, {
+    <p>
+      <strong
+        >JavaScript (<span class="citation" data-cites="octokit/core.js"
+          ><span class="citation" data-cites="octokit/core.js"
+            >@octokit/core.js</span
+          ></span
+        >)</strong
+      >
+    </p>
+    <pre><code>await octokit.request(&#39;GET /search/commits&#39;, {
   q: &#39;q&#39;,
   mediaType: {
     previews: [
@@ -426,8 +704,8 @@ Page number of the results to fetch.
     ]
   }
 })</code></pre>
-<p><strong>Response</strong></p>
-<pre><code>Status: 200 OK
+    <p><strong>Response</strong></p>
+    <pre><code>Status: 200 OK
 
 {
   &quot;total_count&quot;: 1,
@@ -557,149 +835,214 @@ Page number of the results to fetch.
     }
   ]
 }</code></pre>
-<p><strong>Not modified</strong></p>
-<pre><code>Status: 304 Not Modified</code></pre>
-<p><strong>Preview header missing</strong></p>
-<pre><code>Status: 415 Unsupported Media Type</code></pre>
-<p><strong>Notes</strong></p>
-<ul>
-<li><a href="https://docs.github.com/en/developers/apps">Works with GitHub Apps</a></li>
-</ul>
-<p><strong>Preview notice</strong></p>
-<p>The Commit Search API is currently available for developers to preview. During the preview period, the APIs may change without advance notice. Please see the <a href="https://developer.github.com/changes/2017-01-05-commit-search-api/">blog post</a> for full details.</p>
-<p>To access the API you must provide a custom <a href="https://docs.github.com/rest/overview/media-types">media type</a> in the <code>Accept</code> header:</p>
-<pre><code>application/vnd.github.cloak-preview</code></pre>
-<p>☝️ This header is <strong>required</strong>.</p>
-<h4 id="search-issues-and-pull-requests"><a href="https://docs.github.com/en/rest/reference/search#search-issues-and-pull-requests">Search issues and pull requests</a> <span id="search-issues-and-pull-requests"></span></h4>
-<p>Find issues by state and keyword. This method returns up to 100 results <a href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination">per page</a>.</p>
-<p>When searching for issues, you can get text match metadata for the issue <strong>title</strong>, issue <strong>body</strong>, and issue <strong>comment body</strong> fields when you pass the <code>text-match</code> media type. For more details about how to receive highlighted search results, see <a href="https://docs.github.com/rest/reference/search#text-match-metadata">Text match metadata</a>.</p>
-<p>For example, if you want to find the oldest unresolved Python bugs on Windows. Your query might look something like this.</p>
-<p><code>q=windows+label:bug+language:python+state:open&amp;sort=created&amp;order=asc</code></p>
-<p>This query searches for the keyword <code>windows</code>, within any open issue that is labeled as <code>bug</code>. The search runs across repositories whose primary language is Python. The results are sorted by creation date in ascending order, which means the oldest issues appear first in the search results.</p>
-<p><strong>Note:</strong> For <a href="https://docs.github.com/developers/apps/identifying-and-authorizing-users-for-github-apps#user-to-server-requests">user-to-server</a> GitHub App requests, you can’t retrieve a combination of issues and pull requests in a single query. Requests that don’t include the <code>is:issue</code> or <code>is:pull-request</code> qualifier will receive an HTTP <code>422 Unprocessable Entity</code> response. To get results for both issues and pull requests, you must send separate queries for issues and pull requests. For more information about the <code>is</code> qualifier, see “<a href="https://docs.github.com/github/searching-for-information-on-github/searching-issues-and-pull-requests#search-only-issues-or-pull-requests">Searching only issues or pull requests</a>.”</p>
-<pre><code>GET /search/issues</code></pre>
-<p><strong>Parameters</strong></p>
-<table style="width:98%;">
-<colgroup>
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 95%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">
-Name
-</th>
-<th style="text-align: left;">
-Type
-</th>
-<th style="text-align: left;">
-In
-</th>
-<th style="text-align: left;">
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">
-<code>accept</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-header
-</td>
-<td style="text-align: left;">
-Setting to <code>application/vnd.github.v3+json</code> is recommended.
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>q</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see <a href="https://docs.github.com/rest/reference/search#constructing-a-search-query">Constructing a search query</a>. See “<a href="https://help.github.com/articles/searching-issues-and-pull-requests/">Searching issues and pull requests</a>” for a detailed list of qualifiers.
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>sort</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Sorts the results of your query by the number of <code>comments</code>, <code>reactions</code>, <code>reactions-+1</code>, <code>reactions–1</code>, <code>reactions-smile</code>, <code>reactions-thinking_face</code>, <code>reactions-heart</code>, <code>reactions-tada</code>, or <code>interactions</code>. You can also sort results by how recently the items were <code>created</code> or <code>updated</code>, Default: <a href="https://docs.github.com/rest/reference/search#ranking-search-results">best match</a>
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>order</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Determines whether the first search result returned is the highest number of matches (<code>desc</code>) or lowest number of matches (<code>asc</code>). This parameter is ignored unless you provide <code>sort</code>.
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>per_page</code>
-</td>
-<td style="text-align: left;">
-integer
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Results per page (max 100).
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>page</code>
-</td>
-<td style="text-align: left;">
-integer
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Page number of the results to fetch.
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Code samples</strong></p>
-<p><strong>Shell</strong></p>
-<pre><code>curl \
+    <p><strong>Not modified</strong></p>
+    <pre><code>Status: 304 Not Modified</code></pre>
+    <p><strong>Preview header missing</strong></p>
+    <pre><code>Status: 415 Unsupported Media Type</code></pre>
+    <p><strong>Notes</strong></p>
+    <ul>
+      <li>
+        <a href="https://docs.github.com/en/developers/apps"
+          >Works with GitHub Apps</a
+        >
+      </li>
+    </ul>
+    <p><strong>Preview notice</strong></p>
+    <p>
+      The Commit Search API is currently available for developers to preview.
+      During the preview period, the APIs may change without advance notice.
+      Please see the
+      <a
+        href="https://developer.github.com/changes/2017-01-05-commit-search-api/"
+        >blog post</a
+      >
+      for full details.
+    </p>
+    <p>
+      To access the API you must provide a custom
+      <a href="https://docs.github.com/rest/overview/media-types">media type</a>
+      in the <code>Accept</code> header:
+    </p>
+    <pre><code>application/vnd.github.cloak-preview</code></pre>
+    <p>☝️ This header is <strong>required</strong>.</p>
+    <h4 id="search-issues-and-pull-requests">
+      <a
+        href="https://docs.github.com/en/rest/reference/search#search-issues-and-pull-requests"
+        >Search issues and pull requests</a
+      >
+      <span id="search-issues-and-pull-requests"></span>
+    </h4>
+    <p>
+      Find issues by state and keyword. This method returns up to 100 results
+      <a
+        href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination"
+        >per page</a
+      >.
+    </p>
+    <p>
+      When searching for issues, you can get text match metadata for the issue
+      <strong>title</strong>, issue <strong>body</strong>, and issue
+      <strong>comment body</strong> fields when you pass the
+      <code>text-match</code> media type. For more details about how to receive
+      highlighted search results, see
+      <a
+        href="https://docs.github.com/rest/reference/search#text-match-metadata"
+        >Text match metadata</a
+      >.
+    </p>
+    <p>
+      For example, if you want to find the oldest unresolved Python bugs on
+      Windows. Your query might look something like this.
+    </p>
+    <p>
+      <code
+        >q=windows+label:bug+language:python+state:open&amp;sort=created&amp;order=asc</code
+      >
+    </p>
+    <p>
+      This query searches for the keyword <code>windows</code>, within any open
+      issue that is labeled as <code>bug</code>. The search runs across
+      repositories whose primary language is Python. The results are sorted by
+      creation date in ascending order, which means the oldest issues appear
+      first in the search results.
+    </p>
+    <p>
+      <strong>Note:</strong> For
+      <a
+        href="https://docs.github.com/developers/apps/identifying-and-authorizing-users-for-github-apps#user-to-server-requests"
+        >user-to-server</a
+      >
+      GitHub App requests, you can’t retrieve a combination of issues and pull
+      requests in a single query. Requests that don’t include the
+      <code>is:issue</code> or <code>is:pull-request</code> qualifier will
+      receive an HTTP <code>422 Unprocessable Entity</code> response. To get
+      results for both issues and pull requests, you must send separate queries
+      for issues and pull requests. For more information about the
+      <code>is</code> qualifier, see “<a
+        href="https://docs.github.com/github/searching-for-information-on-github/searching-issues-and-pull-requests#search-only-issues-or-pull-requests"
+        >Searching only issues or pull requests</a
+      >.”
+    </p>
+    <pre><code>GET /search/issues</code></pre>
+    <p><strong>Parameters</strong></p>
+    <table style="width: 98%">
+      <colgroup>
+        <col style="width: 1%" />
+        <col style="width: 1%" />
+        <col style="width: 1%" />
+        <col style="width: 95%" />
+      </colgroup>
+      <thead>
+        <tr class="header">
+          <th style="text-align: left">Name</th>
+          <th style="text-align: left">Type</th>
+          <th style="text-align: left">In</th>
+          <th style="text-align: left">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>accept</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">header</td>
+          <td style="text-align: left">
+            Setting to <code>application/vnd.github.v3+json</code> is
+            recommended.
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>q</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            The query contains one or more search keywords and qualifiers.
+            Qualifiers allow you to limit your search to specific areas of
+            GitHub. The REST API supports the same qualifiers as GitHub.com. To
+            learn more about the format of the query, see
+            <a
+              href="https://docs.github.com/rest/reference/search#constructing-a-search-query"
+              >Constructing a search query</a
+            >. See “<a
+              href="https://help.github.com/articles/searching-issues-and-pull-requests/"
+              >Searching issues and pull requests</a
+            >” for a detailed list of qualifiers.
+          </td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>sort</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            Sorts the results of your query by the number of
+            <code>comments</code>, <code>reactions</code>,
+            <code>reactions-+1</code>, <code>reactions–1</code>,
+            <code>reactions-smile</code>, <code>reactions-thinking_face</code>,
+            <code>reactions-heart</code>, <code>reactions-tada</code>, or
+            <code>interactions</code>. You can also sort results by how recently
+            the items were <code>created</code> or <code>updated</code>,
+            Default:
+            <a
+              href="https://docs.github.com/rest/reference/search#ranking-search-results"
+              >best match</a
+            >
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>order</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            Determines whether the first search result returned is the highest
+            number of matches (<code>desc</code>) or lowest number of matches
+            (<code>asc</code>). This parameter is ignored unless you provide
+            <code>sort</code>.
+          </td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>per_page</code>
+          </td>
+          <td style="text-align: left">integer</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">Results per page (max 100).</td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>page</code>
+          </td>
+          <td style="text-align: left">integer</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">Page number of the results to fetch.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Code samples</strong></p>
+    <p><strong>Shell</strong></p>
+    <pre><code>curl \
   -H &quot;Accept: application/vnd.github.v3+json&quot; \
   https://api.github.com/search/issues</code></pre>
-<p><strong>JavaScript (<span class="citation" data-cites="octokit/core.js"><span class="citation" data-cites="octokit/core.js">@octokit/core.js</span></span>)</strong></p>
-<pre><code>await octokit.request(&#39;GET /search/issues&#39;, {
+    <p>
+      <strong
+        >JavaScript (<span class="citation" data-cites="octokit/core.js"
+          ><span class="citation" data-cites="octokit/core.js"
+            >@octokit/core.js</span
+          ></span
+        >)</strong
+      >
+    </p>
+    <pre><code>await octokit.request(&#39;GET /search/issues&#39;, {
   q: &#39;q&#39;
 })</code></pre>
-<p><strong>Response</strong></p>
-<pre><code>Status: 200 OK
+    <p><strong>Response</strong></p>
+    <pre><code>Status: 200 OK
 
 {
   &quot;total_count&quot;: 280,
@@ -801,134 +1144,158 @@ Page number of the results to fetch.
     }
   ]
 }</code></pre>
-<p><strong>Not modified</strong></p>
-<pre><code>Status: 304 Not Modified</code></pre>
-<p><strong>Forbidden</strong></p>
-<pre><code>Status: 403 Forbidden</code></pre>
-<p><strong>Validation failed</strong></p>
-<pre><code>Status: 422 Unprocessable Entity</code></pre>
-<p><strong>Service unavailable</strong></p>
-<pre><code>Status: 503 Service Unavailable</code></pre>
-<p><strong>Notes</strong></p>
-<ul>
-<li><a href="https://docs.github.com/en/developers/apps">Works with GitHub Apps</a></li>
-</ul>
-<h4 id="search-labels"><a href="https://docs.github.com/en/rest/reference/search#search-labels">Search labels</a> <span id="search-labels"></span></h4>
-<p>Find labels in a repository with names or descriptions that match search keywords. Returns up to 100 results <a href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination">per page</a>.</p>
-<p>When searching for labels, you can get text match metadata for the label <strong>name</strong> and <strong>description</strong> fields when you pass the <code>text-match</code> media type. For more details about how to receive highlighted search results, see <a href="https://docs.github.com/rest/reference/search#text-match-metadata">Text match metadata</a>.</p>
-<p>For example, if you want to find labels in the <code>linguist</code> repository that match <code>bug</code>, <code>defect</code>, or <code>enhancement</code>. Your query might look like this:</p>
-<p><code>q=bug+defect+enhancement&amp;repository_id=64778136</code></p>
-<p>The labels that best match the query appear first in the search results.</p>
-<pre><code>GET /search/labels</code></pre>
-<p><strong>Parameters</strong></p>
-<table style="width:98%;">
-<colgroup>
-<col style="width: 5%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-<col style="width: 89%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">
-Name
-</th>
-<th style="text-align: left;">
-Type
-</th>
-<th style="text-align: left;">
-In
-</th>
-<th style="text-align: left;">
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">
-<code>accept</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-header
-</td>
-<td style="text-align: left;">
-Setting to <code>application/vnd.github.v3+json</code> is recommended.
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>repository_id</code>
-</td>
-<td style="text-align: left;">
-integer
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-The id of the repository.
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>q</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-The search keywords. This endpoint does not accept qualifiers in the query. To learn more about the format of the query, see <a href="https://docs.github.com/rest/reference/search#constructing-a-search-query">Constructing a search query</a>.
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>sort</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Sorts the results of your query by when the label was <code>created</code> or <code>updated</code>. Default: <a href="https://docs.github.com/rest/reference/search#ranking-search-results">best match</a>
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>order</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Determines whether the first search result returned is the highest number of matches (<code>desc</code>) or lowest number of matches (<code>asc</code>). This parameter is ignored unless you provide <code>sort</code>.
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Code samples</strong></p>
-<p><strong>Shell</strong></p>
-<pre><code>curl \
+    <p><strong>Not modified</strong></p>
+    <pre><code>Status: 304 Not Modified</code></pre>
+    <p><strong>Forbidden</strong></p>
+    <pre><code>Status: 403 Forbidden</code></pre>
+    <p><strong>Validation failed</strong></p>
+    <pre><code>Status: 422 Unprocessable Entity</code></pre>
+    <p><strong>Service unavailable</strong></p>
+    <pre><code>Status: 503 Service Unavailable</code></pre>
+    <p><strong>Notes</strong></p>
+    <ul>
+      <li>
+        <a href="https://docs.github.com/en/developers/apps"
+          >Works with GitHub Apps</a
+        >
+      </li>
+    </ul>
+    <h4 id="search-labels">
+      <a href="https://docs.github.com/en/rest/reference/search#search-labels"
+        >Search labels</a
+      >
+      <span id="search-labels"></span>
+    </h4>
+    <p>
+      Find labels in a repository with names or descriptions that match search
+      keywords. Returns up to 100 results
+      <a
+        href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination"
+        >per page</a
+      >.
+    </p>
+    <p>
+      When searching for labels, you can get text match metadata for the label
+      <strong>name</strong> and <strong>description</strong> fields when you
+      pass the <code>text-match</code> media type. For more details about how to
+      receive highlighted search results, see
+      <a
+        href="https://docs.github.com/rest/reference/search#text-match-metadata"
+        >Text match metadata</a
+      >.
+    </p>
+    <p>
+      For example, if you want to find labels in the
+      <code>linguist</code> repository that match <code>bug</code>,
+      <code>defect</code>, or <code>enhancement</code>. Your query might look
+      like this:
+    </p>
+    <p><code>q=bug+defect+enhancement&amp;repository_id=64778136</code></p>
+    <p>
+      The labels that best match the query appear first in the search results.
+    </p>
+    <pre><code>GET /search/labels</code></pre>
+    <p><strong>Parameters</strong></p>
+    <table style="width: 98%">
+      <colgroup>
+        <col style="width: 5%" />
+        <col style="width: 2%" />
+        <col style="width: 2%" />
+        <col style="width: 89%" />
+      </colgroup>
+      <thead>
+        <tr class="header">
+          <th style="text-align: left">Name</th>
+          <th style="text-align: left">Type</th>
+          <th style="text-align: left">In</th>
+          <th style="text-align: left">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>accept</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">header</td>
+          <td style="text-align: left">
+            Setting to <code>application/vnd.github.v3+json</code> is
+            recommended.
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>repository_id</code>
+          </td>
+          <td style="text-align: left">integer</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">The id of the repository.</td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>q</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            The search keywords. This endpoint does not accept qualifiers in the
+            query. To learn more about the format of the query, see
+            <a
+              href="https://docs.github.com/rest/reference/search#constructing-a-search-query"
+              >Constructing a search query</a
+            >.
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>sort</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            Sorts the results of your query by when the label was
+            <code>created</code> or <code>updated</code>. Default:
+            <a
+              href="https://docs.github.com/rest/reference/search#ranking-search-results"
+              >best match</a
+            >
+          </td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>order</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            Determines whether the first search result returned is the highest
+            number of matches (<code>desc</code>) or lowest number of matches
+            (<code>asc</code>). This parameter is ignored unless you provide
+            <code>sort</code>.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Code samples</strong></p>
+    <p><strong>Shell</strong></p>
+    <pre><code>curl \
   -H &quot;Accept: application/vnd.github.v3+json&quot; \
   https://api.github.com/search/labels</code></pre>
-<p><strong>JavaScript (<span class="citation" data-cites="octokit/core.js"><span class="citation" data-cites="octokit/core.js">@octokit/core.js</span></span>)</strong></p>
-<pre><code>await octokit.request(&#39;GET /search/labels&#39;, {
+    <p>
+      <strong
+        >JavaScript (<span class="citation" data-cites="octokit/core.js"
+          ><span class="citation" data-cites="octokit/core.js"
+            >@octokit/core.js</span
+          ></span
+        >)</strong
+      >
+    </p>
+    <pre><code>await octokit.request(&#39;GET /search/labels&#39;, {
   repository_id: 42,
   q: &#39;q&#39;
 })</code></pre>
-<p><strong>Response</strong></p>
-<pre><code>Status: 200 OK
+    <p><strong>Response</strong></p>
+    <pre><code>Status: 200 OK
 
 {
   &quot;total_count&quot;: 2,
@@ -956,149 +1323,184 @@ Determines whether the first search result returned is the highest number of mat
     }
   ]
 }</code></pre>
-<p><strong>Not modified</strong></p>
-<pre><code>Status: 304 Not Modified</code></pre>
-<p><strong>Forbidden</strong></p>
-<pre><code>Status: 403 Forbidden</code></pre>
-<p><strong>Resource not found</strong></p>
-<pre><code>Status: 404 Not Found</code></pre>
-<p><strong>Validation failed</strong></p>
-<pre><code>Status: 422 Unprocessable Entity</code></pre>
-<p><strong>Notes</strong></p>
-<ul>
-<li><a href="https://docs.github.com/en/developers/apps">Works with GitHub Apps</a></li>
-</ul>
-<h4 id="search-repositories"><a href="https://docs.github.com/en/rest/reference/search#search-repositories">Search repositories</a> <span id="search-repositories"></span></h4>
-<p>Find repositories via various criteria. This method returns up to 100 results <a href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination">per page</a>.</p>
-<p>When searching for repositories, you can get text match metadata for the <strong>name</strong> and <strong>description</strong> fields when you pass the <code>text-match</code> media type. For more details about how to receive highlighted search results, see <a href="https://docs.github.com/rest/reference/search#text-match-metadata">Text match metadata</a>.</p>
-<p>For example, if you want to search for popular Tetris repositories written in assembly code, your query might look like this:</p>
-<p><code>q=tetris+language:assembly&amp;sort=stars&amp;order=desc</code></p>
-<p>This query searches for repositories with the word <code>tetris</code> in the name, the description, or the README. The results are limited to repositories where the primary language is assembly. The results are sorted by stars in descending order, so that the most popular repositories appear first in the search results.</p>
-<p>When you include the <code>mercy</code> preview header, you can also search for multiple topics by adding more <code>topic:</code> instances. For example, your query might look like this:</p>
-<p><code>q=topic:ruby+topic:rails</code></p>
-<pre><code>GET /search/repositories</code></pre>
-<p><strong>Parameters</strong></p>
-<table style="width:99%;">
-<colgroup>
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 95%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">
-Name
-</th>
-<th style="text-align: left;">
-Type
-</th>
-<th style="text-align: left;">
-In
-</th>
-<th style="text-align: left;">
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">
-<code>accept</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-header
-</td>
-<td style="text-align: left;">
-Setting to <code>application/vnd.github.v3+json</code> is recommended. <a href="https://docs.github.com/en/rest/reference/search#search-repositories-preview-notices">See preview notice</a>
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>q</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see <a href="https://docs.github.com/rest/reference/search#constructing-a-search-query">Constructing a search query</a>. See “<a href="https://help.github.com/articles/searching-for-repositories/">Searching for repositories</a>” for a detailed list of qualifiers.
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>sort</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Sorts the results of your query by number of <code>stars</code>, <code>forks</code>, or <code>help-wanted-issues</code> or how recently the items were <code>updated</code>. Default: <a href="https://docs.github.com/rest/reference/search#ranking-search-results">best match</a>
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>order</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Determines whether the first search result returned is the highest number of matches (<code>desc</code>) or lowest number of matches (<code>asc</code>). This parameter is ignored unless you provide <code>sort</code>.
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>per_page</code>
-</td>
-<td style="text-align: left;">
-integer
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Results per page (max 100).
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>page</code>
-</td>
-<td style="text-align: left;">
-integer
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Page number of the results to fetch.
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Code samples</strong></p>
-<p><strong>Shell</strong></p>
-<pre><code>curl \
+    <p><strong>Not modified</strong></p>
+    <pre><code>Status: 304 Not Modified</code></pre>
+    <p><strong>Forbidden</strong></p>
+    <pre><code>Status: 403 Forbidden</code></pre>
+    <p><strong>Resource not found</strong></p>
+    <pre><code>Status: 404 Not Found</code></pre>
+    <p><strong>Validation failed</strong></p>
+    <pre><code>Status: 422 Unprocessable Entity</code></pre>
+    <p><strong>Notes</strong></p>
+    <ul>
+      <li>
+        <a href="https://docs.github.com/en/developers/apps"
+          >Works with GitHub Apps</a
+        >
+      </li>
+    </ul>
+    <h4 id="search-repositories">
+      <a
+        href="https://docs.github.com/en/rest/reference/search#search-repositories"
+        >Search repositories</a
+      >
+      <span id="search-repositories"></span>
+    </h4>
+    <p>
+      Find repositories via various criteria. This method returns up to 100
+      results
+      <a
+        href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination"
+        >per page</a
+      >.
+    </p>
+    <p>
+      When searching for repositories, you can get text match metadata for the
+      <strong>name</strong> and <strong>description</strong> fields when you
+      pass the <code>text-match</code> media type. For more details about how to
+      receive highlighted search results, see
+      <a
+        href="https://docs.github.com/rest/reference/search#text-match-metadata"
+        >Text match metadata</a
+      >.
+    </p>
+    <p>
+      For example, if you want to search for popular Tetris repositories written
+      in assembly code, your query might look like this:
+    </p>
+    <p><code>q=tetris+language:assembly&amp;sort=stars&amp;order=desc</code></p>
+    <p>
+      This query searches for repositories with the word <code>tetris</code> in
+      the name, the description, or the README. The results are limited to
+      repositories where the primary language is assembly. The results are
+      sorted by stars in descending order, so that the most popular repositories
+      appear first in the search results.
+    </p>
+    <p>
+      When you include the <code>mercy</code> preview header, you can also
+      search for multiple topics by adding more <code>topic:</code> instances.
+      For example, your query might look like this:
+    </p>
+    <p><code>q=topic:ruby+topic:rails</code></p>
+    <pre><code>GET /search/repositories</code></pre>
+    <p><strong>Parameters</strong></p>
+    <table style="width: 99%">
+      <colgroup>
+        <col style="width: 2%" />
+        <col style="width: 1%" />
+        <col style="width: 1%" />
+        <col style="width: 95%" />
+      </colgroup>
+      <thead>
+        <tr class="header">
+          <th style="text-align: left">Name</th>
+          <th style="text-align: left">Type</th>
+          <th style="text-align: left">In</th>
+          <th style="text-align: left">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>accept</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">header</td>
+          <td style="text-align: left">
+            Setting to <code>application/vnd.github.v3+json</code> is
+            recommended.
+            <a
+              href="https://docs.github.com/en/rest/reference/search#search-repositories-preview-notices"
+              >See preview notice</a
+            >
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>q</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            The query contains one or more search keywords and qualifiers.
+            Qualifiers allow you to limit your search to specific areas of
+            GitHub. The REST API supports the same qualifiers as GitHub.com. To
+            learn more about the format of the query, see
+            <a
+              href="https://docs.github.com/rest/reference/search#constructing-a-search-query"
+              >Constructing a search query</a
+            >. See “<a
+              href="https://help.github.com/articles/searching-for-repositories/"
+              >Searching for repositories</a
+            >” for a detailed list of qualifiers.
+          </td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>sort</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            Sorts the results of your query by number of <code>stars</code>,
+            <code>forks</code>, or <code>help-wanted-issues</code> or how
+            recently the items were <code>updated</code>. Default:
+            <a
+              href="https://docs.github.com/rest/reference/search#ranking-search-results"
+              >best match</a
+            >
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>order</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            Determines whether the first search result returned is the highest
+            number of matches (<code>desc</code>) or lowest number of matches
+            (<code>asc</code>). This parameter is ignored unless you provide
+            <code>sort</code>.
+          </td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>per_page</code>
+          </td>
+          <td style="text-align: left">integer</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">Results per page (max 100).</td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>page</code>
+          </td>
+          <td style="text-align: left">integer</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">Page number of the results to fetch.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Code samples</strong></p>
+    <p><strong>Shell</strong></p>
+    <pre><code>curl \
   -H &quot;Accept: application/vnd.github.v3+json&quot; \
   https://api.github.com/search/repositories</code></pre>
-<p><strong>JavaScript (<span class="citation" data-cites="octokit/core.js"><span class="citation" data-cites="octokit/core.js">@octokit/core.js</span></span>)</strong></p>
-<pre><code>await octokit.request(&#39;GET /search/repositories&#39;, {
+    <p>
+      <strong
+        >JavaScript (<span class="citation" data-cites="octokit/core.js"
+          ><span class="citation" data-cites="octokit/core.js"
+            >@octokit/core.js</span
+          ></span
+        >)</strong
+      >
+    </p>
+    <pre><code>await octokit.request(&#39;GET /search/repositories&#39;, {
   q: &#39;q&#39;
 })</code></pre>
-<p><strong>Response</strong></p>
-<pre><code>Status: 200 OK
+    <p><strong>Response</strong></p>
+    <pre><code>Status: 200 OK
 
 {
   &quot;total_count&quot;: 40,
@@ -1209,88 +1611,136 @@ Page number of the results to fetch.
     }
   ]
 }</code></pre>
-<p><strong>Not modified</strong></p>
-<pre><code>Status: 304 Not Modified</code></pre>
-<p><strong>Validation failed</strong></p>
-<pre><code>Status: 422 Unprocessable Entity</code></pre>
-<p><strong>Service unavailable</strong></p>
-<pre><code>Status: 503 Service Unavailable</code></pre>
-<p><strong>Notes</strong></p>
-<ul>
-<li><a href="https://docs.github.com/en/developers/apps">Works with GitHub Apps</a></li>
-</ul>
-<p><strong>Preview notice</strong></p>
-<p>The <code>topics</code> property for repositories on GitHub is currently available for developers to preview. To view the <code>topics</code> property in calls that return repository results, you must provide a custom <a href="https://docs.github.com/rest/overview/media-types">media type</a> in the <code>Accept</code> header:</p>
-<pre><code>application/vnd.github.mercy-preview+json</code></pre>
-<h4 id="search-topics"><a href="https://docs.github.com/en/rest/reference/search#search-topics">Search topics</a> <span id="search-topics"></span></h4>
-<p>Find topics via various criteria. Results are sorted by best match. This method returns up to 100 results <a href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination">per page</a>. See “<a href="https://help.github.com/articles/searching-topics/">Searching topics</a>” for a detailed list of qualifiers.</p>
-<p>When searching for topics, you can get text match metadata for the topic’s <strong>short_description</strong>, <strong>description</strong>, <strong>name</strong>, or <strong>display_name</strong> field when you pass the <code>text-match</code> media type. For more details about how to receive highlighted search results, see <a href="https://docs.github.com/rest/reference/search#text-match-metadata">Text match metadata</a>.</p>
-<p>For example, if you want to search for topics related to Ruby that are featured on <a href="https://github.com/topics" class="uri">https://github.com/topics</a>. Your query might look like this:</p>
-<p><code>q=ruby+is:featured</code></p>
-<p>This query searches for topics with the keyword <code>ruby</code> and limits the results to find only topics that are featured. The topics that are the best match for the query appear first in the search results.</p>
-<pre><code>GET /search/topics</code></pre>
-<p><strong>Parameters</strong></p>
-<table style="width:98%;">
-<colgroup>
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 94%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">
-Name
-</th>
-<th style="text-align: left;">
-Type
-</th>
-<th style="text-align: left;">
-In
-</th>
-<th style="text-align: left;">
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">
-<code>accept</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-header
-</td>
-<td style="text-align: left;">
-This API is under preview and subject to change. <a href="https://docs.github.com/en/rest/reference/search#search-topics-preview-notices">See preview notice</a>
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>q</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see <a href="https://docs.github.com/rest/reference/search#constructing-a-search-query">Constructing a search query</a>.
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Code samples</strong></p>
-<p><strong>Shell</strong></p>
-<pre><code>curl \
+    <p><strong>Not modified</strong></p>
+    <pre><code>Status: 304 Not Modified</code></pre>
+    <p><strong>Validation failed</strong></p>
+    <pre><code>Status: 422 Unprocessable Entity</code></pre>
+    <p><strong>Service unavailable</strong></p>
+    <pre><code>Status: 503 Service Unavailable</code></pre>
+    <p><strong>Notes</strong></p>
+    <ul>
+      <li>
+        <a href="https://docs.github.com/en/developers/apps"
+          >Works with GitHub Apps</a
+        >
+      </li>
+    </ul>
+    <p><strong>Preview notice</strong></p>
+    <p>
+      The <code>topics</code> property for repositories on GitHub is currently
+      available for developers to preview. To view the
+      <code>topics</code> property in calls that return repository results, you
+      must provide a custom
+      <a href="https://docs.github.com/rest/overview/media-types">media type</a>
+      in the <code>Accept</code> header:
+    </p>
+    <pre><code>application/vnd.github.mercy-preview+json</code></pre>
+    <h4 id="search-topics">
+      <a href="https://docs.github.com/en/rest/reference/search#search-topics"
+        >Search topics</a
+      >
+      <span id="search-topics"></span>
+    </h4>
+    <p>
+      Find topics via various criteria. Results are sorted by best match. This
+      method returns up to 100 results
+      <a
+        href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination"
+        >per page</a
+      >. See “<a href="https://help.github.com/articles/searching-topics/"
+        >Searching topics</a
+      >” for a detailed list of qualifiers.
+    </p>
+    <p>
+      When searching for topics, you can get text match metadata for the topic’s
+      <strong>short_description</strong>, <strong>description</strong>,
+      <strong>name</strong>, or <strong>display_name</strong> field when you
+      pass the <code>text-match</code> media type. For more details about how to
+      receive highlighted search results, see
+      <a
+        href="https://docs.github.com/rest/reference/search#text-match-metadata"
+        >Text match metadata</a
+      >.
+    </p>
+    <p>
+      For example, if you want to search for topics related to Ruby that are
+      featured on
+      <a href="https://github.com/topics" class="uri"
+        >https://github.com/topics</a
+      >. Your query might look like this:
+    </p>
+    <p><code>q=ruby+is:featured</code></p>
+    <p>
+      This query searches for topics with the keyword <code>ruby</code> and
+      limits the results to find only topics that are featured. The topics that
+      are the best match for the query appear first in the search results.
+    </p>
+    <pre><code>GET /search/topics</code></pre>
+    <p><strong>Parameters</strong></p>
+    <table style="width: 98%">
+      <colgroup>
+        <col style="width: 2%" />
+        <col style="width: 1%" />
+        <col style="width: 1%" />
+        <col style="width: 94%" />
+      </colgroup>
+      <thead>
+        <tr class="header">
+          <th style="text-align: left">Name</th>
+          <th style="text-align: left">Type</th>
+          <th style="text-align: left">In</th>
+          <th style="text-align: left">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>accept</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">header</td>
+          <td style="text-align: left">
+            This API is under preview and subject to change.
+            <a
+              href="https://docs.github.com/en/rest/reference/search#search-topics-preview-notices"
+              >See preview notice</a
+            >
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>q</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            The query contains one or more search keywords and qualifiers.
+            Qualifiers allow you to limit your search to specific areas of
+            GitHub. The REST API supports the same qualifiers as GitHub.com. To
+            learn more about the format of the query, see
+            <a
+              href="https://docs.github.com/rest/reference/search#constructing-a-search-query"
+              >Constructing a search query</a
+            >.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Code samples</strong></p>
+    <p><strong>Shell</strong></p>
+    <pre><code>curl \
   -H &quot;Accept: application/vnd.github.mercy-preview+json&quot; \
   https://api.github.com/search/topics</code></pre>
-<p><strong>JavaScript (<span class="citation" data-cites="octokit/core.js"><span class="citation" data-cites="octokit/core.js">@octokit/core.js</span></span>)</strong></p>
-<pre><code>await octokit.request(&#39;GET /search/topics&#39;, {
+    <p>
+      <strong
+        >JavaScript (<span class="citation" data-cites="octokit/core.js"
+          ><span class="citation" data-cites="octokit/core.js"
+            >@octokit/core.js</span
+          ></span
+        >)</strong
+      >
+    </p>
+    <pre><code>await octokit.request(&#39;GET /search/topics&#39;, {
   q: &#39;q&#39;,
   mediaType: {
     previews: [
@@ -1298,8 +1748,8 @@ The query contains one or more search keywords and qualifiers. Qualifiers allow 
     ]
   }
 })</code></pre>
-<p><strong>Response</strong></p>
-<pre><code>Status: 200 OK
+    <p><strong>Response</strong></p>
+    <pre><code>Status: 200 OK
 
 {
   &quot;total_count&quot;: 6,
@@ -1385,147 +1835,181 @@ The query contains one or more search keywords and qualifiers. Qualifiers allow 
     }
   ]
 }</code></pre>
-<p><strong>Not modified</strong></p>
-<pre><code>Status: 304 Not Modified</code></pre>
-<p><strong>Preview header missing</strong></p>
-<pre><code>Status: 415 Unsupported Media Type</code></pre>
-<p><strong>Notes</strong></p>
-<ul>
-<li><a href="https://docs.github.com/en/developers/apps">Works with GitHub Apps</a></li>
-</ul>
-<p><strong>Preview notice</strong></p>
-<p>The <code>topics</code> property for repositories on GitHub is currently available for developers to preview. To view the <code>topics</code> property in calls that return repository results, you must provide a custom <a href="https://docs.github.com/rest/overview/media-types">media type</a> in the <code>Accept</code> header:</p>
-<pre><code>application/vnd.github.mercy-preview+json</code></pre>
-<p>☝️ This header is <strong>required</strong>.</p>
-<h4 id="search-users"><a href="https://docs.github.com/en/rest/reference/search#search-users">Search users</a> <span id="search-users"></span></h4>
-<p>Find users via various criteria. This method returns up to 100 results <a href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination">per page</a>.</p>
-<p>When searching for users, you can get text match metadata for the issue <strong>login</strong>, <strong>email</strong>, and <strong>name</strong> fields when you pass the <code>text-match</code> media type. For more details about highlighting search results, see <a href="https://docs.github.com/rest/reference/search#text-match-metadata">Text match metadata</a>. For more details about how to receive highlighted search results, see <a href="https://docs.github.com/rest/reference/search#text-match-metadata">Text match metadata</a>.</p>
-<p>For example, if you’re looking for a list of popular users, you might try this query:</p>
-<p><code>q=tom+repos:%3E42+followers:%3E1000</code></p>
-<p>This query searches for users with the name <code>tom</code>. The results are restricted to users with more than 42 repositories and over 1,000 followers.</p>
-<pre><code>GET /search/users</code></pre>
-<p><strong>Parameters</strong></p>
-<table style="width:99%;">
-<colgroup>
-<col style="width: 2%" />
-<col style="width: 1%" />
-<col style="width: 1%" />
-<col style="width: 95%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">
-Name
-</th>
-<th style="text-align: left;">
-Type
-</th>
-<th style="text-align: left;">
-In
-</th>
-<th style="text-align: left;">
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">
-<code>accept</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-header
-</td>
-<td style="text-align: left;">
-Setting to <code>application/vnd.github.v3+json</code> is recommended.
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>q</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-The query contains one or more search keywords and qualifiers. Qualifiers allow you to limit your search to specific areas of GitHub. The REST API supports the same qualifiers as GitHub.com. To learn more about the format of the query, see <a href="https://docs.github.com/rest/reference/search#constructing-a-search-query">Constructing a search query</a>. See “<a href="https://help.github.com/articles/searching-users/">Searching users</a>” for a detailed list of qualifiers.
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>sort</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Sorts the results of your query by number of <code>followers</code> or <code>repositories</code>, or when the person <code>joined</code> GitHub. Default: <a href="https://docs.github.com/rest/reference/search#ranking-search-results">best match</a>
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>order</code>
-</td>
-<td style="text-align: left;">
-string
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Determines whether the first search result returned is the highest number of matches (<code>desc</code>) or lowest number of matches (<code>asc</code>). This parameter is ignored unless you provide <code>sort</code>.
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>per_page</code>
-</td>
-<td style="text-align: left;">
-integer
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Results per page (max 100).
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>page</code>
-</td>
-<td style="text-align: left;">
-integer
-</td>
-<td style="text-align: left;">
-query
-</td>
-<td style="text-align: left;">
-Page number of the results to fetch.
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Code samples</strong></p>
-<p><strong>Shell</strong></p>
-<pre><code>curl \
+    <p><strong>Not modified</strong></p>
+    <pre><code>Status: 304 Not Modified</code></pre>
+    <p><strong>Preview header missing</strong></p>
+    <pre><code>Status: 415 Unsupported Media Type</code></pre>
+    <p><strong>Notes</strong></p>
+    <ul>
+      <li>
+        <a href="https://docs.github.com/en/developers/apps"
+          >Works with GitHub Apps</a
+        >
+      </li>
+    </ul>
+    <p><strong>Preview notice</strong></p>
+    <p>
+      The <code>topics</code> property for repositories on GitHub is currently
+      available for developers to preview. To view the
+      <code>topics</code> property in calls that return repository results, you
+      must provide a custom
+      <a href="https://docs.github.com/rest/overview/media-types">media type</a>
+      in the <code>Accept</code> header:
+    </p>
+    <pre><code>application/vnd.github.mercy-preview+json</code></pre>
+    <p>☝️ This header is <strong>required</strong>.</p>
+    <h4 id="search-users">
+      <a href="https://docs.github.com/en/rest/reference/search#search-users"
+        >Search users</a
+      >
+      <span id="search-users"></span>
+    </h4>
+    <p>
+      Find users via various criteria. This method returns up to 100 results
+      <a
+        href="https://docs.github.com/rest/overview/resources-in-the-rest-api#pagination"
+        >per page</a
+      >.
+    </p>
+    <p>
+      When searching for users, you can get text match metadata for the issue
+      <strong>login</strong>, <strong>email</strong>, and
+      <strong>name</strong> fields when you pass the
+      <code>text-match</code> media type. For more details about highlighting
+      search results, see
+      <a
+        href="https://docs.github.com/rest/reference/search#text-match-metadata"
+        >Text match metadata</a
+      >. For more details about how to receive highlighted search results, see
+      <a
+        href="https://docs.github.com/rest/reference/search#text-match-metadata"
+        >Text match metadata</a
+      >.
+    </p>
+    <p>
+      For example, if you’re looking for a list of popular users, you might try
+      this query:
+    </p>
+    <p><code>q=tom+repos:%3E42+followers:%3E1000</code></p>
+    <p>
+      This query searches for users with the name <code>tom</code>. The results
+      are restricted to users with more than 42 repositories and over 1,000
+      followers.
+    </p>
+    <pre><code>GET /search/users</code></pre>
+    <p><strong>Parameters</strong></p>
+    <table style="width: 99%">
+      <colgroup>
+        <col style="width: 2%" />
+        <col style="width: 1%" />
+        <col style="width: 1%" />
+        <col style="width: 95%" />
+      </colgroup>
+      <thead>
+        <tr class="header">
+          <th style="text-align: left">Name</th>
+          <th style="text-align: left">Type</th>
+          <th style="text-align: left">In</th>
+          <th style="text-align: left">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>accept</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">header</td>
+          <td style="text-align: left">
+            Setting to <code>application/vnd.github.v3+json</code> is
+            recommended.
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>q</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            The query contains one or more search keywords and qualifiers.
+            Qualifiers allow you to limit your search to specific areas of
+            GitHub. The REST API supports the same qualifiers as GitHub.com. To
+            learn more about the format of the query, see
+            <a
+              href="https://docs.github.com/rest/reference/search#constructing-a-search-query"
+              >Constructing a search query</a
+            >. See “<a href="https://help.github.com/articles/searching-users/"
+              >Searching users</a
+            >” for a detailed list of qualifiers.
+          </td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>sort</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            Sorts the results of your query by number of
+            <code>followers</code> or <code>repositories</code>, or when the
+            person <code>joined</code> GitHub. Default:
+            <a
+              href="https://docs.github.com/rest/reference/search#ranking-search-results"
+              >best match</a
+            >
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>order</code>
+          </td>
+          <td style="text-align: left">string</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">
+            Determines whether the first search result returned is the highest
+            number of matches (<code>desc</code>) or lowest number of matches
+            (<code>asc</code>). This parameter is ignored unless you provide
+            <code>sort</code>.
+          </td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>per_page</code>
+          </td>
+          <td style="text-align: left">integer</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">Results per page (max 100).</td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>page</code>
+          </td>
+          <td style="text-align: left">integer</td>
+          <td style="text-align: left">query</td>
+          <td style="text-align: left">Page number of the results to fetch.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Code samples</strong></p>
+    <p><strong>Shell</strong></p>
+    <pre><code>curl \
   -H &quot;Accept: application/vnd.github.v3+json&quot; \
   https://api.github.com/search/users</code></pre>
-<p><strong>JavaScript (<span class="citation" data-cites="octokit/core.js"><span class="citation" data-cites="octokit/core.js">@octokit/core.js</span></span>)</strong></p>
-<pre><code>await octokit.request(&#39;GET /search/users&#39;, {
+    <p>
+      <strong
+        >JavaScript (<span class="citation" data-cites="octokit/core.js"
+          ><span class="citation" data-cites="octokit/core.js"
+            >@octokit/core.js</span
+          ></span
+        >)</strong
+      >
+    </p>
+    <pre><code>await octokit.request(&#39;GET /search/users&#39;, {
   q: &#39;q&#39;
 })</code></pre>
-<p><strong>Response</strong></p>
-<pre><code>Status: 200 OK
+    <p><strong>Response</strong></p>
+    <pre><code>Status: 200 OK
 
 {
   &quot;total_count&quot;: 12,
@@ -1554,91 +2038,151 @@ Page number of the results to fetch.
     }
   ]
 }</code></pre>
-<p><strong>Not modified</strong></p>
-<pre><code>Status: 304 Not Modified</code></pre>
-<p><strong>Validation failed</strong></p>
-<pre><code>Status: 422 Unprocessable Entity</code></pre>
-<p><strong>Service unavailable</strong></p>
-<pre><code>Status: 503 Service Unavailable</code></pre>
-<p><strong>Notes</strong></p>
-<ul>
-<li><a href="https://docs.github.com/en/developers/apps">Works with GitHub Apps</a></li>
-</ul>
-<h4 id="text-match-metadata"><a href="https://docs.github.com/en/rest/reference/search#text-match-metadata">Text match metadata</a> <span id="text-match-metadata"></span></h4>
-<p>On GitHub, you can use the context provided by code snippets and highlights in search results. The Search API offers additional metadata that allows you to highlight the matching search terms when displaying search results.</p>
-<figure>
-<img src="https://docs.github.com/assets/images/text-match-search-api.png" alt="code-snippet-highlighting" /><figcaption>code-snippet-highlighting</figcaption>
-</figure>
-<p>Requests can opt to receive those text fragments in the response, and every fragment is accompanied by numeric offsets identifying the exact location of each matching search term.</p>
-<p>To get this metadata in your search results, specify the <code>text-match</code> media type in your <code>Accept</code> header.</p>
-<pre><code>application/vnd.github.v3.text-match+json</code></pre>
-<p>When you provide the <code>text-match</code> media type, you will receive an extra key in the JSON payload called <code>text_matches</code> that provides information about the position of your search terms within the text and the <code>property</code> that includes the search term. Inside the <code>text_matches</code> array, each object includes the following attributes:</p>
-<table style="width:99%;">
-<colgroup>
-<col style="width: 4%" />
-<col style="width: 95%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">
-Name
-</th>
-<th style="text-align: left;">
-Description
-</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">
-<code>object_url</code>
-</td>
-<td style="text-align: left;">
-The URL for the resource that contains a string property matching one of the search terms.
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>object_type</code>
-</td>
-<td style="text-align: left;">
-The name for the type of resource that exists at the given <code>object_url</code>.
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>property</code>
-</td>
-<td style="text-align: left;">
-The name of a property of the resource that exists at <code>object_url</code>. That property is a string that matches one of the search terms. (In the JSON returned from <code>object_url</code>, the full content for the <code>fragment</code> will be found in the property with this name.)
-</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">
-<code>fragment</code>
-</td>
-<td style="text-align: left;">
-A subset of the value of <code>property</code>. This is the text fragment that matches one or more of the search terms.
-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">
-<code>matches</code>
-</td>
-<td style="text-align: left;">
-An array of one or more search terms that are present in <code>fragment</code>. The indices (i.e., “offsets”) are relative to the fragment. (They are not relative to the <em>full</em> content of <code>property</code>.)
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example</strong></p>
-<p>Using cURL, and the <a href="https://docs.github.com/en/rest/reference/search#search-issues-and-pull-requests">example issue search</a> above, our API request would look like this:</p>
-<pre><code>curl -H &#39;Accept: application/vnd.github.v3.text-match+json&#39; \
+    <p><strong>Not modified</strong></p>
+    <pre><code>Status: 304 Not Modified</code></pre>
+    <p><strong>Validation failed</strong></p>
+    <pre><code>Status: 422 Unprocessable Entity</code></pre>
+    <p><strong>Service unavailable</strong></p>
+    <pre><code>Status: 503 Service Unavailable</code></pre>
+    <p><strong>Notes</strong></p>
+    <ul>
+      <li>
+        <a href="https://docs.github.com/en/developers/apps"
+          >Works with GitHub Apps</a
+        >
+      </li>
+    </ul>
+    <h4 id="text-match-metadata">
+      <a
+        href="https://docs.github.com/en/rest/reference/search#text-match-metadata"
+        >Text match metadata</a
+      >
+      <span id="text-match-metadata"></span>
+    </h4>
+    <p>
+      On GitHub, you can use the context provided by code snippets and
+      highlights in search results. The Search API offers additional metadata
+      that allows you to highlight the matching search terms when displaying
+      search results.
+    </p>
+    <figure>
+      <img
+        src="https://docs.github.com/assets/images/text-match-search-api.png"
+        alt="code-snippet-highlighting"
+      />
+      <figcaption>code-snippet-highlighting</figcaption>
+    </figure>
+    <p>
+      Requests can opt to receive those text fragments in the response, and
+      every fragment is accompanied by numeric offsets identifying the exact
+      location of each matching search term.
+    </p>
+    <p>
+      To get this metadata in your search results, specify the
+      <code>text-match</code> media type in your <code>Accept</code> header.
+    </p>
+    <pre><code>application/vnd.github.v3.text-match+json</code></pre>
+    <p>
+      When you provide the <code>text-match</code> media type, you will receive
+      an extra key in the JSON payload called <code>text_matches</code> that
+      provides information about the position of your search terms within the
+      text and the <code>property</code> that includes the search term. Inside
+      the <code>text_matches</code> array, each object includes the following
+      attributes:
+    </p>
+    <table style="width: 99%">
+      <colgroup>
+        <col style="width: 4%" />
+        <col style="width: 95%" />
+      </colgroup>
+      <thead>
+        <tr class="header">
+          <th style="text-align: left">Name</th>
+          <th style="text-align: left">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>object_url</code>
+          </td>
+          <td style="text-align: left">
+            The URL for the resource that contains a string property matching
+            one of the search terms.
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>object_type</code>
+          </td>
+          <td style="text-align: left">
+            The name for the type of resource that exists at the given
+            <code>object_url</code>.
+          </td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>property</code>
+          </td>
+          <td style="text-align: left">
+            The name of a property of the resource that exists at
+            <code>object_url</code>. That property is a string that matches one
+            of the search terms. (In the JSON returned from
+            <code>object_url</code>, the full content for the
+            <code>fragment</code> will be found in the property with this name.)
+          </td>
+        </tr>
+        <tr class="even">
+          <td style="text-align: left">
+            <code>fragment</code>
+          </td>
+          <td style="text-align: left">
+            A subset of the value of <code>property</code>. This is the text
+            fragment that matches one or more of the search terms.
+          </td>
+        </tr>
+        <tr class="odd">
+          <td style="text-align: left">
+            <code>matches</code>
+          </td>
+          <td style="text-align: left">
+            An array of one or more search terms that are present in
+            <code>fragment</code>. The indices (i.e., “offsets”) are relative to
+            the fragment. (They are not relative to the <em>full</em> content of
+            <code>property</code>.)
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Example</strong></p>
+    <p>
+      Using cURL, and the
+      <a
+        href="https://docs.github.com/en/rest/reference/search#search-issues-and-pull-requests"
+        >example issue search</a
+      >
+      above, our API request would look like this:
+    </p>
+    <pre><code>curl -H &#39;Accept: application/vnd.github.v3.text-match+json&#39; \
 &#39;https://api.github.com/search/issues?q=windows+label:bug+language:python+state:open&amp;sort=created&amp;order=asc&#39;</code></pre>
-<p>The response will include a <code>text_matches</code> array for each search result. In the JSON below, we have two objects in the <code>text_matches</code> array.</p>
-<p>The first text match occurred in the <code>body</code> property of the issue. We see a fragment of text from the issue body. The search term (<code>windows</code>) appears twice within that fragment, and we have the indices for each occurrence.</p>
-<p>The second text match occurred in the <code>body</code> property of one of the issue’s comments. We have the URL for the issue comment. And of course, we see a fragment of text from the comment body. The search term (<code>windows</code>) appears once within that fragment.</p>
-<pre><code>{
+    <p>
+      The response will include a <code>text_matches</code> array for each
+      search result. In the JSON below, we have two objects in the
+      <code>text_matches</code> array.
+    </p>
+    <p>
+      The first text match occurred in the <code>body</code> property of the
+      issue. We see a fragment of text from the issue body. The search term
+      (<code>windows</code>) appears twice within that fragment, and we have the
+      indices for each occurrence.
+    </p>
+    <p>
+      The second text match occurred in the <code>body</code> property of one of
+      the issue’s comments. We have the URL for the issue comment. And of
+      course, we see a fragment of text from the comment body. The search term
+      (<code>windows</code>) appears once within that fragment.
+    </p>
+    <pre><code>{
   &quot;text_matches&quot;: [
     {
       &quot;object_url&quot;: &quot;https://api.github.com/repositories/215335/issues/132&quot;,
@@ -1679,5 +2223,5 @@ An array of one or more search terms that are present in <code>fragment</code>. 
     }
   ]
 }</code></pre>
-</body>
+  </body>
 </html>

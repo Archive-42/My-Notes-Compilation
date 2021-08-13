@@ -1,18 +1,18 @@
 EN
 
--   <a href="https://ar.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="json.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="json.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- <a href="https://it.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="json%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="json%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -30,8 +30,7 @@ Search
 
 15th October 2020
 
-JSON methods, toJSON
-====================
+# JSON methods, toJSON
 
 Let’s say we have a complex object, and we’d like to convert it into a string, to send it over a network, or just to output it for logging purposes.
 
@@ -58,15 +57,14 @@ We could implement the conversion like this:
 
 Luckily, there’s no need to write the code to handle all this. The task has been solved already.
 
-<a href="json.html#json-stringify" id="json-stringify" class="main__anchor">JSON.stringify</a>
-----------------------------------------------------------------------------------------------
+## <a href="json.html#json-stringify" id="json-stringify" class="main__anchor">JSON.stringify</a>
 
 The [JSON](http://en.wikipedia.org/wiki/JSON) (JavaScript Object Notation) is a general format to represent values and objects. It is described as in [RFC 4627](http://tools.ietf.org/html/rfc4627) standard. Initially it was made for JavaScript, but many other languages have libraries to handle it as well. So it’s easy to use JSON for data exchange when the client uses JavaScript and the server is written on Ruby/PHP/Java/Whatever.
 
 JavaScript provides methods:
 
--   `JSON.stringify` to convert objects into JSON.
--   `JSON.parse` to convert JSON back into an object.
+- `JSON.stringify` to convert objects into JSON.
+- `JSON.parse` to convert JSON back into an object.
 
 For instance, here we `JSON.stringify` a student:
 
@@ -99,24 +97,24 @@ For instance, here we `JSON.stringify` a student:
 
 The method `JSON.stringify(student)` takes the object and converts it into a string.
 
-The resulting `json` string is called a *JSON-encoded* or *serialized* or *stringified* or *marshalled* object. We are ready to send it over the wire or put into a plain data store.
+The resulting `json` string is called a _JSON-encoded_ or _serialized_ or _stringified_ or _marshalled_ object. We are ready to send it over the wire or put into a plain data store.
 
 Please note that a JSON-encoded object has several important differences from the object literal:
 
--   Strings use double quotes. No single quotes or backticks in JSON. So `'John'` becomes `"John"`.
--   Object property names are double-quoted also. That’s obligatory. So `age:30` becomes `"age":30`.
+- Strings use double quotes. No single quotes or backticks in JSON. So `'John'` becomes `"John"`.
+- Object property names are double-quoted also. That’s obligatory. So `age:30` becomes `"age":30`.
 
 `JSON.stringify` can be applied to primitives as well.
 
 JSON supports following data types:
 
--   Objects `{ ... }`
--   Arrays `[ ... ]`
--   Primitives:
-    -   strings,
-    -   numbers,
-    -   boolean values `true/false`,
-    -   `null`.
+- Objects `{ ... }`
+- Arrays `[ ... ]`
+- Primitives:
+  - strings,
+  - numbers,
+  - boolean values `true/false`,
+  - `null`.
 
 For instance:
 
@@ -138,9 +136,9 @@ JSON is data-only language-independent specification, so some JavaScript-specifi
 
 Namely:
 
--   Function properties (methods).
--   Symbolic keys and values.
--   Properties that store `undefined`.
+- Function properties (methods).
+- Symbolic keys and values.
+- Properties that store `undefined`.
 
 <a href="json.html#" class="toolbar__button toolbar__button_run" title="run"></a>
 
@@ -206,8 +204,7 @@ For instance:
 
 Here, the conversion fails, because of circular reference: `room.occupiedBy` references `meetup`, and `meetup.place` references `room`:
 
-<figure><img src="article/json/json-meetup.svg" width="188" height="192" /></figure><a href="json.html#excluding-and-transforming-replacer" id="excluding-and-transforming-replacer" class="main__anchor">Excluding and transforming: replacer</a>
---------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <figure><img src="article/json/json-meetup.svg" width="188" height="192" /></figure><a href="json.html#excluding-and-transforming-replacer" id="excluding-and-transforming-replacer" class="main__anchor">Excluding and transforming: replacer</a>
 
 The full syntax of `JSON.stringify` is:
 
@@ -324,8 +321,7 @@ The first call is special. It is made using a special “wrapper object”: `{""
 
 The idea is to provide as much power for `replacer` as possible: it has a chance to analyze and replace/skip even the whole object if necessary.
 
-<a href="json.html#formatting-space" id="formatting-space" class="main__anchor">Formatting: space</a>
------------------------------------------------------------------------------------------------------
+## <a href="json.html#formatting-space" id="formatting-space" class="main__anchor">Formatting: space</a>
 
 The third argument of `JSON.stringify(value, replacer, space)` is the number of spaces to use for pretty formatting.
 
@@ -373,8 +369,7 @@ The third argument can also be a string. In this case, the string is used for in
 
 The `space` parameter is used solely for logging and nice-output purposes.
 
-<a href="json.html#custom-tojson" id="custom-tojson" class="main__anchor">Custom “toJSON”</a>
----------------------------------------------------------------------------------------------
+## <a href="json.html#custom-tojson" id="custom-tojson" class="main__anchor">Custom “toJSON”</a>
 
 Like `toString` for string conversion, an object may provide method `toJSON` for to-JSON conversion. `JSON.stringify` automatically calls it if available.
 
@@ -435,8 +430,7 @@ Now let’s add a custom `toJSON` for our object `room` `(2)`:
 
 As we can see, `toJSON` is used both for the direct call `JSON.stringify(room)` and when `room` is nested in another encoded object.
 
-<a href="json.html#json-parse" id="json-parse" class="main__anchor">JSON.parse</a>
-----------------------------------------------------------------------------------
+## <a href="json.html#json-parse" id="json-parse" class="main__anchor">JSON.parse</a>
 
 To decode a JSON-string, we need another method named [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse).
 
@@ -493,8 +487,7 @@ There’s another format named [JSON5](http://json5.org/), which allows unquoted
 
 The regular JSON is that strict not because its developers are lazy, but to allow easy, reliable and very fast implementations of the parsing algorithm.
 
-<a href="json.html#using-reviver" id="using-reviver" class="main__anchor">Using reviver</a>
--------------------------------------------------------------------------------------------
+## <a href="json.html#using-reviver" id="using-reviver" class="main__anchor">Using reviver</a>
 
 Imagine, we got a stringified `meetup` object from the server.
 
@@ -503,7 +496,7 @@ It looks like this:
     // title: (meetup title), date: (meetup date)
     let str = '{"title":"Conference","date":"2017-11-30T12:00:00.000Z"}';
 
-…And now we need to *deserialize* it, to turn back into JavaScript object.
+…And now we need to _deserialize_ it, to turn back into JavaScript object.
 
 Let’s do it by calling `JSON.parse`:
 
@@ -556,17 +549,15 @@ By the way, that works for nested objects as well:
 
     alert( schedule.meetups[1].date.getDate() ); // works!
 
-<a href="json.html#summary" id="summary" class="main__anchor">Summary</a>
--------------------------------------------------------------------------
+## <a href="json.html#summary" id="summary" class="main__anchor">Summary</a>
 
--   JSON is a data format that has its own independent standard and libraries for most programming languages.
--   JSON supports plain objects, arrays, strings, numbers, booleans, and `null`.
--   JavaScript provides methods [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) to serialize into JSON and [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) to read from JSON.
--   Both methods support transformer functions for smart reading/writing.
--   If an object has `toJSON`, then it is called by `JSON.stringify`.
+- JSON is a data format that has its own independent standard and libraries for most programming languages.
+- JSON supports plain objects, arrays, strings, numbers, booleans, and `null`.
+- JavaScript provides methods [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) to serialize into JSON and [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) to read from JSON.
+- Both methods support transformer functions for smart reading/writing.
+- If an object has `toJSON`, then it is called by `JSON.stringify`.
 
-<a href="json.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
--------------------------------------------------------------------------------------------------------------
+## <a href="json.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="json.html#turn-the-object-into-json-and-back" id="turn-the-object-into-json-and-back" class="main__anchor">Turn the object into JSON and back</a>
 
@@ -675,11 +666,11 @@ Here we also need to test `key==""` to exclude the first call where it is normal
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="data-types.html" class="sidebar__link">Data types</a>
+- <a href="data-types.html" class="sidebar__link">Data types</a>
 
 #### Lesson navigation
 
@@ -697,13 +688,13 @@ json.html\#excluding-and-transforming-replacer" &gt;Excluding and transforming: 
 
 <a href="json.html%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/ul%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/nav%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cnav%20class=" class="sidebar__link"></a>
 
--   <a href="json.html#tasks" class="sidebar__link">Tasks (2)</a>
--   <a href="json.html#comments" class="sidebar__link">Comments</a>
+- <a href="json.html#tasks" class="sidebar__link">Tasks (2)</a>
+- <a href="json.html#comments" class="sidebar__link">Comments</a>
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fjson" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjson" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/05-data-types/12-json" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

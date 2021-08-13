@@ -1,17 +1,17 @@
 EN
 
--   <a href="https://ar.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="arrow-functions.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://it.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="arrow-functions.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://it.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="arrow-functions%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="arrow-functions%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/arrow-functions" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -27,8 +27,7 @@ We want to make this open-source project available for people all around the wor
 
 1st February 2021
 
-Arrow functions revisited
-=========================
+# Arrow functions revisited
 
 Let’s revisit arrow functions.
 
@@ -38,16 +37,15 @@ JavaScript is full of situations where we need to write a small function that’
 
 For instance:
 
--   `arr.forEach(func)` – `func` is executed by `forEach` for every array item.
--   `setTimeout(func)` – `func` is executed by the built-in scheduler.
--   …there are more.
+- `arr.forEach(func)` – `func` is executed by `forEach` for every array item.
+- `setTimeout(func)` – `func` is executed by the built-in scheduler.
+- …there are more.
 
 It’s in the very spirit of JavaScript to create a function and pass it somewhere.
 
 And in such functions we usually don’t want to leave the current context. That’s where arrow functions come in handy.
 
-<a href="arrow-functions.html#arrow-functions-have-no-this" id="arrow-functions-have-no-this" class="main__anchor">Arrow functions have no “this”</a>
------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="arrow-functions.html#arrow-functions-have-no-this" id="arrow-functions-have-no-this" class="main__anchor">Arrow functions have no “this”</a>
 
 As we remember from the chapter [Object methods, "this"](object-methods.html), arrow functions do not have `this`. If `this` is accessed, it is taken from the outside.
 
@@ -104,11 +102,10 @@ Not having `this` naturally means another limitation: arrow functions can’t be
 
 There’s a subtle difference between an arrow function `=>` and a regular function called with `.bind(this)`:
 
--   `.bind(this)` creates a “bound version” of the function.
--   The arrow `=>` doesn’t create any binding. The function simply doesn’t have `this`. The lookup of `this` is made exactly the same way as a regular variable search: in the outer lexical environment.
+- `.bind(this)` creates a “bound version” of the function.
+- The arrow `=>` doesn’t create any binding. The function simply doesn’t have `this`. The lookup of `this` is made exactly the same way as a regular variable search: in the outer lexical environment.
 
-<a href="arrow-functions.html#arrows-have-no-arguments" id="arrows-have-no-arguments" class="main__anchor">Arrows have no “arguments”</a>
------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="arrow-functions.html#arrows-have-no-arguments" id="arrows-have-no-arguments" class="main__anchor">Arrows have no “arguments”</a>
 
 Arrow functions also have no `arguments` variable.
 
@@ -146,15 +143,14 @@ The same without an arrow function would look like:
 
 Here we had to create additional variables `args` and `ctx` so that the function inside `setTimeout` could take them.
 
-<a href="arrow-functions.html#summary" id="summary" class="main__anchor">Summary</a>
-------------------------------------------------------------------------------------
+## <a href="arrow-functions.html#summary" id="summary" class="main__anchor">Summary</a>
 
 Arrow functions:
 
--   Do not have `this`
--   Do not have `arguments`
--   Can’t be called with `new`
--   They also don’t have `super`, but we didn’t study it yet. We will on the chapter [Class inheritance](class-inheritance.html)
+- Do not have `this`
+- Do not have `arguments`
+- Can’t be called with `new`
+- They also don’t have `super`, but we didn’t study it yet. We will on the chapter [Class inheritance](class-inheritance.html)
 
 That’s because they are meant for short pieces of code that do not have their own “context”, but rather work in the current one. And they really shine in that use case.
 
@@ -168,9 +164,9 @@ That’s because they are meant for short pieces of code that do not have their 
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
 <a href="advanced-functions.html" class="sidebar__link">Advanced working with functions</a>
 

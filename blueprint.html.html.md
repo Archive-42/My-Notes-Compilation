@@ -1,87 +1,86 @@
 > Error: Duplicate attribute id.
 
--   **Error**: Duplicate attribute `id`.
+- **Error**: Duplicate attribute `id`.
 
-    At line 93, column 209
+  At line 93, column 209
 
--   **Error**: Bad value `https://api.w.org/` for attribute `rel` on element [`link`](https://html.spec.whatwg.org/multipage/#the-link-element): The string `https://api.w.org/` is not a registered keyword.
+- **Error**: Bad value `https://api.w.org/` for attribute `rel` on element [`link`](https://html.spec.whatwg.org/multipage/#the-link-element): The string `https://api.w.org/` is not a registered keyword.
 
-    From line 100, column 1; to line 100, column 77
+  From line 100, column 1; to line 100, column 77
 
--   **Error**: Bad value `https://theeventscalendar.com/` for attribute `rel` on element [`link`](https://html.spec.whatwg.org/multipage/#the-link-element): The string `https://theeventscalendar.com/` is not a registered keyword.
+- **Error**: Bad value `https://theeventscalendar.com/` for attribute `rel` on element [`link`](https://html.spec.whatwg.org/multipage/#the-link-element): The string `https://theeventscalendar.com/` is not a registered keyword.
 
-    From line 106, column 109; to line 106, column 213
+  From line 106, column 109; to line 106, column 213
 
--   **Error**: Duplicate attribute `data-path`.
+- **Error**: Duplicate attribute `data-path`.
 
-    At line 191, column 444
+  At line 191, column 444
 
--   **Error**: The `font` element is obsolete. [Use CSS instead](http://wiki.whatwg.org/wiki/Presentational_elements_and_attributes "About using CSS instead of presentational elements and attributes.").
+- **Error**: The `font` element is obsolete. [Use CSS instead](http://wiki.whatwg.org/wiki/Presentational_elements_and_attributes "About using CSS instead of presentational elements and attributes.").
 
-    From line 201, column 491; to line 201, column 519
+  From line 201, column 491; to line 201, column 519
 
--   **Error**: The `font` element is obsolete. [Use CSS instead](http://wiki.whatwg.org/wiki/Presentational_elements_and_attributes "About using CSS instead of presentational elements and attributes.").
+- **Error**: The `font` element is obsolete. [Use CSS instead](http://wiki.whatwg.org/wiki/Presentational_elements_and_attributes "About using CSS instead of presentational elements and attributes.").
 
-    From line 217, column 308; to line 217, column 336
+  From line 217, column 308; to line 217, column 336
 
--   **Error**: The `font` element is obsolete. [Use CSS instead](http://wiki.whatwg.org/wiki/Presentational_elements_and_attributes "About using CSS instead of presentational elements and attributes.").
+- **Error**: The `font` element is obsolete. [Use CSS instead](http://wiki.whatwg.org/wiki/Presentational_elements_and_attributes "About using CSS instead of presentational elements and attributes.").
 
-    From line 224, column 352; to line 224, column 380
+  From line 224, column 352; to line 224, column 380
 
--   **Error**: Element [`h1`](https://html.spec.whatwg.org/multipage/#the-h1,-h2,-h3,-h4,-h5,-and-h6-elements) not allowed as child of element [`span`](https://html.spec.whatwg.org/multipage/#the-span-element) in this context. (Suppressing further errors from this subtree.)
+- **Error**: Element [`h1`](https://html.spec.whatwg.org/multipage/#the-h1,-h2,-h3,-h4,-h5,-and-h6-elements) not allowed as child of element [`span`](https://html.spec.whatwg.org/multipage/#the-span-element) in this context. (Suppressing further errors from this subtree.)
 
-    From line 259, column 353; to line 259, column 395
+  From line 259, column 353; to line 259, column 395
 
-    Content model for element [`span`](https://html.spec.whatwg.org/multipage/#the-span-element):
+  Content model for element [`span`](https://html.spec.whatwg.org/multipage/#the-span-element):
 
-    [Phrasing content](https://html.spec.whatwg.org/multipage/#phrasing-content-2).
+  [Phrasing content](https://html.spec.whatwg.org/multipage/#phrasing-content-2).
 
--   **Warning**: Empty heading.
+- **Warning**: Empty heading.
 
-    From line 259, column 331; to line 259, column 346
+  From line 259, column 331; to line 259, column 346
 
--   **Error**: Element [`h1`](https://html.spec.whatwg.org/multipage/#the-h1,-h2,-h3,-h4,-h5,-and-h6-elements) not allowed as child of element [`span`](https://html.spec.whatwg.org/multipage/#the-span-element) in this context. (Suppressing further errors from this subtree.)
+- **Error**: Element [`h1`](https://html.spec.whatwg.org/multipage/#the-h1,-h2,-h3,-h4,-h5,-and-h6-elements) not allowed as child of element [`span`](https://html.spec.whatwg.org/multipage/#the-span-element) in this context. (Suppressing further errors from this subtree.)
 
-    From line 350, column 466; to line 350, column 479
+  From line 350, column 466; to line 350, column 479
 
-    Content model for element [`span`](https://html.spec.whatwg.org/multipage/#the-span-element):
+  Content model for element [`span`](https://html.spec.whatwg.org/multipage/#the-span-element):
 
-    [Phrasing content](https://html.spec.whatwg.org/multipage/#phrasing-content-2).
+  [Phrasing content](https://html.spec.whatwg.org/multipage/#phrasing-content-2).
 
--   **Warning**: Empty heading.
+- **Warning**: Empty heading.
 
-    From line 350, column 444; to line 350, column 459
+  From line 350, column 444; to line 350, column 459
 
--   **Error**: The `itemprop` attribute was specified, but the element is not a property of any item.
+- **Error**: The `itemprop` attribute was specified, but the element is not a property of any item.
 
-    From line 138, column 3; to line 138, column 71
+  From line 138, column 3; to line 138, column 71
 
--   **Error**: The `itemprop` attribute was specified, but the element is not a property of any item.
+- **Error**: The `itemprop` attribute was specified, but the element is not a property of any item.
 
-    From line 139, column 3; to line 139, column 75
+  From line 139, column 3; to line 139, column 75
 
--   **Error**: The `itemprop` attribute was specified, but the element is not a property of any item.
+- **Error**: The `itemprop` attribute was specified, but the element is not a property of any item.
 
-    From line 140, column 3; to line 140, column 78
+  From line 140, column 3; to line 140, column 78
 
--   **Error**: The `itemprop` attribute was specified, but the element is not a property of any item.
+- **Error**: The `itemprop` attribute was specified, but the element is not a property of any item.
 
-    From line 141, column 3; to line 141, column 114
+  From line 141, column 3; to line 141, column 114
 
--   **Error**: The `itemprop` attribute was specified, but the element is not a property of any item.
+- **Error**: The `itemprop` attribute was specified, but the element is not a property of any item.
 
-    From line 142, column 3; to line 142, column 51
+  From line 142, column 3; to line 142, column 51
 
--   **IO Error**: Premature end of chunk coded message body: closing chunk expected
+- **IO Error**: Premature end of chunk coded message body: closing chunk expected
 
-    https://www.oneideaaway.com/featured-columnists/
+  https://www.oneideaaway.com/featured-columnists/
 
-------------------------------------------------------------------------
+---
 
-------------------------------------------------------------------------
+---
 
-Source
-======
+# Source
 
     <!DOCTYPE html>↩
     <html

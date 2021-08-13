@@ -1,10 +1,10 @@
 EN
 
--   <a href="https://ar.javascript.info/dom-attributes-and-properties" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="dom-attributes-and-properties.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/dom-attributes-and-properties" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://it.javascript.info/dom-attributes-and-properties" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/dom-attributes-and-properties" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/dom-attributes-and-properties" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="dom-attributes-and-properties.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/dom-attributes-and-properties" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://it.javascript.info/dom-attributes-and-properties" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/dom-attributes-and-properties" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <a href="https://ko.javascript.info/dom-attributes-and-properties" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
 
@@ -24,8 +24,7 @@ Search
 
 10th November 2020
 
-Attributes and properties
-=========================
+# Attributes and properties
 
 When the browser loads the page, it “reads” (another word: “parses”) the HTML and generates DOM objects from it. For element nodes, most standard HTML attributes automatically become properties of DOM objects.
 
@@ -33,8 +32,7 @@ For instance, if the tag is `<body id="page">`, then the DOM object has `body.id
 
 But the attribute-property mapping is not one-to-one! In this chapter we’ll pay attention to separate these two notions, to see how to work with them, when they are the same, and when they are different.
 
-<a href="dom-attributes-and-properties.html#dom-properties" id="dom-properties" class="main__anchor">DOM properties</a>
------------------------------------------------------------------------------------------------------------------------
+## <a href="dom-attributes-and-properties.html#dom-properties" id="dom-properties" class="main__anchor">DOM properties</a>
 
 We’ve already seen built-in DOM properties. There are a lot. But technically no one limits us, and if there aren’t enough, we can add our own.
 
@@ -80,15 +78,14 @@ We can also modify built-in prototypes like `Element.prototype` and add new meth
 
 So, DOM properties and methods behave just like those of regular JavaScript objects:
 
--   They can have any value.
--   They are case-sensitive (write `elem.nodeType`, not `elem.NoDeTyPe`).
+- They can have any value.
+- They are case-sensitive (write `elem.nodeType`, not `elem.NoDeTyPe`).
 
-<a href="dom-attributes-and-properties.html#html-attributes" id="html-attributes" class="main__anchor">HTML attributes</a>
---------------------------------------------------------------------------------------------------------------------------
+## <a href="dom-attributes-and-properties.html#html-attributes" id="html-attributes" class="main__anchor">HTML attributes</a>
 
-In HTML, tags may have attributes. When the browser parses the HTML to create DOM objects for tags, it recognizes *standard* attributes and creates DOM properties from them.
+In HTML, tags may have attributes. When the browser parses the HTML to create DOM objects for tags, it recognizes _standard_ attributes and creates DOM properties from them.
 
-So when an element has `id` or another *standard* attribute, the corresponding property gets created. But that doesn’t happen if the attribute is non-standard.
+So when an element has `id` or another _standard_ attribute, the corresponding property gets created. But that doesn’t happen if the attribute is non-standard.
 
 For instance:
 
@@ -124,10 +121,10 @@ So, if an attribute is non-standard, there won’t be a DOM-property for it. Is 
 
 Sure. All attributes are accessible by using the following methods:
 
--   `elem.hasAttribute(name)` – checks for existence.
--   `elem.getAttribute(name)` – gets the value.
--   `elem.setAttribute(name, value)` – sets the value.
--   `elem.removeAttribute(name)` – removes the attribute.
+- `elem.hasAttribute(name)` – checks for existence.
+- `elem.getAttribute(name)` – gets the value.
+- `elem.setAttribute(name, value)` – sets the value.
+- `elem.removeAttribute(name)` – removes the attribute.
 
 These methods operate exactly with what’s written in HTML.
 
@@ -147,8 +144,8 @@ Here’s a demo of reading a non-standard property:
 
 HTML attributes have the following features:
 
--   Their name is case-insensitive (`id` is same as `ID`).
--   Their values are always strings.
+- Their name is case-insensitive (`id` is same as `ID`).
+- Their values are always strings.
 
 Here’s an extended demo of working with attributes:
 
@@ -179,8 +176,7 @@ Please note:
 3.  All attributes including ones that we set are visible in `outerHTML`.
 4.  The `attributes` collection is iterable and has all the attributes of the element (standard and non-standard) as objects with `name` and `value` properties.
 
-<a href="dom-attributes-and-properties.html#property-attribute-synchronization" id="property-attribute-synchronization" class="main__anchor">Property-attribute synchronization</a>
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="dom-attributes-and-properties.html#property-attribute-synchronization" id="property-attribute-synchronization" class="main__anchor">Property-attribute synchronization</a>
 
 When a standard attribute changes, the corresponding property is auto-updated, and (with some exceptions) vice versa.
 
@@ -226,13 +222,12 @@ But there are exclusions, for instance `input.value` synchronizes only from attr
 
 In the example above:
 
--   Changing the attribute `value` updates the property.
--   But the property change does not affect the attribute.
+- Changing the attribute `value` updates the property.
+- But the property change does not affect the attribute.
 
 That “feature” may actually come in handy, because the user actions may lead to `value` changes, and then after them, if we want to recover the “original” value from HTML, it’s in the attribute.
 
-<a href="dom-attributes-and-properties.html#dom-properties-are-typed" id="dom-properties-are-typed" class="main__anchor">DOM properties are typed</a>
------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="dom-attributes-and-properties.html#dom-properties-are-typed" id="dom-properties-are-typed" class="main__anchor">DOM properties are typed</a>
 
 DOM properties are not always strings. For instance, the `input.checked` property (for checkboxes) is a boolean:
 
@@ -266,7 +261,7 @@ There are other examples. The `style` attribute is a string, but the `style` pro
 
 Most properties are strings though.
 
-Quite rarely, even if a DOM property type is a string, it may differ from the attribute. For instance, the `href` DOM property is always a *full* URL, even if the attribute contains a relative URL or just a `#hash`.
+Quite rarely, even if a DOM property type is a string, it may differ from the attribute. For instance, the `href` DOM property is always a _full_ URL, even if the attribute contains a relative URL or just a `#hash`.
 
 Here’s an example:
 
@@ -285,8 +280,7 @@ Here’s an example:
 
 If we need the value of `href` or any other attribute exactly as written in the HTML, we can use `getAttribute`.
 
-<a href="dom-attributes-and-properties.html#non-standard-attributes-dataset" id="non-standard-attributes-dataset" class="main__anchor">Non-standard attributes, dataset</a>
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="dom-attributes-and-properties.html#non-standard-attributes-dataset" id="non-standard-attributes-dataset" class="main__anchor">Non-standard attributes, dataset</a>
 
 When writing HTML, we use a lot of standard attributes. But what about non-standard, custom ones? First, let’s see whether they are useful or not? What for?
 
@@ -416,11 +410,10 @@ Using `data-*` attributes is a valid, safe way to pass custom data.
 
 Please note that we can not only read, but also modify data-attributes. Then CSS updates the view accordingly: in the example above the last line `(*)` changes the color to blue.
 
-<a href="dom-attributes-and-properties.html#summary" id="summary" class="main__anchor">Summary</a>
---------------------------------------------------------------------------------------------------
+## <a href="dom-attributes-and-properties.html#summary" id="summary" class="main__anchor">Summary</a>
 
--   Attributes – is what’s written in HTML.
--   Properties – is what’s in DOM objects.
+- Attributes – is what’s written in HTML.
+- Properties – is what’s in DOM objects.
 
 A small comparison:
 
@@ -428,19 +421,18 @@ A small comparison:
 
 Methods to work with attributes are:
 
--   `elem.hasAttribute(name)` – to check for existence.
--   `elem.getAttribute(name)` – to get the value.
--   `elem.setAttribute(name, value)` – to set the value.
--   `elem.removeAttribute(name)` – to remove the attribute.
--   `elem.attributes` is a collection of all attributes.
+- `elem.hasAttribute(name)` – to check for existence.
+- `elem.getAttribute(name)` – to get the value.
+- `elem.setAttribute(name, value)` – to set the value.
+- `elem.removeAttribute(name)` – to remove the attribute.
+- `elem.attributes` is a collection of all attributes.
 
 For most situations using DOM properties is preferable. We should refer to attributes only when DOM properties do not suit us, when we need exactly attributes, for instance:
 
--   We need a non-standard attribute. But if it starts with `data-`, then we should use `dataset`.
--   We want to read the value “as written” in HTML. The value of the DOM property may be different, for instance the `href` property is always a full URL, and we may want to get the “original” value.
+- We need a non-standard attribute. But if it starts with `data-`, then we should use `dataset`.
+- We want to read the value “as written” in HTML. The value of the DOM property may be different, for instance the `href` property is always a full URL, and we may want to get the “original” value.
 
-<a href="dom-attributes-and-properties.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
---------------------------------------------------------------------------------------------------------------------------------------
+## <a href="dom-attributes-and-properties.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="dom-attributes-and-properties.html#get-the-attribute" id="get-the-attribute" class="main__anchor">Get the attribute</a>
 
@@ -500,8 +492,8 @@ Make all external links orange by altering their `style` property.
 
 A link is external if:
 
--   Its `href` has `://` in it
--   But doesn’t start with `http://internal.com`.
+- Its `href` has `://` in it
+- But doesn’t start with `http://internal.com`.
 
 Example:
 
@@ -573,30 +565,30 @@ Please note: we use `link.getAttribute('href')`. Not `link.href`, because we nee
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="document.html" class="sidebar__link">Document</a>
+- <a href="document.html" class="sidebar__link">Document</a>
 
 #### Lesson navigation
 
--   dom-attributes-and-properties.html\#dom-properties" &gt;DOM properties
--   dom-attributes-and-properties.html\#html-attributes" &gt;HTML attributes
--   dom-attributes-and-properties.html\#property-attribute-synchronization" &gt;Property-attribute synchronization
--   dom-attributes-and-properties.html\#dom-properties-are-typed" &gt;DOM properties are typed
--   dom-attributes-and-properties.html\#non-standard-attributes-dataset" &gt;Non-standard attributes, dataset
--   dom-attributes-and-properties.html
+- dom-attributes-and-properties.html\#dom-properties" &gt;DOM properties
+- dom-attributes-and-properties.html\#html-attributes" &gt;HTML attributes
+- dom-attributes-and-properties.html\#property-attribute-synchronization" &gt;Property-attribute synchronization
+- dom-attributes-and-properties.html\#dom-properties-are-typed" &gt;DOM properties are typed
+- dom-attributes-and-properties.html\#non-standard-attributes-dataset" &gt;Non-standard attributes, dataset
+- dom-attributes-and-properties.html
 
 <!-- -->
 
--   dom-attributes-and-properties.html\#tasks" &gt;Tasks (2)
--   dom-attributes-and-properties.html\#comments" &gt;Comments
+- dom-attributes-and-properties.html\#tasks" &gt;Tasks (2)
+- dom-attributes-and-properties.html\#comments" &gt;Comments
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fdom-attributes-and-properties" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdom-attributes-and-properties" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/06-dom-attributes-and-properties" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

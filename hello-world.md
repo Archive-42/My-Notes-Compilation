@@ -1,18 +1,18 @@
 EN
 
--   <a href="https://ar.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="hello-world.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="hello-world.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- <a href="https://it.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="hello-world%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="hello-world%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/hello-world" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -30,8 +30,7 @@ Search
 
 22nd November 2020
 
-Hello, world!
-=============
+# Hello, world!
 
 This part of the tutorial is about core JavaScript, the language itself.
 
@@ -39,8 +38,7 @@ But we need a working environment to run our scripts and, since this book is onl
 
 So first, let’s see how we attach a script to a webpage. For server-side environments (like Node.js), you can execute the script with a command like `"node my.js"`.
 
-<a href="hello-world.html#the-script-tag" id="the-script-tag" class="main__anchor">The “script” tag</a>
--------------------------------------------------------------------------------------------------------
+## <a href="hello-world.html#the-script-tag" id="the-script-tag" class="main__anchor">The “script” tag</a>
 
 JavaScript programs can be inserted almost anywhere into an HTML document using the `<script>` tag.
 
@@ -71,15 +69,14 @@ You can run the example by clicking the “Play” button in the right-top corne
 
 The `<script>` tag contains JavaScript code which is automatically executed when the browser processes the tag.
 
-<a href="hello-world.html#modern-markup" id="modern-markup" class="main__anchor">Modern markup</a>
---------------------------------------------------------------------------------------------------
+## <a href="hello-world.html#modern-markup" id="modern-markup" class="main__anchor">Modern markup</a>
 
 The `<script>` tag has a few attributes that are rarely used nowadays but can still be found in old code:
 
- The `type` attribute: `<script type=…>`   
+The `type` attribute: `<script type=…>`  
 The old HTML standard, HTML4, required a script to have a `type`. Usually it was `type="text/javascript"`. It’s not required anymore. Also, the modern HTML standard totally changed the meaning of this attribute. Now, it can be used for JavaScript modules. But that’s an advanced topic, we’ll talk about modules in another part of the tutorial.
 
- The `language` attribute: `<script language=…>`   
+The `language` attribute: `<script language=…>`  
 This attribute was meant to show the language of the script. This attribute no longer makes sense because JavaScript is the default language. There is no need to use it.
 
 Comments before and after scripts.  
@@ -91,8 +88,7 @@ In really ancient books and guides, you may find comments inside `<script>` tags
 
 This trick isn’t used in modern JavaScript. These comments hide JavaScript code from old browsers that didn’t know how to process the `<script>` tag. Since browsers released in the last 15 years don’t have this issue, this kind of comment can help you identify really old code.
 
-<a href="hello-world.html#external-scripts" id="external-scripts" class="main__anchor">External scripts</a>
------------------------------------------------------------------------------------------------------------
+## <a href="hello-world.html#external-scripts" id="external-scripts" class="main__anchor">External scripts</a>
 
 If we have a lot of JavaScript code, we can put it into a separate file.
 
@@ -141,17 +137,15 @@ The example above can be split into two scripts to work:
       alert(1);
     </script>
 
-<a href="hello-world.html#summary" id="summary" class="main__anchor">Summary</a>
---------------------------------------------------------------------------------
+## <a href="hello-world.html#summary" id="summary" class="main__anchor">Summary</a>
 
--   We can use a `<script>` tag to add JavaScript code to a page.
--   The `type` and `language` attributes are not required.
--   A script in an external file can be inserted with `<script                         src="path/to/script.js"></script>`.
+- We can use a `<script>` tag to add JavaScript code to a page.
+- The `type` and `language` attributes are not required.
+- A script in an external file can be inserted with `<script src="path/to/script.js"></script>`.
 
 There is much more to learn about browser scripts and their interaction with the webpage. But let’s keep in mind that this part of the tutorial is devoted to the JavaScript language, so we shouldn’t distract ourselves with browser-specific implementations of it. We’ll be using the browser as a way to run JavaScript, which is very convenient for online reading, but only one of many.
 
-<a href="hello-world.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
---------------------------------------------------------------------------------------------------------------------
+## <a href="hello-world.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="hello-world.html#show-an-alert" id="show-an-alert" class="main__anchor">Show an alert</a>
 
@@ -221,11 +215,11 @@ For the file `alert.js` in the same folder:
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="first-steps.html" class="sidebar__link">JavaScript Fundamentals</a>
+- <a href="first-steps.html" class="sidebar__link">JavaScript Fundamentals</a>
 
 #### Lesson navigation
 
@@ -237,13 +231,13 @@ hello-world.html\#external-scripts" &gt;External scripts
 
 <a href="hello-world.html%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/ul%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/nav%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cnav%20class=" class="sidebar__link"></a>
 
--   <a href="hello-world.html#tasks" class="sidebar__link">Tasks (2)</a>
--   <a href="hello-world.html#comments" class="sidebar__link">Comments</a>
+- <a href="hello-world.html#tasks" class="sidebar__link">Tasks (2)</a>
+- <a href="hello-world.html#comments" class="sidebar__link">Comments</a>
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fhello-world" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fhello-world" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps/01-hello-world" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

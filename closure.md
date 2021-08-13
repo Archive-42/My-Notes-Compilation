@@ -1,17 +1,17 @@
 EN
 
--   <a href="https://ar.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="closure.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://it.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="closure.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://it.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="closure%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="closure%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/closure" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -27,8 +27,7 @@ We want to make this open-source project available for people all around the wor
 
 26th March 2021
 
-Variable scope, closure
-=======================
+# Variable scope, closure
 
 JavaScript is a very function-oriented language. It gives us a lot of freedom. A function can be created at any moment, passed as an argument to another function, and then called from a totally different place of code later.
 
@@ -44,12 +43,11 @@ Let’s expand our knowledge to understand these scenarios and more complex ones
 
 In JavaScript, there are 3 ways to declare a variable: `let`, `const` (the modern ones), and `var` (the remnant of the past).
 
--   In this article we’ll use `let` variables in examples.
--   Variables, declared with `const`, behave the same, so this article is about `const` too.
--   The old `var` has some notable differences, they will be covered in the article [The old "var"](var.html).
+- In this article we’ll use `let` variables in examples.
+- Variables, declared with `const`, behave the same, so this article is about `const` too.
+- The old `var` has some notable differences, they will be covered in the article [The old "var"](var.html).
 
-<a href="closure.html#code-blocks" id="code-blocks" class="main__anchor">Code blocks</a>
-----------------------------------------------------------------------------------------
+## <a href="closure.html#code-blocks" id="code-blocks" class="main__anchor">Code blocks</a>
 
 If a variable is declared inside a code block `{...}`, it’s only visible inside that block.
 
@@ -136,8 +134,7 @@ The similar thing holds true for `for` and `while` loops:
 
 Visually, `let i` is outside of `{...}`. But the `for` construct is special here: the variable, declared inside it, is considered a part of the block.
 
-<a href="closure.html#nested-functions" id="nested-functions" class="main__anchor">Nested functions</a>
--------------------------------------------------------------------------------------------------------
+## <a href="closure.html#nested-functions" id="nested-functions" class="main__anchor">Nested functions</a>
 
 A function is called “nested” when it is created inside another function.
 
@@ -157,7 +154,7 @@ We can use it to organize our code, like this:
 
     }
 
-Here the *nested* function `getFullName()` is made for convenience. It can access the outer variables and so can return the full name. Nested functions are quite common in JavaScript.
+Here the _nested_ function `getFullName()` is made for convenience. It can access the outer variables and so can return the full name. Nested functions are quite common in JavaScript.
 
 What’s much more interesting, a nested function can be returned: either as a property of a new object or as a result by itself. It can then be used somewhere else. No matter where, it still has access to the same outer variables.
 
@@ -187,8 +184,7 @@ How does this work? If we create multiple counters, will they be independent? Wh
 
 Understanding such things is great for the overall knowledge of JavaScript and beneficial for more complex scenarios. So let’s go a bit in-depth.
 
-<a href="closure.html#lexical-environment" id="lexical-environment" class="main__anchor">Lexical Environment</a>
-----------------------------------------------------------------------------------------------------------------
+## <a href="closure.html#lexical-environment" id="lexical-environment" class="main__anchor">Lexical Environment</a>
 
 <span class="important__type">Here be dragons!</span>
 
@@ -200,12 +196,12 @@ For clarity, the explanation is split into multiple steps.
 
 ### <a href="closure.html#step-1-variables" id="step-1-variables" class="main__anchor">Step 1. Variables</a>
 
-In JavaScript, every running function, code block `{...}`, and the script as a whole have an internal (hidden) associated object known as the *Lexical Environment*.
+In JavaScript, every running function, code block `{...}`, and the script as a whole have an internal (hidden) associated object known as the _Lexical Environment_.
 
 The Lexical Environment object consists of two parts:
 
-1.  *Environment Record* – an object that stores all local variables as its properties (and some other information like the value of `this`).
-2.  A reference to the *outer lexical environment*, the one associated with the outer code.
+1.  _Environment Record_ – an object that stores all local variables as its properties (and some other information like the value of `this`).
+2.  A reference to the _outer lexical environment_, the one associated with the outer code.
 
 **A “variable” is just a property of the special internal object, `Environment Record`. “To get or change a variable” means “to get or change a property of that object”.**
 
@@ -222,15 +218,15 @@ Here’s a little bit longer code:
 <figure><img src="article/closure/closure-variable-phrase.svg" width="550" height="150" /></figure>Rectangles on the right-hand side demonstrate how the global Lexical Environment changes during the execution:
 
 1.  When the script starts, the Lexical Environment is pre-populated with all declared variables.
-    -   Initially, they are in the “Uninitialized” state. That’s a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with `let`. It’s almost the same as if the variable didn’t exist.
+    - Initially, they are in the “Uninitialized” state. That’s a special internal state, it means that the engine knows about the variable, but it cannot be referenced until it has been declared with `let`. It’s almost the same as if the variable didn’t exist.
 2.  Then `let phrase` definition appears. There’s no assignment yet, so its value is `undefined`. We can use the variable from this point forward.
 3.  `phrase` is assigned a value.
 4.  `phrase` changes the value.
 
 Everything looks simple for now, right?
 
--   A variable is a property of a special internal object, associated with the currently executing block/function/script.
--   Working with variables is actually working with the properties of that object.
+- A variable is a property of a special internal object, associated with the currently executing block/function/script.
+- Working with variables is actually working with the properties of that object.
 
 <span class="important__type">Lexical Environment is a specification object</span>
 
@@ -260,8 +256,8 @@ For instance, for `say("John")`, it looks like this (the execution is at the lin
 
 <figure><img src="article/closure/lexical-environment-simple.svg" width="723" height="150" /></figure>During the function call we have two Lexical Environments: the inner one (for the function call) and the outer one (global):
 
--   The inner Lexical Environment corresponds to the current execution of `say`. It has a single property: `name`, the function argument. We called `say("John")`, so the value of the `name` is `"John"`.
--   The outer Lexical Environment is the global Lexical Environment. It has the `phrase` variable and the function itself.
+- The inner Lexical Environment corresponds to the current execution of `say`. It has a single property: `name`, the function argument. We called `say("John")`, so the value of the `name` is `"John"`.
+- The outer Lexical Environment is the global Lexical Environment. It has the `phrase` variable and the function itself.
 
 The inner Lexical Environment has a reference to the `outer` one.
 
@@ -271,8 +267,8 @@ If a variable is not found anywhere, that’s an error in strict mode (without `
 
 In this example the search proceeds as follows:
 
--   For the `name` variable, the `alert` inside `say` finds it immediately in the inner Lexical Environment.
--   When it wants to access `phrase`, then there is no `phrase` locally, so it follows the reference to the outer Lexical Environment and finds it there.
+- For the `name` variable, the `alert` inside `say` finds it immediately in the inner Lexical Environment.
+- When it wants to access `phrase`, then there is no `phrase` locally, so it follows the reference to the outer Lexical Environment and finds it there.
 
 <figure><img src="article/closure/lexical-environment-simple-lookup.svg" width="711" height="150" /></figure>### <a href="closure.html#step-4-returning-a-function" id="step-4-returning-a-function" class="main__anchor">Step 4. Returning a function</a>
 
@@ -312,14 +308,13 @@ Here’s the state after the execution:
 
 There is a general programming term “closure”, that developers generally should know.
 
-A [closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)) is a function that remembers its outer variables and can access them. In some languages, that’s not possible, or a function should be written in a special way to make it happen. But as explained above, in JavaScript, all functions are naturally closures (there is only one exception, to be covered in [The "new Function" syntax](new-function.html)).
+A [closure](<https://en.wikipedia.org/wiki/Closure_(computer_programming)>) is a function that remembers its outer variables and can access them. In some languages, that’s not possible, or a function should be written in a special way to make it happen. But as explained above, in JavaScript, all functions are naturally closures (there is only one exception, to be covered in [The "new Function" syntax](new-function.html)).
 
 That is: they automatically remember where they were created using a hidden `[[Environment]]` property, and then their code can access outer variables.
 
 When on an interview, a frontend developer gets a question about “what’s a closure?”, a valid answer would be a definition of the closure and an explanation that all functions in JavaScript are closures, and maybe a few more words about technical details: the `[[Environment]]` property and how Lexical Environments work.
 
-<a href="closure.html#garbage-collection" id="garbage-collection" class="main__anchor">Garbage collection</a>
--------------------------------------------------------------------------------------------------------------
+## <a href="closure.html#garbage-collection" id="garbage-collection" class="main__anchor">Garbage collection</a>
 
 Usually, a Lexical Environment is removed from memory with all the variables after the function call finishes. That’s because there are no references to it. As any JavaScript object, it’s only kept in memory while it’s reachable.
 
@@ -424,8 +419,7 @@ This feature of V8 is good to know. If you are debugging with Chrome/Edge/Opera,
 
 That is not a bug in the debugger, but rather a special feature of V8. Perhaps it will be changed sometime. You can always check for it by running the examples on this page.
 
-<a href="closure.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
-----------------------------------------------------------------------------------------------------------------
+## <a href="closure.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="closure.html#does-a-function-pickup-latest-changes" id="does-a-function-pickup-latest-changes" class="main__anchor">Does a function pickup latest changes?</a>
 
@@ -718,13 +712,13 @@ We have a built-in method `arr.filter(f)` for arrays. It filters all elements th
 
 Make a set of “ready to use” filters:
 
--   `inBetween(a, b)` – between `a` and `b` or equal to them (inclusively).
--   `inArray([...])` – in the given array.
+- `inBetween(a, b)` – between `a` and `b` or equal to them (inclusively).
+- `inArray([...])` – in the given array.
 
 The usage must be like this:
 
--   `arr.filter(inBetween(3,6))` – selects only values between 3 and 6.
--   `arr.filter(inArray([1,2,3]))` – selects only elements matching with one of the members of `[1,2,3]`.
+- `arr.filter(inBetween(3,6))` – selects only values between 3 and 6.
+- `arr.filter(inArray([1,2,3]))` – selects only elements matching with one of the members of `[1,2,3]`.
 
 For instance:
 
@@ -992,28 +986,28 @@ Besides, there are indeed cases when one prefers `while` to `for`, and other sce
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="advanced-functions.html" class="sidebar__link">Advanced working with functions</a>
+- <a href="advanced-functions.html" class="sidebar__link">Advanced working with functions</a>
 
 #### Lesson navigation
 
--   <a href="closure.html#code-blocks" class="sidebar__link">Code blocks</a>
--   closure.html\#nested-functions" &gt;Nested functions
--   closure.html\#lexical-environment" &gt;Lexical Environment
--   closure.html\#garbage-collection" &gt;Garbage collection
+- <a href="closure.html#code-blocks" class="sidebar__link">Code blocks</a>
+- closure.html\#nested-functions" &gt;Nested functions
+- closure.html\#lexical-environment" &gt;Lexical Environment
+- closure.html\#garbage-collection" &gt;Garbage collection
 
 <!-- -->
 
--   <a href="closure.html#tasks" class="sidebar__link">Tasks (10)</a>
--   <a href="closure.html#comments" class="sidebar__link">Comments</a>
+- <a href="closure.html#tasks" class="sidebar__link">Tasks (10)</a>
+- <a href="closure.html#comments" class="sidebar__link">Comments</a>
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fclosure" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fclosure" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/06-advanced-functions/03-closure" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

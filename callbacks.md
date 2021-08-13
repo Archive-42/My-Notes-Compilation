@@ -1,17 +1,17 @@
 EN
 
--   <a href="https://ar.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="callbacks.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://it.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="callbacks.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://it.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="callbacks%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="callbacks%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/callbacks" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -27,8 +27,7 @@ We want to make this open-source project available for people all around the wor
 
 16th June 2021
 
-Introduction: callbacks
-=======================
+# Introduction: callbacks
 
 <span class="important__type">We use browser methods in examples here</span>
 
@@ -38,7 +37,7 @@ If you’re not familiar with these methods, and their usage in the examples is 
 
 Although, we’ll try to make things clear anyway. There won’t be anything really complex browser-wise.
 
-Many functions are provided by JavaScript host environments that allow you to schedule *asynchronous* actions. In other words, actions that we initiate now, but they finish later.
+Many functions are provided by JavaScript host environments that allow you to schedule _asynchronous_ actions. In other words, actions that we initiate now, but they finish later.
 
 For instance, one such function is the `setTimeout` function.
 
@@ -123,8 +122,7 @@ That’s called a “callback-based” style of asynchronous programming. A func
 
 Here we did it in `loadScript`, but of course it’s a general approach.
 
-<a href="callbacks.html#callback-in-callback" id="callback-in-callback" class="main__anchor">Callback in callback</a>
----------------------------------------------------------------------------------------------------------------------
+## <a href="callbacks.html#callback-in-callback" id="callback-in-callback" class="main__anchor">Callback in callback</a>
 
 How can we load two scripts sequentially: the first one, and then the second one after it?
 
@@ -158,8 +156,7 @@ What if we want one more script…?
 
 So, every new action is inside a callback. That’s fine for few actions, but not good for many, so we’ll see other variants soon.
 
-<a href="callbacks.html#handling-errors" id="handling-errors" class="main__anchor">Handling errors</a>
-------------------------------------------------------------------------------------------------------
+## <a href="callbacks.html#handling-errors" id="handling-errors" class="main__anchor">Handling errors</a>
 
 In the above examples we didn’t consider errors. What if the script loading fails? Our callback should be able to react on that.
 
@@ -196,8 +193,7 @@ The convention is:
 
 So the single `callback` function is used both for reporting errors and passing back results.
 
-<a href="callbacks.html#pyramid-of-doom" id="pyramid-of-doom" class="main__anchor">Pyramid of Doom</a>
-------------------------------------------------------------------------------------------------------
+## <a href="callbacks.html#pyramid-of-doom" id="pyramid-of-doom" class="main__anchor">Pyramid of Doom</a>
 
 From the first look, it’s a viable way of asynchronous coding. And indeed it is. For one or maybe two nested calls it looks fine.
 
@@ -291,26 +287,26 @@ Luckily, there are other ways to avoid such pyramids. One of the best ways is to
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="async.html" class="sidebar__link">Promises, async/await</a>
+- <a href="async.html" class="sidebar__link">Promises, async/await</a>
 
 #### Lesson navigation
 
--   callbacks.html\#callback-in-callback" &gt;Callback in callback
--   callbacks.html\#handling-errors" &gt;Handling errors
--   callbacks.html\#pyramid-of-doom" &gt;Pyramid of Doom
+- callbacks.html\#callback-in-callback" &gt;Callback in callback
+- callbacks.html\#handling-errors" &gt;Handling errors
+- callbacks.html\#pyramid-of-doom" &gt;Pyramid of Doom
 
 <!-- -->
 
--   <a href="callbacks.html#comments" class="sidebar__link">Comments</a>
+- <a href="callbacks.html#comments" class="sidebar__link">Comments</a>
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcallbacks" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcallbacks" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/11-async/01-callbacks" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

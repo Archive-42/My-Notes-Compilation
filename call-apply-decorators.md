@@ -1,17 +1,17 @@
 EN
 
--   <a href="https://ar.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="call-apply-decorators.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://it.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="call-apply-decorators.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://it.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="call-apply-decorators%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="call-apply-decorators%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/call-apply-decorators" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -27,13 +27,11 @@ We want to make this open-source project available for people all around the wor
 
 13th May 2021
 
-Decorators and forwarding, call/apply
-=====================================
+# Decorators and forwarding, call/apply
 
-JavaScript gives exceptional flexibility when dealing with functions. They can be passed around, used as objects, and now we’ll see how to *forward* calls between them and *decorate* them.
+JavaScript gives exceptional flexibility when dealing with functions. They can be passed around, used as objects, and now we’ll see how to _forward_ calls between them and _decorate_ them.
 
-<a href="call-apply-decorators.html#transparent-caching" id="transparent-caching" class="main__anchor">Transparent caching</a>
-------------------------------------------------------------------------------------------------------------------------------
+## <a href="call-apply-decorators.html#transparent-caching" id="transparent-caching" class="main__anchor">Transparent caching</a>
 
 Let’s say we have a function `slow(x)` which is CPU-heavy, but its results are stable. In other words, for the same `x` it always returns the same result.
 
@@ -76,7 +74,7 @@ Here’s the code, and explanations follow:
     alert( slow(2) ); // slow(2) is cached and the result returned
     alert( "Again: " + slow(2) ); // slow(2) result returned from cache
 
-In the code above `cachingDecorator` is a *decorator*: a special function that takes another function and alters its behavior.
+In the code above `cachingDecorator` is a _decorator_: a special function that takes another function and alters its behavior.
 
 The idea is that we can call `cachingDecorator` for any function, and it will return the caching wrapper. That’s great, because we can have many functions that could use such a feature, and all we need to do is to apply `cachingDecorator` to them.
 
@@ -88,12 +86,11 @@ The result of `cachingDecorator(func)` is a “wrapper”: `function(x)` that �
 
 To summarize, there are several benefits of using a separate `cachingDecorator` instead of altering the code of `slow` itself:
 
--   The `cachingDecorator` is reusable. We can apply it to another function.
--   The caching logic is separate, it did not increase the complexity of `slow` itself (if there was any).
--   We can combine multiple decorators if needed (other decorators will follow).
+- The `cachingDecorator` is reusable. We can apply it to another function.
+- The caching logic is separate, it did not increase the complexity of `slow` itself (if there was any).
+- We can combine multiple decorators if needed (other decorators will follow).
 
-<a href="call-apply-decorators.html#using-func-call-for-the-context" id="using-func-call-for-the-context" class="main__anchor">Using “func.call” for the context</a>
---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="call-apply-decorators.html#using-func-call-for-the-context" id="using-func-call-for-the-context" class="main__anchor">Using “func.call” for the context</a>
 
 The caching decorator mentioned above is not suited to work with object methods.
 
@@ -237,8 +234,7 @@ To make it all clear, let’s see more deeply how `this` is passed along:
 2.  So when `worker.slow(2)` is executed, the wrapper gets `2` as an argument and `this=worker` (it’s the object before dot).
 3.  Inside the wrapper, assuming the result is not yet cached, `func.call(this, x)` passes the current `this` (`=worker`) and the current argument (`=2`) to the original method.
 
-<a href="call-apply-decorators.html#going-multi-argument" id="going-multi-argument" class="main__anchor">Going multi-argument</a>
----------------------------------------------------------------------------------------------------------------------------------
+## <a href="call-apply-decorators.html#going-multi-argument" id="going-multi-argument" class="main__anchor">Going multi-argument</a>
 
 Now let’s make `cachingDecorator` even more universal. Till now it was working only with single-argument functions.
 
@@ -253,13 +249,13 @@ Now how to cache the multi-argument `worker.slow` method?
     // should remember same-argument calls
     worker.slow = cachingDecorator(worker.slow);
 
-Previously, for a single argument `x` we could just `cache.set(x, result)` to save the result and `cache.get(x)` to retrieve it. But now we need to remember the result for a *combination of arguments* `(min,max)`. The native `Map` takes single value only as the key.
+Previously, for a single argument `x` we could just `cache.set(x, result)` to save the result and `cache.get(x)` to retrieve it. But now we need to remember the result for a _combination of arguments_ `(min,max)`. The native `Map` takes single value only as the key.
 
 There are many solutions possible:
 
 1.  Implement a new (or use a third-party) map-like data structure that is more versatile and allows multi-keys.
 2.  Use nested maps: `cache.set(min)` will be a `Map` that stores the pair `(max, result)`. So we can get `result` as `cache.get(min).get(max)`.
-3.  Join two values into one. In our particular case we can just use a string `"min,max"` as the `Map` key. For flexibility, we can allow to provide a *hashing function* for the decorator, that knows how to make one value from many.
+3.  Join two values into one. In our particular case we can just use a string `"min,max"` as the `Map` key. For flexibility, we can allow to provide a _hashing function_ for the decorator, that knows how to make one value from many.
 
 For many practical applications, the 3rd variant is good enough, so we’ll stick to it.
 
@@ -306,11 +302,10 @@ Now it works with any number of arguments (though the hash function would also n
 
 There are two changes:
 
--   In the line `(*)` it calls `hash` to create a single key from `arguments`. Here we use a simple “joining” function that turns arguments `(3, 5)` into the key `"3,5"`. More complex cases may require other hashing functions.
--   Then `(**)` uses `func.call(this, ...arguments)` to pass both the context and all arguments the wrapper got (not just the first one) to the original function.
+- In the line `(*)` it calls `hash` to create a single key from `arguments`. Here we use a simple “joining” function that turns arguments `(3, 5)` into the key `"3,5"`. More complex cases may require other hashing functions.
+- Then `(**)` uses `func.call(this, ...arguments)` to pass both the context and all arguments the wrapper got (not just the first one) to the original function.
 
-<a href="call-apply-decorators.html#func-apply" id="func-apply" class="main__anchor">func.apply</a>
----------------------------------------------------------------------------------------------------
+## <a href="call-apply-decorators.html#func-apply" id="func-apply" class="main__anchor">func.apply</a>
 
 Instead of `func.call(this, ...arguments)` we could use `func.apply(this, arguments)`.
 
@@ -331,12 +326,12 @@ They perform the same call of `func` with given context and arguments.
 
 There’s only a subtle difference regarding `args`:
 
--   The spread syntax `...` allows to pass *iterable* `args` as the list to `call`.
--   The `apply` accepts only *array-like* `args`.
+- The spread syntax `...` allows to pass _iterable_ `args` as the list to `call`.
+- The `apply` accepts only _array-like_ `args`.
 
 …And for objects that are both iterable and array-like, such as a real array, we can use any of them, but `apply` will probably be faster, because most JavaScript engines internally optimize it better.
 
-Passing all arguments along with the context to another function is called *call forwarding*.
+Passing all arguments along with the context to another function is called _call forwarding_.
 
 That’s the simplest form of it:
 
@@ -346,8 +341,7 @@ That’s the simplest form of it:
 
 When an external code calls such `wrapper`, it is indistinguishable from the call of the original function `func`.
 
-<a href="call-apply-decorators.html#method-borrowing" id="method-borrowing" class="main__anchor">Borrowing a method</a>
------------------------------------------------------------------------------------------------------------------------
+## <a href="call-apply-decorators.html#method-borrowing" id="method-borrowing" class="main__anchor">Borrowing a method</a>
 
 Now let’s make one more minor improvement in the hashing function:
 
@@ -389,7 +383,7 @@ Still, there’s an easy way to use array join:
 
     hash(1, 2);
 
-The trick is called *method borrowing*.
+The trick is called _method borrowing_.
 
 We take (borrow) a join method from a regular array (`[].join`) and use `[].join.call` to run it in the context of `arguments`.
 
@@ -409,8 +403,7 @@ Taken from the specification almost “as-is”:
 
 So, technically it takes `this` and joins `this[0]`, `this[1]` …etc together. It’s intentionally written in a way that allows any array-like `this` (not a coincidence, many methods follow this practice). That’s why it also works with `this=arguments`.
 
-<a href="call-apply-decorators.html#decorators-and-function-properties" id="decorators-and-function-properties" class="main__anchor">Decorators and function properties</a>
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="call-apply-decorators.html#decorators-and-function-properties" id="decorators-and-function-properties" class="main__anchor">Decorators and function properties</a>
 
 It is generally safe to replace a function or a method with a decorated one, except for one little thing. If the original function had properties on it, like `func.calledCount` or whatever, then the decorated one will not provide them. Because that is a wrapper. So one needs to be careful if one uses them.
 
@@ -420,30 +413,28 @@ Some decorators may provide their own properties. E.g. a decorator may count how
 
 There exists a way to create decorators that keep access to function properties, but this requires using a special `Proxy` object to wrap a function. We’ll discuss it later in the article [Proxy and Reflect](proxy.html#proxy-apply).
 
-<a href="call-apply-decorators.html#summary" id="summary" class="main__anchor">Summary</a>
-------------------------------------------------------------------------------------------
+## <a href="call-apply-decorators.html#summary" id="summary" class="main__anchor">Summary</a>
 
-*Decorator* is a wrapper around a function that alters its behavior. The main job is still carried out by the function.
+_Decorator_ is a wrapper around a function that alters its behavior. The main job is still carried out by the function.
 
 Decorators can be seen as “features” or “aspects” that can be added to a function. We can add one or add many. And all this without changing its code!
 
 To implement `cachingDecorator`, we studied methods:
 
--   [func.call(context, arg1, arg2…)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call) – calls `func` with given context and arguments.
--   [func.apply(context, args)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply) – calls `func` passing `context` as `this` and array-like `args` into a list of arguments.
+- [func.call(context, arg1, arg2…)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call) – calls `func` with given context and arguments.
+- [func.apply(context, args)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply) – calls `func` passing `context` as `this` and array-like `args` into a list of arguments.
 
-The generic *call forwarding* is usually done with `apply`:
+The generic _call forwarding_ is usually done with `apply`:
 
     let wrapper = function() {
       return original.apply(this, arguments);
     };
 
-We also saw an example of *method borrowing* when we take a method from an object and `call` it in the context of another object. It is quite common to take array methods and apply them to `arguments`. The alternative is to use rest parameters object that is a real array.
+We also saw an example of _method borrowing_ when we take a method from an object and `call` it in the context of another object. It is quite common to take array methods and apply them to `arguments`. The alternative is to use rest parameters object that is a real array.
 
 There are many decorators there in the wild. Check how well you got them by solving the tasks of this chapter.
 
-<a href="call-apply-decorators.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
-------------------------------------------------------------------------------------------------------------------------------
+## <a href="call-apply-decorators.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="call-apply-decorators.html#spy-decorator" id="spy-decorator" class="main__anchor">Spy decorator</a>
 
@@ -630,8 +621,8 @@ When it’s called multiple times, it passes the call to `f` at maximum once per
 
 The difference with debounce is that it’s completely different decorator:
 
--   `debounce` runs the function once after the “cooldown” period. Good for processing the final result.
--   `throttle` runs it not more often than given `ms` time. Good for regular updates that shouldn’t be very often.
+- `debounce` runs the function once after the “cooldown” period. Good for processing the final result.
+- `throttle` runs it not more often than given `ms` time. Good for regular updates that shouldn’t be very often.
 
 In other words, `throttle` is like a secretary that accepts phone calls, but bothers the boss (calls the actual `f`) not more often than once per `ms` milliseconds.
 
@@ -723,31 +714,31 @@ The 3rd step runs not `func`, but `wrapper`, because we not only need to execute
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
 <a href="advanced-functions.html" class="sidebar__link">Advanced working with functions</a>
 
 #### Lesson navigation
 
--   call-apply-decorators.html\#transparent-caching" &gt;Transparent caching
--   call-apply-decorators.html\#using-func-call-for-the-context" &gt;Using “func.call” for the context
--   call-apply-decorators.html\#going-multi-argument" &gt;Going multi-argument
--   call-apply-decorators.html\#func-apply" &gt;func.apply
--   call-apply-decorators.html\#method-borrowing" &gt;Borrowing a method
--   call-apply-decorators.html\#decorators-and-function-properties" &gt;Decorators and function properties
--   call-apply-decorators.html
+- call-apply-decorators.html\#transparent-caching" &gt;Transparent caching
+- call-apply-decorators.html\#using-func-call-for-the-context" &gt;Using “func.call” for the context
+- call-apply-decorators.html\#going-multi-argument" &gt;Going multi-argument
+- call-apply-decorators.html\#func-apply" &gt;func.apply
+- call-apply-decorators.html\#method-borrowing" &gt;Borrowing a method
+- call-apply-decorators.html\#decorators-and-function-properties" &gt;Decorators and function properties
+- call-apply-decorators.html
 
 <!-- -->
 
--   call-apply-decorators.html\#tasks" &gt;Tasks (4)
--   call-apply-decorators.html\#comments" &gt;Comments
+- call-apply-decorators.html\#tasks" &gt;Tasks (4)
+- call-apply-decorators.html\#comments" &gt;Comments
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcall-apply-decorators" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcall-apply-decorators" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/06-advanced-functions/09-call-apply-decorators" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

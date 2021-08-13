@@ -1,10 +1,10 @@
 EN
 
--   <a href="https://ar.javascript.info/browser-environment" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="browser-environment.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/browser-environment" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://it.javascript.info/browser-environment" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/browser-environment" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/browser-environment" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="browser-environment.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/browser-environment" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://it.javascript.info/browser-environment" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/browser-environment" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <a href="https://ko.javascript.info/browser-environment" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
 
@@ -20,12 +20,11 @@ EN
 
 27th June 2020
 
-Browser environment, specs
-==========================
+# Browser environment, specs
 
 The JavaScript language was initially created for web browsers. Since then it has evolved and become a language with many uses and platforms.
 
-A platform may be a browser, or a web-server or another *host*, even a “smart” coffee machine, if it can run JavaScript. Each of them provides platform-specific functionality. The JavaScript specification calls that a *host environment*.
+A platform may be a browser, or a web-server or another _host_, even a “smart” coffee machine, if it can run JavaScript. Each of them provides platform-specific functionality. The JavaScript specification calls that a _host environment_.
 
 A host environment provides own objects and functions additional to the language core. Web browsers give a means to control web pages. Node.js provides server-side features, and so on.
 
@@ -59,8 +58,7 @@ And here we use it as a browser window, to see the window height:
 
 There are more window-specific methods and properties, we’ll cover them later.
 
-<a href="browser-environment.html#dom-document-object-model" id="dom-document-object-model" class="main__anchor">DOM (Document Object Model)</a>
-------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="browser-environment.html#dom-document-object-model" id="dom-document-object-model" class="main__anchor">DOM (Document Object Model)</a>
 
 Document Object Model, or DOM for short, represents all page content as objects that can be modified.
 
@@ -92,15 +90,14 @@ There’s also a separate specification, [CSS Object Model (CSSOM)](https://www.
 
 CSSOM is used together with DOM when we modify style rules for the document. In practice though, CSSOM is rarely required, because we rarely need to modify CSS rules from JavaScript (usually we just add/remove CSS classes, not modify their CSS rules), but that’s also possible.
 
-<a href="browser-environment.html#bom-browser-object-model" id="bom-browser-object-model" class="main__anchor">BOM (Browser Object Model)</a>
----------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="browser-environment.html#bom-browser-object-model" id="bom-browser-object-model" class="main__anchor">BOM (Browser Object Model)</a>
 
 The Browser Object Model (BOM) represents additional objects provided by the browser (host environment) for working with everything except the document.
 
 For instance:
 
--   The [navigator](https://developer.mozilla.org/en-US/docs/Web/API/Window/navigator) object provides background information about the browser and the operating system. There are many properties, but the two most widely known are: `navigator.userAgent` – about the current browser, and `navigator.platform` – about the platform (can help to differ between Windows/Linux/Mac etc).
--   The [location](https://developer.mozilla.org/en-US/docs/Web/API/Window/location) object allows us to read the current URL and can redirect the browser to a new one.
+- The [navigator](https://developer.mozilla.org/en-US/docs/Web/API/Window/navigator) object provides background information about the browser and the operating system. There are many properties, but the two most widely known are: `navigator.userAgent` – about the current browser, and `navigator.platform` – about the platform (can help to differ between Windows/Linux/Mac etc).
+- The [location](https://developer.mozilla.org/en-US/docs/Web/API/Window/location) object allows us to read the current URL and can redirect the browser to a new one.
 
 Here’s how we can use the `location` object:
 
@@ -121,8 +118,7 @@ BOM is the part of the general [HTML specification](https://html.spec.whatwg.org
 
 Yes, you heard that right. The HTML spec at <https://html.spec.whatwg.org> is not only about the “HTML language” (tags, attributes), but also covers a bunch of objects, methods and browser-specific DOM extensions. That’s “HTML in broad terms”. Also, some parts have additional specs listed at <https://spec.whatwg.org>.
 
-<a href="browser-environment.html#summary" id="summary" class="main__anchor">Summary</a>
-----------------------------------------------------------------------------------------
+## <a href="browser-environment.html#summary" id="summary" class="main__anchor">Summary</a>
 
 Talking about standards, we have:
 
@@ -155,9 +151,9 @@ Now we’ll get down to learning DOM, because the document plays the central rol
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
 <a href="document.html" class="sidebar__link">Document</a>
 
@@ -173,8 +169,8 @@ browser-environment.html\#comments" &gt;Comments
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbrowser-environment" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbrowser-environment" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/01-browser-environment" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

@@ -1,17 +1,17 @@
 EN
 
--   <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="css-animations.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://it.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="css-animations.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://it.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="css-animations%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="css-animations%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/css-animations" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -26,15 +26,13 @@ We want to make this open-source project available for people all around the wor
 
 28th June 2021
 
-CSS-animations
-==============
+# CSS-animations
 
 CSS animations make it possible to do simple animations without JavaScript at all.
 
 JavaScript can be used to control CSS animations and make them even better, with little code.
 
-<a href="css-animations.html#css-transition" id="css-transition" class="main__anchor">CSS transitions</a>
----------------------------------------------------------------------------------------------------------
+## <a href="css-animations.html#css-transition" id="css-transition" class="main__anchor">CSS transitions</a>
 
 The idea of CSS transitions is simple. We describe a property and how its changes should be animated. When the property changes, the browser paints the animation.
 
@@ -72,10 +70,10 @@ Click the button below to animate the background:
 
 There are 4 properties to describe CSS transitions:
 
--   `transition-property`
--   `transition-duration`
--   `transition-timing-function`
--   `transition-delay`
+- `transition-property`
+- `transition-duration`
+- `transition-timing-function`
+- `transition-delay`
 
 We’ll cover them in a moment, for now let’s note that the common `transition` property allows declaring them together in the order: `property duration timing-function delay`, as well as animating multiple properties at once.
 
@@ -102,22 +100,19 @@ For instance, this button animates both `color` and `font-size`:
 
 Now, let’s cover animation properties one by one.
 
-<a href="css-animations.html#transition-property" id="transition-property" class="main__anchor">transition-property</a>
------------------------------------------------------------------------------------------------------------------------
+## <a href="css-animations.html#transition-property" id="transition-property" class="main__anchor">transition-property</a>
 
 In `transition-property`, we write a list of properties to animate, for instance: `left`, `margin-left`, `height`, `color`. Or we could write `all`, which means “animate all properties”.
 
 Do note that, there are properties which can not be animated. However, [most of the generally used properties are animatable](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties).
 
-<a href="css-animations.html#transition-duration" id="transition-duration" class="main__anchor">transition-duration</a>
------------------------------------------------------------------------------------------------------------------------
+## <a href="css-animations.html#transition-duration" id="transition-duration" class="main__anchor">transition-duration</a>
 
 In `transition-duration` we can specify how long the animation should take. The time should be in [CSS time format](http://www.w3.org/TR/css3-values/#time): in seconds `s` or milliseconds `ms`.
 
-<a href="css-animations.html#transition-delay" id="transition-delay" class="main__anchor">transition-delay</a>
---------------------------------------------------------------------------------------------------------------
+## <a href="css-animations.html#transition-delay" id="transition-delay" class="main__anchor">transition-delay</a>
 
-In `transition-delay` we can specify the delay *before* the animation. For instance, if `transition-delay` is `1s` and `transition-duration` is `2s`, then the animation starts 1 second after the property change and the total duration will be 2 seconds.
+In `transition-delay` we can specify the delay _before_ the animation. For instance, if `transition-delay` is `1s` and `transition-duration` is `2s`, then the animation starts 1 second after the property change and the total duration will be 2 seconds.
 
 Negative values are also possible. Then the animation is shown immediately, but the starting point of the animation will be after given value (time). For example, if `transition-delay` is `-1s` and `transition-duration` is `2s`, then animation starts from the halfway point and total duration will be 1 second.
 
@@ -250,8 +245,7 @@ JavaScript does it with an extra line:
       stripe.classList.add('animate');
     };
 
-<a href="css-animations.html#transition-timing-function" id="transition-timing-function" class="main__anchor">transition-timing-function</a>
---------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="css-animations.html#transition-timing-function" id="transition-timing-function" class="main__anchor">transition-timing-function</a>
 
 The timing function describes how the animation process is distributed along its timeline. Will it start slowly and then go fast, or vice versa.
 
@@ -271,8 +265,8 @@ The syntax for a Bezier curve in CSS: `cubic-bezier(x2, y2, x3, y3)`. Here we ne
 
 The timing function describes how fast the animation process goes.
 
--   The `x` axis is the time: `0` – the start, `1` – the end of `transition-duration`.
--   The `y` axis specifies the completion of the process: `0` – the starting value of the property, `1` – the final value.
+- The `x` axis is the time: `0` – the start, `1` – the end of `transition-duration`.
+- The `y` axis specifies the completion of the process: `0` – the starting value of the property, `1` – the final value.
 
 The simplest variant is when the animation goes uniformly, with the same linear speed. That can be specified by the curve `cubic-bezier(0, 0, 1, 1)`.
 
@@ -410,9 +404,9 @@ The property `left` should animate from `100px` to `400px`.
 
 But if you click the train, you’ll see that:
 
--   First, the train goes *back*: `left` becomes less than `100px`.
--   Then it goes forward, a little bit farther than `400px`.
--   And then back again – to `400px`.
+- First, the train goes _back_: `left` becomes less than `100px`.
+- Then it goes forward, a little bit farther than `400px`.
+- And then back again – to `400px`.
 
 Result
 
@@ -570,21 +564,21 @@ We can observe that during the animation: when we click on the digit it changes 
 
 The process is progressing like this:
 
--   `0s` – `-10%` (first change in the beginning of the 1st second, immediately)
--   `1s` – `-20%`
--   …
--   `8s` – `-80%`
--   (the last second shows the final value).
+- `0s` – `-10%` (first change in the beginning of the 1st second, immediately)
+- `1s` – `-20%`
+- …
+- `8s` – `-80%`
+- (the last second shows the final value).
 
 The alternative value `end` would mean that the change should be applied not in the beginning, but at the end of each second.
 
 So the process for `steps(9, end)` would go like this:
 
--   `0s` – `0` (during the first second nothing changes)
--   `1s` – `-10%` (first change at the end of the 1st second)
--   `2s` – `-20%`
--   …
--   `9s` – `-90%`
+- `0s` – `0` (during the first second nothing changes)
+- `1s` – `-10%` (first change at the end of the 1st second)
+- `2s` – `-20%`
+- …
+- `9s` – `-90%`
 
 Here’s `steps(9, end)` in action (note the pause between the first digit change):
 
@@ -641,13 +635,12 @@ index.html
 
 There are also shorthand values:
 
--   `step-start` – is the same as `steps(1, start)`. That is, the animation starts immediately and takes 1 step. So it starts and finishes immediately, as if there were no animation.
--   `step-end` – the same as `steps(1, end)`: make the animation in a single step at the end of `transition-duration`.
+- `step-start` – is the same as `steps(1, start)`. That is, the animation starts immediately and takes 1 step. So it starts and finishes immediately, as if there were no animation.
+- `step-end` – the same as `steps(1, end)`: make the animation in a single step at the end of `transition-duration`.
 
 These values are rarely used, because that’s not really animation, but rather a single-step change.
 
-<a href="css-animations.html#event-transitionend" id="event-transitionend" class="main__anchor">Event transitionend</a>
------------------------------------------------------------------------------------------------------------------------
+## <a href="css-animations.html#event-transitionend" id="event-transitionend" class="main__anchor">Event transitionend</a>
 
 When the CSS animation finishes the `transitionend` event triggers.
 
@@ -694,8 +687,7 @@ The property that has finished animating. Can be good if we animate multiple pro
 `event.elapsedTime`  
 The time (in seconds) that the animation took, without `transition-delay`.
 
-<a href="css-animations.html#keyframes" id="keyframes" class="main__anchor">Keyframes</a>
------------------------------------------------------------------------------------------
+## <a href="css-animations.html#keyframes" id="keyframes" class="main__anchor">Keyframes</a>
 
 We can join multiple simple animations together using the `@keyframes` CSS rule.
 
@@ -735,8 +727,7 @@ There are many articles about `@keyframes` and a [detailed specification](https:
 
 You probably won’t need `@keyframes` often, unless everything is in constant motion on your sites.
 
-<a href="css-animations.html#performance" id="performance" class="main__anchor">Performance</a>
------------------------------------------------------------------------------------------------
+## <a href="css-animations.html#performance" id="performance" class="main__anchor">Performance</a>
 
 Most CSS properties can be animated, because most of them are numeric values. For instance, `width`, `color`, `font-size` are all numbers. When you animate them, the browser gradually changes these numbers frame by frame, creating a smooth effect.
 
@@ -756,8 +747,8 @@ Animations of properties that skip the Layout step are faster. It’s even bette
 
 The `transform` property is a great choice, because:
 
--   CSS transforms affect the target element box as a whole (rotate, flip, stretch, shift it).
--   CSS transforms never affect neighbour elements.
+- CSS transforms affect the target element box as a whole (rotate, flip, stretch, shift it).
+- CSS transforms never affect neighbour elements.
 
 …So browsers apply `transform` “on top” of existing Layout and Paint calculations, in the Composite stage.
 
@@ -822,8 +813,7 @@ Here’s a more complex example, with `@keyframes`:
       }
     </style>
 
-<a href="css-animations.html#summary" id="summary" class="main__anchor">Summary</a>
------------------------------------------------------------------------------------
+## <a href="css-animations.html#summary" id="summary" class="main__anchor">Summary</a>
 
 CSS animations allow smoothly (or step-by-step) animated changes of one or multiple CSS properties.
 
@@ -833,13 +823,13 @@ Limitations of CSS animations compared to JavaScript animations:
 
 Merits
 
--   Simple things done simply.
--   Fast and lightweight for CPU.
+- Simple things done simply.
+- Fast and lightweight for CPU.
 
 Demerits
 
--   JavaScript animations are flexible. They can implement any animation logic, like an “explosion” of an element.
--   Not just property changes. We can create new elements in JavaScript as part of the animation.
+- JavaScript animations are flexible. They can implement any animation logic, like an “explosion” of an element.
+- Not just property changes. We can create new elements in JavaScript as part of the animation.
 
 In early examples in this chapter, we animate `font-size`, `left`, `width`, `height`, etc. In real life projects, we should use `transform: scale()` and `transform: translate()` for better performance.
 
@@ -847,8 +837,7 @@ The majority of animations can be implemented using CSS as described in this cha
 
 But in the next chapter we’ll do some JavaScript animations to cover more complex cases.
 
-<a href="css-animations.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
------------------------------------------------------------------------------------------------------------------------
+## <a href="css-animations.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="css-animations.html#animate-a-plane-css" id="animate-a-plane-css" class="main__anchor">Animate a plane (CSS)</a>
 
@@ -858,10 +847,10 @@ But in the next chapter we’ll do some JavaScript animations to cover more comp
 
 Show the animation like on the picture below (click the plane):
 
--   The picture grows on click from `40x24px` to `400x240px` (10 times larger).
--   The animation takes 3 seconds.
--   At the end output: “Done!”.
--   During the animation process, there may be more clicks on the plane. They shouldn’t “break” anything.
+- The picture grows on click from `40x24px` to `400x240px` (10 times larger).
+- The animation takes 3 seconds.
+- At the end output: “Done!”.
+- During the animation process, there may be more clicks on the plane. They shouldn’t “break” anything.
 
 [Open a sandbox for the task.](https://plnkr.co/edit/Lj9szlcP8lRxn5pC?p=preview)
 
@@ -915,8 +904,8 @@ The graph:
 
 Create a function `showCircle(cx, cy, radius)` that shows an animated growing circle.
 
--   `cx,cy` are window-relative coordinates of the center of the circle,
--   `radius` is the radius of the circle.
+- `cx,cy` are window-relative coordinates of the center of the circle,
+- `radius` is the radius of the circle.
 
 Click the button below to see how it should look like:
 
@@ -934,7 +923,7 @@ solution
 
 In the task [Animated circle](task/animate-circle.html) an animated growing circle is shown.
 
-Now let’s say we need not just a circle, but to show a message inside it. The message should appear *after* the animation is complete (the circle is fully grown), otherwise it would look ugly.
+Now let’s say we need not just a circle, but to show a message inside it. The message should appear _after_ the animation is complete (the circle is fully grown), otherwise it would look ugly.
 
 In the solution of the task, the function `showCircle(cx, cy, radius)` draws the circle, but gives no way to track when it’s ready.
 
@@ -965,33 +954,33 @@ solution
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="animation.html" class="sidebar__link">Animation</a>
+- <a href="animation.html" class="sidebar__link">Animation</a>
 
 #### Lesson navigation
 
--   css-animations.html\#css-transition" &gt;CSS transitions
--   css-animations.html\#transition-property" &gt;transition-property
--   css-animations.html\#transition-duration" &gt;transition-duration
--   css-animations.html\#transition-delay" &gt;transition-delay
--   css-animations.html\#transition-timing-function" &gt;transition-timing-function
--   css-animations.html\#event-transitionend" &gt;Event transitionend
--   css-animations.html\#keyframes" &gt;Keyframes
--   css-animations.html\#performance" &gt;Performance
--   css-animations.html
+- css-animations.html\#css-transition" &gt;CSS transitions
+- css-animations.html\#transition-property" &gt;transition-property
+- css-animations.html\#transition-duration" &gt;transition-duration
+- css-animations.html\#transition-delay" &gt;transition-delay
+- css-animations.html\#transition-timing-function" &gt;transition-timing-function
+- css-animations.html\#event-transitionend" &gt;Event transitionend
+- css-animations.html\#keyframes" &gt;Keyframes
+- css-animations.html\#performance" &gt;Performance
+- css-animations.html
 
 <!-- -->
 
--   <a href="css-animations.html#tasks" class="sidebar__link">Tasks (4)</a>
--   css-animations.html\#comments" &gt;Comments
+- <a href="css-animations.html#tasks" class="sidebar__link">Tasks (4)</a>
+- css-animations.html\#comments" &gt;Comments
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcss-animations" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcss-animations" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/7-animation/2-css-animations" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

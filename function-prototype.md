@@ -1,18 +1,18 @@
 EN
 
--   <a href="https://ar.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="function-prototype.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="function-prototype.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- <a href="https://it.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="function-prototype%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="function-prototype%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -30,8 +30,7 @@ Search
 
 16th May 2021
 
-F.prototype
-===========
+# F.prototype
 
 Remember, new objects can be created with a constructor function, like `new F()`.
 
@@ -77,8 +76,7 @@ That’s the resulting picture:
 
 If, after the creation, `F.prototype` property changes (`F.prototype = <another object>`), then new objects created by `new F` will have another object as `[[Prototype]]`, but already existing objects keep the old one.
 
-<a href="function-prototype.html#default-f-prototype-constructor-property" id="default-f-prototype-constructor-property" class="main__anchor">Default F.prototype, constructor property</a>
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="function-prototype.html#default-f-prototype-constructor-property" id="default-f-prototype-constructor-property" class="main__anchor">Default F.prototype, constructor property</a>
 
 Every function has the `"prototype"` property even if we don’t supply it.
 
@@ -177,16 +175,15 @@ Or, alternatively, recreate the `constructor` property manually:
 
     // now constructor is also correct, because we added it
 
-<a href="function-prototype.html#summary" id="summary" class="main__anchor">Summary</a>
----------------------------------------------------------------------------------------
+## <a href="function-prototype.html#summary" id="summary" class="main__anchor">Summary</a>
 
 In this chapter we briefly described the way of setting a `[[Prototype]]` for objects created via a constructor function. Later we’ll see more advanced programming patterns that rely on it.
 
 Everything is quite simple, just a few notes to make things clear:
 
--   The `F.prototype` property (don’t mistake it for `[[Prototype]]`) sets `[[Prototype]]` of new objects when `new F()` is called.
--   The value of `F.prototype` should be either an object or `null`: other values won’t work.
--   The `"prototype"` property only has such a special effect when set on a constructor function, and invoked with `new`.
+- The `F.prototype` property (don’t mistake it for `[[Prototype]]`) sets `[[Prototype]]` of new objects when `new F()` is called.
+- The value of `F.prototype` should be either an object or `null`: other values won’t work.
+- The `"prototype"` property only has such a special effect when set on a constructor function, and invoked with `new`.
 
 On regular objects the `prototype` is nothing special:
 
@@ -197,8 +194,7 @@ On regular objects the `prototype` is nothing special:
 
 By default all functions have `F.prototype = { constructor: F }`, so we can get the constructor of an object by accessing its `"constructor"` property.
 
-<a href="function-prototype.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
----------------------------------------------------------------------------------------------------------------------------
+## <a href="function-prototype.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="function-prototype.html#changing-prototype" id="changing-prototype" class="main__anchor">Changing "prototype"</a>
 
@@ -375,26 +371,26 @@ Probably, that’s not what we want. We’d like to create `new User`, not `new 
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="prototypes.html" class="sidebar__link">Prototypes, inheritance</a>
+- <a href="prototypes.html" class="sidebar__link">Prototypes, inheritance</a>
 
 #### Lesson navigation
 
--   function-prototype.html\#default-f-prototype-constructor-property" &gt;Default F.prototype, constructor property
--   function-prototype.html
+- function-prototype.html\#default-f-prototype-constructor-property" &gt;Default F.prototype, constructor property
+- function-prototype.html
 
 <!-- -->
 
--   function-prototype.html\#tasks" &gt;Tasks (2)
--   function-prototype.html\#comments" &gt;Comments
+- function-prototype.html\#tasks" &gt;Tasks (2)
+- function-prototype.html\#comments" &gt;Comments
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/08-prototypes/02-function-prototype" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

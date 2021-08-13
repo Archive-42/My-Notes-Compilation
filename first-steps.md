@@ -1,17 +1,17 @@
 EN
 
--   <a href="https://ar.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="first-steps.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://it.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="first-steps.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://it.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="first-steps%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="first-steps%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -26,8 +26,7 @@ Search
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="js.html" class="breadcrumbs__link"><span>The JavaScript language</span></a></span>
 
-JavaScript Fundamentals
-=======================
+# JavaScript Fundamentals
 
 Let’s learn the fundamentals of script building.
 
@@ -60,25 +59,25 @@ Let’s learn the fundamentals of script building.
 
 #### Sibling chapters
 
--   <a href="getting-started.html" class="sidebar__link">An introduction</a>
--   <a href="first-steps.html" class="sidebar__link">JavaScript Fundamentals</a>
--   <a href="code-quality.html" class="sidebar__link">Code quality</a>
--   <a href="object-basics.html" class="sidebar__link">Objects: the basics</a>
--   <a href="data-types.html" class="sidebar__link">Data types</a>
--   <a href="advanced-functions.html" class="sidebar__link">Advanced working with functions</a>
--   <a href="object-properties.html" class="sidebar__link">Object properties configuration</a>
--   <a href="prototypes.html" class="sidebar__link">Prototypes, inheritance</a>
--   <a href="classes.html" class="sidebar__link">Classes</a>
--   <a href="error-handling.html" class="sidebar__link">Error handling</a>
--   <a href="async.html" class="sidebar__link">Promises, async/await</a>
--   <a href="generators-iterators.html" class="sidebar__link">Generators, advanced iteration</a>
--   <a href="modules.html" class="sidebar__link">Modules</a>
--   <a href="js-misc.html" class="sidebar__link">Miscellaneous</a>
+- <a href="getting-started.html" class="sidebar__link">An introduction</a>
+- <a href="first-steps.html" class="sidebar__link">JavaScript Fundamentals</a>
+- <a href="code-quality.html" class="sidebar__link">Code quality</a>
+- <a href="object-basics.html" class="sidebar__link">Objects: the basics</a>
+- <a href="data-types.html" class="sidebar__link">Data types</a>
+- <a href="advanced-functions.html" class="sidebar__link">Advanced working with functions</a>
+- <a href="object-properties.html" class="sidebar__link">Object properties configuration</a>
+- <a href="prototypes.html" class="sidebar__link">Prototypes, inheritance</a>
+- <a href="classes.html" class="sidebar__link">Classes</a>
+- <a href="error-handling.html" class="sidebar__link">Error handling</a>
+- <a href="async.html" class="sidebar__link">Promises, async/await</a>
+- <a href="generators-iterators.html" class="sidebar__link">Generators, advanced iteration</a>
+- <a href="modules.html" class="sidebar__link">Modules</a>
+- <a href="js-misc.html" class="sidebar__link">Miscellaneous</a>
 
 <a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffirst-steps" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffirst-steps" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

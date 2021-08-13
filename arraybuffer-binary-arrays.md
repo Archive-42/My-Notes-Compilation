@@ -1,10 +1,10 @@
 EN
 
--   <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="arraybuffer-binary-arrays.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/arraybuffer-binary-arrays" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://it.javascript.info/arraybuffer-binary-arrays" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/arraybuffer-binary-arrays" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="arraybuffer-binary-arrays.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/arraybuffer-binary-arrays" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://it.javascript.info/arraybuffer-binary-arrays" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/arraybuffer-binary-arrays" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <a href="https://ko.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
 
@@ -19,8 +19,7 @@ EN
 
 25th November 2020
 
-ArrayBuffer, binary arrays
-==========================
+# ArrayBuffer, binary arrays
 
 In web-development we meet binary data mostly while dealing with files (create, upload, download). Another typical use case is image processing.
 
@@ -28,7 +27,7 @@ That’s all possible in JavaScript, and binary operations are high-performant.
 
 Although, there’s a bit of confusion, because there are many classes. To name a few:
 
--   `ArrayBuffer`, `Uint8Array`, `DataView`, `Blob`, `File`, etc.
+- `ArrayBuffer`, `Uint8Array`, `DataView`, `Blob`, `File`, etc.
 
 Binary data in JavaScript is implemented in a non-standard way, compared to other languages. But when we sort things out, everything becomes fairly simple.
 
@@ -49,9 +48,9 @@ This allocates a contiguous memory area of 16 bytes and pre-fills it with zeroes
 
 Let’s eliminate a possible source of confusion. `ArrayBuffer` has nothing in common with `Array`:
 
--   It has a fixed length, we can’t increase or decrease it.
--   It takes exactly that much space in the memory.
--   To access individual bytes, another “view” object is needed, not `buffer[index]`.
+- It has a fixed length, we can’t increase or decrease it.
+- It takes exactly that much space in the memory.
+- To access individual bytes, another “view” object is needed, not `buffer[index]`.
 
 `ArrayBuffer` is a memory area. What’s stored in it? It has no clue. Just a raw sequence of bytes.
 
@@ -61,10 +60,10 @@ A view object does not store anything on it’s own. It’s the “eyeglasses”
 
 For instance:
 
--   **`Uint8Array`** – treats each byte in `ArrayBuffer` as a separate number, with possible values from 0 to 255 (a byte is 8-bit, so it can hold only that much). Such value is called a “8-bit unsigned integer”.
--   **`Uint16Array`** – treats every 2 bytes as an integer, with possible values from 0 to 65535. That’s called a “16-bit unsigned integer”.
--   **`Uint32Array`** – treats every 4 bytes as an integer, with possible values from 0 to 4294967295. That’s called a “32-bit unsigned integer”.
--   **`Float64Array`** – treats every 8 bytes as a floating point number with possible values from `5.0x10-324` to `1.8x10308`.
+- **`Uint8Array`** – treats each byte in `ArrayBuffer` as a separate number, with possible values from 0 to 255 (a byte is 8-bit, so it can hold only that much). Such value is called a “8-bit unsigned integer”.
+- **`Uint16Array`** – treats every 2 bytes as an integer, with possible values from 0 to 65535. That’s called a “16-bit unsigned integer”.
+- **`Uint32Array`** – treats every 4 bytes as an integer, with possible values from 0 to 4294967295. That’s called a “32-bit unsigned integer”.
+- **`Float64Array`** – treats every 8 bytes as a floating point number with possible values from `5.0x10-324` to `1.8x10308`.
 
 So, the binary data in an `ArrayBuffer` of 16 bytes can be interpreted as 16 “tiny numbers”, or 8 bigger numbers (2 bytes each), or 4 even bigger (4 bytes each), or 2 floating-point values with high precision (8 bytes each).
 
@@ -93,8 +92,7 @@ But if we’re going to write into it, or iterate over it, basically for almost 
       alert(num); // 123456, then 0, 0, 0 (4 values total)
     }
 
-<a href="arraybuffer-binary-arrays.html#typedarray" id="typedarray" class="main__anchor">TypedArray</a>
--------------------------------------------------------------------------------------------------------
+## <a href="arraybuffer-binary-arrays.html#typedarray" id="typedarray" class="main__anchor">TypedArray</a>
 
 The common term for all these views (`Uint8Array`, `Uint32Array`, etc) is [TypedArray](https://tc39.github.io/ecma262/#sec-typedarray-objects). They share the same set of methods and properities.
 
@@ -157,8 +155,8 @@ We can create a `TypedArray` directly, without mentioning `ArrayBuffer`. But a v
 
 To access the `ArrayBuffer`, there are properties:
 
--   `arr.buffer` – references the `ArrayBuffer`.
--   `arr.byteLength` – the length of the `ArrayBuffer`.
+- `arr.buffer` – references the `ArrayBuffer`.
+- `arr.byteLength` – the length of the `ArrayBuffer`.
 
 So, we can always move from one view to another:
 
@@ -169,10 +167,10 @@ So, we can always move from one view to another:
 
 Here’s the list of typed arrays:
 
--   `Uint8Array`, `Uint16Array`, `Uint32Array` – for integer numbers of 8, 16 and 32 bits.
-    -   `Uint8ClampedArray` – for 8-bit integers, “clamps” them on assignment (see below).
--   `Int8Array`, `Int16Array`, `Int32Array` – for signed integer numbers (can be negative).
--   `Float32Array`, `Float64Array` – for signed floating-point numbers of 32 and 64 bits.
+- `Uint8Array`, `Uint16Array`, `Uint32Array` – for integer numbers of 8, 16 and 32 bits.
+  - `Uint8ClampedArray` – for 8-bit integers, “clamps” them on assignment (see below).
+- `Int8Array`, `Int16Array`, `Int32Array` – for signed integer numbers (can be negative).
+- `Float32Array`, `Float64Array` – for signed floating-point numbers of 32 and 64 bits.
 
 <span class="important__type">No `int8` or similar single-valued types</span>
 
@@ -213,8 +211,7 @@ Here’s the demo:
 
 `Uint8ClampedArray` is special in this aspect, its behavior is different. It saves 255 for any number that is greater than 255, and 0 for any negative number. That behavior is useful for image processing.
 
-<a href="arraybuffer-binary-arrays.html#typedarray-methods" id="typedarray-methods" class="main__anchor">TypedArray methods</a>
--------------------------------------------------------------------------------------------------------------------------------
+## <a href="arraybuffer-binary-arrays.html#typedarray-methods" id="typedarray-methods" class="main__anchor">TypedArray methods</a>
 
 `TypedArray` has regular `Array` methods, with notable exceptions.
 
@@ -222,31 +219,30 @@ We can iterate, `map`, `slice`, `find`, `reduce` etc.
 
 There are few things we can’t do though:
 
--   No `splice` – we can’t “delete” a value, because typed arrays are views on a buffer, and these are fixed, contiguous areas of memory. All we can do is to assign a zero.
--   No `concat` method.
+- No `splice` – we can’t “delete” a value, because typed arrays are views on a buffer, and these are fixed, contiguous areas of memory. All we can do is to assign a zero.
+- No `concat` method.
 
 There are two additional methods:
 
--   `arr.set(fromArr, [offset])` copies all elements from `fromArr` to the `arr`, starting at position `offset` (0 by default).
--   `arr.subarray([begin, end])` creates a new view of the same type from `begin` to `end` (exclusive). That’s similar to `slice` method (that’s also supported), but doesn’t copy anything – just creates a new view, to operate on the given piece of data.
+- `arr.set(fromArr, [offset])` copies all elements from `fromArr` to the `arr`, starting at position `offset` (0 by default).
+- `arr.subarray([begin, end])` creates a new view of the same type from `begin` to `end` (exclusive). That’s similar to `slice` method (that’s also supported), but doesn’t copy anything – just creates a new view, to operate on the given piece of data.
 
 These methods allow us to copy typed arrays, mix them, create new arrays from existing ones, and so on.
 
-<a href="arraybuffer-binary-arrays.html#dataview" id="dataview" class="main__anchor">DataView</a>
--------------------------------------------------------------------------------------------------
+## <a href="arraybuffer-binary-arrays.html#dataview" id="dataview" class="main__anchor">DataView</a>
 
 [DataView](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView) is a special super-flexible “untyped” view over `ArrayBuffer`. It allows to access the data on any offset in any format.
 
--   For typed arrays, the constructor dictates what the format is. The whole array is supposed to be uniform. The i-th number is `arr[i]`.
--   With `DataView` we access the data with methods like `.getUint8(i)` or `.getUint16(i)`. We choose the format at method call time instead of the construction time.
+- For typed arrays, the constructor dictates what the format is. The whole array is supposed to be uniform. The i-th number is `arr[i]`.
+- With `DataView` we access the data with methods like `.getUint8(i)` or `.getUint16(i)`. We choose the format at method call time instead of the construction time.
 
 The syntax:
 
     new DataView(buffer, [byteOffset], [byteLength])
 
--   **`buffer`** – the underlying `ArrayBuffer`. Unlike typed arrays, `DataView` doesn’t create a buffer on its own. We need to have it ready.
--   **`byteOffset`** – the starting byte position of the view (by default 0).
--   **`byteLength`** – the byte length of the view (by default till the end of `buffer`).
+- **`buffer`** – the underlying `ArrayBuffer`. Unlike typed arrays, `DataView` doesn’t create a buffer on its own. We need to have it ready.
+- **`byteOffset`** – the starting byte position of the view (by default 0).
+- **`byteLength`** – the byte length of the view (by default till the end of `buffer`).
 
 For instance, here we extract numbers in different formats from the same buffer:
 
@@ -272,26 +268,25 @@ For instance, here we extract numbers in different formats from the same buffer:
 
 `DataView` is great when we store mixed-format data in the same buffer. For example, when we store a sequence of pairs (16-bit integer, 32-bit float), `DataView` allows to access them easily.
 
-<a href="arraybuffer-binary-arrays.html#summary" id="summary" class="main__anchor">Summary</a>
-----------------------------------------------------------------------------------------------
+## <a href="arraybuffer-binary-arrays.html#summary" id="summary" class="main__anchor">Summary</a>
 
 `ArrayBuffer` is the core object, a reference to the fixed-length contiguous memory area.
 
 To do almost any operation on `ArrayBuffer`, we need a view.
 
--   It can be a `TypedArray`:
-    -   `Uint8Array`, `Uint16Array`, `Uint32Array` – for unsigned integers of 8, 16, and 32 bits.
-    -   `Uint8ClampedArray` – for 8-bit integers, “clamps” them on assignment.
-    -   `Int8Array`, `Int16Array`, `Int32Array` – for signed integer numbers (can be negative).
-    -   `Float32Array`, `Float64Array` – for signed floating-point numbers of 32 and 64 bits.
--   Or a `DataView` – the view that uses methods to specify a format, e.g. `getUint8(offset)`.
+- It can be a `TypedArray`:
+  - `Uint8Array`, `Uint16Array`, `Uint32Array` – for unsigned integers of 8, 16, and 32 bits.
+  - `Uint8ClampedArray` – for 8-bit integers, “clamps” them on assignment.
+  - `Int8Array`, `Int16Array`, `Int32Array` – for signed integer numbers (can be negative).
+  - `Float32Array`, `Float64Array` – for signed floating-point numbers of 32 and 64 bits.
+- Or a `DataView` – the view that uses methods to specify a format, e.g. `getUint8(offset)`.
 
 In most cases we create and operate directly on typed arrays, leaving `ArrayBuffer` under cover, as a “common denominator”. We can access it as `.buffer` and make another view if needed.
 
 There are also two additional terms, that are used in descriptions of methods that operate on binary data:
 
--   `ArrayBufferView` is an umbrella term for all these kinds of views.
--   `BufferSource` is an umbrella term for `ArrayBuffer` or `ArrayBufferView`.
+- `ArrayBufferView` is an umbrella term for all these kinds of views.
+- `BufferSource` is an umbrella term for `ArrayBuffer` or `ArrayBufferView`.
 
 We’ll see these terms in the next chapters. `BufferSource` is one of the most common terms, as it means “any kind of binary data” – an `ArrayBuffer` or a view over it.
 
@@ -299,8 +294,7 @@ Here’s a cheatsheet:
 
 <figure><img src="article/arraybuffer-binary-arrays/arraybuffer-view-buffersource.svg" width="707" height="463" /></figure>
 
-<a href="arraybuffer-binary-arrays.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
-----------------------------------------------------------------------------------------------------------------------------------
+## <a href="arraybuffer-binary-arrays.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="arraybuffer-binary-arrays.html#concatenate-typed-arrays" id="concatenate-typed-arrays" class="main__anchor">Concatenate typed arrays</a>
 
