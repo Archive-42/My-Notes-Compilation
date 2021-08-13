@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Object methods, &quot;this&quot;</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="object-methods.html"
+    />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content='Object methods, "this"' />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content='Object methods, "this"' />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="garbage-collection.html" />
+    <link rel="next" href="constructor-new.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content='Object methods, "this"' />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/object-methods"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="object-methods.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/object-methods"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/object-methods"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/object-methods"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/object-methods"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/object-methods"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=object-methods"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/object-methods"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/object-methods"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span>简体中文</span></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a>
+                        the content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fobject-methods"
+                  rel="nofollow"
+                ></a
+                >2Fobject-methods"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/object-methods">
+                  عربي
+                </option>
+                <option value="https://javascript.info/object-methods" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/object-methods">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/object-methods">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/object-methods">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/object-methods">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/object-methods">
+                  한국어
+                </option>
+                <option value=object-methods">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/object-methods">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/object-methods">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="32"
+          max="92"
+          data-tooltip="Lesson 32 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="object-basics.html"
+                        ><span>Objects: the basics</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Objects: the basics",
+                            "item": "https://javascript.info/object-basics"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 4th April 2021"
+                  >
+                    <div class="updated-at__content">4th April 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">
+                  Object methods, &quot;this&quot;
+                </h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content='Object methods, "this"' />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Objects are usually created to represent entities of the
+                    real world, like users, orders and so on:
+                  </p>
+                  <div id="nmh6y875jr" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  age: 30
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    And, in the real world, a user can <em>act</em>: select
+                    something from the shopping cart, login, logout etc.
+                  </p>
+                  <p>
+                    Actions are represented in JavaScript by functions in
+                    properties.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="method-examples"
+                      href="object-methods.html#method-examples"
+                      >Method examples</a
+                    >
+                  </h2>
+                  <p>
+                    For a start, let’s teach the <code>user</code> to say hello:
+                  </p>
+                  <div
+                    id="ap6ez079a7"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":5,"end":7}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-methods.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-methods.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  age: 30
+};
+
+user.sayHi = function() {
+  alert(&quot;Hello!&quot;);
+};
+
+user.sayHi(); // Hello!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here we’ve just used a Function Expression to create a
+                    function and assign it to the property
+                    <code>user.sayHi</code> of the object.
+                  </p>
+                  <p>
+                    Then we can call it as <code>user.sayHi()</code>. The user
+                    can now speak!
+                  </p>
+                  <p>
+                    A function that is a property of an object is called its
+                    <em>method</em>.
+                  </p>
+                  <p>
+                    So, here we’ve got a method <code>sayHi</code> of the object
+                    <code>user</code>.
+                  </p>
+                  <p>
+                    Of course, we could use a pre-declared function as a method,
+                    like this:
+                  </p>
+                  <div
+                    id="i6dc713xi7"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"end":10}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-methods.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-methods.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  // ...
+};
+
+// first, declare
+function sayHi() {
+  alert(&quot;Hello!&quot;);
+};
+
+// then add as a method
+user.sayHi = sayHi;
+
+user.sayHi(); // Hello!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Object-oriented programming</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        When we write our code using objects to represent
+                        entities, that’s called
+                        <a
+                          href="https://en.wikipedia.org/wiki/Object-oriented_programming"
+                          >object-oriented programming</a
+                        >, in short: “OOP”.
+                      </p>
+                      <p>
+                        OOP is a big thing, an interesting science of its own.
+                        How to choose the right entities? How to organize the
+                        interaction between them? That’s architecture, and there
+                        are great books on that topic, like “Design Patterns:
+                        Elements of Reusable Object-Oriented Software” by E.
+                        Gamma, R. Helm, R. Johnson, J. Vissides or
+                        “Object-Oriented Analysis and Design with Applications”
+                        by G. Booch, and more.
+                      </p>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="method-shorthand"
+                      href="object-methods.html#method-shorthand"
+                      >Method shorthand</a
+                    >
+                  </h3>
+                  <p>
+                    There exists a shorter syntax for methods in an object
+                    literal:
+                  </p>
+                  <div
+                    id="v6r5dhffcb"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":10,"end":10}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// these objects do the same
+
+user = {
+  sayHi: function() {
+    alert(&quot;Hello&quot;);
+  }
+};
+
+// method shorthand looks better, right?
+user = {
+  sayHi() { // same as &quot;sayHi: function(){...}&quot;
+    alert(&quot;Hello&quot;);
+  }
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As demonstrated, we can omit
+                    <code>&quot;function&quot;</code> and just write
+                    <code>sayHi()</code>.
+                  </p>
+                  <p>
+                    To tell the truth, the notations are not fully identical.
+                    There are subtle differences related to object inheritance
+                    (to be covered later), but for now they do not matter. In
+                    almost all cases the shorter syntax is preferred.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="this-in-methods"
+                      href="object-methods.html#this-in-methods"
+                      >“this” in methods</a
+                    >
+                  </h2>
+                  <p>
+                    It’s common that an object method needs to access the
+                    information stored in the object to do its job.
+                  </p>
+                  <p>
+                    For instance, the code inside <code>user.sayHi()</code> may
+                    need the name of the <code>user</code>.
+                  </p>
+                  <p>
+                    <strong
+                      >To access the object, a method can use the
+                      <code>this</code> keyword.</strong
+                    >
+                  </p>
+                  <p>
+                    The value of <code>this</code> is the object “before dot”,
+                    the one used to call the method.
+                  </p>
+                  <p>For instance:</p>
+                  <div
+                    id="a1ugqqocvw"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":5,"end":6}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-methods.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-methods.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  age: 30,
+
+  sayHi() {
+    // &quot;this&quot; is the &quot;current object&quot;
+    alert(this.name);
+  }
+
+};
+
+user.sayHi(); // John</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here during the execution of <code>user.sayHi()</code>, the
+                    value of <code>this</code> will be <code>user</code>.
+                  </p>
+                  <p>
+                    Technically, it’s also possible to access the object without
+                    <code>this</code>, by referencing it via the outer variable:
+                  </p>
+                  <div
+                    id="12esvau008"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":5,"end":5}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  age: 30,
+
+  sayHi() {
+    alert(user.name); // &quot;user&quot; instead of &quot;this&quot;
+  }
+
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …But such code is unreliable. If we decide to copy
+                    <code>user</code> to another variable, e.g.
+                    <code>admin = user</code> and overwrite
+                    <code>user</code> with something else, then it will access
+                    the wrong object.
+                  </p>
+                  <p>That’s demonstrated below:</p>
+                  <div
+                    id="33u7y353v2"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":14,"end":14},{"start":5,"end":5}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-methods.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-methods.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  age: 30,
+
+  sayHi() {
+    alert( user.name ); // leads to an error
+  }
+
+};
+
+
+let admin = user;
+user = null; // overwrite to make things obvious
+
+admin.sayHi(); // TypeError: Cannot read property 'name' of null</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    If we used <code>this.name</code> instead of
+                    <code>user.name</code> inside the <code>alert</code>, then
+                    the code would work.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="this-is-not-bound"
+                      href="object-methods.html#this-is-not-bound"
+                      >“this” is not bound</a
+                    >
+                  </h2>
+                  <p>
+                    In JavaScript, keyword <code>this</code> behaves unlike most
+                    other programming languages. It can be used in any function,
+                    even if it’s not a method of an object.
+                  </p>
+                  <p>There’s no syntax error in the following example:</p>
+                  <div
+                    id="zqxtjk0qwj"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":1,"cols":[{"start":9,"end":13}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function sayHi() {
+  alert( this.name );
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The value of <code>this</code> is evaluated during the
+                    run-time, depending on the context.
+                  </p>
+                  <p>
+                    For instance, here the same function is assigned to two
+                    different objects and has different “this” in the calls:
+                  </p>
+                  <div
+                    id="cj7koo7nnu"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":7,"end":9}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-methods.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-methods.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = { name: &quot;John&quot; };
+let admin = { name: &quot;Admin&quot; };
+
+function sayHi() {
+  alert( this.name );
+}
+
+// use the same function in two objects
+user.f = sayHi;
+admin.f = sayHi;
+
+// these calls have different this
+// &quot;this&quot; inside the function is the object &quot;before the dot&quot;
+user.f(); // John  (this == user)
+admin.f(); // Admin  (this == admin)
+
+admin['f'](); // Admin (dot or square brackets access the method – doesn't matter)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The rule is simple: if <code>obj.f()</code> is called, then
+                    <code>this</code> is <code>obj</code> during the call of
+                    <code>f</code>. So it’s either <code>user</code> or
+                    <code>admin</code> in the example above.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Calling without an object:
+                        <code>this == undefined</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        We can even call the function without an object at all:
+                      </p>
+                      <div
+                        id="epuzoaqwtu"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="object-methods.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="object-methods.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>function sayHi() {
+  alert(this);
+}
+
+sayHi(); // undefined</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        In this case <code>this</code> is
+                        <code>undefined</code> in strict mode. If we try to
+                        access <code>this.name</code>, there will be an error.
+                      </p>
+                      <p>
+                        In non-strict mode the value of <code>this</code> in
+                        such case will be the <em>global object</em> (<code
+                          >window</code
+                        >
+                        in a browser, we’ll get to it later in the chapter
+                        <a href="global-object.html">Global object</a>). This is
+                        a historical behavior that
+                        <code>&quot;use strict&quot;</code> fixes.
+                      </p>
+                      <p>
+                        Usually such call is a programming error. If there’s
+                        <code>this</code> inside a function, it expects to be
+                        called in an object context.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >The consequences of unbound <code>this</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        If you come from another programming language, then you
+                        are probably used to the idea of a &quot;bound
+                        <code>this</code>&quot;, where methods defined in an
+                        object always have <code>this</code> referencing that
+                        object.
+                      </p>
+                      <p>
+                        In JavaScript <code>this</code> is “free”, its value is
+                        evaluated at call-time and does not depend on where the
+                        method was declared, but rather on what object is
+                        “before the dot”.
+                      </p>
+                      <p>
+                        The concept of run-time evaluated <code>this</code> has
+                        both pluses and minuses. On the one hand, a function can
+                        be reused for different objects. On the other hand, the
+                        greater flexibility creates more possibilities for
+                        mistakes.
+                      </p>
+                      <p>
+                        Here our position is not to judge whether this language
+                        design decision is good or bad. We’ll understand how to
+                        work with it, how to get benefits and avoid problems.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="arrow-functions-have-no-this"
+                      href="object-methods.html#arrow-functions-have-no-this"
+                      >Arrow functions have no “this”</a
+                    >
+                  </h2>
+                  <p>
+                    Arrow functions are special: they don’t have their “own”
+                    <code>this</code>. If we reference <code>this</code> from
+                    such a function, it’s taken from the outer “normal”
+                    function.
+                  </p>
+                  <p>
+                    For instance, here <code>arrow()</code> uses
+                    <code>this</code> from the outer
+                    <code>user.sayHi()</code> method:
+                  </p>
+                  <div id="4qpkjlzc75" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-methods.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-methods.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  firstName: &quot;Ilya&quot;,
+  sayHi() {
+    let arrow = () =&gt; alert(this.firstName);
+    arrow();
+  }
+};
+
+user.sayHi(); // Ilya</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    That’s a special feature of arrow functions, it’s useful
+                    when we actually do not want to have a separate
+                    <code>this</code>, but rather to take it from the outer
+                    context. Later in the chapter
+                    <a href="arrow-functions.html">Arrow functions revisited</a>
+                    we’ll go more deeply into arrow functions.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="object-methods.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <ul>
+                    <li>
+                      Functions that are stored in object properties are called
+                      “methods”.
+                    </li>
+                    <li>
+                      Methods allow objects to “act” like
+                      <code>object.doSomething()</code>.
+                    </li>
+                    <li>
+                      Methods can reference the object as <code>this</code>.
+                    </li>
+                  </ul>
+                  <p>The value of <code>this</code> is defined at run-time.</p>
+                  <ul>
+                    <li>
+                      When a function is declared, it may use <code>this</code>,
+                      but that <code>this</code> has no value until the function
+                      is called.
+                    </li>
+                    <li>A function can be copied between objects.</li>
+                    <li>
+                      When a function is called in the “method” syntax:
+                      <code>object.method()</code>, the value of
+                      <code>this</code> during the call is <code>object</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    Please note that arrow functions are special: they have no
+                    <code>this</code>. When <code>this</code> is accessed inside
+                    an arrow function, it is taken from outside.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="object-methods.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="object-methods.html#using-this-in-object-literal"
+                          name="using-this-in-object-literal"
+                          >Using &quot;this&quot; in object literal</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/object-property-this.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Here the function <code>makeUser</code> returns an
+                          object.
+                        </p>
+                        <p>
+                          What is the result of accessing its <code>ref</code>?
+                          Why?
+                        </p>
+                        <div
+                          id="4bol18ztt7"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function makeUser() {
+  return {
+    name: &quot;John&quot;,
+    ref: this
+  };
+}
+
+let user = makeUser();
+
+alert( user.ref.name ); // What's the result?</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p><strong>Answer: an error.</strong></p>
+                            <p>Try it:</p>
+                            <div
+                              id="0vjpk3ymxk"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="object-methods.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="object-methods.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function makeUser() {
+  return {
+    name: &quot;John&quot;,
+    ref: this
+  };
+}
+
+let user = makeUser();
+
+alert( user.ref.name ); // Error: Cannot read property 'name' of undefined</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              That’s because rules that set <code>this</code> do
+                              not look at object definition. Only the moment of
+                              call matters.
+                            </p>
+                            <p>
+                              Here the value of <code>this</code> inside
+                              <code>makeUser()</code> is <code>undefined</code>,
+                              because it is called as a function, not as a
+                              method with “dot” syntax.
+                            </p>
+                            <p>
+                              The value of <code>this</code> is one for the
+                              whole function, code blocks and object literals do
+                              not affect it.
+                            </p>
+                            <p>
+                              So <code>ref: this</code> actually takes current
+                              <code>this</code> of the function.
+                            </p>
+                            <p>
+                              We can rewrite the function and return the same
+                              <code>this</code> with
+                              <code>undefined</code> value:
+                            </p>
+                            <div
+                              id="ofpj1chs04"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="object-methods.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="object-methods.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function makeUser(){
+  return this; // this time there's no object literal
+}
+
+alert( makeUser().name ); // Error: Cannot read property 'name' of undefined</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              As you can see the result of
+                              <code>alert( makeUser().name )</code> is the same
+                              as the result of
+                              <code>alert( user.ref.name )</code> from the
+                              previous example.
+                            </p>
+                            <p>Here’s the opposite case:</p>
+                            <div
+                              id="ogth4erdux"
+                              data-trusted="1"
+                              class="code-example"
+                              data-highlight='[{"start":3,"end":5}]'
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="object-methods.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="object-methods.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function makeUser() {
+  return {
+    name: &quot;John&quot;,
+    ref() {
+      return this;
+    }
+  };
+}
+
+let user = makeUser();
+
+alert( user.ref().name ); // John</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              Now it works, because <code>user.ref()</code> is a
+                              method. And the value of <code>this</code> is set
+                              to the object before dot <code>.</code>.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="object-methods.html#create-a-calculator"
+                          name="create-a-calculator"
+                          >Create a calculator</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/calculator.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Create an object <code>calculator</code> with three
+                          methods:
+                        </p>
+                        <ul>
+                          <li>
+                            <code>read()</code> prompts for two values and saves
+                            them as object properties.
+                          </li>
+                          <li>
+                            <code>sum()</code> returns the sum of saved values.
+                          </li>
+                          <li>
+                            <code>mul()</code> multiplies saved values and
+                            returns the result.
+                          </li>
+                        </ul>
+                        <div
+                          id="k4628z7npo"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let calculator = {
+  // ... your code ...
+};
+
+calculator.read();
+alert( calculator.sum() );
+alert( calculator.mul() );</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          <a
+                            href="object-methods.html#"
+                            onclick="event.preventDefault(); runDemo(this)"
+                            >Run the demo</a
+                          >
+                        </p>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/8rDRJ4cWja4gSda3?p=preview"
+                            target="_blank"
+                            data-plunk-id="8rDRJ4cWja4gSda3"
+                            >Open a sandbox with tests.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <div
+                              id="ss53jku1em"
+                              data-trusted="1"
+                              class="code-example"
+                              data-demo="1"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="object-methods.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="object-methods.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let calculator = {
+  sum() {
+    return this.a + this.b;
+  },
+
+  mul() {
+    return this.a * this.b;
+  },
+
+  read() {
+    this.a = +prompt('a?', 0);
+    this.b = +prompt('b?', 0);
+  }
+};
+
+calculator.read();
+alert( calculator.sum() );
+alert( calculator.mul() );</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/4PgrcZqUrY5Givw8?p=preview"
+                                target="_blank"
+                                data-plunk-id="4PgrcZqUrY5Givw8"
+                                >Open the solution with tests in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="object-methods.html#chaining"
+                          name="chaining"
+                          >Chaining</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/chain-calls.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 2</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          There’s a <code>ladder</code> object that allows to go
+                          up and down:
+                        </p>
+                        <div
+                          id="3ylqq0v6fu"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let ladder = {
+  step: 0,
+  up() {
+    this.step++;
+  },
+  down() {
+    this.step--;
+  },
+  showStep: function() { // shows the current step
+    alert( this.step );
+  }
+};</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          Now, if we need to make several calls in sequence, can
+                          do it like this:
+                        </p>
+                        <div
+                          id="7l20igp23s"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>ladder.up();
+ladder.up();
+ladder.down();
+ladder.showStep(); // 1</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          Modify the code of <code>up</code>,
+                          <code>down</code> and <code>showStep</code> to make
+                          the calls chainable, like this:
+                        </p>
+                        <div
+                          id="ufzpmqe8ub"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>ladder.up().up().down().showStep(); // 1</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          Such approach is widely used across JavaScript
+                          libraries.
+                        </p>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/0xLdTTzOOYbWQtqN?p=preview"
+                            target="_blank"
+                            data-plunk-id="0xLdTTzOOYbWQtqN"
+                            >Open a sandbox with tests.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              The solution is to return the object itself from
+                              every call.
+                            </p>
+                            <div
+                              id="4gsumxyhpi"
+                              data-trusted="1"
+                              class="code-example"
+                              data-demo="1"
+                              data-highlight='[{"start":12,"end":12},{"start":8,"end":8},{"start":4,"end":4}]'
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="object-methods.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="object-methods.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let ladder = {
+  step: 0,
+  up() {
+    this.step++;
+    return this;
+  },
+  down() {
+    this.step--;
+    return this;
+  },
+  showStep() {
+    alert( this.step );
+    return this;
+  }
+};
+
+ladder.up().up().down().up().down().showStep(); // 1</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              We also can write a single call per line. For long
+                              chains it’s more readable:
+                            </p>
+                            <div
+                              id="ekz5p4yxek"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>ladder
+  .up()
+  .up()
+  .down()
+  .up()
+  .down()
+  .showStep(); // 1</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/ZHJkcGTien66f0ix?p=preview"
+                                target="_blank"
+                                data-plunk-id="ZHJkcGTien66f0ix"
+                                >Open the solution with tests in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="garbage-collection.html"
+                data-tooltip="Garbage collection"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="constructor-new.html"
+                data-tooltip='Constructor, operator "new"'
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fobject-methods"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fobject-methods"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="object-methods.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/object-methods",
+                    identifier: "\/object-methods",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="object-basics.html"
+                        >Objects: the basics</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   object-methods.html#method-examples"
+                        >Method examples</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   object-methods.html#this-in-methods"
+                        >“this” in methods</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   object-methods.html#this-is-not-bound"
+                        >“this” is not bound</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   object-methods.html#arrow-functions-have-no-this"
+                        >Arrow functions have no “this”</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   object-methods.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="object-methods.html#tasks"
+                        >Tasks (3)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   object-methods.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fobject-methods"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fobject-methods"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/04-object-basics/04-object-methods"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,104 +1,87 @@
-Which is not a good practice in Javacript?
+EN
 
-- Use global variables
+- <a href="https://ar.javascript.info/js"
+- <a href="js.html"
+- <a href="https://es.javascript.info/js"
+- <a href="https://fr.javascript.info/js"
+- <a href="https://it.javascript.info/js"
+  js"
 
-- Use anonymous functions
-- Use Javacript namespacing
-- Use Closures
+<!-- -->
 
-What jQuery method should be used to deal with compability problems with other Javacript libraries due to the use of the $ function?
+- <a href="https://ko.javascript.info/js"
+- <a href=js"
+- <a href="https://tr.javascript.info/js"
+- <a href="https://zh.javascript.info/js"
 
-- noConflictd)
+We want to make this open-source project available for people all around the world.
 
-What elements return the following selector?
+[Help to translate](translate.html) the content of this tutorial to your language!
 
-("div#intro .head")
+<a href="index.html" class="sitetoolbar__link sitetoolbar__link_logo"><img src="img/sitetoolbar__logo_en.svg" class="sitetoolbar__logo sitetoolbar__logo_normal" width="200" /><img src="img/sitetoolbar__logo_small_en.svg" class="sitetoolbar__logo sitetoolbar__logo_small" width="70" /></a>
 
-- The first element with id="head" contained inside any other div element with class="intro"
+<a href="ebook.html" class="buy-book-button"><span class="buy-book-button__extra-text">Buy</span>EPUB/PDF</a>
 
-- All the elements with id="intro" or class="head"
+Search
 
-- All the elements with Class="head" inside of the first div element with ii
+Search
 
-- The first 'div#intro' element with class="head"
+<a href="tutorial/map.html" class="map">
 
-What's the name of the library internally used by jQuery that allows the selection of DM items?(similar to C selectors)
+<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fjs" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjs" </a>
 
-- izzle
-- electivizr
-- Motorelector
+عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
-- Riddle
+1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 
-Which one is not a Javacript Framework?
+# The JavaScript language
 
-- JQuery
-- Hibernate
-- Prototype
+Here we learn JavaScript, starting from scratch and go on to advanced concepts like OOP.
 
-- Dojo
+We concentrate on the language itself here, with the minimum of environment-specific notes.
 
-What's the difference between undefined and null?
+1.  <a href="getting-started.html" class="lessons-list__link">An introduction</a>
+2.  <a href="first-steps.html" class="lessons-list__link">JavaScript Fundamentals</a>
+3.  <a href="code-quality.html" class="lessons-list__link">Code quality</a>
+4.  <a href="object-basics.html" class="lessons-list__link">Objects: the basics</a>
+5.  <a href="data-types.html" class="lessons-list__link">Data types</a>
+6.  <a href="advanced-functions.html" class="lessons-list__link">Advanced working with functions</a>
+7.  <a href="object-properties.html" class="lessons-list__link">Object properties configuration</a>
+8.  <a href="prototypes.html" class="lessons-list__link">Prototypes, inheritance</a>
+9.  <a href="classes.html" class="lessons-list__link">Classes</a>
+10. <a href="error-handling.html" class="lessons-list__link">Error handling</a>
+11. <a href="async.html" class="lessons-list__link">Promises, async/await</a>
+12. <a href="generators-iterators.html" class="lessons-list__link">Generators, advanced iteration</a>
+13. <a href="modules.html" class="lessons-list__link">Modules</a>
+14. <a href="js-misc.html" class="lessons-list__link">Miscellaneous</a>
 
-- There's no difference, they're the same data type
-- Undefined doesn't represent any type
+<a href="getting-started.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-- Null doesn't represent any type
+<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fjs" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjs" </a>
 
-- Undefined is a type whereas null is an object
+<a href="tutorial/map.html" class="map">
 
-What does the following code do?
+<a href="tutorial/map.html" class="map"></a>
 
-```function print() {
- var x = "5";
- alert (x+y);} var x = 3; var y = 2;
-print();
-alert(x+y);
-```
+#### Sibling chapters
 
-- Gives an error in execution
-- Prints 52 and then prints 5
-- Prints 5 and then prints 5
-- Prints 7 and then prints 5
+- <a href="js.html" class="sidebar__link">The JavaScript language</a>
+- <a href="ui.html" class="sidebar__link">Browser: Document, Events, Interfaces</a>
+- <a href="frames-and-windows.html" class="sidebar__link">Frames and windows</a>
+- <a href="binary.html" class="sidebar__link">Binary data, files</a>
+- <a href="network.html" class="sidebar__link">Network requests</a>
+- <a href="data-storage.html" class="sidebar__link">Storing data in the browser</a>
+- <a href="animation.html" class="sidebar__link">Animation</a>
+- <a href="web-components.html" class="sidebar__link">Web components</a>
+- <a href="regular-expressions.html" class="sidebar__link">Regular expressions</a>
 
-What's true about functions in Javacript?
+Share
 
-- They all have parameters
+<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fjs" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjs" class="share share_fb sidebar__share"></a>
 
-- You can pass a function as an argument in another function
-- You can't define a function inside another one
+<a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js" class="sidebar__link">Edit on GitHub</a>
 
-What does "this" represent in the script?
-
-```
-<a onclick="javascript:func(this)" >Example</a>
-```
-
-- It represents the node of the element that contains
-- It represents the window object context
-
-- Itrepresents the context of the node father
-
-- It represents the context for the current node content
-
-What character does jQuery use as a shortcut for jQuery?
-
-- The $ ymbol
-
-What effect does the use of filter() have in thefollowing line?
-
-('div').filter('.nav')
-
-- Removes all the elements nav in the page and leaves only the div
-
-- Filters all the div elements and returns all those which have the class nav
-- Filters all the div elements and returns those which have the id nav
-
-- Filters all the div elements and returns the first that has the class nav
-
-How do you get the first element span in the page that has the green class?
-
-- $(span, .green, :first)
-- $(first.green span)
-- $(span.green:first)
-- $first(span.green)
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

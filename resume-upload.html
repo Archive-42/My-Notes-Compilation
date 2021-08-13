@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Resumable file upload</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="resume-upload.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Resumable file upload" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+
+    <meta name="twitter:title" content="Resumable file upload" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="xmlhttprequest.html" />
+    <link rel="next" href="long-polling.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Resumable file upload" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="resume-upload.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/resume-upload"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/resume-upload"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/resume-upload"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/resume-upload"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/resume-upload"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=resume-upload"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/resume-upload"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fresume-upload"
+                  rel="nofollow"
+                ></a
+                >2Fresume-upload"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option value="https://javascript.info/resume-upload" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/resume-upload">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/resume-upload">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/resume-upload">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/resume-upload">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/resume-upload">
+                  한국어
+                </option>
+                <option value=resume-upload">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/">Türkçe</option>
+                <option value="https://zh.javascript.info/resume-upload">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="9"
+          max="12"
+          data-tooltip="Lesson 9 of 12"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="network.html"
+                        ><span>Network requests</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Network requests",
+                            "item": "https://javascript.info/network"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 28th November 2020"
+                  >
+                    <div class="updated-at__content">28th November 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Resumable file upload</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Resumable file upload" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    With <code>fetch</code> method it’s fairly easy to upload a
+                    file.
+                  </p>
+                  <p>
+                    How to resume the upload after lost connection? There’s no
+                    built-in option for that, but we have the pieces to
+                    implement it.
+                  </p>
+                  <p>
+                    Resumable uploads should come with upload progress
+                    indication, as we expect big files (if we may need to
+                    resume). So, as <code>fetch</code> doesn’t allow to track
+                    upload progress, we’ll use
+                    <a href="xmlhttprequest.html">XMLHttpRequest</a>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="not-so-useful-progress-event"
+                      href="resume-upload.html#not-so-useful-progress-event"
+                      >Not-so-useful progress event</a
+                    >
+                  </h2>
+                  <p>
+                    To resume upload, we need to know how much was uploaded till
+                    the connection was lost.
+                  </p>
+                  <p>
+                    There’s <code>xhr.upload.onprogress</code> to track upload
+                    progress.
+                  </p>
+                  <p>
+                    Unfortunately, it won’t help us to resume the upload here,
+                    as it triggers when the data is <em>sent</em>, but was it
+                    received by the server? The browser doesn’t know.
+                  </p>
+                  <p>
+                    Maybe it was buffered by a local network proxy, or maybe the
+                    remote server process just died and couldn’t process them,
+                    or it was just lost in the middle and didn’t reach the
+                    receiver.
+                  </p>
+                  <p>
+                    That’s why this event is only useful to show a nice progress
+                    bar.
+                  </p>
+                  <p>
+                    To resume upload, we need to know <em>exactly</em> the
+                    number of bytes received by the server. And only the server
+                    can tell that, so we’ll make an additional request.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="algorithm"
+                      href="resume-upload.html#algorithm"
+                      >Algorithm</a
+                    >
+                  </h2>
+                  <ol>
+                    <li>
+                      <p>
+                        First, create a file id, to uniquely identify the file
+                        we’re going to upload:
+                      </p>
+                      <div
+                        id="e9a20frj1z"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let fileId = file.name + '-' + file.size + '-' + file.lastModified;</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        That’s needed for resume upload, to tell the server what
+                        we’re resuming.
+                      </p>
+                      <p>
+                        If the name or the size or the last modification date
+                        changes, then there’ll be another <code>fileId</code>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Send a request to the server, asking how many bytes it
+                        already has, like this:
+                      </p>
+                      <div
+                        id="qqht1itbb3"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let response = await fetch('status', {
+  headers: {
+    'X-File-Id': fileId
+  }
+});
+
+// The server has that many bytes
+let startByte = +await response.text();</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        This assumes that the server tracks file uploads by
+                        <code>X-File-Id</code> header. Should be implemented at
+                        server-side.
+                      </p>
+                      <p>
+                        If the file doesn’t yet exist at the server, then the
+                        server response should be <code>0</code>
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Then, we can use <code>Blob</code> method
+                        <code>slice</code> to send the file from
+                        <code>startByte</code>:
+                      </p>
+                      <div
+                        id="xt8j3q3bbg"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>xhr.open(&quot;POST&quot;, &quot;upload&quot;, true);
+
+// File id, so that the server knows which file we upload
+xhr.setRequestHeader('X-File-Id', fileId);
+
+// The byte we're resuming from, so the server knows we're resuming
+xhr.setRequestHeader('X-Start-Byte', startByte);
+
+xhr.upload.onprogress = (e) =&gt; {
+  console.log(`Uploaded ${startByte + e.loaded} of ${startByte + e.total}`);
+};
+
+// file can be from input.files[0] or another source
+xhr.send(file.slice(startByte));</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        Here we send the server both file id as
+                        <code>X-File-Id</code>, so it knows which file we’re
+                        uploading, and the starting byte as
+                        <code>X-Start-Byte</code>, so it knows we’re not
+                        uploading it initially, but resuming.
+                      </p>
+                      <p>
+                        The server should check its records, and if there was an
+                        upload of that file, and the current uploaded size is
+                        exactly <code>X-Start-Byte</code>, then append the data
+                        to it.
+                      </p>
+                    </li>
+                  </ol>
+                  <p>
+                    Here’s the demo with both client and server code, written on
+                    Node.js.
+                  </p>
+                  <p>
+                    It works only partially on this site, as Node.js is behind
+                    another server named Nginx, that buffers uploads, passing
+                    them to Node.js when fully complete.
+                  </p>
+                  <p>
+                    But you can download it and run locally for the full
+                    demonstration:
+                  </p>
+                  <div class="code-tabs code-tabs_result_on">
+                    <div class="code-tabs__tools">
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_left
+                          "
+                          title="&amp;larr;"
+                          data-code-tabs-left="data-code-tabs-left"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__switches-wrap">
+                        <div
+                          class="code-tabs__switches"
+                          data-code-tabs-switches="data-code-tabs-switches"
+                        >
+                          <div class="code-tabs__switches-items">
+                            <div
+                              class="
+                                code-tabs__switch code-tabs__switch_current
+                              "
+                            >
+                              Result
+                            </div>
+                            <div class="code-tabs__switch">server.js</div>
+                            <div class="code-tabs__switch">uploader.js</div>
+                            <div class="code-tabs__switch">index.html</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_right
+                          "
+                          title="&amp;rarr;"
+                          data-code-tabs-right="data-code-tabs-right"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__buttons">
+                        <a
+                          class="code-tabs__button code-tabs__button_external"
+                          target="_blank"
+                          title="open in a new window"
+                          href="article/resume-upload/upload-resume/index.html"
+                        ></a
+                        ><a
+                          class="code-tabs__button code-tabs__button_download"
+                          target="_blank"
+                          href="tutorial/zipview/upload-resume.zip%3FplunkId=a0T23I5fhhQ63WAu"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      class="code-tabs__content"
+                      data-code-tabs-content="data-code-tabs-content"
+                      style="height: 200px"
+                    >
+                      <div
+                        class="code-tabs__section code-tabs__section_current"
+                      >
+                        <iframe
+                          class="code-tabs__result"
+                          src="article/resume-upload/upload-resume/index.html"
+                        ></iframe>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-javascript line-numbers"
+                        ><code>let http = require('http');
+let static = require('node-static');
+let fileServer = new static.Server('.');
+let path = require('path');
+let fs = require('fs');
+let debug = require('debug')('example:resume-upload');
+
+let uploads = Object.create(null);
+
+function onUpload(req, res) {
+
+  let fileId = req.headers['x-file-id'];
+  let startByte = +req.headers['x-start-byte'];
+
+  if (!fileId) {
+    res.writeHead(400, &quot;No file id&quot;);
+    res.end();
+  }
+
+  // we'll files &quot;nowhere&quot;
+  let filePath = '/dev/null';
+  // could use a real path instead, e.g.
+  // let filePath = path.join('/tmp', fileId);
+
+  debug(&quot;onUpload fileId: &quot;, fileId);
+
+  // initialize a new upload
+  if (!uploads[fileId]) uploads[fileId] = {};
+  let upload = uploads[fileId];
+
+  debug(&quot;bytesReceived:&quot; + upload.bytesReceived + &quot; startByte:&quot; + startByte)
+
+  let fileStream;
+
+  // if startByte is 0 or not set, create a new file, otherwise check the size and append to existing one
+  if (!startByte) {
+    upload.bytesReceived = 0;
+    fileStream = fs.createWriteStream(filePath, {
+      flags: 'w'
+    });
+    debug(&quot;New file created: &quot; + filePath);
+  } else {
+    // we can check on-disk file size as well to be sure
+    if (upload.bytesReceived != startByte) {
+      res.writeHead(400, &quot;Wrong start byte&quot;);
+      res.end(upload.bytesReceived);
+      return;
+    }
+    // append to existing file
+    fileStream = fs.createWriteStream(filePath, {
+      flags: 'a'
+    });
+    debug(&quot;File reopened: &quot; + filePath);
+  }
+
+
+  req.on('data', function(data) {
+    debug(&quot;bytes received&quot;, upload.bytesReceived);
+    upload.bytesReceived += data.length;
+  });
+
+  // send request body to file
+  req.pipe(fileStream);
+
+  // when the request is finished, and all its data is written
+  fileStream.on('close', function() {
+    if (upload.bytesReceived == req.headers['x-file-size']) {
+      debug(&quot;Upload finished&quot;);
+      delete uploads[fileId];
+
+      // can do something else with the uploaded file here
+
+      res.end(&quot;Success &quot; + upload.bytesReceived);
+    } else {
+      // connection lost, we leave the unfinished file around
+      debug(&quot;File unfinished, stopped at &quot; + upload.bytesReceived);
+      res.end();
+    }
+  });
+
+  // in case of I/O error - finish the request
+  fileStream.on('error', function(err) {
+    debug(&quot;fileStream error&quot;);
+    res.writeHead(500, &quot;File error&quot;);
+    res.end();
+  });
+
+}
+
+function onStatus(req, res) {
+  let fileId = req.headers['x-file-id'];
+  let upload = uploads[fileId];
+  debug(&quot;onStatus fileId:&quot;, fileId, &quot; upload:&quot;, upload);
+  if (!upload) {
+    res.end(&quot;0&quot;)
+  } else {
+    res.end(String(upload.bytesReceived));
+  }
+}
+
+
+function accept(req, res) {
+  if (req.url == '/status') {
+    onStatus(req, res);
+  } else if (req.url == '/upload' &amp;&amp; req.method == 'POST') {
+    onUpload(req, res);
+  } else {
+    fileServer.serve(req, res);
+  }
+
+}
+
+
+
+
+// -----------------------------------
+
+if (!module.parent) {
+  http.createServer(accept).listen(8080);
+  console.log('Server listening at port 8080');
+} else {
+  exports.accept = accept;
+}</code></pre>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-javascript line-numbers"
+                        ><code>class Uploader {
+
+  constructor({file, onProgress}) {
+    this.file = file;
+    this.onProgress = onProgress;
+
+    // create fileId that uniquely identifies the file
+    // we could also add user session identifier (if had one), to make it even more unique
+    this.fileId = file.name + '-' + file.size + '-' + file.lastModified;
+  }
+
+  async getUploadedBytes() {
+    let response = await fetch('status', {
+      headers: {
+        'X-File-Id': this.fileId
+      }
+    });
+
+    if (response.status != 200) {
+      throw new Error(&quot;Can't get uploaded bytes: &quot; + response.statusText);
+    }
+
+    let text = await response.text();
+
+    return +text;
+  }
+
+  async upload() {
+    this.startByte = await this.getUploadedBytes();
+
+    let xhr = this.xhr = new XMLHttpRequest();
+    xhr.open(&quot;POST&quot;, &quot;upload&quot;, true);
+
+    // send file id, so that the server knows which file to resume
+    xhr.setRequestHeader('X-File-Id', this.fileId);
+    // send the byte we're resuming from, so the server knows we're resuming
+    xhr.setRequestHeader('X-Start-Byte', this.startByte);
+
+    xhr.upload.onprogress = (e) =&gt; {
+      this.onProgress(this.startByte + e.loaded, this.startByte + e.total);
+    };
+
+    console.log(&quot;send the file, starting from&quot;, this.startByte);
+    xhr.send(this.file.slice(this.startByte));
+
+    // return
+    //   true if upload was successful,
+    //   false if aborted
+    // throw in case of an error
+    return await new Promise((resolve, reject) =&gt; {
+
+      xhr.onload = xhr.onerror = () =&gt; {
+        console.log(&quot;upload end status:&quot; + xhr.status + &quot; text:&quot; + xhr.statusText);
+
+        if (xhr.status == 200) {
+          resolve(true);
+        } else {
+          reject(new Error(&quot;Upload failed: &quot; + xhr.statusText));
+        }
+      };
+
+      // onabort triggers only when xhr.abort() is called
+      xhr.onabort = () =&gt; resolve(false);
+
+    });
+
+  }
+
+  stop() {
+    if (this.xhr) {
+      this.xhr.abort();
+    }
+  }
+
+}</code></pre>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-markup line-numbers"
+                        ><code>&lt;!DOCTYPE HTML&gt;
+
+&lt;script src=&quot;uploader.js&quot;&gt;&lt;/script&gt;
+
+&lt;form name=&quot;upload&quot; method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot; action=&quot;/upload&quot;&gt;
+  &lt;input type=&quot;file&quot; name=&quot;myfile&quot;&gt;
+  &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;Upload (Resumes automatically)&quot;&gt;
+&lt;/form&gt;
+
+&lt;button onclick=&quot;uploader.stop()&quot;&gt;Stop upload&lt;/button&gt;
+
+
+&lt;div id=&quot;log&quot;&gt;Progress indication&lt;/div&gt;
+
+&lt;script&gt;
+  function log(html) {
+    document.getElementById('log').innerHTML = html;
+    console.log(html);
+  }
+
+  function onProgress(loaded, total) {
+    log(&quot;progress &quot; + loaded + ' / ' + total);
+  }
+
+  let uploader;
+
+  document.forms.upload.onsubmit = async function(e) {
+    e.preventDefault();
+
+    let file = this.elements.myfile.files[0];
+    if (!file) return;
+
+    uploader = new Uploader({file, onProgress});
+
+    try {
+      let uploaded = await uploader.upload();
+
+      if (uploaded) {
+        log('success');
+      } else {
+        log('stopped');
+      }
+
+    } catch(err) {
+      console.error(err);
+      log('error');
+    }
+  };
+
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As we can see, modern networking methods are close to file
+                    managers in their capabilities – control over headers,
+                    progress indicator, sending file parts, etc.
+                  </p>
+                  <p>We can implement resumable upload and much more.</p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="xmlhttprequest.html"
+                data-tooltip="XMLHttpRequest"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="long-polling.html"
+                data-tooltip="Long polling"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fresume-upload"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fresume-upload"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="resume-upload.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/resume-upload",
+                    identifier: "\/resume-upload",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="network.html"
+                        >Network requests</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   resume-upload.html#not-so-useful-progress-event"
+                        >Not-so-useful progress event</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   resume-upload.html#algorithm"
+                        >Algorithm</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   resume-upload.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fresume-upload"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fresume-upload"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/09-resume-upload"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

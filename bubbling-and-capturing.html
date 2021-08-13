@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Bubbling and capturing</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="bubbling-and-capturing.html" />
+
+    <link rel="icon" href="img/favicon/favicon.png" />
+  
+    <meta property="og:title" content="Bubbling and capturing" />
+
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Bubbling and capturing" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="introduction-browser-events.html" />
+    <link rel="next" href="event-delegation.html" />
+
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Bubbling and capturing" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/bubbling-and-capturing"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="bubbling-and-capturing.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/bubbling-and-capturing"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                    "
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/bubbling-and-capturing"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/bubbling-and-capturing"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/bubbling-and-capturing"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=bubbling-and-capturing"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/bubbling-and-capturing"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/bubbling-and-capturing"</a
+            >
+
+
+   
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fbubbling-and-capturing"
+                  rel="nofollow"
+                ></a
+                >2Fbubbling-and-capturing
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option
+                  value="https://ar.javascript.info/bubbling-and-capturing"
+                >
+                  عربي
+                </option>
+                <option
+                  value="https://javascript.info/bubbling-and-capturing"
+                  selected
+                >
+                  English
+                </option>
+                <option
+                  value="https://es.javascript.info/bubbling-and-capturing"
+                >
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/">Français</option>
+                <option
+                  value="https://it.javascript.info/bubbling-and-capturing"
+                >
+                  Italiano
+                </option>
+                <option
+                  value="https://ja.javascript.info/bubbling-and-capturing"
+                >
+                  日本語
+                </option>
+                <option
+                  value="https://ko.javascript.info/bubbling-and-capturing"
+                >
+                  한국어
+                </option>
+                <option
+                  value=bubbling-and-capturing"
+         bubbling-and-capturing"
+       bubbling-and-capturing"
+   
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="13"
+          max="32"
+          data-tooltip="Lesson 13 of 32"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="ui.html"
+                        ><span>Browser: Document, Events, Interfaces</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="events.html"
+                        ><span>Introduction to Events</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Browser: Document, Events, Interfaces",
+                            "item": "https://javascript.info/ui"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Introduction to Events",
+                            "item": "https://javascript.info/events"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 19th October 2020"
+                  >
+                    <div class="updated-at__content">19th October 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Bubbling and capturing</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Bubbling and capturing" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>Let’s start with an example.</p>
+                  <p>
+                    This handler is assigned to <code>&lt;div&gt;</code>, but
+                    also runs if you click any nested tag like
+                    <code>&lt;em&gt;</code> or <code>&lt;code&gt;</code>:
+                  </p>
+                  <div
+                    id="i6mpu6cf33"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="60"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;div onclick=&quot;alert('The handler!')&quot;&gt;
+  &lt;em&gt;If you click on &lt;code&gt;EM&lt;/code&gt;, the handler on &lt;code&gt;DIV&lt;/code&gt; runs.&lt;/em&gt;
+&lt;/div&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-i6mpu6cf33"
+                        style="height: 60px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>
+                    Isn’t it a bit strange? Why does the handler on
+                    <code>&lt;div&gt;</code> run if the actual click was on
+                    <code>&lt;em&gt;</code>?
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="bubbling"
+                      href="bubbling-and-capturing.html#bubbling"
+                      >Bubbling</a
+                    >
+                  </h2>
+                  <p>The bubbling principle is simple.</p>
+                  <p>
+                    <strong
+                      >When an event happens on an element, it first runs the
+                      handlers on it, then on its parent, then all the way up on
+                      other ancestors.</strong
+                    >
+                  </p>
+                  <p>
+                    Let’s say we have 3 nested elements
+                    <code>FORM &gt; DIV &gt; P</code> with a handler on each of
+                    them:
+                  </p>
+                  <div
+                    id="4xbvo9sem5"
+                    data-trusted="1"
+                    class="code-example"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="bubbling-and-capturing.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="bubbling-and-capturing.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;style&gt;
+  body * {
+    margin: 10px;
+    border: 1px solid blue;
+  }
+&lt;/style&gt;
+
+&lt;form onclick=&quot;alert('form')&quot;&gt;FORM
+  &lt;div onclick=&quot;alert('div')&quot;&gt;DIV
+    &lt;p onclick=&quot;alert('p')&quot;&gt;P&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-4xbvo9sem5"
+                        style="height: 200px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>
+                    A click on the inner <code>&lt;p&gt;</code> first runs
+                    <code>onclick</code>:
+                  </p>
+                  <ol>
+                    <li>On that <code>&lt;p&gt;</code>.</li>
+                    <li>Then on the outer <code>&lt;div&gt;</code>.</li>
+                    <li>Then on the outer <code>&lt;form&gt;</code>.</li>
+                    <li>
+                      And so on upwards till the <code>document</code> object.
+                    </li>
+                  </ol>
+                  <figure>
+                    <div class="image" style="width: 353px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 61.18980169971672%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/bubbling-and-capturing/event-order-bubbling.svg"
+                        width="353"
+                        height="216"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/bubbling-and-capturing/event-order-bubbling.svg"
+                          alt=""
+                          width="353"
+                          height="216"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    So if we click on <code>&lt;p&gt;</code>, then we’ll see 3
+                    alerts: <code>p</code> → <code>div</code> →
+                    <code>form</code>.
+                  </p>
+                  <p>
+                    The process is called “bubbling”, because events “bubble”
+                    from the inner element up through parents like a bubble in
+                    the water.
+                  </p>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        ><em>Almost</em> all events bubble.</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>The key word in this phrase is “almost”.</p>
+                      <p>
+                        For instance, a <code>focus</code> event does not
+                        bubble. There are other examples too, we’ll meet them.
+                        But still it’s an exception, rather than a rule, most
+                        events do bubble.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="event-target"
+                      href="bubbling-and-capturing.html#event-target"
+                      >event.target</a
+                    >
+                  </h2>
+                  <p>
+                    A handler on a parent element can always get the details
+                    about where it actually happened.
+                  </p>
+                  <p>
+                    <strong
+                      >The most deeply nested element that caused the event is
+                      called a <em>target</em> element, accessible as
+                      <code>event.target</code>.</strong
+                    >
+                  </p>
+                  <p>
+                    Note the differences from
+                    <code>this</code> (=<code>event.currentTarget</code>):
+                  </p>
+                  <ul>
+                    <li>
+                      <code>event.target</code> – is the “target” element that
+                      initiated the event, it doesn’t change through the
+                      bubbling process.
+                    </li>
+                    <li>
+                      <code>this</code> – is the “current” element, the one that
+                      has a currently running handler on it.
+                    </li>
+                  </ul>
+                  <p>
+                    For instance, if we have a single handler
+                    <code>form.onclick</code>, then it can “catch” all clicks
+                    inside the form. No matter where the click happened, it
+                    bubbles up to <code>&lt;form&gt;</code> and runs the
+                    handler.
+                  </p>
+                  <p>In <code>form.onclick</code> handler:</p>
+                  <ul>
+                    <li>
+                      <code>this</code> (=<code>event.currentTarget</code>) is
+                      the <code>&lt;form&gt;</code> element, because the handler
+                      runs on it.
+                    </li>
+                    <li>
+                      <code>event.target</code> is the actual element inside the
+                      form that was clicked.
+                    </li>
+                  </ul>
+                  <p>Check it out:</p>
+                  <div class="code-tabs code-tabs_result_on">
+                    <div class="code-tabs__tools">
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_left
+                          "
+                          title="&amp;larr;"
+                          data-code-tabs-left="data-code-tabs-left"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__switches-wrap">
+                        <div
+                          class="code-tabs__switches"
+                          data-code-tabs-switches="data-code-tabs-switches"
+                        >
+                          <div class="code-tabs__switches-items">
+                            <div
+                              class="
+                                code-tabs__switch code-tabs__switch_current
+                              "
+                            >
+                              Result
+                            </div>
+                            <div class="code-tabs__switch">script.js</div>
+                            <div class="code-tabs__switch">example.css</div>
+                            <div class="code-tabs__switch">index.html</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_right
+                          "
+                          title="&amp;rarr;"
+                          data-code-tabs-right="data-code-tabs-right"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__buttons">
+                        <a
+                          class="code-tabs__button code-tabs__button_external"
+                          target="_blank"
+                          title="open in a new window"
+                          href="article/bubbling-and-capturing/bubble-target/index.html"
+                        ></a
+                        ><a
+                          class="code-tabs__button code-tabs__button_edit"
+                          target="_blank"
+                          title="edit in the sandbox"
+                          href="https://plnkr.co/edit/eiVixZwxlxFG9dyx?p=preview"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      class="code-tabs__content"
+                      data-code-tabs-content="data-code-tabs-content"
+                      style="height: 220px"
+                    >
+                      <div
+                        class="code-tabs__section code-tabs__section_current"
+                      >
+                        <iframe
+                          class="code-tabs__result"
+                          src="article/bubbling-and-capturing/bubble-target/index.html"
+                        ></iframe>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-javascript line-numbers"
+                        ><code>form.onclick = function(event) {
+  event.target.style.backgroundColor = 'yellow';
+
+  // chrome needs some time to paint yellow
+  setTimeout(() =&gt; {
+    alert(&quot;target = &quot; + event.target.tagName + &quot;, this=&quot; + this.tagName);
+    event.target.style.backgroundColor = ''
+  }, 0);
+};</code></pre>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre class="language-css line-numbers"><code>form {
+  background-color: green;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  cursor: pointer;
+}
+
+div {
+  background-color: blue;
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  width: 100px;
+  height: 100px;
+}
+
+p {
+  background-color: red;
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  margin: 0;
+}
+
+body {
+  line-height: 25px;
+  font-size: 16px;
+}</code></pre>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-markup line-numbers"
+                        ><code>&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;example.css&quot;&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  A click shows both &lt;code&gt;event.target&lt;/code&gt; and &lt;code&gt;this&lt;/code&gt; to compare:
+
+  &lt;form id=&quot;form&quot;&gt;FORM
+    &lt;div&gt;DIV
+      &lt;p&gt;P&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+
+  &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    It’s possible that <code>event.target</code> could equal
+                    <code>this</code> – it happens when the click is made
+                    directly on the <code>&lt;form&gt;</code> element.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="stopping-bubbling"
+                      href="bubbling-and-capturing.html#stopping-bubbling"
+                      >Stopping bubbling</a
+                    >
+                  </h2>
+                  <p>
+                    A bubbling event goes from the target element straight up.
+                    Normally it goes upwards till <code>&lt;html&gt;</code>, and
+                    then to <code>document</code> object, and some events even
+                    reach <code>window</code>, calling all handlers on the path.
+                  </p>
+                  <p>
+                    But any handler may decide that the event has been fully
+                    processed and stop the bubbling.
+                  </p>
+                  <p>
+                    The method for it is <code>event.stopPropagation()</code>.
+                  </p>
+                  <p>
+                    For instance, here <code>body.onclick</code> doesn’t work if
+                    you click on <code>&lt;button&gt;</code>:
+                  </p>
+                  <div
+                    id="twa4x9q1n0"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="60"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="bubbling-and-capturing.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="bubbling-and-capturing.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;body onclick=&quot;alert(`the bubbling doesn't reach here`)&quot;&gt;
+  &lt;button onclick=&quot;event.stopPropagation()&quot;&gt;Click me&lt;/button&gt;
+&lt;/body&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-twa4x9q1n0"
+                        style="height: 60px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >event.stopImmediatePropagation()</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        If an element has multiple event handlers on a single
+                        event, then even if one of them stops the bubbling, the
+                        other ones still execute.
+                      </p>
+                      <p>
+                        In other words,
+                        <code>event.stopPropagation()</code> stops the move
+                        upwards, but on the current element all other handlers
+                        will run.
+                      </p>
+                      <p>
+                        To stop the bubbling and prevent handlers on the current
+                        element from running, there’s a method
+                        <code>event.stopImmediatePropagation()</code>. After it
+                        no other handlers execute.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Don’t stop bubbling without a need!</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Bubbling is convenient. Don’t stop it without a real
+                        need: obvious and architecturally well thought out.
+                      </p>
+                      <p>
+                        Sometimes <code>event.stopPropagation()</code> creates
+                        hidden pitfalls that later may become problems.
+                      </p>
+                      <p>For instance:</p>
+                      <ol>
+                        <li>
+                          We create a nested menu. Each submenu handles clicks
+                          on its elements and calls
+                          <code>stopPropagation</code> so that the outer menu
+                          won’t trigger.
+                        </li>
+                        <li>
+                          Later we decide to catch clicks on the whole window,
+                          to track users’ behavior (where people click). Some
+                          analytic systems do that. Usually the code uses
+                          <code>document.addEventListener('click'…)</code> to
+                          catch all clicks.
+                        </li>
+                        <li>
+                          Our analytic won’t work over the area where clicks are
+                          stopped by <code>stopPropagation</code>. Sadly, we’ve
+                          got a “dead zone”.
+                        </li>
+                      </ol>
+                      <p>
+                        There’s usually no real need to prevent the bubbling. A
+                        task that seemingly requires that may be solved by other
+                        means. One of them is to use custom events, we’ll cover
+                        them later. Also we can write our data into the
+                        <code>event</code> object in one handler and read it in
+                        another one, so we can pass to handlers on parents
+                        information about the processing below.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="capturing"
+                      href="bubbling-and-capturing.html#capturing"
+                      >Capturing</a
+                    >
+                  </h2>
+                  <p>
+                    There’s another phase of event processing called
+                    “capturing”. It is rarely used in real code, but sometimes
+                    can be useful.
+                  </p>
+                  <p>
+                    The standard
+                    <a href="http://www.w3.org/TR/DOM-Level-3-Events/"
+                      >DOM Events</a
+                    >
+                    describes 3 phases of event propagation:
+                  </p>
+                  <ol>
+                    <li>
+                      Capturing phase – the event goes down to the element.
+                    </li>
+                    <li>
+                      Target phase – the event reached the target element.
+                    </li>
+                    <li>
+                      Bubbling phase – the event bubbles up from the element.
+                    </li>
+                  </ol>
+                  <p>
+                    Here’s the picture of a click on
+                    <code>&lt;td&gt;</code> inside a table, taken from the
+                    specification:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 641px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 98.75195007800312%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/bubbling-and-capturing/eventflow.svg"
+                        width="641"
+                        height="633"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/bubbling-and-capturing/eventflow.svg"
+                          alt=""
+                          width="641"
+                          height="633"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    That is: for a click on <code>&lt;td&gt;</code> the event
+                    first goes through the ancestors chain down to the element
+                    (capturing phase), then it reaches the target and triggers
+                    there (target phase), and then it goes up (bubbling phase),
+                    calling handlers on its way.
+                  </p>
+                  <p>
+                    <strong
+                      >Before we only talked about bubbling, because the
+                      capturing phase is rarely used. Normally it is invisible
+                      to us.</strong
+                    >
+                  </p>
+                  <p>
+                    Handlers added using <code>on&lt;event&gt;</code>-property
+                    or using HTML attributes or using two-argument
+                    <code>addEventListener(event, handler)</code> don’t know
+                    anything about capturing, they only run on the 2nd and 3rd
+                    phases.
+                  </p>
+                  <p>
+                    To catch an event on the capturing phase, we need to set the
+                    handler <code>capture</code> option to <code>true</code>:
+                  </p>
+                  <div id="vu10zzjut" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>elem.addEventListener(..., {capture: true})
+// or, just &quot;true&quot; is an alias to {capture: true}
+elem.addEventListener(..., true)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    There are two possible values of the
+                    <code>capture</code> option:
+                  </p>
+                  <ul>
+                    <li>
+                      If it’s <code>false</code> (default), then the handler is
+                      set on the bubbling phase.
+                    </li>
+                    <li>
+                      If it’s <code>true</code>, then the handler is set on the
+                      capturing phase.
+                    </li>
+                  </ul>
+                  <p>
+                    Note that while formally there are 3 phases, the 2nd phase
+                    (“target phase”: the event reached the element) is not
+                    handled separately: handlers on both capturing and bubbling
+                    phases trigger at that phase.
+                  </p>
+                  <p>Let’s see both capturing and bubbling in action:</p>
+                  <div
+                    id="cfcksfhbzn"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="140"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="bubbling-and-capturing.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="bubbling-and-capturing.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;style&gt;
+  body * {
+    margin: 10px;
+    border: 1px solid blue;
+  }
+&lt;/style&gt;
+
+&lt;form&gt;FORM
+  &lt;div&gt;DIV
+    &lt;p&gt;P&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+  for(let elem of document.querySelectorAll('*')) {
+    elem.addEventListener(&quot;click&quot;, e =&gt; alert(`Capturing: ${elem.tagName}`), true);
+    elem.addEventListener(&quot;click&quot;, e =&gt; alert(`Bubbling: ${elem.tagName}`));
+  }
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-cfcksfhbzn"
+                        style="height: 140px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>
+                    The code sets click handlers on <em>every</em> element in
+                    the document to see which ones are working.
+                  </p>
+                  <p>
+                    If you click on <code>&lt;p&gt;</code>, then the sequence
+                    is:
+                  </p>
+                  <ol>
+                    <li>
+                      <code>HTML</code> → <code>BODY</code> →
+                      <code>FORM</code> → <code>DIV</code> (capturing phase, the
+                      first listener):
+                    </li>
+                    <li>
+                      <code>P</code> (target phase, triggers two times, as we’ve
+                      set two listeners: capturing and bubbling)
+                    </li>
+                    <li>
+                      <code>DIV</code> → <code>FORM</code> → <code>BODY</code> →
+                      <code>HTML</code> (bubbling phase, the second listener).
+                    </li>
+                  </ol>
+                  <p>
+                    There’s a property <code>event.eventPhase</code> that tells
+                    us the number of the phase on which the event was caught.
+                    But it’s rarely used, because we usually know it in the
+                    handler.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >To remove the handler,
+                        <code>removeEventListener</code> needs the same
+                        phase</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        If we <code>addEventListener(..., true)</code>, then we
+                        should mention the same phase in
+                        <code>removeEventListener(..., true)</code> to correctly
+                        remove the handler.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Listeners on same element and same phase run in their
+                        set order</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        If we have multiple event handlers on the same phase,
+                        assigned to the same element with
+                        <code>addEventListener</code>, they run in the same
+                        order as they are created:
+                      </p>
+                      <div
+                        id="mmiomjzbfd"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>elem.addEventListener(&quot;click&quot;, e =&gt; alert(1)); // guaranteed to trigger first
+elem.addEventListener(&quot;click&quot;, e =&gt; alert(2));</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="bubbling-and-capturing.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    When an event happens – the most nested element where it
+                    happens gets labeled as the “target element”
+                    (<code>event.target</code>).
+                  </p>
+                  <ul>
+                    <li>
+                      Then the event moves down from the document root to
+                      <code>event.target</code>, calling handlers assigned with
+                      <code>addEventListener(..., true)</code> on the way (<code
+                        >true</code
+                      >
+                      is a shorthand for <code>{capture: true}</code>).
+                    </li>
+                    <li>
+                      Then handlers are called on the target element itself.
+                    </li>
+                    <li>
+                      Then the event bubbles up from
+                      <code>event.target</code> to the root, calling handlers
+                      assigned using <code>on&lt;event&gt;</code>, HTML
+                      attributes and <code>addEventListener</code> without the
+                      3rd argument or with the 3rd argument
+                      <code>false/{capture:false}</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    Each handler can access <code>event</code> object
+                    properties:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>event.target</code> – the deepest element that
+                      originated the event.
+                    </li>
+                    <li>
+                      <code>event.currentTarget</code> (=<code>this</code>) –
+                      the current element that handles the event (the one that
+                      has the handler on it)
+                    </li>
+                    <li>
+                      <code>event.eventPhase</code> – the current phase
+                      (capturing=1, target=2, bubbling=3).
+                    </li>
+                  </ul>
+                  <p>
+                    Any event handler can stop the event by calling
+                    <code>event.stopPropagation()</code>, but that’s not
+                    recommended, because we can’t really be sure we won’t need
+                    it above, maybe for completely different things.
+                  </p>
+                  <p>
+                    The capturing phase is used very rarely, usually we handle
+                    events on bubbling. And there’s a logic behind that.
+                  </p>
+                  <p>
+                    In real world, when an accident happens, local authorities
+                    react first. They know best the area where it happened. Then
+                    higher-level authorities if needed.
+                  </p>
+                  <p>
+                    The same for event handlers. The code that set the handler
+                    on a particular element knows maximum details about the
+                    element and what it does. A handler on a particular
+                    <code>&lt;td&gt;</code> may be suited for that exactly
+                    <code>&lt;td&gt;</code>, it knows everything about it, so it
+                    should get the chance first. Then its immediate parent also
+                    knows about the context, but a little bit less, and so on
+                    till the very top element that handles general concepts and
+                    runs the last one.
+                  </p>
+                  <p>
+                    Bubbling and capturing lay the foundation for “event
+                    delegation” – an extremely powerful event handling pattern
+                    that we study in the next chapter.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="introduction-browser-events.html"
+                data-tooltip="Introduction to browser events"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="event-delegation.html"
+                data-tooltip="Event delegation"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbubbling-and-capturing"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbubbling-and-capturing"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="bubbling-and-capturing.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                        
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/bubbling-and-capturing",
+                    identifier: "\/bubbling-and-capturing",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+
+                      <a class="sidebar__link" href="events.html"
+                        >Introduction to Events</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+
+                   bubbling-and-capturing.html#bubbling"
+                        >Bubbling</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   bubbling-and-capturing.html#event-target"
+                        >event.target</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   bubbling-and-capturing.html#stopping-bubbling"
+                        >Stopping bubbling</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   bubbling-and-capturing.html#capturing"
+                        >Capturing</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   bubbling-and-capturing.html
+                  </ul>
+                </nav>
+
+                   bubbling-and-capturing.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbubbling-and-capturing"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fbubbling-and-capturing"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/2-events/02-bubbling-and-capturing"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

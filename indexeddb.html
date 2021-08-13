@@ -1,0 +1,2571 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">IndexedDB</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="indexeddb.html"
+    />
+
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="IndexedDB" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="IndexedDB" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="localstorage.html" />
+    <link rel="next" href="animation.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/idb@3.0.2/build/idb.min.js"></script>
+    <meta property="og:title" content="IndexedDB" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a class="supported-langs__link" href="indexeddb.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/indexeddb"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/indexeddb"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=indexeddb"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/indexeddb"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/indexeddb"</a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Findexeddb"
+                  rel="nofollow"
+                ></a
+                >2Findexeddb
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option value="https://javascript.info/indexeddb" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/indexeddb">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/">Français</option>
+                <option value="https://it.javascript.info/">Italiano</option>
+                <option value="https://ja.javascript.info/indexeddb">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/">한국어</option>
+                <option value=indexeddb">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/indexeddb">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/indexeddb">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="3"
+          max="3"
+          data-tooltip="Lesson 3 of 3"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="data-storage.html"
+                        ><span>Storing data in the browser</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Storing data in the browser",
+                            "item": "https://javascript.info/data-storage"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 26th July 2021"
+                  >
+                    <div class="updated-at__content">26th July 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">IndexedDB</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="IndexedDB" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    IndexedDB is a database that is built into a browser, much
+                    more powerful than <code>localStorage</code>.
+                  </p>
+                  <ul>
+                    <li>
+                      Stores almost any kind of values by keys, multiple key
+                      types.
+                    </li>
+                    <li>Supports transactions for reliability.</li>
+                    <li>Supports key range queries, indexes.</li>
+                    <li>
+                      Can store much bigger volumes of data than
+                      <code>localStorage</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    That power is usually excessive for traditional
+                    client-server apps. IndexedDB is intended for offline apps,
+                    to be combined with ServiceWorkers and other technologies.
+                  </p>
+                  <p>
+                    The native interface to IndexedDB, described in the
+                    specification
+                    <a href="https://www.w3.org/TR/IndexedDB"
+                      >https://www.w3.org/TR/IndexedDB</a
+                    >, is event-based.
+                  </p>
+                  <p>
+                    We can also use <code>async/await</code> with the help of a
+                    promise-based wrapper, like
+                    <a href="https://github.com/jakearchibald/idb"
+                      >https://github.com/jakearchibald/idb</a
+                    >. That’s pretty convenient, but the wrapper is not perfect,
+                    it can’t replace events for all cases. So we’ll start with
+                    events, and then, after we gain an understanding of
+                    IndexedDb, we’ll use the wrapper.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Where’s the data?</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Technically, the data is usually stored in the visitor’s
+                        home directory, along with browser settings, extensions,
+                        etc.
+                      </p>
+                      <p>
+                        Different browsers and OS-level users have each their
+                        own independant storage.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="open-database"
+                      href="indexeddb.html#open-database"
+                      >Open database</a
+                    >
+                  </h2>
+                  <p>
+                    To start working with IndexedDB, we first need to
+                    <code>open</code> (connect to) a database.
+                  </p>
+                  <p>The syntax:</p>
+                  <div id="6nvjuwmwbo" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let openRequest = indexedDB.open(name, version);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ul>
+                    <li><code>name</code> – a string, the database name.</li>
+                    <li>
+                      <code>version</code> – a positive integer version, by
+                      default <code>1</code> (explained below).
+                    </li>
+                  </ul>
+                  <p>
+                    We can have many databases with different names, but all of
+                    them exist within the current origin (domain/protocol/port).
+                    Different websites can’t access each other’s databases.
+                  </p>
+                  <p>
+                    The call returns <code>openRequest</code> object, we should
+                    listen to events on it:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>success</code>: database is ready, there’s the
+                      “database object” in <code>openRequest.result</code>, we
+                      should use it for further calls.
+                    </li>
+                    <li><code>error</code>: opening failed.</li>
+                    <li>
+                      <code>upgradeneeded</code>: database is ready, but its
+                      version is outdated (see below).
+                    </li>
+                  </ul>
+                  <p>
+                    <strong
+                      >IndexedDB has a built-in mechanism of “schema
+                      versioning”, absent in server-side databases.</strong
+                    >
+                  </p>
+                  <p>
+                    Unlike server-side databases, IndexedDB is client-side, the
+                    data is stored in the browser, so we, developers, don’t have
+                    full-time access to it. So, when we have published a new
+                    version of our app, and the user visits our webpage, we may
+                    need to update the database.
+                  </p>
+                  <p>
+                    If the local database version is less than specified in
+                    <code>open</code>, then a special event
+                    <code>upgradeneeded</code> is triggered, and we can compare
+                    versions and upgrade data structures as needed.
+                  </p>
+                  <p>
+                    The <code>upgradeneeded</code> event also triggers when the
+                    database doesn’t yet exist (technically, its version is
+                    <code>0</code>), so we can perform the initialization.
+                  </p>
+                  <p>Let’s say we published the first version of our app.</p>
+                  <p>
+                    Then we can open the database with version
+                    <code>1</code> and perform the initialization in an
+                    <code>upgradeneeded</code> handler like this:
+                  </p>
+                  <div
+                    id="scbbc2xizn"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":0,"cols":[{"start":42,"end":43}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let openRequest = indexedDB.open(&quot;store&quot;, 1);
+
+openRequest.onupgradeneeded = function() {
+  // triggers if the client had no database
+  // ...perform initialization...
+};
+
+openRequest.onerror = function() {
+  console.error(&quot;Error&quot;, openRequest.error);
+};
+
+openRequest.onsuccess = function() {
+  let db = openRequest.result;
+  // continue working with database using db object
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Then, later, we publish the 2nd version.</p>
+                  <p>
+                    We can open it with version <code>2</code> and perform the
+                    upgrade like this:
+                  </p>
+                  <div
+                    id="vlooe46w05"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":0,"cols":[{"start":42,"end":43}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let openRequest = indexedDB.open(&quot;store&quot;, 2);
+
+openRequest.onupgradeneeded = function(event) {
+  // the existing database version is less than 2 (or it doesn't exist)
+  let db = openRequest.result;
+  switch(event.oldVersion) { // existing db version
+    case 0:
+      // version 0 means that the client had no database
+      // perform initialization
+    case 1:
+      // client had version 1
+      // update
+  }
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Please note: as our current version is <code>2</code>, the
+                    <code>onupgradeneeded</code> handler has a code branch for
+                    version <code>0</code>, suitable for users that are
+                    accessing for the first time and have no database, and also
+                    for version <code>1</code>, for upgrades.
+                  </p>
+                  <p>
+                    And then, only if <code>onupgradeneeded</code> handler
+                    finishes without errors,
+                    <code>openRequest.onsuccess</code> triggers, and the
+                    database is considered successfully opened.
+                  </p>
+                  <p>To delete a database:</p>
+                  <div id="x2tt7vm3tg" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let deleteRequest = indexedDB.deleteDatabase(name)
+// deleteRequest.onsuccess/onerror tracks the result</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >We can’t open a database using an older open call
+                        version</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        If the current user database has a higher version than
+                        in the <code>open</code> call, e.g. the existing DB
+                        version is <code>3</code>, and we try to
+                        <code>open(...2)</code>, then that’s an error,
+                        <code>openRequest.onerror</code> triggers.
+                      </p>
+                      <p>
+                        That’s rare, but such a thing may happen when a visitor
+                        loads outdated JavaScript code, e.g. from a proxy cache.
+                        So the code is old, but his database is new.
+                      </p>
+                      <p>
+                        To protect from errors, we should check
+                        <code>db.version</code> and suggest a page reload. Use
+                        proper HTTP caching headers to avoid loading the old
+                        code, so that you’ll never have such problems.
+                      </p>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="parallel-update-problem"
+                      href="indexeddb.html#parallel-update-problem"
+                      >Parallel update problem</a
+                    >
+                  </h3>
+                  <p>
+                    As we’re talking about versioning, let’s tackle a small
+                    related problem.
+                  </p>
+                  <p>Let’s say:</p>
+                  <ol>
+                    <li>
+                      A visitor opened our site in a browser tab, with database
+                      version <code>1</code>.
+                    </li>
+                    <li>Then we rolled out an update, so our code is newer.</li>
+                    <li>
+                      And then the same visitor opens our site in another tab.
+                    </li>
+                  </ol>
+                  <p>
+                    So there’s a tab with an open connection to DB version
+                    <code>1</code>, while the second one attempts to update it
+                    to version <code>2</code> in its
+                    <code>upgradeneeded</code> handler.
+                  </p>
+                  <p>
+                    The problem is that a database is shared between two tabs,
+                    as it’s the same site, same origin. And it can’t be both
+                    version <code>1</code> and <code>2</code>. To perform the
+                    update to version <code>2</code>, all connections to version
+                    1 must be closed, including the one in the first tab.
+                  </p>
+                  <p>
+                    In order to organize that, the
+                    <code>versionchange</code> event triggers on the “outdated”
+                    database object. We should listen for it and close the old
+                    database connection (and probably suggest a page reload, to
+                    load the updated code).
+                  </p>
+                  <p>
+                    If we don’t listen for the <code>versionchange</code> event
+                    and don’t close the old connection, then the second, new
+                    connection won’t be made. The
+                    <code>openRequest</code> object will emit the
+                    <code>blocked</code> event instead of <code>success</code>.
+                    So the second tab won’t work.
+                  </p>
+                  <p>
+                    Here’s the code to correctly handle the parallel upgrade. It
+                    installs the <code>onversionchange</code> handler, that
+                    triggers if the current database connection becomes outdated
+                    (db version is updated elsewhere) and closes the connection.
+                  </p>
+                  <div
+                    id="pd1hyvj9kh"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":16,"end":21},{"start":8,"end":11}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let openRequest = indexedDB.open(&quot;store&quot;, 2);
+
+openRequest.onupgradeneeded = ...;
+openRequest.onerror = ...;
+
+openRequest.onsuccess = function() {
+  let db = openRequest.result;
+
+  db.onversionchange = function() {
+    db.close();
+    alert(&quot;Database is outdated, please reload the page.&quot;)
+  };
+
+  // ...the db is ready, use it...
+};
+
+openRequest.onblocked = function() {
+  // this event shouldn't trigger if we handle onversionchange correctly
+
+  // it means that there's another open connection to the same database
+  // and it wasn't closed after db.onversionchange triggered for it
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>…In other words, here we do two things:</p>
+                  <ol>
+                    <li>
+                      The <code>db.onversionchange</code> listener informs us
+                      about a parallel update attempt, if the current database
+                      version becomes outdated.
+                    </li>
+                    <li>
+                      The <code>openRequest.onblocked</code> listener informs us
+                      about the opposite situation: there’s a connection to an
+                      outdated version elsewhere, and it doesn’t close, so the
+                      newer connection can’t be made.
+                    </li>
+                  </ol>
+                  <p>
+                    We can handle things more gracefully in
+                    <code>db.onversionchange</code>, prompt the visitor to save
+                    the data before the connection is closed and so on.
+                  </p>
+                  <p>
+                    Or, an alternative approach would be to not close the
+                    database in <code>db.onversionchange</code>, but instead use
+                    the <code>onblocked</code> handler (in the new tab) to alert
+                    the visitor, tell him that the newer version can’t be loaded
+                    until they close other tabs.
+                  </p>
+                  <p>
+                    These update collisions happen rarely, but we should at
+                    least have some handling for them, at least an
+                    <code>onblocked</code> handler, to prevent our script from
+                    dying silently.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="object-store"
+                      href="indexeddb.html#object-store"
+                      >Object store</a
+                    >
+                  </h2>
+                  <p>
+                    To store something in IndexedDB, we need an
+                    <em>object store</em>.
+                  </p>
+                  <p>
+                    An object store is a core concept of IndexedDB. Counterparts
+                    in other databases are called “tables” or “collections”.
+                    It’s where the data is stored. A database may have multiple
+                    stores: one for users, another one for goods, etc.
+                  </p>
+                  <p>
+                    Despite being named an “object store”, primitives can be
+                    stored too.
+                  </p>
+                  <p>
+                    <strong
+                      >We can store almost any value, including complex
+                      objects.</strong
+                    >
+                  </p>
+                  <p>
+                    IndexedDB uses the
+                    <a
+                      href="https://www.w3.org/TR/html53/infrastructure.html#section-structuredserializeforstorage"
+                      >standard serialization algorithm</a
+                    >
+                    to clone-and-store an object. It’s like
+                    <code>JSON.stringify</code>, but more powerful, capable of
+                    storing much more datatypes.
+                  </p>
+                  <p>
+                    An example of an object that can’t be stored: an object with
+                    circular references. Such objects are not serializable.
+                    <code>JSON.stringify</code> also fails for such objects.
+                  </p>
+                  <p>
+                    <strong
+                      >There must be a unique <code>key</code> for every value
+                      in the store.</strong
+                    >
+                  </p>
+                  <p>
+                    A key must be one of these types – number, date, string,
+                    binary, or array. It’s a unique identifier, so we can
+                    search/remove/update values by the key.
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 484px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 55.16528925619835%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/indexeddb/indexeddb-structure.svg"
+                        width="484"
+                        height="267"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/indexeddb/indexeddb-structure.svg"
+                          alt=""
+                          width="484"
+                          height="267"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    As we’ll see very soon, we can provide a key when we add a
+                    value to the store, similar to <code>localStorage</code>.
+                    But when we store objects, IndexedDB allows setting up an
+                    object property as the key, which is much more convenient.
+                    Or we can auto-generate keys.
+                  </p>
+                  <p>But we need to create an object store first.</p>
+                  <p>The syntax to create an object store:</p>
+                  <div id="4cevonrpz1" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>db.createObjectStore(name[, keyOptions]);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Please note, the operation is synchronous, no
+                    <code>await</code> needed.
+                  </p>
+                  <ul>
+                    <li>
+                      <code>name</code> is the store name, e.g.
+                      <code>&quot;books&quot;</code> for books,
+                    </li>
+                    <li>
+                      <code>keyOptions</code> is an optional object with one of
+                      two properties:
+                      <ul>
+                        <li>
+                          <code>keyPath</code> – a path to an object property
+                          that IndexedDB will use as the key, e.g.
+                          <code>id</code>.
+                        </li>
+                        <li>
+                          <code>autoIncrement</code> – if <code>true</code>,
+                          then the key for a newly stored object is generated
+                          automatically, as an ever-incrementing number.
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p>
+                    If we don’t supply <code>keyOptions</code>, then we’ll need
+                    to provide a key explicitly later, when storing an object.
+                  </p>
+                  <p>
+                    For instance, this object store uses
+                    <code>id</code> property as the key:
+                  </p>
+                  <div id="zvlf104fa1" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>db.createObjectStore('books', {keyPath: 'id'});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    <strong
+                      >An object store can only be created/modified while
+                      updating the DB version, in
+                      <code>upgradeneeded</code> handler.</strong
+                    >
+                  </p>
+                  <p>
+                    That’s a technical limitation. Outside of the handler we’ll
+                    be able to add/remove/update the data, but object stores can
+                    only be created/removed/altered during a version update.
+                  </p>
+                  <p>
+                    To perform a database version upgrade, there are two main
+                    approaches:
+                  </p>
+                  <ol>
+                    <li>
+                      We can implement per-version upgrade functions: from 1 to
+                      2, from 2 to 3, from 3 to 4 etc. Then, in
+                      <code>upgradeneeded</code> we can compare versions (e.g.
+                      old 2, now 4) and run per-version upgrades step by step,
+                      for every intermediate version (2 to 3, then 3 to 4).
+                    </li>
+                    <li>
+                      Or we can just examine the database: get a list of
+                      existing object stores as
+                      <code>db.objectStoreNames</code>. That object is a
+                      <a
+                        href="https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#domstringlist"
+                        >DOMStringList</a
+                      >
+                      that provides <code>contains(name)</code> method to check
+                      for existance. And then we can do updates depending on
+                      what exists and what doesn’t.
+                    </li>
+                  </ol>
+                  <p>For small databases the second variant may be simpler.</p>
+                  <p>Here’s the demo of the second approach:</p>
+                  <div id="7x2yol1fxh" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let openRequest = indexedDB.open(&quot;db&quot;, 2);
+
+// create/upgrade the database without version checks
+openRequest.onupgradeneeded = function() {
+  let db = openRequest.result;
+  if (!db.objectStoreNames.contains('books')) { // if there's no &quot;books&quot; store
+    db.createObjectStore('books', {keyPath: 'id'}); // create it
+  }
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>To delete an object store:</p>
+                  <div id="uozalquq1h" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>db.deleteObjectStore('books')</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="transactions"
+                      href="indexeddb.html#transactions"
+                      >Transactions</a
+                    >
+                  </h2>
+                  <p>
+                    The term “transaction” is generic, used in many kinds of
+                    databases.
+                  </p>
+                  <p>
+                    A transaction is a group of operations, that should either
+                    all succeed or all fail.
+                  </p>
+                  <p>For instance, when a person buys something, we need to:</p>
+                  <ol>
+                    <li>Subtract the money from their account.</li>
+                    <li>Add the item to their inventory.</li>
+                  </ol>
+                  <p>
+                    It would be pretty bad if we complete the 1st operation, and
+                    then something goes wrong, e.g. lights out, and we fail to
+                    do the 2nd. Both should either succeed (purchase complete,
+                    good!) or both fail (at least the person kept their money,
+                    so they can retry).
+                  </p>
+                  <p>Transactions can guarantee that.</p>
+                  <p>
+                    <strong
+                      >All data operations must be made within a transaction in
+                      IndexedDB.</strong
+                    >
+                  </p>
+                  <p>To start a transaction:</p>
+                  <div id="a318l4vglo" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>db.transaction(store[, type]);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>
+                      <code>store</code> is a store name that the transaction is
+                      going to access, e.g. <code>&quot;books&quot;</code>. Can
+                      be an array of store names if we’re going to access
+                      multiple stores.
+                    </li>
+                    <li>
+                      <code>type</code> – a transaction type, one of:
+                      <ul>
+                        <li>
+                          <code>readonly</code> – can only read, the default.
+                        </li>
+                        <li>
+                          <code>readwrite</code> – can only read and write the
+                          data, but not create/remove/alter object stores.
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p>
+                    There’s also <code>versionchange</code> transaction type:
+                    such transactions can do everything, but we can’t create
+                    them manually. IndexedDB automatically creates a
+                    <code>versionchange</code> transaction when opening the
+                    database, for <code>updateneeded</code> handler. That’s why
+                    it’s a single place where we can update the database
+                    structure, create/remove object stores.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Why are there different types of transactions?</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Performance is the reason why transactions need to be
+                        labeled either <code>readonly</code> and
+                        <code>readwrite</code>.
+                      </p>
+                      <p>
+                        Many <code>readonly</code> transactions are able to
+                        access the same store concurrently, but
+                        <code>readwrite</code> transactions can’t. A
+                        <code>readwrite</code> transaction “locks” the store for
+                        writing. The next transaction must wait before the
+                        previous one finishes before accessing the same store.
+                      </p>
+                    </div>
+                  </div>
+                  <p>
+                    After the transaction is created, we can add an item to the
+                    store, like this:
+                  </p>
+                  <div
+                    id="uqs0gqfbis"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":11,"end":11},{"start":3,"end":3}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let transaction = db.transaction(&quot;books&quot;, &quot;readwrite&quot;); // (1)
+
+// get an object store to operate on it
+let books = transaction.objectStore(&quot;books&quot;); // (2)
+
+let book = {
+  id: 'js',
+  price: 10,
+  created: new Date()
+};
+
+let request = books.add(book); // (3)
+
+request.onsuccess = function() { // (4)
+  console.log(&quot;Book added to the store&quot;, request.result);
+};
+
+request.onerror = function() {
+  console.log(&quot;Error&quot;, request.error);
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>There were basically four steps:</p>
+                  <ol>
+                    <li>
+                      Create a transaction, mentioning all the stores it’s going
+                      to access, at <code>(1)</code>.
+                    </li>
+                    <li>
+                      Get the store object using
+                      <code>transaction.objectStore(name)</code>, at
+                      <code>(2)</code>.
+                    </li>
+                    <li>
+                      Perform the request to the object store
+                      <code>books.add(book)</code>, at <code>(3)</code>.
+                    </li>
+                    <li>
+                      …Handle request success/error <code>(4)</code>, then we
+                      can make other requests if needed, etc.
+                    </li>
+                  </ol>
+                  <p>Object stores support two methods to store a value:</p>
+                  <ul>
+                    <li>
+                      <p>
+                        <strong>put(value, [key])</strong> Add the
+                        <code>value</code> to the store. The <code>key</code> is
+                        supplied only if the object store did not have
+                        <code>keyPath</code> or
+                        <code>autoIncrement</code> option. If there’s already a
+                        value with the same key, it will be replaced.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>add(value, [key])</strong> Same as
+                        <code>put</code>, but if there’s already a value with
+                        the same key, then the request fails, and an error with
+                        the name <code>&quot;ConstraintError&quot;</code> is
+                        generated.
+                      </p>
+                    </li>
+                  </ul>
+                  <p>
+                    Similar to opening a database, we can send a request:
+                    <code>books.add(book)</code>, and then wait for
+                    <code>success/error</code> events.
+                  </p>
+                  <ul>
+                    <li>
+                      The <code>request.result</code> for <code>add</code> is
+                      the key of the new object.
+                    </li>
+                    <li>
+                      The error is in <code>request.error</code> (if any).
+                    </li>
+                  </ul>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="transactions-autocommit"
+                      href="indexeddb.html#transactions-autocommit"
+                      >Transactions’ autocommit</a
+                    >
+                  </h2>
+                  <p>
+                    In the example above we started the transaction and made
+                    <code>add</code> request. But as we stated previously, a
+                    transaction may have multiple associated requests, that must
+                    either all succeed or all fail. How do we mark the
+                    transaction as finished, with no more requests to come?
+                  </p>
+                  <p>The short answer is: we don’t.</p>
+                  <p>
+                    In the next version 3.0 of the specification, there will
+                    probably be a manual way to finish the transaction, but
+                    right now in 2.0 there isn’t.
+                  </p>
+                  <p>
+                    <strong
+                      >When all transaction requests are finished, and the
+                      <a href="microtask-queue.html">microtasks queue</a> is
+                      empty, it is committed automatically.</strong
+                    >
+                  </p>
+                  <p>
+                    Usually, we can assume that a transaction commits when all
+                    its requests are complete, and the current code finishes.
+                  </p>
+                  <p>
+                    So, in the example above no special call is needed to finish
+                    the transaction.
+                  </p>
+                  <p>
+                    Transactions auto-commit principle has an important side
+                    effect. We can’t insert an async operation like
+                    <code>fetch</code>, <code>setTimeout</code> in the middle of
+                    a transaction. IndexedDB will not keep the transaction
+                    waiting till these are done.
+                  </p>
+                  <p>
+                    In the code below, <code>request2</code> in the line
+                    <code>(*)</code> fails, because the transaction is already
+                    committed, and can’t make any request in it:
+                  </p>
+                  <div
+                    id="pvj69ymqgf"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"end":4}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let request1 = books.add(book);
+
+request1.onsuccess = function() {
+  fetch('/').then(response =&gt; {
+    let request2 = books.add(anotherBook); // (*)
+    request2.onerror = function() {
+      console.log(request2.error.name); // TransactionInactiveError
+    };
+  });
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    That’s because <code>fetch</code> is an asynchronous
+                    operation, a macrotask. Transactions are closed before the
+                    browser starts doing macrotasks.
+                  </p>
+                  <p>
+                    Authors of IndexedDB spec believe that transactions should
+                    be short-lived. Mostly for performance reasons.
+                  </p>
+                  <p>
+                    Notably, <code>readwrite</code> transactions “lock” the
+                    stores for writing. So if one part of the application
+                    initiated <code>readwrite</code> on
+                    <code>books</code> object store, then another part that
+                    wants to do the same has to wait: the new transaction
+                    “hangs” till the first one is done. That can lead to strange
+                    delays if transactions take a long time.
+                  </p>
+                  <p>So, what to do?</p>
+                  <p>
+                    In the example above we could make a new
+                    <code>db.transaction</code> right before the new request
+                    <code>(*)</code>.
+                  </p>
+                  <p>
+                    But it will be even better, if we’d like to keep the
+                    operations together, in one transaction, to split apart
+                    IndexedDB transactions and “other” async stuff.
+                  </p>
+                  <p>
+                    First, make <code>fetch</code>, prepare the data if needed,
+                    afterwards create a transaction and perform all the database
+                    requests, it’ll work then.
+                  </p>
+                  <p>
+                    To detect the moment of successful completion, we can listen
+                    to <code>transaction.oncomplete</code> event:
+                  </p>
+                  <div id="goi7siuciq" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let transaction = db.transaction(&quot;books&quot;, &quot;readwrite&quot;);
+
+// ...perform operations...
+
+transaction.oncomplete = function() {
+  console.log(&quot;Transaction is complete&quot;);
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Only <code>complete</code> guarantees that the transaction
+                    is saved as a whole. Individual requests may succeed, but
+                    the final write operation may go wrong (e.g. I/O error or
+                    something).
+                  </p>
+                  <p>To manually abort the transaction, call:</p>
+                  <div id="9imcbtvc2u" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>transaction.abort();</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    That cancels all modification made by the requests in it and
+                    triggers <code>transaction.onabort</code> event.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="error-handling"
+                      href="indexeddb.html#error-handling"
+                      >Error handling</a
+                    >
+                  </h2>
+                  <p>Write requests may fail.</p>
+                  <p>
+                    That’s to be expected, not only because of possible errors
+                    at our side, but also for reasons not related to the
+                    transaction itself. For instance, the storage quota may be
+                    exceeded. So we must be ready to handle such case.
+                  </p>
+                  <p>
+                    <strong
+                      >A failed request automatically aborts the transaction,
+                      canceling all its changes.</strong
+                    >
+                  </p>
+                  <p>
+                    In some situations, we may want to handle the failure (e.g.
+                    try another request), without canceling existing changes,
+                    and continue the transaction. That’s possible. The
+                    <code>request.onerror</code> handler is able to prevent the
+                    transaction abort by calling
+                    <code>event.preventDefault()</code>.
+                  </p>
+                  <p>
+                    In the example below a new book is added with the same key
+                    (<code>id</code>) as the existing one. The
+                    <code>store.add</code> method generates a
+                    <code>&quot;ConstraintError&quot;</code> in that case. We
+                    handle it without canceling the transaction:
+                  </p>
+                  <div id="wej2pqlrh4" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let transaction = db.transaction(&quot;books&quot;, &quot;readwrite&quot;);
+
+let book = { id: 'js', price: 10 };
+
+let request = transaction.objectStore(&quot;books&quot;).add(book);
+
+request.onerror = function(event) {
+  // ConstraintError occurs when an object with the same id already exists
+  if (request.error.name == &quot;ConstraintError&quot;) {
+    console.log(&quot;Book with such id already exists&quot;); // handle the error
+    event.preventDefault(); // don't abort the transaction
+    // use another key for the book?
+  } else {
+    // unexpected error, can't handle it
+    // the transaction will abort
+  }
+};
+
+transaction.onabort = function() {
+  console.log(&quot;Error&quot;, transaction.error);
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="event-delegation"
+                      href="indexeddb.html#event-delegation"
+                      >Event delegation</a
+                    >
+                  </h3>
+                  <p>
+                    Do we need onerror/onsuccess for every request? Not every
+                    time. We can use event delegation instead.
+                  </p>
+                  <p>
+                    <strong
+                      >IndexedDB events bubble: <code>request</code> →
+                      <code>transaction</code> → <code>database</code>.</strong
+                    >
+                  </p>
+                  <p>
+                    All events are DOM events, with capturing and bubbling, but
+                    usually only bubbling stage is used.
+                  </p>
+                  <p>
+                    So we can catch all errors using
+                    <code>db.onerror</code> handler, for reporting or other
+                    purposes:
+                  </p>
+                  <div id="avc4lygjir" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>db.onerror = function(event) {
+  let request = event.target; // the request that caused the error
+
+  console.log(&quot;Error&quot;, request.error);
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …But what if an error is fully handled? We don’t want to
+                    report it in that case.
+                  </p>
+                  <p>
+                    We can stop the bubbling and hence
+                    <code>db.onerror</code> by using
+                    <code>event.stopPropagation()</code> in
+                    <code>request.onerror</code>.
+                  </p>
+                  <div id="d59z70vzzt" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>request.onerror = function(event) {
+  if (request.error.name == &quot;ConstraintError&quot;) {
+    console.log(&quot;Book with such id already exists&quot;); // handle the error
+    event.preventDefault(); // don't abort the transaction
+    event.stopPropagation(); // don't bubble error up, &quot;chew&quot; it
+  } else {
+    // do nothing
+    // transaction will be aborted
+    // we can take care of error in transaction.onabort
+  }
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="searching"
+                      href="indexeddb.html#searching"
+                      >Searching</a
+                    >
+                  </h2>
+                  <p>There are two main types of search in an object store:</p>
+                  <ol>
+                    <li>
+                      By a key value or a key range. In our “books” storage that
+                      would be a value or range of values of
+                      <code>book.id</code>.
+                    </li>
+                    <li>
+                      By another object field, e.g. <code>book.price</code>.
+                      This required an additional data structure, named “index”.
+                    </li>
+                  </ol>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="by-key"
+                      href="indexeddb.html#by-key"
+                      >By key</a
+                    >
+                  </h3>
+                  <p>First let’s deal with the first type of search: by key.</p>
+                  <p>
+                    Searching methods support both exact key values and
+                    so-called “ranges of values” –
+                    <a href="https://www.w3.org/TR/IndexedDB/#keyrange"
+                      >IDBKeyRange</a
+                    >
+                    objects that specify an acceptable “key range”.
+                  </p>
+                  <p>
+                    <code>IDBKeyRange</code> objects are created using following
+                    calls:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>IDBKeyRange.lowerBound(lower, [open])</code> means:
+                      <code>≥lower</code> (or <code>&gt;lower</code> if
+                      <code>open</code> is true)
+                    </li>
+                    <li>
+                      <code>IDBKeyRange.upperBound(upper, [open])</code> means:
+                      <code>≤upper</code> (or <code>&lt;upper</code> if
+                      <code>open</code> is true)
+                    </li>
+                    <li>
+                      <code
+                        >IDBKeyRange.bound(lower, upper, [lowerOpen],
+                        [upperOpen])</code
+                      >
+                      means: between <code>lower</code> and <code>upper</code>.
+                      If the open flags is true, the corresponding key is not
+                      included in the range.
+                    </li>
+                    <li>
+                      <code>IDBKeyRange.only(key)</code> – a range that consists
+                      of only one <code>key</code>, rarely used.
+                    </li>
+                  </ul>
+                  <p>We’ll see practical examples of using them very soon.</p>
+                  <p>
+                    To perform the actual search, there are following methods.
+                    They accept a <code>query</code> argument that can be either
+                    an exact key or a key range:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>store.get(query)</code> – search for the first value
+                      by a key or a range.
+                    </li>
+                    <li>
+                      <code>store.getAll([query], [count])</code> – search for
+                      all values, limit by <code>count</code> if given.
+                    </li>
+                    <li>
+                      <code>store.getKey(query)</code> – search for the first
+                      key that satisfies the query, usually a range.
+                    </li>
+                    <li>
+                      <code>store.getAllKeys([query], [count])</code> – search
+                      for all keys that satisfy the query, usually a range, up
+                      to <code>count</code> if given.
+                    </li>
+                    <li>
+                      <code>store.count([query])</code> – get the total count of
+                      keys that satisfy the query, usually a range.
+                    </li>
+                  </ul>
+                  <p>
+                    For instance, we have a lot of books in our store. Remember,
+                    the <code>id</code> field is the key, so all these methods
+                    can search by <code>id</code>.
+                  </p>
+                  <p>Request examples:</p>
+                  <div id="ispevkrv61" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// get one book
+books.get('js')
+
+// get books with 'css' &lt;= id &lt;= 'html'
+books.getAll(IDBKeyRange.bound('css', 'html'))
+
+// get books with id &lt; 'html'
+books.getAll(IDBKeyRange.upperBound('html', true))
+
+// get all books
+books.getAll()
+
+// get all keys, where id &gt; 'js'
+books.getAllKeys(IDBKeyRange.lowerBound('js', true))</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Object store is always sorted</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>An object store sorts values by key internally.</p>
+                      <p>
+                        So requests that return many values always return them
+                        in sorted by key order.
+                      </p>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="by-a-field-using-an-index"
+                      href="indexeddb.html#by-a-field-using-an-index"
+                      >By a field using an index</a
+                    >
+                  </h3>
+                  <p>
+                    To search by other object fields, we need to create an
+                    additional data structure named “index”.
+                  </p>
+                  <p>
+                    An index is an “add-on” to the store that tracks a given
+                    object field. For each value of that field, it stores a list
+                    of keys for objects that have that value. There will be a
+                    more detailed picture below.
+                  </p>
+                  <p>The syntax:</p>
+                  <div id="5bms4272ue" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>objectStore.createIndex(name, keyPath, [options]);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>
+                      <strong><code>name</code></strong> – index name,
+                    </li>
+                    <li>
+                      <strong><code>keyPath</code></strong> – path to the object
+                      field that the index should track (we’re going to search
+                      by that field),
+                    </li>
+                    <li>
+                      <strong><code>option</code></strong> – an optional object
+                      with properties:
+                      <ul>
+                        <li>
+                          <strong><code>unique</code></strong> – if true, then
+                          there may be only one object in the store with the
+                          given value at the <code>keyPath</code>. The index
+                          will enforce that by generating an error if we try to
+                          add a duplicate.
+                        </li>
+                        <li>
+                          <strong><code>multiEntry</code></strong> – only used
+                          if the value on <code>keyPath</code> is an array. In
+                          that case, by default, the index will treat the whole
+                          array as the key. But if <code>multiEntry</code> is
+                          true, then the index will keep a list of store objects
+                          for each value in that array. So array members become
+                          index keys.
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p>
+                    In our example, we store books keyed by <code>id</code>.
+                  </p>
+                  <p>Let’s say we want to search by <code>price</code>.</p>
+                  <p>
+                    First, we need to create an index. It must be done in
+                    <code>upgradeneeded</code>, just like an object store:
+                  </p>
+                  <div
+                    id="j61khk4dnh"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":3,"end":3}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>openRequest.onupgradeneeded = function() {
+  // we must create the index here, in versionchange transaction
+  let books = db.createObjectStore('books', {keyPath: 'id'});
+  let index = books.createIndex('price_idx', 'price');
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>The index will track <code>price</code> field.</li>
+                    <li>
+                      The price is not unique, there may be multiple books with
+                      the same price, so we don’t set
+                      <code>unique</code> option.
+                    </li>
+                    <li>
+                      The price is not an array, so <code>multiEntry</code> flag
+                      is not applicable.
+                    </li>
+                  </ul>
+                  <p>
+                    Imagine that our <code>inventory</code> has 4 books. Here’s
+                    the picture that shows exactly what the
+                    <code>index</code> is:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 440px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 65.68181818181819%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/indexeddb/indexeddb-index.svg"
+                        width="440"
+                        height="289"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/indexeddb/indexeddb-index.svg"
+                          alt=""
+                          width="440"
+                          height="289"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    As said, the index for each value of
+                    <code>price</code> (second argument) keeps the list of keys
+                    that have that price.
+                  </p>
+                  <p>
+                    The index keeps itself up to date automatically, we don’t
+                    have to care about it.
+                  </p>
+                  <p>
+                    Now, when we want to search for a given price, we simply
+                    apply the same search methods to the index:
+                  </p>
+                  <div
+                    id="9w2o9nf6eo"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"end":4}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let transaction = db.transaction(&quot;books&quot;); // readonly
+let books = transaction.objectStore(&quot;books&quot;);
+let priceIndex = books.index(&quot;price_idx&quot;);
+
+let request = priceIndex.getAll(10);
+
+request.onsuccess = function() {
+  if (request.result !== undefined) {
+    console.log(&quot;Books&quot;, request.result); // array of books with price=10
+  } else {
+    console.log(&quot;No such books&quot;);
+  }
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We can also use <code>IDBKeyRange</code> to create ranges
+                    and looks for cheap/expensive books:
+                  </p>
+                  <div id="81unh6mos5" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// find books where price &lt;= 5
+let request = priceIndex.getAll(IDBKeyRange.upperBound(5));</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Indexes are internally sorted by the tracked object field,
+                    <code>price</code> in our case. So when we do the search,
+                    the results are also sorted by <code>price</code>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="deleting-from-store"
+                      href="indexeddb.html#deleting-from-store"
+                      >Deleting from store</a
+                    >
+                  </h2>
+                  <p>
+                    The <code>delete</code> method looks up values to delete by
+                    a query, the call format is similar to <code>getAll</code>:
+                  </p>
+                  <ul>
+                    <li>
+                      <strong><code>delete(query)</code></strong> – delete
+                      matching values by query.
+                    </li>
+                  </ul>
+                  <p>For instance:</p>
+                  <div id="67hlqtsp4e" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// delete the book with id='js'
+books.delete('js');</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    If we’d like to delete books based on a price or another
+                    object field, then we should first find the key in the
+                    index, and then call <code>delete</code>:
+                  </p>
+                  <div id="znigsynfwh" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// find the key where price = 5
+let request = priceIndex.getKey(5);
+
+request.onsuccess = function() {
+  let id = request.result;
+  let deleteRequest = books.delete(id);
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>To delete everything:</p>
+                  <div id="60hrqiy3wt" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>books.clear(); // clear the storage.</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="cursors"
+                      href="indexeddb.html#cursors"
+                      >Cursors</a
+                    >
+                  </h2>
+                  <p>
+                    Methods like <code>getAll/getAllKeys</code> return an array
+                    of keys/values.
+                  </p>
+                  <p>
+                    But an object storage can be huge, bigger than the available
+                    memory. Then <code>getAll</code> will fail to get all
+                    records as an array.
+                  </p>
+                  <p>What to do?</p>
+                  <p>Cursors provide the means to work around that.</p>
+                  <p>
+                    <strong
+                      >A <em>cursor</em> is a special object that traverses the
+                      object storage, given a query, and returns one key/value
+                      at a time, thus saving memory.</strong
+                    >
+                  </p>
+                  <p>
+                    As an object store is sorted internally by key, a cursor
+                    walks the store in key order (ascending by default).
+                  </p>
+                  <p>The syntax:</p>
+                  <div id="yc1w00twnx" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// like getAll, but with a cursor:
+let request = store.openCursor(query, [direction]);
+
+// to get keys, not values (like getAllKeys): store.openKeyCursor</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>
+                      <strong><code>query</code></strong> is a key or a key
+                      range, same as for <code>getAll</code>.
+                    </li>
+                    <li>
+                      <strong><code>direction</code></strong> is an optional
+                      argument, which order to use:
+                      <ul>
+                        <li>
+                          <code>&quot;next&quot;</code> – the default, the
+                          cursor walks up from the record with the lowest key.
+                        </li>
+                        <li>
+                          <code>&quot;prev&quot;</code> – the reverse order:
+                          down from the record with the biggest key.
+                        </li>
+                        <li>
+                          <code>&quot;nextunique&quot;</code>,
+                          <code>&quot;prevunique&quot;</code> – same as above,
+                          but skip records with the same key (only for cursors
+                          over indexes, e.g. for multiple books with price=5
+                          only the first one will be returned).
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p>
+                    <strong
+                      >The main difference of the cursor is that
+                      <code>request.onsuccess</code> triggers multiple times:
+                      once for each result.</strong
+                    >
+                  </p>
+                  <p>Here’s an example of how to use a cursor:</p>
+                  <div id="al4utz297p" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let transaction = db.transaction(&quot;books&quot;);
+let books = transaction.objectStore(&quot;books&quot;);
+
+let request = books.openCursor();
+
+// called for each book found by the cursor
+request.onsuccess = function() {
+  let cursor = request.result;
+  if (cursor) {
+    let key = cursor.key; // book key (id field)
+    let value = cursor.value; // book object
+    console.log(key, value);
+    cursor.continue();
+  } else {
+    console.log(&quot;No more books&quot;);
+  }
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The main cursor methods are:</p>
+                  <ul>
+                    <li>
+                      <code>advance(count)</code> – advance the cursor
+                      <code>count</code> times, skipping values.
+                    </li>
+                    <li>
+                      <code>continue([key])</code> – advance the cursor to the
+                      next value in range matching (or immediately after
+                      <code>key</code> if given).
+                    </li>
+                  </ul>
+                  <p>
+                    Whether there are more values matching the cursor or not –
+                    <code>onsuccess</code> gets called, and then in
+                    <code>result</code> we can get the cursor pointing to the
+                    next record, or <code>undefined</code>.
+                  </p>
+                  <p>
+                    In the example above the cursor was made for the object
+                    store.
+                  </p>
+                  <p>
+                    But we also can make a cursor over an index. As we remember,
+                    indexes allow to search by an object field. Cursors over
+                    indexes do precisely the same as over object stores – they
+                    save memory by returning one value at a time.
+                  </p>
+                  <p>
+                    For cursors over indexes, <code>cursor.key</code> is the
+                    index key (e.g. price), and we should use
+                    <code>cursor.primaryKey</code> property for the object key:
+                  </p>
+                  <div id="kdd7mcd3nz" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let request = priceIdx.openCursor(IDBKeyRange.upperBound(5));
+
+// called for each record
+request.onsuccess = function() {
+  let cursor = request.result;
+  if (cursor) {
+    let primaryKey = cursor.primaryKey; // next object store key (id field)
+    let value = cursor.value; // next object store object (book object)
+    let key = cursor.key; // next index key (price)
+    console.log(key, value);
+    cursor.continue();
+  } else {
+    console.log(&quot;No more books&quot;);
+  }
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="promise-wrapper"
+                      href="indexeddb.html#promise-wrapper"
+                      >Promise wrapper</a
+                    >
+                  </h2>
+                  <p>
+                    Adding <code>onsuccess/onerror</code> to every request is
+                    quite a cumbersome task. Sometimes we can make our life
+                    easier by using event delegation, e.g. set handlers on the
+                    whole transactions, but <code>async/await</code> is much
+                    more convenient.
+                  </p>
+                  <p>
+                    Let’s use a thin promise wrapper
+                    <a href="https://github.com/jakearchibald/idb"
+                      >https://github.com/jakearchibald/idb</a
+                    >
+                    further in this chapter. It creates a global
+                    <code>idb</code> object with
+                    <a href="promisify.html">promisified</a> IndexedDB methods.
+                  </p>
+                  <p>
+                    Then, instead of <code>onsuccess/onerror</code> we can write
+                    like this:
+                  </p>
+                  <div id="pyuszdi972" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let db = await idb.openDB('store', 1, db =&gt; {
+  if (db.oldVersion == 0) {
+    // perform the initialization
+    db.createObjectStore('books', {keyPath: 'id'});
+  }
+});
+
+let transaction = db.transaction('books', 'readwrite');
+let books = transaction.objectStore('books');
+
+try {
+  await books.add(...);
+  await books.add(...);
+
+  await transaction.complete;
+
+  console.log('jsbook saved');
+} catch(err) {
+  console.log('error', err.message);
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    So we have all the sweet “plain async code” and “try…catch”
+                    stuff.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="error-handling-2"
+                      href="indexeddb.html#error-handling-2"
+                      >Error handling</a
+                    >
+                  </h3>
+                  <p>
+                    If we don’t catch an error, then it falls through, till the
+                    closest outer <code>try..catch</code>.
+                  </p>
+                  <p>
+                    An uncaught error becomes an “unhandled promise rejection”
+                    event on <code>window</code> object.
+                  </p>
+                  <p>We can handle such errors like this:</p>
+                  <div id="pq1h5731ks" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>window.addEventListener('unhandledrejection', event =&gt; {
+  let request = event.target; // IndexedDB native request object
+  let error = event.reason; //  Unhandled error object, same as request.error
+  ...report about the error...
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="inactive-transaction-pitfall"
+                      href="indexeddb.html#inactive-transaction-pitfall"
+                      >“Inactive transaction” pitfall</a
+                    >
+                  </h3>
+                  <p>
+                    As we already know, a transaction auto-commits as soon as
+                    the browser is done with the current code and microtasks. So
+                    if we put a <em>macrotask</em> like <code>fetch</code> in
+                    the middle of a transaction, then the transaction won’t wait
+                    for it to finish. It just auto-commits. So the next request
+                    in it would fail.
+                  </p>
+                  <p>
+                    For a promise wrapper and <code>async/await</code> the
+                    situation is the same.
+                  </p>
+                  <p>
+                    Here’s an example of <code>fetch</code> in the middle of the
+                    transaction:
+                  </p>
+                  <div id="anquzj3ohy" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let transaction = db.transaction(&quot;inventory&quot;, &quot;readwrite&quot;);
+let inventory = transaction.objectStore(&quot;inventory&quot;);
+
+await inventory.add({ id: 'js', price: 10, created: new Date() });
+
+await fetch(...); // (*)
+
+await inventory.add({ id: 'js', price: 10, created: new Date() }); // Error</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The next <code>inventory.add</code> after
+                    <code>fetch</code> <code>(*)</code> fails with an “inactive
+                    transaction” error, because the transaction is already
+                    committed and closed at that time.
+                  </p>
+                  <p>
+                    The workaround is the same as when working with native
+                    IndexedDB: either make a new transaction or just split
+                    things apart.
+                  </p>
+                  <ol>
+                    <li>Prepare the data and fetch all that’s needed first.</li>
+                    <li>Then save in the database.</li>
+                  </ol>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="getting-native-objects"
+                      href="indexeddb.html#getting-native-objects"
+                      >Getting native objects</a
+                    >
+                  </h3>
+                  <p>
+                    Internally, the wrapper performs a native IndexedDB request,
+                    adding <code>onerror/onsuccess</code> to it, and returns a
+                    promise that rejects/resolves with the result.
+                  </p>
+                  <p>
+                    That works fine most of the time. The examples are at the
+                    lib page
+                    <a href="https://github.com/jakearchibald/idb"
+                      >https://github.com/jakearchibald/idb</a
+                    >.
+                  </p>
+                  <p>
+                    In few rare cases, when we need the original
+                    <code>request</code> object, we can access it as
+                    <code>promise.request</code> property of the promise:
+                  </p>
+                  <div id="q2gomr38ly" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = books.add(book); // get a promise (don't await for its result)
+
+let request = promise.request; // native request object
+let transaction = request.transaction; // native transaction object
+
+// ...do some native IndexedDB voodoo...
+
+let result = await promise; // if still needed</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="indexeddb.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    IndexedDB can be thought of as a “localStorage on steroids”.
+                    It’s a simple key-value database, powerful enough for
+                    offline apps, yet simple to use.
+                  </p>
+                  <p>
+                    The best manual is the specification,
+                    <a href="https://www.w3.org/TR/IndexedDB-2/"
+                      >the current one</a
+                    >
+                    is 2.0, but few methods from
+                    <a href="https://w3c.github.io/IndexedDB/">3.0</a> (it’s not
+                    much different) are partially supported.
+                  </p>
+                  <p>The basic usage can be described with a few phrases:</p>
+                  <ol>
+                    <li>
+                      Get a promise wrapper like
+                      <a href="https://github.com/jakearchibald/idb">idb</a>.
+                    </li>
+                    <li>
+                      Open a database:
+                      <code>idb.openDb(name, version, onupgradeneeded)</code>
+                      <ul>
+                        <li>
+                          Create object storages and indexes in
+                          <code>onupgradeneeded</code> handler or perform
+                          version update if needed.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      For requests:
+                      <ul>
+                        <li>
+                          Create transaction
+                          <code>db.transaction('books')</code> (readwrite if
+                          needed).
+                        </li>
+                        <li>
+                          Get the object store
+                          <code>transaction.objectStore('books')</code>.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      Then, to search by a key, call methods on the object store
+                      directly.
+                      <ul>
+                        <li>To search by an object field, create an index.</li>
+                      </ul>
+                    </li>
+                    <li>If the data does not fit in memory, use a cursor.</li>
+                  </ol>
+                  <p>Here’s a small demo app:</p>
+                  <div class="code-tabs">
+                    <div class="code-tabs__tools">
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_left
+                          "
+                          title="&amp;larr;"
+                          data-code-tabs-left="data-code-tabs-left"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__switches-wrap">
+                        <div
+                          class="code-tabs__switches"
+                          data-code-tabs-switches="data-code-tabs-switches"
+                        >
+                          <div class="code-tabs__switches-items">
+                            <div class="code-tabs__switch">Result</div>
+                            <div
+                              class="
+                                code-tabs__switch code-tabs__switch_current
+                              "
+                            >
+                              index.html
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_right
+                          "
+                          title="&amp;rarr;"
+                          data-code-tabs-right="data-code-tabs-right"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__buttons">
+                        <a
+                          class="code-tabs__button code-tabs__button_external"
+                          target="_blank"
+                          title="open in a new window"
+                          href="article/indexeddb/books/index.html"
+                        ></a
+                        ><a
+                          class="code-tabs__button code-tabs__button_edit"
+                          target="_blank"
+                          title="edit in the sandbox"
+                          href="https://plnkr.co/edit/veG9pDMaRQvMnY4Y?p=preview"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      class="code-tabs__content"
+                      data-code-tabs-content="data-code-tabs-content"
+                      style="height: 200px"
+                    >
+                      <div class="code-tabs__section">
+                        <iframe
+                          class="code-tabs__result"
+                          src="article/indexeddb/books/index.html"
+                        ></iframe>
+                      </div>
+                      <div
+                        class="code-tabs__section code-tabs__section_current"
+                      >
+                        <pre
+                          class="language-markup line-numbers"
+                        ><code>&lt;!doctype html&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/idb@3.0.2/build/idb.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;button onclick=&quot;addBook()&quot;&gt;Add a book&lt;/button&gt;
+&lt;button onclick=&quot;clearBooks()&quot;&gt;Clear books&lt;/button&gt;
+
+&lt;p&gt;Books list:&lt;/p&gt;
+
+&lt;ul id=&quot;listElem&quot;&gt;&lt;/ul&gt;
+
+&lt;script&gt;
+let db;
+
+init();
+
+async function init() {
+  db = await idb.openDb('booksDb', 1, db =&gt; {
+    db.createObjectStore('books', {keyPath: 'name'});
+  });
+
+  list();
+}
+
+async function list() {
+  let tx = db.transaction('books');
+  let bookStore = tx.objectStore('books');
+
+  let books = await bookStore.getAll();
+
+  if (books.length) {
+    listElem.innerHTML = books.map(book =&gt; `&lt;li&gt;
+        name: ${book.name}, price: ${book.price}
+      &lt;/li&gt;`).join('');
+  } else {
+    listElem.innerHTML = '&lt;li&gt;No books yet. Please add books.&lt;/li&gt;'
+  }
+
+
+}
+
+async function clearBooks() {
+  let tx = db.transaction('books', 'readwrite');
+  await tx.objectStore('books').clear();
+  await list();
+}
+
+async function addBook() {
+  let name = prompt(&quot;Book name?&quot;);
+  let price = +prompt(&quot;Book price?&quot;);
+
+  let tx = db.transaction('books', 'readwrite');
+
+  try {
+    await tx.objectStore('books').add({name, price});
+    await list();
+  } catch(err) {
+    if (err.name == 'ConstraintError') {
+      alert(&quot;Such book exists already&quot;);
+      await addBook();
+    } else {
+      throw err;
+    }
+  }
+}
+
+window.addEventListener('unhandledrejection', event =&gt; {
+  alert(&quot;Error: &quot; + event.reason.message);
+});
+
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="localstorage.html"
+                data-tooltip="LocalStorage, sessionStorage"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="animation.html"
+                data-tooltip="Animation"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Findexeddb"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Findexeddb"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="indexeddb.html#comments" name="comments">Comments</a>
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/indexeddb",
+                    identifier: "\/indexeddb",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="data-storage.html"
+                        >Storing data in the browser</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   indexeddb.html#open-database"
+                        >Open database</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   indexeddb.html#object-store"
+                        >Object store</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   indexeddb.html#transactions"
+                        >Transactions</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   indexeddb.html#transactions-autocommit"
+                        >Transactions’ autocommit</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   indexeddb.html#error-handling"
+                        >Error handling</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="indexeddb.html#searching"
+                        >Searching</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   indexeddb.html#deleting-from-store"
+                        >Deleting from store</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="indexeddb.html#cursors"
+                        >Cursors</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   indexeddb.html#promise-wrapper"
+                        >Promise wrapper</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="indexeddb.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="indexeddb.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Findexeddb"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Findexeddb"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/6-data-storage/03-indexeddb"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

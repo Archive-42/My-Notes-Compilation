@@ -1,6 +1,8 @@
-# Tables
+Tables
+======
 
-## Standard table
+Standard table
+--------------
 
 This is the most commonly used table style across MDN Web Docs. It is achieved by adding the `standard-table` class to the `table` element.
 
@@ -46,7 +48,8 @@ This is the most commonly used table style across MDN Web Docs. It is achieved b
       </tbody>
     </table>
 
-## Properties table
+Properties table
+----------------
 
 Property tables is most commonly used for technical summaries such as [the table seen here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#technical_summary). The style is achieved by adding the class `properties` to the `table` element.
 

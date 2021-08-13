@@ -1,6 +1,8 @@
-# Label
+Label
+=====
 
-## Default `label`
+Default `label`
+---------------
 
 `label` elements on MDN Web Docs are displayed as block level elements by default.
 
@@ -8,7 +10,8 @@
 
     <label>Default label</label>
 
-## Inline `label`
+Inline `label`
+--------------
 
 If you require an inline `label` element, add the `inline` class to the relevant `label` element
 

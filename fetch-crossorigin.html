@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Fetch: Cross-Origin Requests</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="fetch-crossorigin.html"
+    />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Fetch: Cross-Origin Requests" />
+    <meta
+      property="og:image"
+n_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Fetch: Cross-Origin Requests" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="fetch-abort.html" />
+    <link rel="next" href="fetch-api.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Fetch: Cross-Origin Requests" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="fetch-crossorigin.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/fetch-crossorigin"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                    fetch-crossorigin"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/fetch-crossorigin"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/fetch-crossorigin"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/fetch-crossorigin"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=fetch-crossorigin"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/fetch-crossorigin"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/fetch-crossorigin"</a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Ffetch-crossorigin"
+                  rel="nofollow"
+                ></a
+                >2Ffetch-crossorigin
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option
+                  value="https://javascript.info/fetch-crossorigin"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/fetch-crossorigin">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/fetch-crossorigin">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/fetch-crossorigin">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/fetch-crossorigin">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/fetch-crossorigin">
+                  한국어
+                </option>
+                <option value=fetch-crossorigin">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/fetch-crossorigin">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/fetch-crossorigin">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="5"
+          max="12"
+          data-tooltip="Lesson 5 of 12"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="network.html"
+                        ><span>Network requests</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Network requests",
+                            "item": "https://javascript.info/network"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 2nd January 2021"
+                  >
+                    <div class="updated-at__content">2nd January 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Fetch: Cross-Origin Requests</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Fetch: Cross-Origin Requests" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    If we send a <code>fetch</code> request to another web-site,
+                    it will probably fail.
+                  </p>
+                  <p>
+                    For instance, let’s try fetching
+                    <code>http://example.com</code>:
+                  </p>
+                  <div
+                    id="p6k7rbgnsw"
+                    data-trusted="1"
+                    class="code-example"
+                    data-async="1"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="fetch-crossorigin.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="fetch-crossorigin.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>try {
+  await fetch('http://example.com');
+} catch(err) {
+  alert(err); // Failed to fetch
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Fetch fails, as expected.</p>
+                  <p>
+                    The core concept here is <em>origin</em> – a
+                    domain/port/protocol triplet.
+                  </p>
+                  <p>
+                    Cross-origin requests – those sent to another domain (even a
+                    subdomain) or protocol or port – require special headers
+                    from the remote side.
+                  </p>
+                  <p>
+                    That policy is called “CORS”: Cross-Origin Resource Sharing.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="why-is-cors-needed-a-brief-history"
+                      href="fetch-crossorigin.html#why-is-cors-needed-a-brief-history"
+                      >Why is CORS needed? A brief history</a
+                    >
+                  </h2>
+                  <p>CORS exists to protect the internet from evil hackers.</p>
+                  <p>
+                    Seriously. Let’s make a very brief historical digression.
+                  </p>
+                  <p>
+                    <strong
+                      >For many years a script from one site could not access
+                      the content of another site.</strong
+                    >
+                  </p>
+                  <p>
+                    That simple, yet powerful rule was a foundation of the
+                    internet security. E.g. an evil script from website
+                    <code>hacker.com</code> could not access the user’s mailbox
+                    at website <code>gmail.com</code>. People felt safe.
+                  </p>
+                  <p>
+                    JavaScript also did not have any special methods to perform
+                    network requests at that time. It was a toy language to
+                    decorate a web page.
+                  </p>
+                  <p>
+                    But web developers demanded more power. A variety of tricks
+                    were invented to work around the limitation and make
+                    requests to other websites.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="using-forms"
+                      href="fetch-crossorigin.html#using-forms"
+                      >Using forms</a
+                    >
+                  </h3>
+                  <p>
+                    One way to communicate with another server was to submit a
+                    <code>&lt;form&gt;</code> there. People submitted it into
+                    <code>&lt;iframe&gt;</code>, just to stay on the current
+                    page, like this:
+                  </p>
+                  <div
+                    id="klejst3gp6"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"end":4},{"start":1,"end":1}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;!-- form target --&gt;
+&lt;iframe name=&quot;iframe&quot;&gt;&lt;/iframe&gt;
+
+&lt;!-- a form could be dynamically generated and submited by JavaScript --&gt;
+&lt;form target=&quot;iframe&quot; method=&quot;POST&quot; action=&quot;http://another.com/…&quot;&gt;
+  ...
+&lt;/form&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    So, it was possible to make a GET/POST request to another
+                    site, even without networking methods, as forms can send
+                    data anywhere. But as it’s forbidden to access the content
+                    of an <code>&lt;iframe&gt;</code> from another site, it
+                    wasn’t possible to read the response.
+                  </p>
+                  <p>
+                    To be precise, there were actually tricks for that, they
+                    required special scripts at both the iframe and the page. So
+                    the communication with the iframe was technically possible.
+                    Right now there’s no point to go into details, let these
+                    dinosaurs rest in peace.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="using-scripts"
+                      href="fetch-crossorigin.html#using-scripts"
+                      >Using scripts</a
+                    >
+                  </h3>
+                  <p>
+                    Another trick was to use a <code>script</code> tag. A script
+                    could have any <code>src</code>, with any domain, like
+                    <code
+                      >&lt;script src=&quot;http://another.com/…&quot;&gt;</code
+                    >. It’s possible to execute a script from any website.
+                  </p>
+                  <p>
+                    If a website, e.g. <code>another.com</code> intended to
+                    expose data for this kind of access, then a so-called “JSONP
+                    (JSON with padding)” protocol was used.
+                  </p>
+                  <p>Here’s how it worked.</p>
+                  <p>
+                    Let’s say we, at our site, need to get the data from
+                    <code>http://another.com</code>, such as the weather:
+                  </p>
+                  <ol>
+                    <li>
+                      <p>
+                        First, in advance, we declare a global function to
+                        accept the data, e.g. <code>gotWeather</code>.
+                      </p>
+                      <div
+                        id="3qk54wnuas"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>// 1. Declare the function to process the weather data
+function gotWeather({ temperature, humidity }) {
+  alert(`temperature: ${temperature}, humidity: ${humidity}`);
+}</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        Then we make a <code>&lt;script&gt;</code> tag with
+                        <code
+                          >src=&quot;http://another.com/weather.json?callback=gotWeather&quot;</code
+                        >, using the name of our function as the
+                        <code>callback</code> URL-parameter.
+                      </p>
+                      <div
+                        id="u3spw479aj"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let script = document.createElement('script');
+script.src = `http://another.com/weather.json?callback=gotWeather`;
+document.body.append(script);</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        The remote server <code>another.com</code> dynamically
+                        generates a script that calls
+                        <code>gotWeather(...)</code> with the data it wants us
+                        to receive.
+                      </p>
+                      <div
+                        id="daugnnqd62"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>// The expected answer from the server looks like this:
+gotWeather({
+  temperature: 25,
+  humidity: 78
+});</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        When the remote script loads and executes,
+                        <code>gotWeather</code> runs, and, as it’s our function,
+                        we have the data.
+                      </p>
+                    </li>
+                  </ol>
+                  <p>
+                    That works, and doesn’t violate security, because both sides
+                    agreed to pass the data this way. And, when both sides
+                    agree, it’s definitely not a hack. There are still services
+                    that provide such access, as it works even for very old
+                    browsers.
+                  </p>
+                  <p>
+                    After a while, networking methods appeared in browser
+                    JavaScript.
+                  </p>
+                  <p>
+                    At first, cross-origin requests were forbidden. But as a
+                    result of long discussions, cross-origin requests were
+                    allowed, but with any new capabilities requiring an explicit
+                    allowance by the server, expressed in special headers.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="safe-requests"
+                      href="fetch-crossorigin.html#safe-requests"
+                      >Safe requests</a
+                    >
+                  </h2>
+                  <p>There are two types of cross-origin requests:</p>
+                  <ol>
+                    <li>Safe requests.</li>
+                    <li>All the others.</li>
+                  </ol>
+                  <p>
+                    Safe Requests are simpler to make, so let’s start with them.
+                  </p>
+                  <p>A request is safe if it satisfies two conditions:</p>
+                  <ol>
+                    <li>
+                      <a
+                        href="https://fetch.spec.whatwg.org/#cors-safelisted-method"
+                        >Safe method</a
+                      >: GET, POST or HEAD
+                    </li>
+                    <li>
+                      <a
+                        href="https://fetch.spec.whatwg.org/#cors-safelisted-request-header"
+                        >Safe headers</a
+                      >
+                      – the only allowed custom headers are:
+                      <ul>
+                        <li><code>Accept</code>,</li>
+                        <li><code>Accept-Language</code>,</li>
+                        <li><code>Content-Language</code>,</li>
+                        <li>
+                          <code>Content-Type</code> with the value
+                          <code>application/x-www-form-urlencoded</code>,
+                          <code>multipart/form-data</code> or
+                          <code>text/plain</code>.
+                        </li>
+                      </ul>
+                    </li>
+                  </ol>
+                  <p>
+                    Any other request is considered “unsafe”. For instance, a
+                    request with <code>PUT</code> method or with an
+                    <code>API-Key</code> HTTP-header does not fit the
+                    limitations.
+                  </p>
+                  <p>
+                    <strong
+                      >The essential difference is that a safe request can be
+                      made with a <code>&lt;form&gt;</code> or a
+                      <code>&lt;script&gt;</code>, without any special
+                      methods.</strong
+                    >
+                  </p>
+                  <p>
+                    So, even a very old server should be ready to accept a safe
+                    request.
+                  </p>
+                  <p>
+                    Contrary to that, requests with non-standard headers or e.g.
+                    method <code>DELETE</code> can’t be created this way. For a
+                    long time JavaScript was unable to do such requests. So an
+                    old server may assume that such requests come from a
+                    privileged source, “because a webpage is unable to send
+                    them”.
+                  </p>
+                  <p>
+                    When we try to make a unsafe request, the browser sends a
+                    special “preflight” request that asks the server – does it
+                    agree to accept such cross-origin requests, or not?
+                  </p>
+                  <p>
+                    And, unless the server explicitly confirms that with
+                    headers, an unsafe request is not sent.
+                  </p>
+                  <p>Now we’ll go into details.</p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="cors-for-safe-requests"
+                      href="fetch-crossorigin.html#cors-for-safe-requests"
+                      >CORS for safe requests</a
+                    >
+                  </h2>
+                  <p>
+                    If a request is cross-origin, the browser always adds the
+                    <code>Origin</code> header to it.
+                  </p>
+                  <p>
+                    For instance, if we request
+                    <code>https://anywhere.com/request</code> from
+                    <code>https://javascript.info/page</code>, the headers will
+                    look like:
+                  </p>
+                  <div
+                    id="n5cdk1k24t"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":2,"end":2}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-http"
+                        ><code>GET /request
+Host: anywhere.com
+Origin: https://javascript.info
+...</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As you can see, the <code>Origin</code> header contains
+                    exactly the origin (domain/protocol/port), without a path.
+                  </p>
+                  <p>
+                    The server can inspect the <code>Origin</code> and, if it
+                    agrees to accept such a request, add a special header
+                    <code>Access-Control-Allow-Origin</code> to the response.
+                    That header should contain the allowed origin (in our case
+                    <code>https://javascript.info</code>), or a star
+                    <code>*</code>. Then the response is successful, otherwise
+                    it’s an error.
+                  </p>
+                  <p>The browser plays the role of a trusted mediator here:</p>
+                  <ol>
+                    <li>
+                      It ensures that the correct <code>Origin</code> is sent
+                      with a cross-origin request.
+                    </li>
+                    <li>
+                      It checks for permitting
+                      <code>Access-Control-Allow-Origin</code> in the response,
+                      if it exists, then JavaScript is allowed to access the
+                      response, otherwise it fails with an error.
+                    </li>
+                  </ol>
+                  <figure>
+                    <div class="image" style="width: 633px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 64.92890995260665%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/fetch-crossorigin/xhr-another-domain.svg"
+                        width="633"
+                        height="411"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/fetch-crossorigin/xhr-another-domain.svg"
+                          alt=""
+                          width="633"
+                          height="411"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>Here’s an example of a permissive server response:</p>
+                  <div
+                    id="ybld42in69"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":2,"end":2}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre class="line-numbers language-http"><code>200 OK
+Content-Type:text/html; charset=UTF-8
+Access-Control-Allow-Origin: https://javascript.info</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="response-headers"
+                      href="fetch-crossorigin.html#response-headers"
+                      >Response headers</a
+                    >
+                  </h2>
+                  <p>
+                    For cross-origin request, by default JavaScript may only
+                    access so-called “safe” response headers:
+                  </p>
+                  <ul>
+                    <li><code>Cache-Control</code></li>
+                    <li><code>Content-Language</code></li>
+                    <li><code>Content-Type</code></li>
+                    <li><code>Expires</code></li>
+                    <li><code>Last-Modified</code></li>
+                    <li><code>Pragma</code></li>
+                  </ul>
+                  <p>Accessing any other response header causes an error.</p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Please note:</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        There’s no <code>Content-Length</code> header in the
+                        list!
+                      </p>
+                      <p>
+                        This header contains the full response length. So, if
+                        we’re downloading something and would like to track the
+                        percentage of progress, then an additional permission is
+                        required to access that header (see below).
+                      </p>
+                    </div>
+                  </div>
+                  <p>
+                    To grant JavaScript access to any other response header, the
+                    server must send the
+                    <code>Access-Control-Expose-Headers</code> header. It
+                    contains a comma-separated list of unsafe header names that
+                    should be made accessible.
+                  </p>
+                  <p>For example:</p>
+                  <div
+                    id="p4ctwekx0g"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":5,"end":5}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre class="line-numbers language-http"><code>200 OK
+Content-Type:text/html; charset=UTF-8
+Content-Length: 12345
+API-Key: 2c9de507f2c54aa1
+Access-Control-Allow-Origin: https://javascript.info
+Access-Control-Expose-Headers: Content-Length,API-Key</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    With such an
+                    <code>Access-Control-Expose-Headers</code> header, the
+                    script is allowed to read the
+                    <code>Content-Length</code> and <code>API-Key</code> headers
+                    of the response.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="unsafe-requests"
+                      href="fetch-crossorigin.html#unsafe-requests"
+                      >“Unsafe” requests</a
+                    >
+                  </h2>
+                  <p>
+                    We can use any HTTP-method: not just <code>GET/POST</code>,
+                    but also <code>PATCH</code>, <code>DELETE</code> and others.
+                  </p>
+                  <p>
+                    Some time ago no one could even imagine that a webpage could
+                    make such requests. So there may still exist webservices
+                    that treat a non-standard method as a signal: “That’s not a
+                    browser”. They can take it into account when checking access
+                    rights.
+                  </p>
+                  <p>
+                    So, to avoid misunderstandings, any “unsafe” request – that
+                    couldn’t be done in the old times, the browser does not make
+                    such requests right away. First, it sends a preliminary,
+                    so-called “preflight” request, to ask for permission.
+                  </p>
+                  <p>
+                    A preflight request uses the method <code>OPTIONS</code>, no
+                    body and two headers:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>Access-Control-Request-Method</code> header has the
+                      method of the unsafe request.
+                    </li>
+                    <li>
+                      <code>Access-Control-Request-Headers</code> header
+                      provides a comma-separated list of its unsafe
+                      HTTP-headers.
+                    </li>
+                  </ul>
+                  <p>
+                    If the server agrees to serve the requests, then it should
+                    respond with empty body, status 200 and headers:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>Access-Control-Allow-Origin</code> must be either
+                      <code>*</code> or the requesting origin, such as
+                      <code>https://javascript.info</code>, to allow it.
+                    </li>
+                    <li>
+                      <code>Access-Control-Allow-Methods</code> must have the
+                      allowed method.
+                    </li>
+                    <li>
+                      <code>Access-Control-Allow-Headers</code> must have a list
+                      of allowed headers.
+                    </li>
+                    <li>
+                      Additionally, the header
+                      <code>Access-Control-Max-Age</code> may specify a number
+                      of seconds to cache the permissions. So the browser won’t
+                      have to send a preflight for subsequent requests that
+                      satisfy given permissions.
+                    </li>
+                  </ul>
+                  <figure>
+                    <div class="image" style="width: 620px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 102.09677419354838%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/fetch-crossorigin/xhr-preflight.svg"
+                        width="620"
+                        height="633"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/fetch-crossorigin/xhr-preflight.svg"
+                          alt=""
+                          width="620"
+                          height="633"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    Let’s see how it works step-by-step on the example of a
+                    cross-origin <code>PATCH</code> request (this method is
+                    often used to update data):
+                  </p>
+                  <div id="1z0j272t5t" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let response = await fetch('https://site.com/service.json', {
+  method: 'PATCH',
+  headers: {
+    'Content-Type': 'application/json',
+    'API-Key': 'secret'
+  }
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    There are three reasons why the request is unsafe (one is
+                    enough):
+                  </p>
+                  <ul>
+                    <li>Method <code>PATCH</code></li>
+                    <li>
+                      <code>Content-Type</code> is not one of:
+                      <code>application/x-www-form-urlencoded</code>,
+                      <code>multipart/form-data</code>, <code>text/plain</code>.
+                    </li>
+                    <li>“Unsafe” <code>API-Key</code> header.</li>
+                  </ul>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="step-1-preflight-request"
+                      href="fetch-crossorigin.html#step-1-preflight-request"
+                      >Step 1 (preflight request)</a
+                    >
+                  </h3>
+                  <p>
+                    Prior to sending such a request, the browser, on its own,
+                    sends a preflight request that looks like this:
+                  </p>
+                  <div id="90u6f7rmul" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-http"
+                        ><code>OPTIONS /service.json
+Host: site.com
+Origin: https://javascript.info
+Access-Control-Request-Method: PATCH
+Access-Control-Request-Headers: Content-Type,API-Key</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>Method: <code>OPTIONS</code>.</li>
+                    <li>
+                      The path – exactly the same as the main request:
+                      <code>/service.json</code>.
+                    </li>
+                    <li>
+                      Cross-origin special headers:
+                      <ul>
+                        <li><code>Origin</code> – the source origin.</li>
+                        <li>
+                          <code>Access-Control-Request-Method</code> – requested
+                          method.
+                        </li>
+                        <li>
+                          <code>Access-Control-Request-Headers</code> – a
+                          comma-separated list of “unsafe” headers.
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="step-2-preflight-response"
+                      href="fetch-crossorigin.html#step-2-preflight-response"
+                      >Step 2 (preflight response)</a
+                    >
+                  </h3>
+                  <p>
+                    The server should respond with status 200 and the headers:
+                  </p>
+                  <ul>
+                    <li>
+                      <code
+                        >Access-Control-Allow-Origin:
+                        https://javascript.info</code
+                      >
+                    </li>
+                    <li><code>Access-Control-Allow-Methods: PATCH</code></li>
+                    <li>
+                      <code
+                        >Access-Control-Allow-Headers:
+                        Content-Type,API-Key</code
+                      >.
+                    </li>
+                  </ul>
+                  <p>
+                    That allows future communication, otherwise an error is
+                    triggered.
+                  </p>
+                  <p>
+                    If the server expects other methods and headers in the
+                    future, it makes sense to allow them in advance by adding
+                    them to the list.
+                  </p>
+                  <p>
+                    For example, this response also allows <code>PUT</code>,
+                    <code>DELETE</code> and additional headers:
+                  </p>
+                  <div id="ziw7c3kc0b" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre class="line-numbers language-http"><code>200 OK
+Access-Control-Allow-Origin: https://javascript.info
+Access-Control-Allow-Methods: PUT,PATCH,DELETE
+Access-Control-Allow-Headers: API-Key,Content-Type,If-Modified-Since,Cache-Control
+Access-Control-Max-Age: 86400</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now the browser can see that <code>PATCH</code> is in
+                    <code>Access-Control-Allow-Methods</code> and
+                    <code>Content-Type,API-Key</code> are in the list
+                    <code>Access-Control-Allow-Headers</code>, so it sends out
+                    the main request.
+                  </p>
+                  <p>
+                    If there’s the header
+                    <code>Access-Control-Max-Age</code> with a number of
+                    seconds, then the preflight permissions are cached for the
+                    given time. The response above will be cached for 86400
+                    seconds (one day). Within this timeframe, subsequent
+                    requests will not cause a preflight. Assuming that they fit
+                    the cached allowances, they will be sent directly.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="step-3-actual-request"
+                      href="fetch-crossorigin.html#step-3-actual-request"
+                      >Step 3 (actual request)</a
+                    >
+                  </h3>
+                  <p>
+                    When the preflight is successful, the browser now makes the
+                    main request. The process here is the same as for safe
+                    requests.
+                  </p>
+                  <p>
+                    The main request has the <code>Origin</code> header (because
+                    it’s cross-origin):
+                  </p>
+                  <div id="7gqdbklfr3" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-http"
+                        ><code>PATCH /service.json
+Host: site.com
+Content-Type: application/json
+API-Key: secret
+Origin: https://javascript.info</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="step-4-actual-response"
+                      href="fetch-crossorigin.html#step-4-actual-response"
+                      >Step 4 (actual response)</a
+                    >
+                  </h3>
+                  <p>
+                    The server should not forget to add
+                    <code>Access-Control-Allow-Origin</code> to the main
+                    response. A successful preflight does not relieve from that:
+                  </p>
+                  <div id="zsuaz9prk5" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-http"
+                        ><code>Access-Control-Allow-Origin: https://javascript.info</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Then JavaScript is able to read the main server response.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Please note:</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Preflight request occurs “behind the scenes”, it’s
+                        invisible to JavaScript.
+                      </p>
+                      <p>
+                        JavaScript only gets the response to the main request or
+                        an error if there’s no server permission.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="credentials"
+                      href="fetch-crossorigin.html#credentials"
+                      >Credentials</a
+                    >
+                  </h2>
+                  <p>
+                    A cross-origin request initiated by JavaScript code by
+                    default does not bring any credentials (cookies or HTTP
+                    authentication).
+                  </p>
+                  <p>
+                    That’s uncommon for HTTP-requests. Usually, a request to
+                    <code>http://site.com</code> is accompanied by all cookies
+                    from that domain. Cross-origin requests made by JavaScript
+                    methods on the other hand are an exception.
+                  </p>
+                  <p>
+                    For example, <code>fetch('http://another.com')</code> does
+                    not send any cookies, even those (!) that belong to
+                    <code>another.com</code> domain.
+                  </p>
+                  <p>Why?</p>
+                  <p>
+                    That’s because a request with credentials is much more
+                    powerful than without them. If allowed, it grants JavaScript
+                    the full power to act on behalf of the user and access
+                    sensitive information using their credentials.
+                  </p>
+                  <p>
+                    Does the server really trust the script that much? Then it
+                    must explicitly allow requests with credentials with an
+                    additional header.
+                  </p>
+                  <p>
+                    To send credentials in <code>fetch</code>, we need to add
+                    the option <code>credentials: &quot;include&quot;</code>,
+                    like this:
+                  </p>
+                  <div id="4hm175qbrc" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>fetch('http://another.com', {
+  credentials: &quot;include&quot;
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now <code>fetch</code> sends cookies originating from
+                    <code>another.com</code> with request to that site.
+                  </p>
+                  <p>
+                    If the server agrees to accept the request
+                    <em>with credentials</em>, it should add a header
+                    <code>Access-Control-Allow-Credentials: true</code> to the
+                    response, in addition to
+                    <code>Access-Control-Allow-Origin</code>.
+                  </p>
+                  <p>For example:</p>
+                  <div id="89zrk221cn" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre class="line-numbers language-http"><code>200 OK
+Access-Control-Allow-Origin: https://javascript.info
+Access-Control-Allow-Credentials: true</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Please note: <code>Access-Control-Allow-Origin</code> is
+                    prohibited from using a star <code>*</code> for requests
+                    with credentials. Like shown above, it must provide the
+                    exact origin there. That’s an additional safety measure, to
+                    ensure that the server really knows who it trusts to make
+                    such requests.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="fetch-crossorigin.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    From the browser point of view, there are two kinds of
+                    cross-origin requests: “safe” and all the others.
+                  </p>
+                  <p>“Safe” requests must satisfy the following conditions:</p>
+                  <ul>
+                    <li>Method: GET, POST or HEAD.</li>
+                    <li>
+                      Headers – we can set only:
+                      <ul>
+                        <li><code>Accept</code></li>
+                        <li><code>Accept-Language</code></li>
+                        <li><code>Content-Language</code></li>
+                        <li>
+                          <code>Content-Type</code> to the value
+                          <code>application/x-www-form-urlencoded</code>,
+                          <code>multipart/form-data</code> or
+                          <code>text/plain</code>.
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p>
+                    The essential difference is that safe requests were doable
+                    since ancient times using <code>&lt;form&gt;</code> or
+                    <code>&lt;script&gt;</code> tags, while unsafe were
+                    impossible for browsers for a long time.
+                  </p>
+                  <p>
+                    So, the practical difference is that safe requests are sent
+                    right away, with the <code>Origin</code> header, while for
+                    the other ones the browser makes a preliminary “preflight”
+                    request, asking for permission.
+                  </p>
+                  <p><strong>For safe requests:</strong></p>
+                  <ul>
+                    <li>
+                      → The browser sends the <code>Origin</code> header with
+                      the origin.
+                    </li>
+                    <li>
+                      ← For requests without credentials (not sent by default),
+                      the server should set:
+                      <ul>
+                        <li>
+                          <code>Access-Control-Allow-Origin</code> to
+                          <code>*</code> or same value as <code>Origin</code>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      ← For requests with credentials, the server should set:
+                      <ul>
+                        <li>
+                          <code>Access-Control-Allow-Origin</code> to same value
+                          as <code>Origin</code>
+                        </li>
+                        <li>
+                          <code>Access-Control-Allow-Credentials</code> to
+                          <code>true</code>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p>
+                    Additionally, to grant JavaScript access to any response
+                    headers except <code>Cache-Control</code>,
+                    <code>Content-Language</code>, <code>Content-Type</code>,
+                    <code>Expires</code>, <code>Last-Modified</code> or
+                    <code>Pragma</code>, the server should list the allowed ones
+                    in <code>Access-Control-Expose-Headers</code> header.
+                  </p>
+                  <p>
+                    <strong
+                      >For unsafe requests, a preliminary “preflight” request is
+                      issued before the requested one:</strong
+                    >
+                  </p>
+                  <ul>
+                    <li>
+                      → The browser sends an <code>OPTIONS</code> request to the
+                      same URL, with the headers:
+                      <ul>
+                        <li>
+                          <code>Access-Control-Request-Method</code> has
+                          requested method.
+                        </li>
+                        <li>
+                          <code>Access-Control-Request-Headers</code> lists
+                          unsafe requested headers.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      ← The server should respond with status 200 and the
+                      headers:
+                      <ul>
+                        <li>
+                          <code>Access-Control-Allow-Methods</code> with a list
+                          of allowed methods,
+                        </li>
+                        <li>
+                          <code>Access-Control-Allow-Headers</code> with a list
+                          of allowed headers,
+                        </li>
+                        <li>
+                          <code>Access-Control-Max-Age</code> with a number of
+                          seconds to cache the permissions.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      Then the actual request is sent, and the previous “safe”
+                      scheme is applied.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="fetch-crossorigin.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="fetch-crossorigin.html#why-do-we-need-origin"
+                          name="why-do-we-need-origin"
+                          >Why do we need Origin?</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/do-we-need-origin.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          As you probably know, there’s HTTP-header
+                          <code>Referer</code>, that usually contains an url of
+                          the page which initiated a network request.
+                        </p>
+                        <p>
+                          For instance, when fetching
+                          <code>http://google.com</code> from
+                          <code>http://javascript.info/some/url</code>, the
+                          headers look like this:
+                        </p>
+                        <div
+                          id="s140f94nuc"
+                          data-trusted="1"
+                          class="code-example"
+                          data-highlight='[{"start":5,"end":6}]'
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-none"
+                              ><code>Accept: */*
+Accept-Charset: utf-8
+Accept-Encoding: gzip,deflate,sdch
+Connection: keep-alive
+Host: google.com
+Origin: http://javascript.info
+Referer: http://javascript.info/some/url</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          As you can see, both <code>Referer</code> and
+                          <code>Origin</code> are present.
+                        </p>
+                        <p>The questions:</p>
+                        <ol>
+                          <li>
+                            Why <code>Origin</code> is needed, if
+                            <code>Referer</code> has even more information?
+                          </li>
+                          <li>
+                            Is it possible that there’s no
+                            <code>Referer</code> or <code>Origin</code>, or is
+                            it incorrect?
+                          </li>
+                        </ol>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              We need <code>Origin</code>, because sometimes
+                              <code>Referer</code> is absent. For instance, when
+                              we <code>fetch</code> HTTP-page from HTTPS (access
+                              less secure from more secure), then there’s no
+                              <code>Referer</code>.
+                            </p>
+                            <p>
+                              The
+                              <a
+                                href="http://en.wikipedia.org/wiki/Content_Security_Policy"
+                                >Content Security Policy</a
+                              >
+                              may forbid sending a <code>Referer</code>.
+                            </p>
+                            <p>
+                              As we’ll see, <code>fetch</code> has options that
+                              prevent sending the <code>Referer</code> and even
+                              allow to change it (within the same site).
+                            </p>
+                            <p>
+                              By specification, <code>Referer</code> is an
+                              optional HTTP-header.
+                            </p>
+                            <p>
+                              Exactly because <code>Referer</code> is
+                              unreliable, <code>Origin</code> was invented. The
+                              browser guarantees correct <code>Origin</code> for
+                              cross-origin requests.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="fetch-abort.html"
+                data-tooltip="Fetch: Abort"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="fetch-api.html"
+                data-tooltip="Fetch API"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffetch-crossorigin"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-crossorigin"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="fetch-crossorigin.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                        
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/fetch-crossorigin",
+                    identifier: "\/fetch-crossorigin",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="network.html"
+                        >Network requests</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   fetch-crossorigin.html#why-is-cors-needed-a-brief-history"
+                        >Why is CORS needed? A brief history</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   fetch-crossorigin.html#safe-requests"
+                        >Safe requests</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   fetch-crossorigin.html#cors-for-safe-requests"
+                        >CORS for safe requests</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   fetch-crossorigin.html#response-headers"
+                        >Response headers</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   fetch-crossorigin.html#unsafe-requests"
+                        >“Unsafe” requests</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   fetch-crossorigin.html#credentials"
+                        >Credentials</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   fetch-crossorigin.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   fetch-crossorigin.html#tasks"
+                        >Tasks (1)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   fetch-crossorigin.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffetch-crossorigin"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Ffetch-crossorigin"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/05-fetch-crossorigin"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

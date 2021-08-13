@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>LinQChains.md</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+</head>
+<body>
+<h1 id="some-fun-with-regex-and-linq">Some Fun with Regex and LinQ</h1>
+<h2 id="projectionmapping">Projection/Mapping</h2>
+<p>Project match result directly to formated result string</p>
+<pre><code>RegEx.Matches(myText,searchPatten).Cast&lt;Match&gt;().Select(x =&gt; $&quot;{x.Groups[1].Value} {x.Groups[2].Value}&quot;).ToArray();</code></pre>
+<h2 id="extend-result-with-select-new">Extend result with Select new</h2>
+<p>Here : Match a pattern and apply Replace on the resulting Match Collection, something like. <code>RegEx.MatchAndReplace(myText,searchPattern,replacePattern);</code></p>
+<p>This allows us to get the Index and the Length of each match along what it would be replaced with.</p>
+<pre><code>use Regex.Matches() and then on every Match do a Regex.Replace()
+var regex = new Regex(searchPattern);
+
+var matches = regex.Matches(myText)
+    .Cast&lt;Match&gt;()
+    .Select(x =&gt; new
+    {
+        Match = x,
+        ReplacedWith = regex.Replace(x.Value, replacePatten)
+    })
+    .ToArray();
+    ```</code></pre>
+</body>
+</html>

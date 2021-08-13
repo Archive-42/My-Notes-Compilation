@@ -1,0 +1,2906 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Selection and Range</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="selection-range.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Selection and Range" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+
+    <meta name="twitter:title" content="Selection and Range" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="mutation-observer.html" />
+    <link rel="next" href="event-loop.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <link rel="stylesheet" href="https://en.js.cx/libs/domtree.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://en.js.cx/libs/domtree.js"></script>
+    <meta property="og:title" content="Selection and Range" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="selection-range.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/selection-range"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/selection-range"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/selection-range"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/selection-range"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=selection-range"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/selection-range"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fselection-range"
+                  rel="nofollow"
+                ></a
+                >2Fselection-range"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option
+                  value="https://javascript.info/selection-range"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/selection-range">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/">Français</option>
+                <option value="https://it.javascript.info/selection-range">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/selection-range">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/selection-range">
+                  한국어
+                </option>
+                <option value=selection-range">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/">Türkçe</option>
+                <option value="https://zh.javascript.info/selection-range">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="31"
+          max="32"
+          data-tooltip="Lesson 31 of 32"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="ui.html"
+                        ><span>Browser: Document, Events, Interfaces</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="ui-misc.html"
+                        ><span>Miscellaneous</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Browser: Document, Events, Interfaces",
+                            "item": "https://javascript.info/ui"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Miscellaneous",
+                            "item": "https://javascript.info/ui-misc"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 27th March 2021"
+                  >
+                    <div class="updated-at__content">27th March 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Selection and Range</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Selection and Range" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    In this chapter we’ll cover selection in the document, as
+                    well as selection in form fields, such as
+                    <code>&lt;input&gt;</code>.
+                  </p>
+                  <p>
+                    JavaScript can access an existing selection, select/deselect
+                    DOM nodes as a whole or partially, remove the selected
+                    content from the document, wrap it into a tag, and so on.
+                  </p>
+                  <p>
+                    You can find some recipes for common tasks at the end of the
+                    chapter, in “Summary” section. Maybe that covers your
+                    current needs, but you’ll get much more if you read the
+                    whole text.
+                  </p>
+                  <p>
+                    The underlying <code>Range</code> and
+                    <code>Selection</code> objects are easy to grasp, and then
+                    you’ll need no recipes to make them do what you want.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="range"
+                      href="selection-range.html#range"
+                      >Range</a
+                    >
+                  </h2>
+                  <p>
+                    The basic concept of selection is
+                    <a href="https://dom.spec.whatwg.org/#ranges">Range</a>,
+                    that is essentially a pair of “boundary points”: range start
+                    and range end.
+                  </p>
+                  <p>
+                    A <code>Range</code> object is created without parameters:
+                  </p>
+                  <div id="u7n8smym84" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let range = new Range();</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Then we can set the selection boundaries using
+                    <code>range.setStart(node, offset)</code> and
+                    <code>range.setEnd(node, offset)</code>.
+                  </p>
+                  <p>
+                    As you might guess, further we’ll use the
+                    <code>Range</code> objects for selection, but first let’s
+                    create few such objects.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="selecting-the-text-partially"
+                      href="selection-range.html#selecting-the-text-partially"
+                      >Selecting the text partially</a
+                    >
+                  </h3>
+                  <p>
+                    The interesting thing is that the first argument
+                    <code>node</code> in both methods can be either a text node
+                    or an element node, and the meaning of the second argument
+                    depends on that.
+                  </p>
+                  <p>
+                    <strong
+                      >If <code>node</code> is a text node, then
+                      <code>offset</code> must be the position in its
+                      text.</strong
+                    >
+                  </p>
+                  <p>
+                    For example, given the element
+                    <code>&lt;p&gt;Hello&lt;/p&gt;</code>, we can create the
+                    range containing the letters “ll” as follows:
+                  </p>
+                  <div id="bii3cvfe9v" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;p id=&quot;p&quot;&gt;Hello&lt;/p&gt;
+&lt;script&gt;
+  let range = new Range();
+  range.setStart(p.firstChild, 2);
+  range.setEnd(p.firstChild, 4);
+
+  // toString of a range returns its content as text
+  console.log(range); // ll
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here we take the first child of
+                    <code>&lt;p&gt;</code> (that’s the text node) and specify
+                    the text positions inside it:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 147px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 54.421768707483%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/selection-range/range-hello-1.svg"
+                        width="147"
+                        height="80"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/selection-range/range-hello-1.svg"
+                          alt=""
+                          width="147"
+                          height="80"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="selecting-element-nodes"
+                      href="selection-range.html#selecting-element-nodes"
+                      >Selecting element nodes</a
+                    >
+                  </h3>
+                  <p>
+                    <strong
+                      >Alternatively, if <code>node</code> is an element node,
+                      then <code>offset</code> must be the child number.</strong
+                    >
+                  </p>
+                  <p>
+                    That’s handy for making ranges that contain nodes as a
+                    whole, not stop somewhere inside their text.
+                  </p>
+                  <p>For example, we have a more complex document fragment:</p>
+                  <div
+                    id="pkzahfbt5l"
+                    data-trusted="1"
+                    class="code-example"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;p id=&quot;p&quot;&gt;Example: &lt;i&gt;italic&lt;/i&gt; and &lt;b&gt;bold&lt;/b&gt;&lt;/p&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-pkzahfbt5l"
+                        style="height: 200px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>
+                    Here’s its DOM structure with both element and text nodes:
+                  </p>
+                  <div class="select-p-domtree"></div>
+                  <script>
+                    let selectPDomtree = {
+                      name: "P",
+                      nodeType: 1,
+                      children: [
+                        {
+                          name: "#text",
+                          nodeType: 3,
+                          content: "Example: ",
+                        },
+                        {
+                          name: "I",
+                          nodeType: 1,
+                          children: [
+                            {
+                              name: "#text",
+                              nodeType: 3,
+                              content: "italic",
+                            },
+                          ],
+                        },
+                        {
+                          name: "#text",
+                          nodeType: 3,
+                          content: " and ",
+                        },
+                        {
+                          name: "B",
+                          nodeType: 1,
+                          children: [
+                            {
+                              name: "#text",
+                              nodeType: 3,
+                              content: "bold",
+                            },
+                          ],
+                        },
+                      ],
+                    };
+
+                    drawHtmlTree(
+                      selectPDomtree,
+                      "div.select-p-domtree",
+                      690,
+                      320
+                    );
+                  </script>
+                  <p>
+                    Let’s make a range for
+                    <code>&quot;Example: &lt;i&gt;italic&lt;/i&gt;&quot;</code>.
+                  </p>
+                  <p>
+                    As we can see, this phrase consists of exactly two children
+                    of <code>&lt;p&gt;</code>, with indexes <code>0</code> and
+                    <code>1</code>:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 640px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 13.90625%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/selection-range/range-example-p-0-1.svg"
+                        width="640"
+                        height="89"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/selection-range/range-example-p-0-1.svg"
+                          alt=""
+                          width="640"
+                          height="89"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <ul>
+                    <li>
+                      <p>
+                        The starting point has <code>&lt;p&gt;</code> as the
+                        parent <code>node</code>, and <code>0</code> as the
+                        offset.
+                      </p>
+                      <p>
+                        So we can set it as <code>range.setStart(p, 0)</code>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        The ending point also has <code>&lt;p&gt;</code> as the
+                        parent <code>node</code>, but <code>2</code> as the
+                        offset (it specifies the range up to, but not including
+                        <code>offset</code>).
+                      </p>
+                      <p>
+                        So we can set it as <code>range.setEnd(p, 2)</code>.
+                      </p>
+                    </li>
+                  </ul>
+                  <p>
+                    Here’s the demo. If you run it, you can see that the text
+                    gets selected:
+                  </p>
+                  <div
+                    id="1k732vjos3"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":3,"end":6}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;p id=&quot;p&quot;&gt;Example: &lt;i&gt;italic&lt;/i&gt; and &lt;b&gt;bold&lt;/b&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  let range = new Range();
+
+  range.setStart(p, 0);
+  range.setEnd(p, 2);
+
+  // toString of a range returns its content as text, without tags
+  console.log(range); // Example: italic
+
+  // apply this range for document selection (explained later below)
+  document.getSelection().addRange(range);
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here’s a more flexible test stand where you can set range
+                    start/end numbers and explore other variants:
+                  </p>
+                  <div
+                    id="ydq3h4q2k1"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":6,"end":9}]'
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;p id=&quot;p&quot;&gt;Example: &lt;i&gt;italic&lt;/i&gt; and &lt;b&gt;bold&lt;/b&gt;&lt;/p&gt;
+
+From &lt;input id=&quot;start&quot; type=&quot;number&quot; value=1&gt; – To &lt;input id=&quot;end&quot; type=&quot;number&quot; value=4&gt;
+&lt;button id=&quot;button&quot;&gt;Click to select&lt;/button&gt;
+&lt;script&gt;
+  button.onclick = () =&gt; {
+    let range = new Range();
+
+    range.setStart(p, start.value);
+    range.setEnd(p, end.value);
+
+    // apply the selection, explained later below
+    document.getSelection().removeAllRanges();
+    document.getSelection().addRange(range);
+  };
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-ydq3h4q2k1"
+                        style="height: 200px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>
+                    E.g. selecting in the same <code>&lt;p&gt;</code> from
+                    offset <code>1</code> to <code>4</code> gives us the range
+                    <code
+                      >&lt;i&gt;italic&lt;/i&gt; and
+                      &lt;b&gt;bold&lt;/b&gt;</code
+                    >:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 640px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 13.90625%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/selection-range/range-example-p-1-3.svg"
+                        width="640"
+                        height="89"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/selection-range/range-example-p-1-3.svg"
+                          alt=""
+                          width="640"
+                          height="89"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Starting and ending nodes can be different</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        We don’t have to use the same node in
+                        <code>setStart</code> and <code>setEnd</code>. A range
+                        may span across many unrelated nodes. It’s only
+                        important that the end is after the start in the
+                        document.
+                      </p>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="selecting-a-bigger-fragment"
+                      href="selection-range.html#selecting-a-bigger-fragment"
+                      >Selecting a bigger fragment</a
+                    >
+                  </h3>
+                  <p>
+                    Let’s make a bigger selection in our example, like this:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 640px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 13.90625%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/selection-range/range-example-p-2-b-3.svg"
+                        width="640"
+                        height="89"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/selection-range/range-example-p-2-b-3.svg"
+                          alt=""
+                          width="640"
+                          height="89"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    We already know how to do that. We just need to set the
+                    start and the end as a relative offset in text nodes.
+                  </p>
+                  <p>We need to create a range, that:</p>
+                  <ul>
+                    <li>
+                      starts from position 2 in <code>&lt;p&gt;</code> first
+                      child (taking all but two first letters of &quot;Ex<b
+                        >ample:</b
+                      >
+                      &quot;)
+                    </li>
+                    <li>
+                      ends at the position 3 in <code>&lt;b&gt;</code> first
+                      child (taking first three letters of “<b>bol</b>d”, but no
+                      more):
+                    </li>
+                  </ul>
+                  <div id="4330z24pt6" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;p id=&quot;p&quot;&gt;Example: &lt;i&gt;italic&lt;/i&gt; and &lt;b&gt;bold&lt;/b&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  let range = new Range();
+
+  range.setStart(p.firstChild, 2);
+  range.setEnd(p.querySelector('b').firstChild, 3);
+
+  console.log(range); // ample: italic and bol
+
+  // use this range for selection (explained later)
+  window.getSelection().addRange(range);
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As you can see, it’s fairly easy to make a range of whatever
+                    we want.
+                  </p>
+                  <p>
+                    If we’d like to take nodes as a whole, we can pass elements
+                    in <code>setStart/setEnd</code>. Otherwise, we can work on
+                    the text level.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="range-properties"
+                      href="selection-range.html#range-properties"
+                      >Range properties</a
+                    >
+                  </h2>
+                  <p>
+                    The range object that we created in the example above has
+                    following properties:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 683px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 33.52855051244509%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/selection-range/range-example-p-2-b-3-range.svg"
+                        width="683"
+                        height="229"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/selection-range/range-example-p-2-b-3-range.svg"
+                          alt=""
+                          width="683"
+                          height="229"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <ul>
+                    <li>
+                      <code>startContainer</code>, <code>startOffset</code> –
+                      node and offset of the start,
+                      <ul>
+                        <li>
+                          in the example above: first text node inside
+                          <code>&lt;p&gt;</code> and <code>2</code>.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <code>endContainer</code>, <code>endOffset</code> – node
+                      and offset of the end,
+                      <ul>
+                        <li>
+                          in the example above: first text node inside
+                          <code>&lt;b&gt;</code> and <code>3</code>.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <code>collapsed</code> – boolean, <code>true</code> if the
+                      range starts and ends on the same point (so there’s no
+                      content inside the range),
+                      <ul>
+                        <li>in the example above: <code>false</code></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <code>commonAncestorContainer</code> – the nearest common
+                      ancestor of all nodes within the range,
+                      <ul>
+                        <li>in the example above: <code>&lt;p&gt;</code></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="range-selection-methods"
+                      href="selection-range.html#range-selection-methods"
+                      >Range selection methods</a
+                    >
+                  </h2>
+                  <p>
+                    There are many convenience methods to manipulate ranges.
+                  </p>
+                  <p>
+                    We’ve already seen <code>setStart</code> and
+                    <code>setEnd</code>, here are other similar methods.
+                  </p>
+                  <p>Set range start:</p>
+                  <ul>
+                    <li>
+                      <code>setStart(node, offset)</code> set start at: position
+                      <code>offset</code> in <code>node</code>
+                    </li>
+                    <li>
+                      <code>setStartBefore(node)</code> set start at: right
+                      before <code>node</code>
+                    </li>
+                    <li>
+                      <code>setStartAfter(node)</code> set start at: right after
+                      <code>node</code>
+                    </li>
+                  </ul>
+                  <p>Set range end (similar methods):</p>
+                  <ul>
+                    <li>
+                      <code>setEnd(node, offset)</code> set end at: position
+                      <code>offset</code> in <code>node</code>
+                    </li>
+                    <li>
+                      <code>setEndBefore(node)</code> set end at: right before
+                      <code>node</code>
+                    </li>
+                    <li>
+                      <code>setEndAfter(node)</code> set end at: right after
+                      <code>node</code>
+                    </li>
+                  </ul>
+                  <p>
+                    Technically, <code>setStart/setEnd</code> can do anything,
+                    but more methods provide more convenience.
+                  </p>
+                  <p>
+                    In all these methods, <code>node</code> can be both a text
+                    or element node: for text nodes <code>offset</code> skips
+                    that many of characters, while for element nodes that many
+                    child nodes.
+                  </p>
+                  <p>Even more methods to create ranges:</p>
+                  <ul>
+                    <li>
+                      <code>selectNode(node)</code> set range to select the
+                      whole <code>node</code>
+                    </li>
+                    <li>
+                      <code>selectNodeContents(node)</code> set range to select
+                      the whole <code>node</code> contents
+                    </li>
+                    <li>
+                      <code>collapse(toStart)</code> if
+                      <code>toStart=true</code> set end=start, otherwise set
+                      start=end, thus collapsing the range
+                    </li>
+                    <li>
+                      <code>cloneRange()</code> creates a new range with the
+                      same start/end
+                    </li>
+                  </ul>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="range-editing-methods"
+                      href="selection-range.html#range-editing-methods"
+                      >Range editing methods</a
+                    >
+                  </h2>
+                  <p>
+                    Once the range is created, we can manipulate its content
+                    using these methods:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>deleteContents()</code> – remove range content from
+                      the document
+                    </li>
+                    <li>
+                      <code>extractContents()</code> – remove range content from
+                      the document and return as
+                      <a href="modifying-document.html#document-fragment"
+                        >DocumentFragment</a
+                      >
+                    </li>
+                    <li>
+                      <code>cloneContents()</code> – clone range content and
+                      return as
+                      <a href="modifying-document.html#document-fragment"
+                        >DocumentFragment</a
+                      >
+                    </li>
+                    <li>
+                      <code>insertNode(node)</code> – insert
+                      <code>node</code> into the document at the beginning of
+                      the range
+                    </li>
+                    <li>
+                      <code>surroundContents(node)</code> – wrap
+                      <code>node</code> around range content. For this to work,
+                      the range must contain both opening and closing tags for
+                      all elements inside it: no partial ranges like
+                      <code>&lt;i&gt;abc</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    With these methods we can do basically anything with
+                    selected nodes.
+                  </p>
+                  <p>Here’s the test stand to see them in action:</p>
+                  <div
+                    id="o27rf9acif"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="260"
+                    data-refresh="1"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>Click buttons to run methods on the selection, &quot;resetExample&quot; to reset it.
+
+&lt;p id=&quot;p&quot;&gt;Example: &lt;i&gt;italic&lt;/i&gt; and &lt;b&gt;bold&lt;/b&gt;&lt;/p&gt;
+
+&lt;p id=&quot;result&quot;&gt;&lt;/p&gt;
+&lt;script&gt;
+  let range = new Range();
+
+  // Each demonstrated method is represented here:
+  let methods = {
+    deleteContents() {
+      range.deleteContents()
+    },
+    extractContents() {
+      let content = range.extractContents();
+      result.innerHTML = &quot;&quot;;
+      result.append(&quot;extracted: &quot;, content);
+    },
+    cloneContents() {
+      let content = range.cloneContents();
+      result.innerHTML = &quot;&quot;;
+      result.append(&quot;cloned: &quot;, content);
+    },
+    insertNode() {
+      let newNode = document.createElement('u');
+      newNode.innerHTML = &quot;NEW NODE&quot;;
+      range.insertNode(newNode);
+    },
+    surroundContents() {
+      let newNode = document.createElement('u');
+      try {
+        range.surroundContents(newNode);
+      } catch(e) { console.log(e) }
+    },
+    resetExample() {
+      p.innerHTML = `Example: &lt;i&gt;italic&lt;/i&gt; and &lt;b&gt;bold&lt;/b&gt;`;
+      result.innerHTML = &quot;&quot;;
+
+      range.setStart(p.firstChild, 2);
+      range.setEnd(p.querySelector('b').firstChild, 3);
+
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+    }
+  };
+
+  for(let method in methods) {
+    document.write(`&lt;div&gt;&lt;button onclick=&quot;methods.${method}()&quot;&gt;${method}&lt;/button&gt;&lt;/div&gt;`);
+  }
+
+  methods.resetExample();
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-o27rf9acif"
+                        style="height: 260px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>
+                    There also exist methods to compare ranges, but these are
+                    rarely used. When you need them, please refer to the
+                    <a href="https://dom.spec.whatwg.org/#interface-range"
+                      >spec</a
+                    >
+                    or
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/api/Range"
+                      >MDN manual</a
+                    >.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="selection"
+                      href="selection-range.html#selection"
+                      >Selection</a
+                    >
+                  </h2>
+                  <p>
+                    <code>Range</code> is a generic object for managing
+                    selection ranges. Although, creating a
+                    <code>Range</code> doesn’t mean that we see a selection on
+                    screen.
+                  </p>
+                  <p>
+                    We may create <code>Range</code> objects, pass them around –
+                    they do not visually select anything on their own.
+                  </p>
+                  <p>
+                    The document selection is represented by
+                    <code>Selection</code> object, that can be obtained as
+                    <code>window.getSelection()</code> or
+                    <code>document.getSelection()</code>. A selection may
+                    include zero or more ranges. At least, the
+                    <a href="https://www.w3.org/TR/selection-api/"
+                      >Selection API specification</a
+                    >
+                    says so. In practice though, only Firefox allows to select
+                    multiple ranges in the document by using
+                    <kbd class="shortcut"
+                      >Ctrl<span class="shortcut__plus">+</span>click</kbd
+                    >
+                    (<kbd class="shortcut"
+                      >Cmd<span class="shortcut__plus">+</span>click</kbd
+                    >
+                    for Mac).
+                  </p>
+                  <p>
+                    Here’s a screenshot of a selection with 3 ranges, made in
+                    Firefox:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 556px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 76.97841726618705%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/selection-range/selection-firefox.svg"
+                        width="556"
+                        height="428"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/selection-range/selection-firefox.svg"
+                          alt=""
+                          width="556"
+                          height="428"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    Other browsers support at maximum 1 range. As we’ll see,
+                    some of <code>Selection</code> methods imply that there may
+                    be many ranges, but again, in all browsers except Firefox,
+                    there’s at maximum 1.
+                  </p>
+                  <p>
+                    Here’s a small demo that shows the current selection (select
+                    something and click) as text:
+                  </p>
+                  <p>
+                    <button onclick="alert(document.getSelection())">
+                      alert(document.getSelection())
+                    </button>
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="selection-properties"
+                      href="selection-range.html#selection-properties"
+                      >Selection properties</a
+                    >
+                  </h2>
+                  <p>
+                    As said, a selection may in theory contain multiple ranges.
+                    We can get these range objects using the method:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>getRangeAt(i)</code> – get i-th range, starting from
+                      <code>0</code>. In all browsers except Firefox, only
+                      <code>0</code> is used.
+                    </li>
+                  </ul>
+                  <p>
+                    Also, there exist properties that often provide better
+                    convenience.
+                  </p>
+                  <p>
+                    Similar to a range, a selection object has a start, called
+                    “anchor”, and the end, called “focus”.
+                  </p>
+                  <p>The main selection properties are:</p>
+                  <ul>
+                    <li>
+                      <code>anchorNode</code> – the node where the selection
+                      starts,
+                    </li>
+                    <li>
+                      <code>anchorOffset</code> – the offset in
+                      <code>anchorNode</code> where the selection starts,
+                    </li>
+                    <li>
+                      <code>focusNode</code> – the node where the selection
+                      ends,
+                    </li>
+                    <li>
+                      <code>focusOffset</code> – the offset in
+                      <code>focusNode</code> where the selection ends,
+                    </li>
+                    <li>
+                      <code>isCollapsed</code> – <code>true</code> if selection
+                      selects nothing (empty range), or doesn’t exist.
+                    </li>
+                    <li>
+                      <code>rangeCount</code> – count of ranges in the
+                      selection, maximum <code>1</code> in all browsers except
+                      Firefox.
+                    </li>
+                  </ul>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Selection end/start vs Range</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        There’s an important differences of a selection
+                        anchor/focus compared with a
+                        <code>Range</code> start/end.
+                      </p>
+                      <p>
+                        As we know, <code>Range</code> objects always have their
+                        start before the end.
+                      </p>
+                      <p>For selections, that’s not always the case.</p>
+                      <p>
+                        Selecting something with a mouse can be done in both
+                        directions: either “left-to-right” or “right-to-left”.
+                      </p>
+                      <p>
+                        In other words, when the mouse button is pressed, and
+                        then it moves forward in the document, then its end
+                        (focus) will be after its start (anchor).
+                      </p>
+                      <p>
+                        E.g. if the user starts selecting with mouse and goes
+                        from “Example” to “italic”:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 563px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 22.735346358792185%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/selection-range/selection-direction-forward.svg"
+                            width="563"
+                            height="128"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/selection-range/selection-direction-forward.svg"
+                              alt=""
+                              width="563"
+                              height="128"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                      <p>
+                        …But the same selection could be done backwards:
+                        starting from “italic” to “Example” (backward
+                        direction), then its end (focus) will be before the
+                        start (anchor):
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 559px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 22.898032200357783%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/selection-range/selection-direction-backward.svg"
+                            width="559"
+                            height="128"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/selection-range/selection-direction-backward.svg"
+                              alt=""
+                              width="559"
+                              height="128"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="selection-events"
+                      href="selection-range.html#selection-events"
+                      >Selection events</a
+                    >
+                  </h2>
+                  <p>There are events on to keep track of selection:</p>
+                  <ul>
+                    <li>
+                      <code>elem.onselectstart</code> – when a selection
+                      <em>starts</em> specifically on element
+                      <code>elem</code> (or inside it). For instance, when the
+                      user presses the mouse button on it and starts to move the
+                      pointer.
+                      <ul>
+                        <li>
+                          Preventing the default action cancels the selection
+                          start. So starting a selection from this element
+                          becomes impossible, but the element is still
+                          selectable. The visitor just needs to start the
+                          selection from elsewhere.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <code>document.onselectionchange</code> – whenever a
+                      selection changes or starts.
+                      <ul>
+                        <li>
+                          Please note: this handler can be set only on
+                          <code>document</code>, it tracks all selections in it.
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="selection-tracking-demo"
+                      href="selection-range.html#selection-tracking-demo"
+                      >Selection tracking demo</a
+                    >
+                  </h3>
+                  <p>
+                    Here’s a small demo. It tracks the current selection on the
+                    <code>document</code> and shows its boundaries:
+                  </p>
+                  <div
+                    id="7jt35unrah"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="80"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;p id=&quot;p&quot;&gt;Select me: &lt;i&gt;italic&lt;/i&gt; and &lt;b&gt;bold&lt;/b&gt;&lt;/p&gt;
+
+From &lt;input id=&quot;from&quot; disabled&gt; – To &lt;input id=&quot;to&quot; disabled&gt;
+&lt;script&gt;
+  document.onselectionchange = function() {
+    let selection = document.getSelection();
+
+    let {anchorNode, anchorOffset, focusNode, focusOffset} = selection;
+
+    // anchorNode and focusNode are text nodes usually
+    from.value = `${anchorNode?.data}, offset ${anchorOffset}`;
+    to.value = `${focusNode?.data}, offset ${focusOffset}`;
+  };
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="selection-copying-demo"
+                      href="selection-range.html#selection-copying-demo"
+                      >Selection copying demo</a
+                    >
+                  </h3>
+                  <p>
+                    There are two approaches to copying the selected content:
+                  </p>
+                  <ol>
+                    <li>
+                      We can use
+                      <code>document.getSelection().toString()</code> to get it
+                      as text.
+                    </li>
+                    <li>
+                      Otherwise, to copy the full DOM, e.g. if we need to keep
+                      formatting, we can get the underlying ranges with
+                      <code>getRangesAt(...)</code>. A
+                      <code>Range</code> object, in turn, has
+                      <code>cloneContents()</code> method that clones its
+                      content and returns as
+                      <code>DocumentFragment</code> object, that we can insert
+                      elsewhere.
+                    </li>
+                  </ol>
+                  <p>
+                    Here’s the demo of copying the selected content both as text
+                    and as DOM nodes:
+                  </p>
+                  <div
+                    id="9f4imjmnhj"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="100"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;p id=&quot;p&quot;&gt;Select me: &lt;i&gt;italic&lt;/i&gt; and &lt;b&gt;bold&lt;/b&gt;&lt;/p&gt;
+
+Cloned: &lt;span id=&quot;cloned&quot;&gt;&lt;/span&gt;
+&lt;br&gt;
+As text: &lt;span id=&quot;astext&quot;&gt;&lt;/span&gt;
+
+&lt;script&gt;
+  document.onselectionchange = function() {
+    let selection = document.getSelection();
+
+    cloned.innerHTML = astext.innerHTML = &quot;&quot;;
+
+    // Clone DOM nodes from ranges (we support multiselect here)
+    for (let i = 0; i &lt; selection.rangeCount; i++) {
+      cloned.append(selection.getRangeAt(i).cloneContents());
+    }
+
+    // Get as text
+    astext.innerHTML += selection;
+  };
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="selection-methods"
+                      href="selection-range.html#selection-methods"
+                      >Selection methods</a
+                    >
+                  </h2>
+                  <p>
+                    We can work with the selection by addding/removing ranges:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>getRangeAt(i)</code> – get i-th range, starting from
+                      <code>0</code>. In all browsers except Firefox, only
+                      <code>0</code> is used.
+                    </li>
+                    <li>
+                      <code>addRange(range)</code> – add <code>range</code> to
+                      selection. All browsers except Firefox ignore the call, if
+                      the selection already has an associated range.
+                    </li>
+                    <li>
+                      <code>removeRange(range)</code> – remove
+                      <code>range</code> from the selection.
+                    </li>
+                    <li><code>removeAllRanges()</code> – remove all ranges.</li>
+                    <li>
+                      <code>empty()</code> – alias to
+                      <code>removeAllRanges</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    There are also convenience methods to manipulate the
+                    selection range directly, without intermediate
+                    <code>Range</code> calls:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>collapse(node, offset)</code> – replace selected
+                      range with a new one that starts and ends at the given
+                      <code>node</code>, at position <code>offset</code>.
+                    </li>
+                    <li>
+                      <code>setPosition(node, offset)</code> – alias to
+                      <code>collapse</code>.
+                    </li>
+                    <li>
+                      <code>collapseToStart()</code> – collapse (replace with an
+                      empty range) to selection start,
+                    </li>
+                    <li>
+                      <code>collapseToEnd()</code> – collapse to selection end,
+                    </li>
+                    <li>
+                      <code>extend(node, offset)</code> – move focus of the
+                      selection to the given <code>node</code>, position
+                      <code>offset</code>,
+                    </li>
+                    <li>
+                      <code
+                        >setBaseAndExtent(anchorNode, anchorOffset, focusNode,
+                        focusOffset)</code
+                      >
+                      – replace selection range with the given start
+                      <code>anchorNode/anchorOffset</code> and end
+                      <code>focusNode/focusOffset</code>. All content in-between
+                      them is selected.
+                    </li>
+                    <li>
+                      <code>selectAllChildren(node)</code> – select all children
+                      of the <code>node</code>.
+                    </li>
+                    <li>
+                      <code>deleteFromDocument()</code> – remove selected
+                      content from the document.
+                    </li>
+                    <li>
+                      <code
+                        >containsNode(node, allowPartialContainment =
+                        false)</code
+                      >
+                      – checks whether the selection contains
+                      <code>node</code> (partially if the second argument is
+                      <code>true</code>)
+                    </li>
+                  </ul>
+                  <p>
+                    For most tasks these methods are just fine, there’s no need
+                    to access the underlying <code>Range</code> object.
+                  </p>
+                  <p>
+                    For example, selecting the whole contents of the paragraph
+                    <code>&lt;p&gt;</code>:
+                  </p>
+                  <div id="0ikctucz21" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;p id=&quot;p&quot;&gt;Select me: &lt;i&gt;italic&lt;/i&gt; and &lt;b&gt;bold&lt;/b&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  // select from 0th child of &lt;p&gt; to the last child
+  document.getSelection().setBaseAndExtent(p, 0, p, p.childNodes.length);
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The same thing using ranges:</p>
+                  <div id="gm1beruzdw" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;p id=&quot;p&quot;&gt;Select me: &lt;i&gt;italic&lt;/i&gt; and &lt;b&gt;bold&lt;/b&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  let range = new Range();
+  range.selectNodeContents(p); // or selectNode(p) to select the &lt;p&gt; tag too
+
+  document.getSelection().removeAllRanges(); // clear existing selection if any
+  document.getSelection().addRange(range);
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >To select something, remove the existing selection
+                        first</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        If a document selection already exists, empty it first
+                        with <code>removeAllRanges()</code>. And then add
+                        ranges. Otherwise, all browsers except Firefox ignore
+                        new ranges.
+                      </p>
+                      <p>
+                        The exception is some selection methods, that replace
+                        the existing selection, such as
+                        <code>setBaseAndExtent</code>.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="selection-in-form-controls"
+                      href="selection-range.html#selection-in-form-controls"
+                      >Selection in form controls</a
+                    >
+                  </h2>
+                  <p>
+                    Form elements, such as <code>input</code> and
+                    <code>textarea</code> provide
+                    <a href="https://html.spec.whatwg.org/#textFieldSelection"
+                      >special API for selection</a
+                    >, without <code>Selection</code> or
+                    <code>Range</code> objects. As an input value is a pure
+                    text, not HTML, there’s no need for such objects,
+                    everything’s much simpler.
+                  </p>
+                  <p>Properties:</p>
+                  <ul>
+                    <li>
+                      <code>input.selectionStart</code> – position of selection
+                      start (writeable),
+                    </li>
+                    <li>
+                      <code>input.selectionEnd</code> – position of selection
+                      end (writeable),
+                    </li>
+                    <li>
+                      <code>input.selectionDirection</code> – selection
+                      direction, one of: “forward”, “backward” or “none” (if
+                      e.g. selected with a double mouse click),
+                    </li>
+                  </ul>
+                  <p>Events:</p>
+                  <ul>
+                    <li>
+                      <code>input.onselect</code> – triggers when something is
+                      selected.
+                    </li>
+                  </ul>
+                  <p>Methods:</p>
+                  <ul>
+                    <li>
+                      <p>
+                        <code>input.select()</code> – selects everything in the
+                        text control (can be <code>textarea</code> instead of
+                        <code>input</code>),
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <code
+                          >input.setSelectionRange(start, end,
+                          [direction])</code
+                        >
+                        – change the selection to span from position
+                        <code>start</code> till <code>end</code>, in the given
+                        direction (optional).
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <code
+                          >input.setRangeText(replacement, [start], [end],
+                          [selectionMode])</code
+                        >
+                        – replace a range of text with the new text.
+                      </p>
+                      <p>
+                        Optional arguments <code>start</code> and
+                        <code>end</code>, if provided, set the range start and
+                        end, otherwise user selection is used.
+                      </p>
+                      <p>
+                        The last argument, <code>selectionMode</code>,
+                        determines how the selection will be set after the text
+                        has been replaced. The possible values are:
+                      </p>
+                      <ul>
+                        <li>
+                          <code>&quot;select&quot;</code> – the newly inserted
+                          text will be selected.
+                        </li>
+                        <li>
+                          <code>&quot;start&quot;</code> – the selection range
+                          collapses just before the inserted text (the cursor
+                          will be immediately before it).
+                        </li>
+                        <li>
+                          <code>&quot;end&quot;</code> – the selection range
+                          collapses just after the inserted text (the cursor
+                          will be right after it).
+                        </li>
+                        <li>
+                          <code>&quot;preserve&quot;</code> – attempts to
+                          preserve the selection. This is the default.
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p>Now let’s see these methods in action.</p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="example-tracking-selection"
+                      href="selection-range.html#example-tracking-selection"
+                      >Example: tracking selection</a
+                    >
+                  </h3>
+                  <p>
+                    For example, this code uses <code>onselect</code> event to
+                    track selection:
+                  </p>
+                  <div
+                    id="1h2t32xcl6"
+                    data-trusted="1"
+                    class="code-example"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;textarea id=&quot;area&quot; style=&quot;width:80%;height:60px&quot;&gt;
+Selecting in this text updates values below.
+&lt;/textarea&gt;
+&lt;br&gt;
+From &lt;input id=&quot;from&quot; disabled&gt; – To &lt;input id=&quot;to&quot; disabled&gt;
+
+&lt;script&gt;
+  area.onselect = function() {
+    from.value = area.selectionStart;
+    to.value = area.selectionEnd;
+  };
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-1h2t32xcl6"
+                        style="height: 200px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>Please note:</p>
+                  <ul>
+                    <li>
+                      <code>onselect</code> triggers when something is selected,
+                      but not when the selection is removed.
+                    </li>
+                    <li>
+                      <code>document.onselectionchange</code> event should not
+                      trigger for selections inside a form control, according to
+                      the
+                      <a
+                        href="https://w3c.github.io/selection-api/#dfn-selectionchange"
+                        >spec</a
+                      >, as it’s not related to <code>document</code> selection
+                      and ranges. Some browsers generate it, but we shouldn’t
+                      rely on it.
+                    </li>
+                  </ul>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="example-moving-cursor"
+                      href="selection-range.html#example-moving-cursor"
+                      >Example: moving cursor</a
+                    >
+                  </h3>
+                  <p>
+                    We can change <code>selectionStart</code> and
+                    <code>selectionEnd</code>, that sets the selection.
+                  </p>
+                  <p>
+                    An important edge case is when
+                    <code>selectionStart</code> and
+                    <code>selectionEnd</code> equal each other. Then it’s
+                    exactly the cursor position. Or, to rephrase, when nothing
+                    is selected, the selection is collapsed at the cursor
+                    position.
+                  </p>
+                  <p>
+                    So, by setting <code>selectionStart</code> and
+                    <code>selectionEnd</code> to the same value, we move the
+                    cursor.
+                  </p>
+                  <p>For example:</p>
+                  <div
+                    id="z2o5zikflg"
+                    data-trusted="1"
+                    class="code-example"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;textarea id=&quot;area&quot; style=&quot;width:80%;height:60px&quot;&gt;
+Focus on me, the cursor will be at position 10.
+&lt;/textarea&gt;
+
+&lt;script&gt;
+  area.onfocus = () =&gt; {
+    // zero delay setTimeout to run after browser &quot;focus&quot; action finishes
+    setTimeout(() =&gt; {
+      // we can set any selection
+      // if start=end, the cursor is exactly at that place
+      area.selectionStart = area.selectionEnd = 10;
+    });
+  };
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-z2o5zikflg"
+                        style="height: 200px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="example-modifying-selection"
+                      href="selection-range.html#example-modifying-selection"
+                      >Example: modifying selection</a
+                    >
+                  </h3>
+                  <p>
+                    To modify the content of the selection, we can use
+                    <code>input.setRangeText()</code> method. Of course, we can
+                    read <code>selectionStart/End</code> and, with the knowledge
+                    of the selection, change the corresponding substring of
+                    <code>value</code>, but <code>setRangeText</code> is more
+                    powerful and often more convenient.
+                  </p>
+                  <p>
+                    That’s a somewhat complex method. In its simplest
+                    one-argument form it replaces the user selected range and
+                    removes the selection.
+                  </p>
+                  <p>
+                    For example, here the user selection will be wrapped by
+                    <code>*...*</code>:
+                  </p>
+                  <div
+                    id="hrbe0mgvw8"
+                    data-trusted="1"
+                    class="code-example"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;input id=&quot;input&quot; style=&quot;width:200px&quot; value=&quot;Select here and click the button&quot;&gt;
+&lt;button id=&quot;button&quot;&gt;Wrap selection in stars *...*&lt;/button&gt;
+
+&lt;script&gt;
+button.onclick = () =&gt; {
+  if (input.selectionStart == input.selectionEnd) {
+    return; // nothing is selected
+  }
+
+  let selected = input.value.slice(input.selectionStart, input.selectionEnd);
+  input.setRangeText(`*${selected}*`);
+};
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-hrbe0mgvw8"
+                        style="height: 200px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>
+                    With more arguments, we can set range <code>start</code> and
+                    <code>end</code>.
+                  </p>
+                  <p>
+                    In this example we find <code>&quot;THIS&quot;</code> in the
+                    input text, replace it and keep the replacement selected:
+                  </p>
+                  <div
+                    id="rzorez6xrj"
+                    data-trusted="1"
+                    class="code-example"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;input id=&quot;input&quot; style=&quot;width:200px&quot; value=&quot;Replace THIS in text&quot;&gt;
+&lt;button id=&quot;button&quot;&gt;Replace THIS&lt;/button&gt;
+
+&lt;script&gt;
+button.onclick = () =&gt; {
+  let pos = input.value.indexOf(&quot;THIS&quot;);
+  if (pos &gt;= 0) {
+    input.setRangeText(&quot;*THIS*&quot;, pos, pos + 4, &quot;select&quot;);
+    input.focus(); // focus to make selection visible
+  }
+};
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-rzorez6xrj"
+                        style="height: 200px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="example-insert-at-cursor"
+                      href="selection-range.html#example-insert-at-cursor"
+                      >Example: insert at cursor</a
+                    >
+                  </h3>
+                  <p>
+                    If nothing is selected, or we use equal
+                    <code>start</code> and <code>end</code> in
+                    <code>setRangeText</code>, then the new text is just
+                    inserted, nothing is removed.
+                  </p>
+                  <p>
+                    We can also insert something “at the cursor” using
+                    <code>setRangeText</code>.
+                  </p>
+                  <p>
+                    Here’s a button that inserts
+                    <code>&quot;HELLO&quot;</code> at the cursor position and
+                    puts the cursor immediately after it. If the selection is
+                    not empty, then it gets replaced (we can detect it by
+                    comparing <code>selectionStart!=selectionEnd</code> and do
+                    something else instead):
+                  </p>
+                  <div
+                    id="p5uw4lfyxc"
+                    data-trusted="1"
+                    class="code-example"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="selection-range.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;input id=&quot;input&quot; style=&quot;width:200px&quot; value=&quot;Text Text Text Text Text&quot;&gt;
+&lt;button id=&quot;button&quot;&gt;Insert &quot;HELLO&quot; at cursor&lt;/button&gt;
+
+&lt;script&gt;
+  button.onclick = () =&gt; {
+    input.setRangeText(&quot;HELLO&quot;, input.selectionStart, input.selectionEnd, &quot;end&quot;);
+    input.focus();
+  };
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-p5uw4lfyxc"
+                        style="height: 200px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="making-unselectable"
+                      href="selection-range.html#making-unselectable"
+                      >Making unselectable</a
+                    >
+                  </h2>
+                  <p>To make something unselectable, there are three ways:</p>
+                  <ol>
+                    <li>
+                      <p>Use CSS property <code>user-select: none</code>.</p>
+                      <div
+                        id="ltiw7kusod"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="selection-range.html#"
+                                title="show"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="selection-range.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-markup"
+                            ><code>&lt;style&gt;
+#elem {
+  user-select: none;
+}
+&lt;/style&gt;
+&lt;div&gt;Selectable &lt;div id=&quot;elem&quot;&gt;Unselectable&lt;/div&gt; Selectable&lt;/div&gt;</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        This doesn’t allow the selection to start at
+                        <code>elem</code>. But the user may start the selection
+                        elsewhere and include <code>elem</code> into it.
+                      </p>
+                      <p>
+                        Then <code>elem</code> will become a part of
+                        <code>document.getSelection()</code>, so the selection
+                        actually happens, but its content is usually ignored in
+                        copy-paste.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Prevent default action in <code>onselectstart</code> or
+                        <code>mousedown</code> events.
+                      </p>
+                      <div
+                        id="a3otau0cwq"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="selection-range.html#"
+                                title="show"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="selection-range.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-markup"
+                            ><code>&lt;div&gt;Selectable &lt;div id=&quot;elem&quot;&gt;Unselectable&lt;/div&gt; Selectable&lt;/div&gt;
+
+&lt;script&gt;
+  elem.onselectstart = () =&gt; false;
+&lt;/script&gt;</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        This prevents starting the selection on
+                        <code>elem</code>, but the visitor may start it at
+                        another element, then extend to <code>elem</code>.
+                      </p>
+                      <p>
+                        That’s convenient when there’s another event handler on
+                        the same action that triggers the select (e.g.
+                        <code>mousedown</code>). So we disable the selection to
+                        avoid conflict, still allowing
+                        <code>elem</code> contents to be copied.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        We can also clear the selection post-factum after it
+                        happens with
+                        <code>document.getSelection().empty()</code>. That’s
+                        rarely used, as this causes unwanted blinking as the
+                        selection appears-disappears.
+                      </p>
+                    </li>
+                  </ol>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="references"
+                      href="selection-range.html#references"
+                      >References</a
+                    >
+                  </h2>
+                  <ul>
+                    <li>
+                      <a href="https://dom.spec.whatwg.org/#ranges"
+                        >DOM spec: Range</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="https://www.w3.org/TR/selection-api/#dom-globaleventhandlers-onselectstart"
+                        >Selection API</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#textFieldSelection"
+                        >HTML spec: APIs for the text control selections</a
+                      >
+                    </li>
+                  </ul>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="selection-range.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>We covered two different APIs for selections:</p>
+                  <ol>
+                    <li>
+                      For document: <code>Selection</code> and
+                      <code>Range</code> objects.
+                    </li>
+                    <li>
+                      For <code>input</code>, <code>textarea</code>: additional
+                      methods and properties.
+                    </li>
+                  </ol>
+                  <p>The second API is very simple, as it works with text.</p>
+                  <p>The most used recipes are probably:</p>
+                  <ol>
+                    <li>
+                      Getting the selection:
+                      <div
+                        id="mdvef3fp39"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let selection = document.getSelection();
+
+let cloned = /* element to clone the selected nodes to */;
+
+// then apply Range methods to selection.getRangeAt(0)
+// or, like here, to all ranges to support multi-select
+for (let i = 0; i &lt; selection.rangeCount; i++) {
+  cloned.append(selection.getRangeAt(i).cloneContents());
+}</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      Setting the selection:
+                      <div
+                        id="ixjowrrb4q"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let selection = document.getSelection();
+
+// directly:
+selection.setBaseAndExtent(...from...to...);
+
+// or we can create a range and:
+selection.removeAllRanges();
+selection.addRange(range);</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ol>
+                  <p>
+                    And finally, about the cursor. The cursor position in
+                    editable elements, like <code>&lt;textarea&gt;</code> is
+                    always at the start or the end of the selection. We can use
+                    it to get cursor position or to move the cursor by setting
+                    <code>elem.selectionStart</code> and
+                    <code>elem.selectionEnd</code>.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="mutation-observer.html"
+                data-tooltip="Mutation observer"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="event-loop.html"
+                data-tooltip="Event loop: microtasks and macrotasks"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fselection-range"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fselection-range"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="selection-range.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/selection-range",
+                    identifier: "\/selection-range",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="ui-misc.html"
+                        >Miscellaneous</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="selection-range.html#range"
+                        >Range</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   selection-range.html#range-properties"
+                        >Range properties</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   selection-range.html#range-selection-methods"
+                        >Range selection methods</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   selection-range.html#range-editing-methods"
+                        >Range editing methods</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   selection-range.html#selection"
+                        >Selection</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   selection-range.html#selection-properties"
+                        >Selection properties</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   selection-range.html#selection-events"
+                        >Selection events</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   selection-range.html#selection-methods"
+                        >Selection methods</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   selection-range.html#selection-in-form-controls"
+                        >Selection in form controls</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   selection-range.html#making-unselectable"
+                        >Making unselectable</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   selection-range.html#references"
+                        >References</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   selection-range.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   selection-range.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fselection-range"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fselection-range"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/99-ui-misc/02-selection-range"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

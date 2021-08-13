@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Browser environment, specs</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="browser-environment.html" />
+
+    <link rel="icon" href="img/favicon/favicon.png" />
+  
+    <meta property="og:title" content="Browser environment, specs" />
+
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Browser environment, specs" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="document.html" />
+    <link rel="next" href="dom-nodes.html" />
+
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Browser environment, specs" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/browser-environment"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="browser-environment.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/browser-environment"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                    browser-environment"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/browser-environment"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/browser-environment"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/browser-environment"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=browser-environment"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/browser-environment"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/browser-environment"</a
+            >
+
+
+   
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fbrowser-environment"
+                  rel="nofollow"
+                ></a
+                >2Fbrowser-environment
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/browser-environment">
+                  عربي
+                </option>
+                <option
+                  value="https://javascript.info/browser-environment"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/browser-environment">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/browser-environment">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/browser-environment">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/browser-environment">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/browser-environment">
+                  한국어
+                </option>
+                <option value=browser-environment">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/browser-environment">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/browser-environment">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="1"
+          max="32"
+          data-tooltip="Lesson 1 of 32"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="ui.html"
+                        ><span>Browser: Document, Events, Interfaces</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="document.html"
+                        ><span>Document</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Browser: Document, Events, Interfaces",
+                            "item": "https://javascript.info/ui"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Document",
+                            "item": "https://javascript.info/document"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 27th June 2020"
+                  >
+                    <div class="updated-at__content">27th June 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Browser environment, specs</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Browser environment, specs" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    The JavaScript language was initially created for web
+                    browsers. Since then it has evolved and become a language
+                    with many uses and platforms.
+                  </p>
+                  <p>
+                    A platform may be a browser, or a web-server or another
+                    <em>host</em>, even a “smart” coffee machine, if it can run
+                    JavaScript. Each of them provides platform-specific
+                    functionality. The JavaScript specification calls that a
+                    <em>host environment</em>.
+                  </p>
+                  <p>
+                    A host environment provides own objects and functions
+                    additional to the language core. Web browsers give a means
+                    to control web pages. Node.js provides server-side features,
+                    and so on.
+                  </p>
+                  <p>
+                    Here’s a bird’s-eye view of what we have when JavaScript
+                    runs in a web browser:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 367px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 83.92370572207084%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/browser-environment/windowObjects.svg"
+                        width="367"
+                        height="308"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/browser-environment/windowObjects.svg"
+                          alt=""
+                          width="367"
+                          height="308"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    There’s a “root” object called <code>window</code>. It has
+                    two roles:
+                  </p>
+                  <ol>
+                    <li>
+                      First, it is a global object for JavaScript code, as
+                      described in the chapter
+                      <a href="global-object.html">Global object</a>.
+                    </li>
+                    <li>
+                      Second, it represents the “browser window” and provides
+                      methods to control it.
+                    </li>
+                  </ol>
+                  <p>For instance, here we use it as a global object:</p>
+                  <div id="ebfi4yq0df" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="browser-environment.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="browser-environment.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function sayHi() {
+  alert(&quot;Hello&quot;);
+}
+
+// global functions are methods of the global object:
+window.sayHi();</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    And here we use it as a browser window, to see the window
+                    height:
+                  </p>
+                  <div id="ru9vdq89uf" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="browser-environment.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="browser-environment.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>alert(window.innerHeight); // inner window height</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    There are more window-specific methods and properties, we’ll
+                    cover them later.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="dom-document-object-model"
+                      href="browser-environment.html#dom-document-object-model"
+                      >DOM (Document Object Model)</a
+                    >
+                  </h2>
+                  <p>
+                    Document Object Model, or DOM for short, represents all page
+                    content as objects that can be modified.
+                  </p>
+                  <p>
+                    The <code>document</code> object is the main “entry point”
+                    to the page. We can change or create anything on the page
+                    using it.
+                  </p>
+                  <p>For instance:</p>
+                  <div id="znxb81ffdz" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="browser-environment.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="browser-environment.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// change the background color to red
+document.body.style.background = &quot;red&quot;;
+
+// change it back after 1 second
+setTimeout(() =&gt; document.body.style.background = &quot;&quot;, 1000);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here we used <code>document.body.style</code>, but there’s
+                    much, much more. Properties and methods are described in the
+                    specification:
+                    <a href="https://dom.spec.whatwg.org">DOM Living Standard</a
+                    >.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >DOM is not only for browsers</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        The DOM specification explains the structure of a
+                        document and provides objects to manipulate it. There
+                        are non-browser instruments that use DOM too.
+                      </p>
+                      <p>
+                        For instance, server-side scripts that download HTML
+                        pages and process them can also use DOM. They may
+                        support only a part of the specification though.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">CSSOM for styling</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        There’s also a separate specification,
+                        <a href="https://www.w3.org/TR/cssom-1/"
+                          >CSS Object Model (CSSOM)</a
+                        >
+                        for CSS rules and stylesheets, that explains how they
+                        are represented as objects, and how to read and write
+                        them.
+                      </p>
+                      <p>
+                        CSSOM is used together with DOM when we modify style
+                        rules for the document. In practice though, CSSOM is
+                        rarely required, because we rarely need to modify CSS
+                        rules from JavaScript (usually we just add/remove CSS
+                        classes, not modify their CSS rules), but that’s also
+                        possible.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="bom-browser-object-model"
+                      href="browser-environment.html#bom-browser-object-model"
+                      >BOM (Browser Object Model)</a
+                    >
+                  </h2>
+                  <p>
+                    The Browser Object Model (BOM) represents additional objects
+                    provided by the browser (host environment) for working with
+                    everything except the document.
+                  </p>
+                  <p>For instance:</p>
+                  <ul>
+                    <li>
+                      The
+                      <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/API/Window/navigator"
+                        >navigator</a
+                      >
+                      object provides background information about the browser
+                      and the operating system. There are many properties, but
+                      the two most widely known are:
+                      <code>navigator.userAgent</code> – about the current
+                      browser, and <code>navigator.platform</code> – about the
+                      platform (can help to differ between Windows/Linux/Mac
+                      etc).
+                    </li>
+                    <li>
+                      The
+                      <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/API/Window/location"
+                        >location</a
+                      >
+                      object allows us to read the current URL and can redirect
+                      the browser to a new one.
+                    </li>
+                  </ul>
+                  <p>Here’s how we can use the <code>location</code> object:</p>
+                  <div id="lsi1us3yos" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="browser-environment.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="browser-environment.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>alert(location.href); // shows current URL
+if (confirm(&quot;Go to Wikipedia?&quot;)) {
+  location.href = &quot;https://wikipedia.org&quot;; // redirect the browser to another URL
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Functions <code>alert/confirm/prompt</code> are also a part
+                    of BOM: they are directly not related to the document, but
+                    represent pure browser methods of communicating with the
+                    user.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Specifications</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        BOM is the part of the general
+                        <a href="https://html.spec.whatwg.org"
+                          >HTML specification</a
+                        >.
+                      </p>
+                      <p>
+                        Yes, you heard that right. The HTML spec at
+                        <a href="https://html.spec.whatwg.org"
+                          >https://html.spec.whatwg.org</a
+                        >
+                        is not only about the “HTML language” (tags,
+                        attributes), but also covers a bunch of objects, methods
+                        and browser-specific DOM extensions. That’s “HTML in
+                        broad terms”. Also, some parts have additional specs
+                        listed at
+                        <a href="https://spec.whatwg.org"
+                          >https://spec.whatwg.org</a
+                        >.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="browser-environment.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>Talking about standards, we have:</p>
+                  <dl>
+                    <dt>DOM specification</dt>
+                    <dd>
+                      Describes the document structure, manipulations and
+                      events, see
+                      <a href="https://dom.spec.whatwg.org"
+                        >https://dom.spec.whatwg.org</a
+                      >.
+                    </dd>
+                    <dt>CSSOM specification</dt>
+                    <dd>
+                      Describes stylesheets and style rules, manipulations with
+                      them and their binding to documents, see
+                      <a href="https://www.w3.org/TR/cssom-1/"
+                        >https://www.w3.org/TR/cssom-1/</a
+                      >.
+                    </dd>
+                    <dt>HTML specification</dt>
+                    <dd>
+                      Describes the HTML language (e.g. tags) and also the BOM
+                      (browser object model) – various browser functions:
+                      <code>setTimeout</code>, <code>alert</code>,
+                      <code>location</code> and so on, see
+                      <a href="https://html.spec.whatwg.org"
+                        >https://html.spec.whatwg.org</a
+                      >. It takes the DOM specification and extends it with many
+                      additional properties and methods.
+                    </dd>
+                  </dl>
+                  <p>
+                    Additionally, some classes are described separately at
+                    <a href="https://spec.whatwg.org/"
+                      >https://spec.whatwg.org/</a
+                    >.
+                  </p>
+                  <p>
+                    Please note these links, as there’s so much stuff to learn
+                    it’s impossible to cover and remember everything.
+                  </p>
+                  <p>
+                    When you’d like to read about a property or a method, the
+                    Mozilla manual at
+                    <a href="https://developer.mozilla.org/en-US/search"
+                      >https://developer.mozilla.org/en-US/search</a
+                    >
+                    is also a nice resource, but the corresponding spec may be
+                    better: it’s more complex and longer to read, but will make
+                    your fundamental knowledge sound and complete.
+                  </p>
+                  <p>
+                    To find something, it’s often convenient to use an internet
+                    search “WHATWG [term]” or “MDN [term]”, e.g
+                    <a href="https://google.com?q=whatwg+localstorage"
+                      >https://google.com?q=whatwg+localstorage</a
+                    >,
+                    <a href="https://google.com?q=mdn+localstorage"
+                      >https://google.com?q=mdn+localstorage</a
+                    >.
+                  </p>
+                  <p>
+                    Now we’ll get down to learning DOM, because the document
+                    plays the central role in the UI.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="document.html"
+                data-tooltip="Document"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="dom-nodes.html"
+                data-tooltip="DOM tree"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbrowser-environment"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbrowser-environment"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="browser-environment.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                        
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/browser-environment",
+                    identifier: "\/browser-environment",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+
+                      <a class="sidebar__link" href="document.html">Document</a>
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+
+                   browser-environment.html#dom-document-object-model"
+                        >DOM (Document Object Model)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   browser-environment.html#bom-browser-object-model"
+                        >BOM (Browser Object Model)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   browser-environment.html
+                  </ul>
+                </nav>
+
+                   browser-environment.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbrowser-environment"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fbrowser-environment"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/01-browser-environment"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

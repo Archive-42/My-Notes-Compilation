@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Promise API</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="promise-api.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Promise API" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Promise API" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="promise-error-handling.html" />
+    <link rel="next" href="promisify.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+ 
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <script>
+      function loadScript(src) {
+        return new Promise(function (resolve, reject) {
+          let script = document.createElement("script");
+          script.src = src;
+
+          script.onload = () => resolve(script);
+          script.onerror = () => reject(new Error("Script load error: " + src));
+
+          document.head.append(script);
+        });
+      }
+    </script>
+    <meta property="og:title" content="Promise API" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/promise-api"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="promise-api.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/promise-api"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/promise-api"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/promise-api"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/promise-api"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/promise-api"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=promise-api"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/promise-api"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/promise-api"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fpromise-api"
+                  rel="nofollow"
+                ></a
+                >2Fpromise-api"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/promise-api">
+                  عربي
+                </option>
+                <option value="https://javascript.info/promise-api" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/promise-api">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/promise-api">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/promise-api">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/promise-api">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/promise-api">
+                  한국어
+                </option>
+                <option value=promise-api">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/promise-api">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/promise-api">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="79"
+          max="92"
+          data-tooltip="Lesson 79 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="async.html"
+                        ><span>Promises, async/await</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Promises, async/await",
+                            "item": "https://javascript.info/async"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 19th June 2021"
+                  >
+                    <div class="updated-at__content">19th June 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Promise API</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Promise API" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    There are 6 static methods in the
+                    <code>Promise</code> class. We’ll quickly cover their use
+                    cases here.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="promise-all"
+                      href="promise-api.html#promise-all"
+                      >Promise.all</a
+                    >
+                  </h2>
+                  <p>
+                    Let’s say we want many promises to execute in parallel and
+                    wait until all of them are ready.
+                  </p>
+                  <p>
+                    For instance, download several URLs in parallel and process
+                    the content once they are all done.
+                  </p>
+                  <p>That’s what <code>Promise.all</code> is for.</p>
+                  <p>The syntax is:</p>
+                  <div id="kng5faygic" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = Promise.all([...promises...]);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    <code>Promise.all</code> takes an array of promises (it
+                    technically can be any iterable, but is usually an array)
+                    and returns a new promise.
+                  </p>
+                  <p>
+                    The new promise resolves when all listed promises are
+                    resolved, and the array of their results becomes its result.
+                  </p>
+                  <p>
+                    For instance, the <code>Promise.all</code> below settles
+                    after 3 seconds, and then its result is an array
+                    <code>[1, 2, 3]</code>:
+                  </p>
+                  <div id="inr0gisa56" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>Promise.all([
+  new Promise(resolve =&gt; setTimeout(() =&gt; resolve(1), 3000)), // 1
+  new Promise(resolve =&gt; setTimeout(() =&gt; resolve(2), 2000)), // 2
+  new Promise(resolve =&gt; setTimeout(() =&gt; resolve(3), 1000))  // 3
+]).then(alert); // 1,2,3 when promises are ready: each promise contributes an array member</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Please note that the order of the resulting array members is
+                    the same as in its source promises. Even though the first
+                    promise takes the longest time to resolve, it’s still first
+                    in the array of results.
+                  </p>
+                  <p>
+                    A common trick is to map an array of job data into an array
+                    of promises, and then wrap that into
+                    <code>Promise.all</code>.
+                  </p>
+                  <p>
+                    For instance, if we have an array of URLs, we can fetch them
+                    all like this:
+                  </p>
+                  <div id="b15mlq5efh" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let urls = [
+  'https://api.github.com/users/iliakan',
+  'https://api.github.com/users/remy',
+  'https://api.github.com/users/jeresig'
+];
+
+// map every url to the promise of the fetch
+let requests = urls.map(url =&gt; fetch(url));
+
+// Promise.all waits until all jobs are resolved
+Promise.all(requests)
+  .then(responses =&gt; responses.forEach(
+    response =&gt; alert(`${response.url}: ${response.status}`)
+  ));</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    A bigger example with fetching user information for an array
+                    of GitHub users by their names (we could fetch an array of
+                    goods by their ids, the logic is identical):
+                  </p>
+                  <div id="3l084y9lo6" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let names = ['iliakan', 'remy', 'jeresig'];
+
+let requests = names.map(name =&gt; fetch(`https://api.github.com/users/${name}`));
+
+Promise.all(requests)
+  .then(responses =&gt; {
+    // all responses are resolved successfully
+    for(let response of responses) {
+      alert(`${response.url}: ${response.status}`); // shows 200 for every url
+    }
+
+    return responses;
+  })
+  // map array of responses into an array of response.json() to read their content
+  .then(responses =&gt; Promise.all(responses.map(r =&gt; r.json())))
+  // all JSON answers are parsed: &quot;users&quot; is the array of them
+  .then(users =&gt; users.forEach(user =&gt; alert(user.name)));</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    <strong
+                      >If any of the promises is rejected, the promise returned
+                      by <code>Promise.all</code> immediately rejects with that
+                      error.</strong
+                    >
+                  </p>
+                  <p>For instance:</p>
+                  <div
+                    id="x79ghubetu"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":2,"end":2}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>Promise.all([
+  new Promise((resolve, reject) =&gt; setTimeout(() =&gt; resolve(1), 1000)),
+  new Promise((resolve, reject) =&gt; setTimeout(() =&gt; reject(new Error(&quot;Whoops!&quot;)), 2000)),
+  new Promise((resolve, reject) =&gt; setTimeout(() =&gt; resolve(3), 3000))
+]).catch(alert); // Error: Whoops!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here the second promise rejects in two seconds. That leads
+                    to an immediate rejection of <code>Promise.all</code>, so
+                    <code>.catch</code> executes: the rejection error becomes
+                    the outcome of the entire <code>Promise.all</code>.
+                  </p>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >In case of an error, other promises are ignored</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        If one promise rejects,
+                        <code>Promise.all</code> immediately rejects, completely
+                        forgetting about the other ones in the list. Their
+                        results are ignored.
+                      </p>
+                      <p>
+                        For example, if there are multiple
+                        <code>fetch</code> calls, like in the example above, and
+                        one fails, the others will still continue to execute,
+                        but <code>Promise.all</code> won’t watch them anymore.
+                        They will probably settle, but their results will be
+                        ignored.
+                      </p>
+                      <p>
+                        <code>Promise.all</code> does nothing to cancel them, as
+                        there’s no concept of “cancellation” in promises. In
+                        <a href="fetch-abort.html">another chapter</a> we’ll
+                        cover <code>AbortController</code> that can help with
+                        that, but it’s not a part of the Promise API.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        ><code>Promise.all(iterable)</code> allows non-promise
+                        “regular” values in <code>iterable</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Normally, <code>Promise.all(...)</code> accepts an
+                        iterable (in most cases an array) of promises. But if
+                        any of those objects is not a promise, it’s passed to
+                        the resulting array “as is”.
+                      </p>
+                      <p>
+                        For instance, here the results are
+                        <code>[1, 2, 3]</code>:
+                      </p>
+                      <div
+                        id="2ba3413o3z"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="promise-api.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="promise-api.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>Promise.all([
+  new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; resolve(1), 1000)
+  }),
+  2,
+  3
+]).then(alert); // 1, 2, 3</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        So we are able to pass ready values to
+                        <code>Promise.all</code> where convenient.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="promise-allsettled"
+                      href="promise-api.html#promise-allsettled"
+                      >Promise.allSettled</a
+                    >
+                  </h2>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type">A recent addition</span>
+                    </div>
+                    <div class="important__content">
+                      This is a recent addition to the language. Old browsers
+                      may need polyfills.
+                    </div>
+                  </div>
+                  <p>
+                    <code>Promise.all</code> rejects as a whole if any promise
+                    rejects. That’s good for “all or nothing” cases, when we
+                    need <em>all</em> results successful to proceed:
+                  </p>
+                  <div id="xwc9tfdm5n" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>Promise.all([
+  fetch('/template.html'),
+  fetch('/style.css'),
+  fetch('/data.json')
+]).then(render); // render method needs results of all fetches</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    <code>Promise.allSettled</code> just waits for all promises
+                    to settle, regardless of the result. The resulting array
+                    has:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>{status:&quot;fulfilled&quot;, value:result}</code>
+                      for successful responses,
+                    </li>
+                    <li>
+                      <code>{status:&quot;rejected&quot;, reason:error}</code>
+                      for errors.
+                    </li>
+                  </ul>
+                  <p>
+                    For example, we’d like to fetch the information about
+                    multiple users. Even if one request fails, we’re still
+                    interested in the others.
+                  </p>
+                  <p>Let’s use <code>Promise.allSettled</code>:</p>
+                  <div id="suox4c7uu8" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let urls = [
+  'https://api.github.com/users/iliakan',
+  'https://api.github.com/users/remy',
+  'https://no-such-url'
+];
+
+Promise.allSettled(urls.map(url =&gt; fetch(url)))
+  .then(results =&gt; { // (*)
+    results.forEach((result, num) =&gt; {
+      if (result.status == &quot;fulfilled&quot;) {
+        alert(`${urls[num]}: ${result.value.status}`);
+      }
+      if (result.status == &quot;rejected&quot;) {
+        alert(`${urls[num]}: ${result.reason}`);
+      }
+    });
+  });</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The <code>results</code> in the line <code>(*)</code> above
+                    will be:
+                  </p>
+                  <div id="0ly7xh4b1s" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre class="line-numbers language-javascript"><code>[
+  {status: 'fulfilled', value: ...response...},
+  {status: 'fulfilled', value: ...response...},
+  {status: 'rejected', reason: ...error object...}
+]</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    So for each promise we get its status and
+                    <code>value/error</code>.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="polyfill"
+                      href="promise-api.html#polyfill"
+                      >Polyfill</a
+                    >
+                  </h3>
+                  <p>
+                    If the browser doesn’t support
+                    <code>Promise.allSettled</code>, it’s easy to polyfill:
+                  </p>
+                  <div id="d2b0djorl1" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>if (!Promise.allSettled) {
+  const rejectHandler = reason =&gt; ({ status: 'rejected', reason });
+
+  const resolveHandler = value =&gt; ({ status: 'fulfilled', value });
+
+  Promise.allSettled = function (promises) {
+    const convertedPromises = promises.map(p =&gt; Promise.resolve(p).then(resolveHandler, rejectHandler));
+    return Promise.all(convertedPromises);
+  };
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    In this code, <code>promises.map</code> takes input values,
+                    turns them into promises (just in case a non-promise was
+                    passed) with <code>p =&gt; Promise.resolve(p)</code>, and
+                    then adds <code>.then</code> handler to every one.
+                  </p>
+                  <p>
+                    That handler turns a successful result
+                    <code>value</code> into
+                    <code>{status:'fulfilled', value}</code>, and an error
+                    <code>reason</code> into
+                    <code>{status:'rejected', reason}</code>. That’s exactly the
+                    format of <code>Promise.allSettled</code>.
+                  </p>
+                  <p>
+                    Now we can use <code>Promise.allSettled</code> to get the
+                    results of <em>all</em> given promises, even if some of them
+                    reject.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="promise-race"
+                      href="promise-api.html#promise-race"
+                      >Promise.race</a
+                    >
+                  </h2>
+                  <p>
+                    Similar to <code>Promise.all</code>, but waits only for the
+                    first settled promise and gets its result (or error).
+                  </p>
+                  <p>The syntax is:</p>
+                  <div id="ozf2hk6o37" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = Promise.race(iterable);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>For instance, here the result will be <code>1</code>:</p>
+                  <div id="e22313s94y" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>Promise.race([
+  new Promise((resolve, reject) =&gt; setTimeout(() =&gt; resolve(1), 1000)),
+  new Promise((resolve, reject) =&gt; setTimeout(() =&gt; reject(new Error(&quot;Whoops!&quot;)), 2000)),
+  new Promise((resolve, reject) =&gt; setTimeout(() =&gt; resolve(3), 3000))
+]).then(alert); // 1</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The first promise here was fastest, so it became the result.
+                    After the first settled promise “wins the race”, all further
+                    results/errors are ignored.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="promise-any"
+                      href="promise-api.html#promise-any"
+                      >Promise.any</a
+                    >
+                  </h2>
+                  <p>
+                    Similar to <code>Promise.race</code>, but waits only for the
+                    first fulfilled promise and gets its result. If all of the
+                    given promises are rejected, then the returned promise is
+                    rejected with
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError"
+                      ><code>AggregateError</code></a
+                    >
+                    – a special error object that stores all promise errors in
+                    its <code>errors</code> property.
+                  </p>
+                  <p>The syntax is:</p>
+                  <div id="eb7w95edle" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = Promise.any(iterable);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>For instance, here the result will be <code>1</code>:</p>
+                  <div id="xo44rjc5kx" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>Promise.any([
+  new Promise((resolve, reject) =&gt; setTimeout(() =&gt; reject(new Error(&quot;Whoops!&quot;)), 1000)),
+  new Promise((resolve, reject) =&gt; setTimeout(() =&gt; resolve(1), 2000)),
+  new Promise((resolve, reject) =&gt; setTimeout(() =&gt; resolve(3), 3000))
+]).then(alert); // 1</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The first promise here was fastest, but it was rejected, so
+                    the second promise became the result. After the first
+                    fulfilled promise “wins the race”, all further results are
+                    ignored.
+                  </p>
+                  <p>Here’s an example when all promises fail:</p>
+                  <div id="klhho4s2r4" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-api.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>Promise.any([
+  new Promise((resolve, reject) =&gt; setTimeout(() =&gt; reject(new Error(&quot;Ouch!&quot;)), 1000)),
+  new Promise((resolve, reject) =&gt; setTimeout(() =&gt; reject(new Error(&quot;Error!&quot;)), 2000))
+]).catch(error =&gt; {
+  console.log(error.constructor.name); // AggregateError
+  console.log(error.errors[0]); // Error: Ouch!
+  console.log(error.errors[1]); // Error: Error
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As you can see, error objects for failed promises are
+                    available in the <code>errors</code> property of the
+                    <code>AggregateError</code> object.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="promise-resolve-reject"
+                      href="promise-api.html#promise-resolve-reject"
+                      >Promise.resolve/reject</a
+                    >
+                  </h2>
+                  <p>
+                    Methods <code>Promise.resolve</code> and
+                    <code>Promise.reject</code> are rarely needed in modern
+                    code, because <code>async/await</code> syntax (we’ll cover
+                    it <a href="async-await.html">a bit later</a>) makes them
+                    somewhat obsolete.
+                  </p>
+                  <p>
+                    We cover them here for completeness and for those who can’t
+                    use <code>async/await</code> for some reason.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="promise-resolve"
+                      href="promise-api.html#promise-resolve"
+                      >Promise.resolve</a
+                    >
+                  </h3>
+                  <p>
+                    <code>Promise.resolve(value)</code> creates a resolved
+                    promise with the result <code>value</code>.
+                  </p>
+                  <p>Same as:</p>
+                  <div id="8le4wbvxdv" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = new Promise(resolve =&gt; resolve(value));</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The method is used for compatibility, when a function is
+                    expected to return a promise.
+                  </p>
+                  <p>
+                    For example, the <code>loadCached</code> function below
+                    fetches a URL and remembers (caches) its content. For future
+                    calls with the same URL it immediately gets the previous
+                    content from cache, but uses <code>Promise.resolve</code> to
+                    make a promise of it, so the returned value is always a
+                    promise:
+                  </p>
+                  <div
+                    id="6ld7v8celm"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"end":4}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let cache = new Map();
+
+function loadCached(url) {
+  if (cache.has(url)) {
+    return Promise.resolve(cache.get(url)); // (*)
+  }
+
+  return fetch(url)
+    .then(response =&gt; response.text())
+    .then(text =&gt; {
+      cache.set(url,text);
+      return text;
+    });
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We can write <code>loadCached(url).then(…)</code>, because
+                    the function is guaranteed to return a promise. We can
+                    always use <code>.then</code> after <code>loadCached</code>.
+                    That’s the purpose of <code>Promise.resolve</code> in the
+                    line <code>(*)</code>.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="promise-reject"
+                      href="promise-api.html#promise-reject"
+                      >Promise.reject</a
+                    >
+                  </h3>
+                  <p>
+                    <code>Promise.reject(error)</code> creates a rejected
+                    promise with <code>error</code>.
+                  </p>
+                  <p>Same as:</p>
+                  <div id="o0z0as2rjg" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = new Promise((resolve, reject) =&gt; reject(error));</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>In practice, this method is almost never used.</p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="promise-api.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    There are 6 static methods of <code>Promise</code> class:
+                  </p>
+                  <ol>
+                    <li>
+                      <code>Promise.all(promises)</code> – waits for all
+                      promises to resolve and returns an array of their results.
+                      If any of the given promises rejects, it becomes the error
+                      of <code>Promise.all</code>, and all other results are
+                      ignored.
+                    </li>
+                    <li>
+                      <code>Promise.allSettled(promises)</code> (recently added
+                      method) – waits for all promises to settle and returns
+                      their results as an array of objects with:
+                      <ul>
+                        <li>
+                          <code>status</code>:
+                          <code>&quot;fulfilled&quot;</code> or
+                          <code>&quot;rejected&quot;</code>
+                        </li>
+                        <li>
+                          <code>value</code> (if fulfilled) or
+                          <code>reason</code> (if rejected).
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <code>Promise.race(promises)</code> – waits for the first
+                      promise to settle, and its result/error becomes the
+                      outcome.
+                    </li>
+                    <li>
+                      <code>Promise.any(promises)</code> (recently added method)
+                      – waits for the first promise to fulfill, and its result
+                      becomes the outcome. If all of the given promises are
+                      rejected,
+                      <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError"
+                        ><code>AggregateError</code></a
+                      >
+                      becomes the error of <code>Promise.any</code>.
+                    </li>
+                    <li>
+                      <code>Promise.resolve(value)</code> – makes a resolved
+                      promise with the given value.
+                    </li>
+                    <li>
+                      <code>Promise.reject(error)</code> – makes a rejected
+                      promise with the given error.
+                    </li>
+                  </ol>
+                  <p>
+                    Of all these, <code>Promise.all</code> is probably the most
+                    common in practice.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="promise-error-handling.html"
+                data-tooltip="Error handling with promises"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="promisify.html"
+                data-tooltip="Promisification"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fpromise-api"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fpromise-api"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="promise-api.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/promise-api",
+                    identifier: "\/promise-api",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="async.html"
+                        >Promises, async/await</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   promise-api.html#promise-all"
+                        >Promise.all</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   promise-api.html#promise-allsettled"
+                        >Promise.allSettled</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   promise-api.html#promise-race"
+                        >Promise.race</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   promise-api.html#promise-any"
+                        >Promise.any</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   promise-api.html#promise-resolve-reject"
+                        >Promise.resolve/reject</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="promise-api.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="promise-api.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fpromise-api"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fpromise-api"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/11-async/05-promise-api"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

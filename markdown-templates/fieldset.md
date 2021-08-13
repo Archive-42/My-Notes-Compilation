@@ -1,6 +1,8 @@
-# Fieldset
+Fieldset
+========
 
-## Default `fieldset`
+Default `fieldset`
+------------------
 
 ### Example
 
@@ -18,7 +20,8 @@ Fieldsets on MDN are displayed without a border by default. The `fieldset` eleme
       </p>
     </fieldset>
 
-## Bordered `fieldset`
+Bordered `fieldset`
+-------------------
 
 ### Example
 

@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Promise</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="promise-basics.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Promise" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Promise" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="callbacks.html" />
+    <link rel="next" href="promise-chaining.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+ 
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <script>
+      function loadScript(src) {
+        return new Promise(function (resolve, reject) {
+          let script = document.createElement("script");
+          script.src = src;
+
+          script.onload = () => resolve(script);
+          script.onerror = () => reject(new Error("Script load error: " + src));
+
+          document.head.append(script);
+        });
+      }
+    </script>
+    <meta property="og:title" content="Promise" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/promise-basics"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="promise-basics.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/promise-basics"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/promise-basics"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/promise-basics"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/promise-basics"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/promise-basics"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=promise-basics"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/promise-basics"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/promise-basics"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fpromise-basics"
+                  rel="nofollow"
+                ></a
+                >2Fpromise-basics"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/promise-basics">
+                  عربي
+                </option>
+                <option value="https://javascript.info/promise-basics" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/promise-basics">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/promise-basics">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/promise-basics">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/promise-basics">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/promise-basics">
+                  한국어
+                </option>
+                <option value=promise-basics">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/promise-basics">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/promise-basics">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="76"
+          max="92"
+          data-tooltip="Lesson 76 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="async.html"
+                        ><span>Promises, async/await</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Promises, async/await",
+                            "item": "https://javascript.info/async"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 31st March 2021"
+                  >
+                    <div class="updated-at__content">31st March 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Promise</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Promise" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Imagine that you’re a top singer, and fans ask day and night
+                    for your upcoming song.
+                  </p>
+                  <p>
+                    To get some relief, you promise to send it to them when it’s
+                    published. You give your fans a list. They can fill in their
+                    email addresses, so that when the song becomes available,
+                    all subscribed parties instantly receive it. And even if
+                    something goes very wrong, say, a fire in the studio, so
+                    that you can’t publish the song, they will still be
+                    notified.
+                  </p>
+                  <p>
+                    Everyone is happy: you, because the people don’t crowd you
+                    anymore, and fans, because they won’t miss the song.
+                  </p>
+                  <p>
+                    This is a real-life analogy for things we often have in
+                    programming:
+                  </p>
+                  <ol>
+                    <li>
+                      A “producing code” that does something and takes time. For
+                      instance, some code that loads the data over a network.
+                      That’s a “singer”.
+                    </li>
+                    <li>
+                      A “consuming code” that wants the result of the “producing
+                      code” once it’s ready. Many functions may need that
+                      result. These are the “fans”.
+                    </li>
+                    <li>
+                      A <em>promise</em> is a special JavaScript object that
+                      links the “producing code” and the “consuming code”
+                      together. In terms of our analogy: this is the
+                      “subscription list”. The “producing code” takes whatever
+                      time it needs to produce the promised result, and the
+                      “promise” makes that result available to all of the
+                      subscribed code when it’s ready.
+                    </li>
+                  </ol>
+                  <p>
+                    The analogy isn’t terribly accurate, because JavaScript
+                    promises are more complex than a simple subscription list:
+                    they have additional features and limitations. But it’s fine
+                    to begin with.
+                  </p>
+                  <p>The constructor syntax for a promise object is:</p>
+                  <div id="rhlyj23p2u" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = new Promise(function(resolve, reject) {
+  // executor (the producing code, &quot;singer&quot;)
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The function passed to <code>new Promise</code> is called
+                    the <em>executor</em>. When <code>new Promise</code> is
+                    created, the executor runs automatically. It contains the
+                    producing code which should eventually produce the result.
+                    In terms of the analogy above: the executor is the “singer”.
+                  </p>
+                  <p>
+                    Its arguments <code>resolve</code> and
+                    <code>reject</code> are callbacks provided by JavaScript
+                    itself. Our code is only inside the executor.
+                  </p>
+                  <p>
+                    When the executor obtains the result, be it soon or late,
+                    doesn’t matter, it should call one of these callbacks:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>resolve(value)</code> — if the job is finished
+                      successfully, with result <code>value</code>.
+                    </li>
+                    <li>
+                      <code>reject(error)</code> — if an error has occurred,
+                      <code>error</code> is the error object.
+                    </li>
+                  </ul>
+                  <p>
+                    So to summarize: the executor runs automatically and
+                    attempts to perform a job. When it is finished with the
+                    attempt, it calls <code>resolve</code> if it was successful
+                    or <code>reject</code> if there was an error.
+                  </p>
+                  <p>
+                    The <code>promise</code> object returned by the
+                    <code>new Promise</code> constructor has these internal
+                    properties:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>state</code> — initially
+                      <code>&quot;pending&quot;</code>, then changes to either
+                      <code>&quot;fulfilled&quot;</code> when
+                      <code>resolve</code> is called or
+                      <code>&quot;rejected&quot;</code> when
+                      <code>reject</code> is called.
+                    </li>
+                    <li>
+                      <code>result</code> — initially <code>undefined</code>,
+                      then changes to <code>value</code> when
+                      <code>resolve(value)</code> called or
+                      <code>error</code> when <code>reject(error)</code> is
+                      called.
+                    </li>
+                  </ul>
+                  <p>
+                    So the executor eventually moves <code>promise</code> to one
+                    of these states:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 512px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 48.046875%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/promise-basics/promise-resolve-reject.svg"
+                        width="512"
+                        height="246"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/promise-basics/promise-resolve-reject.svg"
+                          alt=""
+                          width="512"
+                          height="246"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    Later we’ll see how “fans” can subscribe to these changes.
+                  </p>
+                  <p>
+                    Here’s an example of a promise constructor and a simple
+                    executor function with “producing code” that takes time (via
+                    <code>setTimeout</code>):
+                  </p>
+                  <div
+                    id="ili92yn1j0"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"cols":[{"start":19,"end":34}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = new Promise(function(resolve, reject) {
+  // the function is executed automatically when the promise is constructed
+
+  // after 1 second signal that the job is done with the result &quot;done&quot;
+  setTimeout(() =&gt; resolve(&quot;done&quot;), 1000);
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>We can see two things by running the code above:</p>
+                  <ol>
+                    <li>
+                      <p>
+                        The executor is called automatically and immediately (by
+                        <code>new Promise</code>).
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        The executor receives two arguments:
+                        <code>resolve</code> and <code>reject</code>. These
+                        functions are pre-defined by the JavaScript engine, so
+                        we don’t need to create them. We should only call one of
+                        them when ready.
+                      </p>
+                      <p>
+                        After one second of “processing” the executor calls
+                        <code>resolve(&quot;done&quot;)</code> to produce the
+                        result. This changes the state of the
+                        <code>promise</code> object:
+                      </p>
+                      <figure>
+                        <div class="image" style="width: 538px">
+                          <div
+                            class="image__ratio"
+                            style="padding-top: 19.702602230483272%"
+                          ></div>
+                          <object
+                            type="image/svg+xml"
+                            data="article/promise-basics/promise-resolve-1.svg"
+                            width="538"
+                            height="106"
+                            class="image__image"
+                          >
+                            <img
+                              src="article/promise-basics/promise-resolve-1.svg"
+                              alt=""
+                              width="538"
+                              height="106"
+                            />
+                          </object>
+                        </div>
+                      </figure>
+                    </li>
+                  </ol>
+                  <p>
+                    That was an example of a successful job completion, a
+                    “fulfilled promise”.
+                  </p>
+                  <p>
+                    And now an example of the executor rejecting the promise
+                    with an error:
+                  </p>
+                  <div
+                    id="jlxnn7ganp"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":2,"cols":[{"start":19,"end":47}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = new Promise(function(resolve, reject) {
+  // after 1 second signal that the job is finished with an error
+  setTimeout(() =&gt; reject(new Error(&quot;Whoops!&quot;)), 1000);
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The call to <code>reject(...)</code> moves the promise
+                    object to <code>&quot;rejected&quot;</code> state:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 535px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 19.813084112149532%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/promise-basics/promise-reject-1.svg"
+                        width="535"
+                        height="106"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/promise-basics/promise-reject-1.svg"
+                          alt=""
+                          width="535"
+                          height="106"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    To summarize, the executor should perform a job (usually
+                    something that takes time) and then call
+                    <code>resolve</code> or <code>reject</code> to change the
+                    state of the corresponding promise object.
+                  </p>
+                  <p>
+                    A promise that is either resolved or rejected is called
+                    “settled”, as opposed to an initially “pending” promise.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >There can be only a single result or an error</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        The executor should call only one
+                        <code>resolve</code> or one <code>reject</code>. Any
+                        state change is final.
+                      </p>
+                      <p>
+                        All further calls of <code>resolve</code> and
+                        <code>reject</code> are ignored:
+                      </p>
+                      <div
+                        id="yer0pozn5g"
+                        data-trusted="1"
+                        class="code-example"
+                        data-highlight='[{"start":1,"end":1}]'
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let promise = new Promise(function(resolve, reject) {
+  resolve(&quot;done&quot;);
+
+  reject(new Error(&quot;…&quot;)); // ignored
+  setTimeout(() =&gt; resolve(&quot;…&quot;)); // ignored
+});</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        The idea is that a job done by the executor may have
+                        only one result or an error.
+                      </p>
+                      <p>
+                        Also, <code>resolve</code>/<code>reject</code> expect
+                        only one argument (or none) and will ignore additional
+                        arguments.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Reject with <code>Error</code> objects</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        In case something goes wrong, the executor should call
+                        <code>reject</code>. That can be done with any type of
+                        argument (just like <code>resolve</code>). But it is
+                        recommended to use <code>Error</code> objects (or
+                        objects that inherit from <code>Error</code>). The
+                        reasoning for that will soon become apparent.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Immediately calling <code>resolve</code>/<code
+                          >reject</code
+                        ></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        In practice, an executor usually does something
+                        asynchronously and calls <code>resolve</code>/<code
+                          >reject</code
+                        >
+                        after some time, but it doesn’t have to. We also can
+                        call <code>resolve</code> or
+                        <code>reject</code> immediately, like this:
+                      </p>
+                      <div
+                        id="t2y6w7axiz"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let promise = new Promise(function(resolve, reject) {
+  // not taking our time to do the job
+  resolve(123); // immediately give the result: 123
+});</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        For instance, this might happen when we start to do a
+                        job but then see that everything has already been
+                        completed and cached.
+                      </p>
+                      <p>
+                        That’s fine. We immediately have a resolved promise.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >The <code>state</code> and <code>result</code> are
+                        internal</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        The properties <code>state</code> and
+                        <code>result</code> of the Promise object are internal.
+                        We can’t directly access them. We can use the methods
+                        <code>.then</code>/<code>.catch</code>/<code
+                          >.finally</code
+                        >
+                        for that. They are described below.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="consumers-then-catch-finally"
+                      href="promise-basics.html#consumers-then-catch-finally"
+                      >Consumers: then, catch, finally</a
+                    >
+                  </h2>
+                  <p>
+                    A Promise object serves as a link between the executor (the
+                    “producing code” or “singer”) and the consuming functions
+                    (the “fans”), which will receive the result or error.
+                    Consuming functions can be registered (subscribed) using
+                    methods <code>.then</code>, <code>.catch</code> and
+                    <code>.finally</code>.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="then"
+                      href="promise-basics.html#then"
+                      >then</a
+                    >
+                  </h3>
+                  <p>
+                    The most important, fundamental one is <code>.then</code>.
+                  </p>
+                  <p>The syntax is:</p>
+                  <div
+                    id="qynzr6t7hx"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":2,"cols":[{"start":20,"end":41}]},{"start":1,"cols":[{"start":21,"end":53}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>promise.then(
+  function(result) { /* handle a successful result */ },
+  function(error) { /* handle an error */ }
+);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The first argument of <code>.then</code> is a function that
+                    runs when the promise is resolved, and receives the result.
+                  </p>
+                  <p>
+                    The second argument of <code>.then</code> is a function that
+                    runs when the promise is rejected, and receives the error.
+                  </p>
+                  <p>
+                    For instance, here’s a reaction to a successfully resolved
+                    promise:
+                  </p>
+                  <div
+                    id="uxdk6r5k6k"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":6,"end":6}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = new Promise(function(resolve, reject) {
+  setTimeout(() =&gt; resolve(&quot;done!&quot;), 1000);
+});
+
+// resolve runs the first function in .then
+promise.then(
+  result =&gt; alert(result), // shows &quot;done!&quot; after 1 second
+  error =&gt; alert(error) // doesn't run
+);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The first function was executed.</p>
+                  <p>And in the case of a rejection, the second one:</p>
+                  <div
+                    id="qkv2p761e"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":7,"end":7}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = new Promise(function(resolve, reject) {
+  setTimeout(() =&gt; reject(new Error(&quot;Whoops!&quot;)), 1000);
+});
+
+// reject runs the second function in .then
+promise.then(
+  result =&gt; alert(result), // doesn't run
+  error =&gt; alert(error) // shows &quot;Error: Whoops!&quot; after 1 second
+);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    If we’re interested only in successful completions, then we
+                    can provide only one function argument to
+                    <code>.then</code>:
+                  </p>
+                  <div
+                    id="vk78q4k4g9"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"end":4}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = new Promise(resolve =&gt; {
+  setTimeout(() =&gt; resolve(&quot;done!&quot;), 1000);
+});
+
+promise.then(alert); // shows &quot;done!&quot; after 1 second</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="catch"
+                      href="promise-basics.html#catch"
+                      >catch</a
+                    >
+                  </h3>
+                  <p>
+                    If we’re interested only in errors, then we can use
+                    <code>null</code> as the first argument:
+                    <code>.then(null, errorHandlingFunction)</code>. Or we can
+                    use <code>.catch(errorHandlingFunction)</code>, which is
+                    exactly the same:
+                  </p>
+                  <div
+                    id="x3cqs0png9"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"end":5}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; reject(new Error(&quot;Whoops!&quot;)), 1000);
+});
+
+// .catch(f) is the same as promise.then(null, f)
+promise.catch(alert); // shows &quot;Error: Whoops!&quot; after 1 second</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The call <code>.catch(f)</code> is a complete analog of
+                    <code>.then(null, f)</code>, it’s just a shorthand.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="finally"
+                      href="promise-basics.html#finally"
+                      >finally</a
+                    >
+                  </h3>
+                  <p>
+                    Just like there’s a <code>finally</code> clause in a regular
+                    <code>try {...} catch {...}</code>, there’s
+                    <code>finally</code> in promises.
+                  </p>
+                  <p>
+                    The call <code>.finally(f)</code> is similar to
+                    <code>.then(f, f)</code> in the sense that
+                    <code>f</code> always runs when the promise is settled: be
+                    it resolve or reject.
+                  </p>
+                  <p>
+                    <code>finally</code> is a good handler for performing
+                    cleanup, e.g. stopping our loading indicators, as they are
+                    not needed anymore, no matter what the outcome is.
+                  </p>
+                  <p>Like this:</p>
+                  <div
+                    id="7rrkdztt3u"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":3,"end":5}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>new Promise((resolve, reject) =&gt; {
+  /* do something that takes time, and then call resolve/reject */
+})
+  // runs when the promise is settled, doesn't matter successfully or not
+  .finally(() =&gt; stop loading indicator)
+  // so the loading indicator is always stopped before we process the result/error
+  .then(result =&gt; show result, err =&gt; show error)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    That said, <code>finally(f)</code> isn’t exactly an alias of
+                    <code>then(f,f)</code> though. There are few subtle
+                    differences:
+                  </p>
+                  <ol>
+                    <li>
+                      <p>
+                        A <code>finally</code> handler has no arguments. In
+                        <code>finally</code> we don’t know whether the promise
+                        is successful or not. That’s all right, as our task is
+                        usually to perform “general” finalizing procedures.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        A <code>finally</code> handler passes through results
+                        and errors to the next handler.
+                      </p>
+                      <p>
+                        For instance, here the result is passed through
+                        <code>finally</code> to <code>then</code>:
+                      </p>
+                      <div id="4nrb0jo4h" data-trusted="1" class="code-example">
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="promise-basics.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="promise-basics.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; resolve(&quot;result&quot;), 2000)
+})
+  .finally(() =&gt; alert(&quot;Promise ready&quot;))
+  .then(result =&gt; alert(result)); // &lt;-- .then handles the result</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        And here there’s an error in the promise, passed through
+                        <code>finally</code> to <code>catch</code>:
+                      </p>
+                      <div
+                        id="npa27mrl9y"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="promise-basics.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="promise-basics.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>new Promise((resolve, reject) =&gt; {
+  throw new Error(&quot;error&quot;);
+})
+  .finally(() =&gt; alert(&quot;Promise ready&quot;))
+  .catch(err =&gt; alert(err));  // &lt;-- .catch handles the error object</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ol>
+                  <p>
+                    That’s very convenient, because <code>finally</code> is not
+                    meant to process a promise result. So it passes it through.
+                  </p>
+                  <p>
+                    We’ll talk more about promise chaining and result-passing
+                    between handlers in the next chapter.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >We can attach handlers to settled promises</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        If a promise is pending,
+                        <code>.then/catch/finally</code> handlers wait for it.
+                        Otherwise, if a promise has already settled, they just
+                        run:
+                      </p>
+                      <div
+                        id="q25mrnloc6"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="promise-basics.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="promise-basics.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>// the promise becomes resolved immediately upon creation
+let promise = new Promise(resolve =&gt; resolve(&quot;done!&quot;));
+
+promise.then(alert); // done! (shows up right now)</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        Note that this makes promises more powerful than the
+                        real life “subscription list” scenario. If the singer
+                        has already released their song and then a person signs
+                        up on the subscription list, they probably won’t receive
+                        that song. Subscriptions in real life must be done prior
+                        to the event.
+                      </p>
+                      <p>
+                        Promises are more flexible. We can add handlers any
+                        time: if the result is already there, they just execute.
+                      </p>
+                    </div>
+                  </div>
+                  <p>
+                    Next, let’s see more practical examples of how promises can
+                    help us write asynchronous code.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="loadscript"
+                      href="promise-basics.html#loadscript"
+                      >Example: loadScript</a
+                    >
+                  </h2>
+                  <p>
+                    We’ve got the <code>loadScript</code> function for loading a
+                    script from the previous chapter.
+                  </p>
+                  <p>
+                    Here’s the callback-based variant, just to remind us of it:
+                  </p>
+                  <div id="7wiobl7n0y" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function loadScript(src, callback) {
+  let script = document.createElement('script');
+  script.src = src;
+
+  script.onload = () =&gt; callback(null, script);
+  script.onerror = () =&gt; callback(new Error(`Script load error for ${src}`));
+
+  document.head.append(script);
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Let’s rewrite it using Promises.</p>
+                  <p>
+                    The new function <code>loadScript</code> will not require a
+                    callback. Instead, it will create and return a Promise
+                    object that resolves when the loading is complete. The outer
+                    code can add handlers (subscribing functions) to it using
+                    <code>.then</code>:
+                  </p>
+                  <div id="yzjwti7avk" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function loadScript(src) {
+  return new Promise(function(resolve, reject) {
+    let script = document.createElement('script');
+    script.src = src;
+
+    script.onload = () =&gt; resolve(script);
+    script.onerror = () =&gt; reject(new Error(`Script load error for ${src}`));
+
+    document.head.append(script);
+  });
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Usage:</p>
+                  <div id="4ksr9lbxqu" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-basics.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = loadScript(&quot;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js&quot;);
+
+promise.then(
+  script =&gt; alert(`${script.src} is loaded!`),
+  error =&gt; alert(`Error: ${error.message}`)
+);
+
+promise.then(script =&gt; alert('Another handler...'));</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We can immediately see a few benefits over the
+                    callback-based pattern:
+                  </p>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Promises</th>
+                        <th>Callbacks</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          Promises allow us to do things in the natural order.
+                          First, we run <code>loadScript(script)</code>, and
+                          <code>.then</code> we write what to do with the
+                          result.
+                        </td>
+                        <td>
+                          We must have a <code>callback</code> function at our
+                          disposal when calling
+                          <code>loadScript(script, callback)</code>. In other
+                          words, we must know what to do with the result
+                          <em>before</em> <code>loadScript</code> is called.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          We can call <code>.then</code> on a Promise as many
+                          times as we want. Each time, we’re adding a new “fan”,
+                          a new subscribing function, to the “subscription
+                          list”. More about this in the next chapter:
+                          <a href="promise-chaining.html">Promises chaining</a>.
+                        </td>
+                        <td>There can be only one callback.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>
+                    So promises give us better code flow and flexibility. But
+                    there’s more. We’ll see that in the next chapters.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="promise-basics.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="promise-basics.html#re-resolve-a-promise"
+                          name="re-resolve-a-promise"
+                          >Re-resolve a promise?</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/re-resolve.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note"></div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>What’s the output of the code below?</p>
+                        <div
+                          id="w58qf6sow8"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let promise = new Promise(function(resolve, reject) {
+  resolve(1);
+
+  setTimeout(() =&gt; resolve(2), 1000);
+});
+
+promise.then(alert);</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>The output is: <code>1</code>.</p>
+                            <p>
+                              The second call to <code>resolve</code> is
+                              ignored, because only the first call of
+                              <code>reject/resolve</code> is taken into account.
+                              Further calls are ignored.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="promise-basics.html#delay-with-a-promise"
+                          name="delay-with-a-promise"
+                          >Delay with a promise</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/delay-promise.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note"></div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          The built-in function <code>setTimeout</code> uses
+                          callbacks. Create a promise-based alternative.
+                        </p>
+                        <p>
+                          The function <code>delay(ms)</code> should return a
+                          promise. That promise should resolve after
+                          <code>ms</code> milliseconds, so that we can add
+                          <code>.then</code> to it, like this:
+                        </p>
+                        <div
+                          id="rbc7dnoow3"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function delay(ms) {
+  // your code
+}
+
+delay(3000).then(() =&gt; alert('runs after 3 seconds'));</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <div
+                              id="k99bbjvu7f"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="promise-basics.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="promise-basics.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function delay(ms) {
+  return new Promise(resolve =&gt; setTimeout(resolve, ms));
+}
+
+delay(3000).then(() =&gt; alert('runs after 3 seconds'));</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              Please note that in this task
+                              <code>resolve</code> is called without arguments.
+                              We don’t return any value from <code>delay</code>,
+                              just ensure the delay.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="promise-basics.html#animated-circle-with-promise"
+                          name="animated-circle-with-promise"
+                          >Animated circle with promise</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/animate-circle-promise.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note"></div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Rewrite the <code>showCircle</code> function in the
+                          solution of the task
+                          <a href="task/animate-circle-callback.html"
+                            >Animated circle with callback</a
+                          >
+                          so that it returns a promise instead of accepting a
+                          callback.
+                        </p>
+                        <p>The new usage:</p>
+                        <div
+                          id="fymu6qr9k3"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>showCircle(150, 150, 100).then(div =&gt; {
+  div.classList.add('message-ball');
+  div.append(&quot;Hello, world!&quot;);
+});</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          Take the solution of the task
+                          <a href="task/animate-circle-callback.html"
+                            >Animated circle with callback</a
+                          >
+                          as the base.
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/Q1jyGXvy9INMRG3Y?p=preview"
+                                target="_blank"
+                                data-plunk-id="Q1jyGXvy9INMRG3Y"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="callbacks.html"
+                data-tooltip="Introduction: callbacks"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="promise-chaining.html"
+                data-tooltip="Promises chaining"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fpromise-basics"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fpromise-basics"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="promise-basics.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/promise-basics",
+                    identifier: "\/promise-basics",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="async.html"
+                        >Promises, async/await</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   promise-basics.html#consumers-then-catch-finally"
+                        >Consumers: then, catch, finally</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   promise-basics.html#loadscript"
+                        >Example: loadScript</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="promise-basics.html#tasks"
+                        >Tasks (3)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   promise-basics.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fpromise-basics"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fpromise-basics"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/11-async/02-promise-basics"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Private and protected properties and methods</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="private-protected-properties-methods.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta
+      property="og:title"
+      content="Private and protected properties and methods"
+    />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Private and protected properties and methods"
+    />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="static-properties-methods.html" />
+    <link rel="next" href="extend-natives.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+ 
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta
+      property="og:title"
+      content="Private and protected properties and methods"
+    />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/private-protected-properties-methods"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="private-protected-properties-methods.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/private-protected-properties-methods"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/private-protected-properties-methods"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/private-protected-properties-methods"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/private-protected-properties-methods"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/private-protected-properties-methods"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=private-protected-properties-methods"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/private-protected-properties-methods"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/private-protected-properties-methods"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fprivate-protected-properties-methods"
+                  rel="nofollow"
+                ></a
+                >2Fprivate-protected-properties-methods"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option
+                  value="https://ar.javascript.info/private-protected-properties-methods"
+                >
+                  عربي
+                </option>
+                <option
+                  value="https://javascript.info/private-protected-properties-methods"
+                  selected
+                >
+                  English
+                </option>
+                <option
+                  value="https://es.javascript.info/private-protected-properties-methods"
+                >
+                  Español
+                </option>
+                <option
+                  value="https://fr.javascript.info/private-protected-properties-methods"
+                >
+                  Français
+                </option>
+                <option
+                  value="https://it.javascript.info/private-protected-properties-methods"
+                >
+                  Italiano
+                </option>
+                <option
+                  value="https://ja.javascript.info/private-protected-properties-methods"
+                >
+                  日本語
+                </option>
+                <option
+                  value="https://ko.javascript.info/private-protected-properties-methods"
+                >
+                  한국어
+                </option>
+                <option
+                  value=private-protected-properties-methods"
+         private-protected-properties-methods"
+       private-protected-properties-methods"
+   
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="69"
+          max="92"
+          data-tooltip="Lesson 69 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="classes.html"
+                        ><span>Classes</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Classes",
+                            "item": "https://javascript.info/classes"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 18th June 2021"
+                  >
+                    <div class="updated-at__content">18th June 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">
+                  Private and protected properties and methods
+                </h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta
+                  itemprop="name"
+                  content="Private and protected properties and methods"
+                />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    One of the most important principles of object oriented
+                    programming – delimiting internal interface from the
+                    external one.
+                  </p>
+                  <p>
+                    That is “a must” practice in developing anything more
+                    complex than a “hello world” app.
+                  </p>
+                  <p>
+                    To understand this, let’s break away from development and
+                    turn our eyes into the real world.
+                  </p>
+                  <p>
+                    Usually, devices that we’re using are quite complex. But
+                    delimiting the internal interface from the external one
+                    allows to use them without problems.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="a-real-life-example"
+                      href="private-protected-properties-methods.html#a-real-life-example"
+                      >A real-life example</a
+                    >
+                  </h2>
+                  <p>
+                    For instance, a coffee machine. Simple from outside: a
+                    button, a display, a few holes…And, surely, the result –
+                    great coffee! :)
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 240px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 166.66666666666669%"
+                      ></div>
+                      <img
+                        src="article/private-protected-properties-methods/coffee.jpg"
+                        alt=""
+                        width="240"
+                        height="400"
+                        class="image__image"
+                      />
+                    </div>
+                  </figure>
+                  <p>But inside… (a picture from the repair manual)</p>
+                  <figure>
+                    <div class="image" style="width: 239px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 167.36401673640165%"
+                      ></div>
+                      <img
+                        src="article/private-protected-properties-methods/coffee-inside.jpg"
+                        alt=""
+                        width="239"
+                        height="400"
+                        class="image__image"
+                      />
+                    </div>
+                  </figure>
+                  <p>
+                    A lot of details. But we can use it without knowing
+                    anything.
+                  </p>
+                  <p>
+                    Coffee machines are quite reliable, aren’t they? We can use
+                    one for years, and only if something goes wrong – bring it
+                    for repairs.
+                  </p>
+                  <p>
+                    The secret of reliability and simplicity of a coffee machine
+                    – all details are well-tuned and <em>hidden</em> inside.
+                  </p>
+                  <p>
+                    If we remove the protective cover from the coffee machine,
+                    then using it will be much more complex (where to press?),
+                    and dangerous (it can electrocute).
+                  </p>
+                  <p>
+                    As we’ll see, in programming objects are like coffee
+                    machines.
+                  </p>
+                  <p>
+                    But in order to hide inner details, we’ll use not a
+                    protective cover, but rather special syntax of the language
+                    and conventions.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="internal-and-external-interface"
+                      href="private-protected-properties-methods.html#internal-and-external-interface"
+                      >Internal and external interface</a
+                    >
+                  </h2>
+                  <p>
+                    In object-oriented programming, properties and methods are
+                    split into two groups:
+                  </p>
+                  <ul>
+                    <li>
+                      <em>Internal interface</em> – methods and properties,
+                      accessible from other methods of the class, but not from
+                      the outside.
+                    </li>
+                    <li>
+                      <em>External interface</em> – methods and properties,
+                      accessible also from outside the class.
+                    </li>
+                  </ul>
+                  <p>
+                    If we continue the analogy with the coffee machine – what’s
+                    hidden inside: a boiler tube, heating element, and so on –
+                    is its internal interface.
+                  </p>
+                  <p>
+                    An internal interface is used for the object to work, its
+                    details use each other. For instance, a boiler tube is
+                    attached to the heating element.
+                  </p>
+                  <p>
+                    But from the outside a coffee machine is closed by the
+                    protective cover, so that no one can reach those. Details
+                    are hidden and inaccessible. We can use its features via the
+                    external interface.
+                  </p>
+                  <p>
+                    So, all we need to use an object is to know its external
+                    interface. We may be completely unaware how it works inside,
+                    and that’s great.
+                  </p>
+                  <p>That was a general introduction.</p>
+                  <p>
+                    In JavaScript, there are two types of object fields
+                    (properties and methods):
+                  </p>
+                  <ul>
+                    <li>
+                      Public: accessible from anywhere. They comprise the
+                      external interface. Until now we were only using public
+                      properties and methods.
+                    </li>
+                    <li>
+                      Private: accessible only from inside the class. These are
+                      for the internal interface.
+                    </li>
+                  </ul>
+                  <p>
+                    In many other languages there also exist “protected” fields:
+                    accessible only from inside the class and those extending it
+                    (like private, but plus access from inheriting classes).
+                    They are also useful for the internal interface. They are in
+                    a sense more widespread than private ones, because we
+                    usually want inheriting classes to gain access to them.
+                  </p>
+                  <p>
+                    Protected fields are not implemented in JavaScript on the
+                    language level, but in practice they are very convenient, so
+                    they are emulated.
+                  </p>
+                  <p>
+                    Now we’ll make a coffee machine in JavaScript with all these
+                    types of properties. A coffee machine has a lot of details,
+                    we won’t model them to stay simple (though we could).
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="protecting-wateramount"
+                      href="private-protected-properties-methods.html#protecting-wateramount"
+                      >Protecting “waterAmount”</a
+                    >
+                  </h2>
+                  <p>Let’s make a simple coffee machine class first:</p>
+                  <div id="7um4cftxuv" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="private-protected-properties-methods.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="private-protected-properties-methods.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>class CoffeeMachine {
+  waterAmount = 0; // the amount of water inside
+
+  constructor(power) {
+    this.power = power;
+    alert( `Created a coffee-machine, power: ${power}` );
+  }
+
+}
+
+// create the coffee machine
+let coffeeMachine = new CoffeeMachine(100);
+
+// add water
+coffeeMachine.waterAmount = 200;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Right now the properties <code>waterAmount</code> and
+                    <code>power</code> are public. We can easily get/set them
+                    from the outside to any value.
+                  </p>
+                  <p>
+                    Let’s change <code>waterAmount</code> property to protected
+                    to have more control over it. For instance, we don’t want
+                    anyone to set it below zero.
+                  </p>
+                  <p>
+                    <strong
+                      >Protected properties are usually prefixed with an
+                      underscore <code>_</code>.</strong
+                    >
+                  </p>
+                  <p>
+                    That is not enforced on the language level, but there’s a
+                    well-known convention between programmers that such
+                    properties and methods should not be accessed from the
+                    outside.
+                  </p>
+                  <p>
+                    So our property will be called <code>_waterAmount</code>:
+                  </p>
+                  <div id="sdo9j3guu5" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="private-protected-properties-methods.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="private-protected-properties-methods.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>class CoffeeMachine {
+  _waterAmount = 0;
+
+  set waterAmount(value) {
+    if (value &lt; 0) {
+      value = 0;
+    }
+    this._waterAmount = value;
+  }
+
+  get waterAmount() {
+    return this._waterAmount;
+  }
+
+  constructor(power) {
+    this._power = power;
+  }
+
+}
+
+// create the coffee machine
+let coffeeMachine = new CoffeeMachine(100);
+
+// add water
+coffeeMachine.waterAmount = -10; // _waterAmount will become 0, not -10</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now the access is under control, so setting the water amount
+                    below zero becomes impossible.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="read-only-power"
+                      href="private-protected-properties-methods.html#read-only-power"
+                      >Read-only “power”</a
+                    >
+                  </h2>
+                  <p>
+                    For <code>power</code> property, let’s make it read-only. It
+                    sometimes happens that a property must be set at creation
+                    time only, and then never modified.
+                  </p>
+                  <p>
+                    That’s exactly the case for a coffee machine: power never
+                    changes.
+                  </p>
+                  <p>
+                    To do so, we only need to make getter, but not the setter:
+                  </p>
+                  <div id="bf1hrn5rnq" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="private-protected-properties-methods.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="private-protected-properties-methods.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>class CoffeeMachine {
+  // ...
+
+  constructor(power) {
+    this._power = power;
+  }
+
+  get power() {
+    return this._power;
+  }
+
+}
+
+// create the coffee machine
+let coffeeMachine = new CoffeeMachine(100);
+
+alert(`Power is: ${coffeeMachine.power}W`); // Power is: 100W
+
+coffeeMachine.power = 25; // Error (no setter)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Getter/setter functions</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>Here we used getter/setter syntax.</p>
+                      <p>
+                        But most of the time
+                        <code>get.../set...</code> functions are preferred, like
+                        this:
+                      </p>
+                      <div
+                        id="bdqna9l0sy"
+                        data-trusted="1"
+                        class="code-example"
+                        data-highlight='[{"start":8,"cols":[{"start":2,"end":18}]},{"start":3,"cols":[{"start":2,"end":23}]}]'
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>class CoffeeMachine {
+  _waterAmount = 0;
+
+  setWaterAmount(value) {
+    if (value &lt; 0) value = 0;
+    this._waterAmount = value;
+  }
+
+  getWaterAmount() {
+    return this._waterAmount;
+  }
+}
+
+new CoffeeMachine().setWaterAmount(100);</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        That looks a bit longer, but functions are more
+                        flexible. They can accept multiple arguments (even if we
+                        don’t need them right now).
+                      </p>
+                      <p>
+                        On the other hand, get/set syntax is shorter, so
+                        ultimately there’s no strict rule, it’s up to you to
+                        decide.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Protected fields are inherited</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        If we inherit
+                        <code>class MegaMachine extends CoffeeMachine</code>,
+                        then nothing prevents us from accessing
+                        <code>this._waterAmount</code> or
+                        <code>this._power</code> from the methods of the new
+                        class.
+                      </p>
+                      <p>
+                        So protected fields are naturally inheritable. Unlike
+                        private ones that we’ll see below.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="private-waterlimit"
+                      href="private-protected-properties-methods.html#private-waterlimit"
+                      >Private “#waterLimit”</a
+                    >
+                  </h2>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type">A recent addition</span>
+                    </div>
+                    <div class="important__content">
+                      This is a recent addition to the language. Not supported
+                      in JavaScript engines, or supported partially yet,
+                      requires polyfilling.
+                    </div>
+                  </div>
+                  <p>
+                    There’s a finished JavaScript proposal, almost in the
+                    standard, that provides language-level support for private
+                    properties and methods.
+                  </p>
+                  <p>
+                    Privates should start with <code>#</code>. They are only
+                    accessible from inside the class.
+                  </p>
+                  <p>
+                    For instance, here’s a private
+                    <code>#waterLimit</code> property and the water-checking
+                    private method <code>#fixWaterAmount</code>:
+                  </p>
+                  <div
+                    id="ulbce4smok"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":16,"end":18},{"start":3,"end":6},{"start":1,"end":1}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="private-protected-properties-methods.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="private-protected-properties-methods.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>class CoffeeMachine {
+  #waterLimit = 200;
+
+  #fixWaterAmount(value) {
+    if (value &lt; 0) return 0;
+    if (value &gt; this.#waterLimit) return this.#waterLimit;
+  }
+
+  setWaterAmount(value) {
+    this.#waterLimit = this.#fixWaterAmount(value);
+  }
+
+}
+
+let coffeeMachine = new CoffeeMachine();
+
+// can't access privates from outside of the class
+coffeeMachine.#fixWaterAmount(123); // Error
+coffeeMachine.#waterLimit = 1000; // Error</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    On the language level, <code>#</code> is a special sign that
+                    the field is private. We can’t access it from outside or
+                    from inheriting classes.
+                  </p>
+                  <p>
+                    Private fields do not conflict with public ones. We can have
+                    both private <code>#waterAmount</code> and public
+                    <code>waterAmount</code> fields at the same time.
+                  </p>
+                  <p>
+                    For instance, let’s make <code>waterAmount</code> an
+                    accessor for <code>#waterAmount</code>:
+                  </p>
+                  <div id="ct0xnqai1k" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="private-protected-properties-methods.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="private-protected-properties-methods.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>class CoffeeMachine {
+
+  #waterAmount = 0;
+
+  get waterAmount() {
+    return this.#waterAmount;
+  }
+
+  set waterAmount(value) {
+    if (value &lt; 0) value = 0;
+    this.#waterAmount = value;
+  }
+}
+
+let machine = new CoffeeMachine();
+
+machine.waterAmount = 100;
+alert(machine.#waterAmount); // Error</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Unlike protected ones, private fields are enforced by the
+                    language itself. That’s a good thing.
+                  </p>
+                  <p>
+                    But if we inherit from <code>CoffeeMachine</code>, then
+                    we’ll have no direct access to <code>#waterAmount</code>.
+                    We’ll need to rely on
+                    <code>waterAmount</code> getter/setter:
+                  </p>
+                  <div
+                    id="an4mzjt5z3"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":2,"end":2}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>class MegaCoffeeMachine extends CoffeeMachine {
+  method() {
+    alert( this.#waterAmount ); // Error: can only access from CoffeeMachine
+  }
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    In many scenarios such limitation is too severe. If we
+                    extend a <code>CoffeeMachine</code>, we may have legitimate
+                    reasons to access its internals. That’s why protected fields
+                    are used more often, even though they are not supported by
+                    the language syntax.
+                  </p>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Private fields are not available as this[name]</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>Private fields are special.</p>
+                      <p>
+                        As we know, usually we can access fields using
+                        <code>this[name]</code>:
+                      </p>
+                      <div
+                        id="wfu2umdno9"
+                        data-trusted="1"
+                        class="code-example"
+                        data-highlight='[{"start":4,"cols":[{"start":20,"end":35}]}]'
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>class User {
+  ...
+  sayHi() {
+    let fieldName = &quot;name&quot;;
+    alert(`Hello, ${this[fieldName]}`);
+  }
+}</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        With private fields that’s impossible:
+                        <code>this['#name']</code> doesn’t work. That’s a syntax
+                        limitation to ensure privacy.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="private-protected-properties-methods.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    In terms of OOP, delimiting of the internal interface from
+                    the external one is called
+                    <a
+                      href="https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)"
+                      >encapsulation</a
+                    >.
+                  </p>
+                  <p>It gives the following benefits:</p>
+                  <dl>
+                    <dt>
+                      Protection for users, so that they don’t shoot themselves
+                      in the foot
+                    </dt>
+                    <dd>
+                      <p>
+                        Imagine, there’s a team of developers using a coffee
+                        machine. It was made by the “Best CoffeeMachine”
+                        company, and works fine, but a protective cover was
+                        removed. So the internal interface is exposed.
+                      </p>
+                      <p>
+                        All developers are civilized – they use the coffee
+                        machine as intended. But one of them, John, decided that
+                        he’s the smartest one, and made some tweaks in the
+                        coffee machine internals. So the coffee machine failed
+                        two days later.
+                      </p>
+                      <p>
+                        That’s surely not John’s fault, but rather the person
+                        who removed the protective cover and let John do his
+                        manipulations.
+                      </p>
+                      <p>
+                        The same in programming. If a user of a class will
+                        change things not intended to be changed from the
+                        outside – the consequences are unpredictable.
+                      </p>
+                    </dd>
+                    <dt>Supportable</dt>
+                    <dd>
+                      <p>
+                        The situation in programming is more complex than with a
+                        real-life coffee machine, because we don’t just buy it
+                        once. The code constantly undergoes development and
+                        improvement.
+                      </p>
+                      <p>
+                        <strong
+                          >If we strictly delimit the internal interface, then
+                          the developer of the class can freely change its
+                          internal properties and methods, even without
+                          informing the users.</strong
+                        >
+                      </p>
+                      <p>
+                        If you’re a developer of such class, it’s great to know
+                        that private methods can be safely renamed, their
+                        parameters can be changed, and even removed, because no
+                        external code depends on them.
+                      </p>
+                      <p>
+                        For users, when a new version comes out, it may be a
+                        total overhaul internally, but still simple to upgrade
+                        if the external interface is the same.
+                      </p>
+                    </dd>
+                    <dt>Hiding complexity</dt>
+                    <dd>
+                      <p>
+                        People adore using things that are simple. At least from
+                        outside. What’s inside is a different thing.
+                      </p>
+                      <p>Programmers are not an exception.</p>
+                      <p>
+                        <strong
+                          >It’s always convenient when implementation details
+                          are hidden, and a simple, well-documented external
+                          interface is available.</strong
+                        >
+                      </p>
+                    </dd>
+                  </dl>
+                  <p>
+                    To hide an internal interface we use either protected or
+                    private properties:
+                  </p>
+                  <ul>
+                    <li>
+                      Protected fields start with <code>_</code>. That’s a
+                      well-known convention, not enforced at the language level.
+                      Programmers should only access a field starting with
+                      <code>_</code> from its class and classes inheriting from
+                      it.
+                    </li>
+                    <li>
+                      Private fields start with <code>#</code>. JavaScript makes
+                      sure we can only access those from inside the class.
+                    </li>
+                  </ul>
+                  <p>
+                    Right now, private fields are not well-supported among
+                    browsers, but can be polyfilled.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="static-properties-methods.html"
+                data-tooltip="Static properties and methods"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="extend-natives.html"
+                data-tooltip="Extending built-in classes"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fprivate-protected-properties-methods"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fprivate-protected-properties-methods"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a
+                    href="private-protected-properties-methods.html#comments"
+                    name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/private-protected-properties-methods",
+                    identifier: "\/private-protected-properties-methods",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="classes.html">Classes</a>
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   private-protected-properties-methods.html#a-real-life-example"
+                        >A real-life example</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   private-protected-properties-methods.html#internal-and-external-interface"
+                        >Internal and external interface</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   private-protected-properties-methods.html#protecting-wateramount"
+                        >Protecting “waterAmount”</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   private-protected-properties-methods.html#read-only-power"
+                        >Read-only “power”</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   private-protected-properties-methods.html#private-waterlimit"
+                        >Private “#waterLimit”</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   private-protected-properties-methods.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   private-protected-properties-methods.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fprivate-protected-properties-methods"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fprivate-protected-properties-methods"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/09-classes/04-private-protected-properties-methods"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

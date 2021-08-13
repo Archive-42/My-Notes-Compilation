@@ -4,15 +4,13 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>running-tests fd57a8a407254bae9d75d2cfbd405d95</title>
+  <title>running-tests_fd57a8a407254bae9d75d2cfbd405d95</title>
   <style type="text/css">
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
 </head>
 <body>
 <h1 id="running-tests">running-tests</h1>
@@ -38,9 +36,7 @@
 <h2 id="command-line-interface">Command Line Interface</h2>
 <p>When you run <code>npm test</code>, Jest will launch in watch mode*. Every time you save a file, it will re-run the tests, like how <code>npm start</code> recompiles the code.</p>
 <p>The watcher includes an interactive command-line interface with the ability to run all tests, or focus on a search pattern. It is designed this way so that you can keep it open and enjoy fast re-runs. You can learn the commands from the “Watch Usage” note that the watcher prints after every run:</p>
-<figure>
-<img src="https://jestjs.io/img/blog/15-watch.gif" alt="https://jestjs.io/img/blog/15-watch.gif" /><figcaption>https://jestjs.io/img/blog/15-watch.gif</figcaption>
-</figure>
+<p><img src="https://jestjs.io/img/blog/15-watch.gif" /></p>
 <p>Jest watch mode</p>
 <blockquote>
 <p>*Although we recommend running your tests in watch mode during development, you can disable this behavior by passing in the –watchAll=false flag. In most CI environments, this is handled for you (see On CI servers).</p>
@@ -89,7 +85,7 @@
 <p>Note: Keep in mind that if you decide to “eject” before creating src/setupTests.js, the resulting package.json file won’t contain any reference to it, so you should manually create the property setupFilesAfterEnv in the configuration for Jest, something like the following:</p>
 </blockquote>
 <blockquote>
-<p>“jest”: { // … “setupFilesAfterEnv”: [“<rootDir>/src/setupTests.js”] }</p>
+<p>“jest”: { // … “setupFilesAfterEnv”: [“/src/setupTests.js”] }</p>
 </blockquote>
 <h2 id="focusing-and-excluding-tests">Focusing and Excluding Tests</h2>
 <p>You can replace <code>it()</code> with <code>xit()</code> to temporarily exclude a test from being executed.</p>
@@ -97,9 +93,7 @@
 <h2 id="coverage-reporting">Coverage Reporting</h2>
 <p>Jest has an integrated coverage reporter that works well with ES6 and requires no configuration.</p>
 <p>Run <code>npm test -- --coverage</code> (note extra <code>--</code> in the middle) to include a coverage report like this:</p>
-<figure>
-<img src="https://i.imgur.com/5bFhnTS.png" alt="https://i.imgur.com/5bFhnTS.png" /><figcaption>https://i.imgur.com/5bFhnTS.png</figcaption>
-</figure>
+<p><img src="https://i.imgur.com/5bFhnTS.png" /></p>
 <p>coverage report</p>
 <p>Note that tests run much slower with coverage so it is recommended to run it separately from your normal workflow.</p>
 <h3 id="configuration">Configuration</h3>
@@ -137,6 +131,7 @@
 <li>Following the <a href="https://docs.travis-ci.com/user/getting-started/">Travis Getting started</a> guide for syncing your GitHub repository with Travis. You may need to initialize some settings manually in your <a href="https://travis-ci.org/profile">profile</a> page.</li>
 <li>Add a <code>.travis.yml</code> file to your git repository.</li>
 </ol>
+<!-- -->
 <pre><code>language: node_jsnode_js:  - 8cache:  directories:    - node_modulesscript:  - npm run build  - npm test</code></pre>
 <ol type="1">
 <li>Trigger your first build with a git push.</li>
@@ -146,15 +141,18 @@
 <p>Follow <a href="https://medium.com/@knowbody/circleci-and-zeits-now-sh-c9b7eebcd3c1">this article</a> to set up CircleCI with a Create React App project.</p>
 <h2 id="on-your-own-environment">On your own environment</h2>
 <h3 id="windows-cmd.exe">Windows (cmd.exe)</h3>
-<pre><code>set CI=true&amp;&amp;npm test</code></pre>
-<pre><code>set CI=true&amp;&amp;npm run build</code></pre>
+<pre><code>set CI=true&amp;&amp;npm test
+
+set CI=true&amp;&amp;npm run build</code></pre>
 <p>(Note: the lack of whitespace is intentional.)</p>
 <h3 id="windows-powershell">Windows (Powershell)</h3>
-<pre><code>($env:CI = &quot;true&quot;) -and (npm test)</code></pre>
-<pre><code>($env:CI = &quot;true&quot;) -and (npm run build)</code></pre>
+<pre><code>($env:CI = &quot;true&quot;) -and (npm test)
+
+($env:CI = &quot;true&quot;) -and (npm run build)</code></pre>
 <h3 id="linux-macos-bash">Linux, macOS (Bash)</h3>
-<pre><code>CI=true npm test</code></pre>
-<pre><code>CI=true npm run build</code></pre>
+<pre><code>CI=true npm test
+
+CI=true npm run build</code></pre>
 <p>The test command will force Jest to run in CI-mode, and tests will only run once instead of launching the watcher.</p>
 <p>For non-CI environments, you can pass the <code>--watchAll=false</code> flag to disable test-watching.</p>
 <p>The build command will check for linter warnings and fail if any are found.</p>
@@ -179,9 +177,7 @@
 <p>Snapshot testing is a feature of Jest that automatically generates text snapshots of your components and saves them on the disk so if the UI output changes, you get notified without manually writing any assertions on the component output. <a href="https://jestjs.io/blog/2016/07/27/jest-14.html">Read more about snapshot testing.</a></p>
 <h2 id="editor-integration">Editor Integration</h2>
 <p>If you use <a href="https://code.visualstudio.com/">Visual Studio Code</a>, there is a <a href="https://github.com/orta/vscode-jest">Jest extension</a> which works with Create React App out of the box. This provides a lot of IDE-like features while using a text editor: showing the status of a test run with potential fail messages inline, starting and stopping the watcher automatically, and offering one-click snapshot updates.</p>
-<figure>
-<img src="https://cloud.githubusercontent.com/assets/49038/20795349/a032308a-b7c8-11e6-9b34-7eeac781003f.png" alt="https://cloud.githubusercontent.com/assets/49038/20795349/a032308a-b7c8-11e6-9b34-7eeac781003f.png" /><figcaption>https://cloud.githubusercontent.com/assets/49038/20795349/a032308a-b7c8-11e6-9b34-7eeac781003f.png</figcaption>
-</figure>
+<p><img src="https://cloud.githubusercontent.com/assets/49038/20795349/a032308a-b7c8-11e6-9b34-7eeac781003f.png" /></p>
 <p>VS Code Jest Preview</p>
 </body>
 </html>

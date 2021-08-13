@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">XMLHttpRequest</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="xmlhttprequest.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="XMLHttpRequest" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+
+    <meta name="twitter:title" content="XMLHttpRequest" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="url.html" />
+    <link rel="next" href="resume-upload.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="XMLHttpRequest" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="xmlhttprequest.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/xmlhttprequest"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/xmlhttprequest"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/xmlhttprequest"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/xmlhttprequest"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=xmlhttprequest"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/xmlhttprequest"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/xmlhttprequest"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fxmlhttprequest"
+                  rel="nofollow"
+                ></a
+                >2Fxmlhttprequest"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option value="https://javascript.info/xmlhttprequest" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/xmlhttprequest">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/xmlhttprequest">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/xmlhttprequest">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/xmlhttprequest">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/">한국어</option>
+                <option value=xmlhttprequest">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/xmlhttprequest">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/xmlhttprequest">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="8"
+          max="12"
+          data-tooltip="Lesson 8 of 12"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="network.html"
+                        ><span>Network requests</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Network requests",
+                            "item": "https://javascript.info/network"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 5th December 2020"
+                  >
+                    <div class="updated-at__content">5th December 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">XMLHttpRequest</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="XMLHttpRequest" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    <code>XMLHttpRequest</code> is a built-in browser object
+                    that allows to make HTTP requests in JavaScript.
+                  </p>
+                  <p>
+                    Despite of having the word “XML” in its name, it can operate
+                    on any data, not only in XML format. We can upload/download
+                    files, track progress and much more.
+                  </p>
+                  <p>
+                    Right now, there’s another, more modern method
+                    <code>fetch</code>, that somewhat deprecates
+                    <code>XMLHttpRequest</code>.
+                  </p>
+                  <p>
+                    In modern web-development <code>XMLHttpRequest</code> is
+                    used for three reasons:
+                  </p>
+                  <ol>
+                    <li>
+                      Historical reasons: we need to support existing scripts
+                      with <code>XMLHttpRequest</code>.
+                    </li>
+                    <li>
+                      We need to support old browsers, and don’t want polyfills
+                      (e.g. to keep scripts tiny).
+                    </li>
+                    <li>
+                      We need something that <code>fetch</code> can’t do yet,
+                      e.g. to track upload progress.
+                    </li>
+                  </ol>
+                  <p>
+                    Does that sound familiar? If yes, then all right, go on with
+                    <code>XMLHttpRequest</code>. Otherwise, please head on to
+                    <a href="fetch.html">Fetch</a>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="the-basics"
+                      href="xmlhttprequest.html#the-basics"
+                      >The basics</a
+                    >
+                  </h2>
+                  <p>
+                    XMLHttpRequest has two modes of operation: synchronous and
+                    asynchronous.
+                  </p>
+                  <p>
+                    Let’s see the asynchronous first, as it’s used in the
+                    majority of cases.
+                  </p>
+                  <p>To do the request, we need 3 steps:</p>
+                  <ol>
+                    <li>
+                      <p>Create <code>XMLHttpRequest</code>:</p>
+                      <div
+                        id="jerpklbjgc"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let xhr = new XMLHttpRequest();</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>The constructor has no arguments.</p>
+                    </li>
+                    <li>
+                      <p>
+                        Initialize it, usually right after
+                        <code>new XMLHttpRequest</code>:
+                      </p>
+                      <div
+                        id="fnwlkdzx47"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>xhr.open(method, URL, [async, user, password])</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        This method specifies the main parameters of the
+                        request:
+                      </p>
+                      <ul>
+                        <li>
+                          <code>method</code> – HTTP-method. Usually
+                          <code>&quot;GET&quot;</code> or
+                          <code>&quot;POST&quot;</code>.
+                        </li>
+                        <li>
+                          <code>URL</code> – the URL to request, a string, can
+                          be <a href="url.html">URL</a> object.
+                        </li>
+                        <li>
+                          <code>async</code> – if explicitly set to
+                          <code>false</code>, then the request is synchronous,
+                          we’ll cover that a bit later.
+                        </li>
+                        <li>
+                          <code>user</code>, <code>password</code> – login and
+                          password for basic HTTP auth (if required).
+                        </li>
+                      </ul>
+                      <p>
+                        Please note that <code>open</code> call, contrary to its
+                        name, does not open the connection. It only configures
+                        the request, but the network activity only starts with
+                        the call of <code>send</code>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>Send it out.</p>
+                      <div
+                        id="lqw7oghof8"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>xhr.send([body])</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        This method opens the connection and sends the request
+                        to server. The optional <code>body</code> parameter
+                        contains the request body.
+                      </p>
+                      <p>
+                        Some request methods like <code>GET</code> do not have a
+                        body. And some of them like <code>POST</code> use
+                        <code>body</code> to send the data to the server. We’ll
+                        see examples of that later.
+                      </p>
+                    </li>
+                    <li>
+                      <p>Listen to <code>xhr</code> events for response.</p>
+                      <p>These three events are the most widely used:</p>
+                      <ul>
+                        <li>
+                          <code>load</code> – when the request is complete (even
+                          if HTTP status is like 400 or 500), and the response
+                          is fully downloaded.
+                        </li>
+                        <li>
+                          <code>error</code> – when the request couldn’t be
+                          made, e.g. network down or invalid URL.
+                        </li>
+                        <li>
+                          <code>progress</code> – triggers periodically while
+                          the response is being downloaded, reports how much has
+                          been downloaded.
+                        </li>
+                      </ul>
+                      <div
+                        id="85lyjcq8wn"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>xhr.onload = function() {
+  alert(`Loaded: ${xhr.status} ${xhr.response}`);
+};
+
+xhr.onerror = function() { // only triggers if the request couldn't be made at all
+  alert(`Network Error`);
+};
+
+xhr.onprogress = function(event) { // triggers periodically
+  // event.loaded - how many bytes downloaded
+  // event.lengthComputable = true if the server sent Content-Length header
+  // event.total - total number of bytes (if lengthComputable)
+  alert(`Received ${event.loaded} of ${event.total}`);
+};</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ol>
+                  <p>
+                    Here’s a full example. The code below loads the URL at
+                    <code>/article/xmlhttprequest/example/load</code> from the
+                    server and prints the progress:
+                  </p>
+                  <div id="qmtpd5qzvs" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="xmlhttprequest.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="xmlhttprequest.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 1. Create a new XMLHttpRequest object
+let xhr = new XMLHttpRequest();
+
+// 2. Configure it: GET-request for the URL /article/.../load
+xhr.open('GET', '/article/xmlhttprequest/example/load');
+
+// 3. Send the request over the network
+xhr.send();
+
+// 4. This will be called after the response is received
+xhr.onload = function() {
+  if (xhr.status != 200) { // analyze HTTP status of the response
+    alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
+  } else { // show the result
+    alert(`Done, got ${xhr.response.length} bytes`); // response is the server response
+  }
+};
+
+xhr.onprogress = function(event) {
+  if (event.lengthComputable) {
+    alert(`Received ${event.loaded} of ${event.total} bytes`);
+  } else {
+    alert(`Received ${event.loaded} bytes`); // no Content-Length
+  }
+
+};
+
+xhr.onerror = function() {
+  alert(&quot;Request failed&quot;);
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Once the server has responded, we can receive the result in
+                    the following <code>xhr</code> properties:
+                  </p>
+                  <dl>
+                    <dt><code>status</code></dt>
+                    <dd>
+                      HTTP status code (a number): <code>200</code>,
+                      <code>404</code>, <code>403</code> and so on, can be
+                      <code>0</code> in case of a non-HTTP failure.
+                    </dd>
+                    <dt><code>statusText</code></dt>
+                    <dd>
+                      HTTP status message (a string): usually
+                      <code>OK</code> for <code>200</code>,
+                      <code>Not Found</code> for <code>404</code>,
+                      <code>Forbidden</code> for <code>403</code> and so on.
+                    </dd>
+                    <dt>
+                      <code>response</code> (old scripts may use
+                      <code>responseText</code>)
+                    </dt>
+                    <dd>The server response body.</dd>
+                  </dl>
+                  <p>
+                    We can also specify a timeout using the corresponding
+                    property:
+                  </p>
+                  <div id="3rc1y2f1at" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>xhr.timeout = 10000; // timeout in ms, 10 seconds</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    If the request does not succeed within the given time, it
+                    gets canceled and <code>timeout</code> event triggers.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">URL search parameters</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        To add parameters to URL, like <code>?name=value</code>,
+                        and ensure the proper encoding, we can use
+                        <a href="url.html">URL</a> object:
+                      </p>
+                      <div
+                        id="g6y82y7aca"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let url = new URL('https://google.com/search');
+url.searchParams.set('q', 'test me!');
+
+// the parameter 'q' is encoded
+xhr.open('GET', url); // https://google.com/search?q=test+me%21</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="response-type"
+                      href="xmlhttprequest.html#response-type"
+                      >Response Type</a
+                    >
+                  </h2>
+                  <p>
+                    We can use <code>xhr.responseType</code> property to set the
+                    response format:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>&quot;&quot;</code> (default) – get as string,
+                    </li>
+                    <li><code>&quot;text&quot;</code> – get as string,</li>
+                    <li>
+                      <code>&quot;arraybuffer&quot;</code> – get as
+                      <code>ArrayBuffer</code> (for binary data, see chapter
+                      <a href="arraybuffer-binary-arrays.html"
+                        >ArrayBuffer, binary arrays</a
+                      >),
+                    </li>
+                    <li>
+                      <code>&quot;blob&quot;</code> – get as
+                      <code>Blob</code> (for binary data, see chapter
+                      <a href="blob.html">Blob</a>),
+                    </li>
+                    <li>
+                      <code>&quot;document&quot;</code> – get as XML document
+                      (can use XPath and other XML methods) or HTML document
+                      (based on the MIME type of the received data),
+                    </li>
+                    <li>
+                      <code>&quot;json&quot;</code> – get as JSON (parsed
+                      automatically).
+                    </li>
+                  </ul>
+                  <p>For example, let’s get the response as JSON:</p>
+                  <div
+                    id="2ejismx9h5"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"end":4}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="xmlhttprequest.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="xmlhttprequest.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let xhr = new XMLHttpRequest();
+
+xhr.open('GET', '/article/xmlhttprequest/example/json');
+
+xhr.responseType = 'json';
+
+xhr.send();
+
+// the response is {&quot;message&quot;: &quot;Hello, world!&quot;}
+xhr.onload = function() {
+  let responseObj = xhr.response;
+  alert(responseObj.message); // Hello, world!
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Please note:</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        In the old scripts you may also find
+                        <code>xhr.responseText</code> and even
+                        <code>xhr.responseXML</code> properties.
+                      </p>
+                      <p>
+                        They exist for historical reasons, to get either a
+                        string or XML document. Nowadays, we should set the
+                        format in <code>xhr.responseType</code> and get
+                        <code>xhr.response</code> as demonstrated above.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="ready-states"
+                      href="xmlhttprequest.html#ready-states"
+                      >Ready states</a
+                    >
+                  </h2>
+                  <p>
+                    <code>XMLHttpRequest</code> changes between states as it
+                    progresses. The current state is accessible as
+                    <code>xhr.readyState</code>.
+                  </p>
+                  <p>
+                    All states, as in
+                    <a href="https://xhr.spec.whatwg.org/#states"
+                      >the specification</a
+                    >:
+                  </p>
+                  <div id="xj5znq394d" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>UNSENT = 0; // initial state
+OPENED = 1; // open called
+HEADERS_RECEIVED = 2; // response headers received
+LOADING = 3; // response is loading (a data packet is received)
+DONE = 4; // request complete</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    An <code>XMLHttpRequest</code> object travels them in the
+                    order <code>0</code> → <code>1</code> → <code>2</code> →
+                    <code>3</code> → … → <code>3</code> → <code>4</code>. State
+                    <code>3</code> repeats every time a data packet is received
+                    over the network.
+                  </p>
+                  <p>
+                    We can track them using <code>readystatechange</code> event:
+                  </p>
+                  <div id="7dbkzj2kpm" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>xhr.onreadystatechange = function() {
+  if (xhr.readyState == 3) {
+    // loading
+  }
+  if (xhr.readyState == 4) {
+    // request finished
+  }
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    You can find <code>readystatechange</code> listeners in
+                    really old code, it’s there for historical reasons, as there
+                    was a time when there were no <code>load</code> and other
+                    events. Nowadays, <code>load/error/progress</code> handlers
+                    deprecate it.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="aborting-request"
+                      href="xmlhttprequest.html#aborting-request"
+                      >Aborting request</a
+                    >
+                  </h2>
+                  <p>
+                    We can terminate the request at any time. The call to
+                    <code>xhr.abort()</code> does that:
+                  </p>
+                  <div id="pq10vxth6d" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>xhr.abort(); // terminate the request</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    That triggers <code>abort</code> event, and
+                    <code>xhr.status</code> becomes <code>0</code>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="synchronous-requests"
+                      href="xmlhttprequest.html#synchronous-requests"
+                      >Synchronous requests</a
+                    >
+                  </h2>
+                  <p>
+                    If in the <code>open</code> method the third parameter
+                    <code>async</code> is set to <code>false</code>, the request
+                    is made synchronously.
+                  </p>
+                  <p>
+                    In other words, JavaScript execution pauses at
+                    <code>send()</code> and resumes when the response is
+                    received. Somewhat like <code>alert</code> or
+                    <code>prompt</code> commands.
+                  </p>
+                  <p>
+                    Here’s the rewritten example, the 3rd parameter of
+                    <code>open</code> is <code>false</code>:
+                  </p>
+                  <div
+                    id="qcunt44huy"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":2,"cols":[{"start":53,"end":58}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let xhr = new XMLHttpRequest();
+
+xhr.open('GET', '/article/xmlhttprequest/hello.txt', false);
+
+try {
+  xhr.send();
+  if (xhr.status != 200) {
+    alert(`Error ${xhr.status}: ${xhr.statusText}`);
+  } else {
+    alert(xhr.response);
+  }
+} catch(err) { // instead of onerror
+  alert(&quot;Request failed&quot;);
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    It might look good, but synchronous calls are used rarely,
+                    because they block in-page JavaScript till the loading is
+                    complete. In some browsers it becomes impossible to scroll.
+                    If a synchronous call takes too much time, the browser may
+                    suggest to close the “hanging” webpage.
+                  </p>
+                  <p>
+                    Many advanced capabilities of <code>XMLHttpRequest</code>,
+                    like requesting from another domain or specifying a timeout,
+                    are unavailable for synchronous requests. Also, as you can
+                    see, no progress indication.
+                  </p>
+                  <p>
+                    Because of all that, synchronous requests are used very
+                    sparingly, almost never. We won’t talk about them any more.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="http-headers"
+                      href="xmlhttprequest.html#http-headers"
+                      >HTTP-headers</a
+                    >
+                  </h2>
+                  <p>
+                    <code>XMLHttpRequest</code> allows both to send custom
+                    headers and read headers from the response.
+                  </p>
+                  <p>There are 3 methods for HTTP-headers:</p>
+                  <dl>
+                    <dt><code>setRequestHeader(name, value)</code></dt>
+                    <dd>
+                      <p>
+                        Sets the request header with the given
+                        <code>name</code> and <code>value</code>.
+                      </p>
+                      <p>For instance:</p>
+                      <div
+                        id="buazeueokq"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>xhr.setRequestHeader('Content-Type', 'application/json');</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="important important_warn">
+                        <div class="important__header">
+                          <span class="important__type"
+                            >Headers limitations</span
+                          >
+                        </div>
+                        <div class="important__content">
+                          <p>
+                            Several headers are managed exclusively by the
+                            browser, e.g. <code>Referer</code> and
+                            <code>Host</code>. The full list is
+                            <a
+                              href="https://xhr.spec.whatwg.org/#the-setrequestheader()-method"
+                              >in the specification</a
+                            >.
+                          </p>
+                          <p>
+                            <code>XMLHttpRequest</code> is not allowed to change
+                            them, for the sake of user safety and correctness of
+                            the request.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="important important_warn">
+                        <div class="important__header">
+                          <span class="important__type"
+                            >Can’t remove a header</span
+                          >
+                        </div>
+                        <div class="important__content">
+                          <p>
+                            Another peculiarity of
+                            <code>XMLHttpRequest</code> is that one can’t undo
+                            <code>setRequestHeader</code>.
+                          </p>
+                          <p>
+                            Once the header is set, it’s set. Additional calls
+                            add information to the header, don’t overwrite it.
+                          </p>
+                          <p>For instance:</p>
+                          <div
+                            id="lms7v2jrtm"
+                            data-trusted="1"
+                            class="code-example"
+                          >
+                            <div class="codebox code-example__codebox">
+                              <div class="codebox__code" data-code="1">
+                                <pre
+                                  class="line-numbers language-javascript"
+                                ><code>xhr.setRequestHeader('X-Auth', '123');
+xhr.setRequestHeader('X-Auth', '456');
+
+// the header will be:
+// X-Auth: 123, 456</code></pre>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </dd>
+                    <dt><code>getResponseHeader(name)</code></dt>
+                    <dd>
+                      <p>
+                        Gets the response header with the given
+                        <code>name</code> (except <code>Set-Cookie</code> and
+                        <code>Set-Cookie2</code>).
+                      </p>
+                      <p>For instance:</p>
+                      <div
+                        id="bmslvzk627"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>xhr.getResponseHeader('Content-Type')</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </dd>
+                    <dt><code>getAllResponseHeaders()</code></dt>
+                    <dd>
+                      <p>
+                        Returns all response headers, except
+                        <code>Set-Cookie</code> and <code>Set-Cookie2</code>.
+                      </p>
+                      <p>Headers are returned as a single line, e.g.:</p>
+                      <div
+                        id="unkz5htt3i"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-http"
+                            ><code>Cache-Control: max-age=31536000
+Content-Length: 4260
+Content-Type: image/png
+Date: Sat, 08 Sep 2012 16:53:16 GMT</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        The line break between headers is always
+                        <code>&quot;\r\n&quot;</code> (doesn’t depend on OS), so
+                        we can easily split it into individual headers. The
+                        separator between the name and the value is always a
+                        colon followed by a space <code>&quot;: &quot;</code>.
+                        That’s fixed in the specification.
+                      </p>
+                      <p>
+                        So, if we want to get an object with name/value pairs,
+                        we need to throw in a bit JS.
+                      </p>
+                      <p>
+                        Like this (assuming that if two headers have the same
+                        name, then the latter one overwrites the former one):
+                      </p>
+                      <div
+                        id="0efksya3bc"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>let headers = xhr
+  .getAllResponseHeaders()
+  .split('\r\n')
+  .reduce((result, current) =&gt; {
+    let [name, value] = current.split(': ');
+    result[name] = value;
+    return result;
+  }, {});
+
+// headers['Content-Type'] = 'image/png'</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </dd>
+                  </dl>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="post-formdata"
+                      href="xmlhttprequest.html#post-formdata"
+                      >POST, FormData</a
+                    >
+                  </h2>
+                  <p>
+                    To make a POST request, we can use the built-in
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/API/FormData"
+                      >FormData</a
+                    >
+                    object.
+                  </p>
+                  <p>The syntax:</p>
+                  <div id="op954zvs6r" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let formData = new FormData([form]); // creates an object, optionally fill from &lt;form&gt;
+formData.append(name, value); // appends a field</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We create it, optionally fill from a form,
+                    <code>append</code> more fields if needed, and then:
+                  </p>
+                  <ol>
+                    <li>
+                      <code>xhr.open('POST', ...)</code> – use
+                      <code>POST</code> method.
+                    </li>
+                    <li>
+                      <code>xhr.send(formData)</code> to submit the form to the
+                      server.
+                    </li>
+                  </ol>
+                  <p>For instance:</p>
+                  <div
+                    id="ebu5yzb3fw"
+                    data-trusted="1"
+                    class="code-example"
+                    data-refresh="1"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="xmlhttprequest.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="xmlhttprequest.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;form name=&quot;person&quot;&gt;
+  &lt;input name=&quot;name&quot; value=&quot;John&quot;&gt;
+  &lt;input name=&quot;surname&quot; value=&quot;Smith&quot;&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+  // pre-fill FormData from the form
+  let formData = new FormData(document.forms.person);
+
+  // add one more field
+  formData.append(&quot;middle&quot;, &quot;Lee&quot;);
+
+  // send it out
+  let xhr = new XMLHttpRequest();
+  xhr.open(&quot;POST&quot;, &quot;/article/xmlhttprequest/post/user&quot;);
+  xhr.send(formData);
+
+  xhr.onload = () =&gt; alert(xhr.response);
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The form is sent with
+                    <code>multipart/form-data</code> encoding.
+                  </p>
+                  <p>
+                    Or, if we like JSON more, then
+                    <code>JSON.stringify</code> and send as a string.
+                  </p>
+                  <p>
+                    Just don’t forget to set the header
+                    <code>Content-Type: application/json</code>, many
+                    server-side frameworks automatically decode JSON with it:
+                  </p>
+                  <div id="toe7q0swl2" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let xhr = new XMLHttpRequest();
+
+let json = JSON.stringify({
+  name: &quot;John&quot;,
+  surname: &quot;Smith&quot;
+});
+
+xhr.open(&quot;POST&quot;, '/submit')
+xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+xhr.send(json);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The <code>.send(body)</code> method is pretty omnivore. It
+                    can send almost any <code>body</code>, including
+                    <code>Blob</code> and <code>BufferSource</code> objects.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="upload-progress"
+                      href="xmlhttprequest.html#upload-progress"
+                      >Upload progress</a
+                    >
+                  </h2>
+                  <p>
+                    The <code>progress</code> event triggers only on the
+                    downloading stage.
+                  </p>
+                  <p>
+                    That is: if we <code>POST</code> something,
+                    <code>XMLHttpRequest</code> first uploads our data (the
+                    request body), then downloads the response.
+                  </p>
+                  <p>
+                    If we’re uploading something big, then we’re surely more
+                    interested in tracking the upload progress. But
+                    <code>xhr.onprogress</code> doesn’t help here.
+                  </p>
+                  <p>
+                    There’s another object, without methods, exclusively to
+                    track upload events: <code>xhr.upload</code>.
+                  </p>
+                  <p>
+                    It generates events, similar to <code>xhr</code>, but
+                    <code>xhr.upload</code> triggers them solely on uploading:
+                  </p>
+                  <ul>
+                    <li><code>loadstart</code> – upload started.</li>
+                    <li>
+                      <code>progress</code> – triggers periodically during the
+                      upload.
+                    </li>
+                    <li><code>abort</code> – upload aborted.</li>
+                    <li><code>error</code> – non-HTTP error.</li>
+                    <li><code>load</code> – upload finished successfully.</li>
+                    <li>
+                      <code>timeout</code> – upload timed out (if
+                      <code>timeout</code> property is set).
+                    </li>
+                    <li>
+                      <code>loadend</code> – upload finished with either success
+                      or error.
+                    </li>
+                  </ul>
+                  <p>Example of handlers:</p>
+                  <div id="937y3lz6ga" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>xhr.upload.onprogress = function(event) {
+  alert(`Uploaded ${event.loaded} of ${event.total} bytes`);
+};
+
+xhr.upload.onload = function() {
+  alert(`Upload finished successfully.`);
+};
+
+xhr.upload.onerror = function() {
+  alert(`Error during the upload: ${xhr.status}`);
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here’s a real-life example: file upload with progress
+                    indication:
+                  </p>
+                  <div
+                    id="yc6st1ucah"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":7,"end":9}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="xmlhttprequest.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="xmlhttprequest.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;input type=&quot;file&quot; onchange=&quot;upload(this.files[0])&quot;&gt;
+
+&lt;script&gt;
+function upload(file) {
+  let xhr = new XMLHttpRequest();
+
+  // track upload progress
+  xhr.upload.onprogress = function(event) {
+    console.log(`Uploaded ${event.loaded} of ${event.total}`);
+  };
+
+  // track completion: both successful or not
+  xhr.onloadend = function() {
+    if (xhr.status == 200) {
+      console.log(&quot;success&quot;);
+    } else {
+      console.log(&quot;error &quot; + this.status);
+    }
+  };
+
+  xhr.open(&quot;POST&quot;, &quot;/article/xmlhttprequest/post/upload&quot;);
+  xhr.send(file);
+}
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="cross-origin-requests"
+                      href="xmlhttprequest.html#cross-origin-requests"
+                      >Cross-origin requests</a
+                    >
+                  </h2>
+                  <p>
+                    <code>XMLHttpRequest</code> can make cross-origin requests,
+                    using the same CORS policy as
+                    <a href="fetch-crossorigin.html">fetch</a>.
+                  </p>
+                  <p>
+                    Just like <code>fetch</code>, it doesn’t send cookies and
+                    HTTP-authorization to another origin by default. To enable
+                    them, set <code>xhr.withCredentials</code> to
+                    <code>true</code>:
+                  </p>
+                  <div
+                    id="m2zsuwmiml"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":1,"end":1}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.open('POST', 'http://anywhere.com/request');
+...</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    See the chapter
+                    <a href="fetch-crossorigin.html"
+                      >Fetch: Cross-Origin Requests</a
+                    >
+                    for details about cross-origin headers.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="xmlhttprequest.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    Typical code of the GET-request with
+                    <code>XMLHttpRequest</code>:
+                  </p>
+                  <div id="vjgnufyqlx" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let xhr = new XMLHttpRequest();
+
+xhr.open('GET', '/my/url');
+
+xhr.send();
+
+xhr.onload = function() {
+  if (xhr.status != 200) { // HTTP error?
+    // handle error
+    alert( 'Error: ' + xhr.status);
+    return;
+  }
+
+  // get the response from xhr.response
+};
+
+xhr.onprogress = function(event) {
+  // report progress
+  alert(`Loaded ${event.loaded} of ${event.total}`);
+};
+
+xhr.onerror = function() {
+  // handle non-HTTP error (e.g. network down)
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    There are actually more events, the
+                    <a href="https://xhr.spec.whatwg.org/#events"
+                      >modern specification</a
+                    >
+                    lists them (in the lifecycle order):
+                  </p>
+                  <ul>
+                    <li><code>loadstart</code> – the request has started.</li>
+                    <li>
+                      <code>progress</code> – a data packet of the response has
+                      arrived, the whole response body at the moment is in
+                      <code>response</code>.
+                    </li>
+                    <li>
+                      <code>abort</code> – the request was canceled by the call
+                      <code>xhr.abort()</code>.
+                    </li>
+                    <li>
+                      <code>error</code> – connection error has occurred, e.g.
+                      wrong domain name. Doesn’t happen for HTTP-errors like
+                      404.
+                    </li>
+                    <li>
+                      <code>load</code> – the request has finished successfully.
+                    </li>
+                    <li>
+                      <code>timeout</code> – the request was canceled due to
+                      timeout (only happens if it was set).
+                    </li>
+                    <li>
+                      <code>loadend</code> – triggers after <code>load</code>,
+                      <code>error</code>, <code>timeout</code> or
+                      <code>abort</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    The <code>error</code>, <code>abort</code>,
+                    <code>timeout</code>, and <code>load</code> events are
+                    mutually exclusive. Only one of them may happen.
+                  </p>
+                  <p>
+                    The most used events are load completion
+                    (<code>load</code>), load failure (<code>error</code>), or
+                    we can use a single <code>loadend</code> handler and check
+                    the properties of the request object <code>xhr</code> to see
+                    what happened.
+                  </p>
+                  <p>
+                    We’ve already seen another event:
+                    <code>readystatechange</code>. Historically, it appeared
+                    long ago, before the specification settled. Nowadays,
+                    there’s no need to use it, we can replace it with newer
+                    events, but it can often be found in older scripts.
+                  </p>
+                  <p>
+                    If we need to track uploading specifically, then we should
+                    listen to same events on <code>xhr.upload</code> object.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="url.html"
+                data-tooltip="URL objects"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="resume-upload.html"
+                data-tooltip="Resumable file upload"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fxmlhttprequest"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fxmlhttprequest"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="xmlhttprequest.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/xmlhttprequest",
+                    identifier: "\/xmlhttprequest",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="network.html"
+                        >Network requests</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   xmlhttprequest.html#the-basics"
+                        >The basics</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   xmlhttprequest.html#response-type"
+                        >Response Type</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   xmlhttprequest.html#ready-states"
+                        >Ready states</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   xmlhttprequest.html#aborting-request"
+                        >Aborting request</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   xmlhttprequest.html#synchronous-requests"
+                        >Synchronous requests</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   xmlhttprequest.html#http-headers"
+                        >HTTP-headers</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   xmlhttprequest.html#post-formdata"
+                        >POST, FormData</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   xmlhttprequest.html#upload-progress"
+                        >Upload progress</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   xmlhttprequest.html#cross-origin-requests"
+                        >Cross-origin requests</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   xmlhttprequest.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   xmlhttprequest.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fxmlhttprequest"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fxmlhttprequest"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/08-xmlhttprequest"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

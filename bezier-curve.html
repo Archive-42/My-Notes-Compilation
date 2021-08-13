@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Bezier curve</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="bezier-curve.html" />
+
+    <link rel="icon" href="img/favicon/favicon.png" />
+  
+    <meta property="og:title" content="Bezier curve" />
+
+
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Bezier curve" />
+
+
+    <link rel="prev" href="animation.html" />
+    <link rel="next" href="css-animations.html" />
+
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Bezier curve" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/bezier-curve"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="bezier-curve.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/bezier-curve"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                    "
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/bezier-curve"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/bezier-curve"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/bezier-curve"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=bezier-curve"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/bezier-curve"</a
+            >
+
+
+   
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fbezier-curve"
+                  rel="nofollow"
+                ></a
+                >2Fbezier-curve
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/bezier-curve">
+                  عربي
+                </option>
+                <option value="https://javascript.info/bezier-curve" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/bezier-curve">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/">Français</option>
+                <option value="https://it.javascript.info/bezier-curve">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/bezier-curve">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/bezier-curve">
+                  한국어
+                </option>
+                <option value=bezier-curve">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/">Türkçe</option>
+                <option value="https://zh.javascript.info/bezier-curve">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="1"
+          max="3"
+          data-tooltip="Lesson 1 of 3"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="animation.html"
+                        ><span>Animation</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Animation",
+                            "item": "https://javascript.info/animation"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 3rd December 2020"
+                  >
+                    <div class="updated-at__content">3rd December 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Bezier curve</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Bezier curve" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Bezier curves are used in computer graphics to draw shapes,
+                    for CSS animation and in many other places.
+                  </p>
+                  <p>
+                    They are a very simple thing, worth to study once and then
+                    feel comfortable in the world of vector graphics and
+                    advanced animations.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="control-points"
+                      href="bezier-curve.html#control-points"
+                      >Control points</a
+                    >
+                  </h2>
+                  <p>
+                    A
+                    <a href="https://en.wikipedia.org/wiki/B%C3%A9zier_curve"
+                      >bezier curve</a
+                    >
+                    is defined by control points.
+                  </p>
+                  <p>There may be 2, 3, 4 or more.</p>
+                  <p>For instance, two points curve:</p>
+                  <figure>
+                    <div class="image" style="width: 149px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 125.503355704698%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/bezier-curve/bezier2.svg"
+                        width="149"
+                        height="187"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/bezier-curve/bezier2.svg"
+                          alt=""
+                          width="149"
+                          height="187"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>Three points curve:</p>
+                  <figure>
+                    <div class="image" style="width: 149px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 125.503355704698%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/bezier-curve/bezier3.svg"
+                        width="149"
+                        height="187"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/bezier-curve/bezier3.svg"
+                          alt=""
+                          width="149"
+                          height="187"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>Four points curve:</p>
+                  <figure>
+                    <div class="image" style="width: 149px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 125.503355704698%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/bezier-curve/bezier4.svg"
+                        width="149"
+                        height="187"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/bezier-curve/bezier4.svg"
+                          alt=""
+                          width="149"
+                          height="187"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    If you look closely at these curves, you can immediately
+                    notice:
+                  </p>
+                  <ol>
+                    <li>
+                      <p>
+                        <strong>Points are not always on curve.</strong> That’s
+                        perfectly normal, later we’ll see how the curve is
+                        built.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong
+                          >The curve order equals the number of points minus
+                          one</strong
+                        >. For two points we have a linear curve (that’s a
+                        straight line), for three points – quadratic curve
+                        (parabolic), for four points – cubic curve.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong
+                          >A curve is always inside the
+                          <a href="https://en.wikipedia.org/wiki/Convex_hull"
+                            >convex hull</a
+                          >
+                          of control points:</strong
+                        >
+                      </p>
+                      <p>
+                        <img
+                          src="article/bezier-curve/bezier4-e.svg"
+                          alt=""
+                          width="149"
+                          height="187"
+                        />
+                        <img
+                          src="article/bezier-curve/bezier3-e.svg"
+                          alt=""
+                          width="149"
+                          height="187"
+                        />
+                      </p>
+                    </li>
+                  </ol>
+                  <p>
+                    Because of that last property, in computer graphics it’s
+                    possible to optimize intersection tests. If convex hulls do
+                    not intersect, then curves do not either. So checking for
+                    the convex hulls intersection first can give a very fast “no
+                    intersection” result. Checking the intersection of convex
+                    hulls is much easier, because they are rectangles, triangles
+                    and so on (see the picture above), much simpler figures than
+                    the curve.
+                  </p>
+                  <p>
+                    <strong
+                      >The main value of Bezier curves for drawing – by moving
+                      the points the curve is changing
+                      <em>in intuitively obvious way</em>.</strong
+                    >
+                  </p>
+                  <p>
+                    Try to move control points using a mouse in the example
+                    below:
+                  </p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar"></div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 370px"
+                      src="https://en.js.cx/article/bezier-curve/demo.svg?nocpath=1&p=0,0,0.5,0,0.5,1,1,1"
+                    ></iframe>
+                  </div>
+                  <p>
+                    <strong
+                      >As you can notice, the curve stretches along the
+                      tangential lines 1 → 2 and 3 → 4.</strong
+                    >
+                  </p>
+                  <p>
+                    After some practice it becomes obvious how to place points
+                    to get the needed curve. And by connecting several curves we
+                    can get practically anything.
+                  </p>
+                  <p>Here are some examples:</p>
+                  <p>
+                    <img
+                      src="article/bezier-curve/bezier-car.svg"
+                      alt=""
+                      width="260"
+                      height="130"
+                    />
+                    <img
+                      src="article/bezier-curve/bezier-letter.svg"
+                      alt=""
+                      width="166"
+                      height="173"
+                    />
+                    <img
+                      src="article/bezier-curve/bezier-vase.svg"
+                      alt=""
+                      width="110"
+                      height="170"
+                    />
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="de-casteljau-s-algorithm"
+                      href="bezier-curve.html#de-casteljau-s-algorithm"
+                      >De Casteljau’s algorithm</a
+                    >
+                  </h2>
+                  <p>
+                    There’s a mathematical formula for Bezier curves, but let’s
+                    cover it a bit later, because
+                    <a
+                      href="https://en.wikipedia.org/wiki/De_Casteljau%27s_algorithm"
+                      >De Casteljau’s algorithm</a
+                    >
+                    is identical to the mathematical definition and visually
+                    shows how it is constructed.
+                  </p>
+                  <p>First let’s see the 3-points example.</p>
+                  <p>Here’s the demo, and the explanation follow.</p>
+                  <p>
+                    Control points (1,2 and 3) can be moved by the mouse. Press
+                    the “play” button to run it.
+                  </p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar"></div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 370px"
+                      src="https://en.js.cx/article/bezier-curve/demo.svg?p=0,0,0.5,1,1,0&animate=1"
+                    ></iframe>
+                  </div>
+                  <p>
+                    <strong
+                      >De Casteljau’s algorithm of building the 3-point bezier
+                      curve:</strong
+                    >
+                  </p>
+                  <ol>
+                    <li>
+                      <p>
+                        Draw control points. In the demo above they are labeled:
+                        <code>1</code>, <code>2</code>, <code>3</code>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Build segments between control points 1 → 2 → 3. In the
+                        demo above they are
+                        <span style="color: #825e28">brown</span>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        The parameter <code>t</code> moves from
+                        <code>0</code> to <code>1</code>. In the example above
+                        the step <code>0.05</code> is used: the loop goes over
+                        <code>0, 0.05, 0.1, 0.15, ... 0.95, 1</code>.
+                      </p>
+                      <p>For each of these values of <code>t</code>:</p>
+                      <ul>
+                        <li>
+                          <p>
+                            On each
+                            <span style="color: #825e28">brown</span> segment we
+                            take a point located on the distance proportional to
+                            <code>t</code> from its beginning. As there are two
+                            segments, we have two points.
+                          </p>
+                          <p>
+                            For instance, for <code>t=0</code> – both points
+                            will be at the beginning of segments, and for
+                            <code>t=0.25</code> – on the 25% of segment length
+                            from the beginning, for <code>t=0.5</code> – 50%(the
+                            middle), for <code>t=1</code> – in the end of
+                            segments.
+                          </p>
+                        </li>
+                        <li>
+                          <p>
+                            Connect the points. On the picture below the
+                            connecting segment is painted
+                            <span style="color: #167490">blue</span>.
+                          </p>
+                        </li>
+                      </ul>
+                    </li>
+                  </ol>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>For <code>t=0.25</code></th>
+                        <th>For <code>t=0.5</code></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <img
+                            src="article/bezier-curve/bezier3-draw1.svg"
+                            alt=""
+                            width="340"
+                            height="350"
+                          />
+                        </td>
+                        <td>
+                          <img
+                            src="article/bezier-curve/bezier3-draw2.svg"
+                            alt=""
+                            width="340"
+                            height="350"
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <ol start="4">
+                    <li>
+                      <p>
+                        Now in the
+                        <span style="color: #167490">blue</span> segment take a
+                        point on the distance proportional to the same value of
+                        <code>t</code>. That is, for <code>t=0.25</code> (the
+                        left picture) we have a point at the end of the left
+                        quarter of the segment, and for <code>t=0.5</code> (the
+                        right picture) – in the middle of the segment. On
+                        pictures above that point is
+                        <span style="color: red">red</span>.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        As <code>t</code> runs from <code>0</code> to
+                        <code>1</code>, every value of <code>t</code> adds a
+                        point to the curve. The set of such points forms the
+                        Bezier curve. It’s red and parabolic on the pictures
+                        above.
+                      </p>
+                    </li>
+                  </ol>
+                  <p>
+                    That was a process for 3 points. But the same is for 4
+                    points.
+                  </p>
+                  <p>The demo for 4 points (points can be moved by a mouse):</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar"></div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 370px"
+                      src="https://en.js.cx/article/bezier-curve/demo.svg?p=0,0,0.5,0,0.5,1,1,1&animate=1"
+                    ></iframe>
+                  </div>
+                  <p>The algorithm for 4 points:</p>
+                  <ul>
+                    <li>
+                      Connect control points by segments: 1 → 2, 2 → 3, 3 → 4.
+                      There will be 3
+                      <span style="color: #825e28">brown</span> segments.
+                    </li>
+                    <li>
+                      For each <code>t</code> in the interval from
+                      <code>0</code> to <code>1</code>:
+                      <ul>
+                        <li>
+                          We take points on these segments on the distance
+                          proportional to <code>t</code> from the beginning.
+                          These points are connected, so that we have two
+                          <span style="color: #0a0">green segments</span>.
+                        </li>
+                        <li>
+                          On these segments we take points proportional to
+                          <code>t</code>. We get one
+                          <span style="color: #167490">blue segment</span>.
+                        </li>
+                        <li>
+                          On the blue segment we take a point proportional to
+                          <code>t</code>. On the example above it’s
+                          <span style="color: red">red</span>.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>These points together form the curve.</li>
+                  </ul>
+                  <p>
+                    The algorithm is recursive and can be generalized for any
+                    number of control points.
+                  </p>
+                  <p>Given N of control points:</p>
+                  <ol>
+                    <li>We connect them to get initially N-1 segments.</li>
+                    <li>
+                      Then for each <code>t</code> from <code>0</code> to
+                      <code>1</code>, we take a point on each segment on the
+                      distance proportional to <code>t</code> and connect them.
+                      There will be N-2 segments.
+                    </li>
+                    <li>Repeat step 2 until there is only one point.</li>
+                  </ol>
+                  <p>These points make the curve.</p>
+                  <p>
+                    <strong
+                      >Run and pause examples to clearly see the segments and
+                      how the curve is built.</strong
+                    >
+                  </p>
+                  <p>A curve that looks like <code>y=1/t</code>:</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar"></div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 370px"
+                      src="https://en.js.cx/article/bezier-curve/demo.svg?p=0,0,0,0.75,0.25,1,1,1&animate=1"
+                    ></iframe>
+                  </div>
+                  <p>Zig-zag control points also work fine:</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar"></div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 370px"
+                      src="https://en.js.cx/article/bezier-curve/demo.svg?p=0,0,1,0.5,0,0.5,1,1&animate=1"
+                    ></iframe>
+                  </div>
+                  <p>Making a loop is possible:</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar"></div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 370px"
+                      src="https://en.js.cx/article/bezier-curve/demo.svg?p=0,0,1,0.5,0,1,0.5,0&animate=1"
+                    ></iframe>
+                  </div>
+                  <p>A non-smooth Bezier curve (yeah, that’s possible too):</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar"></div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 370px"
+                      src="https://en.js.cx/article/bezier-curve/demo.svg?p=0,0,1,1,0,1,1,0&animate=1"
+                    ></iframe>
+                  </div>
+                  <p>
+                    If there’s something unclear in the algorithm description,
+                    please look at the live examples above to see how the curve
+                    is built.
+                  </p>
+                  <p>
+                    As the algorithm is recursive, we can build Bezier curves of
+                    any order, that is: using 5, 6 or more control points. But
+                    in practice many points are less useful. Usually we take 2-3
+                    points, and for complex lines glue several curves together.
+                    That’s simpler to develop and calculate.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >How to draw a curve <em>through</em> given
+                        points?</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        To specify a Bezier curve, control points are used. As
+                        we can see, they are not on the curve, except the first
+                        and the last ones.
+                      </p>
+                      <p>
+                        Sometimes we have another task: to draw a curve
+                        <em>through several points</em>, so that all of them are
+                        on a single smooth curve. That task is called
+                        <a href="https://en.wikipedia.org/wiki/Interpolation"
+                          >interpolation</a
+                        >, and here we don’t cover it.
+                      </p>
+                      <p>
+                        There are mathematical formulas for such curves, for
+                        instance
+                        <a
+                          href="https://en.wikipedia.org/wiki/Lagrange_polynomial"
+                          >Lagrange polynomial</a
+                        >. In computer graphics
+                        <a
+                          href="https://en.wikipedia.org/wiki/Spline_interpolation"
+                          >spline interpolation</a
+                        >
+                        is often used to build smooth curves that connect many
+                        points.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="maths"
+                      href="bezier-curve.html#maths"
+                      >Maths</a
+                    >
+                  </h2>
+                  <p>
+                    A Bezier curve can be described using a mathematical
+                    formula.
+                  </p>
+                  <p>
+                    As we saw – there’s actually no need to know it, most people
+                    just draw the curve by moving points with a mouse. But if
+                    you’re into maths – here it is.
+                  </p>
+                  <p>
+                    Given the coordinates of control points
+                    <code>P<sub>i</sub></code
+                    >: the first control point has coordinates
+                    <code>P<sub>1</sub> = (x<sub>1</sub>, y<sub>1</sub>)</code>,
+                    the second:
+                    <code>P<sub>2</sub> = (x<sub>2</sub>, y<sub>2</sub>)</code>,
+                    and so on, the curve coordinates are described by the
+                    equation that depends on the parameter <code>t</code> from
+                    the segment <code>[0,1]</code>.
+                  </p>
+                  <ul>
+                    <li>
+                      <p>The formula for a 2-points curve:</p>
+                      <p>
+                        <code>P = (1-t)P<sub>1</sub> + tP<sub>2</sub></code>
+                      </p>
+                    </li>
+                    <li>
+                      <p>For 3 control points:</p>
+                      <p>
+                        <code
+                          >P = (1−t)<sup>2</sup>P<sub>1</sub> + 2(1−t)tP<sub
+                            >2</sub
+                          >
+                          + t<sup>2</sup>P<sub>3</sub></code
+                        >
+                      </p>
+                    </li>
+                    <li>
+                      <p>For 4 control points:</p>
+                      <p>
+                        <code
+                          >P = (1−t)<sup>3</sup>P<sub>1</sub> +
+                          3(1−t)<sup>2</sup>tP<sub>2</sub>
+                          +3(1−t)t<sup>2</sup>P<sub>3</sub> + t<sup>3</sup>P<sub
+                            >4</sub
+                          ></code
+                        >
+                      </p>
+                    </li>
+                  </ul>
+                  <p>
+                    These are vector equations. In other words, we can put
+                    <code>x</code> and <code>y</code> instead of
+                    <code>P</code> to get corresponding coordinates.
+                  </p>
+                  <p>
+                    For instance, the 3-point curve is formed by points
+                    <code>(x,y)</code> calculated as:
+                  </p>
+                  <ul>
+                    <li>
+                      <code
+                        >x = (1−t)<sup>2</sup>x<sub>1</sub> + 2(1−t)tx<sub
+                          >2</sub
+                        >
+                        + t<sup>2</sup>x<sub>3</sub></code
+                      >
+                    </li>
+                    <li>
+                      <code
+                        >y = (1−t)<sup>2</sup>y<sub>1</sub> + 2(1−t)ty<sub
+                          >2</sub
+                        >
+                        + t<sup>2</sup>y<sub>3</sub></code
+                      >
+                    </li>
+                  </ul>
+                  <p>
+                    Instead of
+                    <code
+                      >x<sub>1</sub>, y<sub>1</sub>, x<sub>2</sub>,
+                      y<sub>2</sub>, x<sub>3</sub>, y<sub>3</sub></code
+                    >
+                    we should put coordinates of 3 control points, and then as
+                    <code>t</code> moves from <code>0</code> to <code>1</code>,
+                    for each value of <code>t</code> we’ll have
+                    <code>(x,y)</code> of the curve.
+                  </p>
+                  <p>
+                    For instance, if control points are <code>(0,0)</code>,
+                    <code>(0.5, 1)</code> and <code>(1, 0)</code>, the equations
+                    become:
+                  </p>
+                  <ul>
+                    <li>
+                      <code
+                        >x = (1−t)<sup>2</sup> * 0 + 2(1−t)t * 0.5 + t<sup
+                          >2</sup
+                        >
+                        * 1 = (1-t)t + t<sup>2</sup> = t</code
+                      >
+                    </li>
+                    <li>
+                      <code
+                        >y = (1−t)<sup>2</sup> * 0 + 2(1−t)t * 1 + t<sup>2</sup>
+                        * 0 = 2(1-t)t = –2t<sup>2</sup> + 2t</code
+                      >
+                    </li>
+                  </ul>
+                  <p>
+                    Now as <code>t</code> runs from <code>0</code> to
+                    <code>1</code>, the set of values <code>(x,y)</code> for
+                    each <code>t</code> forms the curve for such control points.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="bezier-curve.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>Bezier curves are defined by their control points.</p>
+                  <p>We saw two definitions of Bezier curves:</p>
+                  <ol>
+                    <li>Using a drawing process: De Casteljau’s algorithm.</li>
+                    <li>Using a mathematical formulas.</li>
+                  </ol>
+                  <p>Good properties of Bezier curves:</p>
+                  <ul>
+                    <li>
+                      We can draw smooth lines with a mouse by moving control
+                      points.
+                    </li>
+                    <li>
+                      Complex shapes can be made of several Bezier curves.
+                    </li>
+                  </ul>
+                  <p>Usage:</p>
+                  <ul>
+                    <li>
+                      In computer graphics, modeling, vector graphic editors.
+                      Fonts are described by Bezier curves.
+                    </li>
+                    <li>
+                      In web development – for graphics on Canvas and in the SVG
+                      format. By the way, “live” examples above are written in
+                      SVG. They are actually a single SVG document that is given
+                      different points as parameters. You can open it in a
+                      separate window and see the source:
+                      <a
+                        href="article/bezier-curve/demo.svg%3Fp=0,0,1,0.5,0,0.5,1,1&amp;animate=1"
+                        >demo.svg</a
+                      >.
+                    </li>
+                    <li>
+                      In CSS animation to describe the path and speed of
+                      animation.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="animation.html"
+                data-tooltip="Animation"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="css-animations.html"
+                data-tooltip="CSS-animations"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbezier-curve"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbezier-curve"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="bezier-curve.html name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                        
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/bezier-curve",
+                    identifier: "\/bezier-curve",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+
+                      <a class="sidebar__link" href="animation.html"
+                        >Animation</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+
+                   bezier-curve.html#control-points"
+                        >Control points</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   bezier-curve.html#de-casteljau-s-algorithm"
+                        >De Casteljau’s algorithm</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="bezier-curve.html#maths"
+                        >Maths</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="bezier-curve.html
+                  </ul>
+                </nav>
+
+                      <a class="sidebar__link" href="bezier-curve.html
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbezier-curve"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fbezier-curve"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/7-animation/1-bezier-curve"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      
+    </div>
+  </body>
+</html>

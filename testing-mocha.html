@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Automated testing with Mocha</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="testing-mocha.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Automated testing with Mocha" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+
+    <meta name="twitter:title" content="Automated testing with Mocha" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="ninja-code.html" />
+    <link rel="next" href="polyfills.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Automated testing with Mocha" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/testing-mocha"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="testing-mocha.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/testing-mocha"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/testing-mocha"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/testing-mocha"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/testing-mocha"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/testing-mocha"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=testing-mocha"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/testing-mocha"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/testing-mocha"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Ftesting-mocha"
+                  rel="nofollow"
+                ></a
+                >2Ftesting-mocha"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/testing-mocha">
+                  عربي
+                </option>
+                <option value="https://javascript.info/testing-mocha" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/testing-mocha">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/testing-mocha">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/testing-mocha">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/testing-mocha">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/testing-mocha">
+                  한국어
+                </option>
+                <option value=testing-mocha">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/testing-mocha">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/testing-mocha">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="27"
+          max="92"
+          data-tooltip="Lesson 27 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="code-quality.html"
+                        ><span>Code quality</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Code quality",
+                            "item": "https://javascript.info/code-quality"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 1st April 2021"
+                  >
+                    <div class="updated-at__content">1st April 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Automated testing with Mocha</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Automated testing with Mocha" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Automated testing will be used in further tasks, and it’s
+                    also widely used in real projects.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="why-do-we-need-tests"
+                      href="testing-mocha.html#why-do-we-need-tests"
+                      >Why do we need tests?</a
+                    >
+                  </h2>
+                  <p>
+                    When we write a function, we can usually imagine what it
+                    should do: which parameters give which results.
+                  </p>
+                  <p>
+                    During development, we can check the function by running it
+                    and comparing the outcome with the expected one. For
+                    instance, we can do it in the console.
+                  </p>
+                  <p>
+                    If something is wrong – then we fix the code, run again,
+                    check the result – and so on till it works.
+                  </p>
+                  <p>But such manual “re-runs” are imperfect.</p>
+                  <p>
+                    <strong
+                      >When testing a code by manual re-runs, it’s easy to miss
+                      something.</strong
+                    >
+                  </p>
+                  <p>
+                    For instance, we’re creating a function <code>f</code>.
+                    Wrote some code, testing: <code>f(1)</code> works, but
+                    <code>f(2)</code> doesn’t work. We fix the code and now
+                    <code>f(2)</code> works. Looks complete? But we forgot to
+                    re-test <code>f(1)</code>. That may lead to an error.
+                  </p>
+                  <p>
+                    That’s very typical. When we develop something, we keep a
+                    lot of possible use cases in mind. But it’s hard to expect a
+                    programmer to check all of them manually after every change.
+                    So it becomes easy to fix one thing and break another one.
+                  </p>
+                  <p>
+                    <strong
+                      >Automated testing means that tests are written
+                      separately, in addition to the code. They run our
+                      functions in various ways and compare results with the
+                      expected.</strong
+                    >
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="behavior-driven-development-bdd"
+                      href="testing-mocha.html#behavior-driven-development-bdd"
+                      >Behavior Driven Development (BDD)</a
+                    >
+                  </h2>
+                  <p>
+                    Let’s start with a technique named
+                    <a
+                      href="http://en.wikipedia.org/wiki/Behavior-driven_development"
+                      >Behavior Driven Development</a
+                    >
+                    or, in short, BDD.
+                  </p>
+                  <p>
+                    <strong
+                      >BDD is three things in one: tests AND documentation AND
+                      examples.</strong
+                    >
+                  </p>
+                  <p>
+                    To understand BDD, we’ll examine a practical case of
+                    development.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="development-of-pow-the-spec"
+                      href="testing-mocha.html#development-of-pow-the-spec"
+                      >Development of “pow”: the spec</a
+                    >
+                  </h2>
+                  <p>
+                    Let’s say we want to make a function
+                    <code>pow(x, n)</code> that raises <code>x</code> to an
+                    integer power <code>n</code>. We assume that
+                    <code>n≥0</code>.
+                  </p>
+                  <p>
+                    That task is just an example: there’s the
+                    <code>**</code> operator in JavaScript that can do that, but
+                    here we concentrate on the development flow that can be
+                    applied to more complex tasks as well.
+                  </p>
+                  <p>
+                    Before creating the code of <code>pow</code>, we can imagine
+                    what the function should do and describe it.
+                  </p>
+                  <p>
+                    Such description is called a <em>specification</em> or, in
+                    short, a spec, and contains descriptions of use cases
+                    together with tests for them, like this:
+                  </p>
+                  <div id="ykpbya8eir" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>describe(&quot;pow&quot;, function() {
+
+  it(&quot;raises to n-th power&quot;, function() {
+    assert.equal(pow(2, 3), 8);
+  });
+
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    A spec has three main building blocks that you can see
+                    above:
+                  </p>
+                  <dl>
+                    <dt>
+                      <code
+                        >describe(&quot;title&quot;, function() { ... })</code
+                      >
+                    </dt>
+                    <dd>
+                      <p>
+                        What functionality we’re describing. In our case we’re
+                        describing the function <code>pow</code>. Used to group
+                        “workers” – the <code>it</code> blocks.
+                      </p>
+                    </dd>
+                    <dt>
+                      <code
+                        >it(&quot;use case description&quot;, function() { ...
+                        })</code
+                      >
+                    </dt>
+                    <dd>
+                      <p>
+                        In the title of <code>it</code> we
+                        <em>in a human-readable way</em> describe the particular
+                        use case, and the second argument is a function that
+                        tests it.
+                      </p>
+                    </dd>
+                    <dt><code>assert.equal(value1, value2)</code></dt>
+                    <dd>
+                      <p>
+                        The code inside <code>it</code> block, if the
+                        implementation is correct, should execute without
+                        errors.
+                      </p>
+                      <p>
+                        Functions <code>assert.*</code> are used to check
+                        whether <code>pow</code> works as expected. Right here
+                        we’re using one of them – <code>assert.equal</code>, it
+                        compares arguments and yields an error if they are not
+                        equal. Here it checks that the result of
+                        <code>pow(2, 3)</code> equals <code>8</code>. There are
+                        other types of comparisons and checks, that we’ll add
+                        later.
+                      </p>
+                    </dd>
+                  </dl>
+                  <p>
+                    The specification can be executed, and it will run the test
+                    specified in <code>it</code> block. We’ll see that later.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="the-development-flow"
+                      href="testing-mocha.html#the-development-flow"
+                      >The development flow</a
+                    >
+                  </h2>
+                  <p>The flow of development usually looks like this:</p>
+                  <ol>
+                    <li>
+                      An initial spec is written, with tests for the most basic
+                      functionality.
+                    </li>
+                    <li>An initial implementation is created.</li>
+                    <li>
+                      To check whether it works, we run the testing framework
+                      <a href="http://mochajs.org/">Mocha</a> (more details
+                      soon) that runs the spec. While the functionality is not
+                      complete, errors are displayed. We make corrections until
+                      everything works.
+                    </li>
+                    <li>
+                      Now we have a working initial implementation with tests.
+                    </li>
+                    <li>
+                      We add more use cases to the spec, probably not yet
+                      supported by the implementations. Tests start to fail.
+                    </li>
+                    <li>
+                      Go to 3, update the implementation till tests give no
+                      errors.
+                    </li>
+                    <li>Repeat steps 3-6 till the functionality is ready.</li>
+                  </ol>
+                  <p>
+                    So, the development is <em>iterative</em>. We write the
+                    spec, implement it, make sure tests pass, then write more
+                    tests, make sure they work etc. At the end we have both a
+                    working implementation and tests for it.
+                  </p>
+                  <p>Let’s see this development flow in our practical case.</p>
+                  <p>
+                    The first step is already complete: we have an initial spec
+                    for <code>pow</code>. Now, before making the implementation,
+                    let’s use few JavaScript libraries to run the tests, just to
+                    see that they are working (they will all fail).
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="the-spec-in-action"
+                      href="testing-mocha.html#the-spec-in-action"
+                      >The spec in action</a
+                    >
+                  </h2>
+                  <p>
+                    Here in the tutorial we’ll be using the following JavaScript
+                    libraries for tests:
+                  </p>
+                  <ul>
+                    <li>
+                      <a href="http://mochajs.org/">Mocha</a> – the core
+                      framework: it provides common testing functions including
+                      <code>describe</code> and <code>it</code> and the main
+                      function that runs tests.
+                    </li>
+                    <li>
+                      <a href="http://chaijs.com">Chai</a> – the library with
+                      many assertions. It allows to use a lot of different
+                      assertions, for now we need only
+                      <code>assert.equal</code>.
+                    </li>
+                    <li>
+                      <a href="http://sinonjs.org/">Sinon</a> – a library to spy
+                      over functions, emulate built-in functions and more, we’ll
+                      need it much later.
+                    </li>
+                  </ul>
+                  <p>
+                    These libraries are suitable for both in-browser and
+                    server-side testing. Here we’ll consider the browser
+                    variant.
+                  </p>
+                  <p>
+                    The full HTML page with these frameworks and
+                    <code>pow</code> spec:
+                  </p>
+                  <div id="6ukvw7negr" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;!-- add mocha css, to show results --&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css&quot;&gt;
+  &lt;!-- add mocha framework code --&gt;
+  &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    mocha.setup('bdd'); // minimal setup
+  &lt;/script&gt;
+  &lt;!-- add chai --&gt;
+  &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    // chai has a lot of stuff, let's make assert global
+    let assert = chai.assert;
+  &lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;script&gt;
+    function pow(x, n) {
+      /* function code is to be written, empty now */
+    }
+  &lt;/script&gt;
+
+  &lt;!-- the script with tests (describe, it...) --&gt;
+  &lt;script src=&quot;test.js&quot;&gt;&lt;/script&gt;
+
+  &lt;!-- the element with id=&quot;mocha&quot; will contain test results --&gt;
+  &lt;div id=&quot;mocha&quot;&gt;&lt;/div&gt;
+
+  &lt;!-- run tests! --&gt;
+  &lt;script&gt;
+    mocha.run();
+  &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The page can be divided into five parts:</p>
+                  <ol>
+                    <li>
+                      The <code>&lt;head&gt;</code> – add third-party libraries
+                      and styles for tests.
+                    </li>
+                    <li>
+                      The <code>&lt;script&gt;</code> with the function to test,
+                      in our case – with the code for <code>pow</code>.
+                    </li>
+                    <li>
+                      The tests – in our case an external script
+                      <code>test.js</code> that has
+                      <code>describe(&quot;pow&quot;, ...)</code> from above.
+                    </li>
+                    <li>
+                      The HTML element
+                      <code>&lt;div id=&quot;mocha&quot;&gt;</code> will be used
+                      by Mocha to output results.
+                    </li>
+                    <li>
+                      The tests are started by the command
+                      <code>mocha.run()</code>.
+                    </li>
+                  </ol>
+                  <p>The result:</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar">
+                      <div class="toolbar__tool">
+                        <a
+                          href="https://plnkr.co/edit/y5w66a4VW3X9KV5A?p=preview"
+                          target="_blank"
+                          title="open in sandbox"
+                          data-plunk-id="y5w66a4VW3X9KV5A"
+                          class="toolbar__button toolbar__button_edit"
+                        ></a>
+                      </div>
+                    </div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 250px"
+                      src="https://en.js.cx/article/testing-mocha/pow-1/"
+                    ></iframe>
+                  </div>
+                  <p>
+                    As of now, the test fails, there’s an error. That’s logical:
+                    we have an empty function code in <code>pow</code>, so
+                    <code>pow(2,3)</code> returns <code>undefined</code> instead
+                    of <code>8</code>.
+                  </p>
+                  <p>
+                    For the future, let’s note that there are more high-level
+                    test-runners, like
+                    <a href="https://karma-runner.github.io/">karma</a> and
+                    others, that make it easy to autorun many different tests.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="initial-implementation"
+                      href="testing-mocha.html#initial-implementation"
+                      >Initial implementation</a
+                    >
+                  </h2>
+                  <p>
+                    Let’s make a simple implementation of <code>pow</code>, for
+                    tests to pass:
+                  </p>
+                  <div id="t3lx8gmb47" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function pow(x, n) {
+  return 8; // :) we cheat!
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Wow, now it works!</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar">
+                      <div class="toolbar__tool">
+                        <a
+                          href="https://plnkr.co/edit/qVIjYT9VuGDJKxeI?p=preview"
+                          target="_blank"
+                          title="open in sandbox"
+                          data-plunk-id="qVIjYT9VuGDJKxeI"
+                          class="toolbar__button toolbar__button_edit"
+                        ></a>
+                      </div>
+                    </div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 250px"
+                      src="https://en.js.cx/article/testing-mocha/pow-min/"
+                    ></iframe>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="improving-the-spec"
+                      href="testing-mocha.html#improving-the-spec"
+                      >Improving the spec</a
+                    >
+                  </h2>
+                  <p>
+                    What we’ve done is definitely a cheat. The function does not
+                    work: an attempt to calculate <code>pow(3,4)</code> would
+                    give an incorrect result, but tests pass.
+                  </p>
+                  <p>
+                    …But the situation is quite typical, it happens in practice.
+                    Tests pass, but the function works wrong. Our spec is
+                    imperfect. We need to add more use cases to it.
+                  </p>
+                  <p>
+                    Let’s add one more test to check that
+                    <code>pow(3, 4) = 81</code>.
+                  </p>
+                  <p>
+                    We can select one of two ways to organize the test here:
+                  </p>
+                  <ol>
+                    <li>
+                      <p>
+                        The first variant – add one more
+                        <code>assert</code> into the same <code>it</code>:
+                      </p>
+                      <div
+                        id="d10x7nkzmf"
+                        data-trusted="1"
+                        class="code-example"
+                        data-highlight='[{"start":4,"end":4}]'
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>describe(&quot;pow&quot;, function() {
+
+  it(&quot;raises to n-th power&quot;, function() {
+    assert.equal(pow(2, 3), 8);
+    assert.equal(pow(3, 4), 81);
+  });
+
+});</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <p>The second – make two tests:</p>
+                      <div
+                        id="njurz3tapw"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>describe(&quot;pow&quot;, function() {
+
+  it(&quot;2 raised to power 3 is 8&quot;, function() {
+    assert.equal(pow(2, 3), 8);
+  });
+
+  it(&quot;3 raised to power 4 is 81&quot;, function() {
+    assert.equal(pow(3, 4), 81);
+  });
+
+});</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ol>
+                  <p>
+                    The principal difference is that when
+                    <code>assert</code> triggers an error, the
+                    <code>it</code> block immediately terminates. So, in the
+                    first variant if the first <code>assert</code> fails, then
+                    we’ll never see the result of the second
+                    <code>assert</code>.
+                  </p>
+                  <p>
+                    Making tests separate is useful to get more information
+                    about what’s going on, so the second variant is better.
+                  </p>
+                  <p>
+                    And besides that, there’s one more rule that’s good to
+                    follow.
+                  </p>
+                  <p><strong>One test checks one thing.</strong></p>
+                  <p>
+                    If we look at the test and see two independent checks in it,
+                    it’s better to split it into two simpler ones.
+                  </p>
+                  <p>So let’s continue with the second variant.</p>
+                  <p>The result:</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar">
+                      <div class="toolbar__tool">
+                        <a
+                          href="https://plnkr.co/edit/JBHJdDtWFz7iNVf4?p=preview"
+                          target="_blank"
+                          title="open in sandbox"
+                          data-plunk-id="JBHJdDtWFz7iNVf4"
+                          class="toolbar__button toolbar__button_edit"
+                        ></a>
+                      </div>
+                    </div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 250px"
+                      src="https://en.js.cx/article/testing-mocha/pow-2/"
+                    ></iframe>
+                  </div>
+                  <p>
+                    As we could expect, the second test failed. Sure, our
+                    function always returns <code>8</code>, while the
+                    <code>assert</code> expects <code>81</code>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="improving-the-implementation"
+                      href="testing-mocha.html#improving-the-implementation"
+                      >Improving the implementation</a
+                    >
+                  </h2>
+                  <p>Let’s write something more real for tests to pass:</p>
+                  <div id="5qvcjxorn8" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function pow(x, n) {
+  let result = 1;
+
+  for (let i = 0; i &lt; n; i++) {
+    result *= x;
+  }
+
+  return result;
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    To be sure that the function works well, let’s test it for
+                    more values. Instead of writing <code>it</code> blocks
+                    manually, we can generate them in <code>for</code>:
+                  </p>
+                  <div id="ceaoqe89a2" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>describe(&quot;pow&quot;, function() {
+
+  function makeTest(x) {
+    let expected = x * x * x;
+    it(`${x} in the power 3 is ${expected}`, function() {
+      assert.equal(pow(x, 3), expected);
+    });
+  }
+
+  for (let x = 1; x &lt;= 5; x++) {
+    makeTest(x);
+  }
+
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The result:</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar">
+                      <div class="toolbar__tool">
+                        <a
+                          href="https://plnkr.co/edit/FhsRBrUakNc0mvxg?p=preview"
+                          target="_blank"
+                          title="open in sandbox"
+                          data-plunk-id="FhsRBrUakNc0mvxg"
+                          class="toolbar__button toolbar__button_edit"
+                        ></a>
+                      </div>
+                    </div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 250px"
+                      src="https://en.js.cx/article/testing-mocha/pow-3/"
+                    ></iframe>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="nested-describe"
+                      href="testing-mocha.html#nested-describe"
+                      >Nested describe</a
+                    >
+                  </h2>
+                  <p>
+                    We’re going to add even more tests. But before that let’s
+                    note that the helper function <code>makeTest</code> and
+                    <code>for</code> should be grouped together. We won’t need
+                    <code>makeTest</code> in other tests, it’s needed only in
+                    <code>for</code>: their common task is to check how
+                    <code>pow</code> raises into the given power.
+                  </p>
+                  <p>Grouping is done with a nested <code>describe</code>:</p>
+                  <div
+                    id="ji1g6rd4a6"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":15,"end":15},{"start":2,"end":2}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>describe(&quot;pow&quot;, function() {
+
+  describe(&quot;raises x to power 3&quot;, function() {
+
+    function makeTest(x) {
+      let expected = x * x * x;
+      it(`${x} in the power 3 is ${expected}`, function() {
+        assert.equal(pow(x, 3), expected);
+      });
+    }
+
+    for (let x = 1; x &lt;= 5; x++) {
+      makeTest(x);
+    }
+
+  });
+
+  // ... more tests to follow here, both describe and it can be added
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The nested <code>describe</code> defines a new “subgroup” of
+                    tests. In the output we can see the titled indentation:
+                  </p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar">
+                      <div class="toolbar__tool">
+                        <a
+                          href="https://plnkr.co/edit/4Vp2QYY2pSgBqbig?p=preview"
+                          target="_blank"
+                          title="open in sandbox"
+                          data-plunk-id="4Vp2QYY2pSgBqbig"
+                          class="toolbar__button toolbar__button_edit"
+                        ></a>
+                      </div>
+                    </div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 250px"
+                      src="https://en.js.cx/article/testing-mocha/pow-4/"
+                    ></iframe>
+                  </div>
+                  <p>
+                    In the future we can add more <code>it</code> and
+                    <code>describe</code> on the top level with helper functions
+                    of their own, they won’t see <code>makeTest</code>.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        ><code>before/after</code> and
+                        <code>beforeEach/afterEach</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        We can setup <code>before/after</code> functions that
+                        execute before/after running tests, and also
+                        <code>beforeEach/afterEach</code> functions that execute
+                        before/after <em>every</em> <code>it</code>.
+                      </p>
+                      <p>For instance:</p>
+                      <div
+                        id="1qha3pcwro"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>describe(&quot;test&quot;, function() {
+
+  before(() =&gt; alert(&quot;Testing started – before all tests&quot;));
+  after(() =&gt; alert(&quot;Testing finished – after all tests&quot;));
+
+  beforeEach(() =&gt; alert(&quot;Before a test – enter a test&quot;));
+  afterEach(() =&gt; alert(&quot;After a test – exit a test&quot;));
+
+  it('test 1', () =&gt; alert(1));
+  it('test 2', () =&gt; alert(2));
+
+});</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>The running sequence will be:</p>
+                      <div
+                        id="u1yslto97z"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-none"
+                            ><code>Testing started – before all tests (before)
+Before a test – enter a test (beforeEach)
+1
+After a test – exit a test   (afterEach)
+Before a test – enter a test (beforeEach)
+2
+After a test – exit a test   (afterEach)
+Testing finished – after all tests (after)</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <a
+                        class="edit"
+                        target="_blank"
+                        href="https://plnkr.co/edit/dzTS0YboAN3Wqke4?p=preview"
+                        >Open the example in the sandbox.</a
+                      >
+                      <p>
+                        Usually, <code>beforeEach/afterEach</code> and
+                        <code>before/after</code> are used to perform
+                        initialization, zero out counters or do something else
+                        between the tests (or test groups).
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="extending-the-spec"
+                      href="testing-mocha.html#extending-the-spec"
+                      >Extending the spec</a
+                    >
+                  </h2>
+                  <p>
+                    The basic functionality of <code>pow</code> is complete. The
+                    first iteration of the development is done. When we’re done
+                    celebrating and drinking champagne – let’s go on and improve
+                    it.
+                  </p>
+                  <p>
+                    As it was said, the function <code>pow(x, n)</code> is meant
+                    to work with positive integer values <code>n</code>.
+                  </p>
+                  <p>
+                    To indicate a mathematical error, JavaScript functions
+                    usually return <code>NaN</code>. Let’s do the same for
+                    invalid values of <code>n</code>.
+                  </p>
+                  <p>Let’s first add the behavior to the spec(!):</p>
+                  <div
+                    id="vkaal40zg7"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":9,"end":9},{"start":5,"end":5}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>describe(&quot;pow&quot;, function() {
+
+  // ...
+
+  it(&quot;for negative n the result is NaN&quot;, function() {
+    assert.isNaN(pow(2, -1));
+  });
+
+  it(&quot;for non-integer n the result is NaN&quot;, function() {
+    assert.isNaN(pow(2, 1.5));
+  });
+
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The result with new tests:</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar">
+                      <div class="toolbar__tool">
+                        <a
+                          href="https://plnkr.co/edit/KxDVZWZey2rkHo8d?p=preview"
+                          target="_blank"
+                          title="open in sandbox"
+                          data-plunk-id="KxDVZWZey2rkHo8d"
+                          class="toolbar__button toolbar__button_edit"
+                        ></a>
+                      </div>
+                    </div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 530px"
+                      src="https://en.js.cx/article/testing-mocha/pow-nan/"
+                    ></iframe>
+                  </div>
+                  <p>
+                    The newly added tests fail, because our implementation does
+                    not support them. That’s how BDD is done: first we write
+                    failing tests, and then make an implementation for them.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Other assertions</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Please note the assertion <code>assert.isNaN</code>: it
+                        checks for <code>NaN</code>.
+                      </p>
+                      <p>
+                        There are other assertions in
+                        <a href="http://chaijs.com">Chai</a> as well, for
+                        instance:
+                      </p>
+                      <ul>
+                        <li>
+                          <code>assert.equal(value1, value2)</code> – checks the
+                          equality <code>value1 == value2</code>.
+                        </li>
+                        <li>
+                          <code>assert.strictEqual(value1, value2)</code> –
+                          checks the strict equality
+                          <code>value1 === value2</code>.
+                        </li>
+                        <li>
+                          <code>assert.notEqual</code>,
+                          <code>assert.notStrictEqual</code> – inverse checks to
+                          the ones above.
+                        </li>
+                        <li>
+                          <code>assert.isTrue(value)</code> – checks that
+                          <code>value === true</code>
+                        </li>
+                        <li>
+                          <code>assert.isFalse(value)</code> – checks that
+                          <code>value === false</code>
+                        </li>
+                        <li>
+                          …the full list is in the
+                          <a href="http://chaijs.com/api/assert/">docs</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <p>So we should add a couple of lines to <code>pow</code>:</p>
+                  <div
+                    id="o1wpuifgi2"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":1,"end":2}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function pow(x, n) {
+  if (n &lt; 0) return NaN;
+  if (Math.round(n) != n) return NaN;
+
+  let result = 1;
+
+  for (let i = 0; i &lt; n; i++) {
+    result *= x;
+  }
+
+  return result;
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Now it works, all tests pass:</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar">
+                      <div class="toolbar__tool">
+                        <a
+                          href="https://plnkr.co/edit/8OgvvBpZI90lA1If?p=preview"
+                          target="_blank"
+                          title="open in sandbox"
+                          data-plunk-id="8OgvvBpZI90lA1If"
+                          class="toolbar__button toolbar__button_edit"
+                        ></a>
+                      </div>
+                    </div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 300px"
+                      src="https://en.js.cx/article/testing-mocha/pow-full/"
+                    ></iframe>
+                  </div>
+                  <a
+                    class="edit"
+                    target="_blank"
+                    href="https://plnkr.co/edit/8OgvvBpZI90lA1If?p=preview"
+                    >Open the full final example in the sandbox.</a
+                  >
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="testing-mocha.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    In BDD, the spec goes first, followed by implementation. At
+                    the end we have both the spec and the code.
+                  </p>
+                  <p>The spec can be used in three ways:</p>
+                  <ol>
+                    <li>
+                      As <strong>Tests</strong> – they guarantee that the code
+                      works correctly.
+                    </li>
+                    <li>
+                      As <strong>Docs</strong> – the titles of
+                      <code>describe</code> and <code>it</code> tell what the
+                      function does.
+                    </li>
+                    <li>
+                      As <strong>Examples</strong> – the tests are actually
+                      working examples showing how a function can be used.
+                    </li>
+                  </ol>
+                  <p>
+                    With the spec, we can safely improve, change, even rewrite
+                    the function from scratch and make sure it still works
+                    right.
+                  </p>
+                  <p>
+                    That’s especially important in large projects when a
+                    function is used in many places. When we change such a
+                    function, there’s just no way to manually check if every
+                    place that uses it still works right.
+                  </p>
+                  <p>Without tests, people have two ways:</p>
+                  <ol>
+                    <li>
+                      To perform the change, no matter what. And then our users
+                      meet bugs, as we probably fail to check something
+                      manually.
+                    </li>
+                    <li>
+                      Or, if the punishment for errors is harsh, as there are no
+                      tests, people become afraid to modify such functions, and
+                      then the code becomes outdated, no one wants to get into
+                      it. Not good for development.
+                    </li>
+                  </ol>
+                  <p>
+                    <strong
+                      >Automatic testing helps to avoid these problems!</strong
+                    >
+                  </p>
+                  <p>
+                    If the project is covered with tests, there’s just no such
+                    problem. After any changes, we can run tests and see a lot
+                    of checks made in a matter of seconds.
+                  </p>
+                  <p>
+                    <strong
+                      >Besides, a well-tested code has better
+                      architecture.</strong
+                    >
+                  </p>
+                  <p>
+                    Naturally, that’s because auto-tested code is easier to
+                    modify and improve. But there’s also another reason.
+                  </p>
+                  <p>
+                    To write tests, the code should be organized in such a way
+                    that every function has a clearly described task,
+                    well-defined input and output. That means a good
+                    architecture from the beginning.
+                  </p>
+                  <p>
+                    In real life that’s sometimes not that easy. Sometimes it’s
+                    difficult to write a spec before the actual code, because
+                    it’s not yet clear how it should behave. But in general
+                    writing tests makes development faster and more stable.
+                  </p>
+                  <p>
+                    Later in the tutorial you will meet many tasks with tests
+                    baked-in. So you’ll see more practical examples.
+                  </p>
+                  <p>
+                    Writing tests requires good JavaScript knowledge. But we’re
+                    just starting to learn it. So, to settle down everything, as
+                    of now you’re not required to write tests, but you should
+                    already be able to read them even if they are a little bit
+                    more complex than in this chapter.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="testing-mocha.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="testing-mocha.html#what-s-wrong-in-the-test"
+                          name="what-s-wrong-in-the-test"
+                          >What's wrong in the test?</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/pow-test-wrong.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          What’s wrong in the test of <code>pow</code> below?
+                        </p>
+                        <div
+                          id="hj4akgux8o"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>it(&quot;Raises x to the power n&quot;, function() {
+  let x = 5;
+
+  let result = x;
+  assert.equal(pow(x, 1), result);
+
+  result *= x;
+  assert.equal(pow(x, 2), result);
+
+  result *= x;
+  assert.equal(pow(x, 3), result);
+});</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          P.S. Syntactically the test is correct and passes.
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              The test demonstrates one of the temptations a
+                              developer meets when writing tests.
+                            </p>
+                            <p>
+                              What we have here is actually 3 tests, but layed
+                              out as a single function with 3 asserts.
+                            </p>
+                            <p>
+                              Sometimes it’s easier to write this way, but if an
+                              error occurs, it’s much less obvious what went
+                              wrong.
+                            </p>
+                            <p>
+                              If an error happens in the middle of a complex
+                              execution flow, then we’ll have to figure out the
+                              data at that point. We’ll actually have to
+                              <em>debug the test</em>.
+                            </p>
+                            <p>
+                              It would be much better to break the test into
+                              multiple <code>it</code> blocks with clearly
+                              written inputs and outputs.
+                            </p>
+                            <p>Like this:</p>
+                            <div
+                              id="xal4usakan"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>describe(&quot;Raises x to power n&quot;, function() {
+  it(&quot;5 in the power of 1 equals 5&quot;, function() {
+    assert.equal(pow(5, 1), 5);
+  });
+
+  it(&quot;5 in the power of 2 equals 25&quot;, function() {
+    assert.equal(pow(5, 2), 25);
+  });
+
+  it(&quot;5 in the power of 3 equals 125&quot;, function() {
+    assert.equal(pow(5, 3), 125);
+  });
+});</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              We replaced the single <code>it</code> with
+                              <code>describe</code> and a group of
+                              <code>it</code> blocks. Now if something fails we
+                              would see clearly what the data was.
+                            </p>
+                            <p>
+                              Also we can isolate a single test and run it in
+                              standalone mode by writing
+                              <code>it.only</code> instead of <code>it</code>:
+                            </p>
+                            <div
+                              id="z6dcz1vups"
+                              data-trusted="1"
+                              class="code-example"
+                              data-highlight='[{"start":5,"end":8}]'
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>describe(&quot;Raises x to power n&quot;, function() {
+  it(&quot;5 in the power of 1 equals 5&quot;, function() {
+    assert.equal(pow(5, 1), 5);
+  });
+
+  // Mocha will run only this block
+  it.only(&quot;5 in the power of 2 equals 25&quot;, function() {
+    assert.equal(pow(5, 2), 25);
+  });
+
+  it(&quot;5 in the power of 3 equals 125&quot;, function() {
+    assert.equal(pow(5, 3), 125);
+  });
+});</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="ninja-code.html"
+                data-tooltip="Ninja code"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="polyfills.html"
+                data-tooltip="Polyfills and transpilers"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ftesting-mocha"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftesting-mocha"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="testing-mocha.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/testing-mocha",
+                    identifier: "\/testing-mocha",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="code-quality.html"
+                        >Code quality</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   testing-mocha.html#why-do-we-need-tests"
+                        >Why do we need tests?</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   testing-mocha.html#behavior-driven-development-bdd"
+                        >Behavior Driven Development (BDD)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   testing-mocha.html#development-of-pow-the-spec"
+                        >Development of “pow”: the spec</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   testing-mocha.html#the-development-flow"
+                        >The development flow</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   testing-mocha.html#the-spec-in-action"
+                        >The spec in action</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   testing-mocha.html#initial-implementation"
+                        >Initial implementation</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   testing-mocha.html#improving-the-spec"
+                        >Improving the spec</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   testing-mocha.html#improving-the-implementation"
+                        >Improving the implementation</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   testing-mocha.html#nested-describe"
+                        >Nested describe</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   testing-mocha.html#extending-the-spec"
+                        >Extending the spec</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="testing-mocha.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="testing-mocha.html#tasks"
+                        >Tasks (1)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   testing-mocha.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ftesting-mocha"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Ftesting-mocha"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/03-code-quality/05-testing-mocha"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

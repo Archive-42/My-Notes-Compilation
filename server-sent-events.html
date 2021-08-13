@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Server Sent Events</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="server-sent-events.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Server Sent Events" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+
+    <meta name="twitter:title" content="Server Sent Events" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="websocket.html" />
+    <link rel="next" href="data-storage.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Server Sent Events" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="server-sent-events.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/server-sent-events"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/server-sent-events"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/server-sent-events"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/server-sent-events"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=server-sent-events"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/server-sent-events"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/server-sent-events"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fserver-sent-events"
+                  rel="nofollow"
+                ></a
+                >2Fserver-sent-events"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option
+                  value="https://javascript.info/server-sent-events"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/server-sent-events">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/server-sent-events">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/server-sent-events">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/server-sent-events">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/">한국어</option>
+                <option value=server-sent-events">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/server-sent-events">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/server-sent-events">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="12"
+          max="12"
+          data-tooltip="Lesson 12 of 12"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="network.html"
+                        ><span>Network requests</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Network requests",
+                            "item": "https://javascript.info/network"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 30th November 2020"
+                  >
+                    <div class="updated-at__content">30th November 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Server Sent Events</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Server Sent Events" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    The
+                    <a
+                      href="https://html.spec.whatwg.org/multipage/comms.html#the-eventsource-interface"
+                      >Server-Sent Events</a
+                    >
+                    specification describes a built-in class
+                    <code>EventSource</code>, that keeps connection with the
+                    server and allows to receive events from it.
+                  </p>
+                  <p>
+                    Similar to <code>WebSocket</code>, the connection is
+                    persistent.
+                  </p>
+                  <p>But there are several important differences:</p>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th><code>WebSocket</code></th>
+                        <th><code>EventSource</code></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          Bi-directional: both client and server can exchange
+                          messages
+                        </td>
+                        <td>One-directional: only server sends data</td>
+                      </tr>
+                      <tr>
+                        <td>Binary and text data</td>
+                        <td>Only text</td>
+                      </tr>
+                      <tr>
+                        <td>WebSocket protocol</td>
+                        <td>Regular HTTP</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>
+                    <code>EventSource</code> is a less-powerful way of
+                    communicating with the server than <code>WebSocket</code>.
+                  </p>
+                  <p>Why should one ever use it?</p>
+                  <p>
+                    The main reason: it’s simpler. In many applications, the
+                    power of <code>WebSocket</code> is a little bit too much.
+                  </p>
+                  <p>
+                    We need to receive a stream of data from server: maybe chat
+                    messages or market prices, or whatever. That’s what
+                    <code>EventSource</code> is good at. Also it supports
+                    auto-reconnect, something we need to implement manually with
+                    <code>WebSocket</code>. Besides, it’s a plain old HTTP, not
+                    a new protocol.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="getting-messages"
+                      href="server-sent-events.html#getting-messages"
+                      >Getting messages</a
+                    >
+                  </h2>
+                  <p>
+                    To start receiving messages, we just need to create
+                    <code>new EventSource(url)</code>.
+                  </p>
+                  <p>
+                    The browser will connect to <code>url</code> and keep the
+                    connection open, waiting for events.
+                  </p>
+                  <p>
+                    The server should respond with status 200 and the header
+                    <code>Content-Type: text/event-stream</code>, then keep the
+                    connection and write messages into it in the special format,
+                    like this:
+                  </p>
+                  <div id="dbc2hy865b" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-none"
+                        ><code>data: Message 1
+
+data: Message 2
+
+data: Message 3
+data: of two lines</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>
+                      A message text goes after <code>data:</code>, the space
+                      after the colon is optional.
+                    </li>
+                    <li>
+                      Messages are delimited with double line breaks
+                      <code>\n\n</code>.
+                    </li>
+                    <li>
+                      To send a line break <code>\n</code>, we can immediately
+                      send one more <code>data:</code> (3rd message above).
+                    </li>
+                  </ul>
+                  <p>
+                    In practice, complex messages are usually sent JSON-encoded.
+                    Line-breaks are encoded as <code>\n</code> within them, so
+                    multiline <code>data:</code> messages are not necessary.
+                  </p>
+                  <p>For instance:</p>
+                  <div
+                    id="grrw10ji3j"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":0,"cols":[{"start":42,"end":44}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>data: {&quot;user&quot;:&quot;John&quot;,&quot;message&quot;:&quot;First line\n Second line&quot;}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …So we can assume that one <code>data:</code> holds exactly
+                    one message.
+                  </p>
+                  <p>
+                    For each such message, the <code>message</code> event is
+                    generated:
+                  </p>
+                  <div id="s3yv7ize5e" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let eventSource = new EventSource(&quot;/events/subscribe&quot;);
+
+eventSource.onmessage = function(event) {
+  console.log(&quot;New message&quot;, event.data);
+  // will log 3 times for the data stream above
+};
+
+// or eventSource.addEventListener('message', ...)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="cross-origin-requests"
+                      href="server-sent-events.html#cross-origin-requests"
+                      >Cross-origin requests</a
+                    >
+                  </h3>
+                  <p>
+                    <code>EventSource</code> supports cross-origin requests,
+                    like <code>fetch</code> and any other networking methods. We
+                    can use any URL:
+                  </p>
+                  <div id="s3yqb6ricp" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let source = new EventSource(&quot;https://another-site.com/events&quot;);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The remote server will get the <code>Origin</code> header
+                    and must respond with
+                    <code>Access-Control-Allow-Origin</code> to proceed.
+                  </p>
+                  <p>
+                    To pass credentials, we should set the additional option
+                    <code>withCredentials</code>, like this:
+                  </p>
+                  <div id="3okztk4jak" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let source = new EventSource(&quot;https://another-site.com/events&quot;, {
+  withCredentials: true
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Please see the chapter
+                    <a href="fetch-crossorigin.html"
+                      >Fetch: Cross-Origin Requests</a
+                    >
+                    for more details about cross-origin headers.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="reconnection"
+                      href="server-sent-events.html#reconnection"
+                      >Reconnection</a
+                    >
+                  </h2>
+                  <p>
+                    Upon creation, <code>new EventSource</code> connects to the
+                    server, and if the connection is broken – reconnects.
+                  </p>
+                  <p>
+                    That’s very convenient, as we don’t have to care about it.
+                  </p>
+                  <p>
+                    There’s a small delay between reconnections, a few seconds
+                    by default.
+                  </p>
+                  <p>
+                    The server can set the recommended delay using
+                    <code>retry:</code> in response (in milliseconds):
+                  </p>
+                  <div id="5yoqeod8xs" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>retry: 15000
+data: Hello, I set the reconnection delay to 15 seconds</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The <code>retry:</code> may come both together with some
+                    data, or as a standalone message.
+                  </p>
+                  <p>
+                    The browser should wait that many milliseconds before
+                    reconnecting. Or longer, e.g. if the browser knows (from OS)
+                    that there’s no network connection at the moment, it may
+                    wait until the connection appears, and then retry.
+                  </p>
+                  <ul>
+                    <li>
+                      If the server wants the browser to stop reconnecting, it
+                      should respond with HTTP status 204.
+                    </li>
+                    <li>
+                      If the browser wants to close the connection, it should
+                      call <code>eventSource.close()</code>:
+                    </li>
+                  </ul>
+                  <div id="c1zs9e8sb7" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let eventSource = new EventSource(...);
+
+eventSource.close();</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Also, there will be no reconnection if the response has an
+                    incorrect <code>Content-Type</code> or its HTTP status
+                    differs from 301, 307, 200 and 204. In such cases the
+                    <code>&quot;error&quot;</code> event will be emitted, and
+                    the browser won’t reconnect.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Please note:</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        When a connection is finally closed, there’s no way to
+                        “reopen” it. If we’d like to connect again, just create
+                        a new <code>EventSource</code>.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="message-id"
+                      href="server-sent-events.html#message-id"
+                      >Message id</a
+                    >
+                  </h2>
+                  <p>
+                    When a connection breaks due to network problems, either
+                    side can’t be sure which messages were received, and which
+                    weren’t.
+                  </p>
+                  <p>
+                    To correctly resume the connection, each message should have
+                    an <code>id</code> field, like this:
+                  </p>
+                  <div id="udhvbqnbum" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-none"
+                        ><code>data: Message 1
+id: 1
+
+data: Message 2
+id: 2
+
+data: Message 3
+data: of two lines
+id: 3</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    When a message with <code>id:</code> is received, the
+                    browser:
+                  </p>
+                  <ul>
+                    <li>
+                      Sets the property <code>eventSource.lastEventId</code> to
+                      its value.
+                    </li>
+                    <li>
+                      Upon reconnection sends the header
+                      <code>Last-Event-ID</code> with that <code>id</code>, so
+                      that the server may re-send following messages.
+                    </li>
+                  </ul>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Put <code>id:</code> after <code>data:</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Please note: the <code>id</code> is appended below
+                        message <code>data</code> by the server, to ensure that
+                        <code>lastEventId</code> is updated after the message is
+                        received.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="connection-status-readystate"
+                      href="server-sent-events.html#connection-status-readystate"
+                      >Connection status: readyState</a
+                    >
+                  </h2>
+                  <p>
+                    The <code>EventSource</code> object has
+                    <code>readyState</code> property, that has one of three
+                    values:
+                  </p>
+                  <div id="3mof4yl8ib" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>EventSource.CONNECTING = 0; // connecting or reconnecting
+EventSource.OPEN = 1;       // connected
+EventSource.CLOSED = 2;     // connection closed</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    When an object is created, or the connection is down, it’s
+                    always <code>EventSource.CONNECTING</code> (equals
+                    <code>0</code>).
+                  </p>
+                  <p>
+                    We can query this property to know the state of
+                    <code>EventSource</code>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="event-types"
+                      href="server-sent-events.html#event-types"
+                      >Event types</a
+                    >
+                  </h2>
+                  <p>
+                    By default <code>EventSource</code> object generates three
+                    events:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>message</code> – a message received, available as
+                      <code>event.data</code>.
+                    </li>
+                    <li><code>open</code> – the connection is open.</li>
+                    <li>
+                      <code>error</code> – the connection could not be
+                      established, e.g. the server returned HTTP 500 status.
+                    </li>
+                  </ul>
+                  <p>
+                    The server may specify another type of event with
+                    <code>event: ...</code> at the event start.
+                  </p>
+                  <p>For example:</p>
+                  <div id="ndz80wwq6r" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-none"
+                        ><code>event: join
+data: Bob
+
+data: Hello
+
+event: leave
+data: Bob</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    To handle custom events, we must use
+                    <code>addEventListener</code>, not <code>onmessage</code>:
+                  </p>
+                  <div id="5bakqn5df1" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>eventSource.addEventListener('join', event =&gt; {
+  alert(`Joined ${event.data}`);
+});
+
+eventSource.addEventListener('message', event =&gt; {
+  alert(`Said: ${event.data}`);
+});
+
+eventSource.addEventListener('leave', event =&gt; {
+  alert(`Left ${event.data}`);
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="full-example"
+                      href="server-sent-events.html#full-example"
+                      >Full example</a
+                    >
+                  </h2>
+                  <p>
+                    Here’s the server that sends messages with <code>1</code>,
+                    <code>2</code>, <code>3</code>, then <code>bye</code> and
+                    breaks the connection.
+                  </p>
+                  <p>Then the browser automatically reconnects.</p>
+                  <div class="code-tabs code-tabs_result_on">
+                    <div class="code-tabs__tools">
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_left
+                          "
+                          title="&amp;larr;"
+                          data-code-tabs-left="data-code-tabs-left"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__switches-wrap">
+                        <div
+                          class="code-tabs__switches"
+                          data-code-tabs-switches="data-code-tabs-switches"
+                        >
+                          <div class="code-tabs__switches-items">
+                            <div
+                              class="
+                                code-tabs__switch code-tabs__switch_current
+                              "
+                            >
+                              Result
+                            </div>
+                            <div class="code-tabs__switch">server.js</div>
+                            <div class="code-tabs__switch">index.html</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_right
+                          "
+                          title="&amp;rarr;"
+                          data-code-tabs-right="data-code-tabs-right"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__buttons">
+                        <a
+                          class="code-tabs__button code-tabs__button_external"
+                          target="_blank"
+                          title="open in a new window"
+                          href="article/server-sent-events/eventsource/index.html"
+                        ></a
+                        ><a
+                          class="code-tabs__button code-tabs__button_download"
+                          target="_blank"
+                          href="tutorial/zipview/eventsource.zip%3FplunkId=kmGnjUVPK5PigVvr"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      class="code-tabs__content"
+                      data-code-tabs-content="data-code-tabs-content"
+                      style="height: 200px"
+                    >
+                      <div
+                        class="code-tabs__section code-tabs__section_current"
+                      >
+                        <iframe
+                          class="code-tabs__result"
+                          src="article/server-sent-events/eventsource/index.html"
+                        ></iframe>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-javascript line-numbers"
+                        ><code>let http = require('http');
+let url = require('url');
+let querystring = require('querystring');
+let static = require('node-static');
+let fileServer = new static.Server('.');
+
+function onDigits(req, res) {
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream; charset=utf-8',
+    'Cache-Control': 'no-cache'
+  });
+
+  let i = 0;
+
+  let timer = setInterval(write, 1000);
+  write();
+
+  function write() {
+    i++;
+
+    if (i == 4) {
+      res.write('event: bye\ndata: bye-bye\n\n');
+      clearInterval(timer);
+      res.end();
+      return;
+    }
+
+    res.write('data: ' + i + '\n\n');
+
+  }
+}
+
+function accept(req, res) {
+
+  if (req.url == '/digits') {
+    onDigits(req, res);
+    return;
+  }
+
+  fileServer.serve(req, res);
+}
+
+
+if (!module.parent) {
+  http.createServer(accept).listen(8080);
+} else {
+  exports.accept = accept;
+}</code></pre>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-markup line-numbers"
+                        ><code>&lt;!DOCTYPE html&gt;
+&lt;script&gt;
+let eventSource;
+
+function start() { // when &quot;Start&quot; button pressed
+  if (!window.EventSource) {
+    // IE or an old browser
+    alert(&quot;The browser doesn't support EventSource.&quot;);
+    return;
+  }
+
+  eventSource = new EventSource('digits');
+
+  eventSource.onopen = function(e) {
+    log(&quot;Event: open&quot;);
+  };
+
+  eventSource.onerror = function(e) {
+    log(&quot;Event: error&quot;);
+    if (this.readyState == EventSource.CONNECTING) {
+      log(`Reconnecting (readyState=${this.readyState})...`);
+    } else {
+      log(&quot;Error has occured.&quot;);
+    }
+  };
+
+  eventSource.addEventListener('bye', function(e) {
+    log(&quot;Event: bye, data: &quot; + e.data);
+  });
+
+  eventSource.onmessage = function(e) {
+    log(&quot;Event: message, data: &quot; + e.data);
+  };
+}
+
+function stop() { // when &quot;Stop&quot; button pressed
+  eventSource.close();
+  log(&quot;eventSource.close()&quot;);
+}
+
+function log(msg) {
+  logElem.innerHTML += msg + &quot;&lt;br&gt;&quot;;
+  document.documentElement.scrollTop = 99999999;
+}
+&lt;/script&gt;
+
+&lt;button onclick=&quot;start()&quot;&gt;Start&lt;/button&gt; Press the &quot;Start&quot; to begin.
+&lt;div id=&quot;logElem&quot; style=&quot;margin: 6px 0&quot;&gt;&lt;/div&gt;
+
+&lt;button onclick=&quot;stop()&quot;&gt;Stop&lt;/button&gt; &quot;Stop&quot; to finish.</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="server-sent-events.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    <code>EventSource</code> object automatically establishes a
+                    persistent connection and allows the server to send messages
+                    over it.
+                  </p>
+                  <p>It offers:</p>
+                  <ul>
+                    <li>
+                      Automatic reconnect, with tunable
+                      <code>retry</code> timeout.
+                    </li>
+                    <li>
+                      Message ids to resume events, the last received identifier
+                      is sent in <code>Last-Event-ID</code> header upon
+                      reconnection.
+                    </li>
+                    <li>
+                      The current state is in the
+                      <code>readyState</code> property.
+                    </li>
+                  </ul>
+                  <p>
+                    That makes <code>EventSource</code> a viable alternative to
+                    <code>WebSocket</code>, as the latter is more low-level and
+                    lacks such built-in features (though they can be
+                    implemented).
+                  </p>
+                  <p>
+                    In many real-life applications, the power of
+                    <code>EventSource</code> is just enough.
+                  </p>
+                  <p>Supported in all modern browsers (not IE).</p>
+                  <p>The syntax is:</p>
+                  <div id="symv3zd5yj" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let source = new EventSource(url, [credentials]);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The second argument has only one possible option:
+                    <code>{ withCredentials: true }</code>, it allows sending
+                    cross-origin credentials.
+                  </p>
+                  <p>
+                    Overall cross-origin security is same as for
+                    <code>fetch</code> and other network methods.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="properties-of-an-eventsource-object"
+                      href="server-sent-events.html#properties-of-an-eventsource-object"
+                      >Properties of an <code>EventSource</code> object</a
+                    >
+                  </h3>
+                  <dl>
+                    <dt><code>readyState</code></dt>
+                    <dd>
+                      The current connection state: either
+                      <code>EventSource.CONNECTING (=0)</code>,
+                      <code>EventSource.OPEN (=1)</code> or
+                      <code>EventSource.CLOSED (=2)</code>.
+                    </dd>
+                    <dt><code>lastEventId</code></dt>
+                    <dd>
+                      The last received <code>id</code>. Upon reconnection the
+                      browser sends it in the header <code>Last-Event-ID</code>.
+                    </dd>
+                  </dl>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="methods"
+                      href="server-sent-events.html#methods"
+                      >Methods</a
+                    >
+                  </h3>
+                  <dl>
+                    <dt><code>close()</code></dt>
+                    <dd>Closes the connection.</dd>
+                  </dl>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="events"
+                      href="server-sent-events.html#events"
+                      >Events</a
+                    >
+                  </h3>
+                  <dl>
+                    <dt><code>message</code></dt>
+                    <dd>
+                      Message received, the data is in <code>event.data</code>.
+                    </dd>
+                    <dt><code>open</code></dt>
+                    <dd>The connection is established.</dd>
+                    <dt><code>error</code></dt>
+                    <dd>
+                      In case of an error, including both lost connection (will
+                      auto-reconnect) and fatal errors. We can check
+                      <code>readyState</code> to see if the reconnection is
+                      being attempted.
+                    </dd>
+                  </dl>
+                  <p>
+                    The server may set a custom event name in
+                    <code>event:</code>. Such events should be handled using
+                    <code>addEventListener</code>, not
+                    <code>on&lt;event&gt;</code>.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="server-response-format"
+                      href="server-sent-events.html#server-response-format"
+                      >Server response format</a
+                    >
+                  </h3>
+                  <p>
+                    The server sends messages, delimited by <code>\n\n</code>.
+                  </p>
+                  <p>A message may have following fields:</p>
+                  <ul>
+                    <li>
+                      <code>data:</code> – message body, a sequence of multiple
+                      <code>data</code> is interpreted as a single message, with
+                      <code>\n</code> between the parts.
+                    </li>
+                    <li>
+                      <code>id:</code> – renews <code>lastEventId</code>, sent
+                      in <code>Last-Event-ID</code> on reconnect.
+                    </li>
+                    <li>
+                      <code>retry:</code> – recommends a retry delay for
+                      reconnections in ms. There’s no way to set it from
+                      JavaScript.
+                    </li>
+                    <li>
+                      <code>event:</code> – event name, must precede
+                      <code>data:</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    A message may include one or more fields in any order, but
+                    <code>id:</code> usually goes the last.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="websocket.html"
+                data-tooltip="WebSocket"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="data-storage.html"
+                data-tooltip="Storing data in the browser"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fserver-sent-events"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fserver-sent-events"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="server-sent-events.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/server-sent-events",
+                    identifier: "\/server-sent-events",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="network.html"
+                        >Network requests</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   server-sent-events.html#getting-messages"
+                        >Getting messages</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   server-sent-events.html#reconnection"
+                        >Reconnection</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   server-sent-events.html#message-id"
+                        >Message id</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   server-sent-events.html#connection-status-readystate"
+                        >Connection status: readyState</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   server-sent-events.html#event-types"
+                        >Event types</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   server-sent-events.html#full-example"
+                        >Full example</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   server-sent-events.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   server-sent-events.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fserver-sent-events"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fserver-sent-events"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/12-server-sent-events"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

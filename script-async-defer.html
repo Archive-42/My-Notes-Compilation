@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Scripts: async, defer</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="script-async-defer.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Scripts: async, defer" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+
+    <meta name="twitter:title" content="Scripts: async, defer" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="onload-ondomcontentloaded.html" />
+    <link rel="next" href="onload-onerror.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+    <script>
+      (window.GoogleAnalyticsObject = "ga"),
+        (window.ga = function () {
+          window.ga.q.push(arguments);
+        }),
+        (window.ga.q = []),
+        (window.ga.l = Date.now()),
+        ga("create", GA_ID, "auto"),
+        window.GTM_ID && ga("require", GTM_ID),
+        window.currentUser
+          ? ga("set", "&uid", currentUser.id)
+          : ga("set", "anonymizeIp", !0),
+        window.addEventListener("error", function (e) {
+          var r = (e.filename || e.errorUrl) + ": " + (e.lineno || e.errorLine),
+            n = e.stack || (e.error && e.error.stack);
+          ga("send", "exception", {
+            exDescription: e.message + " " + r + " " + n,
+            exFatal: !0,
+          });
+        });
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Scripts: async, defer" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="script-async-defer.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/script-async-defer"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/script-async-defer"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/script-async-defer"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/script-async-defer"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/script-async-defer"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=script-async-defer"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/script-async-defer"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/script-async-defer"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fscript-async-defer"
+                  rel="nofollow"
+                ></a
+                >2Fscript-async-defer"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option
+                  value="https://javascript.info/script-async-defer"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/script-async-defer">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/script-async-defer">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/script-async-defer">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/script-async-defer">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/script-async-defer">
+                  한국어
+                </option>
+                <option value=script-async-defer">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/script-async-defer">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/script-async-defer">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="28"
+          max="32"
+          data-tooltip="Lesson 28 of 32"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="ui.html"
+                        ><span>Browser: Document, Events, Interfaces</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="loading.html"
+                        ><span>Document and resource loading</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Browser: Document, Events, Interfaces",
+                            "item": "https://javascript.info/ui"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Document and resource loading",
+                            "item": "https://javascript.info/loading"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 22nd November 2020"
+                  >
+                    <div class="updated-at__content">22nd November 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Scripts: async, defer</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Scripts: async, defer" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    In modern websites, scripts are often “heavier” than HTML:
+                    their download size is larger, and processing time is also
+                    longer.
+                  </p>
+                  <p>
+                    When the browser loads HTML and comes across a
+                    <code>&lt;script&gt;...&lt;/script&gt;</code> tag, it can’t
+                    continue building the DOM. It must execute the script right
+                    now. The same happens for external scripts
+                    <code
+                      >&lt;script src=&quot;...&quot;&gt;&lt;/script&gt;</code
+                    >: the browser must wait for the script to download, execute
+                    the downloaded script, and only then can it process the rest
+                    of the page.
+                  </p>
+                  <p>That leads to two important issues:</p>
+                  <ol>
+                    <li>
+                      Scripts can’t see DOM elements below them, so they can’t
+                      add handlers etc.
+                    </li>
+                    <li>
+                      If there’s a bulky script at the top of the page, it
+                      “blocks the page”. Users can’t see the page content till
+                      it downloads and runs:
+                    </li>
+                  </ol>
+                  <div
+                    id="3hx9vdy3kw"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="100"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="script-async-defer.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="script-async-defer.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;p&gt;...content before script...&lt;/p&gt;
+
+&lt;script src=&quot;https://javascript.info/article/script-async-defer/long.js?speed=1&quot;&gt;&lt;/script&gt;
+
+&lt;!-- This isn't visible until the script loads --&gt;
+&lt;p&gt;...content after script...&lt;/p&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    There are some workarounds to that. For instance, we can put
+                    a script at the bottom of the page. Then it can see elements
+                    above it, and it doesn’t block the page content from
+                    showing:
+                  </p>
+                  <div id="sfh4cm75v9" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;body&gt;
+  ...all content is above the script...
+
+  &lt;script src=&quot;https://javascript.info/article/script-async-defer/long.js?speed=1&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    But this solution is far from perfect. For example, the
+                    browser notices the script (and can start downloading it)
+                    only after it downloaded the full HTML document. For long
+                    HTML documents, that may be a noticeable delay.
+                  </p>
+                  <p>
+                    Such things are invisible for people using very fast
+                    connections, but many people in the world still have slow
+                    internet speeds and use a far-from-perfect mobile internet
+                    connection.
+                  </p>
+                  <p>
+                    Luckily, there are two
+                    <code>&lt;script&gt;</code> attributes that solve the
+                    problem for us: <code>defer</code> and <code>async</code>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="defer"
+                      href="script-async-defer.html#defer"
+                      >defer</a
+                    >
+                  </h2>
+                  <p>
+                    The <code>defer</code> attribute tells the browser not to
+                    wait for the script. Instead, the browser will continue to
+                    process the HTML, build DOM. The script loads “in the
+                    background”, and then runs when the DOM is fully built.
+                  </p>
+                  <p>
+                    Here’s the same example as above, but with
+                    <code>defer</code>:
+                  </p>
+                  <div
+                    id="vmwbsqzv6r"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="100"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="script-async-defer.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="script-async-defer.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;p&gt;...content before script...&lt;/p&gt;
+
+&lt;script defer src=&quot;https://javascript.info/article/script-async-defer/long.js?speed=1&quot;&gt;&lt;/script&gt;
+
+&lt;!-- visible immediately --&gt;
+&lt;p&gt;...content after script...&lt;/p&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>In other words:</p>
+                  <ul>
+                    <li>
+                      Scripts with <code>defer</code> never block the page.
+                    </li>
+                    <li>
+                      Scripts with <code>defer</code> always execute when the
+                      DOM is ready (but before
+                      <code>DOMContentLoaded</code> event).
+                    </li>
+                  </ul>
+                  <p>The following example demonstrates the second part:</p>
+                  <div
+                    id="m0c8j0kwhc"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="100"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="script-async-defer.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="script-async-defer.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;p&gt;...content before scripts...&lt;/p&gt;
+
+&lt;script&gt;
+  document.addEventListener('DOMContentLoaded', () =&gt; alert(&quot;DOM ready after defer!&quot;));
+&lt;/script&gt;
+
+&lt;script defer src=&quot;https://javascript.info/article/script-async-defer/long.js?speed=1&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;...content after scripts...&lt;/p&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ol>
+                    <li>The page content shows up immediately.</li>
+                    <li>
+                      <code>DOMContentLoaded</code> event handler waits for the
+                      deferred script. It only triggers when the script is
+                      downloaded and executed.
+                    </li>
+                  </ol>
+                  <p>
+                    <strong
+                      >Deferred scripts keep their relative order, just like
+                      regular scripts.</strong
+                    >
+                  </p>
+                  <p>
+                    Let’s say, we have two deferred scripts: the
+                    <code>long.js</code> and then <code>small.js</code>:
+                  </p>
+                  <div id="lnpx4a39vf" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;script defer src=&quot;https://javascript.info/article/script-async-defer/long.js&quot;&gt;&lt;/script&gt;
+&lt;script defer src=&quot;https://javascript.info/article/script-async-defer/small.js&quot;&gt;&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Browsers scan the page for scripts and download them in
+                    parallel, to improve performance. So in the example above
+                    both scripts download in parallel. The
+                    <code>small.js</code> probably finishes first.
+                  </p>
+                  <p>
+                    …But the <code>defer</code> attribute, besides telling the
+                    browser “not to block”, ensures that the relative order is
+                    kept. So even though <code>small.js</code> loads first, it
+                    still waits and runs after <code>long.js</code> executes.
+                  </p>
+                  <p>
+                    That may be important for cases when we need to load a
+                    JavaScript library and then a script that depends on it.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >The <code>defer</code> attribute is only for external
+                        scripts</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        The <code>defer</code> attribute is ignored if the
+                        <code>&lt;script&gt;</code> tag has no <code>src</code>.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="async"
+                      href="script-async-defer.html#async"
+                      >async</a
+                    >
+                  </h2>
+                  <p>
+                    The <code>async</code> attribute is somewhat like
+                    <code>defer</code>. It also makes the script non-blocking.
+                    But it has important differences in the behavior.
+                  </p>
+                  <p>
+                    The <code>async</code> attribute means that a script is
+                    completely independent:
+                  </p>
+                  <ul>
+                    <li>
+                      The browser doesn’t block on <code>async</code> scripts
+                      (like <code>defer</code>).
+                    </li>
+                    <li>
+                      Other scripts don’t wait for <code>async</code> scripts,
+                      and <code>async</code> scripts don’t wait for them.
+                    </li>
+                    <li>
+                      <code>DOMContentLoaded</code> and async scripts don’t wait
+                      for each other:
+                      <ul>
+                        <li>
+                          <code>DOMContentLoaded</code> may happen both before
+                          an async script (if an async script finishes loading
+                          after the page is complete)
+                        </li>
+                        <li>
+                          …or after an async script (if an async script is short
+                          or was in HTTP-cache)
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p>
+                    In other words, <code>async</code> scripts load in the
+                    background and run when ready. The DOM and other scripts
+                    don’t wait for them, and they don’t wait for anything. A
+                    fully independent script that runs when loaded. As simple,
+                    as it can get, right?
+                  </p>
+                  <p>
+                    Here’s an example similar to what we’ve seen with
+                    <code>defer</code>: two scripts <code>long.js</code> and
+                    <code>small.js</code>, but now with
+                    <code>async</code> instead of <code>defer</code>.
+                  </p>
+                  <p>
+                    They don’t wait for each other. Whatever loads first
+                    (probably <code>small.js</code>) – runs first:
+                  </p>
+                  <div
+                    id="ag1dbptc7b"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="100"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="script-async-defer.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="script-async-defer.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;p&gt;...content before scripts...&lt;/p&gt;
+
+&lt;script&gt;
+  document.addEventListener('DOMContentLoaded', () =&gt; alert(&quot;DOM ready!&quot;));
+&lt;/script&gt;
+
+&lt;script async src=&quot;https://javascript.info/article/script-async-defer/long.js&quot;&gt;&lt;/script&gt;
+&lt;script async src=&quot;https://javascript.info/article/script-async-defer/small.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;...content after scripts...&lt;/p&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>
+                      The page content shows up immediately:
+                      <code>async</code> doesn’t block it.
+                    </li>
+                    <li>
+                      <code>DOMContentLoaded</code> may happen both before and
+                      after <code>async</code>, no guarantees here.
+                    </li>
+                    <li>
+                      A smaller script <code>small.js</code> goes second, but
+                      probably loads before <code>long.js</code>, so
+                      <code>small.js</code> runs first. Although, it might be
+                      that <code>long.js</code> loads first, if cached, then it
+                      runs first. In other words, async scripts run in the
+                      “load-first” order.
+                    </li>
+                  </ul>
+                  <p>
+                    Async scripts are great when we integrate an independent
+                    third-party script into the page: counters, ads and so on,
+                    as they don’t depend on our scripts, and our scripts
+                    shouldn’t wait for them:
+                  </p>
+                  <div id="61tk6wdb9c" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;!-- Google Analytics is usually added like this --&gt;
+&lt;script async src=&quot;https://google-analytics.com/analytics.js&quot;&gt;&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="dynamic-scripts"
+                      href="script-async-defer.html#dynamic-scripts"
+                      >Dynamic scripts</a
+                    >
+                  </h2>
+                  <p>
+                    There’s one more important way of adding a script to the
+                    page.
+                  </p>
+                  <p>
+                    We can create a script and append it to the document
+                    dynamically using JavaScript:
+                  </p>
+                  <div id="uwcew459tt" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="script-async-defer.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="script-async-defer.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let script = document.createElement('script');
+script.src = &quot;/article/script-async-defer/long.js&quot;;
+document.body.append(script); // (*)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The script starts loading as soon as it’s appended to the
+                    document <code>(*)</code>.
+                  </p>
+                  <p>
+                    <strong
+                      >Dynamic scripts behave as “async” by default.</strong
+                    >
+                  </p>
+                  <p>That is:</p>
+                  <ul>
+                    <li>
+                      They don’t wait for anything, nothing waits for them.
+                    </li>
+                    <li>
+                      The script that loads first – runs first (“load-first”
+                      order).
+                    </li>
+                  </ul>
+                  <p>
+                    This can be changed if we explicitly set
+                    <code>script.async=false</code>. Then scripts will be
+                    executed in the document order, just like
+                    <code>defer</code>.
+                  </p>
+                  <p>
+                    In this example, <code>loadScript(src)</code> function adds
+                    a script and also sets <code>async</code> to
+                    <code>false</code>.
+                  </p>
+                  <p>
+                    So <code>long.js</code> always runs first (as it’s added
+                    first):
+                  </p>
+                  <div id="txmw1eyqxb" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="script-async-defer.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="script-async-defer.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function loadScript(src) {
+  let script = document.createElement('script');
+  script.src = src;
+  script.async = false;
+  document.body.append(script);
+}
+
+// long.js runs first because of async=false
+loadScript(&quot;/article/script-async-defer/long.js&quot;);
+loadScript(&quot;/article/script-async-defer/small.js&quot;);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Without <code>script.async=false</code>, scripts would
+                    execute in default, load-first order (the
+                    <code>small.js</code> probably first).
+                  </p>
+                  <p>
+                    Again, as with the <code>defer</code>, the order matters if
+                    we’d like to load a library and then another script that
+                    depends on it.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="script-async-defer.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    Both <code>async</code> and <code>defer</code> have one
+                    common thing: downloading of such scripts doesn’t block page
+                    rendering. So the user can read page content and get
+                    acquainted with the page immediately.
+                  </p>
+                  <p>But there are also essential differences between them:</p>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Order</th>
+                        <th><code>DOMContentLoaded</code></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>async</code></td>
+                        <td>
+                          <em>Load-first order</em>. Their document order
+                          doesn’t matter – which loads first runs first
+                        </td>
+                        <td>
+                          Irrelevant. May load and execute while the document
+                          has not yet been fully downloaded. That happens if
+                          scripts are small or cached, and the document is long
+                          enough.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>defer</code></td>
+                        <td>
+                          <em>Document order</em> (as they go in the document).
+                        </td>
+                        <td>
+                          Execute after the document is loaded and parsed (they
+                          wait if needed), right before
+                          <code>DOMContentLoaded</code>.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>
+                    In practice, <code>defer</code> is used for scripts that
+                    need the whole DOM and/or their relative execution order is
+                    important.
+                  </p>
+                  <p>
+                    And <code>async</code> is used for independent scripts, like
+                    counters or ads. And their relative execution order does not
+                    matter.
+                  </p>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Page without scripts should be usable</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Please note: if you’re using <code>defer</code> or
+                        <code>async</code>, then user will see the the page
+                        <em>before</em> the script loads.
+                      </p>
+                      <p>
+                        In such case, some graphical components are probably not
+                        initialized yet.
+                      </p>
+                      <p>
+                        Don’t forget to put “loading” indication and disable
+                        buttons that aren’t functional yet. Let the user clearly
+                        see what he can do on the page, and what’s still getting
+                        ready.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="onload-ondomcontentloaded.html"
+                data-tooltip="Page: DOMContentLoaded, load, beforeunload, unload"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="onload-onerror.html"
+                data-tooltip="Resource loading: onload and onerror"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fscript-async-defer"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fscript-async-defer"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="script-async-defer.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/script-async-defer",
+                    identifier: "\/script-async-defer",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="loading.html"
+                        >Document and resource loading</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   script-async-defer.html#defer"
+                        >defer</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   script-async-defer.html#async"
+                        >async</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   script-async-defer.html#dynamic-scripts"
+                        >Dynamic scripts</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   script-async-defer.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   script-async-defer.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fscript-async-defer"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fscript-async-defer"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/5-loading/02-script-async-defer"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
