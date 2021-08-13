@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>solution</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+</head>
+<body>
+<p>We can use such approach if we are sure that <code>"constructor"</code> property has the correct value.</p>
+<p>For instance, if we don’t touch the default <code>"prototype"</code>, then this code works for sure:</p>
+<p>```js run function User(name) { this.name = name; }</p>
+<p>let user = new User(‘John’); let user2 = new user.constructor(‘Pete’);</p>
+<p>alert( user2.name ); // Pete (worked!) ```</p>
+<p>It worked, because <code>User.prototype.constructor == User</code>.</p>
+<p>..But if someone, so to speak, overwrites <code>User.prototype</code> and forgets to recreate <code>constructor</code> to reference <code>User</code>, then it would fail.</p>
+<p>For instance:</p>
+<p>```js run function User(name) { this.name = name; } <em>!</em> User.prototype = {}; // (<em>) </em>/!*</p>
+<p>let user = new User(‘John’); let user2 = new user.constructor(‘Pete’);</p>
+<p>alert( user2.name ); // undefined ```</p>
+<p>Why <code>user2.name</code> is <code>undefined</code>?</p>
+<p>Here’s how <code>new user.constructor('Pete')</code> works:</p>
+<ol type="1">
+<li>First, it looks for <code>constructor</code> in <code>user</code>. Nothing.</li>
+<li>Then it follows the prototype chain. The prototype of <code>user</code> is <code>User.prototype</code>, and it also has no <code>constructor</code> (because we “forgot” to set it right!).</li>
+<li>Going further up the chain, <code>User.prototype</code> is a plain object, its prototype is the built-in <code>Object.prototype</code>.</li>
+<li>Finally, for the built-in <code>Object.prototype</code>, there’s a built-in <code>Object.prototype.constructor == Object</code>. So it is used.</li>
+</ol>
+<p>Finally, at the end, we have <code>let user2 = new Object('Pete')</code>.</p>
+<p>Probably, that’s not what we want. We’d like to create <code>new User</code>, not <code>new Object</code>. That’s the outcome of the missing <code>constructor</code>.</p>
+<p>(Just in case you’re curious, the <code>new Object(...)</code> call converts its argument to an object. That’s a theoretical thing, in practice no one calls <code>new Object</code> with a value, and generally we don’t use <code>new Object</code> to make objects at all).</p>
+</body>
+</html>
