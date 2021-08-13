@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/async-iterators-generators"
+- /async-iterators-generators"
 - <a href=async-iterators-generators"
 - <a href="https://tr.javascript.info/async-iterators-generators"
 - <a href="https://zh.javascript.info/async-iterators-generators"

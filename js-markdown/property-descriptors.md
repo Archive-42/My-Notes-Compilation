@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/property-descriptors"
+- /property-descriptors"
 - <a href=property-descriptors"
 - <a href="https://tr.javascript.info/property-descriptors"
 - <a href="https://zh.javascript.info/property-descriptors"

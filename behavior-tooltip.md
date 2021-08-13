@@ -8,7 +8,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   /behavior-tooltip"
 - <a href="https://tr.javascript.info/"
   ask/behavior-tooltip"k%2Fbehavior-tooltip"%2Fbehavior-tooltip" </a>

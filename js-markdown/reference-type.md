@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/reference-type"
+- /reference-type"
 - <a href="
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/reference-type"

@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/css-animations"
+- /css-animations"
 - <a href=css-animations"
 - <a href="https://tr.javascript.info/css-animations"
 - <a href="https://zh.javascript.info/css-animations"

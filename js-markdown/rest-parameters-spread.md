@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/rest-parameters-spread"
+- /rest-parameters-spread"
 - <a href="
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/rest-parameters-spread"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/dom-nodes"
+- /dom-nodes"
 - <a href=dom-nodes"
 - <a href="https://tr.javascript.info/dom-nodes"
 - <a href="https://zh.javascript.info/dom-nodes"

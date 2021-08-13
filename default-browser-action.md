@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/default-browser-action"
+- /default-browser-action"
 - <a href=default-browser-action"
 - <a href="https://tr.javascript.info/default-browser-action"
 - <a href="https://zh.javascript.info/default-browser-action"

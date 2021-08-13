@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/regexp-character-classes"
+- /regexp-character-classes"
 - <a href=regexp-character-classes"
 - <a href="https://tr.javascript.info/regexp-character-classes"
 - <a href="https://zh.javascript.info/regexp-character-classes"

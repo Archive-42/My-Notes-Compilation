@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   width-vs-clientwidth"
 - <a href="https://tr.javascript.info/"
   width-vs-clientwidth"

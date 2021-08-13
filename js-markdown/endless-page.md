@@ -8,7 +8,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   endless-page"
   /endless-page"
   endless-page"

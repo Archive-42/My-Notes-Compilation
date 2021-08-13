@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/size-and-scroll-window"
+- /size-and-scroll-window"
 - <a href=size-and-scroll-window"
 - <a href="https://tr.javascript.info/size-and-scroll-window"
 - <a href="https://zh.javascript.info/size-and-scroll-window"

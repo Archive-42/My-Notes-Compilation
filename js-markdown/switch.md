@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/switch"
+- /switch"
 - <a href=switch"
 - <a href="https://tr.javascript.info/switch"
 - <a href="https://zh.javascript.info/switch"

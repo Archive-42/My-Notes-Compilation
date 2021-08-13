@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/bezier-curve"
+- /bezier-curve"
 - <a href=bezier-curve"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/bezier-curve"

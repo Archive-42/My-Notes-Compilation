@@ -8,7 +8,7 @@ animate-logo-bezier-cssanimate-logo-bezier-css"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   /animate-logo-bezier-css"
   /animate-logo-bezier-css"
   ask/animate-logo-bezier-css"k%2Fanimate-logo-bezier-css"%2Fanimate-logo-bezier-css" </a>

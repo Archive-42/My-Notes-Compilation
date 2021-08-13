@@ -8,7 +8,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- /first-steps" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
 - <a href="first-steps%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
 - <a href="https://tr.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
 - <a href="https://zh.javascript.info/first-steps" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>

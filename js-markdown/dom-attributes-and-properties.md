@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/dom-attributes-and-properties"
+- /dom-attributes-and-properties"
 - <a href=dom-attributes-and-properties"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/dom-attributes-and-properties"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/prototypes"
+- /prototypes"
 - <a href=prototypes"
 - <a href="https://tr.javascript.info/prototypes"
 - <a href="https://zh.javascript.info/prototypes"

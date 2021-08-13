@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/prototype-inheritance"
+- /prototype-inheritance"
 - <a href=prototype-inheritance"
 - <a href="https://tr.javascript.info/prototype-inheritance"
 - <a href="https://zh.javascript.info/prototype-inheritance"

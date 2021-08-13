@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/code-quality"
+- /code-quality"
 - <a href=code-quality"
 - <a href="https://tr.javascript.info/code-quality"
 - <a href="https://zh.javascript.info/code-quality"

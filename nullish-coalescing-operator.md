@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/nullish-coalescing-operator"
+- /nullish-coalescing-operator"
 - <a href=nullish-coalescing-operator"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/nullish-coalescing-operator"

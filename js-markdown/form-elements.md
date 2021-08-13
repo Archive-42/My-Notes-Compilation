@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/form-elements"
+- /form-elements"
 - <a href=form-elements"
 - <a href="https://tr.javascript.info/form-elements"
 - <a href="https://zh.javascript.info/form-elements"

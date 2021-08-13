@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/object-toprimitive"
+- /object-toprimitive"
 - <a href=object-toprimitive"
 - <a href="https://tr.javascript.info/object-toprimitive"
 - <a href="https://zh.javascript.info/object-toprimitive"

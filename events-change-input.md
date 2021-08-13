@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/events-change-input"
+- /events-change-input"
 - <a href=events-change-input"
 - <a href="https://tr.javascript.info/events-change-input"
 - <a href="https://zh.javascript.info/events-change-input"

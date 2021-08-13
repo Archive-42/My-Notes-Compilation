@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/testing-mocha"
+- /testing-mocha"
 - <a href=testing-mocha"
 - <a href="https://tr.javascript.info/testing-mocha"
   esting-mocha"

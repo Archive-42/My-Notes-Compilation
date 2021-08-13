@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=arraybuffer-binary-arrays"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/arraybuffer-binary-arrays"

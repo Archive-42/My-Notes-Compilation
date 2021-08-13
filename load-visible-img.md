@@ -9,7 +9,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   load-visible-img"
   /load-visible-img"
   load-visible-img"

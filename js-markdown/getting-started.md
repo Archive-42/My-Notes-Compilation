@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/getting-started"
+- /getting-started"
 - <a href=getting-started"
 - <a href="https://tr.javascript.info/getting-started"
 - <a href="https://zh.javascript.info/getting-started"

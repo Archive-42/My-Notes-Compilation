@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/coding-style"
+- /coding-style"
 - <a href=coding-style"
 - <a href="https://tr.javascript.info/coding-style"
 - <a href="https://zh.javascript.info/coding-style"

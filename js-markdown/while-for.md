@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/while-for"
+- /while-for"
 - <a href=while-for"
 - <a href="https://tr.javascript.info/while-for"
 - <a href="https://zh.javascript.info/while-for"

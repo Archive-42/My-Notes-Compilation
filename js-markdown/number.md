@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/number"
+- /number"
 - <a href=number"
 - <a href="https://tr.javascript.info/number"
 - <a href="https://zh.javascript.info/number"

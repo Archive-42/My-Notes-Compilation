@@ -9,7 +9,7 @@ sliding-menusliding-menu"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   sliding-menu"
 - <a href="https://tr.javascript.info/"
   sliding-menu"

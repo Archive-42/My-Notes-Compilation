@@ -9,7 +9,7 @@ hide-self-onclickhide-self-onclick"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   hide-self-onclick"
 - <a href="https://tr.javascript.info/"
   hide-self-onclick"

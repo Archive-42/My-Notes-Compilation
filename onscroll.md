@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=onscroll"
 - <a href="https://tr.javascript.info/onscroll"
 - <a href="https://zh.javascript.info/onscroll"

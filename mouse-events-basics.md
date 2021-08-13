@@ -7,7 +7,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/mouse-events-basics" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- /mouse-events-basics" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
 - <a href="mouse-events-basics%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
 - - <a href="https://zh.javascript.info/mouse-events-basics" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 

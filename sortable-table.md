@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   sortable-table"
 - <a href="https://tr.javascript.info/"
   sortable-table"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/object-properties"
+- /object-properties"
 - <a href=object-properties"
 - <a href="https://tr.javascript.info/object-properties"
 - <a href="https://zh.javascript.info/object-properties"

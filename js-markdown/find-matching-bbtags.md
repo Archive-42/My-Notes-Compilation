@@ -7,7 +7,7 @@ find-matching-bbtags"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   find-matching-bbtags"
 - <a href="https://tr.javascript.info/"
   find-matching-bbtags"

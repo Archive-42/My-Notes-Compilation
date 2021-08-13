@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/function-prototype"
+- /function-prototype"
 - <a href=function-prototype"
 - <a href="https://tr.javascript.info/function-prototype"
 - <a href="https://zh.javascript.info/function-prototype"

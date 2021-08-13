@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/import-export"
+- /import-export"
 - <a href=import-export"
 - <a href="https://tr.javascript.info/import-export"
 - <a href="https://zh.javascript.info/import-export"

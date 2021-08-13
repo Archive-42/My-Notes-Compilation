@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=cross-window-communication"
 - <a href="https://tr.javascript.info/cross-window-communication"
 - <a href="https://zh.javascript.info/cross-window-communication"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=template-element"
 - <a href="https://tr.javascript.info/"
   emplate-element"

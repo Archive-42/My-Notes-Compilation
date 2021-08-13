@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/dispatch-events"
+- /dispatch-events"
 - <a href=dispatch-events"
 - <a href="https://tr.javascript.info/dispatch-events"
 - <a href="https://zh.javascript.info/dispatch-events"

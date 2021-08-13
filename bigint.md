@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/bigint"
+- /bigint"
 - <a href=bigint"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/bigint"

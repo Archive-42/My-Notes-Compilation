@@ -7,7 +7,7 @@ EN
 - ui" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
 - <a href="https://ja.javascript.info/ui" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
-<a href="https://ko.javascript.info/ui" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+/ui" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
 
 <a href="ui%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
 

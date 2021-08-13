@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/closure"
+- /closure"
 - <a href=closure"
 - <a href="https://tr.javascript.info/closure"
 - <a href="https://zh.javascript.info/closure"

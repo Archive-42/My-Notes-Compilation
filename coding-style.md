@@ -8,7 +8,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/coding-style" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- /coding-style" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
 - <a href="coding-style%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
 - <a href="https://tr.javascript.info/coding-style" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
 - <a href="https://zh.javascript.info/coding-style" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>

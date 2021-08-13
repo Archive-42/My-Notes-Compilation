@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/polyfills"
+- /polyfills"
 - <a href=polyfills"
 - <a href="https://tr.javascript.info/polyfills"
 - <a href="https://zh.javascript.info/polyfills"

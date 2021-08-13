@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/promise-chaining"
+- /promise-chaining"
 - <a href=promise-chaining"
 - <a href="https://tr.javascript.info/promise-chaining"
 - <a href="https://zh.javascript.info/promise-chaining"

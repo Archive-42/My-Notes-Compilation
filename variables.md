@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/variables"
+- /variables"
 - <a href=variables"
 - <a href="https://tr.javascript.info/variables"
 - <a href="https://zh.javascript.info/variables"

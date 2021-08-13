@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/error-handling"
+- /error-handling"
 - <a href=error-handling"
 - <a href="https://tr.javascript.info/error-handling"
 - <a href="https://zh.javascript.info/error-handling"

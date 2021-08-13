@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/searching-elements-dom"
+- /searching-elements-dom"
 - <a href=searching-elements-dom"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/searching-elements-dom"

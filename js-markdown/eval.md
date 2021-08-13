@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/eval"
+- /eval"
 - <a href=eval"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/eval"

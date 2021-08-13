@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/ninja-code"
+- /ninja-code"
 - <a href=ninja-code"
 - <a href="https://tr.javascript.info/ninja-code"
 - <a href="https://zh.javascript.info/ninja-code"

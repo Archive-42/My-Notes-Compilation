@@ -7,7 +7,7 @@ reduce-objectreduce-object"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href="
 - <a href="https://tr.javascript.info/"
   reduce-object"

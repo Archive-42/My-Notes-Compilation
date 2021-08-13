@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/async"
+- /async"
 - <a href=async"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/async"

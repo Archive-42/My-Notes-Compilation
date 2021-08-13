@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/recursion"
+- /recursion"
 - <a href=recursion"
 - <a href="https://tr.javascript.info/recursion"
 - <a href="https://zh.javascript.info/recursion"

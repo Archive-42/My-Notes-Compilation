@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/proxy"
+- /proxy"
 - <a href=proxy"
 - <a href="https://tr.javascript.info/proxy"
 - <a href="https://zh.javascript.info/proxy"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/promise-basics"
+- /promise-basics"
 - <a href=promise-basics"
 - <a href="https://tr.javascript.info/promise-basics"
 - <a href="https://zh.javascript.info/promise-basics"

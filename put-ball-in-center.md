@@ -9,7 +9,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   put-ball-in-center"
 - <a href="https://tr.javascript.info/"
   put-ball-in-center"

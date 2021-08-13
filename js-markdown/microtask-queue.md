@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/microtask-queue"
+- /microtask-queue"
 - <a href=microtask-queue"
 - <a href="https://tr.javascript.info/microtask-queue"
 - <a href="https://zh.javascript.info/microtask-queue"

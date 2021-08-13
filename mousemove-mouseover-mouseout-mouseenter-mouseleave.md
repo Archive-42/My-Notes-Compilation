@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=mousemove-mouseover-mouseout-mouseenter-mouseleave"
 - <a href="https://tr.javascript.info/mousemove-mouseover-mouseout-mouseenter-mouseleave"
 - <a href="https://zh.javascript.info/mousemove-mouseover-mouseout-mouseenter-mouseleave"

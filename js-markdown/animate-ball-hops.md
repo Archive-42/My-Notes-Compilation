@@ -8,7 +8,7 @@ animate-ball-hopsanimate-ball-hops"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   /animate-ball-hops"
 - <a href="https://tr.javascript.info/"
   ask/animate-ball-hops"k%2Fanimate-ball-hops"%2Fanimate-ball-hops" </a>

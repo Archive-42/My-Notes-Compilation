@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/onload-ondomcontentloaded"
+- /onload-ondomcontentloaded"
 - <a href=onload-ondomcontentloaded"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/onload-ondomcontentloaded"

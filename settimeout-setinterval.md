@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/settimeout-setinterval"
+- /settimeout-setinterval"
 - <a href=settimeout-setinterval"
 - <a href="https://tr.javascript.info/settimeout-setinterval"
 - <a href="https://zh.javascript.info/settimeout-setinterval"

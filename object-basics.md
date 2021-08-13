@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/object-basics"
+- /object-basics"
 - <a href=object-basics"
 - <a href="https://tr.javascript.info/object-basics"
 - <a href="https://zh.javascript.info/object-basics"

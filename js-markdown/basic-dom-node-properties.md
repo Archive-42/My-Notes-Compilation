@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/basic-dom-node-properties"
+- /basic-dom-node-properties"
 - <a href=basic-dom-node-properties"
 - <a href="https://tr.javascript.info/basic-dom-node-properties"
 - <a href="https://zh.javascript.info/basic-dom-node-properties"

@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/introduction-browser-events"
+- /introduction-browser-events"
 - <a href=introduction-browser-events"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/introduction-browser-events"

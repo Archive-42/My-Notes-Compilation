@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/javascript-specials"
+- /javascript-specials"
 - <a href=javascript-specials"
 - <a href="https://tr.javascript.info/javascript-specials"
 - <a href="https://zh.javascript.info/javascript-specials"

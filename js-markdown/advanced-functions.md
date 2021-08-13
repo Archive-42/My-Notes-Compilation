@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/advanced-functions"
+- /advanced-functions"
 - <a href=advanced-functions"
 - <a href="https://tr.javascript.info/advanced-functions"
 - <a href="https://zh.javascript.info/advanced-functions"

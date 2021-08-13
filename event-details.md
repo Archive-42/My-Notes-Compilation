@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/event-details"
+- /event-details"
 - <a href=event-details"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/event-details"

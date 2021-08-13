@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/async-await"
+- /async-await"
 - <a href=async-await"
 - <a href="https://tr.javascript.info/async-await"
 - <a href="https://zh.javascript.info/async-await"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/size-and-scroll"
+- /size-and-scroll"
 - <a href=size-and-scroll"
 - <a href="https://tr.javascript.info/size-and-scroll"
 - <a href="https://zh.javascript.info/size-and-scroll"

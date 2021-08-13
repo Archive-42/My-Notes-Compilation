@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/localstorage"
+- /localstorage"
 - <a href=localstorage"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/localstorage"

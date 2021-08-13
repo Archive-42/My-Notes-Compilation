@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   spy-decorator"
   /spy-decorator"
   spy-decorator"

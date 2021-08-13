@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/ui-misc"
+- /ui-misc"
 - <a href=ui-misc"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/ui-misc"

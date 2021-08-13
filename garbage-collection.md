@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/garbage-collection"
+- /garbage-collection"
 - <a href=garbage-collection"
 - <a href="https://tr.javascript.info/garbage-collection"
 - <a href="https://zh.javascript.info/garbage-collection"

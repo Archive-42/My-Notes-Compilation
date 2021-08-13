@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/static-properties-methods"
+- /static-properties-methods"
 - <a href=static-properties-methods"
 - <a href="https://tr.javascript.info/static-properties-methods"
 - <a href="https://zh.javascript.info/static-properties-methods"

@@ -9,7 +9,7 @@ move-ball-fieldmove-ball-field"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   move-ball-field"
 - <a href="https://tr.javascript.info/"
   move-ball-field"

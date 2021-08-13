@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/function-expressions"
+- /function-expressions"
 - <a href=function-expressions"
 - <a href="https://tr.javascript.info/function-expressions"
 - <a href="https://zh.javascript.info/function-expressions"

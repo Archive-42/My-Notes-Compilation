@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/constructor-new"
+- /constructor-new"
 - <a href=constructor-new"
 - <a href="https://tr.javascript.info/constructor-new"
 - <a href="https://zh.javascript.info/constructor-new"

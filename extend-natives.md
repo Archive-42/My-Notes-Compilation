@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/extend-natives"
+- /extend-natives"
 - <a href=extend-natives"
 - <a href="https://tr.javascript.info/extend-natives"
 - <a href="https://zh.javascript.info/extend-natives"

@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=indexeddb"
 - <a href="https://tr.javascript.info/indexeddb"
 - <a href="https://zh.javascript.info/indexeddb"

@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/fetch-api"
+- /fetch-api"
 - <a href=fetch-api"
 - <a href="https://tr.javascript.info/fetch-api"
 - <a href="https://zh.javascript.info/fetch-api"

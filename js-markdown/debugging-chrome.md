@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/debugging-chrome"
+- /debugging-chrome"
 - <a href=debugging-chrome"
 - <a href="https://tr.javascript.info/debugging-chrome"
 - <a href="https://zh.javascript.info/debugging-chrome"

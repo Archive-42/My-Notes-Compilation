@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/private-protected-properties-methods"
+- /private-protected-properties-methods"
 - <a href=private-protected-properties-methods"
 - <a href="https://tr.javascript.info/private-protected-properties-methods"
 - <a href="https://zh.javascript.info/private-protected-properties-methods"

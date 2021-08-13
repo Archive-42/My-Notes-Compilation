@@ -8,7 +8,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   drag-heroes"
   /drag-heroes"
   drag-heroes"

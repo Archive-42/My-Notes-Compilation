@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=regexp-backreferences"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/regexp-backreferences"

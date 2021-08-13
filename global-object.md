@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/global-object"
+- /global-object"
 - <a href=global-object"
 - <a href="https://tr.javascript.info/global-object"
 - <a href="https://zh.javascript.info/global-object"

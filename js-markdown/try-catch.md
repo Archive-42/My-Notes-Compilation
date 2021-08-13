@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/try-catch"
+- /try-catch"
 - <a href=try-catch"
 - <a href="https://tr.javascript.info/try-catch"
   ry-catch"

@@ -8,7 +8,7 @@ behavior-nested-tooltipbehavior-nested-tooltip"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   /behavior-nested-tooltip"
   /behavior-nested-tooltip"
   ask/behavior-nested-tooltip"k%2Fbehavior-nested-tooltip"%2Fbehavior-nested-tooltip" </a>

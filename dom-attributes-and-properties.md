@@ -6,7 +6,7 @@ EN
 - dom-attributes-and-properties" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
 - <a href="https://ja.javascript.info/dom-attributes-and-properties" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
-<a href="https://ko.javascript.info/dom-attributes-and-properties" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+/dom-attributes-and-properties" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
 
 <a href="dom-attributes-and-properties%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
 

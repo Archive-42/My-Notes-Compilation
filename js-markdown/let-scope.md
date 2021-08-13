@@ -7,7 +7,7 @@ let-scope"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href="
 - <a href="https://tr.javascript.info/"
   let-scope"

@@ -8,7 +8,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   /check-sync-keydown"
   /check-sync-keydown"
   ask/check-sync-keydown"

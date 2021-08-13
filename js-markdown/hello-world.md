@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/hello-world"
+- /hello-world"
 - <a href=hello-world"
 - <a href="https://tr.javascript.info/hello-world"
 - <a href="https://zh.javascript.info/hello-world"

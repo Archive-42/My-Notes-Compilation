@@ -9,7 +9,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   lazy-greedy"
 - <a href="https://tr.javascript.info/"
   lazy-greedy"

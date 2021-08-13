@@ -8,7 +8,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   /concat"
 - <a href="https://tr.javascript.info/"
   concat"

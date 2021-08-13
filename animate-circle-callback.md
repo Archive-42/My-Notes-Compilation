@@ -7,7 +7,7 @@ animate-circle-callbackanimate-circle-callback"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href="
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/"k%2Fanimate-circle-callback"%2Fanimate-circle-callback" </a>

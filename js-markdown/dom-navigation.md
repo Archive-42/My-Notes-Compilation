@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/dom-navigation"
+- /dom-navigation"
 - <a href=dom-navigation"
 - <a href="https://tr.javascript.info/dom-navigation"
 - <a href="https://zh.javascript.info/dom-navigation"

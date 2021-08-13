@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=slots-composition"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/slots-composition"

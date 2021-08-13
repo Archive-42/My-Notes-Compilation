@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/coordinates"
+- /coordinates"
 - <a href=coordinates"
 - <a href="https://tr.javascript.info/coordinates"
 - <a href="https://zh.javascript.info/coordinates"

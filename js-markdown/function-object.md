@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/function-object"
+- /function-object"
 - <a href=function-object"
 - <a href="https://tr.javascript.info/function-object"
 - <a href="https://zh.javascript.info/function-object"

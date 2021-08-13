@@ -7,7 +7,7 @@ match-exact-tag"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   match-exact-tag"
 - <a href="https://tr.javascript.info/"
   match-exact-tag"

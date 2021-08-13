@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/code-editors"
+- /code-editors"
 - <a href=code-editors"
 - <a href="https://tr.javascript.info/code-editors"
 - <a href="https://zh.javascript.info/code-editors"

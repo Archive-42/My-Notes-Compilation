@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/arrow-functions-basics"
+- /arrow-functions-basics"
 - <a href=arrow-functions-basics"
 - <a href="https://tr.javascript.info/arrow-functions-basics"
 - <a href="https://zh.javascript.info/arrow-functions-basics"

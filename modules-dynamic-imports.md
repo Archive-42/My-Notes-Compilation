@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/modules-dynamic-imports"
+- /modules-dynamic-imports"
 - <a href=modules-dynamic-imports"
 - <a href="https://tr.javascript.info/modules-dynamic-imports"
 - <a href="https://zh.javascript.info/modules-dynamic-imports"

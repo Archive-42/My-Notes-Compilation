@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/alert-prompt-confirm"
+- /alert-prompt-confirm"
 - <a href=alert-prompt-confirm"
 - <a href="https://tr.javascript.info/alert-prompt-confirm"
 - <a href="https://zh.javascript.info/alert-prompt-confirm"

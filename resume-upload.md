@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/resume-upload"
+- /resume-upload"
 - <a href=resume-upload"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/resume-upload"

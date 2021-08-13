@@ -7,7 +7,7 @@ endless-loop-error"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   endless-loop-error"
   /endless-loop-error"
   endless-loop-error"

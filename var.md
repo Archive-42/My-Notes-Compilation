@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/var"
+- /var"
 - <a href=var"
 - <a href="https://tr.javascript.info/var"
 - <a href="https://zh.javascript.info/var"

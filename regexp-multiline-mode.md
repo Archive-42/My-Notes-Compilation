@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/regexp-multiline-mode"
+- /regexp-multiline-mode"
 - <a href=regexp-multiline-mode"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/regexp-multiline-mode"

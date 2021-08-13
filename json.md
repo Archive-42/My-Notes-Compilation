@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- /json" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
 - <a href="json%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
 - <a href="https://tr.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
 - <a href="https://zh.javascript.info/json" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>

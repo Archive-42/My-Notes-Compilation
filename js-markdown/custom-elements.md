@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=custom-elements"
 - <a href="https://tr.javascript.info/custom-elements"
 - <a href="https://zh.javascript.info/custom-elements"

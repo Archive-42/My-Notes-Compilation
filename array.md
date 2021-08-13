@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/array"
+- /array"
 - <a href=array"
 - <a href="https://tr.javascript.info/array"
 - <a href="https://zh.javascript.info/array"

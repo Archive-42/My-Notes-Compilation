@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/regexp-catastrophic-backtracking"
+- /regexp-catastrophic-backtracking"
 - <a href=regexp-catastrophic-backtracking"
 - <a href="https://tr.javascript.info/regexp-catastrophic-backtracking"
 - <a href="https://zh.javascript.info/regexp-catastrophic-backtracking"

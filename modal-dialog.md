@@ -9,7 +9,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   modal-dialog"
 - <a href="https://tr.javascript.info/"
   modal-dialog"

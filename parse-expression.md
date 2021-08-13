@@ -9,7 +9,7 @@ parse-expressionparse-expression"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   parse-expression"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/"

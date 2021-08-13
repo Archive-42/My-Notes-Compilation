@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=mutation-observer"
 - <a href="https://tr.javascript.info/mutation-observer"
 - <a href="https://zh.javascript.info/mutation-observer"

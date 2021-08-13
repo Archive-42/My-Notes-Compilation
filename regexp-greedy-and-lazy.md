@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=regexp-greedy-and-lazy"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/regexp-greedy-and-lazy"

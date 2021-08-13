@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/function-basics"
+- /function-basics"
 - <a href=function-basics"
 - <a href="https://tr.javascript.info/function-basics"
 - <a href="https://zh.javascript.info/function-basics"

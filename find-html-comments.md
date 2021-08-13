@@ -8,7 +8,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   find-html-comments"
 - <a href="https://tr.javascript.info/"
   find-html-comments"

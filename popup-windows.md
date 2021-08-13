@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=popup-windows"
 - <a href="https://tr.javascript.info/popup-windows"
 - <a href="https://zh.javascript.info/popup-windows"

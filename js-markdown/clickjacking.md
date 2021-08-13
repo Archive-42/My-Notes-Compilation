@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=clickjacking"
 - <a href="https://tr.javascript.info/clickjacking"
 - <a href="https://zh.javascript.info/clickjacking"

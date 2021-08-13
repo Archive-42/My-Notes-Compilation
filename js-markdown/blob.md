@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=blob"
 - <a href="https://tr.javascript.info/blob"
 - <a href="https://zh.javascript.info/blob"

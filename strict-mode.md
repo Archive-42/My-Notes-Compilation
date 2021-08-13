@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/strict-mode"
+- /strict-mode"
 - <a href=strict-mode"
 - <a href="https://tr.javascript.info/strict-mode"
 - <a href="https://zh.javascript.info/strict-mode"

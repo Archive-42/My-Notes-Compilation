@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/fetch-progress"
+- /fetch-progress"
 - <a href=fetch-progress"
 - <a href="https://tr.javascript.info/fetch-progress"
 - <a href="https://zh.javascript.info/fetch-progress"

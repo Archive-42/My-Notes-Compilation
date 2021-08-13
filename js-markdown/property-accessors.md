@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/property-accessors"
+- /property-accessors"
 - <a href=property-accessors"
 - <a href="https://tr.javascript.info/property-accessors"
 - <a href="https://zh.javascript.info/property-accessors"

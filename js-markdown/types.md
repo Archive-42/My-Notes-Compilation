@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/types"
+- /types"
 - <a href=types"
 - <a href="https://tr.javascript.info/types"
   ypes"

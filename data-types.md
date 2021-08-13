@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/data-types"
+- /data-types"
 - <a href=data-types"
 - <a href="https://tr.javascript.info/data-types"
 - <a href="https://zh.javascript.info/data-types"

@@ -8,7 +8,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   find-html-colors-6hex"
 - <a href="https://tr.javascript.info/"
   find-html-colors-6hex"

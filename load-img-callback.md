@@ -9,7 +9,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   load-img-callback"
 - <a href="https://tr.javascript.info/"
   load-img-callback"

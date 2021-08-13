@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/manuals-specifications"
+- /manuals-specifications"
 - <a href=manuals-specifications"
 - <a href="https://tr.javascript.info/manuals-specifications"
 - <a href="https://zh.javascript.info/manuals-specifications"

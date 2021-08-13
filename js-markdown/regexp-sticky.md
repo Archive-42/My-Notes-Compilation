@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/regexp-sticky"
+- /regexp-sticky"
 - <a href=regexp-sticky"
 - <a href="https://tr.javascript.info/regexp-sticky"
 - <a href="https://zh.javascript.info/regexp-sticky"

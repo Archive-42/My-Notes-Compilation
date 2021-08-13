@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/fetch-crossorigin"
+- /fetch-crossorigin"
 - <a href=fetch-crossorigin"
 - <a href="https://tr.javascript.info/fetch-crossorigin"
 - <a href="https://zh.javascript.info/fetch-crossorigin"

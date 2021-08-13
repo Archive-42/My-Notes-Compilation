@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/promisify"
+- /promisify"
 - <a href=promisify"
 - <a href="https://tr.javascript.info/promisify"
 - <a href="https://zh.javascript.info/promisify"

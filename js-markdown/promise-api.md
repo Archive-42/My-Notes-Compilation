@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/promise-api"
+- /promise-api"
 - <a href=promise-api"
 - <a href="https://tr.javascript.info/promise-api"
 - <a href="https://zh.javascript.info/promise-api"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/webcomponents-intro"
+- /webcomponents-intro"
 - <a href=webcomponents-intro"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/webcomponents-intro"

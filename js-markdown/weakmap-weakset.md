@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/weakmap-weakset"
+- /weakmap-weakset"
 - <a href=weakmap-weakset"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/weakmap-weakset"

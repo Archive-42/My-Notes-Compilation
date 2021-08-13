@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/operators"
+- /operators"
 - <a href=operators"
 - <a href="https://tr.javascript.info/operators"
 - <a href="https://zh.javascript.info/operators"

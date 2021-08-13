@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/comments"
+- /comments"
 - <a href=comments"
 - <a href="https://tr.javascript.info/comments"
 - <a href="https://zh.javascript.info/comments"

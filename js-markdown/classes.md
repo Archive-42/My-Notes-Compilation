@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/classes"
+- /classes"
 - <a href=classes"
 - <a href="https://tr.javascript.info/classes"
 - <a href="https://zh.javascript.info/classes"

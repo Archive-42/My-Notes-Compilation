@@ -9,7 +9,7 @@ hide-messagehide-message"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   hide-message"
 - <a href="https://tr.javascript.info/"
   hide-message"

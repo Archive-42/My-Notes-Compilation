@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/object-methods"
+- /object-methods"
 - <a href=object-methods"
 - <a href="https://tr.javascript.info/object-methods"
 - <a href="https://zh.javascript.info/object-methods"

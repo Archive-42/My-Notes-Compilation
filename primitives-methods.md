@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/primitives-methods"
+- /primitives-methods"
 - <a href=primitives-methods"
 - <a href="https://tr.javascript.info/primitives-methods"
 - <a href="https://zh.javascript.info/primitives-methods"

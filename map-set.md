@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/map-set"
+- /map-set"
 - <a href=map-set"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/map-set"

@@ -7,7 +7,7 @@ random-min-max"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   random-min-max"
   /random-min-max"
   random-min-max"

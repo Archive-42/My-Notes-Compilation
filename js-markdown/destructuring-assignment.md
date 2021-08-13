@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/destructuring-assignment"
+- /destructuring-assignment"
 - <a href=destructuring-assignment"
 - <a href="https://tr.javascript.info/destructuring-assignment"
 - <a href="https://zh.javascript.info/destructuring-assignment"

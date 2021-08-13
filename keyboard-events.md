@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=keyboard-events"
 - <a href="https://tr.javascript.info/keyboard-events"
 - <a href="https://zh.javascript.info/keyboard-events"

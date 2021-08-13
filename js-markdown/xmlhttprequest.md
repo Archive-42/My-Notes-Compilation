@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=xmlhttprequest"
 - <a href="https://tr.javascript.info/xmlhttprequest"
 - <a href="https://zh.javascript.info/xmlhttprequest"

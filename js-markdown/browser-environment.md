@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/browser-environment"
+- /browser-environment"
 - <a href=browser-environment"
 - <a href="https://tr.javascript.info/browser-environment"
 - <a href="https://zh.javascript.info/browser-environment"

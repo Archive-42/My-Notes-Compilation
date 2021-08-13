@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   updown-button"
 - <a href="https://tr.javascript.info/"
   updown-button"

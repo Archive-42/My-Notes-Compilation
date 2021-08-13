@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/mouse-drag-and-drop"
+- /mouse-drag-and-drop"
 - <a href=mouse-drag-and-drop"
 - <a href="https://tr.javascript.info/mouse-drag-and-drop"
 - <a href="https://zh.javascript.info/mouse-drag-and-drop"

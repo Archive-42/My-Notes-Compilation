@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=server-sent-events"
 - <a href="https://tr.javascript.info/server-sent-events"
 - <a href="https://zh.javascript.info/server-sent-events"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/currying-partials"
+- /currying-partials"
 - <a href=currying-partials"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/currying-partials"

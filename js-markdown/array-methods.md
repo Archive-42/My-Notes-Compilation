@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/array-methods"
+- /array-methods"
 - <a href=array-methods"
 - <a href="https://tr.javascript.info/array-methods"
 - <a href="https://zh.javascript.info/array-methods"

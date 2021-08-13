@@ -7,7 +7,7 @@ closure-variable-access"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href="
 - <a href="https://tr.javascript.info/"
   closure-variable-access"

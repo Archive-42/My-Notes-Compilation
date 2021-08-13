@@ -7,7 +7,7 @@ closure-latest-changes"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href="
 - <a href="https://tr.javascript.info/"
   closure-latest-changes"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/type-conversions"
+- /type-conversions"
 - <a href=type-conversions"
 - <a href="https://tr.javascript.info/type-conversions"
   ype-conversions"

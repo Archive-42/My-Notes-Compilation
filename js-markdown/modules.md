@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/modules"
+- /modules"
 - <a href=modules"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/modules"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/regular-expressions"
+- /regular-expressions"
 - <a href=regular-expressions"
 - <a href="https://tr.javascript.info/regular-expressions"
 - <a href="https://zh.javascript.info/regular-expressions"

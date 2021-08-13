@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/loading"
+- /loading"
 - <a href=loading"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/loading"

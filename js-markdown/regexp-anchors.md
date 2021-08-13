@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/regexp-anchors"
+- /regexp-anchors"
 - <a href=regexp-anchors"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/regexp-anchors"

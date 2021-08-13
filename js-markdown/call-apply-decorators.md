@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/call-apply-decorators"
+- /call-apply-decorators"
 - <a href=call-apply-decorators"
 - <a href="https://tr.javascript.info/call-apply-decorators"
 - <a href="https://zh.javascript.info/call-apply-decorators"

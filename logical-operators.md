@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/logical-operators"
+- /logical-operators"
 - <a href=logical-operators"
 - <a href="https://tr.javascript.info/logical-operators"
 - <a href="https://zh.javascript.info/logical-operators"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/new-function"
+- /new-function"
 - <a href=new-function"
 - <a href="https://tr.javascript.info/new-function"
 - <a href="https://zh.javascript.info/new-function"

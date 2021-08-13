@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/iterable"
+- /iterable"
 - <a href=iterable"
 - <a href="https://tr.javascript.info/iterable"
 - <a href="https://zh.javascript.info/iterable"

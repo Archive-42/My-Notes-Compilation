@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/fetch-abort"
+- /fetch-abort"
 - <a href=fetch-abort"
 - <a href="https://tr.javascript.info/fetch-abort"
 - <a href="https://zh.javascript.info/fetch-abort"

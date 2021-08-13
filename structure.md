@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/structure"
+- /structure"
 - <a href=structure"
 - <a href="https://tr.javascript.info/structure"
 - <a href="https://zh.javascript.info/structure"

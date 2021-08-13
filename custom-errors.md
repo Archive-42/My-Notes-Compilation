@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/custom-errors"
+- /custom-errors"
 - <a href=custom-errors"
 - <a href="https://tr.javascript.info/custom-errors"
 - <a href="https://zh.javascript.info/custom-errors"

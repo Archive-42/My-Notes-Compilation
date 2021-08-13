@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/bubbling-and-capturing"
+- /bubbling-and-capturing"
 - <a href=bubbling-and-capturing"
 - <a href="https://tr.javascript.info/bubbling-and-capturing"
 - <a href="https://zh.javascript.info/bubbling-and-capturing"

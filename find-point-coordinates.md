@@ -7,7 +7,7 @@ find-point-coordinates"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   find-point-coordinates"
   /find-point-coordinates"
   find-point-coordinates"

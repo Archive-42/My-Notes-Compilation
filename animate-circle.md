@@ -8,7 +8,7 @@ animate-circleanimate-circle"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   /animate-circle"
   /animate-circle"
   ask/animate-circle"k%2Fanimate-circle"%2Fanimate-circle" </a>

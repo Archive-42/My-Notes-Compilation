@@ -9,7 +9,7 @@ task/test-mac"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   test-mac"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/"

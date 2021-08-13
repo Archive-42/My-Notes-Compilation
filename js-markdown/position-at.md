@@ -7,7 +7,7 @@ position-at"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   position-at"
   /position-at"
   position-at"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/pointer-events"
+- /pointer-events"
 - <a href=pointer-events"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/pointer-events"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/callbacks"
+- /callbacks"
 - <a href=callbacks"
 - <a href="https://tr.javascript.info/callbacks"
 - <a href="https://zh.javascript.info/callbacks"

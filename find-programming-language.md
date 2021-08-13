@@ -7,7 +7,7 @@ find-programming-language"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   find-programming-language"
 - <a href="https://tr.javascript.info/"
   find-programming-language"

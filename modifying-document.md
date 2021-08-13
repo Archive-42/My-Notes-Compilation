@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/modifying-document"
+- /modifying-document"
 - <a href=modifying-document"
 - <a href="https://tr.javascript.info/modifying-document"
 - <a href="https://zh.javascript.info/modifying-document"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/mixins"
+- /mixins"
 - <a href=mixins"
 - <a href="https://tr.javascript.info/mixins"
 - <a href="https://zh.javascript.info/mixins"

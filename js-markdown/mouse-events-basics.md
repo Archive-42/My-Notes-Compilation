@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/mouse-events-basics"
+- /mouse-events-basics"
 - <a href=mouse-events-basics"
 - <a href="https://tr.javascript.info/mouse-events-basics"
 - <a href="https://zh.javascript.info/mouse-events-basics"

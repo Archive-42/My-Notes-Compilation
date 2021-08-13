@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/json"
+- /json"
 - <a href=json"
 - <a href="https://tr.javascript.info/json"
 - <a href="https://zh.javascript.info/json"

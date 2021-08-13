@@ -7,7 +7,7 @@ EN
 - long-polling" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
 - <a href="https://ja.javascript.info/long-polling" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
-<a href="https://ko.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+/" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
 
 <a href="long-polling%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
 

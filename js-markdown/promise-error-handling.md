@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/promise-error-handling"
+- /promise-error-handling"
 - <a href=promise-error-handling"
 - <a href="https://tr.javascript.info/promise-error-handling"
 - <a href="https://zh.javascript.info/promise-error-handling"

@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/focus-blur"
+- /focus-blur"
 - <a href=focus-blur"
 - <a href="https://tr.javascript.info/focus-blur"
 - <a href="https://zh.javascript.info/focus-blur"

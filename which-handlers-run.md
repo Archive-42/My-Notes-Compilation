@@ -9,7 +9,7 @@ task/which-handlers-run"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   which-handlers-run"
 - <a href="https://tr.javascript.info/"
   which-handlers-run"

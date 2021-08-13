@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/first-steps"
+- /first-steps"
 - <a href=first-steps"
 - <a href="https://tr.javascript.info/first-steps"
 - <a href="https://zh.javascript.info/first-steps"

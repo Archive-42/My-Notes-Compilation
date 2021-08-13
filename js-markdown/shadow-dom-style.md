@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=shadow-dom-style"
 - <a href="https://tr.javascript.info/shadow-dom-style"
 - <a href="https://zh.javascript.info/shadow-dom-style"

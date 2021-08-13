@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/cookie"
+- /cookie"
 - <a href=cookie"
 - <a href="https://tr.javascript.info/cookie"
 - <a href="https://zh.javascript.info/cookie"

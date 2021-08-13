@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/class-inheritance"
+- /class-inheritance"
 - <a href=class-inheritance"
 - <a href="https://tr.javascript.info/class-inheritance"
 - <a href="https://zh.javascript.info/class-inheritance"

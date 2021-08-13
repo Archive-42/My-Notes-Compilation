@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/network"
+- /network"
 - <a href=network"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/network"

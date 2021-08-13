@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/prototype-methods"
+- /prototype-methods"
 - <a href=prototype-methods"
 - <a href="https://tr.javascript.info/prototype-methods"
 - <a href="https://zh.javascript.info/prototype-methods"

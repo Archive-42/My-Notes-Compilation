@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/instanceof"
+- /instanceof"
 - <a href=instanceof"
 - <a href="https://tr.javascript.info/instanceof"
 - <a href="https://zh.javascript.info/instanceof"

@@ -9,7 +9,7 @@ find-webcolor-3-or-6find-webcolor-3-or-6"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   find-webcolor-3-or-6"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/"

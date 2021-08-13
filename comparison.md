@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/comparison"
+- /comparison"
 - <a href=comparison"
 - <a href="https://tr.javascript.info/comparison"
 - <a href="https://zh.javascript.info/comparison"

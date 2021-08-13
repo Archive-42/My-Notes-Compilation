@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/keys-values-entries"
+- /keys-values-entries"
 - <a href=keys-values-entries"
 - <a href="https://tr.javascript.info/keys-values-entries"
 - <a href="https://zh.javascript.info/keys-values-entries"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/text-decoder"
+- /text-decoder"
 - <a href=text-decoder"
 - <a href="https://tr.javascript.info/text-decoder"
   ext-decoder"

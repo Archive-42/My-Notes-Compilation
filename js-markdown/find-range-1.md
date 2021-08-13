@@ -9,7 +9,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   find-range-1"
 - <a href="https://tr.javascript.info/"
   find-range-1"

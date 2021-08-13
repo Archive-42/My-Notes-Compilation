@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/generators"
+- /generators"
 - <a href=generators"
 - <a href="https://tr.javascript.info/generators"
 - <a href="https://zh.javascript.info/generators"

@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/regexp-unicode"
+- /regexp-unicode"
 - <a href=regexp-unicode"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/regexp-unicode"

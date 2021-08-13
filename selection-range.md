@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/selection-range"
+- /selection-range"
 - <a href=selection-range"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/selection-range"

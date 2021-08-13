@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
 - <a href=websocket"
 - <a href="https://tr.javascript.info/websocket"
 - <a href="https://zh.javascript.info/websocket"

@@ -8,7 +8,7 @@ carouselcarousel"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   /carousel"
 - <a href="https://tr.javascript.info/"
   ask/carousel"k%2Fcarousel"%2Fcarousel" </a>

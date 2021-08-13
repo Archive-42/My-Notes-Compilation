@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/script-async-defer"
+- /script-async-defer"
 - <a href=script-async-defer"
 - <a href="https://tr.javascript.info/script-async-defer"
 - <a href="https://zh.javascript.info/script-async-defer"

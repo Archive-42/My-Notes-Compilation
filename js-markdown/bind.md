@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/bind"
+- /bind"
 - <a href=bind"
 - <a href="https://tr.javascript.info/bind"
 - <a href="https://zh.javascript.info/bind"

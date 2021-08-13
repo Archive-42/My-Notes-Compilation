@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/devtools"
+- /devtools"
 - <a href=devtools"
 - <a href="https://tr.javascript.info/devtools"
 - <a href="https://zh.javascript.info/devtools"

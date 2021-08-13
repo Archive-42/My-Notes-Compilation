@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/ifelse"
+- /ifelse"
 - <a href=ifelse"
 - <a href="https://tr.javascript.info/ifelse"
 - <a href="https://zh.javascript.info/ifelse"

@@ -7,7 +7,7 @@ position-inside-absolute"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   position-inside-absolute"
 - <a href="https://tr.javascript.info/"
   position-inside-absolute"

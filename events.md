@@ -10,7 +10,7 @@ langs\_\_title">عربي</span></a>
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/events"
+- /events"
 - <a href=events"
 - <a href="https://tr.javascript.info/"
 - <a href="https://zh.javascript.info/events"

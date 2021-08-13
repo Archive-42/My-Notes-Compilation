@@ -9,7 +9,7 @@ hide-otherhide-other"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   hide-other"
 - <a href="https://tr.javascript.info/"
   hide-other"

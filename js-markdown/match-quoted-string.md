@@ -7,7 +7,7 @@ match-quoted-string"
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/"
+- /"
   match-quoted-string"
 - <a href="https://tr.javascript.info/"
   match-quoted-string"

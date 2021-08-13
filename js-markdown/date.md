@@ -9,7 +9,7 @@ EN
 
 <!-- -->
 
-- <a href="https://ko.javascript.info/date"
+- /date"
 - <a href=date"
 - <a href="https://tr.javascript.info/date"
 - <a href="https://zh.javascript.info/date"
