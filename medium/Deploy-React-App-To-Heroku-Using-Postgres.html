@@ -3,18 +3,38 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Deploy React App To Heroku Using Postgres &amp; Express</title>
-    <link rel="stylesheet" href="./medium.css">
-    
+    <link rel="stylesheet" href="./medium.css" />
 
-  <!-- Bootstrap CSS -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
 
-<!-- Optional JavaScript; choose one of the two! -->
+    <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js" integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism-dark.min.css" integrity="sha512-y6rcKLYkttB9ZUBaz0IsncWFo1VoqISrcMY6J1i6Nb9WB9jRrpll8zjt5e1/naZHyXFoR/1VlH72+2VJ1Uzh7A==" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js"
+      integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism-dark.min.css"
+      integrity="sha512-y6rcKLYkttB9ZUBaz0IsncWFo1VoqISrcMY6J1i6Nb9WB9jRrpll8zjt5e1/naZHyXFoR/1VlH72+2VJ1Uzh7A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
   <body>
     <article class="h-entry">
       <header>
@@ -56,36 +76,50 @@
               </figure>
               <p name="7a95" id="7a95" class="graf graf--p graf-after--figure">
                 Before you begin deploying, make sure to remove any
-                <code lang="js" class="markup--code markup--p-code">console.log</code
+                <code lang="js" class="markup--code markup--p-code"
+                  >console.log</code
                 >&#39;s or
-                <code lang="js" class="markup--code markup--p-code">debugger</code>&#39;s
-                in any production code. You can search your entire project
-                folder if you are using them anywhere.
+                <code lang="js" class="markup--code markup--p-code"
+                  >debugger</code
+                >&#39;s in any production code. You can search your entire
+                project folder if you are using them anywhere.
               </p>
               <p name="0120" id="0120" class="graf graf--p graf-after--p">
                 You will set up Heroku to run on a production, not development,
                 version of your application. When a Node.js application like
                 yours is pushed up to Heroku, it is identified as a Node.js
                 application because of the
-                <code lang="js" class="markup--code markup--p-code">package.json</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >package.json</code
+                >
                 file. It runs
-                <code lang="js" class="markup--code markup--p-code">npm install</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >npm install</code
+                >
                 automatically. Then, if there is a
                 <code lang="js" class="markup--code markup--p-code"
                   >heroku-postbuild</code
                 >
                 script in the
-                <code lang="js" class="markup--code markup--p-code">package.json</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >package.json</code
+                >
                 file, it will run that script. Afterwards, it will automatically
                 run
-                <code lang="js" class="markup--code markup--p-code">npm start</code>.
+                <code lang="js" class="markup--code markup--p-code"
+                  >npm start</code
+                >.
               </p>
               <p name="4bd8" id="4bd8" class="graf graf--p graf-after--p">
                 In the following phases, you will configure your application to
                 work in production, not just in development, and configure the
-                <code lang="js" class="markup--code markup--p-code">package.json</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >package.json</code
+                >
                 scripts for
-                <code lang="js" class="markup--code markup--p-code">install</code>,
+                <code lang="js" class="markup--code markup--p-code"
+                  >install</code
+                >,
                 <code lang="js" class="markup--code markup--p-code"
                   >heroku-postbuild</code
                 >
@@ -174,11 +208,17 @@
                 bundled continuously with changes in production, your Express
                 application can serve the React assets in production too. These
                 static files live in the
-                <code lang="js" class="markup--code markup--p-code">frontend/build</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >frontend/build</code
+                >
                 folder after running
-                <code lang="js" class="markup--code markup--p-code">npm run build</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >npm run build</code
+                >
                 in the
-                <code lang="js" class="markup--code markup--p-code">frontend</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >frontend</code
+                >
                 folder.
               </p>
               <p name="ed99" id="ed99" class="graf graf--p graf-after--p">
@@ -190,19 +230,29 @@
               </p>
               <p name="0d3e" id="0d3e" class="graf graf--p graf-after--p">
                 At the root route, serve the React application’s static
-                <code lang="js" class="markup--code markup--p-code">index.html</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >index.html</code
+                >
                 file along with
-                <code lang="js" class="markup--code markup--p-code">XSRF-TOKEN</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >XSRF-TOKEN</code
+                >
                 cookie. Then serve up all the React application&#39;s static
                 files using the
-                <code lang="js" class="markup--code markup--p-code">express.static</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >express.static</code
+                >
                 middleware. Serve the
-                <code lang="js" class="markup--code markup--p-code">index.html</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >index.html</code
+                >
                 and set the
-                <code lang="js" class="markup--code markup--p-code">XSRF-TOKEN</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >XSRF-TOKEN</code
+                >
                 cookie again on all routes that don&#39;t start in
-                <code lang="js" class="markup--code markup--p-code">/api</code>. You
-                should already have this set up in
+                <code lang="js" class="markup--code markup--p-code">/api</code>.
+                You should already have this set up in
                 <code lang="js" class="markup--code markup--p-code"
                   >backend/routes/index.js</code
                 >
@@ -245,9 +295,13 @@
               ><code lang="js" class="markup--code markup--pre-code">module.exports = router;</code></pre>
               <p name="532c" id="532c" class="graf graf--p graf-after--pre">
                 Your Express backend’s
-                <code lang="js" class="markup--code markup--p-code">package.json</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >package.json</code
+                >
                 should include scripts to run the
-                <code lang="js" class="markup--code markup--p-code">sequelize</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >sequelize</code
+                >
                 CLI commands.
               </p>
               <p name="6174" id="6174" class="graf graf--p graf-after--p">
@@ -263,14 +317,22 @@
               ><code lang="js" class="markup--code markup--pre-code">&quot;scripts&quot;: {<br>    &quot;sequelize&quot;: &quot;sequelize&quot;,<br>    &quot;sequelize-cli&quot;: &quot;sequelize-cli&quot;,<br>    &quot;start&quot;: &quot;per-env&quot;,<br>    &quot;start:development&quot;: &quot;nodemon -r dotenv/config ./bin/www&quot;,<br>    &quot;start:production&quot;: &quot;node ./bin/www&quot;<br>  },</code></pre>
               <p name="adf5" id="adf5" class="graf graf--p graf-after--pre">
                 Initialize a
-                <code lang="js" class="markup--code markup--p-code">package.json</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >package.json</code
+                >
                 file at the very root of your project directory (outside of both
                 the
-                <code lang="js" class="markup--code markup--p-code">backend</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >backend</code
+                >
                 and
-                <code lang="js" class="markup--code markup--p-code">frontend</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >frontend</code
+                >
                 folders). The scripts defined in this
-                <code lang="js" class="markup--code markup--p-code">package.json</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >package.json</code
+                >
                 file will be run by Heroku, not the scripts defined in the
                 <code lang="js" class="markup--code markup--p-code"
                   >backend/package.json</code
@@ -282,15 +344,23 @@
               </p>
               <p name="94a6" id="94a6" class="graf graf--p graf-after--p">
                 When Heroku runs
-                <code lang="js" class="markup--code markup--p-code">npm install</code>, it
-                should install packages for both the
-                <code lang="js" class="markup--code markup--p-code">backend</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >npm install</code
+                >, it should install packages for both the
+                <code lang="js" class="markup--code markup--p-code"
+                  >backend</code
+                >
                 and the
-                <code lang="js" class="markup--code markup--p-code">frontend</code>.
-                Overwrite the
-                <code lang="js" class="markup--code markup--p-code">install</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >frontend</code
+                >. Overwrite the
+                <code lang="js" class="markup--code markup--p-code"
+                  >install</code
+                >
                 script in the root
-                <code lang="js" class="markup--code markup--p-code">package.json</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >package.json</code
+                >
                 with:
               </p>
               <pre
@@ -300,13 +370,21 @@
               ><code lang="js" class="markup--code markup--pre-code">npm --prefix backend install backend &amp;&amp; npm --prefix frontend install frontend</code></pre>
               <p name="b632" id="b632" class="graf graf--p graf-after--pre">
                 This will run
-                <code lang="js" class="markup--code markup--p-code">npm install</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >npm install</code
+                >
                 in the
-                <code lang="js" class="markup--code markup--p-code">backend</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >backend</code
+                >
                 folder then run
-                <code lang="js" class="markup--code markup--p-code">npm install</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >npm install</code
+                >
                 in the
-                <code lang="js" class="markup--code markup--p-code">frontend</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >frontend</code
+                >
                 folder.
               </p>
               <p name="ee4d" id="ee4d" class="graf graf--p graf-after--p">
@@ -315,34 +393,47 @@
                   >heroku-postbuild</code
                 >
                 script that will run the
-                <code lang="js" class="markup--code markup--p-code">npm run build</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >npm run build</code
+                >
                 command in the
-                <code lang="js" class="markup--code markup--p-code">frontend</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >frontend</code
+                >
                 folder. Remember, Heroku will automatically run this script
                 after running
-                <code lang="js" class="markup--code markup--p-code">npm install</code>.
+                <code lang="js" class="markup--code markup--p-code"
+                  >npm install</code
+                >.
               </p>
               <p name="7ea1" id="7ea1" class="graf graf--p graf-after--p">
                 Define a
-                <code lang="js" class="markup--code markup--p-code">sequelize</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >sequelize</code
+                >
                 script that will run
                 <code lang="js" class="markup--code markup--p-code"
                   >npm run sequelize</code
                 >
                 in the
-                <code lang="js" class="markup--code markup--p-code">backend</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >backend</code
+                >
                 folder.
               </p>
               <p name="74af" id="74af" class="graf graf--p graf-after--p">
                 Finally, define a
                 <code lang="js" class="markup--code markup--p-code">start</code>
                 that will run
-                <code lang="js" class="markup--code markup--p-code">npm start</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >npm start</code
+                >
                 in the `backend folder.
               </p>
               <p name="f146" id="f146" class="graf graf--p graf-after--p">
                 The root
-                <code lang="js" class="markup--code markup--p-code">package.json</code
+                <code lang="js" class="markup--code markup--p-code"
+                  >package.json</code
                 >&#39;s scripts should look like this:
               </p>
               <pre
@@ -352,9 +443,13 @@
               ><code lang="js" class="markup--code markup--pre-code">&quot;scripts&quot;: {<br>    &quot;heroku-postbuild&quot;: &quot;npm run build --prefix frontend&quot;,<br>    &quot;install&quot;: &quot;npm --prefix backend install backend &amp;&amp; npm --prefix frontend install frontend&quot;,<br>    &quot;dev:backend&quot;: &quot;npm install --prefix backend start&quot;,<br>    &quot;dev:frontend&quot;: &quot;npm install --prefix frontend start&quot;,<br>    &quot;sequelize&quot;: &quot;npm run --prefix backend sequelize&quot;,<br>    &quot;sequelize-cli&quot;: &quot;npm run --prefix backend sequelize-cli&quot;,<br>    &quot;start&quot;: &quot;npm start --prefix backend&quot;<br>  },</code></pre>
               <p name="0a93" id="0a93" class="graf graf--p graf-after--pre">
                 The
-                <code lang="js" class="markup--code markup--p-code">dev:backend</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >dev:backend</code
+                >
                 and
-                <code lang="js" class="markup--code markup--p-code">dev:frontend</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >dev:frontend</code
+                >
                 scripts are optional and will not be used for Heroku.
               </p>
               <p name="5899" id="5899" class="graf graf--p graf-after--p">
@@ -372,14 +467,20 @@
                 >
                 button to see all your production environment variables. You
                 should have a
-                <code lang="js" class="markup--code markup--p-code">DATABASE_URL</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >DATABASE_URL</code
+                >
                 environment variable already from the Heroku Postgres add-on.
               </p>
               <p name="3b85" id="3b85" class="graf graf--p graf-after--p">
                 Add environment variables for
-                <code lang="js" class="markup--code markup--p-code">JWT_EXPIRES_IN</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >JWT_EXPIRES_IN</code
+                >
                 and
-                <code lang="js" class="markup--code markup--p-code">JWT_SECRET</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >JWT_SECRET</code
+                >
                 and any other environment variables you need for production.
               </p>
               <p name="9535" id="9535" class="graf graf--p graf-after--p">
@@ -396,13 +497,21 @@
               </p>
               <p name="fc5b" id="fc5b" class="graf graf--p graf-after--p">
                 Push your project to Heroku. Heroku only allows the
-                <code lang="js" class="markup--code markup--p-code">master</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >master</code
+                >
                 branch to be pushed. But, you can alias your branch to be named
-                <code lang="js" class="markup--code markup--p-code">master</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >master</code
+                >
                 when pushing to Heroku. For example, to push a branch called
-                <code lang="js" class="markup--code markup--p-code">login-branch</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >login-branch</code
+                >
                 to
-                <code lang="js" class="markup--code markup--p-code">master</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >master</code
+                >
                 run:
               </p>
               <pre
@@ -412,7 +521,9 @@
               ><code lang="js" class="markup--code markup--pre-code">git push heroku login-branch:master</code></pre>
               <p name="89b7" id="89b7" class="graf graf--p graf-after--pre">
                 If you do want to push the
-                <code lang="js" class="markup--code markup--p-code">master</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >master</code
+                >
                 branch, just run:
               </p>
               <pre
@@ -422,9 +533,13 @@
               ><code lang="js" class="markup--code markup--pre-code">git push heroku master</code></pre>
               <p name="ffb6" id="ffb6" class="graf graf--p graf-after--pre">
                 You may want to make two applications on Heroku, the
-                <code lang="js" class="markup--code markup--p-code">master</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >master</code
+                >
                 branch site that should have working code only. And your
-                <code lang="js" class="markup--code markup--p-code">staging</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >staging</code
+                >
                 site that you can use to test your work in progress code.
               </p>
               <p name="c91f" id="c91f" class="graf graf--p graf-after--p">
@@ -433,7 +548,9 @@
               <p name="3ff5" id="3ff5" class="graf graf--p graf-after--p">
                 Using the Heroku CLI, you can run commands inside of your
                 production application just like in development using the
-                <code lang="js" class="markup--code markup--p-code">heroku run</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >heroku run</code
+                >
                 command.
               </p>
               <p name="76a6" id="76a6" class="graf graf--p graf-after--p">
@@ -455,7 +572,9 @@
               <p name="c703" id="c703" class="graf graf--p graf-after--pre">
                 Note: You can interact with your database this way as you’d
                 like, but beware that
-                <code lang="js" class="markup--code markup--p-code">db:drop</code>
+                <code lang="js" class="markup--code markup--p-code"
+                  >db:drop</code
+                >
                 cannot be run in the Heroku environment. If you want to drop and
                 create the database, you need to remove and add back the
                 &quot;Heroku Postgres&quot; add-on.

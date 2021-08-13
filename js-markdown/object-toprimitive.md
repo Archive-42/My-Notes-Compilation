@@ -4,7 +4,7 @@ EN
 - <a href="object-toprimitive.html"
 - <a href="https://es.javascript.info/object-toprimitive"
 - <a href="https://fr.javascript.info/object-toprimitive"
-- <a href="https://it.javascript.info/object-toprimitive"
+- object-toprimitive"
   object-toprimitive"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fobject-toprimitive" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fobject-toprimitive" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fobject-toprimitive" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fobject-toprimitive" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -316,7 +316,7 @@ As for math operations, JavaScript doesn’t provide a way to “override” the
 
 <a href="symbol.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="data-types.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fobject-toprimitive" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fobject-toprimitive" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fobject-toprimitive" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fobject-toprimitive" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -342,11 +342,7 @@ As for math operations, JavaScript doesn’t provide a way to “override” the
 - <a href="object-toprimitive.html#further-conversions" class="sidebar__link">Further conversions</a>
 - <a href="object-toprimitive.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="object-toprimitive.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fobject-toprimitive" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fobject-toprimitive" class="share share_fb sidebar__share"></a>
+- <a href="object-toprimitive.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fobject-toprimitive" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fobject-toprimitive" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/04-object-basics/09-object-toprimitive" class="sidebar__link">Edit on GitHub</a>
 

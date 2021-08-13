@@ -4,7 +4,7 @@ EN
 - <a href="regexp-introduction.html"
 - <a href="https://es.javascript.info/regexp-introduction"
 - <a href="https://fr.javascript.info/regexp-introduction"
-- <a href="https://it.javascript.info/regexp-introduction"
+- regexp-introduction"
   regexp-introduction"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-introduction" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-introduction" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fregexp-introduction" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-introduction" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="regular-expressions.html" Regular expressions</span></a></span>
@@ -213,7 +213,7 @@ Full information about the methods is given in the article [Methods of RegExp an
 
 <a href="regular-expressions.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="regexp-character-classes.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-introduction" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-introduction" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fregexp-introduction" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-introduction" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -240,11 +240,7 @@ Full information about the methods is given in the article [Methods of RegExp an
 - <a href="regexp-introduction.html#testing-regexp-test" class="sidebar__link">Testing: regexp.test</a>
 - <a href="regexp-introduction.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="regexp-introduction.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-introduction" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-introduction" class="share share_fb sidebar__share"></a>
+- <a href="regexp-introduction.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-introduction" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-introduction" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/01-regexp-introduction" class="sidebar__link">Edit on GitHub</a>
 

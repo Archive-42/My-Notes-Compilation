@@ -4,7 +4,7 @@ EN
 - <a href="advanced-functions.html"
 - <a href="https://es.javascript.info/advanced-functions"
 - <a href="https://fr.javascript.info/advanced-functions"
-- <a href="https://it.javascript.info/advanced-functions"
+- advanced-functions"
   advanced-functions"
 
 <!-- -->
@@ -21,7 +21,7 @@ EN
 
 tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fadvanced-functions" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fadvanced-functions" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fadvanced-functions" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fadvanced-functions" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -44,7 +44,7 @@ tutorial/map.html" class="map">
 
 <a href="json.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="recursion.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fadvanced-functions" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fadvanced-functions" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fadvanced-functions" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fadvanced-functions" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -65,11 +65,7 @@ tutorial/map.html" class="map">
 - <a href="async.html" class="sidebar__link">Promises, async/await</a>
 - <a href="generators-iterators.html" class="sidebar__link">Generators, advanced iteration</a>
 - <a href="modules.html" class="sidebar__link">Modules</a>
-- <a href="js-misc.html" class="sidebar__link">Miscellaneous</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fadvanced-functions" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fadvanced-functions" class="share share_fb sidebar__share"></a>
+- <a href="js-misc.html" class="sidebar__link">Miscellaneous</a><a s%3A%2F%2Fjavascript.info%2Fadvanced-functions" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fadvanced-functions" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/06-advanced-functions" class="sidebar__link">Edit on GitHub</a>
 

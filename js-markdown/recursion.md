@@ -4,7 +4,7 @@ EN
 - <a href="recursion.html"
 - <a href="https://es.javascript.info/recursion"
 - <a href="https://fr.javascript.info/recursion"
-- <a href="https://it.javascript.info/recursion"
+- recursion"
   recursion"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Frecursion" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frecursion" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Frecursion" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frecursion" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="js.html" The JavaScript language</span></a></span>
@@ -978,7 +978,7 @@ Please note that the recursive solution actually does exactly the same: it follo
 
 <a href="advanced-functions.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="rest-parameters-spread.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Frecursion" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frecursion" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Frecursion" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frecursion" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -1005,11 +1005,7 @@ Please note that the recursive solution actually does exactly the same: it follo
 - <a href="recursion.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="recursion.html#tasks" class="sidebar__link">Tasks (5)</a>
-- <a href="recursion.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Frecursion" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frecursion" class="share share_fb sidebar__share"></a>
+- <a href="recursion.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Frecursion" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frecursion" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/06-advanced-functions/01-recursion" class="sidebar__link">Edit on GitHub</a>
 

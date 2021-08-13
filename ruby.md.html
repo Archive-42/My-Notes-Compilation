@@ -1,26 +1,48 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>ruby.md</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-</head>
-<body>
-<p><a href="https://stackoverflow.com/questions/50849598/how-to-return-decoded-string-based-on-encoded-string-ruby">To decode a string</a> like ‘4[kl]’ the output should be ‘klklklkl’.<br />
-For s = ‘3[k2[b]]’, the output should be ‘kbbkbbkbb’.<br />
-We can use recursion</p>
-<pre><code>r = %w|4[kl] 3[k2[b]]|.map do |s|
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>ruby.md</title>
+    <style type="text/css">
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      span.underline {
+        text-decoration: underline;
+      }
+      div.column {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      <a
+        href="https://stackoverflow.com/questions/50849598/how-to-return-decoded-string-based-on-encoded-string-ruby"
+        >To decode a string</a
+      >
+      like ‘4[kl]’ the output should be ‘klklklkl’.<br />
+      For s = ‘3[k2[b]]’, the output should be ‘kbbkbbkbb’.<br />
+      We can use recursion
+    </p>
+    <pre><code>r = %w|4[kl] 3[k2[b]]|.map do |s|
   loop do
     break s if s.gsub!(/(\d+)\[([^\[\]]+)\]/) { $2 * $1.to_i }.nil?
   end
 end</code></pre>
-<p>here that String#gsub! returns nil on no matches, terminating the whole loop.</p>
-</body>
+    <p>
+      here that String#gsub! returns nil on no matches, terminating the whole
+      loop.
+    </p>
+  </body>
 </html>

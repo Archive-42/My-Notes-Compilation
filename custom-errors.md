@@ -4,7 +4,7 @@ EN
 - <a href="custom-errors.html"
 - <a href="https://es.javascript.info/custom-errors"
 - <a href="https://fr.javascript.info/custom-errors"
-- <a href="https://it.javascript.info/custom-errors"
+- custom-errors"
   custom-errors"
 
 <!-- -->
@@ -21,7 +21,7 @@ EN
 
 tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcustom-errors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcustom-errors" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fcustom-errors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcustom-errors" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -389,7 +389,7 @@ solution
 
 <a href="try-catch.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="async.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcustom-errors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcustom-errors" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fcustom-errors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcustom-errors" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -415,11 +415,7 @@ solution
 - <a href="custom-errors.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="custom-errors.html#tasks" class="sidebar__link">Tasks (1)</a>
-- <a href="custom-errors.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcustom-errors" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcustom-errors" class="share share_fb sidebar__share"></a>
+- <a href="custom-errors.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fcustom-errors" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcustom-errors" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/10-error-handling/2-custom-errors" class="sidebar__link">Edit on GitHub</a>
 

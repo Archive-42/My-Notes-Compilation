@@ -4,7 +4,7 @@ EN
 - <a href="index.html"
 - <a href="https://es.javascript.info/"
 
-- <a href="https://it.javascript.info/"
+- "
   "
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fprivacy" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fprivacy" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fprivacy" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fprivacy" </a>
 
 # Privacy Policy
 

@@ -5,7 +5,7 @@ langs\_\_title">عربي</span></a>
 - <a href="js-animation.html"
 - <a href="https://es.javascript.info/js-animation"
 
-- <a href="https://it.javascript.info/js-animation"
+- js-animation"
   js-animation"
 
 <!-- -->
@@ -29,7 +29,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fjs-animation" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjs-animation" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fjs-animation" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjs-animation" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="animation.html" Animation</span></a></span>
@@ -836,7 +836,7 @@ The code:
 
 <a href="css-animations.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="web-components.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fjs-animation" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjs-animation" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fjs-animation" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjs-animation" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -865,11 +865,7 @@ The code:
 - <a href="js-animation.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="js-animation.html#tasks" class="sidebar__link">Tasks (2)</a>
-- <a href="js-animation.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fjs-animation" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjs-animation" class="share share_fb sidebar__share"></a>
+- <a href="js-animation.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fjs-animation" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjs-animation" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/7-animation/3-js-animation" class="sidebar__link">Edit on GitHub</a>
 

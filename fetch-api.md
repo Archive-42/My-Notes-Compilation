@@ -5,7 +5,7 @@ langs\_\_title">عربي</span></a>
 - <a href="fetch-api.html"
 - <a href="https://es.javascript.info/fetch-api"
 - <a href="https://fr.javascript.info/fetch-api"
-- <a href="https://it.javascript.info/fetch-api"
+- fetch-api"
   fetch-api"
 
 <!-- -->
@@ -29,7 +29,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffetch-api" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-api" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Ffetch-api" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-api" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -241,7 +241,7 @@ It has a few limitations:
 
 <a href="fetch-crossorigin.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="url.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffetch-api" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-api" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Ffetch-api" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-api" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -269,11 +269,7 @@ It has a few limitations:
 - <a href="fetch-api.html#integrity" class="sidebar__link">integrity</a>
 - <a href="fetch-api.html#keepalive" class="sidebar__link">keepalive</a>
 
-- <a href="fetch-api.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffetch-api" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-api" class="share share_fb sidebar__share"></a>
+- <a href="fetch-api.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ffetch-api" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-api" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/06-fetch-api" class="sidebar__link">Edit on GitHub</a>
 

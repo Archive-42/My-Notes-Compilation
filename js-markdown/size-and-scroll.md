@@ -4,7 +4,7 @@ EN
 - <a href="size-and-scroll.html"
 - <a href="https://es.javascript.info/size-and-scroll"
 - <a href="https://fr.javascript.info/size-and-scroll"
-- <a href="https://it.javascript.info/size-and-scroll"
+- size-and-scroll"
   size-and-scroll"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fsize-and-scroll" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fsize-and-scroll" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fsize-and-scroll" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fsize-and-scroll" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="ui.html" Browser: Document, Events, Interfaces</span></a></span>
@@ -444,7 +444,7 @@ Differences:
 
 <a href="styles-and-classes.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="size-and-scroll-window.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fsize-and-scroll" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fsize-and-scroll" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fsize-and-scroll" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fsize-and-scroll" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -476,11 +476,7 @@ Differences:
 - <a href="size-and-scroll.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="size-and-scroll.html#tasks" class="sidebar__link">Tasks (4)</a>
-- <a href="size-and-scroll.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fsize-and-scroll" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fsize-and-scroll" class="share share_fb sidebar__share"></a>
+- <a href="size-and-scroll.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fsize-and-scroll" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fsize-and-scroll" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/09-size-and-scroll" class="sidebar__link">Edit on GitHub</a>
 

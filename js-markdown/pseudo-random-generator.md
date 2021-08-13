@@ -3,7 +3,7 @@ pseudo-random-generator"
 - <a href="pseudo-random-generator.html"
   /pseudo-random-generator"
   /pseudo-random-generator"
-- <a href="https://it.javascript.info/pseudo-random-generator"
+- pseudo-random-generator"
 
 <!-- -->
 

@@ -5,7 +5,7 @@ langs\_\_title">عربي</span></a>
 - <a href="cross-window-communication.html"
 - <a href="https://es.javascript.info/cross-window-communication"
 - <a href="https://fr.javascript.info/cross-window-communication"
-- <a href="https://it.javascript.info/cross-window-communication"
+- cross-window-communication"
   cross-window-communication"
 
 <!-- -->
@@ -22,7 +22,7 @@ langs\_\_title">عربي</span></a>
 
 tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcross-window-communication" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcross-window-communication" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fcross-window-communication" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcross-window-communication" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -492,7 +492,7 @@ The `postMessage` interface allows two windows with any origins to talk:
 
 <a href="popup-windows.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="clickjacking.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcross-window-communication" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcross-window-communication" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fcross-window-communication" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcross-window-communication" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -520,11 +520,7 @@ The `postMessage` interface allows two windows with any origins to talk:
 - <a href="cross-window-communication.html#cross-window-messaging" class="sidebar__link">Cross-window messaging</a>
 - <a href="cross-window-communication.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="cross-window-communication.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcross-window-communication" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcross-window-communication" class="share share_fb sidebar__share"></a>
+- <a href="cross-window-communication.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fcross-window-communication" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcross-window-communication" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/3-frames-and-windows/03-cross-window-communication" class="sidebar__link">Edit on GitHub</a>
 

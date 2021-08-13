@@ -4,7 +4,7 @@ EN
 - <a href="microtask-queue.html"
 - <a href="https://es.javascript.info/microtask-queue"
 - <a href="https://fr.javascript.info/microtask-queue"
-- <a href="https://it.javascript.info/microtask-queue"
+- microtask-queue"
   microtask-queue"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmicrotask-queue" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmicrotask-queue" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fmicrotask-queue" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmicrotask-queue" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -151,7 +151,7 @@ In most Javascript engines, including browsers and Node.js, the concept of micro
 
 <a href="promisify.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="async-await.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmicrotask-queue" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmicrotask-queue" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fmicrotask-queue" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmicrotask-queue" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -175,11 +175,7 @@ In most Javascript engines, including browsers and Node.js, the concept of micro
 - <a href="microtask-queue.html#unhandled-rejection" class="sidebar__link">Unhandled rejection</a>
 - <a href="microtask-queue.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="microtask-queue.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmicrotask-queue" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmicrotask-queue" class="share share_fb sidebar__share"></a>
+- <a href="microtask-queue.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fmicrotask-queue" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmicrotask-queue" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/11-async/07-microtask-queue" class="sidebar__link">Edit on GitHub</a>
 

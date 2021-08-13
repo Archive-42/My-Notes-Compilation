@@ -4,7 +4,7 @@ EN
 - <a href="types.html"
 - <a href="https://es.javascript.info/types"
 - <a href="https://fr.javascript.info/types"
-- <a href="https://it.javascript.info/types"
+- types"
   types"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ftypes" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftypes" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Ftypes" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftypes" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="js.html" The JavaScript language</span></a></span>
@@ -341,7 +341,7 @@ Backticks embed the expression inside `${...}` into the string.
 
 <a href="variables.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="alert-prompt-confirm.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ftypes" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftypes" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Ftypes" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftypes" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -372,11 +372,7 @@ Backticks embed the expression inside `${...}` into the string.
 - <a href="types.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="types.html#tasks" class="sidebar__link">Tasks (1)</a>
-- <a href="types.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ftypes" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftypes" class="share share_fb sidebar__share"></a>
+- <a href="types.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ftypes" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftypes" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps/05-types" class="sidebar__link">Edit on GitHub</a>
 

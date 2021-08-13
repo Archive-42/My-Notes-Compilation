@@ -1,18 +1,18 @@
 EN
 
--   <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="shadow-dom-style.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/shadow-dom-style" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/shadow-dom-style" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/shadow-dom-style" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="shadow-dom-style.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/shadow-dom-style" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- shadow-dom-style" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/shadow-dom-style" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="shadow-dom-style%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/shadow-dom-style" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/shadow-dom-style" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="shadow-dom-style%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/shadow-dom-style" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/shadow-dom-style" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -33,15 +33,13 @@ Search
 
 17th May 2021
 
-Shadow DOM styling
-==================
+# Shadow DOM styling
 
-Shadow DOM may include both `<style>` and `<link rel="stylesheet"                       href="…">` tags. In the latter case, stylesheets are HTTP-cached, so they are not redownloaded for multiple components that use same template.
+Shadow DOM may include both `<style>` and `<link rel="stylesheet" href="…">` tags. In the latter case, stylesheets are HTTP-cached, so they are not redownloaded for multiple components that use same template.
 
 As a general rule, local styles work only inside the shadow tree, and document styles work outside of it. But there are few exceptions.
 
-<a href="shadow-dom-style.html#host" id="host" class="main__anchor">:host</a>
------------------------------------------------------------------------------
+## <a href="shadow-dom-style.html#host" id="host" class="main__anchor">:host</a>
 
 The `:host` selector allows to select the shadow host (the element containing the shadow tree).
 
@@ -81,8 +79,7 @@ That’s exactly what `:host` does:
       Hello!
     </custom-dialog>
 
-<a href="shadow-dom-style.html#cascading" id="cascading" class="main__anchor">Cascading</a>
--------------------------------------------------------------------------------------------
+## <a href="shadow-dom-style.html#cascading" id="cascading" class="main__anchor">Cascading</a>
 
 The shadow host (`<custom-dialog>` itself) resides in the light DOM, so it’s affected by document CSS rules.
 
@@ -102,8 +99,7 @@ It’s very convenient, as we can setup “default” component styles in its `:
 
 The exception is when a local property is labelled `!important`, for such properties, local styles take precedence.
 
-<a href="shadow-dom-style.html#host-selector" id="host-selector" class="main__anchor">:host(selector)</a>
----------------------------------------------------------------------------------------------------------
+## <a href="shadow-dom-style.html#host-selector" id="host-selector" class="main__anchor">:host(selector)</a>
 
 Same as `:host`, but applied only if the shadow host matches the `selector`.
 
@@ -153,8 +149,7 @@ Now the additional centering styles are only applied to the first dialog: `<cust
 
 To summarize, we can use `:host`-family of selectors to style the main element of the component. These styles (unless `!important`) can be overridden by the document.
 
-<a href="shadow-dom-style.html#styling-slotted-content" id="styling-slotted-content" class="main__anchor">Styling slotted content</a>
--------------------------------------------------------------------------------------------------------------------------------------
+## <a href="shadow-dom-style.html#styling-slotted-content" id="styling-slotted-content" class="main__anchor">Styling slotted content</a>
 
 Now let’s consider the situation with slots.
 
@@ -261,8 +256,7 @@ Please note, `::slotted` selector can’t descend any further into the slot. The
 
 Also, `::slotted` can only be used in CSS. We can’t use it in `querySelector`.
 
-<a href="shadow-dom-style.html#css-hooks-with-custom-properties" id="css-hooks-with-custom-properties" class="main__anchor">CSS hooks with custom properties</a>
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="shadow-dom-style.html#css-hooks-with-custom-properties" id="css-hooks-with-custom-properties" class="main__anchor">CSS hooks with custom properties</a>
 
 How do we style internal elements of a component from the main document?
 
@@ -327,34 +321,33 @@ Here’s the full example:
       <span slot="birthday">01.01.2001</span>
     </user-card>
 
-<a href="shadow-dom-style.html#summary" id="summary" class="main__anchor">Summary</a>
--------------------------------------------------------------------------------------
+## <a href="shadow-dom-style.html#summary" id="summary" class="main__anchor">Summary</a>
 
 Shadow DOM can include styles, such as `<style>` or `<link rel="stylesheet">`.
 
 Local styles can affect:
 
--   shadow tree,
--   shadow host with `:host` and `:host()` pseudoclasses,
--   slotted elements (coming from light DOM), `::slotted(selector)` allows to select slotted elements themselves, but not their children.
+- shadow tree,
+- shadow host with `:host` and `:host()` pseudoclasses,
+- slotted elements (coming from light DOM), `::slotted(selector)` allows to select slotted elements themselves, but not their children.
 
 Document styles can affect:
 
--   shadow host (as it lives in the outer document)
--   slotted elements and their contents (as that’s also in the outer document)
+- shadow host (as it lives in the outer document)
+- slotted elements and their contents (as that’s also in the outer document)
 
 When CSS properties conflict, normally document styles have precedence, unless the property is labelled as `!important`. Then local styles have precedence.
 
 CSS custom properties pierce through shadow DOM. They are used as “hooks” to style the component:
 
-1.  The component uses a custom CSS property to style key elements, such as `var(--component-name-title, <default                         value>)`.
+1.  The component uses a custom CSS property to style key elements, such as `var(--component-name-title, <default value>)`.
 2.  Component author publishes these properties for developers, they are same important as other public component methods.
 3.  When a developer wants to style a title, they assign `--component-name-title` CSS property for the shadow host or above.
 4.  Profit!
 
 <a href="slots-composition.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="shadow-dom-events.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fshadow-dom-style" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fshadow-dom-style" class="share share_fb"></a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fshadow-dom-style" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fshadow-dom-style" class="share share_fb"></a>
 
 <a href="tutorial/map.html" class="map"><span class="map__text">Tutorial map</span></a>
 
@@ -362,29 +355,29 @@ CSS custom properties pierce through shadow DOM. They are used as “hooks” to
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="web-components.html" class="sidebar__link">Web components</a>
+- <a href="web-components.html" class="sidebar__link">Web components</a>
 
 #### Lesson navigation
 
--   <a href="shadow-dom-style.html#host" class="sidebar__link">:host</a>
--   shadow-dom-style.html\#cascading" &gt;Cascading
--   shadow-dom-style.html\#host-selector" &gt;:host(selector)
--   shadow-dom-style.html\#styling-slotted-content" &gt;Styling slotted content
--   shadow-dom-style.html\#css-hooks-with-custom-properties" &gt;CSS hooks with custom properties
--   shadow-dom-style.html
+- <a href="shadow-dom-style.html#host" class="sidebar__link">:host</a>
+- shadow-dom-style.html\#cascading" &gt;Cascading
+- shadow-dom-style.html\#host-selector" &gt;:host(selector)
+- shadow-dom-style.html\#styling-slotted-content" &gt;Styling slotted content
+- shadow-dom-style.html\#css-hooks-with-custom-properties" &gt;CSS hooks with custom properties
+- shadow-dom-style.html
 
 <!-- -->
 
--   shadow-dom-style.html\#comments" &gt;Comments
+- shadow-dom-style.html\#comments" &gt;Comments
 
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fshadow-dom-style" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fshadow-dom-style" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/8-web-components/6-shadow-dom-style" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Fshadow-dom-style" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fshadow-dom-style" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/8-web-components/6-shadow-dom-style" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

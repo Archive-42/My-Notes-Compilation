@@ -5,7 +5,7 @@ langs\_\_title">عربي</span></a>
 - <a href="index.html"
 - <a href="https://es.javascript.info/"
 
-- <a href="https://it.javascript.info/"
+- "
   "
 
 <!-- -->
@@ -29,7 +29,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Febook" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Febook" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Febook" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Febook" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 

@@ -3,7 +3,7 @@ closure-variable-access"
 - <a href="closure-variable-access.html"
   closure-variable-access"
   /closure-variable-access"
-- <a href="https://it.javascript.info/closure-variable-access"
+- closure-variable-access"
 
 <!-- -->
 

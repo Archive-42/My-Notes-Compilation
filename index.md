@@ -5,7 +5,7 @@ langs\_\_title">عربي</span></a>
 - <a href="index.html"
 - <a href="https://es.javascript.info/"
 
-- <a href="https://it.javascript.info/"
+- "
   "
 
 <!-- -->
@@ -29,7 +29,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2F" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2F" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2F" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2F" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -39,7 +39,7 @@ How it's done now. From the basics to advanced topics with simple, but detailed 
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/tree/master" class="frontpage-banner__updated-at">12th August 2021</a><a href="https://github.com/javascript-tutorial/en.javascript.info/tree/master" class="frontpage-banner__github"><span class="frontpage-banner__count">14706 ★</span><span class="frontpage-banner__text">github</span></a>
 
-<span class="frontpage-share__title">Share:</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2F" class="frontpage-share__icon frontpage-share__icon_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2F" class="frontpage-share__icon frontpage-share__icon_fb"></a>
+<span class="frontpage-share__title">Share:</span><a s%3A%2F%2Fjavascript.info%2F" class="frontpage-share__icon frontpage-share__icon_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2F" class="frontpage-share__icon frontpage-share__icon_fb"></a>
 
 Search
 
@@ -479,7 +479,7 @@ List of extra topics that assume you've covered the first two parts of tutorial.
 
 - <a href="index.html#" class="list-sub__more">More…</a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2F" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2F" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2F" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2F" </a>
 
 <a href="tutorial/map.html" class="map">
 

@@ -1,18 +1,18 @@
 EN
 
--   <a href="https://ar.javascript.info/regexp-groups" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="regexp-groups.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/regexp-groups" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/regexp-groups" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/regexp-groups" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/regexp-groups" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="regexp-groups.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/regexp-groups" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- regexp-groups" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/regexp-groups" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="regexp-groups%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/regexp-groups" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="regexp-groups%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/regexp-groups" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -33,8 +33,7 @@ Search
 
 10th June 2021
 
-Capturing groups
-================
+# Capturing groups
 
 A part of a pattern can be enclosed in parentheses `(...)`. This is called a “capturing group”.
 
@@ -43,8 +42,7 @@ That has two effects:
 1.  It allows to get a part of the match as a separate item in the result array.
 2.  If we put a quantifier after the parentheses, it applies to the parentheses as a whole.
 
-<a href="regexp-groups.html#examples" id="examples" class="main__anchor">Examples</a>
--------------------------------------------------------------------------------------
+## <a href="regexp-groups.html#examples" id="examples" class="main__anchor">Examples</a>
 
 Let’s see how parentheses work in examples.
 
@@ -104,8 +102,7 @@ The pattern:
 
 That regexp is not perfect, but mostly works and helps to fix accidental mistypes. The only truly reliable check for an email can only be done by sending a letter.
 
-<a href="regexp-groups.html#parentheses-contents-in-the-match" id="parentheses-contents-in-the-match" class="main__anchor">Parentheses contents in the match</a>
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="regexp-groups.html#parentheses-contents-in-the-match" id="parentheses-contents-in-the-match" class="main__anchor">Parentheses contents in the match</a>
 
 Parentheses are numbered from left to right. The search engine memorizes the content matched by each of them and allows to get it in the result.
 
@@ -207,8 +204,7 @@ And here’s a more complex match for the string `ac`:
 
 The array length is permanent: `3`. But there’s nothing for the group `(z)?`, so the result is `["ac", undefined, "c"]`.
 
-<a href="regexp-groups.html#searching-for-all-matches-with-groups-matchall" id="searching-for-all-matches-with-groups-matchall" class="main__anchor">Searching for all matches with groups: matchAll</a>
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="regexp-groups.html#searching-for-all-matches-with-groups-matchall" id="searching-for-all-matches-with-groups-matchall" class="main__anchor">Searching for all matches with groups: matchAll</a>
 
 <span class="important__type">`matchAll` is a new method, polyfill may be needed</span>
 
@@ -305,8 +301,7 @@ So, there will be found as many results as needed, not more.
 
 E.g. there are potentially 100 matches in the text, but in a `for..of` loop we found 5 of them, then decided it’s enough and made a `break`. Then the engine won’t spend time finding other 95 matches.
 
-<a href="regexp-groups.html#named-groups" id="named-groups" class="main__anchor">Named groups</a>
--------------------------------------------------------------------------------------------------
+## <a href="regexp-groups.html#named-groups" id="named-groups" class="main__anchor">Named groups</a>
 
 Remembering groups by their numbers is hard. For simple patterns it’s doable, but for more complex ones counting parentheses is inconvenient. We have a much better option: give names to parentheses.
 
@@ -351,8 +346,7 @@ We’ll also need `matchAll` to obtain full matches, together with groups:
       // second: 01.01.2020
     }
 
-<a href="regexp-groups.html#capturing-groups-in-replacement" id="capturing-groups-in-replacement" class="main__anchor">Capturing groups in replacement</a>
-----------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="regexp-groups.html#capturing-groups-in-replacement" id="capturing-groups-in-replacement" class="main__anchor">Capturing groups in replacement</a>
 
 Method `str.replace(regexp, replacement)` that replaces all matches with `regexp` in `str` allows to use parentheses contents in the `replacement` string. That’s done using `$n`, where `n` is the group number.
 
@@ -382,8 +376,7 @@ For example, let’s reformat dates from “year-month-day” to “day.month.ye
     alert( str.replace(regexp, '$<day>.$<month>.$<year>') );
     // 30.10.2019, 01.01.2020
 
-<a href="regexp-groups.html#non-capturing-groups-with" id="non-capturing-groups-with" class="main__anchor">Non-capturing groups with ?:</a>
--------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="regexp-groups.html#non-capturing-groups-with" id="non-capturing-groups-with" class="main__anchor">Non-capturing groups with ?:</a>
 
 Sometimes we need parentheses to correctly apply a quantifier, but we don’t want their contents in results.
 
@@ -408,8 +401,7 @@ In the example below we only get the name `John` as a separate member of the mat
     alert( result[1] ); // John
     alert( result.length ); // 2 (no more items in the array)
 
-<a href="regexp-groups.html#summary" id="summary" class="main__anchor">Summary</a>
-----------------------------------------------------------------------------------
+## <a href="regexp-groups.html#summary" id="summary" class="main__anchor">Summary</a>
 
 Parentheses group together a part of the regular expression, so that the quantifier applies to it as a whole.
 
@@ -417,8 +409,8 @@ Parentheses groups are numbered left-to-right, and can optionally be named with 
 
 The content, matched by a group, can be obtained in the results:
 
--   The method `str.match` returns capturing groups only without flag `g`.
--   The method `str.matchAll` always returns capturing groups.
+- The method `str.match` returns capturing groups only without flag `g`.
+- The method `str.matchAll` always returns capturing groups.
 
 If the parentheses have no name, then their contents is available in the match array by its number. Named parentheses are also available in the property `groups`.
 
@@ -426,8 +418,7 @@ We can also use parentheses contents in the replacement string in `str.replace`:
 
 A group may be excluded from numbering by adding `?:` in its start. That’s used when we need to apply a quantifier to the whole group, but don’t want it as a separate item in the results array. We also can’t reference such parentheses in the replacement string.
 
-<a href="regexp-groups.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
-----------------------------------------------------------------------------------------------------------------------
+## <a href="regexp-groups.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="regexp-groups.html#check-mac-address" id="check-mac-address" class="main__anchor">Check MAC-address</a>
 
@@ -563,10 +554,10 @@ Let’s add the optional `-` in the beginning:
 
 An arithmetical expression consists of 2 numbers and an operator between them, for instance:
 
--   `1 + 2`
--   `1.2 * 3.4`
--   `-3 / -6`
--   `-2 - 2`
+- `1 + 2`
+- `1.2 * 3.4`
+- `-3 / -6`
+- `-2 - 2`
 
 The operator is one of: `"+"`, `"-"`, `"*"` or `"/"`.
 
@@ -618,12 +609,12 @@ In action:
 
 The result includes:
 
--   `result[0] == "1.2 + 12"` (full match)
--   `result[1] == "1.2"` (first group `(-?\d+(\.\d+)?)` – the first number, including the decimal part)
--   `result[2] == ".2"` (second group`(\.\d+)?` – the first decimal part)
--   `result[3] == "+"` (third group `([-+*\/])` – the operator)
--   `result[4] == "12"` (forth group `(-?\d+(\.\d+)?)` – the second number)
--   `result[5] == undefined` (fifth group `(\.\d+)?` – the last decimal part is absent, so it’s undefined)
+- `result[0] == "1.2 + 12"` (full match)
+- `result[1] == "1.2"` (first group `(-?\d+(\.\d+)?)` – the first number, including the decimal part)
+- `result[2] == ".2"` (second group`(\.\d+)?` – the first decimal part)
+- `result[3] == "+"` (third group `([-+*\/])` – the operator)
+- `result[4] == "12"` (forth group `(-?\d+(\.\d+)?)` – the second number)
+- `result[5] == undefined` (fifth group `(\.\d+)?` – the last decimal part is absent, so it’s undefined)
 
 We only want the numbers and the operator, without the full match or the decimal parts, so let’s “clean” the result a bit.
 
@@ -652,7 +643,7 @@ The final solution:
 
 <a href="regexp-greedy-and-lazy.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="regexp-backreferences.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-groups" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-groups" class="share share_fb"></a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fregexp-groups" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-groups" class="share share_fb"></a>
 
 <a href="tutorial/map.html" class="map"><span class="map__text">Tutorial map</span></a>
 
@@ -660,11 +651,11 @@ The final solution:
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="regular-expressions.html" class="sidebar__link">Regular expressions</a>
+- <a href="regular-expressions.html" class="sidebar__link">Regular expressions</a>
 
 #### Lesson navigation
 
@@ -682,13 +673,13 @@ regexp-groups.html\#non-capturing-groups-with" &gt;Non-capturing groups with ?:
 
 <a href="regexp-groups.html%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/ul%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/nav%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cnav%20class=" class="sidebar__link"></a>
 
--   <a href="regexp-groups.html#tasks" class="sidebar__link">Tasks (4)</a>
--   regexp-groups.html\#comments" &gt;Comments
+- <a href="regexp-groups.html#tasks" class="sidebar__link">Tasks (4)</a>
+- regexp-groups.html\#comments" &gt;Comments
 
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-groups" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-groups" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/11-regexp-groups" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Fregexp-groups" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-groups" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/11-regexp-groups" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

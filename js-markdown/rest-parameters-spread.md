@@ -4,7 +4,7 @@ EN
 - <a href="rest-parameters-spread.html"
 - <a href="https://es.javascript.info/rest-parameters-spread"
 - <a href="https://fr.javascript.info/rest-parameters-spread"
-- <a href="https://it.javascript.info/rest-parameters-spread"
+- rest-parameters-spread"
   rest-parameters-spread"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Frest-parameters-spread" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frest-parameters-spread" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Frest-parameters-spread" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frest-parameters-spread" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="js.html" The JavaScript language</span></a></span>
@@ -336,7 +336,7 @@ All arguments of a function call are also available in “old-style” `argument
 
 <a href="recursion.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="closure.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Frest-parameters-spread" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frest-parameters-spread" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Frest-parameters-spread" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frest-parameters-spread" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -362,11 +362,7 @@ All arguments of a function call are also available in “old-style” `argument
 - <a href="rest-parameters-spread.html#copy-an-array-object" class="sidebar__link">Copy an array/object</a>
 - <a href="rest-parameters-spread.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="rest-parameters-spread.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Frest-parameters-spread" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frest-parameters-spread" class="share share_fb sidebar__share"></a>
+- <a href="rest-parameters-spread.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Frest-parameters-spread" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frest-parameters-spread" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/06-advanced-functions/02-rest-parameters-spread" class="sidebar__link">Edit on GitHub</a>
 

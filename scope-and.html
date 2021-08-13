@@ -1,32 +1,67 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>scope-and</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-</head>
-<body>
-<h1 id="index">index</h1>
-<blockquote>
-<p>Scopes and closures are important in JavaScript. But, they were confusing for me when I first started. Here’s an explanation of scopes and closures to</p>
-</blockquote>
-<p>Scopes and closures are important in JavaScript. But, they were confusing for me when I first started. Here’s an explanation of scopes and closures to help you understand what they are.</p>
-<p>Let’s start with scopes.</p>
-<h2 id="scope">Scope</h2>
-<p>A scope in JavaScript defines what variables you have access to. There are two kinds of scope – global scope and local scope.</p>
-<h3 id="global-scope">Global scope</h3>
-<p>If a variable is declared outside all functions or curly braces (<code>{}</code>), it is said to be defined in the <strong>global scope</strong>.</p>
-<p>This is true only with JavaScript in web browsers. You declare global variables in Node.js differently, but we won’t go into Node.js in this article.</p>
-<pre><code>const globalVariable = &#39;some value&#39;</code></pre>
-<p>Once you’ve declared a global variable, you can use that variable anywhere in your code, even in functions.</p>
-<pre><code>const hello = &#39;Hello CSS-Tricks Reader!&#39;
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>scope-and</title>
+    <style type="text/css">
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      span.underline {
+        text-decoration: underline;
+      }
+      div.column {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="index">index</h1>
+    <blockquote>
+      <p>
+        Scopes and closures are important in JavaScript. But, they were
+        confusing for me when I first started. Here’s an explanation of scopes
+        and closures to
+      </p>
+    </blockquote>
+    <p>
+      Scopes and closures are important in JavaScript. But, they were confusing
+      for me when I first started. Here’s an explanation of scopes and closures
+      to help you understand what they are.
+    </p>
+    <p>Let’s start with scopes.</p>
+    <h2 id="scope">Scope</h2>
+    <p>
+      A scope in JavaScript defines what variables you have access to. There are
+      two kinds of scope – global scope and local scope.
+    </p>
+    <h3 id="global-scope">Global scope</h3>
+    <p>
+      If a variable is declared outside all functions or curly braces
+      (<code>{}</code>), it is said to be defined in the
+      <strong>global scope</strong>.
+    </p>
+    <p>
+      This is true only with JavaScript in web browsers. You declare global
+      variables in Node.js differently, but we won’t go into Node.js in this
+      article.
+    </p>
+    <pre><code>const globalVariable = &#39;some value&#39;</code></pre>
+    <p>
+      Once you’ve declared a global variable, you can use that variable anywhere
+      in your code, even in functions.
+    </p>
+    <pre><code>const hello = &#39;Hello CSS-Tricks Reader!&#39;
 
 function sayHello () {
   console.log(hello)
@@ -34,41 +69,80 @@ function sayHello () {
 
 console.log(hello)
 sayHello()</code></pre>
-<p>Although you can declare variables in the global scope, it is advised not to. This is because there is a chance of naming collisions, where two or more variables are named the same. If you declared your variables with <code>const</code> or <code>let</code>, you would receive an error whenever a name collision happens. This is undesirable.</p>
-<pre><code>let thing = &#39;something&#39;
+    <p>
+      Although you can declare variables in the global scope, it is advised not
+      to. This is because there is a chance of naming collisions, where two or
+      more variables are named the same. If you declared your variables with
+      <code>const</code> or <code>let</code>, you would receive an error
+      whenever a name collision happens. This is undesirable.
+    </p>
+    <pre><code>let thing = &#39;something&#39;
 let thing = &#39;something else&#39;</code></pre>
-<p>If you declare your variables with <code>var</code>, your second variable overwrites the first one after it is declared. This also undesirable as you make your code hard to debug.</p>
-<pre><code>var thing = &#39;something&#39;
+    <p>
+      If you declare your variables with <code>var</code>, your second variable
+      overwrites the first one after it is declared. This also undesirable as
+      you make your code hard to debug.
+    </p>
+    <pre><code>var thing = &#39;something&#39;
 var thing = &#39;something else&#39;
 console.log(thing)</code></pre>
-<p>So, you should always declare local variables, not global variables.</p>
-<h3 id="local-scope">Local Scope</h3>
-<p>Variables that are usable only in a specific part of your code are considered to be in a local scope. These variables are also called <strong>local variables</strong>.</p>
-<p>In JavaScript, there are two kinds of local scope: function scope and block scope.</p>
-<p>Let’s talk about function scopes first.</p>
-<h3 id="function-scope">Function scope</h3>
-<p>When you declare a variable in a function, you can access this variable only within the function. You can’t get this variable once you get out of it.</p>
-<p>In the example below, the variable <code>hello</code> is in the <code>sayHello</code> scope:</p>
-<pre><code>function sayHello () {
+    <p>So, you should always declare local variables, not global variables.</p>
+    <h3 id="local-scope">Local Scope</h3>
+    <p>
+      Variables that are usable only in a specific part of your code are
+      considered to be in a local scope. These variables are also called
+      <strong>local variables</strong>.
+    </p>
+    <p>
+      In JavaScript, there are two kinds of local scope: function scope and
+      block scope.
+    </p>
+    <p>Let’s talk about function scopes first.</p>
+    <h3 id="function-scope">Function scope</h3>
+    <p>
+      When you declare a variable in a function, you can access this variable
+      only within the function. You can’t get this variable once you get out of
+      it.
+    </p>
+    <p>
+      In the example below, the variable <code>hello</code> is in the
+      <code>sayHello</code> scope:
+    </p>
+    <pre><code>function sayHello () {
   const hello = &#39;Hello CSS-Tricks Reader!&#39;
   console.log(hello)
 }
 
 sayHello()
 console.log(hello)</code></pre>
-<h3 id="block-scope">Block scope</h3>
-<p>When you declare a variable with <code>const</code> or <code>let</code> within a curly brace (<code>{}</code>), you can access this variable only within that curly brace.</p>
-<p>In the example below, you can see that <code>hello</code> is scoped to the curly brace:</p>
-<pre><code>{
+    <h3 id="block-scope">Block scope</h3>
+    <p>
+      When you declare a variable with <code>const</code> or
+      <code>let</code> within a curly brace (<code>{}</code>), you can access
+      this variable only within that curly brace.
+    </p>
+    <p>
+      In the example below, you can see that <code>hello</code> is scoped to the
+      curly brace:
+    </p>
+    <pre><code>{
   const hello = &#39;Hello CSS-Tricks Reader!&#39;
   console.log(hello)
 }
 
 console.log(hello)</code></pre>
-<p>The block scope is a subset of a function scope since functions need to be declared with curly braces (unless you’re using <a href="https://zellwk.com/blog/es6/#arrow-functions">arrow functions</a> with an implicit return).</p>
-<h3 id="function-hoisting-and-scopes">Function hoisting and scopes</h3>
-<p>Functions, when declared with a function declaration, are always hoisted to the top of the current scope. So, these two are equivalent:</p>
-<pre><code>sayHello()
+    <p>
+      The block scope is a subset of a function scope since functions need to be
+      declared with curly braces (unless you’re using
+      <a href="https://zellwk.com/blog/es6/#arrow-functions">arrow functions</a>
+      with an implicit return).
+    </p>
+    <h3 id="function-hoisting-and-scopes">Function hoisting and scopes</h3>
+    <p>
+      Functions, when declared with a function declaration, are always hoisted
+      to the top of the current scope. So, these two are equivalent:
+    </p>
+    <pre><code>sayHello()
 function sayHello () {
   console.log(&#39;Hello CSS-Tricks Reader!&#39;)
 }
@@ -78,16 +152,31 @@ function sayHello () {
   console.log(&#39;Hello CSS-Tricks Reader!&#39;)
 }
 sayHello()</code></pre>
-<p>When declared with a function expression, functions are not hoisted to the top of the current scope.</p>
-<pre><code>sayHello()
+    <p>
+      When declared with a function expression, functions are not hoisted to the
+      top of the current scope.
+    </p>
+    <pre><code>sayHello()
 const sayHello = function () {
   console.log(aFunction)
 }</code></pre>
-<p>Because of these two variations, function hoisting can potentially be confusing, and should not be used. Always declare your functions before you use them.</p>
-<h3 id="functions-do-not-have-access-to-each-others-scopes">Functions do not have access to each other’s scopes</h3>
-<p>Functions do not have access to each other’s scopes when you define them separately, even though one function may be used in another.</p>
-<p>In this example below, <code>second</code> does not have access to <code>firstFunctionVariable</code>.</p>
-<pre><code>function first () {
+    <p>
+      Because of these two variations, function hoisting can potentially be
+      confusing, and should not be used. Always declare your functions before
+      you use them.
+    </p>
+    <h3 id="functions-do-not-have-access-to-each-others-scopes">
+      Functions do not have access to each other’s scopes
+    </h3>
+    <p>
+      Functions do not have access to each other’s scopes when you define them
+      separately, even though one function may be used in another.
+    </p>
+    <p>
+      In this example below, <code>second</code> does not have access to
+      <code>firstFunctionVariable</code>.
+    </p>
+    <pre><code>function first () {
   const firstFunctionVariable = `I&#39;m part of first`
 }
 
@@ -95,10 +184,17 @@ function second () {
   first()
   console.log(firstFunctionVariable)
 }</code></pre>
-<h3 id="nested-scopes">Nested scopes</h3>
-<p>When a function is defined in another function, the inner function has access to the outer function’s variables. This behavior is called <strong>lexical scoping</strong>.</p>
-<p>However, the outer function does not have access to the inner function’s variables.</p>
-<pre><code>function outerFunction () {
+    <h3 id="nested-scopes">Nested scopes</h3>
+    <p>
+      When a function is defined in another function, the inner function has
+      access to the outer function’s variables. This behavior is called
+      <strong>lexical scoping</strong>.
+    </p>
+    <p>
+      However, the outer function does not have access to the inner function’s
+      variables.
+    </p>
+    <pre><code>function outerFunction () {
   const outer = `I&#39;m the outer function!`
 
   function innerFunction() {
@@ -108,16 +204,40 @@ function second () {
 
   console.log(inner)
 }</code></pre>
-<p>To visualize how scopes work, you can imagine one-way glass. You can see the outside, but people from the outside cannot see you.</p>
-<p><img src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/08/one-way-glass.png?ssl=1" /></p>
-<p>Scopes in functions behave like a one-way-glass. You can see the outside, but people outside can’t see you</p>
-<p>If you have scopes within scopes, visualize multiple layers of one-way glass.</p>
-<p><img src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/08/glass-layers.png?ssl=1" /></p>
-<p>Multiple layers of functions mean multiple layers of one-way glass</p>
-<p>After understanding everything about scopes so far, you’re well primed to figure out what closures are.</p>
-<h2 id="closures">Closures</h2>
-<p>Whenever you create a function within another function, you have created a closure. The inner function is the closure. This closure is usually returned so you can use the outer function’s variables at a later time.</p>
-<pre><code>function outerFunction () {
+    <p>
+      To visualize how scopes work, you can imagine one-way glass. You can see
+      the outside, but people from the outside cannot see you.
+    </p>
+    <p>
+      <img
+        src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/08/one-way-glass.png?ssl=1"
+      />
+    </p>
+    <p>
+      Scopes in functions behave like a one-way-glass. You can see the outside,
+      but people outside can’t see you
+    </p>
+    <p>
+      If you have scopes within scopes, visualize multiple layers of one-way
+      glass.
+    </p>
+    <p>
+      <img
+        src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/08/glass-layers.png?ssl=1"
+      />
+    </p>
+    <p>Multiple layers of functions mean multiple layers of one-way glass</p>
+    <p>
+      After understanding everything about scopes so far, you’re well primed to
+      figure out what closures are.
+    </p>
+    <h2 id="closures">Closures</h2>
+    <p>
+      Whenever you create a function within another function, you have created a
+      closure. The inner function is the closure. This closure is usually
+      returned so you can use the outer function’s variables at a later time.
+    </p>
+    <pre><code>function outerFunction () {
   const outer = `I see the outer variable!`
 
   function innerFunction() {
@@ -128,8 +248,11 @@ function second () {
 }
 
 outerFunction()()</code></pre>
-<p>Since the inner function is returned, you can also shorten the code a little by writing a return statement while declaring the function.</p>
-<pre><code>function outerFunction () {
+    <p>
+      Since the inner function is returned, you can also shorten the code a
+      little by writing a return statement while declaring the function.
+    </p>
+    <pre><code>function outerFunction () {
   const outer = `I see the outer variable!`
 
   return function innerFunction() {
@@ -138,34 +261,74 @@ outerFunction()()</code></pre>
 }
 
 outerFunction()()</code></pre>
-<p>Since closures have access to the variables in the outer function, they are usually used for two things:</p>
-<ol type="1">
-<li>To control side effects</li>
-<li>To create private variables</li>
-</ol>
-<h3 id="controlling-side-effects-with-closures">Controlling side effects with closures</h3>
-<p>Side effects happen when you do something in aside from returning a value from a function. Many things can be side effects, like an Ajax request, a timeout or even a <code>console.log</code> statement:</p>
-<pre><code>function (x) {
+    <p>
+      Since closures have access to the variables in the outer function, they
+      are usually used for two things:
+    </p>
+    <ol type="1">
+      <li>To control side effects</li>
+      <li>To create private variables</li>
+    </ol>
+    <h3 id="controlling-side-effects-with-closures">
+      Controlling side effects with closures
+    </h3>
+    <p>
+      Side effects happen when you do something in aside from returning a value
+      from a function. Many things can be side effects, like an Ajax request, a
+      timeout or even a <code>console.log</code> statement:
+    </p>
+    <pre><code>function (x) {
   console.log(&#39;A console.log is a side effect!&#39;)
 }</code></pre>
-<p>When you use closures to control side effects, you’re usually concerned with ones that can mess up your code flow like Ajax or timeouts.</p>
-<p>Let’s go through this with an example to make things clearer.</p>
-<p>Let’s say you want to make a cake for your friend’s birthday. This cake would take a second to make, so you wrote a function that logs <code>made a cake</code> after one second.</p>
-<p>I’m using <a href="https://zellwk.com/blog/es6/#arrow-functions">ES6 arrow functions</a> here to make the example shorter, and easier to understand.</p>
-<pre><code>function makeCake() {
+    <p>
+      When you use closures to control side effects, you’re usually concerned
+      with ones that can mess up your code flow like Ajax or timeouts.
+    </p>
+    <p>Let’s go through this with an example to make things clearer.</p>
+    <p>
+      Let’s say you want to make a cake for your friend’s birthday. This cake
+      would take a second to make, so you wrote a function that logs
+      <code>made a cake</code> after one second.
+    </p>
+    <p>
+      I’m using
+      <a href="https://zellwk.com/blog/es6/#arrow-functions"
+        >ES6 arrow functions</a
+      >
+      here to make the example shorter, and easier to understand.
+    </p>
+    <pre><code>function makeCake() {
   setTimeout(_ =&gt; console.log(`Made a cake`), 1000)
 }</code></pre>
-<p>As you can see, this cake making function has a side effect: a timeout.</p>
-<p>Let’s further say you want your friend to choose a flavor for the cake. To do so, you can write add a flavor to your <code>makeCake</code> function.</p>
-<pre><code>function makeCake(flavor) {
+    <p>
+      As you can see, this cake making function has a side effect: a timeout.
+    </p>
+    <p>
+      Let’s further say you want your friend to choose a flavor for the cake. To
+      do so, you can write add a flavor to your <code>makeCake</code> function.
+    </p>
+    <pre><code>function makeCake(flavor) {
   setTimeout(_ =&gt; console.log(`Made a ${flavor} cake!`), 1000)
 }</code></pre>
-<p>When you run the function, notice the cake gets made immediately after one second.</p>
-<pre><code>makeCake(&#39;banana&#39;)</code></pre>
-<p>The problem here is that you don’t want to make the cake immediately after knowing the flavor. You want to make it later when the time is right.</p>
-<p>To solve this problem, you can write a <code>prepareCake</code> function that stores your flavor. Then, return the <code>makeCake</code> closure within <code>prepareCake</code>.</p>
-<p>From this point on, you can call the returned function whenever you want to, and the cake will be made within a second.</p>
-<pre><code>function prepareCake (flavor) {
+    <p>
+      When you run the function, notice the cake gets made immediately after one
+      second.
+    </p>
+    <pre><code>makeCake(&#39;banana&#39;)</code></pre>
+    <p>
+      The problem here is that you don’t want to make the cake immediately after
+      knowing the flavor. You want to make it later when the time is right.
+    </p>
+    <p>
+      To solve this problem, you can write a <code>prepareCake</code> function
+      that stores your flavor. Then, return the <code>makeCake</code> closure
+      within <code>prepareCake</code>.
+    </p>
+    <p>
+      From this point on, you can call the returned function whenever you want
+      to, and the cake will be made within a second.
+    </p>
+    <pre><code>function prepareCake (flavor) {
   return function () {
     setTimeout(_ =&gt; console.log(`Made a ${flavor} cake!`), 1000)
   }
@@ -175,11 +338,23 @@ const makeCakeLater = prepareCake(&#39;banana&#39;)
 
 
 makeCakeLater()</code></pre>
-<p>That’s how closures are used to reduce side effects – you create a function that activates the inner closure at your whim.</p>
-<h3 id="private-variables-with-closures">Private variables with closures</h3>
-<p>As you know by now, variables created in a function cannot be accessed outside the function. Since they can’t be accessed, they are also called private variables.</p>
-<p>However, sometimes you need to access such a private variable. You can do so with the help of closures.</p>
-<pre><code>function secret (secretCode) {
+    <p>
+      That’s how closures are used to reduce side effects – you create a
+      function that activates the inner closure at your whim.
+    </p>
+    <h3 id="private-variables-with-closures">
+      Private variables with closures
+    </h3>
+    <p>
+      As you know by now, variables created in a function cannot be accessed
+      outside the function. Since they can’t be accessed, they are also called
+      private variables.
+    </p>
+    <p>
+      However, sometimes you need to access such a private variable. You can do
+      so with the help of closures.
+    </p>
+    <pre><code>function secret (secretCode) {
   return {
     saySecretCode () {
       console.log(secretCode)
@@ -189,12 +364,24 @@ makeCakeLater()</code></pre>
 
 const theSecret = secret(&#39;CSS Tricks is amazing&#39;)
 theSecret.saySecretCode()</code></pre>
-<p><code>saySecretCode</code> in this example above is the only function (a closure) that exposes the <code>secretCode</code> outside the original secret function. As such, it is also called a <strong>privileged function</strong>.</p>
-<h2 id="debugging-scopes-with-devtools">Debugging scopes with DevTools</h2>
-<p>Chrome and Firefox’s DevTools make it simple for you to debug variables you can access in the current scope. There are two ways to use this functionality.</p>
-<p>The first way is to add the <code>debugger</code> keyword in your code. This causes JavaScript execution in browsers to pause so you can debug.</p>
-<p>Here’s an example with the <code>prepareCake</code>:</p>
-<pre><code>function prepareCake (flavor) {
+    <p>
+      <code>saySecretCode</code> in this example above is the only function (a
+      closure) that exposes the <code>secretCode</code> outside the original
+      secret function. As such, it is also called a
+      <strong>privileged function</strong>.
+    </p>
+    <h2 id="debugging-scopes-with-devtools">Debugging scopes with DevTools</h2>
+    <p>
+      Chrome and Firefox’s DevTools make it simple for you to debug variables
+      you can access in the current scope. There are two ways to use this
+      functionality.
+    </p>
+    <p>
+      The first way is to add the <code>debugger</code> keyword in your code.
+      This causes JavaScript execution in browsers to pause so you can debug.
+    </p>
+    <p>Here’s an example with the <code>prepareCake</code>:</p>
+    <pre><code>function prepareCake (flavor) {
 
   debugger
   return function () {
@@ -203,11 +390,21 @@ theSecret.saySecretCode()</code></pre>
 }
 
 const makeCakeLater = prepareCake(&#39;banana&#39;)</code></pre>
-<p>If you open your DevTools and navigate to the Sources tab in Chrome (or Debugger tab in Firefox), you would see the variables available to you.</p>
-<p><img src="https://i1.wp.com/css-tricks.com/wp-content/uploads/2017/08/debugger1.png?ssl=1" /></p>
-<p>Debugging prepareCake’s scope</p>
-<p>You can also shift the <code>debugger</code> keyword into the closure. Notice how the scope variables changes this time:</p>
-<pre><code>function prepareCake (flavor) {
+    <p>
+      If you open your DevTools and navigate to the Sources tab in Chrome (or
+      Debugger tab in Firefox), you would see the variables available to you.
+    </p>
+    <p>
+      <img
+        src="https://i1.wp.com/css-tricks.com/wp-content/uploads/2017/08/debugger1.png?ssl=1"
+      />
+    </p>
+    <p>Debugging prepareCake’s scope</p>
+    <p>
+      You can also shift the <code>debugger</code> keyword into the closure.
+      Notice how the scope variables changes this time:
+    </p>
+    <pre><code>function prepareCake (flavor) {
   return function () {
 
     debugger
@@ -216,17 +413,50 @@ const makeCakeLater = prepareCake(&#39;banana&#39;)</code></pre>
 }
 
 const makeCakeLater = prepareCake(&#39;banana&#39;)</code></pre>
-<p><img src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/08/debugger2.png?ssl=1" /></p>
-<p>Debugging the closure scope</p>
-<p>The second way to use this debugging functionality is to add a breakpoint to your code directly in the sources (or debugger) tab by clicking on the line number.</p>
-<p><img src="https://i2.wp.com/css-tricks.com/wp-content/uploads/2017/08/breakpoint.png?ssl=1" /></p>
-<p>Debugging scopes by adding breakpoints</p>
-<h2 id="wrapping-up">Wrapping up</h2>
-<p>Scopes and closures aren’t incredibly hard to understand. They’re pretty simple once you know how to see them through a one-way glass.</p>
-<p>When you declare a variable in a function, you can only access it in the function. These variables are said to be scoped to the function.</p>
-<p>If you define any inner function within another function, this inner function is called a closure. It retains access to the variables created in the outer function.</p>
-<p>Feel free to pop by and ask any questions you have. I’ll get back to you as soon as I can.</p>
-<p>If you liked this article, you may also like other front-end-related articles I write on my <a href="https://zellwk.com/blog/">blog</a> and my <a href="https://zellwk.com/newsletter/css-tricks/">newsletter</a>. I also have a brand new (and free!) email course: <a href="https://jsroadmap.com/">JavaScript Roadmap</a>.</p>
-<p><a href="https://css-tricks.com/javascript-scope-closures/">Source</a></p>
-</body>
+    <p>
+      <img
+        src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/08/debugger2.png?ssl=1"
+      />
+    </p>
+    <p>Debugging the closure scope</p>
+    <p>
+      The second way to use this debugging functionality is to add a breakpoint
+      to your code directly in the sources (or debugger) tab by clicking on the
+      line number.
+    </p>
+    <p>
+      <img
+        src="https://i2.wp.com/css-tricks.com/wp-content/uploads/2017/08/breakpoint.png?ssl=1"
+      />
+    </p>
+    <p>Debugging scopes by adding breakpoints</p>
+    <h2 id="wrapping-up">Wrapping up</h2>
+    <p>
+      Scopes and closures aren’t incredibly hard to understand. They’re pretty
+      simple once you know how to see them through a one-way glass.
+    </p>
+    <p>
+      When you declare a variable in a function, you can only access it in the
+      function. These variables are said to be scoped to the function.
+    </p>
+    <p>
+      If you define any inner function within another function, this inner
+      function is called a closure. It retains access to the variables created
+      in the outer function.
+    </p>
+    <p>
+      Feel free to pop by and ask any questions you have. I’ll get back to you
+      as soon as I can.
+    </p>
+    <p>
+      If you liked this article, you may also like other front-end-related
+      articles I write on my <a href="https://zellwk.com/blog/">blog</a> and my
+      <a href="https://zellwk.com/newsletter/css-tricks/">newsletter</a>. I also
+      have a brand new (and free!) email course:
+      <a href="https://jsroadmap.com/">JavaScript Roadmap</a>.
+    </p>
+    <p>
+      <a href="https://css-tricks.com/javascript-scope-closures/">Source</a>
+    </p>
+  </body>
 </html>

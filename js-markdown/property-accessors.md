@@ -4,7 +4,7 @@ EN
 - <a href="property-accessors.html"
 - <a href="https://es.javascript.info/property-accessors"
 
-- <a href="https://it.javascript.info/property-accessors"
+- property-accessors"
   property-accessors"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="js.html" The JavaScript language</span></a></span>
@@ -266,7 +266,7 @@ Now the old code works too and we’ve got a nice additional property.
 
 <a href="property-descriptors.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="prototypes.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -291,11 +291,7 @@ Now the old code works too and we’ve got a nice additional property.
 - <a href="property-accessors.html#smarter-getters-setters" class="sidebar__link">Smarter getters/setters</a>
 - <a href="property-accessors.html#using-for-compatibility" class="sidebar__link">Using for compatibility</a>
 
-- <a href="property-accessors.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_fb sidebar__share"></a>
+- <a href="property-accessors.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/07-object-properties/02-property-accessors" class="sidebar__link">Edit on GitHub</a>
 

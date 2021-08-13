@@ -1,18 +1,18 @@
 EN
 
--   <a href="https://ar.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="prototype-inheritance.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="prototype-inheritance.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="prototype-inheritance%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="prototype-inheritance%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/prototype-inheritance" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -34,17 +34,15 @@ Search
 
 24th April 2021
 
-Prototypal inheritance
-======================
+# Prototypal inheritance
 
 In programming, we often want to take something and extend it.
 
 For instance, we have a `user` object with its properties and methods, and want to make `admin` and `guest` as slightly modified variants of it. We’d like to reuse what we have in `user`, not copy/reimplement its methods, just build a new object on top of it.
 
-*Prototypal inheritance* is a language feature that helps in that.
+_Prototypal inheritance_ is a language feature that helps in that.
 
-<a href="prototype-inheritance.html#prototype" id="prototype" class="main__anchor">[[Prototype]]</a>
-----------------------------------------------------------------------------------------------------
+## <a href="prototype-inheritance.html#prototype" id="prototype" class="main__anchor">[[Prototype]]</a>
 
 In JavaScript, objects have a special hidden property `[[Prototype]]` (as named in the specification), that is either `null` or references another object. That object is called “a prototype”:
 
@@ -155,7 +153,7 @@ Also it may be obvious, but still: there can be only one `[[Prototype]]`. An obj
 
 It’s a common mistake of novice developers not to know the difference between these two.
 
-Please note that `__proto__` is *not the same* as the internal `[[Prototype]]` property. It’s a getter/setter for `[[Prototype]]`. Later we’ll see situations where it matters, for now let’s just keep it in mind, as we build our understanding of JavaScript language.
+Please note that `__proto__` is _not the same_ as the internal `[[Prototype]]` property. It’s a getter/setter for `[[Prototype]]`. Later we’ll see situations where it matters, for now let’s just keep it in mind, as we build our understanding of JavaScript language.
 
 The `__proto__` property is a bit outdated. It exists for historical reasons, modern JavaScript suggests that we should use `Object.getPrototypeOf/Object.setPrototypeOf` functions instead that get/set the prototype. We’ll also cover these functions later.
 
@@ -163,8 +161,7 @@ By the specification, `__proto__` must only be supported by browsers. In fact th
 
 As the `__proto__` notation is a bit more intuitively obvious, we use it in the examples.
 
-<a href="prototype-inheritance.html#writing-doesn-t-use-prototype" id="writing-doesn-t-use-prototype" class="main__anchor">Writing doesn’t use prototype</a>
-------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="prototype-inheritance.html#writing-doesn-t-use-prototype" id="writing-doesn-t-use-prototype" class="main__anchor">Writing doesn’t use prototype</a>
 
 The prototype is only used for reading properties.
 
@@ -231,8 +228,7 @@ For that reason `admin.fullName` works correctly in the code below:
 
 Here in the line `(*)` the property `admin.fullName` has a getter in the prototype `user`, so it is called. And in the line `(**)` the property has a setter in the prototype, so it is called.
 
-<a href="prototype-inheritance.html#the-value-of-this" id="the-value-of-this" class="main__anchor">The value of “this”</a>
---------------------------------------------------------------------------------------------------------------------------
+## <a href="prototype-inheritance.html#the-value-of-this" id="the-value-of-this" class="main__anchor">The value of “this”</a>
 
 An interesting question may arise in the example above: what’s the value of `this` inside `set fullName(value)`? Where are the properties `this.name` and `this.surname` written: into `user` or `admin`?
 
@@ -281,8 +277,7 @@ The resulting picture:
 
 As a result, methods are shared, but the object state is not.
 
-<a href="prototype-inheritance.html#for-in-loop" id="for-in-loop" class="main__anchor">for…in loop</a>
-------------------------------------------------------------------------------------------------------
+## <a href="prototype-inheritance.html#for-in-loop" id="for-in-loop" class="main__anchor">for…in loop</a>
 
 The `for..in` loop iterates over inherited properties too.
 
@@ -346,21 +341,19 @@ The answer is simple: it’s not enumerable. Just like all other properties of `
 
 Almost all other key/value-getting methods, such as `Object.keys`, `Object.values` and so on ignore inherited properties.
 
-They only operate on the object itself. Properties from the prototype are *not* taken into account.
+They only operate on the object itself. Properties from the prototype are _not_ taken into account.
 
-<a href="prototype-inheritance.html#summary" id="summary" class="main__anchor">Summary</a>
-------------------------------------------------------------------------------------------
+## <a href="prototype-inheritance.html#summary" id="summary" class="main__anchor">Summary</a>
 
--   In JavaScript, all objects have a hidden `[[Prototype]]` property that’s either another object or `null`.
--   We can use `obj.__proto__` to access it (a historical getter/setter, there are other ways, to be covered soon).
--   The object referenced by `[[Prototype]]` is called a “prototype”.
--   If we want to read a property of `obj` or call a method, and it doesn’t exist, then JavaScript tries to find it in the prototype.
--   Write/delete operations act directly on the object, they don’t use the prototype (assuming it’s a data property, not a setter).
--   If we call `obj.method()`, and the `method` is taken from the prototype, `this` still references `obj`. So methods always work with the current object even if they are inherited.
--   The `for..in` loop iterates over both its own and its inherited properties. All other key/value-getting methods only operate on the object itself.
+- In JavaScript, all objects have a hidden `[[Prototype]]` property that’s either another object or `null`.
+- We can use `obj.__proto__` to access it (a historical getter/setter, there are other ways, to be covered soon).
+- The object referenced by `[[Prototype]]` is called a “prototype”.
+- If we want to read a property of `obj` or call a method, and it doesn’t exist, then JavaScript tries to find it in the prototype.
+- Write/delete operations act directly on the object, they don’t use the prototype (assuming it’s a data property, not a setter).
+- If we call `obj.method()`, and the `method` is taken from the prototype, `this` still references `obj`. So methods always work with the current object even if they are inherited.
+- The `for..in` loop iterates over both its own and its inherited properties. All other key/value-getting methods only operate on the object itself.
 
-<a href="prototype-inheritance.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
-------------------------------------------------------------------------------------------------------------------------------
+## <a href="prototype-inheritance.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="prototype-inheritance.html#working-with-prototype" id="working-with-prototype" class="main__anchor">Working with prototype</a>
 
@@ -543,7 +536,7 @@ Let’s look carefully at what’s going on in the call `speedy.eat("apple")`.
 
 3.  Then it follows the prototype chain and finds `stomach` in `hamster`.
 
-4.  Then it calls `push` on it, adding the food into *the stomach of the prototype*.
+4.  Then it calls `push` on it, adding the food into _the stomach of the prototype_.
 
 So all hamsters share a single stomach!
 
@@ -616,7 +609,7 @@ As a common solution, all properties that describe the state of a particular obj
 
 <a href="prototypes.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="function-prototype.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fprototype-inheritance" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fprototype-inheritance" class="share share_fb"></a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fprototype-inheritance" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fprototype-inheritance" class="share share_fb"></a>
 
 <a href="tutorial/map.html" class="map"><span class="map__text">Tutorial map</span></a>
 
@@ -624,29 +617,29 @@ As a common solution, all properties that describe the state of a particular obj
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="prototypes.html" class="sidebar__link">Prototypes, inheritance</a>
+- <a href="prototypes.html" class="sidebar__link">Prototypes, inheritance</a>
 
 #### Lesson navigation
 
--   prototype-inheritance.html\#prototype" &gt;\[\[Prototype\]\]
--   prototype-inheritance.html\#writing-doesn-t-use-prototype" &gt;Writing doesn’t use prototype
--   prototype-inheritance.html\#the-value-of-this" &gt;The value of “this”
--   prototype-inheritance.html\#for-in-loop" &gt;for…in loop
--   prototype-inheritance.html
+- prototype-inheritance.html\#prototype" &gt;\[\[Prototype\]\]
+- prototype-inheritance.html\#writing-doesn-t-use-prototype" &gt;Writing doesn’t use prototype
+- prototype-inheritance.html\#the-value-of-this" &gt;The value of “this”
+- prototype-inheritance.html\#for-in-loop" &gt;for…in loop
+- prototype-inheritance.html
 
 <!-- -->
 
--   prototype-inheritance.html\#tasks" &gt;Tasks (4)
--   prototype-inheritance.html\#comments" &gt;Comments
+- prototype-inheritance.html\#tasks" &gt;Tasks (4)
+- prototype-inheritance.html\#comments" &gt;Comments
 
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fprototype-inheritance" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fprototype-inheritance" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/08-prototypes/01-prototype-inheritance" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Fprototype-inheritance" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fprototype-inheritance" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/08-prototypes/01-prototype-inheritance" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

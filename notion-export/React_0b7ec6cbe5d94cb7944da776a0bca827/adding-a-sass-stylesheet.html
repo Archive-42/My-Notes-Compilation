@@ -1,61 +1,144 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>adding-a-sass-stylesheet</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-</head>
-<body>
-<blockquote>
-<p>Note: this feature is available with <code>react-scripts@2.0.0</code> and higher.</p>
-</blockquote>
-<p>Generally, we recommend that you don’t reuse the same CSS classes across different components. For example, instead of using a <code>.Button</code> CSS class in <code>&lt;AcceptButton&gt;</code> and <code>&lt;RejectButton&gt;</code> components, we recommend creating a <code>&lt;Button&gt;</code> component with its own <code>.Button</code> styles, that both <code>&lt;AcceptButton&gt;</code> and <code>&lt;RejectButton&gt;</code> can render (but <a href="https://facebook.github.io/react/docs/composition-vs-inheritance.html">not inherit</a>).</p>
-<p>Following this rule often makes CSS preprocessors less useful, as features like mixins and nesting are replaced by component composition. You can, however, integrate a CSS preprocessor if you find it valuable.</p>
-<p>To use Sass, first install <code>sass</code>:</p>
-<pre><code>$ npm install sass
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>adding-a-sass-stylesheet</title>
+    <style type="text/css">
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      span.underline {
+        text-decoration: underline;
+      }
+      div.column {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <blockquote>
+      <p>
+        Note: this feature is available with
+        <code>react-scripts@2.0.0</code> and higher.
+      </p>
+    </blockquote>
+    <p>
+      Generally, we recommend that you don’t reuse the same CSS classes across
+      different components. For example, instead of using a
+      <code>.Button</code> CSS class in <code>&lt;AcceptButton&gt;</code> and
+      <code>&lt;RejectButton&gt;</code> components, we recommend creating a
+      <code>&lt;Button&gt;</code> component with its own
+      <code>.Button</code> styles, that both
+      <code>&lt;AcceptButton&gt;</code> and
+      <code>&lt;RejectButton&gt;</code> can render (but
+      <a
+        href="https://facebook.github.io/react/docs/composition-vs-inheritance.html"
+        >not inherit</a
+      >).
+    </p>
+    <p>
+      Following this rule often makes CSS preprocessors less useful, as features
+      like mixins and nesting are replaced by component composition. You can,
+      however, integrate a CSS preprocessor if you find it valuable.
+    </p>
+    <p>To use Sass, first install <code>sass</code>:</p>
+    <pre><code>$ npm install sass
 # or
 $ yarn add sass</code></pre>
-<p>Now you can rename <code>src/App.css</code> to <code>src/App.scss</code> and update <code>src/App.js</code> to import <code>src/App.scss</code>. This file and any other file will be automatically compiled if imported with the extension <code>.scss</code> or <code>.sass</code>.</p>
-<p>To share variables between Sass files, you can use Sass’s <a href="https://sass-lang.com/documentation/at-rules/use"><code>@use</code> rule</a>. For example, <code>src/App.scss</code> and other component style files could include <code>@use "./shared.scss";</code> with variable definitions.</p>
-<p>This will allow you to do imports like</p>
-<pre><code>@use &#39;styles/_colors.scss&#39;; // assuming a styles directory under src/
+    <p>
+      Now you can rename <code>src/App.css</code> to
+      <code>src/App.scss</code> and update <code>src/App.js</code> to import
+      <code>src/App.scss</code>. This file and any other file will be
+      automatically compiled if imported with the extension
+      <code>.scss</code> or <code>.sass</code>.
+    </p>
+    <p>
+      To share variables between Sass files, you can use Sass’s
+      <a href="https://sass-lang.com/documentation/at-rules/use"
+        ><code>@use</code> rule</a
+      >. For example, <code>src/App.scss</code> and other component style files
+      could include <code>@use "./shared.scss";</code> with variable
+      definitions.
+    </p>
+    <p>This will allow you to do imports like</p>
+    <pre><code>@use &#39;styles/_colors.scss&#39;; // assuming a styles directory under src/
 @use &#39;~nprogress/nprogress&#39;; // loading a css file from the nprogress node module</code></pre>
-<blockquote>
-<p><strong>Note:</strong> You can prefix paths with <code>~</code>, as displayed above, to resolve modules from <code>node_modules</code>.</p>
-</blockquote>
-<p><code>sass</code> also supports the <code>SASS_PATH</code> variable.</p>
-<p>To use imports relative to a path you specify, you can add a <a href="https://github.com/facebook/create-react-app/blob/master/docusaurus/docs/adding-custom-environment-variables.md#adding-development-environment-variables-in-env"><code>.env</code> file</a> at the project root with the path specified in the <code>SASS_PATH</code> environment variable. To specify more directories you can add them to <code>SASS_PATH</code> separated by a <code>:</code> like <code>path1:path2:path3</code>.</p>
-<blockquote>
-<p><strong>Note:</strong> For the Windows operating system, separate your paths by semicolons.</p>
-<pre><code>SASS_PATH=path1;path2;path3</code></pre>
-</blockquote>
-<blockquote>
-<p><strong>Tip:</strong> You can opt into using this feature with <a href="adding-a-css-modules-stylesheet.md">CSS modules</a> too!</p>
-</blockquote>
-<blockquote>
-<p><strong>Note:</strong> If you’re using Flow, override the <a href="https://flow.org/en/docs/config/options/#toc-module-file-ext-string">module.file_ext</a> setting in your <code>.flowconfig</code> so it’ll recognize <code>.sass</code> or <code>.scss</code> files. You will also need to include the <code>module.file_ext</code> default settings for <code>.js</code>, <code>.jsx</code>, <code>.mjs</code> and <code>.json</code> files.</p>
-<pre><code>[options]
+    <blockquote>
+      <p>
+        <strong>Note:</strong> You can prefix paths with <code>~</code>, as
+        displayed above, to resolve modules from <code>node_modules</code>.
+      </p>
+    </blockquote>
+    <p><code>sass</code> also supports the <code>SASS_PATH</code> variable.</p>
+    <p>
+      To use imports relative to a path you specify, you can add a
+      <a
+        href="https://github.com/facebook/create-react-app/blob/master/docusaurus/docs/adding-custom-environment-variables.md#adding-development-environment-variables-in-env"
+        ><code>.env</code> file</a
+      >
+      at the project root with the path specified in the
+      <code>SASS_PATH</code> environment variable. To specify more directories
+      you can add them to <code>SASS_PATH</code> separated by a
+      <code>:</code> like <code>path1:path2:path3</code>.
+    </p>
+    <blockquote>
+      <p>
+        <strong>Note:</strong> For the Windows operating system, separate your
+        paths by semicolons.
+      </p>
+      <pre><code>SASS_PATH=path1;path2;path3</code></pre>
+    </blockquote>
+    <blockquote>
+      <p>
+        <strong>Tip:</strong> You can opt into using this feature with
+        <a href="adding-a-css-modules-stylesheet.md">CSS modules</a> too!
+      </p>
+    </blockquote>
+    <blockquote>
+      <p>
+        <strong>Note:</strong> If you’re using Flow, override the
+        <a
+          href="https://flow.org/en/docs/config/options/#toc-module-file-ext-string"
+          >module.file_ext</a
+        >
+        setting in your <code>.flowconfig</code> so it’ll recognize
+        <code>.sass</code> or <code>.scss</code> files. You will also need to
+        include the <code>module.file_ext</code> default settings for
+        <code>.js</code>, <code>.jsx</code>, <code>.mjs</code> and
+        <code>.json</code> files.
+      </p>
+      <pre><code>[options]
 module.file_ext=.js
 module.file_ext=.jsx
 module.file_ext=.mjs
 module.file_ext=.json
 module.file_ext=.sass
 module.file_ext=.scss</code></pre>
-</blockquote>
-<blockquote>
-<p><strong>Note:</strong> LibSass and the packages built on top of it, including Node Sass, are <a href="https://sass-lang.com/blog/libsass-is-deprecated">deprecated</a>. If you’re a user of Node Sass, you can migrate to Dart Sass by replacing <code>node-sass</code> in your <code>package.json</code> file with <code>sass</code> or by running the following commands:</p>
-<pre><code>$ npm uninstall node-sass
+    </blockquote>
+    <blockquote>
+      <p>
+        <strong>Note:</strong> LibSass and the packages built on top of it,
+        including Node Sass, are
+        <a href="https://sass-lang.com/blog/libsass-is-deprecated">deprecated</a
+        >. If you’re a user of Node Sass, you can migrate to Dart Sass by
+        replacing <code>node-sass</code> in your <code>package.json</code> file
+        with <code>sass</code> or by running the following commands:
+      </p>
+      <pre><code>$ npm uninstall node-sass
 $ npm install sass
 # or
 $ yarn remove node-sass
 $ yarn add sass</code></pre>
-</blockquote>
-</body>
+    </blockquote>
+  </body>
 </html>

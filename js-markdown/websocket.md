@@ -4,7 +4,7 @@ EN
 - <a href="websocket.html"
 - <a href="https://es.javascript.info/websocket"
 - <a href="https://fr.javascript.info/websocket"
-- <a href="https://it.javascript.info/websocket"
+- websocket"
   websocket"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fwebsocket" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fwebsocket" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fwebsocket" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fwebsocket" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="network.html" Network requests</span></a></span>
@@ -395,7 +395,7 @@ Surely, other ways of integration are also possible.
 
 <a href="long-polling.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="server-sent-events.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fwebsocket" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fwebsocket" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fwebsocket" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fwebsocket" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -424,11 +424,7 @@ Surely, other ways of integration are also possible.
 - <a href="websocket.html#chat-example" class="sidebar__link">Chat example</a>
 - <a href="websocket.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="websocket.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fwebsocket" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fwebsocket" class="share share_fb sidebar__share"></a>
+- <a href="websocket.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fwebsocket" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fwebsocket" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/11-websocket" class="sidebar__link">Edit on GitHub</a>
 

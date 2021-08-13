@@ -5,7 +5,7 @@ langs\_\_title">عربي</span></a>
 - <a href="fetch-crossorigin.html"
 - <a href="https://es.javascript.info/fetch-crossorigin"
 - <a href="https://fr.javascript.info/fetch-crossorigin"
-- <a href="https://it.javascript.info/fetch-crossorigin"
+- fetch-crossorigin"
   fetch-crossorigin"
 
 <!-- -->
@@ -29,7 +29,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffetch-crossorigin" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-crossorigin" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Ffetch-crossorigin" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-crossorigin" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -435,7 +435,7 @@ Exactly because `Referer` is unreliable, `Origin` was invented. The browser guar
 
 <a href="fetch-abort.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="fetch-api.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffetch-crossorigin" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-crossorigin" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Ffetch-crossorigin" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-crossorigin" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -464,11 +464,7 @@ Exactly because `Referer` is unreliable, `Origin` was invented. The browser guar
 - <a href="fetch-crossorigin.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="fetch-crossorigin.html#tasks" class="sidebar__link">Tasks (1)</a>
-- <a href="fetch-crossorigin.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffetch-crossorigin" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-crossorigin" class="share share_fb sidebar__share"></a>
+- <a href="fetch-crossorigin.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ffetch-crossorigin" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffetch-crossorigin" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/05-fetch-crossorigin" class="sidebar__link">Edit on GitHub</a>
 

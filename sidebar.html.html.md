@@ -2,7 +2,6 @@
 
 ☰ Open Sidebar
 
-Collapsed Sidebar
------------------
+## Collapsed Sidebar
 
 Click on the hamburger menu/bar icon to open the sidebar, and push this content to the right.

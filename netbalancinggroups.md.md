@@ -1,5 +1,4 @@
-.NET Balancing Groups
-=====================
+# .NET Balancing Groups
 
 Basic pattern
 
@@ -15,8 +14,7 @@ allow any number of letters m anywhere in the string, while still requiring all 
 
 This is the generic solution for matching balanced constructs using .NET’s balancing groups or capturing group subtraction feature. You can replace o, m, and c with any regular expression, as long as no two of these three can match the same text.
 
-Matching nested balanced parenthesis
-------------------------------------
+## Matching nested balanced parenthesis
 
 applies this technique to match a string in which all parentheses are perfectly balanced.
 

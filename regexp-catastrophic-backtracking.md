@@ -4,7 +4,7 @@ EN
 - <a href="regexp-catastrophic-backtracking.html"
 - <a href="https://es.javascript.info/"
 
-- <a href="https://it.javascript.info/"
+- "
   regexp-catastrophic-backtracking"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="regular-expressions.html" Regular expressions</span></a></span>
@@ -339,7 +339,7 @@ We covered two ways how to solve it:
 
 <a href="regexp-lookahead-lookbehind.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="regexp-sticky.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -365,11 +365,7 @@ We covered two ways how to solve it:
 - <a href="regexp-catastrophic-backtracking.html#how-to-fix" class="sidebar__link">How to fix?</a>
 - <a href="regexp-catastrophic-backtracking.html#preventing-backtracking" class="sidebar__link">Preventing backtracking</a>
 
-- <a href="regexp-catastrophic-backtracking.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" class="share share_fb sidebar__share"></a>
+- <a href="regexp-catastrophic-backtracking.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/15-regexp-catastrophic-backtracking" class="sidebar__link">Edit on GitHub</a>
 

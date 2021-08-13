@@ -5,7 +5,7 @@ langs\_\_title">عربي</span></a>
 - <a href="formdata.html"
 - <a href="https://es.javascript.info/formdata"
 - <a href="https://fr.javascript.info/formdata"
-- <a href="https://it.javascript.info/formdata"
+- formdata"
   formdata"
 
 <!-- -->
@@ -29,7 +29,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fformdata" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fformdata" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fformdata" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fformdata" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -227,7 +227,7 @@ That’s it!
 
 <a href="fetch.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="fetch-progress.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fformdata" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fformdata" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fformdata" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fformdata" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -253,11 +253,7 @@ That’s it!
 - <a href="formdata.html#sending-a-form-with-blob-data" class="sidebar__link">Sending a form with Blob data</a>
 - <a href="formdata.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="formdata.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fformdata" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fformdata" class="share share_fb sidebar__share"></a>
+- <a href="formdata.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fformdata" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fformdata" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/02-formdata" class="sidebar__link">Edit on GitHub</a>
 

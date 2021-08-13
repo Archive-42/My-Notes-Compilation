@@ -3,7 +3,7 @@ class-constructor-error"
 - <a href="class-constructor-error.html"
   class-constructor-error"
   /class-constructor-error"
-- <a href="https://it.javascript.info/class-constructor-error"
+- class-constructor-error"
 
 <!-- -->
 

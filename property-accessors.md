@@ -1,18 +1,18 @@
 EN
 
--   <a href="https://ar.javascript.info/property-accessors" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="property-accessors.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/property-accessors" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/property-accessors" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/property-accessors" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/property-accessors" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="property-accessors.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/property-accessors" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- property-accessors" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/property-accessors" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/property-accessors" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="property-accessors%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/property-accessors" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/property-accessors" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/property-accessors" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="property-accessors%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/property-accessors" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/property-accessors" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -34,17 +34,15 @@ Search
 
 28th May 2020
 
-Property getters and setters
-============================
+# Property getters and setters
 
 There are two kinds of object properties.
 
-The first kind is *data properties*. We already know how to work with them. All properties that we’ve been using until now were data properties.
+The first kind is _data properties_. We already know how to work with them. All properties that we’ve been using until now were data properties.
 
-The second type of properties is something new. It’s *accessor properties*. They are essentially functions that execute on getting and setting a value, but look like regular properties to an external code.
+The second type of properties is something new. It’s _accessor properties_. They are essentially functions that execute on getting and setting a value, but look like regular properties to an external code.
 
-<a href="property-accessors.html#getters-and-setters" id="getters-and-setters" class="main__anchor">Getters and setters</a>
----------------------------------------------------------------------------------------------------------------------------
+## <a href="property-accessors.html#getters-and-setters" id="getters-and-setters" class="main__anchor">Getters and setters</a>
 
 Accessor properties are represented by “getter” and “setter” methods. In an object literal they are denoted by `get` and `set`:
 
@@ -84,7 +82,7 @@ Now we want to add a `fullName` property, that should be `"John Smith"`. Of cour
 
     alert(user.fullName); // John Smith
 
-From the outside, an accessor property looks like a regular one. That’s the idea of accessor properties. We don’t *call* `user.fullName` as a function, we *read* it normally: the getter runs behind the scenes.
+From the outside, an accessor property looks like a regular one. That’s the idea of accessor properties. We don’t _call_ `user.fullName` as a function, we _read_ it normally: the getter runs behind the scenes.
 
 As of now, `fullName` has only a getter. If we attempt to assign `user.fullName=`, there will be an error:
 
@@ -127,8 +125,7 @@ Let’s fix it by adding a setter for `user.fullName`:
 
 As the result, we have a “virtual” property `fullName`. It is readable and writable.
 
-<a href="property-accessors.html#accessor-descriptors" id="accessor-descriptors" class="main__anchor">Accessor descriptors</a>
-------------------------------------------------------------------------------------------------------------------------------
+## <a href="property-accessors.html#accessor-descriptors" id="accessor-descriptors" class="main__anchor">Accessor descriptors</a>
 
 Descriptors for accessor properties are different from those for data properties.
 
@@ -136,10 +133,10 @@ For accessor properties, there is no `value` or `writable`, but instead there ar
 
 That is, an accessor descriptor may have:
 
--   **`get`** – a function without arguments, that works when a property is read,
--   **`set`** – a function with one argument, that is called when the property is set,
--   **`enumerable`** – same as for data properties,
--   **`configurable`** – same as for data properties.
+- **`get`** – a function without arguments, that works when a property is read,
+- **`set`** – a function with one argument, that is called when the property is set,
+- **`enumerable`** – same as for data properties,
+- **`configurable`** – same as for data properties.
 
 For instance, to create an accessor `fullName` with `defineProperty`, we can pass a descriptor with `get` and `set`:
 
@@ -183,8 +180,7 @@ If we try to supply both `get` and `value` in the same descriptor, there will be
       value: 2
     });
 
-<a href="property-accessors.html#smarter-getters-setters" id="smarter-getters-setters" class="main__anchor">Smarter getters/setters</a>
----------------------------------------------------------------------------------------------------------------------------------------
+## <a href="property-accessors.html#smarter-getters-setters" id="smarter-getters-setters" class="main__anchor">Smarter getters/setters</a>
 
 Getters/setters can be used as wrappers over “real” property values to gain more control over operations with them.
 
@@ -217,8 +213,7 @@ So, the name is stored in `_name` property, and the access is done via getter an
 
 Technically, external code is able to access the name directly by using `user._name`. But there is a widely known convention that properties starting with an underscore `"_"` are internal and should not be touched from outside the object.
 
-<a href="property-accessors.html#using-for-compatibility" id="using-for-compatibility" class="main__anchor">Using for compatibility</a>
----------------------------------------------------------------------------------------------------------------------------------------
+## <a href="property-accessors.html#using-for-compatibility" id="using-for-compatibility" class="main__anchor">Using for compatibility</a>
 
 One of the great uses of accessors is that they allow to take control over a “regular” data property at any moment by replacing it with a getter and a setter and tweak its behavior.
 
@@ -276,7 +271,7 @@ Now the old code works too and we’ve got a nice additional property.
 
 <a href="property-descriptors.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="prototypes.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_fb"></a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_fb"></a>
 
 <a href="tutorial/map.html" class="map"><span class="map__text">Tutorial map</span></a>
 
@@ -284,27 +279,27 @@ Now the old code works too and we’ve got a nice additional property.
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="object-properties.html" class="sidebar__link">Object properties configuration</a>
+- <a href="object-properties.html" class="sidebar__link">Object properties configuration</a>
 
 #### Lesson navigation
 
--   property-accessors.html\#getters-and-setters" &gt;Getters and setters
--   property-accessors.html\#accessor-descriptors" &gt;Accessor descriptors
--   property-accessors.html\#smarter-getters-setters" &gt;Smarter getters/setters
--   property-accessors.html\#using-for-compatibility" &gt;Using for compatibility
+- property-accessors.html\#getters-and-setters" &gt;Getters and setters
+- property-accessors.html\#accessor-descriptors" &gt;Accessor descriptors
+- property-accessors.html\#smarter-getters-setters" &gt;Smarter getters/setters
+- property-accessors.html\#using-for-compatibility" &gt;Using for compatibility
 
 <!-- -->
 
--   property-accessors.html\#comments" &gt;Comments
+- property-accessors.html\#comments" &gt;Comments
 
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/07-object-properties/02-property-accessors" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproperty-accessors" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/07-object-properties/02-property-accessors" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

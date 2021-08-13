@@ -4,7 +4,7 @@ EN
 - <a href="intro.html"
 - <a href="https://es.javascript.info/intro"
 - <a href="https://fr.javascript.info/intro"
-- <a href="https://it.javascript.info/intro"
+- intro"
   intro"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fintro" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fintro" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fintro" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fintro" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -161,7 +161,7 @@ There are more. Of course, even if we use one of transpiled languages, we should
 
 <a href="getting-started.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="manuals-specifications.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fintro" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fintro" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fintro" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fintro" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -188,11 +188,7 @@ There are more. Of course, even if we use one of transpiled languages, we should
 - <a href="intro.html#languages-over-javascript" class="sidebar__link">Languages “over” JavaScript</a>
 - <a href="intro.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="intro.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fintro" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fintro" class="share share_fb sidebar__share"></a>
+- <a href="intro.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fintro" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fintro" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/01-getting-started/1-intro" class="sidebar__link">Edit on GitHub</a>
 

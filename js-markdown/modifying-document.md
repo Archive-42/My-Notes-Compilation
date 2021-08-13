@@ -4,7 +4,7 @@ EN
 - <a href="modifying-document.html"
 - <a href="https://es.javascript.info/modifying-document"
 - <a href="https://fr.javascript.info/modifying-document"
-- <a href="https://it.javascript.info/modifying-document"
+- modifying-document"
   modifying-document"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmodifying-document" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmodifying-document" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fmodifying-document" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmodifying-document" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -1013,7 +1013,7 @@ P.S. In our case, there’s an explicit `<tbody>` in the table, but even if HTML
 
 <a href="dom-attributes-and-properties.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="styles-and-classes.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmodifying-document" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmodifying-document" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fmodifying-document" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmodifying-document" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -1045,11 +1045,7 @@ P.S. In our case, there’s an explicit `<tbody>` in the table, but even if HTML
 - <a href="modifying-document.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="modifying-document.html#tasks" class="sidebar__link">Tasks (10)</a>
-- <a href="modifying-document.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmodifying-document" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmodifying-document" class="share share_fb sidebar__share"></a>
+- <a href="modifying-document.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fmodifying-document" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmodifying-document" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/07-modifying-document" class="sidebar__link">Edit on GitHub</a>
 

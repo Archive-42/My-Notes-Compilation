@@ -3,7 +3,7 @@ rewrite-to-class"
 - <a href="rewrite-to-class.html"
   rewrite-to-class"
   /rewrite-to-class"
-- <a href="https://it.javascript.info/rewrite-to-class"
+- rewrite-to-class"
 
 <!-- -->
 

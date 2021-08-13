@@ -4,7 +4,7 @@ EN
 - <a href="proxy.html"
 - <a href="https://es.javascript.info/proxy"
 - <a href="https://fr.javascript.info/proxy"
-- <a href="https://it.javascript.info/proxy"
+- proxy"
   proxy"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fproxy" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproxy" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fproxy" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproxy" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="js.html" The JavaScript language</span></a></span>
@@ -1194,7 +1194,7 @@ The solution consists of two parts:
 
 <a href="js-misc.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="eval.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fproxy" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproxy" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fproxy" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproxy" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -1228,11 +1228,7 @@ The solution consists of two parts:
 - <a href="proxy.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="proxy.html#tasks" class="sidebar__link">Tasks (3)</a>
-- <a href="proxy.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fproxy" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproxy" class="share share_fb sidebar__share"></a>
+- <a href="proxy.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fproxy" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fproxy" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/99-js-misc/01-proxy" class="sidebar__link">Edit on GitHub</a>
 

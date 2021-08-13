@@ -1,18 +1,18 @@
 EN
 
--   <a href="https://ar.javascript.info/regexp-lookahead-lookbehind" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="regexp-lookahead-lookbehind.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/regexp-lookahead-lookbehind" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/regexp-lookahead-lookbehind" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/regexp-lookahead-lookbehind" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/regexp-lookahead-lookbehind" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="regexp-lookahead-lookbehind.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/regexp-lookahead-lookbehind" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- regexp-lookahead-lookbehind" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/regexp-lookahead-lookbehind" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="regexp-lookahead-lookbehind%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/regexp-lookahead-lookbehind" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="regexp-lookahead-lookbehind%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/regexp-lookahead-lookbehind" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -33,8 +33,7 @@ Search
 
 2nd March 2021
 
-Lookahead and lookbehind
-========================
+# Lookahead and lookbehind
 
 Sometimes we need to find only those matches for a pattern that are followed or preceded by another pattern.
 
@@ -42,8 +41,7 @@ There’s a special syntax for that, called “lookahead” and “lookbehind”
 
 For the start, let’s find the price from the string like `1 turkey costs 30€`. That is: a number, followed by `€` sign.
 
-<a href="regexp-lookahead-lookbehind.html#lookahead" id="lookahead" class="main__anchor">Lookahead</a>
-------------------------------------------------------------------------------------------------------
+## <a href="regexp-lookahead-lookbehind.html#lookahead" id="lookahead" class="main__anchor">Lookahead</a>
 
 The syntax is: `X(?=Y)`, it means "look for `X`, but match only if followed by `Y`". There may be any pattern instead of `X` and `Y`.
 
@@ -84,8 +82,7 @@ For example, `\d+(?=\s)(?=.*30)` looks for `\d+` that is followed by a space `(?
 
 In our string that exactly matches the number `1`.
 
-<a href="regexp-lookahead-lookbehind.html#negative-lookahead" id="negative-lookahead" class="main__anchor">Negative lookahead</a>
----------------------------------------------------------------------------------------------------------------------------------
+## <a href="regexp-lookahead-lookbehind.html#negative-lookahead" id="negative-lookahead" class="main__anchor">Negative lookahead</a>
 
 Let’s say that we want a quantity instead, not a price from the same string. That’s a number `\d+`, NOT followed by `€`.
 
@@ -101,8 +98,7 @@ The syntax is: `X(?!Y)`, it means "search `X`, but only if not followed by `Y`".
 
     alert( str.match(/\d+\b(?!€)/g) ); // 2 (the price is not matched)
 
-<a href="regexp-lookahead-lookbehind.html#lookbehind" id="lookbehind" class="main__anchor">Lookbehind</a>
----------------------------------------------------------------------------------------------------------
+## <a href="regexp-lookahead-lookbehind.html#lookbehind" id="lookbehind" class="main__anchor">Lookbehind</a>
 
 Lookahead allows to add a condition for “what follows”.
 
@@ -110,8 +106,8 @@ Lookbehind is similar, but it looks behind. That is, it allows to match a patter
 
 The syntax is:
 
--   Positive lookbehind: `(?<=Y)X`, matches `X`, but only if there’s `Y` before it.
--   Negative lookbehind: `(?<!Y)X`, matches `X`, but only if there’s no `Y` before it.
+- Positive lookbehind: `(?<=Y)X`, matches `X`, but only if there’s `Y` before it.
+- Negative lookbehind: `(?<!Y)X`, matches `X`, but only if there’s no `Y` before it.
 
 For example, let’s change the price to US dollars. The dollar sign is usually before the number, so to look for `$30` we’ll use `(?<=\$)\d+` – an amount preceded by `$`:
 
@@ -134,8 +130,7 @@ And, if we need the quantity – a number, not preceded by `$`, then we can use 
 
     alert( str.match(/(?<!\$)\b\d+/g) ); // 2 (the price is not matched)
 
-<a href="regexp-lookahead-lookbehind.html#capturing-groups" id="capturing-groups" class="main__anchor">Capturing groups</a>
----------------------------------------------------------------------------------------------------------------------------
+## <a href="regexp-lookahead-lookbehind.html#capturing-groups" id="capturing-groups" class="main__anchor">Capturing groups</a>
 
 Generally, the contents inside lookaround parentheses does not become a part of the result.
 
@@ -165,8 +160,7 @@ And here’s the same for lookbehind:
 
     alert( str.match(regexp) ); // 30, $
 
-<a href="regexp-lookahead-lookbehind.html#summary" id="summary" class="main__anchor">Summary</a>
-------------------------------------------------------------------------------------------------
+## <a href="regexp-lookahead-lookbehind.html#summary" id="summary" class="main__anchor">Summary</a>
 
 Lookahead and lookbehind (commonly referred to as “lookaround”) are useful when we’d like to match something depending on the context before/after it.
 
@@ -180,8 +174,7 @@ Lookaround types:
 
 <table><thead><tr class="header"><th>Pattern</th><th>type</th><th>matches</th></tr></thead><tbody><tr class="odd"><td><code>X(?=Y)</code></td><td>Positive lookahead</td><td><code class="pattern">X</code> if followed by <code class="pattern">Y</code></td></tr><tr class="even"><td><code>X(?!Y)</code></td><td>Negative lookahead</td><td><code class="pattern">X</code> if not followed by <code class="pattern">Y</code></td></tr><tr class="odd"><td><code>(?&lt;=Y)X</code></td><td>Positive lookbehind</td><td><code class="pattern">X</code> if after <code class="pattern">Y</code></td></tr><tr class="even"><td><code>(?&lt;!Y)X</code></td><td>Negative lookbehind</td><td><code class="pattern">X</code> if not after <code class="pattern">Y</code></td></tr></tbody></table>
 
-<a href="regexp-lookahead-lookbehind.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
-------------------------------------------------------------------------------------------------------------------------------------
+## <a href="regexp-lookahead-lookbehind.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="regexp-lookahead-lookbehind.html#find-non-negative-integers" id="find-non-negative-integers" class="main__anchor">Find non-negative integers</a>
 
@@ -297,9 +290,9 @@ As you can see, there’s only lookbehind part in this regexp.
 
 It works like this:
 
--   At every position in the text.
--   Check if it’s preceeded by `<body.*?>`.
--   If it’s so then we have the match.
+- At every position in the text.
+- Check if it’s preceeded by `<body.*?>`.
+- If it’s so then we have the match.
 
 The tag `<body.*?>` won’t be returned. The result of this regexp is literally an empty string, but it matches only at positions preceeded by `<body.*?>`.
 
@@ -309,7 +302,7 @@ P.S. Regexp flags, such as `s` and `i` can also be useful: `/<body.*?>/si`. The 
 
 <a href="regexp-alternation.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="regexp-catastrophic-backtracking.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-lookahead-lookbehind" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-lookahead-lookbehind" class="share share_fb"></a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fregexp-lookahead-lookbehind" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-lookahead-lookbehind" class="share share_fb"></a>
 
 <a href="tutorial/map.html" class="map"><span class="map__text">Tutorial map</span></a>
 
@@ -317,29 +310,29 @@ P.S. Regexp flags, such as `s` and `i` can also be useful: `/<body.*?>/si`. The 
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="regular-expressions.html" class="sidebar__link">Regular expressions</a>
+- <a href="regular-expressions.html" class="sidebar__link">Regular expressions</a>
 
 #### Lesson navigation
 
--   regexp-lookahead-lookbehind.html\#lookahead" &gt;Lookahead
--   regexp-lookahead-lookbehind.html\#negative-lookahead" &gt;Negative lookahead
--   regexp-lookahead-lookbehind.html\#lookbehind" &gt;Lookbehind
--   regexp-lookahead-lookbehind.html\#capturing-groups" &gt;Capturing groups
--   regexp-lookahead-lookbehind.html
+- regexp-lookahead-lookbehind.html\#lookahead" &gt;Lookahead
+- regexp-lookahead-lookbehind.html\#negative-lookahead" &gt;Negative lookahead
+- regexp-lookahead-lookbehind.html\#lookbehind" &gt;Lookbehind
+- regexp-lookahead-lookbehind.html\#capturing-groups" &gt;Capturing groups
+- regexp-lookahead-lookbehind.html
 
 <!-- -->
 
--   regexp-lookahead-lookbehind.html\#tasks" &gt;Tasks (2)
--   regexp-lookahead-lookbehind.html\#comments" &gt;Comments
+- regexp-lookahead-lookbehind.html\#tasks" &gt;Tasks (2)
+- regexp-lookahead-lookbehind.html\#comments" &gt;Comments
 
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-lookahead-lookbehind" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-lookahead-lookbehind" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/14-regexp-lookahead-lookbehind" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Fregexp-lookahead-lookbehind" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-lookahead-lookbehind" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/14-regexp-lookahead-lookbehind" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

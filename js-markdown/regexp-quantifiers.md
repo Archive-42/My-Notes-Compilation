@@ -4,7 +4,7 @@ EN
 - <a href="regexp-quantifiers.html"
 - <a href="https://es.javascript.info/regexp-quantifiers"
 - <a href="https://fr.javascript.info/regexp-quantifiers"
-- <a href="https://it.javascript.info/regexp-quantifiers"
+- regexp-quantifiers"
   regexp-quantifiers"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-quantifiers" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-quantifiers" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fregexp-quantifiers" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-quantifiers" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="regular-expressions.html" Regular expressions</span></a></span>
@@ -273,7 +273,7 @@ To fix that, we can add `\b` to the end:
 
 <a href="regexp-character-sets-and-ranges.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="regexp-greedy-and-lazy.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-quantifiers" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-quantifiers" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fregexp-quantifiers" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-quantifiers" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -298,11 +298,7 @@ To fix that, we can add `\b` to the end:
 - <a href="regexp-quantifiers.html#more-examples" class="sidebar__link">More examples</a>
 
 - <a href="regexp-quantifiers.html#tasks" class="sidebar__link">Tasks (2)</a>
-- <a href="regexp-quantifiers.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-quantifiers" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-quantifiers" class="share share_fb sidebar__share"></a>
+- <a href="regexp-quantifiers.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-quantifiers" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-quantifiers" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/09-regexp-quantifiers" class="sidebar__link">Edit on GitHub</a>
 

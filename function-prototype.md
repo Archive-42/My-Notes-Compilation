@@ -4,7 +4,7 @@ EN
 - <a href="function-prototype.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
 - <a href="https://es.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
 - <a href="https://fr.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
-- <a href="https://it.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- function-prototype" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
 - <a href="https://ja.javascript.info/function-prototype" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
@@ -363,7 +363,7 @@ Probably, that’s not what we want. We’d like to create `new User`, not `new 
 
 <a href="prototype-inheritance.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="native-prototypes.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_fb"></a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_fb"></a>
 
 <a href="tutorial/map.html" class="map"><span class="map__text">Tutorial map</span></a>
 
@@ -387,7 +387,7 @@ Probably, that’s not what we want. We’d like to create `new User`, not `new 
 - function-prototype.html\#tasks" &gt;Tasks (2)
 - function-prototype.html\#comments" &gt;Comments
 
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/08-prototypes/02-function-prototype" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffunction-prototype" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/08-prototypes/02-function-prototype" class="sidebar__link">Edit on GitHub</a>
 
 - © 2007—2021  Ilya Kantor
 - <a href="about.html" class="page-footer__link">about the project</a>

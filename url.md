@@ -4,7 +4,7 @@ EN
 - <a href="url.html"
 - <a href="https://es.javascript.info/url"
 - <a href="https://fr.javascript.info/url"
-- <a href="https://it.javascript.info/url"
+- url"
   url"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Furl" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Furl" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Furl" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Furl" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="network.html" Network requests</span></a></span>
@@ -251,7 +251,7 @@ Such cases are rare, `encode*` functions work well most of the time.
 
 <a href="fetch-api.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="xmlhttprequest.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Furl" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Furl" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Furl" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Furl" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -275,11 +275,7 @@ Such cases are rare, `encode*` functions work well most of the time.
 - <a href="url.html#searchparams" class="sidebar__link">SearchParams “?…”</a>
 - <a href="url.html#encoding" class="sidebar__link">Encoding</a>
 
-- <a href="url.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Furl" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Furl" class="share share_fb sidebar__share"></a>
+- <a href="url.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Furl" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Furl" class="share share_fb sidebar**share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network/07-url" class="sidebar__link">Edit on GitHub</a>
 

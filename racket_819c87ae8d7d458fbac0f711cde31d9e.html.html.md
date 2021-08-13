@@ -1,6 +1,5 @@
-racket
-======
+# racket
 
 ### References
 
--   https://github.com/mbutterick/aoc-racket
+- https://github.com/mbutterick/aoc-racket

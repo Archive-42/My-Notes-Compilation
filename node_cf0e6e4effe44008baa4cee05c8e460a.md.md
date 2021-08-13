@@ -1140,9 +1140,6 @@
 
 - https://github.com/feross/awesome-mad-science
 
-
-
-
 <a href="https://www.mydevsecops.io/post/knock-knock-who-s-there-authenticating-your-single-page-apps-using-json-web-tokens)">https://www.mydevsecops.io/post/knock-knock-who-s-there-authenticating-your-single-page-apps-using-json-web-tokens)</a>
 <a href="https://pragmaticwebsecurity.com/talks/jwtsecurity.html)">https://pragmaticwebsecurity.com/talks/jwtsecurity.html)</a>
 <a href="https://pragmaticwebsecurity.com/talks/introductionoauth.html)">https://pragmaticwebsecurity.com/talks/introductionoauth.html)</a>
@@ -1150,8 +1147,8 @@
 <a href="https://youtu.be/fbSVgC8nGz4)">https://youtu.be/fbSVgC8nGz4)</a>
 <a href="https://twitter.com/rauchg/status/1206662873776132096)">https://twitter.com/rauchg/status/1206662873776132096)</a>
 <a href="https://scotch.io/tutorials/build-a-weight-tracker-app-with-nodejs-and-postgresql">https://scotch.io/tutorials/build-a-weight-tracker-app-with-nodejs-and-postgresql</a>
-<a href="https://github.com/adrianhajdin/project\_mern\_memories">https://github.com/adrianhajdin/project\_mern\_memories</a>
-<a href="https://www.youtube.com/playlist?list=PL6QREj8te1P7VSwhrMf3D3Xt4V6\_SRkhu">https://www.youtube.com/playlist?list=PL6QREj8te1P7VSwhrMf3D3Xt4V6\_SRkhu</a>
+<a href="https://github.com/adrianhajdin/project\_mern\_memories">https://github.com/adrianhajdin/project_mern_memories</a>
+<a href="https://www.youtube.com/playlist?list=PL6QREj8te1P7VSwhrMf3D3Xt4V6\_SRkhu">https://www.youtube.com/playlist?list=PL6QREj8te1P7VSwhrMf3D3Xt4V6_SRkhu</a>
 <a href="https://www.slideshare.net/2botech/nordic-apis-platform-summit-oauth-and-openid-connect-for-microservices">https://www.slideshare.net/2botech/nordic-apis-platform-summit-oauth-and-openid-connect-for-microservices</a>
 <a href="https://nordicapis.com/how-to-control-user-identity-within-microservices">https://nordicapis.com/how-to-control-user-identity-within-microservices</a>
 <a href="https://www.slideshare.net/2botech/the-jsonbased-identity-protocol-suite">https://www.slideshare.net/2botech/the-jsonbased-identity-protocol-suite</a>
@@ -1228,7 +1225,7 @@
 <a href="https://github.com/timsuchanek/covid19-vaccinations-prisma">https://github.com/timsuchanek/covid19-vaccinations-prisma</a>
 <a href="https://github.com/tommarien/ts-node-api-2019)">https://github.com/tommarien/ts-node-api-2019)</a>
 <a href="https://github.com/vagr9k/gatsby-advanced-starter">https://github.com/vagr9k/gatsby-advanced-starter</a>
-<a href="https://github.com/focusaurus/express\_code\_structure">https://github.com/focusaurus/express\_code\_structure</a>
+<a href="https://github.com/focusaurus/express\_code\_structure">https://github.com/focusaurus/express_code_structure</a>
 <a href="https://github.com/Nilomiranda/relay-social">https://github.com/Nilomiranda/relay-social</a>
 <a href="https://twitter.com/Nilomiranda/status/1241465671608918017">https://twitter.com/Nilomiranda/status/1241465671608918017</a>
 <a href="https://github.com/covidgreen/covid-green-backend-api">https://github.com/covidgreen/covid-green-backend-api</a>
@@ -1360,7 +1357,7 @@
 <a href="https://futurestud.io/learningpaths/learn-hapi">https://futurestud.io/learningpaths/learn-hapi</a>
 <a href="https://dev.to/justincy/blue-green-node-js-deploys-with-nginx-bkc">https://dev.to/justincy/blue-green-node-js-deploys-with-nginx-bkc</a>
 <a href="https://github.com/simonplend/talks/tree/main/make-the-most-of-modern-javascript-with-fastify">https://github.com/simonplend/talks/tree/main/make-the-most-of-modern-javascript-with-fastify</a>
-<a href="https://twitter.com/louistiti\_fr/status/1374978615696183296)">https://twitter.com/louistiti\_fr/status/1374978615696183296)</a>
+<a href="https://twitter.com/louistiti\_fr/status/1374978615696183296)">https://twitter.com/louistiti_fr/status/1374978615696183296)</a>
 <a href="https://www.freecodecamp.org/news/free-8-hour-node-express-course">https://www.freecodecamp.org/news/free-8-hour-node-express-course</a>
 <a href="https://www.freecodecamp.org/news/the-nginx-handbook">https://www.freecodecamp.org/news/the-nginx-handbook</a>
 <a href="https://www.scrapingbee.com/blog/web-scraping-javascript">https://www.scrapingbee.com/blog/web-scraping-javascript</a>
@@ -1423,7 +1420,7 @@
 <a href="https://github.com/zeit/next.js/tree/canary/examples/blog-starter)">https://github.com/zeit/next.js/tree/canary/examples/blog-starter)</a>
 <a href="https://twitter.com/timneutkens/status/1240277123451047936)">https://twitter.com/timneutkens/status/1240277123451047936)</a>
 <a href="https://kezzbracey.com/posts/2020/01/19/eleventy-plus-vscode-plus-gitlab-plus-cloudways">https://kezzbracey.com/posts/2020/01/19/eleventy-plus-vscode-plus-gitlab-plus-cloudways</a>
-<a href="https://github.com/accessible-app/accessible-app\_com">https://github.com/accessible-app/accessible-app\_com</a>
+<a href="https://github.com/accessible-app/accessible-app\_com">https://github.com/accessible-app/accessible-app_com</a>
 <a href="https://www.freecodecamp.org/news/develop-deploy-first-fullstack-web-app">https://www.freecodecamp.org/news/develop-deploy-first-fullstack-web-app</a>
 <a href="https://github.com/ijjk/notion-blog)">https://github.com/ijjk/notion-blog)</a>
 <a href="https://github.com/nodejs/nodejs.dev)">https://github.com/nodejs/nodejs.dev)</a>

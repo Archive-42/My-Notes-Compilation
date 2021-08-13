@@ -82,25 +82,15 @@ Answer: © Analyze the queries and add indexes
 
 A table that has been deleted with DROP TABLE can?
 
-  
-
 ❓ Be restored using COMMIT
-
-  
 
 ❓ Can’t be restored
 
-  
-
 ❓ Be restored with ALTER TABLE
-
-  
 
 ❓ Be restored with a ROLLBLACK
 
 Which SQL reserved word is used to retrieve unique values?
-
-  
 
 ❓ DISTINCT
 
@@ -124,11 +114,11 @@ Given this table, how do we do to obtain the name and the sum of all their order
 
 Answer:
 
-oO SELECT Customer, SUM(OrderPrice) FROM Orders GROUP BY Customer HAVING SUM(OrderPrice) &lt; 2000 oO SELECT Customer, SUM(OrderPrice) FROM Orders WHERE SUM(OrderPrice) &lt; 2000 GROUP BY Customer oO SELECT Customer, SUM(OrderPrice) FROM Orders GROUP BY O\_Id HAVING SUM(OrderPrice) &lt; 2000
+oO SELECT Customer, SUM(OrderPrice) FROM Orders GROUP BY Customer HAVING SUM(OrderPrice) &lt; 2000 oO SELECT Customer, SUM(OrderPrice) FROM Orders WHERE SUM(OrderPrice) &lt; 2000 GROUP BY Customer oO SELECT Customer, SUM(OrderPrice) FROM Orders GROUP BY O_Id HAVING SUM(OrderPrice) &lt; 2000
 
-oO SELECT Customer, SUM(OrderPrice) FROM Orders WHERE SUM(OrderPrice) &lt; 2000 GROUP BY O\_Id
+oO SELECT Customer, SUM(OrderPrice) FROM Orders WHERE SUM(OrderPrice) &lt; 2000 GROUP BY O_Id
 
-Tabla Personas P\_Id|LastName —|———— 1 |Hansen 2 |Svendson 3 |Pettersen
+Tabla Personas P_Id|LastName —|———— 1 |Hansen 2 |Svendson 3 |Pettersen
 
 Tabla Ordenes
 
@@ -140,21 +130,15 @@ Given both tables above, we want to list all the people and their orders. If the
 
 Answer:
 
-SELECT Persons.LastName, Persons.FirstName, Orders.OrderNo FROM Persons LEFT JOIN Orders ON Persons.P\_Id=Orders.P\_Id ORDER BY Persons.LastName
+SELECT Persons.LastName, Persons.FirstName, Orders.OrderNo FROM Persons LEFT JOIN Orders ON Persons.P_Id=Orders.P_Id ORDER BY Persons.LastName
 
 Which of the following statements is false about DELETE FROM?
 
 Answer:
 
-  
-
 ❓ DELETE FROM can be used to delete the value of a column
 
-  
-
 ❓ DELETE FROM can be used to delete multiple rows
-
-  
 
 ❓ DELETE FROM can be used to delete one or more rows
 
@@ -163,8 +147,6 @@ oO DELETE FROM doesn’t produce a different result from DELETE (without FROM)
 Which of the followings is NOT a difference between TRUNCATE and DELETE?
 
 O TRUNCATE is a DDL (data definition language) command and DELETE is a DML (data manupulation language) command O With DELETE you can specify a WHERE and with TRUNCATE you can’t do it
-
-  
 
 ❓ DELETE removes data only and TRUNCATE removes data and structure
 
@@ -182,14 +164,8 @@ CO t’s like the WHERE clause
 
 ?In SQL it’s possible to create:
 
-  
-
 ❓ CONSTRAINTs only for the columns
 
-  
-
 ❓ CONSTRAINTs only for the tables
-
-  
 
 ❓ CONSTRAINTs for columns and tables

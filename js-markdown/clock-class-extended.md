@@ -3,7 +3,7 @@ clock-class-extended"
 - <a href="clock-class-extended.html"
   clock-class-extended"
   /clock-class-extended"
-- <a href="https://it.javascript.info/clock-class-extended"
+- clock-class-extended"
 
 <!-- -->
 

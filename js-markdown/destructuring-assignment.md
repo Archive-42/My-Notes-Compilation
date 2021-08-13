@@ -5,7 +5,7 @@ langs\_\_title">عربي</span></a>
 - <a href="destructuring-assignment.html"
 - <a href="https://es.javascript.info/destructuring-assignment"
 - <a href="https://fr.javascript.info/destructuring-assignment"
-- <a href="https://it.javascript.info/destructuring-assignment"
+- destructuring-assignment"
   destructuring-assignment"
 
 <!-- -->
@@ -22,7 +22,7 @@ langs\_\_title">عربي</span></a>
 
 tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fdestructuring-assignment" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdestructuring-assignment" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fdestructuring-assignment" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdestructuring-assignment" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -680,7 +680,7 @@ solution
 
 <a href="keys-values-entries.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="date.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fdestructuring-assignment" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdestructuring-assignment" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fdestructuring-assignment" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdestructuring-assignment" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -707,11 +707,7 @@ solution
 - <a href="destructuring-assignment.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="destructuring-assignment.html#tasks" class="sidebar__link">Tasks (2)</a>
-- <a href="destructuring-assignment.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fdestructuring-assignment" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdestructuring-assignment" class="share share_fb sidebar__share"></a>
+- <a href="destructuring-assignment.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fdestructuring-assignment" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdestructuring-assignment" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/05-data-types/10-destructuring-assignment" class="sidebar__link">Edit on GitHub</a>
 

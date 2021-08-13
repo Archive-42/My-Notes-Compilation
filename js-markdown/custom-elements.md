@@ -5,7 +5,7 @@ langs\_\_title">عربي</span></a>
 - <a href="custom-elements.html"
 - <a href="https://es.javascript.info/"
 - <a href="https://fr.javascript.info/custom-elements"
-- <a href="https://it.javascript.info/custom-elements"
+- custom-elements"
   custom-elements"
 
 <!-- -->
@@ -22,7 +22,7 @@ langs\_\_title">عربي</span></a>
 
 tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcustom-elements" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcustom-elements" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fcustom-elements" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcustom-elements" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -433,7 +433,7 @@ Please note:
 
 <a href="webcomponents-intro.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="shadow-dom.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcustom-elements" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcustom-elements" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fcustom-elements" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcustom-elements" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -461,11 +461,7 @@ Please note:
 - <a href="custom-elements.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="custom-elements.html#tasks" class="sidebar__link">Tasks (1)</a>
-- <a href="custom-elements.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fcustom-elements" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcustom-elements" class="share share_fb sidebar__share"></a>
+- <a href="custom-elements.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fcustom-elements" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fcustom-elements" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/8-web-components/2-custom-elements" class="sidebar__link">Edit on GitHub</a>
 

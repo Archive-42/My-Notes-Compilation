@@ -4,7 +4,7 @@ EN
 - <a href="network.html"
 - <a href="https://es.javascript.info/network"
 
-- <a href="https://it.javascript.info/"
+- "
   network"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fnetwork" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fnetwork" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fnetwork" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fnetwork" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -51,7 +51,7 @@ Search
 
 <a href="file.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="fetch.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fnetwork" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fnetwork" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fnetwork" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fnetwork" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -67,11 +67,7 @@ Search
 - <a href="data-storage.html" class="sidebar__link">Storing data in the browser</a>
 - <a href="animation.html" class="sidebar__link">Animation</a>
 - <a href="web-components.html" class="sidebar__link">Web components</a>
-- <a href="regular-expressions.html" class="sidebar__link">Regular expressions</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fnetwork" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fnetwork" class="share share_fb sidebar__share"></a>
+- <a href="regular-expressions.html" class="sidebar__link">Regular expressions</a><a s%3A%2F%2Fjavascript.info%2Fnetwork" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fnetwork" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/5-network" class="sidebar__link">Edit on GitHub</a>
 

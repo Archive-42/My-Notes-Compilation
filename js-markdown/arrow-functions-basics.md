@@ -4,7 +4,7 @@ EN
 - <a href="arrow-functions-basics.html"
 - <a href="https://es.javascript.info/arrow-functions-basics"
 - <a href="https://fr.javascript.info/arrow-functions-basics"
-- <a href="https://it.javascript.info/arrow-functions-basics"
+- arrow-functions-basics"
   arrow-functions-basics"
 
 <!-- -->
@@ -21,7 +21,7 @@ EN
 
 tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Farrow-functions-basics" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Farrow-functions-basics" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Farrow-functions-basics" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Farrow-functions-basics" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -182,7 +182,7 @@ Looks short and clean, right?
 
 <a href="function-expressions.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="javascript-specials.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Farrow-functions-basics" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Farrow-functions-basics" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Farrow-functions-basics" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Farrow-functions-basics" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -206,11 +206,7 @@ Looks short and clean, right?
 - <a href="arrow-functions-basics.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="arrow-functions-basics.html#tasks" class="sidebar__link">Tasks (1)</a>
-- <a href="arrow-functions-basics.html class="sidebar\_\_link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Farrow-functions-basics" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Farrow-functions-basics" class="share share_fb sidebar__share"></a>
+- <a href="arrow-functions-basics.html class="sidebar\_\_link">Comments</a><a s%3A%2F%2Fjavascript.info%2Farrow-functions-basics" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Farrow-functions-basics" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps/17-arrow-functions-basics" class="sidebar__link">Edit on GitHub</a>
 

@@ -4,7 +4,7 @@ EN
 - <a href="closure.html"
 - <a href="https://es.javascript.info/closure"
 - <a href="https://fr.javascript.info/closure"
-- <a href="https://it.javascript.info/closure"
+- closure"
   closure"
 
 <!-- -->
@@ -21,7 +21,7 @@ EN
 
 tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fclosure" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fclosure" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fclosure" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fclosure" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -965,7 +965,7 @@ Besides, there are indeed cases when one prefers `while` to `for`, and other sce
 
 <a href="rest-parameters-spread.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="var.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fclosure" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fclosure" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fclosure" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fclosure" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -991,11 +991,7 @@ Besides, there are indeed cases when one prefers `while` to `for`, and other sce
 - <a href="closure.html#garbage-collection" class="sidebar__link">Garbage collection</a>
 
 - <a href="closure.html#tasks" class="sidebar__link">Tasks (10)</a>
-- <a href="closure.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fclosure" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fclosure" class="share share_fb sidebar__share"></a>
+- <a href="closure.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fclosure" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fclosure" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/06-advanced-functions/03-closure" class="sidebar__link">Edit on GitHub</a>
 

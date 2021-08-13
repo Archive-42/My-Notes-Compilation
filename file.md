@@ -5,7 +5,7 @@ langs\_\_title">عربي</span></a>
 - <a href="file.html"
 - <a href="https://es.javascript.info/file"
 - <a href="https://fr.javascript.info/file"
-- <a href="https://it.javascript.info/file"
+- file"
   file"
 
 <!-- -->
@@ -29,7 +29,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffile" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffile" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Ffile" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffile" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -183,7 +183,7 @@ And if we’re going to send a `File` over a network, that’s also easy: networ
 
 <a href="blob.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="network.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffile" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffile" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Ffile" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffile" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -206,11 +206,7 @@ And if we’re going to send a `File` over a network, that’s also easy: networ
 - <a href="file.html#filereader" class="sidebar__link">FileReader</a>
 - <a href="file.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="file.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ffile" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffile" class="share share_fb sidebar__share"></a>
+- <a href="file.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Ffile" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ffile" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/4-binary/04-file" class="sidebar__link">Edit on GitHub</a>
 

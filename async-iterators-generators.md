@@ -4,7 +4,7 @@ EN
 - <a href="async-iterators-generators.html"
 - <a href="https://es.javascript.info/async-iterators-generators"
 - <a href="https://fr.javascript.info/async-iterators-generators"
-- <a href="https://it.javascript.info/async-iterators-generators"
+- async-iterators-generators"
   async-iterators-generators"
 
 <!-- -->
@@ -21,7 +21,7 @@ EN
 
 tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fasync-iterators-generators" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fasync-iterators-generators" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fasync-iterators-generators" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fasync-iterators-generators" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -424,7 +424,7 @@ We can use async generators to process such data. It’s also noteworthy that in
 
 <a href="generators.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="modules.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fasync-iterators-generators" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fasync-iterators-generators" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fasync-iterators-generators" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fasync-iterators-generators" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -451,11 +451,7 @@ We can use async generators to process such data. It’s also noteworthy that in
 - <a href="async-iterators-generators.html#real-life-example-paginated-data" class="sidebar__link">Real-life example: paginated data</a>
 - <a href="async-iterators-generators.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="async-iterators-generators.html class="sidebar\_\_link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fasync-iterators-generators" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fasync-iterators-generators" class="share share_fb sidebar__share"></a>
+- <a href="async-iterators-generators.html class="sidebar\_\_link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fasync-iterators-generators" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fasync-iterators-generators" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/12-generators-iterators/2-async-iterators-generators" class="sidebar__link">Edit on GitHub</a>
 

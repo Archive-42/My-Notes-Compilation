@@ -1,18 +1,18 @@
 EN
 
--   <a href="https://ar.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="while-for.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="while-for.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- while-for" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="while-for%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="while-for%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/while-for" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -34,17 +34,15 @@ Search
 
 4th July 2021
 
-Loops: while and for
-====================
+# Loops: while and for
 
 We often need to repeat actions.
 
 For example, outputting goods from a list one after another or just running the same code for each number from 1 to 10.
 
-*Loops* are a way to repeat the same code multiple times.
+_Loops_ are a way to repeat the same code multiple times.
 
-<a href="while-for.html#the-while-loop" id="the-while-loop" class="main__anchor">The “while” loop</a>
------------------------------------------------------------------------------------------------------
+## <a href="while-for.html#the-while-loop" id="the-while-loop" class="main__anchor">The “while” loop</a>
 
 The `while` loop has the following syntax:
 
@@ -67,7 +65,7 @@ For instance, the loop below outputs `i` while `i < 3`:
       i++;
     }
 
-A single execution of the loop body is called *an iteration*. The loop in the example above makes three iterations.
+A single execution of the loop body is called _an iteration_. The loop in the example above makes three iterations.
 
 If `i++` was missing from the example above, the loop would repeat (in theory) forever. In practice, the browser provides ways to stop such loops, and in server-side JavaScript, we can kill the process.
 
@@ -96,10 +94,9 @@ If the loop body has a single statement, we can omit the curly braces `{…}`:
     let i = 3;
     while (i) alert(i--);
 
-<a href="while-for.html#the-do-while-loop" id="the-do-while-loop" class="main__anchor">The “do…while” loop</a>
---------------------------------------------------------------------------------------------------------------
+## <a href="while-for.html#the-do-while-loop" id="the-do-while-loop" class="main__anchor">The “do…while” loop</a>
 
-The condition check can be moved *below* the loop body using the `do..while` syntax:
+The condition check can be moved _below_ the loop body using the `do..while` syntax:
 
     do {
       // loop body
@@ -121,8 +118,7 @@ For example:
 
 This form of syntax should only be used when you want the body of the loop to execute **at least once** regardless of the condition being truthy. Usually, the other form is preferred: `while(…) {…}`.
 
-<a href="while-for.html#the-for-loop" id="the-for-loop" class="main__anchor">The “for” loop</a>
------------------------------------------------------------------------------------------------
+## <a href="while-for.html#the-for-loop" id="the-for-loop" class="main__anchor">The “for” loop</a>
 
 The `for` loop is more complex, but it’s also the most commonly used loop.
 
@@ -239,8 +235,7 @@ We can actually remove everything, creating an infinite loop:
 
 Please note that the two `for` semicolons `;` must be present. Otherwise, there would be a syntax error.
 
-<a href="while-for.html#breaking-the-loop" id="breaking-the-loop" class="main__anchor">Breaking the loop</a>
-------------------------------------------------------------------------------------------------------------
+## <a href="while-for.html#breaking-the-loop" id="breaking-the-loop" class="main__anchor">Breaking the loop</a>
 
 Normally, a loop exits when its condition becomes falsy.
 
@@ -269,8 +264,7 @@ The `break` directive is activated at the line `(*)` if the user enters an empty
 
 The combination “infinite loop + `break` as needed” is great for situations when a loop’s condition must be checked not in the beginning or end of the loop, but in the middle or even in several places of its body.
 
-<a href="while-for.html#continue" id="continue" class="main__anchor">Continue to the next iteration</a>
--------------------------------------------------------------------------------------------------------
+## <a href="while-for.html#continue" id="continue" class="main__anchor">Continue to the next iteration</a>
 
 The `continue` directive is a “lighter version” of `break`. It doesn’t stop the whole loop. Instead, it stops the current iteration and forces the loop to start a new one (if the condition allows).
 
@@ -332,8 +326,7 @@ For example, if we take this code:
 
 This is just another reason not to use the question mark operator `?` instead of `if`.
 
-<a href="while-for.html#labels-for-break-continue" id="labels-for-break-continue" class="main__anchor">Labels for break/continue</a>
-------------------------------------------------------------------------------------------------------------------------------------
+## <a href="while-for.html#labels-for-break-continue" id="labels-for-break-continue" class="main__anchor">Labels for break/continue</a>
 
 Sometimes we need to break out from multiple nested loops at once.
 
@@ -359,7 +352,7 @@ We need a way to stop the process if the user cancels the input.
 
 The ordinary `break` after `input` would only break the inner loop. That’s not sufficient – labels, come to the rescue!
 
-A *label* is an identifier with a colon before a loop:
+A _label_ is an identifier with a colon before a loop:
 
     labelName: for (...) {
       ...
@@ -418,14 +411,13 @@ A `break` directive must be inside a code block. Technically, any labelled code 
 
 A `continue` is only possible from inside a loop.
 
-<a href="while-for.html#summary" id="summary" class="main__anchor">Summary</a>
-------------------------------------------------------------------------------
+## <a href="while-for.html#summary" id="summary" class="main__anchor">Summary</a>
 
 We covered 3 types of loops:
 
--   `while` – The condition is checked before each iteration.
--   `do..while` – The condition is checked after each iteration.
--   `for (;;)` – The condition is checked before each iteration, additional settings available.
+- `while` – The condition is checked before each iteration.
+- `do..while` – The condition is checked after each iteration.
+- `for (;;)` – The condition is checked before each iteration, additional settings available.
 
 To make an “infinite” loop, usually the `while(true)` construct is used. Such a loop, just like any other, can be stopped with the `break` directive.
 
@@ -433,8 +425,7 @@ If we don’t want to do anything in the current iteration and would like to for
 
 `break/continue` support labels before the loop. A label is the only way for `break/continue` to escape a nested loop to go to an outer one.
 
-<a href="while-for.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
-------------------------------------------------------------------------------------------------------------------
+## <a href="while-for.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="while-for.html#last-loop-value" id="last-loop-value" class="main__anchor">Last loop value</a>
 
@@ -526,7 +517,7 @@ The task demonstrates how postfix/prefix forms can lead to different results whe
         let i = 0;
         while (i++ < 5) alert( i );
 
-    The first value is again `i = 1`. The postfix form of `i++` increments `i` and then returns the *old* value, so the comparison `i++ < 5` will use `i = 0` (contrary to `++i < 5`).
+    The first value is again `i = 1`. The postfix form of `i++` increments `i` and then returns the _old_ value, so the comparison `i++ < 5` will use `i = 0` (contrary to `++i < 5`).
 
     But the `alert` call is separate. It’s another statement which executes after the increment and the comparison. So it gets the current `i = 1`.
 
@@ -713,7 +704,7 @@ There’s a lot of space to optimize it. For instance, we could look for the div
 
 <a href="nullish-coalescing-operator.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="switch.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fwhile-for" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fwhile-for" class="share share_fb"></a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fwhile-for" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fwhile-for" class="share share_fb"></a>
 
 <a href="tutorial/map.html" class="map"><span class="map__text">Tutorial map</span></a>
 
@@ -721,11 +712,11 @@ There’s a lot of space to optimize it. For instance, we could look for the div
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="first-steps.html" class="sidebar__link">JavaScript Fundamentals</a>
+- <a href="first-steps.html" class="sidebar__link">JavaScript Fundamentals</a>
 
 #### Lesson navigation
 
@@ -743,13 +734,13 @@ while-for.html\#labels-for-break-continue" &gt;Labels for break/continue
 
 <a href="while-for.html%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/ul%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/nav%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cnav%20class=" class="sidebar__link"></a>
 
--   <a href="while-for.html#tasks" class="sidebar__link">Tasks (7)</a>
--   <a href="while-for.html#comments" class="sidebar__link">Comments</a>
+- <a href="while-for.html#tasks" class="sidebar__link">Tasks (7)</a>
+- <a href="while-for.html#comments" class="sidebar__link">Comments</a>
 
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fwhile-for" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fwhile-for" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps/13-while-for" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Fwhile-for" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fwhile-for" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps/13-while-for" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

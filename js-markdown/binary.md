@@ -5,7 +5,7 @@ langs\_\_title">عربي</span></a>
 - <a href="binary.html"
 - <a href="https://es.javascript.info/binary"
 - <a href="https://fr.javascript.info/binary"
-- <a href="https://it.javascript.info/"
+- "
   binary"
 
 <!-- -->
@@ -22,7 +22,7 @@ langs\_\_title">عربي</span></a>
 
 tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbinary" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbinary" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fbinary" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbinary" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -39,7 +39,7 @@ Working with binary data and files in JavaScript.
 
 <a href="clickjacking.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="arraybuffer-binary-arrays.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbinary" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbinary" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fbinary" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbinary" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -55,11 +55,7 @@ Working with binary data and files in JavaScript.
 - <a href="data-storage.html" class="sidebar__link">Storing data in the browser</a>
 - <a href="animation.html" class="sidebar__link">Animation</a>
 - <a href="web-components.html" class="sidebar__link">Web components</a>
-- <a href="regular-expressions.html" class="sidebar__link">Regular expressions</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbinary" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbinary" class="share share_fb sidebar__share"></a>
+- <a href="regular-expressions.html" class="sidebar__link">Regular expressions</a><a Fjavascript.info%2Fbinary" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbinary" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/4-binary" class="sidebar__link">Edit on GitHub</a>
 

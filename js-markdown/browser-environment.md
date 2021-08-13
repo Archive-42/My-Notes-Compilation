@@ -4,7 +4,7 @@ EN
 - <a href="browser-environment.html"
 - <a href="https://es.javascript.info/browser-environment"
 - <a href="https://fr.javascript.info/browser-environment"
-- <a href="https://it.javascript.info/browser-environment"
+- browser-environment"
   browser-environment"
 
 <!-- -->
@@ -21,7 +21,7 @@ EN
 
 tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbrowser-environment" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbrowser-environment" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fbrowser-environment" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbrowser-environment" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -150,7 +150,7 @@ Now we’ll get down to learning DOM, because the document plays the central rol
 
 <a href="document.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="dom-nodes.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbrowser-environment" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbrowser-environment" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fbrowser-environment" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbrowser-environment" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -174,11 +174,7 @@ Now we’ll get down to learning DOM, because the document plays the central rol
 - <a href="browser-environment.html#bom-browser-object-model" class="sidebar__link">BOM (Browser Object Model)</a>
 - <a href="browser-environment.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="browser-environment.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbrowser-environment" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbrowser-environment" class="share share_fb sidebar__share"></a>
+- <a href="browser-environment.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fbrowser-environment" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbrowser-environment" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/01-browser-environment" class="sidebar__link">Edit on GitHub</a>
 

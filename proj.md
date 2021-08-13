@@ -71,19 +71,11 @@ A Staff augmentation project has sold a developer. The customer will pay a month
 
 Answer:
 
-  
-
 ❓ A:5000 // B: 44%. O A 4500 // B: 34%. O A 5000 // B: 56%.
-
-  
 
 ❓ A 4500 // B: 51,52%.
 
-  
-
 ❓ A 5000 // B: 30%.
-
-  
 
 ❓ A 5000 // B: 44%. O A 4500 // B: 60,00%
 
@@ -99,8 +91,6 @@ CO open a replacement opening and as soon as the new hire is found, carry it out
 
 CO Offer the customer a discount in exchange for keeping the developer on the team.
 
-  
-
 ❓) Put daily pressure on the developer for him to react and do better. Answer:
 
 You are leading a Delivery Team for an international software company. Your team has 21 developers: 7 Back End, 7 Front End, 2 DevOps, 3 QA, 2 UI/UX. After a year of on-premises software development, your client wants to start working on a SaaS product. He asks you to estimate which new hires are needed for this new requirement. Keep in mind that the product will continue with the same functionalities.
@@ -108,8 +98,6 @@ You are leading a Delivery Team for an international software company. Your team
 Which of the following options would you choose?
 
 O 3ui/ux
-
-  
 
 ❓ 2Back End +1 UI/UX
 
@@ -119,8 +107,6 @@ O 4 Front End
 
 O 4 Back End + 4 Front End
 
-  
-
 ❓ 1 Business Analyst
 
 O 5 QA+4 UI/UX
@@ -129,29 +115,17 @@ O 5 QA+4 UI/UX
 
 Answer: oO Present a DevOps Engineer to extend their current team to evaluate their current CI/CD and improve it
 
-  
-
 ❓ Propose a two-week discovery to analyze their current roadmap and technology ecosystem, look for improvement opportunities and then propose a team
 
-  
-
 ❓ A and B only oO Convert their current platform into a new platform, and propose a new technology stack to support it
-
-  
 
 ❓ All of the above
 
 Which of the following companies has the 2nd largest market share in the Cloud platform providers market? O Microsoft O Google
 
-  
-
 ❓ Amazon
 
-  
-
 ❓ |BM
-
-  
 
 ❓ Facebook
 
@@ -169,11 +143,7 @@ oO Shorter flights versus Eastern Europe Answer:
 
 Answer:
 
-  
-
 ❓ how many programming languages exist for currently used applications?
-
-  
 
 ❓ 1500
 
@@ -181,39 +151,23 @@ How many LinkedIn connections do you think a mid-level IT Recruiter with 3 years
 
 Answer:
 
-  
-
 ❓ 100
-
-  
 
 ❓ 200
 
-  
-
 ❓ 400
 
-  
-
 ❓ 1000
-
-  
 
 ❓ 15000 Answer:
 
 There is a type of test known as Unit Test. This test is usually performed by…
 
-  
-
 ❓ Users
-
-  
 
 ❓ Customers
 
 O Testers
-
-  
 
 ❓ Developers
 
@@ -235,33 +189,21 @@ O Fixed Price Projects
 
 CO Time & Materials Projects oO Staff Augmentation Projects oO Detopropinos Projects
 
-  
-
 ❓ PHP Projects
 
 Which of the following tools used currently to manage the development team tasks backlog is more popular? O SharePoint O Jira
 
-  
-
 ❓ svn
-
-  
 
 ❓ Outlook O TaskRabbit What is the gross margin of a project whose revenue is $6000 a month and cost is $4000 a month?
 
 Answer:
 
-  
-
 ❓ 66%
-
-  
 
 ❓ 150% What does the concept of business farming mean?
 
 Answer:
-
-  
 
 ❓ To generate new clients
 
@@ -275,16 +217,10 @@ Answer:
 
 OC Project Manager
 
-  
-
 ❓ Senior Architect
-
-  
 
 ❓ Team Leader
 
 OC Engagement Manager
-
-  
 
 ❓ Lead Developer

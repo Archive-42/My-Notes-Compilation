@@ -4,7 +4,7 @@ EN
 - <a href="extend-natives.html"
 - <a href="https://es.javascript.info/extend-natives"
 - <a href="https://fr.javascript.info/extend-natives"
-- <a href="https://it.javascript.info/extend-natives"
+- extend-natives"
   extend-natives"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fextend-natives" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fextend-natives" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fextend-natives" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fextend-natives" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -124,7 +124,7 @@ That’s an important difference of inheritance between built-in objects compare
 
 <a href="private-protected-properties-methods.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="instanceof.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fextend-natives" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fextend-natives" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fextend-natives" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fextend-natives" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -146,11 +146,7 @@ That’s an important difference of inheritance between built-in objects compare
 
 - <a href="extend-natives.html#no-static-inheritance-in-built-ins" class="sidebar__link">No static inheritance in built-ins</a>
 
-- <a href="extend-natives.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fextend-natives" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fextend-natives" class="share share_fb sidebar__share"></a>
+- <a href="extend-natives.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fextend-natives" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fextend-natives" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/09-classes/05-extend-natives" class="sidebar__link">Edit on GitHub</a>
 

@@ -4,7 +4,7 @@ EN
 - <a href="garbage-collection.html"
 - <a href="https://es.javascript.info/garbage-collection"
 - <a href="https://fr.javascript.info/garbage-collection"
-- <a href="https://it.javascript.info/garbage-collection"
+- garbage-collection"
   garbage-collection"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fgarbage-collection" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fgarbage-collection" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fgarbage-collection" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fgarbage-collection" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -212,7 +212,7 @@ In-depth knowledge of engines is good when you need low-level optimizations. It 
 
 <a href="object-copy.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="object-methods.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fgarbage-collection" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fgarbage-collection" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fgarbage-collection" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fgarbage-collection" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -240,11 +240,7 @@ In-depth knowledge of engines is good when you need low-level optimizations. It 
 - <a href="garbage-collection.html#internal-algorithms" class="sidebar__link">Internal algorithms</a>
 - <a href="garbage-collection.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="garbage-collection.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fgarbage-collection" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fgarbage-collection" class="share share_fb sidebar__share"></a>
+- <a href="garbage-collection.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fgarbage-collection" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fgarbage-collection" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/04-object-basics/03-garbage-collection" class="sidebar__link">Edit on GitHub</a>
 

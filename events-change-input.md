@@ -5,7 +5,7 @@ langs\_\_title">عربي</span></a>
 - <a href="events-change-input.html"
 - <a href="https://es.javascript.info/events-change-input"
 - <a href="https://fr.javascript.info/events-change-input"
-- <a href="https://it.javascript.info/events-change-input"
+- events-change-input"
   events-change-input"
 
 <!-- -->
@@ -29,7 +29,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fevents-change-input" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevents-change-input" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fevents-change-input" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevents-change-input" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -167,7 +167,7 @@ solution
 
 <a href="focus-blur.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="forms-submit.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fevents-change-input" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevents-change-input" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fevents-change-input" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevents-change-input" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -193,11 +193,7 @@ solution
 - <a href="events-change-input.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="events-change-input.html#tasks" class="sidebar__link">Tasks (1)</a>
-- <a href="events-change-input.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fevents-change-input" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevents-change-input" class="share share_fb sidebar__share"></a>
+- <a href="events-change-input.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fevents-change-input" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevents-change-input" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/4-forms-controls/3-events-change-input" class="sidebar__link">Edit on GitHub</a>
 

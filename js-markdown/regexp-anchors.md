@@ -4,7 +4,7 @@ EN
 - <a href="regexp-anchors.html"
 - <a href="https://es.javascript.info/regexp-anchors"
 - <a href="https://fr.javascript.info/regexp-anchors"
-- <a href="https://it.javascript.info/regexp-anchors"
+- regexp-anchors"
   regexp-anchors"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-anchors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-anchors" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fregexp-anchors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-anchors" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="regular-expressions.html" Regular expressions</span></a></span>
@@ -109,7 +109,7 @@ The string is empty `""`. The engine first matches the `^` (input start), yes it
 
 <a href="regexp-unicode.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="regexp-multiline-mode.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-anchors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-anchors" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fregexp-anchors" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-anchors" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -132,11 +132,7 @@ The string is empty `""`. The engine first matches the `^` (input start), yes it
 - <a href="regexp-anchors.html#testing-for-a-full-match" class="sidebar__link">Testing for a full match</a>
 
 - <a href="regexp-anchors.html#tasks" class="sidebar__link">Tasks (1)</a>
-- <a href="regexp-anchors.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-anchors" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-anchors" class="share share_fb sidebar__share"></a>
+- <a href="regexp-anchors.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fregexp-anchors" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-anchors" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/04-regexp-anchors" class="sidebar__link">Edit on GitHub</a>
 

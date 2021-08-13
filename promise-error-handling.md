@@ -1,18 +1,18 @@
 EN
 
--   <a href="https://ar.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="promise-error-handling.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="promise-error-handling.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="promise-error-handling%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="promise-error-handling%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/promise-error-handling" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -34,8 +34,7 @@ Search
 
 9th July 2020
 
-Error handling with promises
-============================
+# Error handling with promises
 
 Promise chains are great at error handling. When a promise rejects, the control jumps to the closest rejection handler. That’s very convenient in practice.
 
@@ -76,8 +75,7 @@ Or, maybe, everything is all right with the site, but the response is not valid 
 
 Normally, such `.catch` doesn’t trigger at all. But if any of the promises above rejects (a network problem or invalid json or whatever), then it would catch it.
 
-<a href="promise-error-handling.html#implicit-try-catch" id="implicit-try-catch" class="main__anchor">Implicit try…catch</a>
-----------------------------------------------------------------------------------------------------------------------------
+## <a href="promise-error-handling.html#implicit-try-catch" id="implicit-try-catch" class="main__anchor">Implicit try…catch</a>
 
 The code of a promise executor and promise handlers has an "invisible `try..catch`" around it. If an exception happens, it gets caught and treated as a rejection.
 
@@ -131,8 +129,7 @@ This happens for all errors, not just those caused by the `throw` statement. For
 
 The final `.catch` not only catches explicit rejections, but also accidental errors in the handlers above.
 
-<a href="promise-error-handling.html#rethrowing" id="rethrowing" class="main__anchor">Rethrowing</a>
-----------------------------------------------------------------------------------------------------
+## <a href="promise-error-handling.html#rethrowing" id="rethrowing" class="main__anchor">Rethrowing</a>
 
 As we already noticed, `.catch` at the end of the chain is similar to `try..catch`. We may have as many `.then` handlers as we want, and then use a single `.catch` at the end to handle errors in all of them.
 
@@ -191,8 +188,7 @@ In the example below we see the other situation with `.catch`. The handler `(*)`
 
 The execution jumps from the first `.catch` `(*)` to the next one `(**)` down the chain.
 
-<a href="promise-error-handling.html#unhandled-rejections" id="unhandled-rejections" class="main__anchor">Unhandled rejections</a>
-----------------------------------------------------------------------------------------------------------------------------------
+## <a href="promise-error-handling.html#unhandled-rejections" id="unhandled-rejections" class="main__anchor">Unhandled rejections</a>
 
 What happens when an error is not handled? For instance, we forgot to append `.catch` to the end of the chain, like here:
 
@@ -239,16 +235,14 @@ Usually such errors are unrecoverable, so our best way out is to inform the user
 
 In non-browser environments like Node.js there are other ways to track unhandled errors.
 
-<a href="promise-error-handling.html#summary" id="summary" class="main__anchor">Summary</a>
--------------------------------------------------------------------------------------------
+## <a href="promise-error-handling.html#summary" id="summary" class="main__anchor">Summary</a>
 
--   `.catch` handles errors in promises of all kinds: be it a `reject()` call, or an error thrown in a handler.
--   We should place `.catch` exactly in places where we want to handle errors and know how to handle them. The handler should analyze errors (custom error classes help) and rethrow unknown ones (maybe they are programming mistakes).
--   It’s ok not to use `.catch` at all, if there’s no way to recover from an error.
--   In any case we should have the `unhandledrejection` event handler (for browsers, and analogs for other environments) to track unhandled errors and inform the user (and probably our server) about them, so that our app never “just dies”.
+- `.catch` handles errors in promises of all kinds: be it a `reject()` call, or an error thrown in a handler.
+- We should place `.catch` exactly in places where we want to handle errors and know how to handle them. The handler should analyze errors (custom error classes help) and rethrow unknown ones (maybe they are programming mistakes).
+- It’s ok not to use `.catch` at all, if there’s no way to recover from an error.
+- In any case we should have the `unhandledrejection` event handler (for browsers, and analogs for other environments) to track unhandled errors and inform the user (and probably our server) about them, so that our app never “just dies”.
 
-<a href="promise-error-handling.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
--------------------------------------------------------------------------------------------------------------------------------
+## <a href="promise-error-handling.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="promise-error-handling.html#error-in-settimeout" id="error-in-settimeout" class="main__anchor">Error in setTimeout</a>
 
@@ -282,7 +276,7 @@ But here the error is generated not while the executor is running, but later. So
 
 <a href="promise-chaining.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="promise-api.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fpromise-error-handling" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fpromise-error-handling" class="share share_fb"></a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fpromise-error-handling" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fpromise-error-handling" class="share share_fb"></a>
 
 <a href="tutorial/map.html" class="map"><span class="map__text">Tutorial map</span></a>
 
@@ -290,28 +284,28 @@ But here the error is generated not while the executor is running, but later. So
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="async.html" class="sidebar__link">Promises, async/await</a>
+- <a href="async.html" class="sidebar__link">Promises, async/await</a>
 
 #### Lesson navigation
 
--   promise-error-handling.html\#implicit-try-catch" &gt;Implicit try…catch
--   promise-error-handling.html\#rethrowing" &gt;Rethrowing
--   promise-error-handling.html\#unhandled-rejections" &gt;Unhandled rejections
--   promise-error-handling.html
+- promise-error-handling.html\#implicit-try-catch" &gt;Implicit try…catch
+- promise-error-handling.html\#rethrowing" &gt;Rethrowing
+- promise-error-handling.html\#unhandled-rejections" &gt;Unhandled rejections
+- promise-error-handling.html
 
 <!-- -->
 
--   promise-error-handling.html\#tasks" &gt;Tasks (1)
--   promise-error-handling.html\#comments" &gt;Comments
+- promise-error-handling.html\#tasks" &gt;Tasks (1)
+- promise-error-handling.html\#comments" &gt;Comments
 
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fpromise-error-handling" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fpromise-error-handling" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/11-async/04-promise-error-handling" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Fpromise-error-handling" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fpromise-error-handling" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/11-async/04-promise-error-handling" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

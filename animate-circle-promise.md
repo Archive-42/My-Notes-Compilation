@@ -4,7 +4,7 @@ EN
 - <a href="animate-circle-promise.html"
   animate-circle-promise"
   /animate-circle-promise"
-- <a href="https://it.javascript.info/animate-circle-promise"
+- animate-circle-promise"
 
 <!-- -->
 

@@ -4,7 +4,7 @@ EN
 - <a href="structure.html"
 - <a href="https://es.javascript.info/structure"
 - <a href="https://fr.javascript.info/structure"
-- <a href="https://it.javascript.info/structure"
+- structure"
   structure"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fstructure" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fstructure" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fstructure" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fstructure" </a>
 
 1.  <a href="index.html" class="breadcrumbs__link"><span class="breadcrumbs__hidden-text">Tutorial</span></a>
 2.  <span id="breadcrumb-1"><a href="js.html" The JavaScript language</span></a></span>
@@ -206,7 +206,7 @@ Later in the tutorial there will be a chapter [Code quality](code-quality.html) 
 
 <a href="hello-world.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="strict-mode.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fstructure" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fstructure" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fstructure" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fstructure" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -230,11 +230,7 @@ Later in the tutorial there will be a chapter [Code quality](code-quality.html) 
 - <a href="structure.html#semicolon" class="sidebar__link">Semicolons</a>
 - <a href="structure.html#code-comments" class="sidebar__link">Comments</a>
 
-- <a href="structure.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fstructure" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fstructure" class="share share_fb sidebar__share"></a>
+- <a href="structure.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fstructure" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fstructure" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps/02-structure" class="sidebar__link">Edit on GitHub</a>
 

@@ -4,7 +4,7 @@ EN
 - <a href="javascript-specials.html"
 - <a href="https://es.javascript.info/javascript-specials"
 - <a href="https://fr.javascript.info/javascript-specials"
-- <a href="https://it.javascript.info/javascript-specials"
+- javascript-specials"
   javascript-specials"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fjavascript-specials" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjavascript-specials" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fjavascript-specials" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjavascript-specials" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -318,7 +318,7 @@ That was a brief list of JavaScript features. As of now we’ve studied only bas
 
 <a href="arrow-functions-basics.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="code-quality.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fjavascript-specials" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjavascript-specials" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fjavascript-specials" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjavascript-specials" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -348,11 +348,7 @@ That was a brief list of JavaScript features. As of now we’ve studied only bas
 - <a href="javascript-specials.html#functions" class="sidebar__link">Functions</a>
 - <a href="javascript-specials.html#more-to-come" class="sidebar__link">More to come</a>
 
-- <a href="javascript-specials.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fjavascript-specials" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjavascript-specials" class="share share_fb sidebar__share"></a>
+- <a href="javascript-specials.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fjavascript-specials" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fjavascript-specials" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/02-first-steps/18-javascript-specials" class="sidebar__link">Edit on GitHub</a>
 

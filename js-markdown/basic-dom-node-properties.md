@@ -4,7 +4,7 @@ EN
 - <a href="basic-dom-node-properties.html"
 - <a href="https://es.javascript.info/basic-dom-node-properties"
 - <a href="https://fr.javascript.info/basic-dom-node-properties"
-- <a href="https://it.javascript.info/basic-dom-node-properties"
+- basic-dom-node-properties"
   basic-dom-node-properties"
 
 <!-- -->
@@ -21,7 +21,7 @@ EN
 
 tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -709,7 +709,7 @@ We also could examine the object using `console.dir(document)` and see these nam
 
 <a href="searching-elements-dom.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="dom-attributes-and-properties.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -741,11 +741,7 @@ We also could examine the object using `console.dir(document)` and see these nam
 - <a href="basic-dom-node-properties.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="basic-dom-node-properties.html#tasks" class="sidebar__link">Tasks (4)</a>
-- <a href="basic-dom-node-properties.html class="sidebar\_\_link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" class="share share_fb sidebar__share"></a>
+- <a href="basic-dom-node-properties.html class="sidebar\_\_link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fbasic-dom-node-properties" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/1-document/05-basic-dom-node-properties" class="sidebar__link">Edit on GitHub</a>
 

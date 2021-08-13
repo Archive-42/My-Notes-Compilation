@@ -1,18 +1,18 @@
 EN
 
--   <a href="https://ar.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="symbol.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="symbol.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- symbol" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="symbol%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="symbol%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/symbol" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -34,15 +34,13 @@ Search
 
 13th January 2021
 
-Symbol type
-===========
+# Symbol type
 
 By specification, object property keys may be either of string type, or of symbol type. Not numbers, not booleans, only strings or symbols, these two types.
 
 Till now we’ve been using only strings. Now let’s see the benefits that symbols can give us.
 
-<a href="symbol.html#symbols" id="symbols" class="main__anchor">Symbols</a>
----------------------------------------------------------------------------
+## <a href="symbol.html#symbols" id="symbols" class="main__anchor">Symbols</a>
 
 A “symbol” represents a unique identifier.
 
@@ -104,8 +102,7 @@ Or get `symbol.description` property to show the description only:
     let id = Symbol("id");
     alert(id.description); // id
 
-<a href="symbol.html#hidden-properties" id="hidden-properties" class="main__anchor">“Hidden” properties</a>
------------------------------------------------------------------------------------------------------------
+## <a href="symbol.html#hidden-properties" id="hidden-properties" class="main__anchor">“Hidden” properties</a>
 
 Symbols allow us to create “hidden” properties of an object, that no other part of code can accidentally access or overwrite.
 
@@ -142,7 +139,7 @@ Then that script can create its own `Symbol("id")`, like this:
 
 There will be no conflict between our and their identifiers, because symbols are always different, even if they have the same name.
 
-…But if we used a string `"id"` instead of a symbol for the same purpose, then there *would* be a conflict:
+…But if we used a string `"id"` instead of a symbol for the same purpose, then there _would_ be a conflict:
 
     let user = { name: "John" };
 
@@ -208,14 +205,13 @@ In contrast, [Object.assign](https://developer.mozilla.org/en-US/docs/Web/JavaSc
 
     alert( clone[id] ); // 123
 
-There’s no paradox here. That’s by design. The idea is that when we clone an object or merge objects, we usually want *all* properties to be copied (including symbols like `id`).
+There’s no paradox here. That’s by design. The idea is that when we clone an object or merge objects, we usually want _all_ properties to be copied (including symbols like `id`).
 
-<a href="symbol.html#global-symbols" id="global-symbols" class="main__anchor">Global symbols</a>
-------------------------------------------------------------------------------------------------
+## <a href="symbol.html#global-symbols" id="global-symbols" class="main__anchor">Global symbols</a>
 
 As we’ve seen, usually all symbols are different, even if they have the same name. But sometimes we want same-named symbols to be same entities. For instance, different parts of our application want to access symbol `"id"` meaning exactly the same property.
 
-To achieve that, there exists a *global symbol registry*. We can create symbols in it and access them later, and it guarantees that repeated accesses by the same name return exactly the same symbol.
+To achieve that, there exists a _global symbol registry_. We can create symbols in it and access them later, and it guarantees that repeated accesses by the same name return exactly the same symbol.
 
 In order to read (create if absent) a symbol from the registry, use `Symbol.for(key)`.
 
@@ -236,7 +232,7 @@ For instance:
     // the same symbol
     alert( id === idAgain ); // true
 
-Symbols inside the registry are called *global symbols*. If we want an application-wide symbol, accessible everywhere in the code – that’s what they are for.
+Symbols inside the registry are called _global symbols_. If we want an application-wide symbol, accessible everywhere in the code – that’s what they are for.
 
 <span class="important__type">That sounds like Ruby</span>
 
@@ -280,25 +276,23 @@ For instance:
 
     alert( localSymbol.description ); // name
 
-<a href="symbol.html#system-symbols" id="system-symbols" class="main__anchor">System symbols</a>
-------------------------------------------------------------------------------------------------
+## <a href="symbol.html#system-symbols" id="system-symbols" class="main__anchor">System symbols</a>
 
 There exist many “system” symbols that JavaScript uses internally, and we can use them to fine-tune various aspects of our objects.
 
 They are listed in the specification in the [Well-known symbols](https://tc39.github.io/ecma262/#sec-well-known-symbols) table:
 
--   `Symbol.hasInstance`
--   `Symbol.isConcatSpreadable`
--   `Symbol.iterator`
--   `Symbol.toPrimitive`
--   …and so on.
+- `Symbol.hasInstance`
+- `Symbol.isConcatSpreadable`
+- `Symbol.iterator`
+- `Symbol.toPrimitive`
+- …and so on.
 
 For instance, `Symbol.toPrimitive` allows us to describe object to primitive conversion. We’ll see its use very soon.
 
 Other symbols will also become familiar when we study the corresponding language features.
 
-<a href="symbol.html#summary" id="summary" class="main__anchor">Summary</a>
----------------------------------------------------------------------------
+## <a href="symbol.html#summary" id="summary" class="main__anchor">Summary</a>
 
 `Symbol` is a primitive type for unique identifiers.
 
@@ -314,11 +308,11 @@ Symbols have two main use cases:
 
 2.  There are many system symbols used by JavaScript which are accessible as `Symbol.*`. We can use them to alter some built-in behaviors. For instance, later in the tutorial we’ll use `Symbol.iterator` for [iterables](iterable.html), `Symbol.toPrimitive` to setup [object-to-primitive conversion](object-toprimitive.html) and so on.
 
-Technically, symbols are not 100% hidden. There is a built-in method [Object.getOwnPropertySymbols(obj)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols) that allows us to get all symbols. Also there is a method named [Reflect.ownKeys(obj)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys) that returns *all* keys of an object including symbolic ones. So they are not really hidden. But most libraries, built-in functions and syntax constructs don’t use these methods.
+Technically, symbols are not 100% hidden. There is a built-in method [Object.getOwnPropertySymbols(obj)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols) that allows us to get all symbols. Also there is a method named [Reflect.ownKeys(obj)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys) that returns _all_ keys of an object including symbolic ones. So they are not really hidden. But most libraries, built-in functions and syntax constructs don’t use these methods.
 
 <a href="optional-chaining.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="object-toprimitive.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fsymbol" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fsymbol" class="share share_fb"></a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fsymbol" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fsymbol" class="share share_fb"></a>
 
 <a href="tutorial/map.html" class="map"><span class="map__text">Tutorial map</span></a>
 
@@ -326,11 +320,11 @@ Technically, symbols are not 100% hidden. There is a built-in method [Object.get
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="object-basics.html" class="sidebar__link">Objects: the basics</a>
+- <a href="object-basics.html" class="sidebar__link">Objects: the basics</a>
 
 #### Lesson navigation
 
@@ -344,12 +338,12 @@ symbol.html\#hidden-properties" &gt;“Hidden” properties
 
 <a href="symbol.html%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/ul%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/nav%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cnav%20class=" class="sidebar__link"></a>
 
--   <a href="symbol.html#comments" class="sidebar__link">Comments</a>
+- <a href="symbol.html#comments" class="sidebar__link">Comments</a>
 
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fsymbol" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fsymbol" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/04-object-basics/08-symbol" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Fsymbol" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fsymbol" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/04-object-basics/08-symbol" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

@@ -3,7 +3,7 @@ let-scope"
 - <a href="let-scope.html"
   /let-scope"
   /let-scope"
-- <a href="https://it.javascript.info/let-scope"
+- let-scope"
 
 <!-- -->
 

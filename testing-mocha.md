@@ -1,18 +1,18 @@
 EN
 
--   <a href="https://ar.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="testing-mocha.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="testing-mocha.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <!-- -->
 
--   <a href="https://ko.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
--   <a href="testing-mocha%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
--   <a href="https://tr.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
--   <a href="https://zh.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
+- <a href="https://ko.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
+- <a href="testing-mocha%22" class="supported-langs__link"><span class="supported-langs__brief">RU</span><span>Русский</span></a>
+- <a href="https://tr.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">TR</span><span>Türkçe</span></a>
+- <a href="https://zh.javascript.info/testing-mocha" class="supported-langs__link"><span class="supported-langs__brief">ZH</span><span>简体中文</span></a>
 
 We want to make this open-source project available for people all around the world.
 
@@ -34,13 +34,11 @@ Search
 
 1st April 2021
 
-Automated testing with Mocha
-============================
+# Automated testing with Mocha
 
 Automated testing will be used in further tasks, and it’s also widely used in real projects.
 
-<a href="testing-mocha.html#why-do-we-need-tests" id="why-do-we-need-tests" class="main__anchor">Why do we need tests?</a>
---------------------------------------------------------------------------------------------------------------------------
+## <a href="testing-mocha.html#why-do-we-need-tests" id="why-do-we-need-tests" class="main__anchor">Why do we need tests?</a>
 
 When we write a function, we can usually imagine what it should do: which parameters give which results.
 
@@ -58,8 +56,7 @@ That’s very typical. When we develop something, we keep a lot of possible use 
 
 **Automated testing means that tests are written separately, in addition to the code. They run our functions in various ways and compare results with the expected.**
 
-<a href="testing-mocha.html#behavior-driven-development-bdd" id="behavior-driven-development-bdd" class="main__anchor">Behavior Driven Development (BDD)</a>
-------------------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="testing-mocha.html#behavior-driven-development-bdd" id="behavior-driven-development-bdd" class="main__anchor">Behavior Driven Development (BDD)</a>
 
 Let’s start with a technique named [Behavior Driven Development](http://en.wikipedia.org/wiki/Behavior-driven_development) or, in short, BDD.
 
@@ -67,8 +64,7 @@ Let’s start with a technique named [Behavior Driven Development](http://en.wik
 
 To understand BDD, we’ll examine a practical case of development.
 
-<a href="testing-mocha.html#development-of-pow-the-spec" id="development-of-pow-the-spec" class="main__anchor">Development of “pow”: the spec</a>
--------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="testing-mocha.html#development-of-pow-the-spec" id="development-of-pow-the-spec" class="main__anchor">Development of “pow”: the spec</a>
 
 Let’s say we want to make a function `pow(x, n)` that raises `x` to an integer power `n`. We assume that `n≥0`.
 
@@ -76,7 +72,7 @@ That task is just an example: there’s the `**` operator in JavaScript that can
 
 Before creating the code of `pow`, we can imagine what the function should do and describe it.
 
-Such description is called a *specification* or, in short, a spec, and contains descriptions of use cases together with tests for them, like this:
+Such description is called a _specification_ or, in short, a spec, and contains descriptions of use cases together with tests for them, like this:
 
     describe("pow", function() {
 
@@ -88,11 +84,11 @@ Such description is called a *specification* or, in short, a spec, and contains 
 
 A spec has three main building blocks that you can see above:
 
- `describe("title", function() { ... })`   
+`describe("title", function() { ... })`  
 What functionality we’re describing. In our case we’re describing the function `pow`. Used to group “workers” – the `it` blocks.
 
- `it("use case description", function() { ...                         })`   
-In the title of `it` we *in a human-readable way* describe the particular use case, and the second argument is a function that tests it.
+`it("use case description", function() { ... })`  
+In the title of `it` we _in a human-readable way_ describe the particular use case, and the second argument is a function that tests it.
 
 `assert.equal(value1, value2)`  
 The code inside `it` block, if the implementation is correct, should execute without errors.
@@ -101,8 +97,7 @@ Functions `assert.*` are used to check whether `pow` works as expected. Right he
 
 The specification can be executed, and it will run the test specified in `it` block. We’ll see that later.
 
-<a href="testing-mocha.html#the-development-flow" id="the-development-flow" class="main__anchor">The development flow</a>
--------------------------------------------------------------------------------------------------------------------------
+## <a href="testing-mocha.html#the-development-flow" id="the-development-flow" class="main__anchor">The development flow</a>
 
 The flow of development usually looks like this:
 
@@ -114,20 +109,19 @@ The flow of development usually looks like this:
 6.  Go to 3, update the implementation till tests give no errors.
 7.  Repeat steps 3-6 till the functionality is ready.
 
-So, the development is *iterative*. We write the spec, implement it, make sure tests pass, then write more tests, make sure they work etc. At the end we have both a working implementation and tests for it.
+So, the development is _iterative_. We write the spec, implement it, make sure tests pass, then write more tests, make sure they work etc. At the end we have both a working implementation and tests for it.
 
 Let’s see this development flow in our practical case.
 
 The first step is already complete: we have an initial spec for `pow`. Now, before making the implementation, let’s use few JavaScript libraries to run the tests, just to see that they are working (they will all fail).
 
-<a href="testing-mocha.html#the-spec-in-action" id="the-spec-in-action" class="main__anchor">The spec in action</a>
--------------------------------------------------------------------------------------------------------------------
+## <a href="testing-mocha.html#the-spec-in-action" id="the-spec-in-action" class="main__anchor">The spec in action</a>
 
 Here in the tutorial we’ll be using the following JavaScript libraries for tests:
 
--   [Mocha](http://mochajs.org/) – the core framework: it provides common testing functions including `describe` and `it` and the main function that runs tests.
--   [Chai](http://chaijs.com) – the library with many assertions. It allows to use a lot of different assertions, for now we need only `assert.equal`.
--   [Sinon](http://sinonjs.org/) – a library to spy over functions, emulate built-in functions and more, we’ll need it much later.
+- [Mocha](http://mochajs.org/) – the core framework: it provides common testing functions including `describe` and `it` and the main function that runs tests.
+- [Chai](http://chaijs.com) – the library with many assertions. It allows to use a lot of different assertions, for now we need only `assert.equal`.
+- [Sinon](http://sinonjs.org/) – a library to spy over functions, emulate built-in functions and more, we’ll need it much later.
 
 These libraries are suitable for both in-browser and server-side testing. Here we’ll consider the browser variant.
 
@@ -189,8 +183,7 @@ As of now, the test fails, there’s an error. That’s logical: we have an empt
 
 For the future, let’s note that there are more high-level test-runners, like [karma](https://karma-runner.github.io/) and others, that make it easy to autorun many different tests.
 
-<a href="testing-mocha.html#initial-implementation" id="initial-implementation" class="main__anchor">Initial implementation</a>
--------------------------------------------------------------------------------------------------------------------------------
+## <a href="testing-mocha.html#initial-implementation" id="initial-implementation" class="main__anchor">Initial implementation</a>
 
 Let’s make a simple implementation of `pow`, for tests to pass:
 
@@ -202,8 +195,7 @@ Wow, now it works!
 
 <a href="https://plnkr.co/edit/qVIjYT9VuGDJKxeI?p=preview" class="toolbar__button toolbar__button_edit" title="open in sandbox"></a>
 
-<a href="testing-mocha.html#improving-the-spec" id="improving-the-spec" class="main__anchor">Improving the spec</a>
--------------------------------------------------------------------------------------------------------------------
+## <a href="testing-mocha.html#improving-the-spec" id="improving-the-spec" class="main__anchor">Improving the spec</a>
 
 What we’ve done is definitely a cheat. The function does not work: an attempt to calculate `pow(3,4)` would give an incorrect result, but tests pass.
 
@@ -256,8 +248,7 @@ The result:
 
 As we could expect, the second test failed. Sure, our function always returns `8`, while the `assert` expects `81`.
 
-<a href="testing-mocha.html#improving-the-implementation" id="improving-the-implementation" class="main__anchor">Improving the implementation</a>
--------------------------------------------------------------------------------------------------------------------------------------------------
+## <a href="testing-mocha.html#improving-the-implementation" id="improving-the-implementation" class="main__anchor">Improving the implementation</a>
 
 Let’s write something more real for tests to pass:
 
@@ -292,8 +283,7 @@ The result:
 
 <a href="https://plnkr.co/edit/FhsRBrUakNc0mvxg?p=preview" class="toolbar__button toolbar__button_edit" title="open in sandbox"></a>
 
-<a href="testing-mocha.html#nested-describe" id="nested-describe" class="main__anchor">Nested describe</a>
-----------------------------------------------------------------------------------------------------------
+## <a href="testing-mocha.html#nested-describe" id="nested-describe" class="main__anchor">Nested describe</a>
 
 We’re going to add even more tests. But before that let’s note that the helper function `makeTest` and `for` should be grouped together. We won’t need `makeTest` in other tests, it’s needed only in `for`: their common task is to check how `pow` raises into the given power.
 
@@ -327,7 +317,7 @@ In the future we can add more `it` and `describe` on the top level with helper f
 
 <span class="important__type">`before/after` and `beforeEach/afterEach`</span>
 
-We can setup `before/after` functions that execute before/after running tests, and also `beforeEach/afterEach` functions that execute before/after *every* `it`.
+We can setup `before/after` functions that execute before/after running tests, and also `beforeEach/afterEach` functions that execute before/after _every_ `it`.
 
 For instance:
 
@@ -359,8 +349,7 @@ The running sequence will be:
 
 Usually, `beforeEach/afterEach` and `before/after` are used to perform initialization, zero out counters or do something else between the tests (or test groups).
 
-<a href="testing-mocha.html#extending-the-spec" id="extending-the-spec" class="main__anchor">Extending the spec</a>
--------------------------------------------------------------------------------------------------------------------
+## <a href="testing-mocha.html#extending-the-spec" id="extending-the-spec" class="main__anchor">Extending the spec</a>
 
 The basic functionality of `pow` is complete. The first iteration of the development is done. When we’re done celebrating and drinking champagne – let’s go on and improve it.
 
@@ -396,12 +385,12 @@ Please note the assertion `assert.isNaN`: it checks for `NaN`.
 
 There are other assertions in [Chai](http://chaijs.com) as well, for instance:
 
--   `assert.equal(value1, value2)` – checks the equality `value1 == value2`.
--   `assert.strictEqual(value1, value2)` – checks the strict equality `value1 === value2`.
--   `assert.notEqual`, `assert.notStrictEqual` – inverse checks to the ones above.
--   `assert.isTrue(value)` – checks that `value === true`
--   `assert.isFalse(value)` – checks that `value === false`
--   …the full list is in the [docs](http://chaijs.com/api/assert/)
+- `assert.equal(value1, value2)` – checks the equality `value1 == value2`.
+- `assert.strictEqual(value1, value2)` – checks the strict equality `value1 === value2`.
+- `assert.notEqual`, `assert.notStrictEqual` – inverse checks to the ones above.
+- `assert.isTrue(value)` – checks that `value === true`
+- `assert.isFalse(value)` – checks that `value === false`
+- …the full list is in the [docs](http://chaijs.com/api/assert/)
 
 So we should add a couple of lines to `pow`:
 
@@ -424,8 +413,7 @@ Now it works, all tests pass:
 
 <a href="https://plnkr.co/edit/8OgvvBpZI90lA1If?p=preview" class="edit">Open the full final example in the sandbox.</a>
 
-<a href="testing-mocha.html#summary" id="summary" class="main__anchor">Summary</a>
-----------------------------------------------------------------------------------
+## <a href="testing-mocha.html#summary" id="summary" class="main__anchor">Summary</a>
 
 In BDD, the spec goes first, followed by implementation. At the end we have both the spec and the code.
 
@@ -460,8 +448,7 @@ Later in the tutorial you will meet many tasks with tests baked-in. So you’ll 
 
 Writing tests requires good JavaScript knowledge. But we’re just starting to learn it. So, to settle down everything, as of now you’re not required to write tests, but you should already be able to read them even if they are a little bit more complex than in this chapter.
 
-<a href="testing-mocha.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
-----------------------------------------------------------------------------------------------------------------------
+## <a href="testing-mocha.html#tasks" class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon">Tasks</a>
 
 ### <a href="testing-mocha.html#what-s-wrong-in-the-test" id="what-s-wrong-in-the-test" class="main__anchor">What's wrong in the test?</a>
 
@@ -494,7 +481,7 @@ What we have here is actually 3 tests, but layed out as a single function with 3
 
 Sometimes it’s easier to write this way, but if an error occurs, it’s much less obvious what went wrong.
 
-If an error happens in the middle of a complex execution flow, then we’ll have to figure out the data at that point. We’ll actually have to *debug the test*.
+If an error happens in the middle of a complex execution flow, then we’ll have to figure out the data at that point. We’ll actually have to _debug the test_.
 
 It would be much better to break the test into multiple `it` blocks with clearly written inputs and outputs.
 
@@ -535,7 +522,7 @@ Also we can isolate a single test and run it in standalone mode by writing `it.o
 
 <a href="ninja-code.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="polyfills.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ftesting-mocha" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftesting-mocha" class="share share_fb"></a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Ftesting-mocha" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftesting-mocha" class="share share_fb"></a>
 
 <a href="tutorial/map.html" class="map"><span class="map__text">Tutorial map</span></a>
 
@@ -543,11 +530,11 @@ Also we can isolate a single test and run it in standalone mode by writing `it.o
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="code-quality.html" class="sidebar__link">Code quality</a>
+- <a href="code-quality.html" class="sidebar__link">Code quality</a>
 
 #### Lesson navigation
 
@@ -573,13 +560,13 @@ testing-mocha.html\#extending-the-spec" &gt;Extending the spec
 
 <a href="testing-mocha.html%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/ul%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/nav%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cnav%20class=" class="sidebar__link"></a>
 
--   <a href="testing-mocha.html#tasks" class="sidebar__link">Tasks (1)</a>
--   testing-mocha.html\#comments" &gt;Comments
+- <a href="testing-mocha.html#tasks" class="sidebar__link">Tasks (1)</a>
+- testing-mocha.html\#comments" &gt;Comments
 
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Ftesting-mocha" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftesting-mocha" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/03-code-quality/05-testing-mocha" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Ftesting-mocha" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Ftesting-mocha" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/03-code-quality/05-testing-mocha" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

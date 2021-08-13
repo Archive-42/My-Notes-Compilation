@@ -4,7 +4,7 @@ EN
 - <a href="ninja-code.html"
 - <a href="https://es.javascript.info/ninja-code"
 - <a href="https://fr.javascript.info/ninja-code"
-- <a href="https://it.javascript.info/ninja-code"
+- ninja-code"
   ninja-code"
 
 <!-- -->
@@ -28,7 +28,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fninja-code" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fninja-code" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fninja-code" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fninja-code" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -267,7 +267,7 @@ All “pieces of advice” above are from the real code… Sometimes, written by
 
 <a href="comments.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="testing-mocha.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fninja-code" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fninja-code" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fninja-code" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fninja-code" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -301,11 +301,7 @@ All “pieces of advice” above are from the real code… Sometimes, written by
 - <a href="ninja-code.html#powerful-functions" class="sidebar__link">Powerful functions!</a>
 - <a href="ninja-code.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="ninja-code.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fninja-code" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fninja-code" class="share share_fb sidebar__share"></a>
+- <a href="ninja-code.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fninja-code" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fninja-code" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/03-code-quality/04-ninja-code" class="sidebar__link">Edit on GitHub</a>
 

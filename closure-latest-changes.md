@@ -3,7 +3,7 @@ closure-latest-changes"
 - <a href="closure-latest-changes.html"
   closure-latest-changes"
   /closure-latest-changes"
-- <a href="https://it.javascript.info/closure-latest-changes"
+- closure-latest-changes"
 
 <!-- -->
 

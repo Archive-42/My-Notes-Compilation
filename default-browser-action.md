@@ -4,7 +4,7 @@ EN
 - <a href="default-browser-action.html"
 - <a href="https://es.javascript.info/default-browser-action"
 - <a href="https://fr.javascript.info/default-browser-action"
-- <a href="https://it.javascript.info/default-browser-action"
+- default-browser-action"
   default-browser-action"
 
 <!-- -->
@@ -21,7 +21,7 @@ EN
 
 tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fdefault-browser-action" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdefault-browser-action" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fdefault-browser-action" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdefault-browser-action" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -392,7 +392,7 @@ The solution is to assign the handler to the container and track clicks. If a cl
 
 <a href="event-delegation.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="dispatch-events.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fdefault-browser-action" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdefault-browser-action" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fdefault-browser-action" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdefault-browser-action" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -418,11 +418,7 @@ The solution is to assign the handler to the container and track clicks. If a cl
 - <a href="default-browser-action.html#summary" class="sidebar__link">Summary</a>
 
 - <a href="default-browser-action.html#tasks" class="sidebar__link">Tasks (3)</a>
-- <a href="default-browser-action.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fdefault-browser-action" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdefault-browser-action" class="share share_fb sidebar__share"></a>
+- <a href="default-browser-action.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fdefault-browser-action" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fdefault-browser-action" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/2-events/04-default-browser-action" class="sidebar__link">Edit on GitHub</a>
 

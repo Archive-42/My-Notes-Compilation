@@ -1,11 +1,11 @@
 EN
 
--   <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
--   <a href="mutation-observer.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
--   <a href="https://es.javascript.info/mutation-observer" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
--   <a href="https://fr.javascript.info/mutation-observer" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
--   <a href="https://it.javascript.info/mutation-observer" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
--   <a href="https://ja.javascript.info/mutation-observer" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
+- <a href="https://ar.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">AR</span><span>عربي</span></a>
+- <a href="mutation-observer.html" class="supported-langs__link"><span class="supported-langs__brief">EN</span><span>English</span></a>
+- <a href="https://es.javascript.info/mutation-observer" class="supported-langs__link"><span class="supported-langs__brief">ES</span><span>Español</span></a>
+- <a href="https://fr.javascript.info/mutation-observer" class="supported-langs__link"><span class="supported-langs__brief">FR</span><span>Français</span></a>
+- mutation-observer" class="supported-langs__link"><span class="supported-langs__brief">IT</span><span>Italiano</span></a>
+- <a href="https://ja.javascript.info/mutation-observer" class="supported-langs__link"><span class="supported-langs__brief">JA</span><span>日本語</span></a>
 
 <a href="https://ko.javascript.info/" class="supported-langs__link"><span class="supported-langs__brief">KO</span><span>한국어</span></a>
 
@@ -27,15 +27,13 @@ Search
 
 13th September 2020
 
-Mutation observer
-=================
+# Mutation observer
 
 `MutationObserver` is a built-in object that observes a DOM element and fires a callback when it detects a change.
 
 We’ll first take a look at the syntax, and then explore a real-world use case, to see where such thing may be useful.
 
-<a href="mutation-observer.html#syntax" id="syntax" class="main__anchor">Syntax</a>
------------------------------------------------------------------------------------
+## <a href="mutation-observer.html#syntax" id="syntax" class="main__anchor">Syntax</a>
 
 `MutationObserver` is easy to use.
 
@@ -49,30 +47,30 @@ And then attach it to a DOM node:
 
 `config` is an object with boolean options “what kind of changes to react on”:
 
--   `childList` – changes in the direct children of `node`,
--   `subtree` – in all descendants of `node`,
--   `attributes` – attributes of `node`,
--   `attributeFilter` – an array of attribute names, to observe only selected ones.
--   `characterData` – whether to observe `node.data` (text content),
+- `childList` – changes in the direct children of `node`,
+- `subtree` – in all descendants of `node`,
+- `attributes` – attributes of `node`,
+- `attributeFilter` – an array of attribute names, to observe only selected ones.
+- `characterData` – whether to observe `node.data` (text content),
 
 Few other options:
 
--   `attributeOldValue` – if `true`, pass both the old and the new value of attribute to callback (see below), otherwise only the new one (needs `attributes` option),
--   `characterDataOldValue` – if `true`, pass both the old and the new value of `node.data` to callback (see below), otherwise only the new one (needs `characterData` option).
+- `attributeOldValue` – if `true`, pass both the old and the new value of attribute to callback (see below), otherwise only the new one (needs `attributes` option),
+- `characterDataOldValue` – if `true`, pass both the old and the new value of `node.data` to callback (see below), otherwise only the new one (needs `characterData` option).
 
 Then after any changes, the `callback` is executed: changes are passed in the first argument as a list of [MutationRecord](https://dom.spec.whatwg.org/#mutationrecord) objects, and the observer itself as the second argument.
 
 [MutationRecord](https://dom.spec.whatwg.org/#mutationrecord) objects have properties:
 
--   `type` – mutation type, one of
-    -   `"attributes"`: attribute modified
-    -   `"characterData"`: data modified, used for text nodes,
-    -   `"childList"`: child elements added/removed,
--   `target` – where the change occurred: an element for `"attributes"`, or text node for `"characterData"`, or an element for a `"childList"` mutation,
--   `addedNodes/removedNodes` – nodes that were added/removed,
--   `previousSibling/nextSibling` – the previous and next sibling to added/removed nodes,
--   `attributeName/attributeNamespace` – the name/namespace (for XML) of the changed attribute,
--   `oldValue` – the previous value, only for attribute or text changes, if the corresponding option is set `attributeOldValue`/`characterDataOldValue`.
+- `type` – mutation type, one of
+  - `"attributes"`: attribute modified
+  - `"characterData"`: data modified, used for text nodes,
+  - `"childList"`: child elements added/removed,
+- `target` – where the change occurred: an element for `"attributes"`, or text node for `"characterData"`, or an element for a `"childList"` mutation,
+- `addedNodes/removedNodes` – nodes that were added/removed,
+- `previousSibling/nextSibling` – the previous and next sibling to added/removed nodes,
+- `attributeName/attributeNamespace` – the name/namespace (for XML) of the changed attribute,
+- `oldValue` – the previous value, only for attribute or text changes, if the corresponding option is set `attributeOldValue`/`characterDataOldValue`.
 
 For example, here’s a `<div>` with a `contentEditable` attribute. That attribute allows us to focus on it and edit.
 
@@ -123,12 +121,11 @@ If we make more complex editing operations, e.g. remove the `<b>edit</b>`, the m
 
 So, `MutationObserver` allows to react on any changes within DOM subtree.
 
-<a href="mutation-observer.html#usage-for-integration" id="usage-for-integration" class="main__anchor">Usage for integration</a>
---------------------------------------------------------------------------------------------------------------------------------
+## <a href="mutation-observer.html#usage-for-integration" id="usage-for-integration" class="main__anchor">Usage for integration</a>
 
 When such thing may be useful?
 
-Imagine the situation when you need to add a third-party script that contains useful functionality, but also does something unwanted, e.g. shows ads `<div class="ads">Unwanted                       ads</div>`.
+Imagine the situation when you need to add a third-party script that contains useful functionality, but also does something unwanted, e.g. shows ads `<div class="ads">Unwanted ads</div>`.
 
 Naturally, the third-party script provides no mechanisms to remove it.
 
@@ -138,8 +135,7 @@ There are other situations when a third-party script adds something into our doc
 
 `MutationObserver` allows to implement this.
 
-<a href="mutation-observer.html#usage-for-architecture" id="usage-for-architecture" class="main__anchor">Usage for architecture</a>
------------------------------------------------------------------------------------------------------------------------------------
+## <a href="mutation-observer.html#usage-for-architecture" id="usage-for-architecture" class="main__anchor">Usage for architecture</a>
 
 There are also situations when `MutationObserver` is good from architectural standpoint.
 
@@ -252,16 +248,15 @@ The following code populates its `innerHTML`, that causes the `MutationObserver`
 
 Now we have `MutationObserver` that can track all highlighting in observed elements or the whole `document`. We can add/remove code snippets in HTML without thinking about it.
 
-<a href="mutation-observer.html#additional-methods" id="additional-methods" class="main__anchor">Additional methods</a>
------------------------------------------------------------------------------------------------------------------------
+## <a href="mutation-observer.html#additional-methods" id="additional-methods" class="main__anchor">Additional methods</a>
 
 There’s a method to stop observing the node:
 
--   `observer.disconnect()` – stops the observation.
+- `observer.disconnect()` – stops the observation.
 
 When we stop the observing, it might be possible that some changes were not yet processed by the observer. In such cases, we use
 
--   `observer.takeRecords()` – gets a list of unprocessed mutation records – those that happened, but the callback has not handled them.
+- `observer.takeRecords()` – gets a list of unprocessed mutation records – those that happened, but the callback has not handled them.
 
 These methods can be used together, like this:
 
@@ -284,8 +279,7 @@ Observers use weak references to nodes internally. That is, if a node is removed
 
 The mere fact that a DOM node is observed doesn’t prevent the garbage collection.
 
-<a href="mutation-observer.html#summary" id="summary" class="main__anchor">Summary</a>
---------------------------------------------------------------------------------------
+## <a href="mutation-observer.html#summary" id="summary" class="main__anchor">Summary</a>
 
 `MutationObserver` can react to changes in DOM – attributes, text content and adding/removing elements.
 
@@ -295,7 +289,7 @@ We can use it to track changes introduced by other parts of our code, as well as
 
 <a href="ui-misc.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="selection-range.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmutation-observer" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmutation-observer" class="share share_fb"></a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fmutation-observer" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmutation-observer" class="share share_fb"></a>
 
 <a href="tutorial/map.html" class="map"><span class="map__text">Tutorial map</span></a>
 
@@ -303,28 +297,28 @@ We can use it to track changes introduced by other parts of our code, as well as
 
 <span class="comments__read-before-link">read this before commenting…</span>
 
--   If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
--   If you can't understand something in the article – please elaborate.
--   To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
+- If you have suggestions what to improve - please [submit a GitHub issue](https://github.com/javascript-tutorial/en.javascript.info/issues/new) or a pull request instead of commenting.
+- If you can't understand something in the article – please elaborate.
+- To insert few words of code, use the `<code>` tag, for several lines – wrap them in `<pre>` tag, for more than 10 lines – use a sandbox ([plnkr](https://plnkr.co/edit/?p=preview), [jsbin](https://jsbin.com), [codepen](http://codepen.io)…)
 
--   <a href="ui-misc.html" class="sidebar__link">Miscellaneous</a>
+- <a href="ui-misc.html" class="sidebar__link">Miscellaneous</a>
 
 #### Lesson navigation
 
--   mutation-observer.html\#syntax" &gt;Syntax
--   mutation-observer.html\#usage-for-integration" &gt;Usage for integration
--   mutation-observer.html\#usage-for-architecture" &gt;Usage for architecture
--   mutation-observer.html\#additional-methods" &gt;Additional methods
--   mutation-observer.html
+- mutation-observer.html\#syntax" &gt;Syntax
+- mutation-observer.html\#usage-for-integration" &gt;Usage for integration
+- mutation-observer.html\#usage-for-architecture" &gt;Usage for architecture
+- mutation-observer.html\#additional-methods" &gt;Additional methods
+- mutation-observer.html
 
 <!-- -->
 
--   mutation-observer.html\#comments" &gt;Comments
+- mutation-observer.html\#comments" &gt;Comments
 
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmutation-observer" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmutation-observer" class="share share_fb sidebar__share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/99-ui-misc/01-mutation-observer" class="sidebar__link">Edit on GitHub</a>
+<a s%3A%2F%2Fjavascript.info%2Fmutation-observer" class="share share_tw sidebar**share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmutation-observer" class="share share_fb sidebar**share"></a> <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/99-ui-misc/01-mutation-observer" class="sidebar__link">Edit on GitHub</a>
 
--   © 2007—2021  Ilya Kantor
--   <a href="about.html" class="page-footer__link">about the project</a>
--   <a href="about.html#contact-us" class="page-footer__link">contact us</a>
--   <a href="terms.html" class="page-footer__link">terms of usage</a>
--   <a href="privacy.html" class="page-footer__link">privacy policy</a>
+- © 2007—2021  Ilya Kantor
+- <a href="about.html" class="page-footer__link">about the project</a>
+- <a href="about.html#contact-us" class="page-footer__link">contact us</a>
+- <a href="terms.html" class="page-footer__link">terms of usage</a>
+- <a href="privacy.html" class="page-footer__link">privacy policy</a>

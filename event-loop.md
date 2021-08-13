@@ -5,7 +5,7 @@ langs\_\_title">عربي</span></a>
 - <a href="event-loop.html"
 - <a href="https://es.javascript.info/event-loop"
 
-- <a href="https://it.javascript.info/event-loop"
+- event-loop"
   event-loop"
 
 <!-- -->
@@ -29,7 +29,7 @@ Search
 
 <a href="tutorial/map.html" class="map">
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fevent-loop" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevent-loop" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fevent-loop" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevent-loop" </a>
 
 عربي English Español Français Italiano 日本語 한국어 Русский Türkçe 简体中文
 
@@ -383,7 +383,7 @@ Web Workers do not have access to DOM, so they are useful, mainly, for calculati
 
 <a href="selection-range.html" class="page__nav page__nav_prev"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a href="frames-and-windows.html" class="page__nav page__nav_next"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a>
 
-<span class="share-icons__title">Share</span><a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fevent-loop" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevent-loop" </a>
+<span class="share-icons__title">Share</span><a s%3A%2F%2Fjavascript.info%2Fevent-loop" class="share share_tw"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevent-loop" </a>
 
 <a href="tutorial/map.html" class="map">
 
@@ -410,11 +410,7 @@ Web Workers do not have access to DOM, so they are useful, mainly, for calculati
 - <a href="event-loop.html#macrotasks-and-microtasks" class="sidebar__link">Macrotasks and Microtasks</a>
 - <a href="event-loop.html#summary" class="sidebar__link">Summary</a>
 
-- <a href="event-loop.html#comments" class="sidebar__link">Comments</a>
-
-Share
-
-<a href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fevent-loop" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevent-loop" class="share share_fb sidebar__share"></a>
+- <a href="event-loop.html#comments" class="sidebar__link">Comments</a><a s%3A%2F%2Fjavascript.info%2Fevent-loop" class="share share_tw sidebar__share"></a><a href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fevent-loop" class="share share_fb sidebar__share"></a>
 
 <a href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/99-ui-misc/03-event-loop" class="sidebar__link">Edit on GitHub</a>
 
