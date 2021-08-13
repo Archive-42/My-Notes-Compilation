@@ -1,10 +1,13 @@
-# Select element
+Select element
+==============
 
-## Example
+Example
+-------
 
 Fruits Apple Strawberry Grapes
 
-## Code
+Code
+----
 
     <label for="fruits">Fruits</label>
     <select name="fruit" id="fruits">
