@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Resource loading: onload and onerror</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="onload-onerror.html"
+    />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Resource loading: onload and onerror" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Resource loading: onload and onerror" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="script-async-defer.html" />
+    <link rel="next" href="ui-misc.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Resource loading: onload and onerror" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="onload-onerror.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/onload-onerror"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/onload-onerror"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/onload-onerror"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/onload-onerror"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=onload-onerror"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/onload-onerror"</a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fonload-onerror"
+                  rel="nofollow"
+                ></a
+                >2Fonload-onerror"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option value="https://javascript.info/onload-onerror" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/onload-onerror">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/onload-onerror">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/onload-onerror">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/onload-onerror">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/">한국어</option>
+                <option value=onload-onerror">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/">Türkçe</option>
+                <option value="https://zh.javascript.info/onload-onerror">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="29"
+          max="32"
+          data-tooltip="Lesson 29 of 32"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="ui.html"
+                        ><span>Browser: Document, Events, Interfaces</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="loading.html"
+                        ><span>Document and resource loading</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Browser: Document, Events, Interfaces",
+                            "item": "https://javascript.info/ui"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Document and resource loading",
+                            "item": "https://javascript.info/loading"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 5th October 2020"
+                  >
+                    <div class="updated-at__content">5th October 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">
+                  Resource loading: onload and onerror
+                </h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta
+                  itemprop="name"
+                  content="Resource loading: onload and onerror"
+                />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    The browser allows us to track the loading of external
+                    resources – scripts, iframes, pictures and so on.
+                  </p>
+                  <p>There are two events for it:</p>
+                  <ul>
+                    <li><code>onload</code> – successful load,</li>
+                    <li><code>onerror</code> – an error occurred.</li>
+                  </ul>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="loading-a-script"
+                      href="onload-onerror.html#loading-a-script"
+                      >Loading a script</a
+                    >
+                  </h2>
+                  <p>
+                    Let’s say we need to load a third-party script and call a
+                    function that resides there.
+                  </p>
+                  <p>We can load it dynamically, like this:</p>
+                  <div id="2qkzws1809" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let script = document.createElement('script');
+script.src = &quot;my.js&quot;;
+
+document.head.append(script);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …But how to run the function that is declared inside that
+                    script? We need to wait until the script loads, and only
+                    then we can call it.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Please note:</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        For our own scripts we could use
+                        <a href="modules.html">JavaScript modules</a> here, but
+                        they are not widely adopted by third-party libraries.
+                      </p>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="script-onload"
+                      href="onload-onerror.html#script-onload"
+                      >script.onload</a
+                    >
+                  </h3>
+                  <p>
+                    The main helper is the <code>load</code> event. It triggers
+                    after the script was loaded and executed.
+                  </p>
+                  <p>For instance:</p>
+                  <div
+                    id="t3k7bkaoud"
+                    data-trusted="0"
+                    class="code-example"
+                    data-highlight='[{"start":6,"end":9}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="onload-onerror.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="onload-onerror.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let script = document.createElement('script');
+
+// can load any script, from any domain
+script.src = &quot;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js&quot;
+document.head.append(script);
+
+script.onload = function() {
+  // the script creates a variable &quot;_&quot;
+  alert( _.VERSION ); // shows library version
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    So in <code>onload</code> we can use script variables, run
+                    functions etc.
+                  </p>
+                  <p>
+                    …And what if the loading failed? For instance, there’s no
+                    such script (error 404) or the server is down (unavailable).
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="script-onerror"
+                      href="onload-onerror.html#script-onerror"
+                      >script.onerror</a
+                    >
+                  </h3>
+                  <p>
+                    Errors that occur during the loading of the script can be
+                    tracked in an <code>error</code> event.
+                  </p>
+                  <p>
+                    For instance, let’s request a script that doesn’t exist:
+                  </p>
+                  <div
+                    id="7zge5shkg1"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"end":6}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="onload-onerror.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="onload-onerror.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let script = document.createElement('script');
+script.src = &quot;https://example.com/404.js&quot;; // no such script
+document.head.append(script);
+
+script.onerror = function() {
+  alert(&quot;Error loading &quot; + this.src); // Error loading https://example.com/404.js
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Please note that we can’t get HTTP error details here. We
+                    don’t know if it was an error 404 or 500 or something else.
+                    Just that the loading failed.
+                  </p>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type">Important:</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Events <code>onload</code>/<code>onerror</code> track
+                        only the loading itself.
+                      </p>
+                      <p>
+                        Errors that may occur during script processing and
+                        execution are out of scope for these events. That is: if
+                        a script loaded successfully, then
+                        <code>onload</code> triggers, even if it has programming
+                        errors in it. To track script errors, one can use
+                        <code>window.onerror</code> global handler.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="other-resources"
+                      href="onload-onerror.html#other-resources"
+                      >Other resources</a
+                    >
+                  </h2>
+                  <p>
+                    The <code>load</code> and <code>error</code> events also
+                    work for other resources, basically for any resource that
+                    has an external <code>src</code>.
+                  </p>
+                  <p>For example:</p>
+                  <div id="d35yg6td65" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="onload-onerror.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="onload-onerror.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let img = document.createElement('img');
+img.src = &quot;https://js.cx/clipart/train.gif&quot;; // (*)
+
+img.onload = function() {
+  alert(`Image loaded, size ${img.width}x${img.height}`);
+};
+
+img.onerror = function() {
+  alert(&quot;Error occurred while loading image&quot;);
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>There are some notes though:</p>
+                  <ul>
+                    <li>
+                      Most resources start loading when they are added to the
+                      document. But <code>&lt;img&gt;</code> is an exception. It
+                      starts loading when it gets a src <code>(*)</code>.
+                    </li>
+                    <li>
+                      For <code>&lt;iframe&gt;</code>, the
+                      <code>iframe.onload</code> event triggers when the iframe
+                      loading finished, both for successful load and in case of
+                      an error.
+                    </li>
+                  </ul>
+                  <p>That’s for historical reasons.</p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="crossorigin-policy"
+                      href="onload-onerror.html#crossorigin-policy"
+                      >Crossorigin policy</a
+                    >
+                  </h2>
+                  <p>
+                    There’s a rule: scripts from one site can’t access contents
+                    of the other site. So, e.g. a script at
+                    <code>https://facebook.com</code> can’t read the user’s
+                    mailbox at <code>https://gmail.com</code>.
+                  </p>
+                  <p>
+                    Or, to be more precise, one origin (domain/port/protocol
+                    triplet) can’t access the content from another one. So even
+                    if we have a subdomain, or just another port, these are
+                    different origins with no access to each other.
+                  </p>
+                  <p>This rule also affects resources from other domains.</p>
+                  <p>
+                    If we’re using a script from another domain, and there’s an
+                    error in it, we can’t get error details.
+                  </p>
+                  <p>
+                    For example, let’s take a script <code>error.js</code> that
+                    consists of a single (bad) function call:
+                  </p>
+                  <div id="hi39ub2569" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 error.js
+noSuchFunction();</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Now load it from the same site where it’s located:</p>
+                  <div
+                    id="a60hald277"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="0"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="onload-onerror.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="onload-onerror.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;script&gt;
+window.onerror = function(message, url, line, col, errorObj) {
+  alert(`${message}\n${url}, ${line}:${col}`);
+};
+&lt;/script&gt;
+&lt;script src=&quot;/article/onload-onerror/crossorigin/error.js&quot;&gt;&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>We can see a good error report, like this:</p>
+                  <div id="9raxlkiqlv" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-none"
+                        ><code>Uncaught ReferenceError: noSuchFunction is not defined
+https://javascript.info/article/onload-onerror/crossorigin/error.js, 1:1</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Now let’s load the same script from another domain:</p>
+                  <div
+                    id="ehxnt621ck"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="0"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="onload-onerror.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="onload-onerror.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;script&gt;
+window.onerror = function(message, url, line, col, errorObj) {
+  alert(`${message}\n${url}, ${line}:${col}`);
+};
+&lt;/script&gt;
+&lt;script src=&quot;https://cors.javascript.info/article/onload-onerror/crossorigin/error.js&quot;&gt;&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The report is different, like this:</p>
+                  <div id="60qx8ecdly" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-none"
+                        ><code>Script error.
+, 0:0</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Details may vary depending on the browser, but the idea is
+                    the same: any information about the internals of a script,
+                    including error stack traces, is hidden. Exactly because
+                    it’s from another domain.
+                  </p>
+                  <p>Why do we need error details?</p>
+                  <p>
+                    There are many services (and we can build our own) that
+                    listen for global errors using <code>window.onerror</code>,
+                    save errors and provide an interface to access and analyze
+                    them. That’s great, as we can see real errors, triggered by
+                    our users. But if a script comes from another origin, then
+                    there’s not much information about errors in it, as we’ve
+                    just seen.
+                  </p>
+                  <p>
+                    Similar cross-origin policy (CORS) is enforced for other
+                    types of resources as well.
+                  </p>
+                  <p>
+                    <strong
+                      >To allow cross-origin access, the
+                      <code>&lt;script&gt;</code> tag needs to have the
+                      <code>crossorigin</code> attribute, plus the remote server
+                      must provide special headers.</strong
+                    >
+                  </p>
+                  <p>There are three levels of cross-origin access:</p>
+                  <ol>
+                    <li>
+                      <strong>No <code>crossorigin</code> attribute</strong> –
+                      access prohibited.
+                    </li>
+                    <li>
+                      <strong
+                        ><code>crossorigin=&quot;anonymous&quot;</code></strong
+                      >
+                      – access allowed if the server responds with the header
+                      <code>Access-Control-Allow-Origin</code> with
+                      <code>*</code> or our origin. Browser does not send
+                      authorization information and cookies to remote server.
+                    </li>
+                    <li>
+                      <strong
+                        ><code
+                          >crossorigin=&quot;use-credentials&quot;</code
+                        ></strong
+                      >
+                      – access allowed if the server sends back the header
+                      <code>Access-Control-Allow-Origin</code> with our origin
+                      and <code>Access-Control-Allow-Credentials: true</code>.
+                      Browser sends authorization information and cookies to
+                      remote server.
+                    </li>
+                  </ol>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Please note:</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        You can read more about cross-origin access in the
+                        chapter
+                        <a href="fetch-crossorigin.html"
+                          >Fetch: Cross-Origin Requests</a
+                        >. It describes the <code>fetch</code> method for
+                        network requests, but the policy is exactly the same.
+                      </p>
+                      <p>
+                        Such thing as “cookies” is out of our current scope, but
+                        you can read about them in the chapter
+                        <a href="cookie.html">Cookies, document.cookie</a>.
+                      </p>
+                    </div>
+                  </div>
+                  <p>
+                    In our case, we didn’t have any crossorigin attribute. So
+                    the cross-origin access was prohibited. Let’s add it.
+                  </p>
+                  <p>
+                    We can choose between <code>&quot;anonymous&quot;</code> (no
+                    cookies sent, one server-side header needed) and
+                    <code>&quot;use-credentials&quot;</code> (sends cookies too,
+                    two server-side headers needed).
+                  </p>
+                  <p>
+                    If we don’t care about cookies, then
+                    <code>&quot;anonymous&quot;</code> is the way to go:
+                  </p>
+                  <div
+                    id="b6dqrwcxjd"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="0"
+                    data-highlight='[{"start":5,"cols":[{"start":8,"end":31}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="onload-onerror.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="onload-onerror.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;script&gt;
+window.onerror = function(message, url, line, col, errorObj) {
+  alert(`${message}\n${url}, ${line}:${col}`);
+};
+&lt;/script&gt;
+&lt;script crossorigin=&quot;anonymous&quot; src=&quot;https://cors.javascript.info/article/onload-onerror/crossorigin/error.js&quot;&gt;&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now, assuming that the server provides an
+                    <code>Access-Control-Allow-Origin</code> header,
+                    everything’s fine. We have the full error report.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="onload-onerror.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    Images <code>&lt;img&gt;</code>, external styles, scripts
+                    and other resources provide <code>load</code> and
+                    <code>error</code> events to track their loading:
+                  </p>
+                  <ul>
+                    <li><code>load</code> triggers on a successful load,</li>
+                    <li><code>error</code> triggers on a failed load.</li>
+                  </ul>
+                  <p>
+                    The only exception is <code>&lt;iframe&gt;</code>: for
+                    historical reasons it always triggers <code>load</code>, for
+                    any load completion, even if the page is not found.
+                  </p>
+                  <p>
+                    The <code>readystatechange</code> event also works for
+                    resources, but is rarely used, because
+                    <code>load/error</code> events are simpler.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="onload-onerror.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="onload-onerror.html#load-images-with-a-callback"
+                          name="load-images-with-a-callback"
+                          >Load images with a callback</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/load-img-callback.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 4</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Normally, images are loaded when they are created. So
+                          when we add <code>&lt;img&gt;</code> to the page, the
+                          user does not see the picture immediately. The browser
+                          needs to load it first.
+                        </p>
+                        <p>
+                          To show an image immediately, we can create it “in
+                          advance”, like this:
+                        </p>
+                        <div
+                          id="h9isbjmfjp"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let img = document.createElement('img');
+img.src = 'my.jpg';</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          The browser starts loading the image and remembers it
+                          in the cache. Later, when the same image appears in
+                          the document (no matter how), it shows up immediately.
+                        </p>
+                        <p>
+                          <strong
+                            >Create a function
+                            <code>preloadImages(sources, callback)</code> that
+                            loads all images from the array
+                            <code>sources</code> and, when ready, runs
+                            <code>callback</code>.</strong
+                          >
+                        </p>
+                        <p>
+                          For instance, this will show an
+                          <code>alert</code> after the images are loaded:
+                        </p>
+                        <div
+                          id="ik6913veuy"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function loaded() {
+  alert(&quot;Images loaded&quot;)
+}
+
+preloadImages([&quot;1.jpg&quot;, &quot;2.jpg&quot;, &quot;3.jpg&quot;], loaded);</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          In case of an error, the function should still assume
+                          the picture “loaded”.
+                        </p>
+                        <p>
+                          In other words, the <code>callback</code> is executed
+                          when all images are either loaded or errored out.
+                        </p>
+                        <p>
+                          The function is useful, for instance, when we plan to
+                          show a gallery with many scrollable images, and want
+                          to be sure that all images are loaded.
+                        </p>
+                        <p>
+                          In the source document you can find links to test
+                          images, and also the code to check whether they are
+                          loaded or not. It should output <code>300</code>.
+                        </p>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/dZ22M5URaGd0Dx0Q?p=preview"
+                            target="_blank"
+                            data-plunk-id="dZ22M5URaGd0Dx0Q"
+                            >Open a sandbox for the task.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>The algorithm:</p>
+                            <ol>
+                              <li>Make <code>img</code> for every source.</li>
+                              <li>
+                                Add <code>onload/onerror</code> for every image.
+                              </li>
+                              <li>
+                                Increase the counter when either
+                                <code>onload</code> or
+                                <code>onerror</code> triggers.
+                              </li>
+                              <li>
+                                When the counter value equals to the sources
+                                count – we’re done: <code>callback()</code>.
+                              </li>
+                            </ol>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/D31flNmxdXwV2g8G?p=preview"
+                                target="_blank"
+                                data-plunk-id="D31flNmxdXwV2g8G"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="script-async-defer.html"
+                data-tooltip="Scripts: async, defer"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="ui-misc.html"
+                data-tooltip="Miscellaneous"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fonload-onerror"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fonload-onerror"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="onload-onerror.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/onload-onerror",
+                    identifier: "\/onload-onerror",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="loading.html"
+                        >Document and resource loading</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   onload-onerror.html#loading-a-script"
+                        >Loading a script</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   onload-onerror.html#other-resources"
+                        >Other resources</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   onload-onerror.html#crossorigin-policy"
+                        >Crossorigin policy</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   onload-onerror.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="onload-onerror.html#tasks"
+                        >Tasks (1)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   onload-onerror.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fonload-onerror"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fonload-onerror"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/5-loading/03-onload-onerror"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1963 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Modules, introduction</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="modules-intro.html"
+    />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Modules, introduction" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Modules, introduction" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="modules.html" />
+    <link rel="next" href="import-export.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Modules, introduction" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/modules-intro"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="modules-intro.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/modules-intro"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/modules-intro"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/modules-intro"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/modules-intro"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/modules-intro"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=modules-intro"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/modules-intro"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/modules-intro"</a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fmodules-intro"
+                  rel="nofollow"
+                ></a
+                >2Fmodules-intro"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/modules-intro">
+                  عربي
+                </option>
+                <option value="https://javascript.info/modules-intro" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/modules-intro">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/modules-intro">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/modules-intro">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/modules-intro">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/modules-intro">
+                  한국어
+                </option>
+                <option value=modules-intro">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/modules-intro">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/modules-intro">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="85"
+          max="92"
+          data-tooltip="Lesson 85 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="modules.html"
+                        ><span>Modules</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Modules",
+                            "item": "https://javascript.info/modules"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 24th May 2021"
+                  >
+                    <div class="updated-at__content">24th May 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Modules, introduction</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Modules, introduction" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    As our application grows bigger, we want to split it into
+                    multiple files, so called “modules”. A module may contain a
+                    class or a library of functions for a specific purpose.
+                  </p>
+                  <p>
+                    For a long time, JavaScript existed without a language-level
+                    module syntax. That wasn’t a problem, because initially
+                    scripts were small and simple, so there was no need.
+                  </p>
+                  <p>
+                    But eventually scripts became more and more complex, so the
+                    community invented a variety of ways to organize code into
+                    modules, special libraries to load modules on demand.
+                  </p>
+                  <p>To name some (for historical reasons):</p>
+                  <ul>
+                    <li>
+                      <a
+                        href="https://en.wikipedia.org/wiki/Asynchronous_module_definition"
+                        >AMD</a
+                      >
+                      – one of the most ancient module systems, initially
+                      implemented by the library
+                      <a href="http://requirejs.org/">require.js</a>.
+                    </li>
+                    <li>
+                      <a href="http://wiki.commonjs.org/wiki/Modules/1.1"
+                        >CommonJS</a
+                      >
+                      – the module system created for Node.js server.
+                    </li>
+                    <li>
+                      <a href="https://github.com/umdjs/umd">UMD</a> – one more
+                      module system, suggested as a universal one, compatible
+                      with AMD and CommonJS.
+                    </li>
+                  </ul>
+                  <p>
+                    Now all these slowly become a part of history, but we still
+                    can find them in old scripts.
+                  </p>
+                  <p>
+                    The language-level module system appeared in the standard in
+                    2015, gradually evolved since then, and is now supported by
+                    all major browsers and in Node.js. So we’ll study the modern
+                    JavaScript modules from now on.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="what-is-a-module"
+                      href="modules-intro.html#what-is-a-module"
+                      >What is a module?</a
+                    >
+                  </h2>
+                  <p>
+                    A module is just a file. One script is one module. As simple
+                    as that.
+                  </p>
+                  <p>
+                    Modules can load each other and use special directives
+                    <code>export</code> and <code>import</code> to interchange
+                    functionality, call functions of one module from another
+                    one:
+                  </p>
+                  <ul>
+                    <li>
+                      <code>export</code> keyword labels variables and functions
+                      that should be accessible from outside the current module.
+                    </li>
+                    <li>
+                      <code>import</code> allows the import of functionality
+                      from other modules.
+                    </li>
+                  </ul>
+                  <p>
+                    For instance, if we have a file
+                    <code>sayHi.js</code> exporting a function:
+                  </p>
+                  <div id="tibibytp3t" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 sayHi.js
+export function sayHi(user) {
+  alert(`Hello, ${user}!`);
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>…Then another file may import and use it:</p>
+                  <div id="xz4trguevo" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 main.js
+import {sayHi} from './sayHi.js';
+
+alert(sayHi); // function...
+sayHi('John'); // Hello, John!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The <code>import</code> directive loads the module by path
+                    <code>./sayHi.js</code> relative to the current file, and
+                    assigns exported function <code>sayHi</code> to the
+                    corresponding variable.
+                  </p>
+                  <p>Let’s run the example in-browser.</p>
+                  <p>
+                    As modules support special keywords and features, we must
+                    tell the browser that a script should be treated as a
+                    module, by using the attribute
+                    <code>&lt;script type=&quot;module&quot;&gt;</code>.
+                  </p>
+                  <p>Like this:</p>
+                  <div class="code-tabs">
+                    <div class="code-tabs__tools">
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_left
+                          "
+                          title="&amp;larr;"
+                          data-code-tabs-left="data-code-tabs-left"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__switches-wrap">
+                        <div
+                          class="code-tabs__switches"
+                          data-code-tabs-switches="data-code-tabs-switches"
+                        >
+                          <div class="code-tabs__switches-items">
+                            <div class="code-tabs__switch">Result</div>
+                            <div class="code-tabs__switch">say.js</div>
+                            <div
+                              class="
+                                code-tabs__switch code-tabs__switch_current
+                              "
+                            >
+                              index.html
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_right
+                          "
+                          title="&amp;rarr;"
+                          data-code-tabs-right="data-code-tabs-right"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__buttons">
+                        <a
+                          class="code-tabs__button code-tabs__button_external"
+                          target="_blank"
+                          title="open in a new window"
+                          href="article/modules-intro/say/index.html"
+                        ></a
+                        ><a
+                          class="code-tabs__button code-tabs__button_edit"
+                          target="_blank"
+                          title="edit in the sandbox"
+                          href="https://plnkr.co/edit/SqHEiLM4gxf2ka8X?p=preview"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      class="code-tabs__content"
+                      data-code-tabs-content="data-code-tabs-content"
+                      style="height: 140px"
+                    >
+                      <div class="code-tabs__section">
+                        <iframe
+                          class="code-tabs__result"
+                          src="article/modules-intro/say/index.html"
+                        ></iframe>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-javascript line-numbers"
+                        ><code>export function sayHi(user) {
+  return `Hello, ${user}!`;
+}</code></pre>
+                      </div>
+                      <div
+                        class="code-tabs__section code-tabs__section_current"
+                      >
+                        <pre
+                          class="language-markup line-numbers"
+                        ><code>&lt;!doctype html&gt;
+&lt;script type=&quot;module&quot;&gt;
+  import {sayHi} from './say.js';
+
+  document.body.innerHTML = sayHi('John');
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The browser automatically fetches and evaluates the imported
+                    module (and its imports if needed), and then runs the
+                    script.
+                  </p>
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Modules work only via HTTP(s), not locally</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        If you try to open a web-page locally, via
+                        <code>file://</code> protocol, you’ll find that
+                        <code>import/export</code> directives don’t work. Use a
+                        local web-server, such as
+                        <a
+                          href="https://www.npmjs.com/package/static-server#getting-started"
+                          >static-server</a
+                        >
+                        or use the “live server” capability of your editor, such
+                        as VS Code
+                        <a
+                          href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer"
+                          >Live Server Extension</a
+                        >
+                        to test modules.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="core-module-features"
+                      href="modules-intro.html#core-module-features"
+                      >Core module features</a
+                    >
+                  </h2>
+                  <p>
+                    What’s different in modules, compared to “regular” scripts?
+                  </p>
+                  <p>
+                    There are core features, valid both for browser and
+                    server-side JavaScript.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="always-use-strict"
+                      href="modules-intro.html#always-use-strict"
+                      >Always “use strict”</a
+                    >
+                  </h3>
+                  <p>
+                    Modules always work in strict mode. E.g. assigning to an
+                    undeclared variable will give an error.
+                  </p>
+                  <div id="u6ow1gkpgj" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="modules-intro.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="modules-intro.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;script type=&quot;module&quot;&gt;
+  a = 5; // error
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="module-level-scope"
+                      href="modules-intro.html#module-level-scope"
+                      >Module-level scope</a
+                    >
+                  </h3>
+                  <p>
+                    Each module has its own top-level scope. In other words,
+                    top-level variables and functions from a module are not seen
+                    in other scripts.
+                  </p>
+                  <p>
+                    In the example below, two scripts are imported, and
+                    <code>hello.js</code> tries to use
+                    <code>user</code> variable declared in <code>user.js</code>.
+                    It fails, because it’s a separate module (you’ll see the
+                    error in the console):
+                  </p>
+                  <div class="code-tabs">
+                    <div class="code-tabs__tools">
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_left
+                          "
+                          title="&amp;larr;"
+                          data-code-tabs-left="data-code-tabs-left"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__switches-wrap">
+                        <div
+                          class="code-tabs__switches"
+                          data-code-tabs-switches="data-code-tabs-switches"
+                        >
+                          <div class="code-tabs__switches-items">
+                            <div class="code-tabs__switch">Result</div>
+                            <div class="code-tabs__switch">hello.js</div>
+                            <div class="code-tabs__switch">user.js</div>
+                            <div
+                              class="
+                                code-tabs__switch code-tabs__switch_current
+                              "
+                            >
+                              index.html
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_right
+                          "
+                          title="&amp;rarr;"
+                          data-code-tabs-right="data-code-tabs-right"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__buttons">
+                        <a
+                          class="code-tabs__button code-tabs__button_external"
+                          target="_blank"
+                          title="open in a new window"
+                          href="article/modules-intro/scopes/index.html"
+                        ></a
+                        ><a
+                          class="code-tabs__button code-tabs__button_edit"
+                          target="_blank"
+                          title="edit in the sandbox"
+                          href="https://plnkr.co/edit/A8fzm5IUtGywWX2R?p=preview"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      class="code-tabs__content"
+                      data-code-tabs-content="data-code-tabs-content"
+                      style="height: 140px"
+                    >
+                      <div class="code-tabs__section">
+                        <iframe
+                          class="code-tabs__result"
+                          src="article/modules-intro/scopes/index.html"
+                        ></iframe>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-javascript line-numbers"
+                        ><code>alert(user); // no such variable (each module has independent variables)</code></pre>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-javascript line-numbers"
+                        ><code>let user = &quot;John&quot;;</code></pre>
+                      </div>
+                      <div
+                        class="code-tabs__section code-tabs__section_current"
+                      >
+                        <pre
+                          class="language-markup line-numbers"
+                        ><code>&lt;!doctype html&gt;
+&lt;script type=&quot;module&quot; src=&quot;user.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;module&quot; src=&quot;hello.js&quot;&gt;&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Modules should <code>export</code> what they want to be
+                    accessible from outside and <code>import</code> what they
+                    need.
+                  </p>
+                  <ul>
+                    <li>
+                      <code>user.js</code> should export the
+                      <code>user</code> variable.
+                    </li>
+                    <li>
+                      <code>hello.js</code> should import it from
+                      <code>user.js</code> module.
+                    </li>
+                  </ul>
+                  <p>
+                    In other words, with modules we use import/export instead of
+                    relying on global variables.
+                  </p>
+                  <p>This is the correct variant:</p>
+                  <div class="code-tabs">
+                    <div class="code-tabs__tools">
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_left
+                          "
+                          title="&amp;larr;"
+                          data-code-tabs-left="data-code-tabs-left"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__switches-wrap">
+                        <div
+                          class="code-tabs__switches"
+                          data-code-tabs-switches="data-code-tabs-switches"
+                        >
+                          <div class="code-tabs__switches-items">
+                            <div class="code-tabs__switch">Result</div>
+                            <div
+                              class="
+                                code-tabs__switch code-tabs__switch_current
+                              "
+                            >
+                              hello.js
+                            </div>
+                            <div class="code-tabs__switch">user.js</div>
+                            <div class="code-tabs__switch">index.html</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_right
+                          "
+                          title="&amp;rarr;"
+                          data-code-tabs-right="data-code-tabs-right"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__buttons">
+                        <a
+                          class="code-tabs__button code-tabs__button_external"
+                          target="_blank"
+                          title="open in a new window"
+                          href="article/modules-intro/scopes-working/index.html"
+                        ></a
+                        ><a
+                          class="code-tabs__button code-tabs__button_edit"
+                          target="_blank"
+                          title="edit in the sandbox"
+                          href="https://plnkr.co/edit/vWOoFcH9SSlxhxJd?p=preview"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      class="code-tabs__content"
+                      data-code-tabs-content="data-code-tabs-content"
+                      style="height: 140px"
+                    >
+                      <div class="code-tabs__section">
+                        <iframe
+                          class="code-tabs__result"
+                          src="article/modules-intro/scopes-working/index.html"
+                        ></iframe>
+                      </div>
+                      <div
+                        class="code-tabs__section code-tabs__section_current"
+                      >
+                        <pre
+                          class="language-javascript line-numbers"
+                        ><code>import {user} from './user.js';
+
+document.body.innerHTML = user; // John</code></pre>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-javascript line-numbers"
+                        ><code>export let user = &quot;John&quot;;</code></pre>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-markup line-numbers"
+                        ><code>&lt;!doctype html&gt;
+&lt;script type=&quot;module&quot; src=&quot;hello.js&quot;&gt;&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    In the browser, if we talk about HTML pages, independent
+                    top-level scope also exists for each
+                    <code>&lt;script type=&quot;module&quot;&gt;</code>.
+                  </p>
+                  <p>
+                    Here are two scripts on the same page, both
+                    <code>type=&quot;module&quot;</code>. They don’t see each
+                    other’s top-level variables:
+                  </p>
+                  <div
+                    id="nmmsb0vscl"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":6,"end":6}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="modules-intro.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="modules-intro.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;script type=&quot;module&quot;&gt;
+  // The variable is only visible in this module script
+  let user = &quot;John&quot;;
+&lt;/script&gt;
+
+&lt;script type=&quot;module&quot;&gt;
+  alert(user); // Error: user is not defined
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Please note:</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        In the browser, we can make a variable window-level
+                        global by explicitly assigning it to a
+                        <code>window</code> property, e.g.
+                        <code>window.user = &quot;John&quot;</code>.
+                      </p>
+                      <p>
+                        Then all scripts will see it, both with
+                        <code>type=&quot;module&quot;</code> and without it.
+                      </p>
+                      <p>
+                        That said, making such global variables is frowned upon.
+                        Please try to avoid them.
+                      </p>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="a-module-code-is-evaluated-only-the-first-time-when-imported"
+                      href="modules-intro.html#a-module-code-is-evaluated-only-the-first-time-when-imported"
+                      >A module code is evaluated only the first time when
+                      imported</a
+                    >
+                  </h3>
+                  <p>
+                    If the same module is imported into multiple other modules,
+                    its code is executed only once, upon the first import. Then
+                    its exports are given to all further importers.
+                  </p>
+                  <p>
+                    The one-time evaluation has important consequences, that we
+                    should be aware of.
+                  </p>
+                  <p>Let’s see a couple of examples.</p>
+                  <p>
+                    First, if executing a module code brings side-effects, like
+                    showing a message, then importing it multiple times will
+                    trigger it only once – the first time:
+                  </p>
+                  <div id="u8tg36z817" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 alert.js
+alert(&quot;Module is evaluated!&quot;);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="k29c4w3sym" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// Import the same module from different files
+
+// 📁 1.js
+import `./alert.js`; // Module is evaluated!
+
+// 📁 2.js
+import `./alert.js`; // (shows nothing)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The second import shows nothing, because the module has
+                    already been evaluated.
+                  </p>
+                  <p>
+                    There’s a rule: top-level module code should be used for
+                    initialization, creation of module-specific internal data
+                    structures. If we need to make something callable multiple
+                    times – we should export it as a function, like we did with
+                    <code>sayHi</code> above.
+                  </p>
+                  <p>Now, let’s consider a deeper example.</p>
+                  <p>Let’s say, a module exports an object:</p>
+                  <div id="tbzqhc6pz0" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 admin.js
+export let admin = {
+  name: &quot;John&quot;
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    If this module is imported from multiple files, the module
+                    is only evaluated the first time, <code>admin</code> object
+                    is created, and then passed to all further importers.
+                  </p>
+                  <p>
+                    All importers get exactly the one and only
+                    <code>admin</code> object:
+                  </p>
+                  <div
+                    id="4pzye3p9cu"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":8,"end":9}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 1.js
+import {admin} from './admin.js';
+admin.name = &quot;Pete&quot;;
+
+// 📁 2.js
+import {admin} from './admin.js';
+alert(admin.name); // Pete
+
+// Both 1.js and 2.js reference the same admin object
+// Changes made in 1.js are visible in 2.js</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As you can see, when <code>1.js</code> changes the
+                    <code>name</code> property in the imported
+                    <code>admin</code>, then <code>2.js</code> can see the new
+                    <code>admin.name</code>.
+                  </p>
+                  <p>
+                    That’s exactly because the module is executed only once.
+                    Exports are generated, and then they are shared between
+                    importers, so if something changes the
+                    <code>admin</code> object, other modules will see that.
+                  </p>
+                  <p>
+                    <strong
+                      >Such behavior is actually very convenient, because it
+                      allows us to <em>configure</em> modules.</strong
+                    >
+                  </p>
+                  <p>
+                    In other words, a module can provide a generic functionality
+                    that needs a setup. E.g. authentication needs credentials.
+                    Then it can export a configuration object expecting the
+                    outer code to assign to it.
+                  </p>
+                  <p>Here’s the classical pattern:</p>
+                  <ol>
+                    <li>
+                      A module exports some means of configuration, e.g. a
+                      configuration object.
+                    </li>
+                    <li>
+                      On the first import we initialize it, write to its
+                      properties. The top-level application script may do that.
+                    </li>
+                    <li>Further imports use the module.</li>
+                  </ol>
+                  <p>
+                    For instance, the <code>admin.js</code> module may provide
+                    certain functionality (e.g. authentication), but expect the
+                    credentials to come into the <code>config</code> object from
+                    outside:
+                  </p>
+                  <div id="a66vtep35f" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 admin.js
+export let config = { };
+
+export function sayHi() {
+  alert(`Ready to serve, ${config.user}!`);
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here, <code>admin.js</code> exports the
+                    <code>config</code> object (initially empty, but may have
+                    default properties too).
+                  </p>
+                  <p>
+                    Then in <code>init.js</code>, the first script of our app,
+                    we import <code>config</code> from it and set
+                    <code>config.user</code>:
+                  </p>
+                  <div id="z4e2b3himo" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 init.js
+import {config} from './admin.js';
+config.user = &quot;Pete&quot;;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>…Now the module <code>admin.js</code> is configured.</p>
+                  <p>
+                    Further importers can call it, and it correctly shows the
+                    current user:
+                  </p>
+                  <div
+                    id="am5tt9jcfv"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":3,"cols":[{"start":28,"end":32}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// 📁 another.js
+import {sayHi} from './admin.js';
+
+sayHi(); // Ready to serve, Pete!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="import-meta"
+                      href="modules-intro.html#import-meta"
+                      >import.meta</a
+                    >
+                  </h3>
+                  <p>
+                    The object <code>import.meta</code> contains the information
+                    about the current module.
+                  </p>
+                  <p>
+                    Its content depends on the environment. In the browser, it
+                    contains the URL of the script, or a current webpage URL if
+                    inside HTML:
+                  </p>
+                  <div
+                    id="65vemxmxjx"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="0"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="modules-intro.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="modules-intro.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;script type=&quot;module&quot;&gt;
+  alert(import.meta.url); // script URL
+  // for an inline script - the URL of the current HTML-page
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="in-a-module-this-is-undefined"
+                      href="modules-intro.html#in-a-module-this-is-undefined"
+                      >In a module, “this” is undefined</a
+                    >
+                  </h3>
+                  <p>
+                    That’s kind of a minor feature, but for completeness we
+                    should mention it.
+                  </p>
+                  <p>In a module, top-level <code>this</code> is undefined.</p>
+                  <p>
+                    Compare it to non-module scripts, where <code>this</code> is
+                    a global object:
+                  </p>
+                  <div
+                    id="go2o5uzq4q"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="0"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="modules-intro.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="modules-intro.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;script&gt;
+  alert(this); // window
+&lt;/script&gt;
+
+&lt;script type=&quot;module&quot;&gt;
+  alert(this); // undefined
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="browser-specific-features"
+                      href="modules-intro.html#browser-specific-features"
+                      >Browser-specific features</a
+                    >
+                  </h2>
+                  <p>
+                    There are also several browser-specific differences of
+                    scripts with <code>type=&quot;module&quot;</code> compared
+                    to regular ones.
+                  </p>
+                  <p>
+                    You may want skip this section for now if you’re reading for
+                    the first time, or if you don’t use JavaScript in a browser.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="module-scripts-are-deferred"
+                      href="modules-intro.html#module-scripts-are-deferred"
+                      >Module scripts are deferred</a
+                    >
+                  </h3>
+                  <p>
+                    Module scripts are <em>always</em> deferred, same effect as
+                    <code>defer</code> attribute (described in the chapter
+                    <a href="script-async-defer.html">Scripts: async, defer</a
+                    >), for both external and inline scripts.
+                  </p>
+                  <p>In other words:</p>
+                  <ul>
+                    <li>
+                      downloading external module scripts
+                      <code
+                        >&lt;script type=&quot;module&quot;
+                        src=&quot;...&quot;&gt;</code
+                      >
+                      doesn’t block HTML processing, they load in parallel with
+                      other resources.
+                    </li>
+                    <li>
+                      module scripts wait until the HTML document is fully ready
+                      (even if they are tiny and load faster than HTML), and
+                      then run.
+                    </li>
+                    <li>
+                      relative order of scripts is maintained: scripts that go
+                      first in the document, execute first.
+                    </li>
+                  </ul>
+                  <p>
+                    As a side-effect, module scripts always “see” the fully
+                    loaded HTML-page, including HTML elements below them.
+                  </p>
+                  <p>For instance:</p>
+                  <div
+                    id="qieov0xw7"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":8,"end":8},{"start":1,"end":1}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="modules-intro.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="modules-intro.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;script type=&quot;module&quot;&gt;
+  alert(typeof button); // object: the script can 'see' the button below
+  // as modules are deferred, the script runs after the whole page is loaded
+&lt;/script&gt;
+
+Compare to regular script below:
+
+&lt;script&gt;
+  alert(typeof button); // button is undefined, the script can't see elements below
+  // regular scripts run immediately, before the rest of the page is processed
+&lt;/script&gt;
+
+&lt;button id=&quot;button&quot;&gt;Button&lt;/button&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Please note: the second script actually runs before the
+                    first! So we’ll see <code>undefined</code> first, and then
+                    <code>object</code>.
+                  </p>
+                  <p>
+                    That’s because modules are deferred, so we wait for the
+                    document to be processed. The regular script runs
+                    immediately, so we see its output first.
+                  </p>
+                  <p>
+                    When using modules, we should be aware that the HTML page
+                    shows up as it loads, and JavaScript modules run after that,
+                    so the user may see the page before the JavaScript
+                    application is ready. Some functionality may not work yet.
+                    We should put “loading indicators”, or otherwise ensure that
+                    the visitor won’t be confused by that.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="async-works-on-inline-scripts"
+                      href="modules-intro.html#async-works-on-inline-scripts"
+                      >Async works on inline scripts</a
+                    >
+                  </h3>
+                  <p>
+                    For non-module scripts, the <code>async</code> attribute
+                    only works on external scripts. Async scripts run
+                    immediately when ready, independently of other scripts or
+                    the HTML document.
+                  </p>
+                  <p>For module scripts, it works on inline scripts as well.</p>
+                  <p>
+                    For example, the inline script below has <code>async</code>,
+                    so it doesn’t wait for anything.
+                  </p>
+                  <p>
+                    It performs the import (fetches <code>./analytics.js</code>)
+                    and runs when ready, even if the HTML document is not
+                    finished yet, or if other scripts are still pending.
+                  </p>
+                  <p>
+                    That’s good for functionality that doesn’t depend on
+                    anything, like counters, ads, document-level event
+                    listeners.
+                  </p>
+                  <div
+                    id="nb9duwn5ie"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":2,"cols":[{"start":8,"end":13}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;!-- all dependencies are fetched (analytics.js), and the script runs --&gt;
+&lt;!-- doesn't wait for the document or other &lt;script&gt; tags --&gt;
+&lt;script async type=&quot;module&quot;&gt;
+  import {counter} from './analytics.js';
+
+  counter.count();
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="external-scripts"
+                      href="modules-intro.html#external-scripts"
+                      >External scripts</a
+                    >
+                  </h3>
+                  <p>
+                    External scripts that have
+                    <code>type=&quot;module&quot;</code> are different in two
+                    aspects:
+                  </p>
+                  <ol>
+                    <li>
+                      <p>
+                        External scripts with the same <code>src</code> run only
+                        once:
+                      </p>
+                      <div
+                        id="7b0q3i6v3n"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-markup"
+                            ><code>&lt;!-- the script my.js is fetched and executed only once --&gt;
+&lt;script type=&quot;module&quot; src=&quot;my.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;module&quot; src=&quot;my.js&quot;&gt;&lt;/script&gt;</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        External scripts that are fetched from another origin
+                        (e.g. another site) require
+                        <a
+                          href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS"
+                          >CORS</a
+                        >
+                        headers, as described in the chapter
+                        <a href="fetch-crossorigin.html"
+                          >Fetch: Cross-Origin Requests</a
+                        >. In other words, if a module script is fetched from
+                        another origin, the remote server must supply a header
+                        <code>Access-Control-Allow-Origin</code> allowing the
+                        fetch.
+                      </p>
+                      <div
+                        id="a82jskab7w"
+                        data-trusted="1"
+                        class="code-example"
+                        data-highlight='[{"start":2,"cols":[{"start":27,"end":59}]}]'
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-markup"
+                            ><code>&lt;!-- another-site.com must supply Access-Control-Allow-Origin --&gt;
+&lt;!-- otherwise, the script won't execute --&gt;
+&lt;script type=&quot;module&quot; src=&quot;http://another-site.com/their.js&quot;&gt;&lt;/script&gt;</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>That ensures better security by default.</p>
+                    </li>
+                  </ol>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="no-bare-modules-allowed"
+                      href="modules-intro.html#no-bare-modules-allowed"
+                      >No “bare” modules allowed</a
+                    >
+                  </h3>
+                  <p>
+                    In the browser, <code>import</code> must get either a
+                    relative or absolute URL. Modules without any path are
+                    called “bare” modules. Such modules are not allowed in
+                    <code>import</code>.
+                  </p>
+                  <p>For instance, this <code>import</code> is invalid:</p>
+                  <div id="z1ylcg0a38" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>import {sayHi} from 'sayHi'; // Error, &quot;bare&quot; module
+// the module must have a path, e.g. './sayHi.js' or wherever the module is</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Certain environments, like Node.js or bundle tools allow
+                    bare modules, without any path, as they have their own ways
+                    for finding modules and hooks to fine-tune them. But
+                    browsers do not support bare modules yet.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="compatibility-nomodule"
+                      href="modules-intro.html#compatibility-nomodule"
+                      >Compatibility, “nomodule”</a
+                    >
+                  </h3>
+                  <p>
+                    Old browsers do not understand
+                    <code>type=&quot;module&quot;</code>. Scripts of an unknown
+                    type are just ignored. For them, it’s possible to provide a
+                    fallback using the <code>nomodule</code> attribute:
+                  </p>
+                  <div id="jw79c83tcv" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="modules-intro.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="modules-intro.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;script type=&quot;module&quot;&gt;
+  alert(&quot;Runs in modern browsers&quot;);
+&lt;/script&gt;
+
+&lt;script nomodule&gt;
+  alert(&quot;Modern browsers know both type=module and nomodule, so skip this&quot;)
+  alert(&quot;Old browsers ignore script with unknown type=module, but execute this.&quot;);
+&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="build-tools"
+                      href="modules-intro.html#build-tools"
+                      >Build tools</a
+                    >
+                  </h2>
+                  <p>
+                    In real-life, browser modules are rarely used in their “raw”
+                    form. Usually, we bundle them together with a special tool
+                    such as <a href="https://webpack.js.org/">Webpack</a> and
+                    deploy to the production server.
+                  </p>
+                  <p>
+                    One of the benefits of using bundlers – they give more
+                    control over how modules are resolved, allowing bare modules
+                    and much more, like CSS/HTML modules.
+                  </p>
+                  <p>Build tools do the following:</p>
+                  <ol>
+                    <li>
+                      Take a “main” module, the one intended to be put in
+                      <code>&lt;script type=&quot;module&quot;&gt;</code> in
+                      HTML.
+                    </li>
+                    <li>
+                      Analyze its dependencies: imports and then imports of
+                      imports etc.
+                    </li>
+                    <li>
+                      Build a single file with all modules (or multiple files,
+                      that’s tunable), replacing native
+                      <code>import</code> calls with bundler functions, so that
+                      it works. “Special” module types like HTML/CSS modules are
+                      also supported.
+                    </li>
+                    <li>
+                      In the process, other transformations and optimizations
+                      may be applied:
+                      <ul>
+                        <li>Unreachable code removed.</li>
+                        <li>Unused exports removed (“tree-shaking”).</li>
+                        <li>
+                          Development-specific statements like
+                          <code>console</code> and
+                          <code>debugger</code> removed.
+                        </li>
+                        <li>
+                          Modern, bleeding-edge JavaScript syntax may be
+                          transformed to older one with similar functionality
+                          using <a href="https://babeljs.io/">Babel</a>.
+                        </li>
+                        <li>
+                          The resulting file is minified (spaces removed,
+                          variables replaced with shorter names, etc).
+                        </li>
+                      </ul>
+                    </li>
+                  </ol>
+                  <p>
+                    If we use bundle tools, then as scripts are bundled together
+                    into a single file (or few files),
+                    <code>import/export</code> statements inside those scripts
+                    are replaced by special bundler functions. So the resulting
+                    “bundled” script does not contain any
+                    <code>import/export</code>, it doesn’t require
+                    <code>type=&quot;module&quot;</code>, and we can put it into
+                    a regular script:
+                  </p>
+                  <div id="bm038iauem" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;!-- Assuming we got bundle.js from a tool like Webpack --&gt;
+&lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    That said, native modules are also usable. So we won’t be
+                    using Webpack here: you can configure it later.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="modules-intro.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>To summarize, the core concepts are:</p>
+                  <ol>
+                    <li>
+                      A module is a file. To make
+                      <code>import/export</code> work, browsers need
+                      <code>&lt;script type=&quot;module&quot;&gt;</code>.
+                      Modules have several differences:
+                      <ul>
+                        <li>Deferred by default.</li>
+                        <li>Async works on inline scripts.</li>
+                        <li>
+                          To load external scripts from another origin
+                          (domain/protocol/port), CORS headers are needed.
+                        </li>
+                        <li>Duplicate external scripts are ignored.</li>
+                      </ul>
+                    </li>
+                    <li>
+                      Modules have their own, local top-level scope and
+                      interchange functionality via <code>import/export</code>.
+                    </li>
+                    <li>Modules always <code>use strict</code>.</li>
+                    <li>
+                      Module code is executed only once. Exports are created
+                      once and shared between importers.
+                    </li>
+                  </ol>
+                  <p>
+                    When we use modules, each module implements the
+                    functionality and exports it. Then we use
+                    <code>import</code> to directly import it where it’s needed.
+                    The browser loads and evaluates the scripts automatically.
+                  </p>
+                  <p>
+                    In production, people often use bundlers such as
+                    <a href="https://webpack.js.org">Webpack</a> to bundle
+                    modules together for performance and other reasons.
+                  </p>
+                  <p>
+                    In the next chapter we’ll see more examples of modules, and
+                    how things can be exported/imported.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="modules.html"
+                data-tooltip="Modules"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="import-export.html"
+                data-tooltip="Export and Import"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmodules-intro"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmodules-intro"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="modules-intro.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/modules-intro",
+                    identifier: "\/modules-intro",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="modules.html">Modules</a>
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   modules-intro.html#what-is-a-module"
+                        >What is a module?</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   modules-intro.html#core-module-features"
+                        >Core module features</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   modules-intro.html#browser-specific-features"
+                        >Browser-specific features</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   modules-intro.html#build-tools"
+                        >Build tools</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="modules-intro.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   modules-intro.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmodules-intro"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fmodules-intro"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/13-modules/01-modules-intro"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

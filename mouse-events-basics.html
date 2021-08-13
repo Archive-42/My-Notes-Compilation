@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="en"><head><script>window.currentUser = null;</script><script>window.rateUsdToNative = 1;</script><title itemprop="name">Mouse events</title><link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><script>if (window.devicePixelRatio > 1) document.cookie = 'pixelRatio=' + window.devicePixelRatio + ';path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT';</script><link href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic" rel="stylesheet"><link rel="apple-touch-icon-precomposed" href="img/favicon/apple-touch-icon-precomposed.png"><link rel="canonical" href="mouse-events-basics.html"><meta name="msapplication-TileColor" content="#222A2C"><meta name="msapplication-TileImage" content="/img/favicon/tileicon.png"><link rel="icon" href="img/favicon/favicon.png"><meta itemprop="image" content="https://javascript.info/img/site_preview_en_512x512.png"><meta property="og:title" content="Mouse events"><meta property="og:image" content="https://javascript.info/img/site_preview_en_1200x630.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="fb:admins" content="100001562528165"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Mouse events"><meta name="twitter:site" content="@iliakan"><meta name="twitter:creator" content="@iliakan"><meta name="twitter:image" content="https://javascript.info/img/site_preview_en_512x512.png"><link rel="prev" href="event-details.html"><link rel="next" href="mousemove-mouseover-mouseout-mouseenter-mouseleave.html"><script>window.GA_ID = "UA-2056213-15";</script><script>window.YANDEX_METRIKA_ID = 32184394;</script><script>window.GoogleAnalyticsObject="ga",window.ga=function(){window.ga.q.push(arguments)},window.ga.q=[],window.ga.l=Date.now(),ga("create",GA_ID,"auto"),window.GTM_ID&&ga("require",GTM_ID),window.currentUser?ga("set","&uid",currentUser.id):ga("set","anonymizeIp",!0),window.addEventListener("error",function(e){var r=(e.filename||e.errorUrl)+": "+(e.lineno||e.errorLine),n=e.stack||e.error&&e.error.stack;ga("send","exception",{exDescription:e.message+" "+r+" "+n,exFatal:!0})});</script><script src="https://www.google-analytics.com/analytics.js" async></script><script>ga('send', 'pageview');</script><script>window.metrika={reachGoal:function(){}},window.yandex_metrika_callbacks=[function(){try{window.metrika=new Ya.Metrika({id:YANDEX_METRIKA_ID,webvisor:!0,clickmap:!0,params:{user:window.currentUser&&window.currentUser.id}}),metrika.trackLinks({delay:150}),window.addEventListener("error",function(r){window.metrika.reachGoal("JSERROR",{src:(r.filename||r.errorUrl)+": "+(r.lineno||r.errorLine),stack:r.stack||r.error&&r.error.stack,message:r.message})})}catch(r){}}];</script><script src="https://mc.yandex.ru/metrika/watch.js" async></script><script>window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";</script><script src="pack/init.810c8da2b4eed830d2da.js"></script><script src="pack/head.282ce219a840c583fa6d.js" defer></script><script>
+{
+  let timer = 0;
+
+  function showmesg(t, form) {
+
+     if (timer == 0) {
+       timer = new Date();
+     }
+
+     let tm = new Date();
+
+     if (tm - timer > 300) {
+       t = '------------------------------\n' + t;
+     }
+
+     let area = document.forms[form + 'form'].getElementsByTagName('textarea')[0];
+
+     area.value += t + '\n';
+     area.scrollTop = area.scrollHeight;
+
+     timer = tm;
+  }
+
+  function logMouse(e) {
+     let evt = e.type;
+     while (evt.length < 11) evt += ' ';
+     showmesg(evt + " button=" + e.button, 'test')
+     return false;
+  }
+
+  function keyval(n) {
+     if (n == null) return 'undefined';
+     let s = '' + n;
+     if (n >= 32 && n < 127) s += ' ' + String.fromCharCode(n);
+     while (s.length < 6) s += ' ';
+     return s;
+  }
+
+
+  function logClear(form) {
+  	timer = 0;
+  	document.forms[form+'form'].getElementsByTagName('textarea')[0].value ='';
+  	lines = 0;
+  }
+
+  window.logClear = logClear;
+  window.logMouse = logMouse;
+}
+</script>
+<meta property="og:title" content="Mouse events"><meta property="og:type" content="article"><script src="pack/tutorial.dd771765a083d97231c4.js" defer></script><script src="pack/footer.ce9ac5e9c03240648299.js" defer></script></head><body class="no-icons"><script>window.fontTest();</script><div class="page-wrapper page-wrapper_sidebar_on"><!--[if IE]><div style="color:red;text-align:center">Sorry, Internet Explorer is not supported, please use a newer browser.</div><![endif]--><div class="sitetoolbar sitetoolbar_tutorial"><script>window.langs = [{"code":"ar","name":"Arabic"},{"code":"az","name":"Azerbaijani"},{"code":"bg","name":"Bulgarian"},{"code":"bn","name":"Bengali"},{"code":"ca","name":"Catalan"},{"code":"cs","name":"Czech"},{"code":"da","name":"Danish"},{"code":"de","name":"German"},{"code":"el","name":"Greek"},{"code":"en","name":"English"},{"code":"es","name":"Spanish"},{"code":"fa","name":"Persian (Farsi)"},{"code":"fi","name":"Finnish"},{"code":"fr","name":"French"},{"code":"he","name":"Hebrew"},{"code":"hi","name":"Hindi"},{"code":"hu","name":"Hungarian"},{"code":"hy","name":"Armenian"},{"code":"id","name":"Indonesian"},{"code":"it","name":"Italian"},{"code":"ja","name":"Japanese"},{"code":"ka","name":"Georgian"},{"code":"km","name":"Central Khmer"},{"code":"ko","name":"Korean"},{"code":"lt","name":"Lithuanian"},{"code":"me","name":"Montenegrin"},{"code":"ml","name":"Malayalam"},{"code":"nl","name":"Dutch"},{"code":"no","name":"Norvegian"},{"code":"pa","name":"Punjabi"},{"code":"pl","name":"Polish"},{"code":"pt","name":"Portuguese"},{"code":"ro","name":"Romanian"},{"code":"ru","name":"Russian"},{"code":"si","name":"Sinhala"},{"code":"sk","name":"Slovak"},{"code":"sl","name":"Slovenian"},{"code":"sq","name":"Albanian"},{"code":"sr","name":"Serbian"},{"code":"ta","name":"Tamil"},{"code":"te","name":"Telugu"},{"code":"test","name":"Test"},{"code":"th","name":"Thai"},{"code":"tk","name":"Turkmen"},{"code":"tr","name":"Turkish"},{"code":"uk","name":"Ukrainian"},{"code":"ur","name":"Urdu"},{"code":"uz","name":"Uzbek"},{"code":"v2","name":"v2"},{"code":"vi","name":"Vietnamese"},{"code":"zh-hant","name":"Chinese Traditional"},{"code":"zh","name":"Chinese"}];</script><script>window.lang = "en";</script><script>{let t=navigator.languages||[];t=t.map(t=>t.toLowerCase());let o,a,n=[];for(let o of window.langs)for(let a of t)if(a===o.code||a.startsWith(o.code+"-")){n.push(o);break}if("en"===lang){let t=n.find(t=>"en"!=t.code);t&&"ru"!=t.code&&(o=`\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `,a="notify-translate-tutorial")}else if("ru"!=lang){n.find(t=>"en"==t.code)&&(o=`\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `,a="notify-translate-tutorial-local")}if(o){let t=`<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;document.write(t),showTopNotification()}}</script><div class="sitetoolbar__content"><div class="sitetoolbar__lang-switcher"><button class="sitetoolbar__dropdown-button" data-dropdown-toggler>EN</button><div class="sitetoolbar__dropdown-wrap"><div class="sitetoolbar__dropdown-body"><div class="sitetoolbar__lang-switcher-body"><div class="supported-langs supported-langs_toolbar"><div class="supported-langs__container"><ul class="supported-langs__list" style="height:200px"><li class="supported-langs__item"><a class="supported-langs__link" href="https://ar.javascript.info/mouse-events-basics"><span class="supported-langs__brief">AR</span><span >عربي</span></a></li><li class="supported-langs__item supported-langs__item_current"><a class="supported-langs__link" href="mouse-events-basics.html"><span class="supported-langs__brief">EN</span><span >English</span></a></li><li class="supported-langs__item"><a class="supported-langs__link" href="https://es.javascript.info/mouse-events-basics"><span class="supported-langs__brief">ES</span><span >Español</span></a></li><li class="supported-langs__item"><a class="supported-langs__link" href="https://fr.javascript.info/mouse-events-basics"></li><li class="supported-langs__item"><a class="supported-langs__link" href="https://it.javascript.info/mouse-events-basics"></li><li class="supported-langs__item"><a class="supported-langs__link" href="https://ja.javascript.info/mouse-events-basics"><span class="supported-langs__brief">JA</span><span >日本語</span></a></li></ul><ul class="supported-langs__list" style="height:128px"><li class="supported-langs__item"><a class="supported-langs__link" href="https://ko.javascript.info/mouse-events-basics"><span class="supported-langs__brief">KO</span><span >한국어</span></a></li><li class="supported-langs__item"><a class="supported-langs__link" href=mouse-events-basics"><span class="supported-langs__brief">RU</span><span >Русский</span></a></li><li class="supported-langs__item"><a class="supported-langs__link" href="https://tr.javascript.info/mouse-events-basics"></li><li class="supported-langs__item"><a class="supported-langs__link" href="https://zh.javascript.info/mouse-events-basics"><span class="supported-langs__brief">ZH</span><span >简体中文</span></a></li></ul></div><div class="supported-langs__text"><p>We want to make this open-source project available for people all around the world.</p> <p><a href="translate.html">Help to translate</a> the content of this tutorial to your language!</p>
+</div></div></div></div></div></div><div class="sitetoolbar__logo-wrap"><a class="sitetoolbar__link sitetoolbar__link_logo" href="index.html"><img class="sitetoolbar__logo sitetoolbar__logo_normal" src="img/sitetoolbar__logo_en.svg" width="200" alt="" role="presentation"/><img class="sitetoolbar__logo sitetoolbar__logo_small" src="img/sitetoolbar__logo_small_en.svg" width="70" alt="" role="presentation"/><script>Array.prototype.forEach.call(document.querySelectorAll("img.sitetoolbar__logo"),function(e){let t=document.createElement("object");t.type="image/svg+xml",t.className=e.className,t.style.cssText="left:0;top:0;position:absolute",t.onload=function(){t.onload=null,e.style.visibility="hidden"},t.data=e.src,e.parentNode.insertBefore(t,e)});</script></a></div><div class="sitetoolbar__nav-toggle-wrap"><button class="sitetoolbar__nav-toggle" type="button"></button></div><nav class="sitetoolbar__sections"><ul class="sitetoolbar__sections-list"></ul></nav><div class="sitetoolbar__book-wrap"><a class="buy-book-button" href="ebook.html"><span class="buy-book-button__extra-text">Buy</span>EPUB/PDF</a></div><div class="sitetoolbar__login-wrap"><button class="sitetoolbar__login sitetoolbar__login_unready" data-action-login></button></div><div class="sitetoolbar__search-wrap"><div class="sitetoolbar__search-content"><form class="sitetoolbar__search" method="GET" action="https://javascript.info/search"><button class="sitetoolbar__search-toggle" type="button"></button><div class="sitetoolbar__search-input"><div class="text-input"><input class="text-input__control" name="query" placeholder="Search on Javascript.info" required="required" type="text"/></div><button class="sitetoolbar__find" type="submit">Search</button></div></form></div></div></div><div class="tablet-menu"><div class="tablet-menu__line"><div class="tablet-menu__content"><form class="tablet-menu-search" action="https://javascript.info/search/"><input class="tablet-menu-search__input" type="search" name="query" placeholder="Search in the tutorial" required="required"/><button class="tablet-menu-search__button" type="submit" name="type" value="articles">Search</button></form></div></div><div class="tablet-menu__line"><div class="tablet-menu__content"><a class="map" href="tutorial/map.html" data-action="tutorial-map"></div></div><div class="tablet-menu__line"><div class="tablet-menu__content"><div class="share-icons"><span class="share-icons__title">Share</span><a class="share share_tw" href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmouse-events-basics" rel="nofollow"></a><a class="share share_fb" href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmouse-events-basics" rel="nofollow"></a></div></div></div><div class="tablet-menu__line"><div class="tablet-menu__content"><select class="tablet-menu__nav input-select input-select input-select_small" onchange="if(this.value) window.location.href=this.value"><option value="https://ar.javascript.info/mouse-events-basics">عربي</option><option value="https://javascript.info/mouse-events-basics" selected>English</option><option value="https://es.javascript.info/mouse-events-basics">Español</option><option value="https://fr.javascript.info/mouse-events-basics">Français</option><option value="https://it.javascript.info/mouse-events-basics">Italiano</option><option value="https://ja.javascript.info/mouse-events-basics">日本語</option><option value="https://ko.javascript.info/mouse-events-basics">한국어</option><option value=mouse-events-basics">Русский</option><option value="https://tr.javascript.info/mouse-events-basics">Türkçe</option><option value="https://zh.javascript.info/mouse-events-basics">简体中文</option></select></div></div></div><progress class="tutorial-progress" data-sticky value="17" max="32" data-tooltip="Lesson 17 of 32"></progress></div><div class="page page_sidebar_on page_inner_padding"><script>if(localStorage.noSidebar){document.querySelector(".page").classList.remove("page_sidebar_on");let e=document.querySelector(".page-wrapper");e&&e.classList.remove("page-wrapper_sidebar_on")}setTimeout(function(){document.querySelector(".page").classList.add("page_sidebar-animation-on")});</script><div class="page__inner"><main class="main main_width-limit"><header class="main__header"><div class="main__header-inner"><div class="main__header-group"><ol class="breadcrumbs"><li class="breadcrumbs__item breadcrumbs__item_home"><a class="breadcrumbs__link" href="index.html"><span class="breadcrumbs__hidden-text">Tutorial</span></a></li><li class="breadcrumbs__item" id="breadcrumb-1"><a class="breadcrumbs__link" href="ui.html"><span>Browser: Document, Events, Interfaces</span></a></li><li class="breadcrumbs__item" id="breadcrumb-2"><a class="breadcrumbs__link" href="event-details.html"><span>UI Events</span></a></li><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tutorial","item":"https://javascript.info/"},{"@type":"ListItem","position":2,"name":"Browser: Document, Events, Interfaces","item":"https://javascript.info/ui"},{"@type":"ListItem","position":3,"name":"UI Events","item":"https://javascript.info/event-details"}]}</script></ol><div class="updated-at" data-tooltip="Last updated at 17th November 2020"><div class="updated-at__content">17th November 2020</div></div></div><h1 class="main__header-title">Mouse events</h1></div></header><div class="content"><article class="formatted" itemscope itemtype="http://schema.org/TechArticle"><meta itemprop="name" content="Mouse events"><div itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="email" content="iliakan@gmail.com"><meta itemprop="name" content="Ilya Kantor"></div><div itemprop="articleBody"><p>In this chapter we’ll get into more details about mouse events and their properties.</p>
+<p>Please note: such events may come not only from “mouse devices”, but are also from other devices, such as phones and tablets, where they are emulated for compatibility.</p>
+<h2><a class="main__anchor" name="mouse-event-types" href="mouse-events-basics.html#mouse-event-types">Mouse event types</a></h2><p>We’ve already seen some of these events:</p>
+<dl>
+<dt><code>mousedown/mouseup</code></dt>
+<dd>Mouse button is clicked/released over an element.</dd>
+<dt><code>mouseover/mouseout</code></dt>
+<dd>Mouse pointer comes over/out from an element.</dd>
+<dt><code>mousemove</code></dt>
+<dd>Every mouse move over an element triggers that event.</dd>
+<dt><code>click</code></dt>
+<dd>Triggers after <code>mousedown</code> and then <code>mouseup</code> over the same element if the left mouse button was used.</dd>
+<dt><code>dblclick</code></dt>
+<dd>Triggers after two clicks on the same element within a short timeframe. Rarely used nowadays.</dd>
+<dt><code>contextmenu</code></dt>
+<dd>Triggers when the right mouse button is pressed. There are other ways to open a context menu, e.g. using a special keyboard key, it triggers in that case also, so it’s not exactly the mouse event.</dd>
+</dl>
+<p>…There are several other events too, we’ll cover them later.</p>
+<h2><a class="main__anchor" name="events-order" href="mouse-events-basics.html#events-order">Events order</a></h2><p>As you can see from the list above, a user action may trigger multiple events.</p>
+<p>For instance, a left-button click first triggers <code>mousedown</code>, when the button is pressed, then <code>mouseup</code> and <code>click</code> when it’s released.</p>
+<p>In cases when a single action initiates multiple events, their order is fixed. That is, the handlers are called in the order <code>mousedown</code> → <code>mouseup</code> → <code>click</code>.</p>
+<p>Click the button below and you’ll see the events. Try double-click too.</p>
+<p>On the teststand below all mouse events are logged, and if there is more than a 1 second delay between them they are separated by a horizontal ruler.</p>
+<p>Also we can see the <code>button</code> property that allows to detect the mouse button, it’s explained below.</p>
+<p><input onmousedown="return logMouse(event)" onmouseup="return logMouse(event)" onclick="return logMouse(event)" oncontextmenu="return logMouse(event)" ondblclick="return logMouse(event)" value="Click me with the right or the left mouse button" type="button"> <input onclick="logClear('test')" value="Clear" type="button"> <form id="testform" name="testform"> <textarea style="font-size:12px;height:150px;width:360px;"></textarea></form></p>
+<h2><a class="main__anchor" name="mouse-button" href="mouse-events-basics.html#mouse-button">Mouse button</a></h2><p>Click-related events always have the <code>button</code> property, which allows to get the exact mouse button.</p>
+<p>We usually don’t use it for <code>click</code> and <code>contextmenu</code> events, because the former happens only on left-click, and the latter – only on right-click.</p>
+<p>From the other hand, <code>mousedown</code> and <code>mouseup</code> handlers may need <code>event.button</code>, because these events trigger on any button, so <code>button</code> allows to distinguish between “right-mousedown” and “left-mousedown”.</p>
+<p>The possible values of <code>event.button</code> are:</p>
+<table>
+<thead>
+<tr>
+<th>Button state</th>
+<th><code>event.button</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Left button (primary)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Middle button (auxiliary)</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Right button (secondary)</td>
+<td>2</td>
+</tr>
+<tr>
+<td>X1 button (back)</td>
+<td>3</td>
+</tr>
+<tr>
+<td>X2 button (forward)</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>Most mouse devices only have the left and right buttons, so possible values are <code>0</code> or <code>2</code>. Touch devices also generate similar events when one taps on them.</p>
+<p>Also there’s <code>event.buttons</code> property that has all currently pressed buttons as an integer, one bit per button. In practice this property is very rarely used, you can find details at <a href="https://developer.mozilla.org/en-US/docs/Web/api/MouseEvent/buttons">MDN</a> if you ever need it.</p>
+<div class="important important_warn">
+            <div class="important__header"><span class="important__type">The outdated <code>event.which</code></span></div>
+            <div class="important__content"><p>Old code may use <code>event.which</code> property that’s an old non-standard way of getting a button, with possible values:</p>
+<ul>
+<li><code>event.which == 1</code> – left button,</li>
+<li><code>event.which == 2</code> – middle button,</li>
+<li><code>event.which == 3</code> – right button.</li>
+</ul>
+<p>As of now, <code>event.which</code> is deprecated, we shouldn’t use it.</p>
+</div></div>
+<h2><a class="main__anchor" name="modifiers-shift-alt-ctrl-and-meta" href="mouse-events-basics.html#modifiers-shift-alt-ctrl-and-meta">Modifiers: shift, alt, ctrl and meta</a></h2><p>All mouse events include the information about pressed modifier keys.</p>
+<p>Event properties:</p>
+<ul>
+<li><code>shiftKey</code>: <kbd class="shortcut">Shift</kbd></li>
+<li><code>altKey</code>: <kbd class="shortcut">Alt</kbd> (or <kbd class="shortcut">Opt</kbd> for Mac)</li>
+<li><code>ctrlKey</code>: <kbd class="shortcut">Ctrl</kbd></li>
+<li><code>metaKey</code>: <kbd class="shortcut">Cmd</kbd> for Mac</li>
+</ul>
+<p>They are <code>true</code> if the corresponding key was pressed during the event.</p>
+<p>For instance, the button below only works on <kbd class="shortcut">Alt<span class="shortcut__plus">+</span>Shift</kbd>+click:</p>
+<div id="dgtrdi4v6m" data-trusted="1" class="code-example" data-demo-height="60" data-highlight="[{&quot;start&quot;:4,&quot;end&quot;:4}]" data-autorun="true">
+      <div class="codebox code-example__codebox">
+        
+        <div class="codebox__code" data-code="1">
+          <pre class="line-numbers language-markup"><code>&lt;button id=&quot;button&quot;&gt;Alt+Shift+Click on me!&lt;/button&gt;
+
+&lt;script&gt;
+  button.onclick = function(event) {
+    if (event.altKey &amp;&amp; event.shiftKey) {
+      alert('Hooray!');
+    }
+  };
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+      <div class="code-result code-example__result">
+          <iframe
+            class="code-result__iframe"
+            name="test-dgtrdi4v6m"
+            style="height:60px"
+            src="about:blank"></iframe>
+        </div>
+      </div><div class="important important_warn">
+            <div class="important__header"><span class="important__type">Attention: on Mac it’s usually <code>Cmd</code> instead of <code>Ctrl</code></span></div>
+            <div class="important__content"><p>On Windows and Linux there are modifier keys <kbd class="shortcut">Alt</kbd>, <kbd class="shortcut">Shift</kbd> and <kbd class="shortcut">Ctrl</kbd>. On Mac there’s one more: <kbd class="shortcut">Cmd</kbd>, corresponding to the property <code>metaKey</code>.</p>
+<p>In most applications, when Windows/Linux uses <kbd class="shortcut">Ctrl</kbd>, on Mac <kbd class="shortcut">Cmd</kbd> is used.</p>
+<p>That is: where a Windows user presses <kbd class="shortcut">Ctrl<span class="shortcut__plus">+</span>Enter</kbd> or <kbd class="shortcut">Ctrl<span class="shortcut__plus">+</span>A</kbd>, a Mac user would press <kbd class="shortcut">Cmd<span class="shortcut__plus">+</span>Enter</kbd> or <kbd class="shortcut">Cmd<span class="shortcut__plus">+</span>A</kbd>, and so on.</p>
+<p>So if we want to support combinations like <kbd class="shortcut">Ctrl</kbd>+click, then for Mac it makes sense to use <kbd class="shortcut">Cmd</kbd>+click. That’s more comfortable for Mac users.</p>
+<p>Even if we’d like to force Mac users to <kbd class="shortcut">Ctrl</kbd>+click – that’s kind of difficult. The problem is: a left-click with <kbd class="shortcut">Ctrl</kbd> is interpreted as a <em>right-click</em> on MacOS, and it generates the <code>contextmenu</code> event, not <code>click</code> like Windows/Linux.</p>
+<p>So if we want users of all operating systems to feel comfortable, then together with <code>ctrlKey</code> we should check <code>metaKey</code>.</p>
+<p>For JS-code it means that we should check <code>if (event.ctrlKey || event.metaKey)</code>.</p>
+</div></div>
+<div class="important important_warn">
+            <div class="important__header"><span class="important__type">There are also mobile devices</span></div>
+            <div class="important__content"><p>Keyboard combinations are good as an addition to the workflow. So that if the visitor uses a keyboard – they work.</p>
+<p>But if their device doesn’t have it – then there should be a way to live without modifier keys.</p>
+</div></div>
+<h2><a class="main__anchor" name="coordinates-clientx-y-pagex-y" href="mouse-events-basics.html#coordinates-clientx-y-pagex-y">Coordinates: clientX/Y, pageX/Y</a></h2><p>All mouse events provide coordinates in two flavours:</p>
+<ol>
+<li>Window-relative: <code>clientX</code> and <code>clientY</code>.</li>
+<li>Document-relative: <code>pageX</code> and <code>pageY</code>.</li>
+</ol>
+<p>We already covered the difference between them in the chapter <a href="coordinates.html">Coordinates</a>.</p>
+<p>In short, document-relative coordinates <code>pageX/Y</code> are counted from the left-upper corner of the document, and do not change when the page is scrolled, while <code>clientX/Y</code> are counted from the current window left-upper corner. When the page is scrolled, they change.</p>
+<p>For instance, if we have a window of the size 500x500, and the mouse is in the left-upper corner, then <code>clientX</code> and <code>clientY</code> are <code>0</code>, no matter how the page is scrolled.</p>
+<p>And if the mouse is in the center, then <code>clientX</code> and <code>clientY</code> are <code>250</code>, no matter what place in the document it is. They are similar to <code>position:fixed</code> in that aspect.</p>
+<p>Move the mouse over the input field to see <code>clientX/clientY</code> (the example is in the <code>iframe</code>, so coordinates are relative to that <code>iframe</code>):</p>
+<div id="fc55awt6c0" data-trusted="1" class="code-example" data-demo-height="50" data-autorun="true">
+      <div class="codebox code-example__codebox">
+        
+        <div class="codebox__code" data-code="1">
+          <pre class="line-numbers language-markup"><code>&lt;input onmousemove=&quot;this.value=event.clientX+':'+event.clientY&quot; value=&quot;Mouse over me&quot;&gt;</code></pre>
+        </div>
+      </div>
+      <div class="code-result code-example__result">
+          <iframe
+            class="code-result__iframe"
+            name="test-fc55awt6c0"
+            style="height:50px"
+            src="about:blank"></iframe>
+        </div>
+      </div><h2><a class="main__anchor" name="preventing-selection-on-mousedown" href="mouse-events-basics.html#preventing-selection-on-mousedown">Preventing selection on mousedown</a></h2><p>Double mouse click has a side-effect that may be disturbing in some interfaces: it selects text.</p>
+<p>For instance, double-clicking on the text below selects it in addition to our handler:</p>
+<div id="gtwiv4yj7u" data-trusted="1" class="code-example" data-demo-height="50" data-autorun="true">
+      <div class="codebox code-example__codebox">
+        
+        <div class="codebox__code" data-code="1">
+          <pre class="line-numbers language-markup"><code>&lt;span ondblclick=&quot;alert('dblclick')&quot;&gt;Double-click me&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+      <div class="code-result code-example__result">
+          <iframe
+            class="code-result__iframe"
+            name="test-gtwiv4yj7u"
+            style="height:50px"
+            src="about:blank"></iframe>
+        </div>
+      </div><p>If one presses the left mouse button and, without releasing it, moves the mouse, that also makes the selection, often unwanted.</p>
+<p>There are multiple ways to prevent the selection, that you can read in the chapter <a href="selection-range.html">Selection and Range</a>.</p>
+<p>In this particular case the most reasonable way is to prevent the browser action on <code>mousedown</code>. It prevents both these selections:</p>
+<div id="bgj09gx05" data-trusted="1" class="code-example" data-demo-height="50" data-highlight="[{&quot;start&quot;:1,&quot;cols&quot;:[{&quot;start&quot;:32,&quot;end&quot;:58}]}]" data-autorun="true">
+      <div class="codebox code-example__codebox">
+        
+        <div class="codebox__code" data-code="1">
+          <pre class="line-numbers language-markup"><code>Before...
+&lt;b ondblclick=&quot;alert('Click!')&quot; onmousedown=&quot;return false&quot;&gt;
+  Double-click me
+&lt;/b&gt;
+...After</code></pre>
+        </div>
+      </div>
+      <div class="code-result code-example__result">
+          <iframe
+            class="code-result__iframe"
+            name="test-bgj09gx05"
+            style="height:50px"
+            src="about:blank"></iframe>
+        </div>
+      </div><p>Now the bold element is not selected on double clicks, and pressing the left button on it won’t start the selection.</p>
+<p>Please note: the text inside it is still selectable. However, the selection should start not on the text itself, but before or after it. Usually that’s fine for users.</p>
+<div class="important important_smart">
+            <div class="important__header"><span class="important__type">Preventing copying</span></div>
+            <div class="important__content"><p>If we want to disable selection to protect our page content from copy-pasting, then we can use another event: <code>oncopy</code>.</p>
+<div id="4otdywi39t" data-trusted="1" class="code-example" data-demo-height="80" data-highlight="[{&quot;start&quot;:0,&quot;cols&quot;:[{&quot;start&quot;:5,&quot;end&quot;:54}]}]" data-autorun="true">
+      <div class="codebox code-example__codebox">
+        
+        <div class="codebox__code" data-code="1">
+          <pre class="line-numbers language-markup"><code>&lt;div oncopy=&quot;alert('Copying forbidden!');return false&quot;&gt;
+  Dear user,
+  The copying is forbidden for you.
+  If you know JS or HTML, then you can get everything from the page source though.
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+      <div class="code-result code-example__result">
+          <iframe
+            class="code-result__iframe"
+            name="test-4otdywi39t"
+            style="height:80px"
+            src="about:blank"></iframe>
+        </div>
+      </div><p>If you try to copy a piece of text in the <code>&lt;div&gt;</code>, that won’t work, because the default action <code>oncopy</code> is prevented.</p>
+<p>Surely the user has access to HTML-source of the page, and can take the content from there, but not everyone knows how to do it.</p>
+</div></div>
+<h2><a class="main__anchor" name="summary" href="mouse-events-basics.html#summary">Summary</a></h2><p>Mouse events have the following properties:</p>
+<ul>
+<li>
+<p>Button: <code>button</code>.</p>
+</li>
+<li>
+<p>Modifier keys (<code>true</code> if pressed): <code>altKey</code>, <code>ctrlKey</code>, <code>shiftKey</code> and <code>metaKey</code> (Mac).</p>
+<ul>
+<li>If you want to handle <kbd class="shortcut">Ctrl</kbd>, then don’t forget Mac users, they usually use <kbd class="shortcut">Cmd</kbd>, so it’s better to check <code>if (e.metaKey || e.ctrlKey)</code>.</li>
+</ul>
+</li>
+<li>
+<p>Window-relative coordinates: <code>clientX/clientY</code>.</p>
+</li>
+<li>
+<p>Document-relative coordinates: <code>pageX/pageY</code>.</p>
+</li>
+</ul>
+<p>The default browser action of <code>mousedown</code> is text selection, if it’s not good for the interface, then it should be prevented.</p>
+<p>In the next chapter we’ll see more details about events that follow pointer movement and how to track element changes under it.</p>
+</div></article><div class="tasks formatted"><h2 class="tasks__title" id="tasks"><a class="tasks__title-anchor main__anchor main__anchor main__anchor_noicon" href="mouse-events-basics.html#tasks">Tasks</a></h2><div class="task tasks__task"><div class="task__header"><div class="task__title-wrap"><h3 class="task__title"><a class="main__anchor" href="mouse-events-basics.html#selectable-list" name="selectable-list">Selectable list</a></h3><a class="task__open-link" href="task/selectable-list.html" target="_blank"></a></div><div class="task__header-note"><span class="task__importance" title="How important is the task, from 1 to 5">importance: 5</span></div><div class="task__content"><div class="task__formatted"><p>Create a list where elements are selectable, like in file-managers.</p>
+<ul>
+<li>A click on a list element selects only that element (adds the class <code>.selected</code>), deselects all others.</li>
+<li>If a click is made with <kbd class="shortcut">Ctrl</kbd> (<kbd class="shortcut">Cmd</kbd> for Mac), then the selection is toggled on the element, but other elements are not modified.</li>
+</ul>
+<p>The demo:</p>
+<div class="code-result">
+    <div class="code-result__toolbar toolbar"></div>
+    <iframe class="code-result__iframe" data-trusted="1" style="height:180px" src="https://en.js.cx/task/selectable-list/solution/"></iframe>
+  </div><p>P.S. For this task we can assume that list items are text-only. No nested tags.</p>
+<p>P.P.S. Prevent the native browser selection of the text on clicks.</p>
+<p><a href="https://plnkr.co/edit/gUrAWTnZOfpP1vAp?p=preview" target="_blank" data-plunk-id="gUrAWTnZOfpP1vAp">Open a sandbox for the task.</a></p></div><button class="task__solution" type="button">solution</button><div class="task__answer"><div class="task__answer-content"><div class="formatted"><p><a href="https://plnkr.co/edit/5olx4aoq3eG1HIqa?p=preview" target="_blank" data-plunk-id="5olx4aoq3eG1HIqa">Open the solution in a sandbox.</a></p></div></div><button class="close-button task__answer-close" type="button" title="close"></button></div></div></div></div></div></div><div class="page__nav-wrap"><a class="page__nav page__nav_prev" href="event-details.html" data-tooltip="UI Events"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Previous lesson</span></a><a class="page__nav page__nav_next" href="mousemove-mouseover-mouseout-mouseenter-mouseleave.html" data-tooltip="Moving the mouse: mouseover/out, mouseenter/leave"><span class="page__nav-text"><span class="page__nav-text-shortcut"></span></span><span class="page__nav-text-alternate">Next lesson</span></a></div><div class="article-tablet-foot tablet-only"><div class="article-tablet-foot__layout"><div class="share-icons"><span class="share-icons__title">Share</span><a class="share share_tw" href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmouse-events-basics" rel="nofollow"></a><a class="share share_fb" href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmouse-events-basics" rel="nofollow"></a></div><div class="article-tablet-foot__map"><a class="map" href="tutorial/map.html" data-action="tutorial-map"></div></div></div><div class="comments formatted" id="comments"><div class="comments__header"><h2 class="comments__header-title"><a href="mouse-events-basics.html#comments" name="comments">Comments</a></h2><div class="comments__read-before"><span class="comments__read-before-link">read this before commenting…</span><div class="comments__read-before-popup"><div class="comments__read-before-popup-i"><ul><li>If you have suggestions what to improve - please <a href="https://github.com/javascript-tutorial/en.javascript.info/issues/new">submit a GitHub issue</a> or a pull request instead of commenting.</li><li>If you can't understand something in the article – please elaborate.</li><li>To insert few words of code, use the <code>&lt;code&gt;</code> tag, for several lines – wrap them in <code>&lt;pre&gt;</code> tag, for more than 10 lines – use a sandbox (<a href='https://plnkr.co/edit/?p=preview'>plnkr</a>, <a href='https://jsbin.com'>jsbin</a>, <a href='http://codepen.io'>codepen</a>…)</li></ul></div></div></div></div><div id="disqus_thread"></div><script>var disqus_config = function() { if (!this.page) this.page = {}; Object.assign(this.page, {"url":"https:\/\/javascript.info\/mouse-events-basics","identifier":"\/mouse-events-basics"}); };</script><script>var disqus_shortname = "javascriptinfo";</script><script>var disqus_enabled = true;</script></div></main></div><div class="sidebar page__sidebar sidebar sidebar_sticky-footer"><button class="sidebar__toggle" data-sidebar-toggle></button><a class="map" href="tutorial/map.html" data-action="tutorial-map" data-tooltip="Tutorial map"></a><div class="sidebar__inner"><div class="sidebar__content"><div class="sidebar__section"><h4 class="sidebar__section-title">Chapter</h4><nav class="sidebar__navigation"><ul class="sidebar__navigation-links"><li class="sidebar__navigation-link"><a class="sidebar__link" href="event-details.html">UI Events</a></li></ul></nav></div><div class="sidebar__section"><h4 class="sidebar__section-title">Lesson navigation</h4><nav class="sidebar__navigation"><ul class="sidebar__navigation-links"><li class="sidebar__navigation-link"><a class="sidebar__link" href="mouse-events-basics.html#mouse-event-types">Mouse event types</a></li><li class="sidebar__navigation-link"><a class="sidebar__link" href="mouse-events-basics.html#events-order">Events order</a></li><li class="sidebar__navigation-link"><a class="sidebar__link" href="mouse-events-basics.html#mouse-button">Mouse button</a></li><li class="sidebar__navigation-link"><a class="sidebar__link" href="mouse-events-basics.html#modifiers-shift-alt-ctrl-and-meta">Modifiers: shift, alt, ctrl and meta</a></li><li class="sidebar__navigation-link"><a class="sidebar__link" href="mouse-events-basics.html#coordinates-clientx-y-pagex-y">Coordinates: clientX/Y, pageX/Y</a></li><li class="sidebar__navigation-link"><a class="sidebar__link" href="mouse-events-basics.html#preventing-selection-on-mousedown">Preventing selection on mousedown</a></li><li class="sidebar__navigation-link"><a class="sidebar__link" href="mouse-events-basics.html#summary">Summary</a></li></ul></nav></div><div class="sidebar__section"><nav class="sidebar__navigation"><ul class="sidebar__navigation-links"><li class="sidebar__navigation-link"><a class="sidebar__link" href="mouse-events-basics.html#tasks">Tasks (1)</a></li><li class="sidebar__navigation-link"><a class="sidebar__link" href="mouse-events-basics.html#comments">Comments</a></li></ul></nav></div><div class="sidebar__section"><div class="sidebar__section-title">Share</div><a class="share share_tw sidebar__share" href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmouse-events-basics" rel="nofollow"></a><a class="share share_fb sidebar__share" href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fmouse-events-basics" rel="nofollow"></a></div><div class="sidebar__section"><a class="sidebar__link" href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/3-event-details/1-mouse-events-basics" rel="nofollow">Edit on GitHub</a></div><div class="sidebar__section" id="sponsorBar"><div class="sidebar__section-title" id="sponsorBarTitle"></div><div id="sponsorBarContent"></div><script>window.initSponsorBar()</script></div></div></div></div></div></div><div class="page-footer"><ul class="page-footer__list"><li class="page-footer__item page-footer__item_copy">©&nbsp;2007—2021&nbsp; Ilya Kantor</li><li class="page-footer__item page-footer__item_about"><a class="page-footer__link" href="about.html">about the project</a></li><li class="page-footer__item page-footer__item_contact"><a class="page-footer__link" href="about.html#contact-us">contact us</a></li><li class="page-footer__item page-footer__item_terms"><a class="page-footer__link" href="terms.html">terms of usage</a></li><li class="page-footer__item page-footer__item_privacy"><a class="page-footer__link" href="privacy.html">privacy policy</a></li></ul></div></body></html>

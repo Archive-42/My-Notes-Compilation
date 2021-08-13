@@ -1,0 +1,2314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Prototypal inheritance</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="prototype-inheritance.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Prototypal inheritance" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Prototypal inheritance" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="prototypes.html" />
+    <link rel="next" href="function-prototype.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+ 
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Prototypal inheritance" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/prototype-inheritance"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="prototype-inheritance.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/prototype-inheritance"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/prototype-inheritance"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/prototype-inheritance"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/prototype-inheritance"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/prototype-inheritance"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=prototype-inheritance"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/prototype-inheritance"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/prototype-inheritance"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fprototype-inheritance"
+                  rel="nofollow"
+                ></a
+                >2Fprototype-inheritance"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option
+                  value="https://ar.javascript.info/prototype-inheritance"
+                >
+                  عربي
+                </option>
+                <option
+                  value="https://javascript.info/prototype-inheritance"
+                  selected
+                >
+                  English
+                </option>
+                <option
+                  value="https://es.javascript.info/prototype-inheritance"
+                >
+                  Español
+                </option>
+                <option
+                  value="https://fr.javascript.info/prototype-inheritance"
+                >
+                  Français
+                </option>
+                <option
+                  value="https://it.javascript.info/prototype-inheritance"
+                >
+                  Italiano
+                </option>
+                <option
+                  value="https://ja.javascript.info/prototype-inheritance"
+                >
+                  日本語
+                </option>
+                <option
+                  value="https://ko.javascript.info/prototype-inheritance"
+                >
+                  한국어
+                </option>
+                <option
+                  value=prototype-inheritance"
+         prototype-inheritance"
+       prototype-inheritance"
+   
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="62"
+          max="92"
+          data-tooltip="Lesson 62 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="prototypes.html"
+                        ><span>Prototypes, inheritance</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Prototypes, inheritance",
+                            "item": "https://javascript.info/prototypes"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 24th April 2021"
+                  >
+                    <div class="updated-at__content">24th April 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Prototypal inheritance</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Prototypal inheritance" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    In programming, we often want to take something and extend
+                    it.
+                  </p>
+                  <p>
+                    For instance, we have a <code>user</code> object with its
+                    properties and methods, and want to make
+                    <code>admin</code> and <code>guest</code> as slightly
+                    modified variants of it. We’d like to reuse what we have in
+                    <code>user</code>, not copy/reimplement its methods, just
+                    build a new object on top of it.
+                  </p>
+                  <p>
+                    <em>Prototypal inheritance</em> is a language feature that
+                    helps in that.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="prototype"
+                      href="prototype-inheritance.html#prototype"
+                      >[[Prototype]]</a
+                    >
+                  </h2>
+                  <p>
+                    In JavaScript, objects have a special hidden property
+                    <code>[[Prototype]]</code> (as named in the specification),
+                    that is either <code>null</code> or references another
+                    object. That object is called “a prototype”:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 191px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 78.53403141361257%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/prototype-inheritance/object-prototype-empty.svg"
+                        width="191"
+                        height="150"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/prototype-inheritance/object-prototype-empty.svg"
+                          alt=""
+                          width="191"
+                          height="150"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    When we read a property from <code>object</code>, and it’s
+                    missing, JavaScript automatically takes it from the
+                    prototype. In programming, this is called “prototypal
+                    inheritance”. And soon we’ll study many examples of such
+                    inheritance, as well as cooler language features built upon
+                    it.
+                  </p>
+                  <p>
+                    The property <code>[[Prototype]]</code> is internal and
+                    hidden, but there are many ways to set it.
+                  </p>
+                  <p>
+                    One of them is to use the special name
+                    <code>__proto__</code>, like this:
+                  </p>
+                  <div
+                    id="0fv7x7kbx8"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":7,"end":7}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let animal = {
+  eats: true
+};
+let rabbit = {
+  jumps: true
+};
+
+rabbit.__proto__ = animal; // sets rabbit.[[Prototype]] = animal</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now if we read a property from <code>rabbit</code>, and it’s
+                    missing, JavaScript will automatically take it from
+                    <code>animal</code>.
+                  </p>
+                  <p>For instance:</p>
+                  <div
+                    id="1zfrggzjba"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":10,"end":10},{"start":7,"end":7}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let animal = {
+  eats: true
+};
+let rabbit = {
+  jumps: true
+};
+
+rabbit.__proto__ = animal; // (*)
+
+// we can find both properties in rabbit now:
+alert( rabbit.eats ); // true (**)
+alert( rabbit.jumps ); // true</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here the line <code>(*)</code> sets <code>animal</code> to
+                    be a prototype of <code>rabbit</code>.
+                  </p>
+                  <p>
+                    Then, when <code>alert</code> tries to read property
+                    <code>rabbit.eats</code> <code>(**)</code>, it’s not in
+                    <code>rabbit</code>, so JavaScript follows the
+                    <code>[[Prototype]]</code> reference and finds it in
+                    <code>animal</code> (look from the bottom up):
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 191px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 78.53403141361257%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/prototype-inheritance/proto-animal-rabbit.svg"
+                        width="191"
+                        height="150"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/prototype-inheritance/proto-animal-rabbit.svg"
+                          alt=""
+                          width="191"
+                          height="150"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    Here we can say that &quot;<code>animal</code> is the
+                    prototype of <code>rabbit</code>&quot; or &quot;<code
+                      >rabbit</code
+                    >
+                    prototypically inherits from <code>animal</code>&quot;.
+                  </p>
+                  <p>
+                    So if <code>animal</code> has a lot of useful properties and
+                    methods, then they become automatically available in
+                    <code>rabbit</code>. Such properties are called “inherited”.
+                  </p>
+                  <p>
+                    If we have a method in <code>animal</code>, it can be called
+                    on <code>rabbit</code>:
+                  </p>
+                  <div
+                    id="6jr2u09tii"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":13,"end":13},{"start":2,"end":4}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let animal = {
+  eats: true,
+  walk() {
+    alert(&quot;Animal walk&quot;);
+  }
+};
+
+let rabbit = {
+  jumps: true,
+  __proto__: animal
+};
+
+// walk is taken from the prototype
+rabbit.walk(); // Animal walk</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The method is automatically taken from the prototype, like
+                    this:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 205px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 84.39024390243902%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/prototype-inheritance/proto-animal-rabbit-walk.svg"
+                        width="205"
+                        height="173"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/prototype-inheritance/proto-animal-rabbit-walk.svg"
+                          alt=""
+                          width="205"
+                          height="173"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>The prototype chain can be longer:</p>
+                  <div
+                    id="1812zoy2nf"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":14,"end":14},{"start":9,"end":9}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let animal = {
+  eats: true,
+  walk() {
+    alert(&quot;Animal walk&quot;);
+  }
+};
+
+let rabbit = {
+  jumps: true,
+  __proto__: animal
+};
+
+let longEar = {
+  earLength: 10,
+  __proto__: rabbit
+};
+
+// walk is taken from the prototype chain
+longEar.walk(); // Animal walk
+alert(longEar.jumps); // true (from rabbit)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <figure>
+                    <div class="image" style="width: 206px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 125.24271844660196%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/prototype-inheritance/proto-animal-rabbit-chain.svg"
+                        width="206"
+                        height="258"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/prototype-inheritance/proto-animal-rabbit-chain.svg"
+                          alt=""
+                          width="206"
+                          height="258"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    Now if we read something from <code>longEar</code>, and it’s
+                    missing, JavaScript will look for it in <code>rabbit</code>,
+                    and then in <code>animal</code>.
+                  </p>
+                  <p>There are only two limitations:</p>
+                  <ol>
+                    <li>
+                      The references can’t go in circles. JavaScript will throw
+                      an error if we try to assign <code>__proto__</code> in a
+                      circle.
+                    </li>
+                    <li>
+                      The value of <code>__proto__</code> can be either an
+                      object or <code>null</code>. Other types are ignored.
+                    </li>
+                  </ol>
+                  <p>
+                    Also it may be obvious, but still: there can be only one
+                    <code>[[Prototype]]</code>. An object may not inherit from
+                    two others.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        ><code>__proto__</code> is a historical getter/setter
+                        for <code>[[Prototype]]</code></span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        It’s a common mistake of novice developers not to know
+                        the difference between these two.
+                      </p>
+                      <p>
+                        Please note that <code>__proto__</code> is
+                        <em>not the same</em> as the internal
+                        <code>[[Prototype]]</code> property. It’s a
+                        getter/setter for <code>[[Prototype]]</code>. Later
+                        we’ll see situations where it matters, for now let’s
+                        just keep it in mind, as we build our understanding of
+                        JavaScript language.
+                      </p>
+                      <p>
+                        The <code>__proto__</code> property is a bit outdated.
+                        It exists for historical reasons, modern JavaScript
+                        suggests that we should use
+                        <code>Object.getPrototypeOf/Object.setPrototypeOf</code>
+                        functions instead that get/set the prototype. We’ll also
+                        cover these functions later.
+                      </p>
+                      <p>
+                        By the specification, <code>__proto__</code> must only
+                        be supported by browsers. In fact though, all
+                        environments including server-side support
+                        <code>__proto__</code>, so we’re quite safe using it.
+                      </p>
+                      <p>
+                        As the <code>__proto__</code> notation is a bit more
+                        intuitively obvious, we use it in the examples.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="writing-doesn-t-use-prototype"
+                      href="prototype-inheritance.html#writing-doesn-t-use-prototype"
+                      >Writing doesn’t use prototype</a
+                    >
+                  </h2>
+                  <p>The prototype is only used for reading properties.</p>
+                  <p>Write/delete operations work directly with the object.</p>
+                  <p>
+                    In the example below, we assign its own
+                    <code>walk</code> method to <code>rabbit</code>:
+                  </p>
+                  <div
+                    id="zf7e6dmpdw"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":11,"end":13}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let animal = {
+  eats: true,
+  walk() {
+    /* this method won't be used by rabbit */
+  }
+};
+
+let rabbit = {
+  __proto__: animal
+};
+
+rabbit.walk = function() {
+  alert(&quot;Rabbit! Bounce-bounce!&quot;);
+};
+
+rabbit.walk(); // Rabbit! Bounce-bounce!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    From now on, <code>rabbit.walk()</code> call finds the
+                    method immediately in the object and executes it, without
+                    using the prototype:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 202px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 85.64356435643565%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/prototype-inheritance/proto-animal-rabbit-walk-2.svg"
+                        width="202"
+                        height="173"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/prototype-inheritance/proto-animal-rabbit-walk-2.svg"
+                          alt=""
+                          width="202"
+                          height="173"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    Accessor properties are an exception, as assignment is
+                    handled by a setter function. So writing to such a property
+                    is actually the same as calling a function.
+                  </p>
+                  <p>
+                    For that reason <code>admin.fullName</code> works correctly
+                    in the code below:
+                  </p>
+                  <div id="0175qqen28" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  surname: &quot;Smith&quot;,
+
+  set fullName(value) {
+    [this.name, this.surname] = value.split(&quot; &quot;);
+  },
+
+  get fullName() {
+    return `${this.name} ${this.surname}`;
+  }
+};
+
+let admin = {
+  __proto__: user,
+  isAdmin: true
+};
+
+alert(admin.fullName); // John Smith (*)
+
+// setter triggers!
+admin.fullName = &quot;Alice Cooper&quot;; // (**)
+
+alert(admin.fullName); // Alice Cooper, state of admin modified
+alert(user.fullName); // John Smith, state of user protected</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here in the line <code>(*)</code> the property
+                    <code>admin.fullName</code> has a getter in the prototype
+                    <code>user</code>, so it is called. And in the line
+                    <code>(**)</code> the property has a setter in the
+                    prototype, so it is called.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="the-value-of-this"
+                      href="prototype-inheritance.html#the-value-of-this"
+                      >The value of “this”</a
+                    >
+                  </h2>
+                  <p>
+                    An interesting question may arise in the example above:
+                    what’s the value of <code>this</code> inside
+                    <code>set fullName(value)</code>? Where are the properties
+                    <code>this.name</code> and
+                    <code>this.surname</code> written: into <code>user</code> or
+                    <code>admin</code>?
+                  </p>
+                  <p>
+                    The answer is simple: <code>this</code> is not affected by
+                    prototypes at all.
+                  </p>
+                  <p>
+                    <strong
+                      >No matter where the method is found: in an object or its
+                      prototype. In a method call, <code>this</code> is always
+                      the object before the dot.</strong
+                    >
+                  </p>
+                  <p>
+                    So, the setter call <code>admin.fullName=</code> uses
+                    <code>admin</code> as <code>this</code>, not
+                    <code>user</code>.
+                  </p>
+                  <p>
+                    That is actually a super-important thing, because we may
+                    have a big object with many methods, and have objects that
+                    inherit from it. And when the inheriting objects run the
+                    inherited methods, they will modify only their own states,
+                    not the state of the big object.
+                  </p>
+                  <p>
+                    For instance, here <code>animal</code> represents a “method
+                    storage”, and <code>rabbit</code> makes use of it.
+                  </p>
+                  <p>
+                    The call <code>rabbit.sleep()</code> sets
+                    <code>this.isSleeping</code> on the
+                    <code>rabbit</code> object:
+                  </p>
+                  <div id="fcs1xin0ht" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// animal has methods
+let animal = {
+  walk() {
+    if (!this.isSleeping) {
+      alert(`I walk`);
+    }
+  },
+  sleep() {
+    this.isSleeping = true;
+  }
+};
+
+let rabbit = {
+  name: &quot;White Rabbit&quot;,
+  __proto__: animal
+};
+
+// modifies rabbit.isSleeping
+rabbit.sleep();
+
+alert(rabbit.isSleeping); // true
+alert(animal.isSleeping); // undefined (no such property in the prototype)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>The resulting picture:</p>
+                  <figure>
+                    <div class="image" style="width: 206px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 92.23300970873787%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/prototype-inheritance/proto-animal-rabbit-walk-3.svg"
+                        width="206"
+                        height="190"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/prototype-inheritance/proto-animal-rabbit-walk-3.svg"
+                          alt=""
+                          width="206"
+                          height="190"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    If we had other objects, like <code>bird</code>,
+                    <code>snake</code>, etc., inheriting from
+                    <code>animal</code>, they would also gain access to methods
+                    of <code>animal</code>. But <code>this</code> in each method
+                    call would be the corresponding object, evaluated at the
+                    call-time (before dot), not <code>animal</code>. So when we
+                    write data into <code>this</code>, it is stored into these
+                    objects.
+                  </p>
+                  <p>
+                    As a result, methods are shared, but the object state is
+                    not.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="for-in-loop"
+                      href="prototype-inheritance.html#for-in-loop"
+                      >for…in loop</a
+                    >
+                  </h2>
+                  <p>
+                    The <code>for..in</code> loop iterates over inherited
+                    properties too.
+                  </p>
+                  <p>For instance:</p>
+                  <div
+                    id="8d0v2ze6ia"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":12,"end":13},{"start":9,"end":10}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let animal = {
+  eats: true
+};
+
+let rabbit = {
+  jumps: true,
+  __proto__: animal
+};
+
+// Object.keys only returns own keys
+alert(Object.keys(rabbit)); // jumps
+
+// for..in loops over both own and inherited keys
+for(let prop in rabbit) alert(prop); // jumps, then eats</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    If that’s not what we want, and we’d like to exclude
+                    inherited properties, there’s a built-in method
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty"
+                      >obj.hasOwnProperty(key)</a
+                    >: it returns <code>true</code> if <code>obj</code> has its
+                    own (not inherited) property named <code>key</code>.
+                  </p>
+                  <p>
+                    So we can filter out inherited properties (or do something
+                    else with them):
+                  </p>
+                  <div id="s5lxqu2jc5" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="prototype-inheritance.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let animal = {
+  eats: true
+};
+
+let rabbit = {
+  jumps: true,
+  __proto__: animal
+};
+
+for(let prop in rabbit) {
+  let isOwn = rabbit.hasOwnProperty(prop);
+
+  if (isOwn) {
+    alert(`Our: ${prop}`); // Our: jumps
+  } else {
+    alert(`Inherited: ${prop}`); // Inherited: eats
+  }
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here we have the following inheritance chain:
+                    <code>rabbit</code> inherits from <code>animal</code>, that
+                    inherits from <code>Object.prototype</code> (because
+                    <code>animal</code> is a literal object <code>{...}</code>,
+                    so it’s by default), and then <code>null</code> above it:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 233px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 147.6394849785408%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/prototype-inheritance/rabbit-animal-object.svg"
+                        width="233"
+                        height="344"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/prototype-inheritance/rabbit-animal-object.svg"
+                          alt=""
+                          width="233"
+                          height="344"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    Note, there’s one funny thing. Where is the method
+                    <code>rabbit.hasOwnProperty</code> coming from? We did not
+                    define it. Looking at the chain we can see that the method
+                    is provided by <code>Object.prototype.hasOwnProperty</code>.
+                    In other words, it’s inherited.
+                  </p>
+                  <p>
+                    …But why does <code>hasOwnProperty</code> not appear in the
+                    <code>for..in</code> loop like <code>eats</code> and
+                    <code>jumps</code> do, if <code>for..in</code> lists
+                    inherited properties?
+                  </p>
+                  <p>
+                    The answer is simple: it’s not enumerable. Just like all
+                    other properties of <code>Object.prototype</code>, it has
+                    <code>enumerable:false</code> flag. And
+                    <code>for..in</code> only lists enumerable properties.
+                    That’s why it and the rest of the
+                    <code>Object.prototype</code> properties are not listed.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Almost all other key/value-getting methods ignore
+                        inherited properties</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Almost all other key/value-getting methods, such as
+                        <code>Object.keys</code>, <code>Object.values</code> and
+                        so on ignore inherited properties.
+                      </p>
+                      <p>
+                        They only operate on the object itself. Properties from
+                        the prototype are <em>not</em> taken into account.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="prototype-inheritance.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <ul>
+                    <li>
+                      In JavaScript, all objects have a hidden
+                      <code>[[Prototype]]</code> property that’s either another
+                      object or <code>null</code>.
+                    </li>
+                    <li>
+                      We can use <code>obj.__proto__</code> to access it (a
+                      historical getter/setter, there are other ways, to be
+                      covered soon).
+                    </li>
+                    <li>
+                      The object referenced by <code>[[Prototype]]</code> is
+                      called a “prototype”.
+                    </li>
+                    <li>
+                      If we want to read a property of <code>obj</code> or call
+                      a method, and it doesn’t exist, then JavaScript tries to
+                      find it in the prototype.
+                    </li>
+                    <li>
+                      Write/delete operations act directly on the object, they
+                      don’t use the prototype (assuming it’s a data property,
+                      not a setter).
+                    </li>
+                    <li>
+                      If we call <code>obj.method()</code>, and the
+                      <code>method</code> is taken from the prototype,
+                      <code>this</code> still references <code>obj</code>. So
+                      methods always work with the current object even if they
+                      are inherited.
+                    </li>
+                    <li>
+                      The <code>for..in</code> loop iterates over both its own
+                      and its inherited properties. All other key/value-getting
+                      methods only operate on the object itself.
+                    </li>
+                  </ul>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="prototype-inheritance.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="prototype-inheritance.html#working-with-prototype"
+                          name="working-with-prototype"
+                          >Working with prototype</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/property-after-delete.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Here’s the code that creates a pair of objects, then
+                          modifies them.
+                        </p>
+                        <p>Which values are shown in the process?</p>
+                        <div
+                          id="gamu784hkx"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let animal = {
+  jumps: null
+};
+let rabbit = {
+  __proto__: animal,
+  jumps: true
+};
+
+alert( rabbit.jumps ); // ? (1)
+
+delete rabbit.jumps;
+
+alert( rabbit.jumps ); // ? (2)
+
+delete animal.jumps;
+
+alert( rabbit.jumps ); // ? (3)</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>There should be 3 answers.</p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <ol>
+                              <li>
+                                <code>true</code>, taken from
+                                <code>rabbit</code>.
+                              </li>
+                              <li>
+                                <code>null</code>, taken from
+                                <code>animal</code>.
+                              </li>
+                              <li>
+                                <code>undefined</code>, there’s no such property
+                                any more.
+                              </li>
+                            </ol>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="prototype-inheritance.html#searching-algorithm"
+                          name="searching-algorithm"
+                          >Searching algorithm</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/search-algorithm.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>The task has two parts.</p>
+                        <p>Given the following objects:</p>
+                        <div
+                          id="9tt465jw8m"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let head = {
+  glasses: 1
+};
+
+let table = {
+  pen: 3
+};
+
+let bed = {
+  sheet: 1,
+  pillow: 2
+};
+
+let pockets = {
+  money: 2000
+};</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <ol>
+                          <li>
+                            Use <code>__proto__</code> to assign prototypes in a
+                            way that any property lookup will follow the path:
+                            <code>pockets</code> → <code>bed</code> →
+                            <code>table</code> → <code>head</code>. For
+                            instance, <code>pockets.pen</code> should be
+                            <code>3</code> (found in <code>table</code>), and
+                            <code>bed.glasses</code> should be
+                            <code>1</code> (found in <code>head</code>).
+                          </li>
+                          <li>
+                            Answer the question: is it faster to get
+                            <code>glasses</code> as
+                            <code>pockets.glasses</code> or
+                            <code>head.glasses</code>? Benchmark if needed.
+                          </li>
+                        </ol>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <ol>
+                              <li>
+                                <p>Let’s add <code>__proto__</code>:</p>
+                                <div
+                                  id="7n2fh2lqpw"
+                                  data-trusted="1"
+                                  class="code-example"
+                                >
+                                  <div class="codebox code-example__codebox">
+                                    <div class="toolbar codebox__toolbar">
+                                      <div class="toolbar__tool">
+                                        <a
+                                          href="prototype-inheritance.html#"
+                                          title="run"
+                                          data-action="run"
+                                          class="
+                                            toolbar__button toolbar__button_run
+                                          "
+                                        ></a>
+                                      </div>
+                                      <div class="toolbar__tool">
+                                        <a
+                                          href="prototype-inheritance.html#"
+                                          title="open in sandbox"
+                                          target="_blank"
+                                          data-action="edit"
+                                          class="
+                                            toolbar__button toolbar__button_edit
+                                          "
+                                        ></a>
+                                      </div>
+                                    </div>
+                                    <div class="codebox__code" data-code="1">
+                                      <pre
+                                        class="line-numbers language-javascript"
+                                      ><code>let head = {
+  glasses: 1
+};
+
+let table = {
+  pen: 3,
+  __proto__: head
+};
+
+let bed = {
+  sheet: 1,
+  pillow: 2,
+  __proto__: table
+};
+
+let pockets = {
+  money: 2000,
+  __proto__: bed
+};
+
+alert( pockets.pen ); // 3
+alert( bed.glasses ); // 1
+alert( table.money ); // undefined</code></pre>
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                              <li>
+                                <p>
+                                  In modern engines, performance-wise, there’s
+                                  no difference whether we take a property from
+                                  an object or its prototype. They remember
+                                  where the property was found and reuse it in
+                                  the next request.
+                                </p>
+                                <p>
+                                  For instance, for
+                                  <code>pockets.glasses</code> they remember
+                                  where they found <code>glasses</code> (in
+                                  <code>head</code>), and next time will search
+                                  right there. They are also smart enough to
+                                  update internal caches if something changes,
+                                  so that optimization is safe.
+                                </p>
+                              </li>
+                            </ol>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="prototype-inheritance.html#where-does-it-write"
+                          name="where-does-it-write"
+                          >Where does it write?</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/proto-and-this.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          We have <code>rabbit</code> inheriting from
+                          <code>animal</code>.
+                        </p>
+                        <p>
+                          If we call <code>rabbit.eat()</code>, which object
+                          receives the <code>full</code> property:
+                          <code>animal</code> or <code>rabbit</code>?
+                        </p>
+                        <div
+                          id="oj5qig0aup"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let animal = {
+  eat() {
+    this.full = true;
+  }
+};
+
+let rabbit = {
+  __proto__: animal
+};
+
+rabbit.eat();</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              <strong>The answer: <code>rabbit</code>.</strong>
+                            </p>
+                            <p>
+                              That’s because <code>this</code> is an object
+                              before the dot, so
+                              <code>rabbit.eat()</code> modifies
+                              <code>rabbit</code>.
+                            </p>
+                            <p>
+                              Property lookup and execution are two different
+                              things.
+                            </p>
+                            <p>
+                              The method <code>rabbit.eat</code> is first found
+                              in the prototype, then executed with
+                              <code>this=rabbit</code>.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="prototype-inheritance.html#why-are-both-hamsters-full"
+                          name="why-are-both-hamsters-full"
+                          >Why are both hamsters full?</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/hamster-proto.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          We have two hamsters: <code>speedy</code> and
+                          <code>lazy</code> inheriting from the general
+                          <code>hamster</code> object.
+                        </p>
+                        <p>
+                          When we feed one of them, the other one is also full.
+                          Why? How can we fix it?
+                        </p>
+                        <div
+                          id="6kva6ildh5"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="toolbar codebox__toolbar">
+                              <div class="toolbar__tool">
+                                <a
+                                  href="prototype-inheritance.html#"
+                                  title="run"
+                                  data-action="run"
+                                  class="toolbar__button toolbar__button_run"
+                                ></a>
+                              </div>
+                              <div class="toolbar__tool">
+                                <a
+                                  href="prototype-inheritance.html#"
+                                  title="open in sandbox"
+                                  target="_blank"
+                                  data-action="edit"
+                                  class="toolbar__button toolbar__button_edit"
+                                ></a>
+                              </div>
+                            </div>
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let hamster = {
+  stomach: [],
+
+  eat(food) {
+    this.stomach.push(food);
+  }
+};
+
+let speedy = {
+  __proto__: hamster
+};
+
+let lazy = {
+  __proto__: hamster
+};
+
+// This one found the food
+speedy.eat(&quot;apple&quot;);
+alert( speedy.stomach ); // apple
+
+// This one also has it, why? fix please.
+alert( lazy.stomach ); // apple</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              Let’s look carefully at what’s going on in the
+                              call <code>speedy.eat(&quot;apple&quot;)</code>.
+                            </p>
+                            <ol>
+                              <li>
+                                <p>
+                                  The method <code>speedy.eat</code> is found in
+                                  the prototype (<code>=hamster</code>), then
+                                  executed with <code>this=speedy</code> (the
+                                  object before the dot).
+                                </p>
+                              </li>
+                              <li>
+                                <p>
+                                  Then <code>this.stomach.push()</code> needs to
+                                  find <code>stomach</code> property and call
+                                  <code>push</code> on it. It looks for
+                                  <code>stomach</code> in
+                                  <code>this</code> (<code>=speedy</code>), but
+                                  nothing found.
+                                </p>
+                              </li>
+                              <li>
+                                <p>
+                                  Then it follows the prototype chain and finds
+                                  <code>stomach</code> in <code>hamster</code>.
+                                </p>
+                              </li>
+                              <li>
+                                <p>
+                                  Then it calls <code>push</code> on it, adding
+                                  the food into
+                                  <em>the stomach of the prototype</em>.
+                                </p>
+                              </li>
+                            </ol>
+                            <p>So all hamsters share a single stomach!</p>
+                            <p>
+                              Both for <code>lazy.stomach.push(...)</code> and
+                              <code>speedy.stomach.push()</code>, the property
+                              <code>stomach</code> is found in the prototype (as
+                              it’s not in the object itself), then the new data
+                              is pushed into it.
+                            </p>
+                            <p>
+                              Please note that such thing doesn’t happen in case
+                              of a simple assignment <code>this.stomach=</code>:
+                            </p>
+                            <div
+                              id="350qitys54"
+                              data-trusted="1"
+                              class="code-example"
+                              data-highlight='[{"start":4,"end":5}]'
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="prototype-inheritance.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="prototype-inheritance.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let hamster = {
+  stomach: [],
+
+  eat(food) {
+    // assign to this.stomach instead of this.stomach.push
+    this.stomach = [food];
+  }
+};
+
+let speedy = {
+   __proto__: hamster
+};
+
+let lazy = {
+  __proto__: hamster
+};
+
+// Speedy one found the food
+speedy.eat(&quot;apple&quot;);
+alert( speedy.stomach ); // apple
+
+// Lazy one's stomach is empty
+alert( lazy.stomach ); // &lt;nothing&gt;</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              Now all works fine, because
+                              <code>this.stomach=</code> does not perform a
+                              lookup of <code>stomach</code>. The value is
+                              written directly into <code>this</code> object.
+                            </p>
+                            <p>
+                              Also we can totally avoid the problem by making
+                              sure that each hamster has their own stomach:
+                            </p>
+                            <div
+                              id="tfwp2wh255"
+                              data-trusted="1"
+                              class="code-example"
+                              data-highlight='[{"start":15,"end":15},{"start":10,"end":10}]'
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="prototype-inheritance.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="prototype-inheritance.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let hamster = {
+  stomach: [],
+
+  eat(food) {
+    this.stomach.push(food);
+  }
+};
+
+let speedy = {
+  __proto__: hamster,
+  stomach: []
+};
+
+let lazy = {
+  __proto__: hamster,
+  stomach: []
+};
+
+// Speedy one found the food
+speedy.eat(&quot;apple&quot;);
+alert( speedy.stomach ); // apple
+
+// Lazy one's stomach is empty
+alert( lazy.stomach ); // &lt;nothing&gt;</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              As a common solution, all properties that describe
+                              the state of a particular object, like
+                              <code>stomach</code> above, should be written into
+                              that object. That prevents such problems.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="prototypes.html"
+                data-tooltip="Prototypes, inheritance"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="function-prototype.html"
+                data-tooltip="F.prototype"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fprototype-inheritance"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fprototype-inheritance"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="prototype-inheritance.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/prototype-inheritance",
+                    identifier: "\/prototype-inheritance",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="prototypes.html"
+                        >Prototypes, inheritance</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   prototype-inheritance.html#prototype"
+                        >[[Prototype]]</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   prototype-inheritance.html#writing-doesn-t-use-prototype"
+                        >Writing doesn’t use prototype</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   prototype-inheritance.html#the-value-of-this"
+                        >The value of “this”</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   prototype-inheritance.html#for-in-loop"
+                        >for…in loop</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   prototype-inheritance.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   prototype-inheritance.html#tasks"
+                        >Tasks (4)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   prototype-inheritance.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fprototype-inheritance"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fprototype-inheritance"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/08-prototypes/01-prototype-inheritance"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

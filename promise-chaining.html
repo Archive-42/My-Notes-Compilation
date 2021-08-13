@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Promises chaining</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="promise-chaining.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Promises chaining" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Promises chaining" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="promise-basics.html" />
+    <link rel="next" href="promise-error-handling.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+ 
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <script>
+      function loadScript(src) {
+        return new Promise(function (resolve, reject) {
+          let script = document.createElement("script");
+          script.src = src;
+
+          script.onload = () => resolve(script);
+          script.onerror = () => reject(new Error("Script load error: " + src));
+
+          document.head.append(script);
+        });
+      }
+    </script>
+
+    <style>
+      .promise-avatar-example {
+        border-radius: 50%;
+        position: fixed;
+        left: 10px;
+        top: 10px;
+      }
+    </style>
+    <meta property="og:title" content="Promises chaining" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/promise-chaining"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="promise-chaining.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/promise-chaining"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/promise-chaining"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/promise-chaining"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/promise-chaining"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/promise-chaining"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=promise-chaining"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/promise-chaining"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/promise-chaining"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fpromise-chaining"
+                  rel="nofollow"
+                ></a
+                >2Fpromise-chaining"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/promise-chaining">
+                  عربي
+                </option>
+                <option
+                  value="https://javascript.info/promise-chaining"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/promise-chaining">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/promise-chaining">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/promise-chaining">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/promise-chaining">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/promise-chaining">
+                  한국어
+                </option>
+                <option value=promise-chaining">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/promise-chaining">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/promise-chaining">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="77"
+          max="92"
+          data-tooltip="Lesson 77 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="async.html"
+                        ><span>Promises, async/await</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Promises, async/await",
+                            "item": "https://javascript.info/async"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 11th November 2020"
+                  >
+                    <div class="updated-at__content">11th November 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Promises chaining</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Promises chaining" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Let’s return to the problem mentioned in the chapter
+                    <a href="callbacks.html">Introduction: callbacks</a>: we
+                    have a sequence of asynchronous tasks to be performed one
+                    after another — for instance, loading scripts. How can we
+                    code it well?
+                  </p>
+                  <p>Promises provide a couple of recipes to do that.</p>
+                  <p>In this chapter we cover promise chaining.</p>
+                  <p>It looks like this:</p>
+                  <div id="593xw9z3y9" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>new Promise(function(resolve, reject) {
+
+  setTimeout(() =&gt; resolve(1), 1000); // (*)
+
+}).then(function(result) { // (**)
+
+  alert(result); // 1
+  return result * 2;
+
+}).then(function(result) { // (***)
+
+  alert(result); // 2
+  return result * 2;
+
+}).then(function(result) {
+
+  alert(result); // 4
+  return result * 2;
+
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The idea is that the result is passed through the chain of
+                    <code>.then</code> handlers.
+                  </p>
+                  <p>Here the flow is:</p>
+                  <ol>
+                    <li>
+                      The initial promise resolves in 1 second <code>(*)</code>,
+                    </li>
+                    <li>
+                      Then the <code>.then</code> handler is called
+                      <code>(**)</code>.
+                    </li>
+                    <li>
+                      The value that it returns is passed to the next
+                      <code>.then</code> handler <code>(***)</code>
+                    </li>
+                    <li>…and so on.</li>
+                  </ol>
+                  <p>
+                    As the result is passed along the chain of handlers, we can
+                    see a sequence of <code>alert</code> calls: <code>1</code> →
+                    <code>2</code> → <code>4</code>.
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 165px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 205.45454545454547%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/promise-chaining/promise-then-chain.svg"
+                        width="165"
+                        height="339"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/promise-chaining/promise-then-chain.svg"
+                          alt=""
+                          width="165"
+                          height="339"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    The whole thing works, because a call to
+                    <code>promise.then</code> returns a promise, so that we can
+                    call the next <code>.then</code> on it.
+                  </p>
+                  <p>
+                    When a handler returns a value, it becomes the result of
+                    that promise, so the next <code>.then</code> is called with
+                    it.
+                  </p>
+                  <p>
+                    <strong
+                      >A classic newbie error: technically we can also add many
+                      <code>.then</code> to a single promise. This is not
+                      chaining.</strong
+                    >
+                  </p>
+                  <p>For example:</p>
+                  <div id="gfp8jv9xfr" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = new Promise(function(resolve, reject) {
+  setTimeout(() =&gt; resolve(1), 1000);
+});
+
+promise.then(function(result) {
+  alert(result); // 1
+  return result * 2;
+});
+
+promise.then(function(result) {
+  alert(result); // 1
+  return result * 2;
+});
+
+promise.then(function(result) {
+  alert(result); // 1
+  return result * 2;
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    What we did here is just several handlers to one promise.
+                    They don’t pass the result to each other; instead they
+                    process it independently.
+                  </p>
+                  <p>
+                    Here’s the picture (compare it with the chaining above):
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 373px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 40.75067024128686%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/promise-chaining/promise-then-many.svg"
+                        width="373"
+                        height="152"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/promise-chaining/promise-then-many.svg"
+                          alt=""
+                          width="373"
+                          height="152"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    All <code>.then</code> on the same promise get the same
+                    result – the result of that promise. So in the code above
+                    all <code>alert</code> show the same: <code>1</code>.
+                  </p>
+                  <p>
+                    In practice we rarely need multiple handlers for one
+                    promise. Chaining is used much more often.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="returning-promises"
+                      href="promise-chaining.html#returning-promises"
+                      >Returning promises</a
+                    >
+                  </h2>
+                  <p>
+                    A handler, used in <code>.then(handler)</code> may create
+                    and return a promise.
+                  </p>
+                  <p>
+                    In that case further handlers wait until it settles, and
+                    then get its result.
+                  </p>
+                  <p>For instance:</p>
+                  <div
+                    id="qrrtd07hcj"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":8,"end":10}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>new Promise(function(resolve, reject) {
+
+  setTimeout(() =&gt; resolve(1), 1000);
+
+}).then(function(result) {
+
+  alert(result); // 1
+
+  return new Promise((resolve, reject) =&gt; { // (*)
+    setTimeout(() =&gt; resolve(result * 2), 1000);
+  });
+
+}).then(function(result) { // (**)
+
+  alert(result); // 2
+
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; resolve(result * 2), 1000);
+  });
+
+}).then(function(result) {
+
+  alert(result); // 4
+
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here the first <code>.then</code> shows <code>1</code> and
+                    returns <code>new Promise(…)</code> in the line
+                    <code>(*)</code>. After one second it resolves, and the
+                    result (the argument of <code>resolve</code>, here it’s
+                    <code>result * 2</code>) is passed on to handler of the
+                    second <code>.then</code>. That handler is in the line
+                    <code>(**)</code>, it shows <code>2</code> and does the same
+                    thing.
+                  </p>
+                  <p>
+                    So the output is the same as in the previous example: 1 → 2
+                    → 4, but now with 1 second delay between
+                    <code>alert</code> calls.
+                  </p>
+                  <p>
+                    Returning promises allows us to build chains of asynchronous
+                    actions.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="example-loadscript"
+                      href="promise-chaining.html#example-loadscript"
+                      >Example: loadScript</a
+                    >
+                  </h2>
+                  <p>
+                    Let’s use this feature with the promisified
+                    <code>loadScript</code>, defined in the
+                    <a href="promise-basics.html#loadscript">previous chapter</a
+                    >, to load scripts one by one, in sequence:
+                  </p>
+                  <div id="0jhz25qi1a" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>loadScript(&quot;/article/promise-chaining/one.js&quot;)
+  .then(function(script) {
+    return loadScript(&quot;/article/promise-chaining/two.js&quot;);
+  })
+  .then(function(script) {
+    return loadScript(&quot;/article/promise-chaining/three.js&quot;);
+  })
+  .then(function(script) {
+    // use functions declared in scripts
+    // to show that they indeed loaded
+    one();
+    two();
+    three();
+  });</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>This code can be made bit shorter with arrow functions:</p>
+                  <div id="t8zwa9ogiz" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>loadScript(&quot;/article/promise-chaining/one.js&quot;)
+  .then(script =&gt; loadScript(&quot;/article/promise-chaining/two.js&quot;))
+  .then(script =&gt; loadScript(&quot;/article/promise-chaining/three.js&quot;))
+  .then(script =&gt; {
+    // scripts are loaded, we can use functions declared there
+    one();
+    two();
+    three();
+  });</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here each <code>loadScript</code> call returns a promise,
+                    and the next <code>.then</code> runs when it resolves. Then
+                    it initiates the loading of the next script. So scripts are
+                    loaded one after another.
+                  </p>
+                  <p>
+                    We can add more asynchronous actions to the chain. Please
+                    note that the code is still “flat” — it grows down, not to
+                    the right. There are no signs of the “pyramid of doom”.
+                  </p>
+                  <p>
+                    Technically, we could add <code>.then</code> directly to
+                    each <code>loadScript</code>, like this:
+                  </p>
+                  <div id="qdhz04icf2" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>loadScript(&quot;/article/promise-chaining/one.js&quot;).then(script1 =&gt; {
+  loadScript(&quot;/article/promise-chaining/two.js&quot;).then(script2 =&gt; {
+    loadScript(&quot;/article/promise-chaining/three.js&quot;).then(script3 =&gt; {
+      // this function has access to variables script1, script2 and script3
+      one();
+      two();
+      three();
+    });
+  });
+});</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    This code does the same: loads 3 scripts in sequence. But it
+                    “grows to the right”. So we have the same problem as with
+                    callbacks.
+                  </p>
+                  <p>
+                    People who start to use promises sometimes don’t know about
+                    chaining, so they write it this way. Generally, chaining is
+                    preferred.
+                  </p>
+                  <p>
+                    Sometimes it’s ok to write <code>.then</code> directly,
+                    because the nested function has access to the outer scope.
+                    In the example above the most nested callback has access to
+                    all variables <code>script1</code>, <code>script2</code>,
+                    <code>script3</code>. But that’s an exception rather than a
+                    rule.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Thenables</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        To be precise, a handler may return not exactly a
+                        promise, but a so-called “thenable” object – an
+                        arbitrary object that has a method <code>.then</code>.
+                        It will be treated the same way as a promise.
+                      </p>
+                      <p>
+                        The idea is that 3rd-party libraries may implement
+                        “promise-compatible” objects of their own. They can have
+                        an extended set of methods, but also be compatible with
+                        native promises, because they implement
+                        <code>.then</code>.
+                      </p>
+                      <p>Here’s an example of a thenable object:</p>
+                      <div
+                        id="sbt6mti6yt"
+                        data-trusted="1"
+                        class="code-example"
+                        data-highlight='[{"start":13,"end":13}]'
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="promise-chaining.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="promise-chaining.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>class Thenable {
+  constructor(num) {
+    this.num = num;
+  }
+  then(resolve, reject) {
+    alert(resolve); // function() { native code }
+    // resolve with this.num*2 after the 1 second
+    setTimeout(() =&gt; resolve(this.num * 2), 1000); // (**)
+  }
+}
+
+new Promise(resolve =&gt; resolve(1))
+  .then(result =&gt; {
+    return new Thenable(result); // (*)
+  })
+  .then(alert); // shows 2 after 1000ms</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        JavaScript checks the object returned by the
+                        <code>.then</code> handler in line <code>(*)</code>: if
+                        it has a callable method named <code>then</code>, then
+                        it calls that method providing native functions
+                        <code>resolve</code>, <code>reject</code> as arguments
+                        (similar to an executor) and waits until one of them is
+                        called. In the example above <code>resolve(2)</code> is
+                        called after 1 second <code>(**)</code>. Then the result
+                        is passed further down the chain.
+                      </p>
+                      <p>
+                        This feature allows us to integrate custom objects with
+                        promise chains without having to inherit from
+                        <code>Promise</code>.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="bigger-example-fetch"
+                      href="promise-chaining.html#bigger-example-fetch"
+                      >Bigger example: fetch</a
+                    >
+                  </h2>
+                  <p>
+                    In frontend programming promises are often used for network
+                    requests. So let’s see an extended example of that.
+                  </p>
+                  <p>
+                    We’ll use the <a href="fetch.html">fetch</a> method to load
+                    the information about the user from the remote server. It
+                    has a lot of optional parameters covered in
+                    <a href="fetch.html">separate chapters</a>, but the basic
+                    syntax is quite simple:
+                  </p>
+                  <div id="lyz56fw0c7" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let promise = fetch(url);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    This makes a network request to the <code>url</code> and
+                    returns a promise. The promise resolves with a
+                    <code>response</code> object when the remote server responds
+                    with headers, but
+                    <em>before the full response is downloaded</em>.
+                  </p>
+                  <p>
+                    To read the full response, we should call the method
+                    <code>response.text()</code>: it returns a promise that
+                    resolves when the full text is downloaded from the remote
+                    server, with that text as a result.
+                  </p>
+                  <p>
+                    The code below makes a request to <code>user.json</code> and
+                    loads its text from the server:
+                  </p>
+                  <div id="ihzd9471xh" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>fetch('/article/promise-chaining/user.json')
+  // .then below runs when the remote server responds
+  .then(function(response) {
+    // response.text() returns a new promise that resolves with the full response text
+    // when it loads
+    return response.text();
+  })
+  .then(function(text) {
+    // ...and here's the content of the remote file
+    alert(text); // {&quot;name&quot;: &quot;iliakan&quot;, &quot;isAdmin&quot;: true}
+  });</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The <code>response</code> object returned from
+                    <code>fetch</code> also includes the method
+                    <code>response.json()</code> that reads the remote data and
+                    parses it as JSON. In our case that’s even more convenient,
+                    so let’s switch to it.
+                  </p>
+                  <p>We’ll also use arrow functions for brevity:</p>
+                  <div id="xm3yu9c4xg" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// same as above, but response.json() parses the remote content as JSON
+fetch('/article/promise-chaining/user.json')
+  .then(response =&gt; response.json())
+  .then(user =&gt; alert(user.name)); // iliakan, got user name</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Now let’s do something with the loaded user.</p>
+                  <p>
+                    For instance, we can make one more request to GitHub, load
+                    the user profile and show the avatar:
+                  </p>
+                  <div id="icwhn948t9" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// Make a request for user.json
+fetch('/article/promise-chaining/user.json')
+  // Load it as json
+  .then(response =&gt; response.json())
+  // Make a request to GitHub
+  .then(user =&gt; fetch(`https://api.github.com/users/${user.name}`))
+  // Load the response as json
+  .then(response =&gt; response.json())
+  // Show the avatar image (githubUser.avatar_url) for 3 seconds (maybe animate it)
+  .then(githubUser =&gt; {
+    let img = document.createElement('img');
+    img.src = githubUser.avatar_url;
+    img.className = &quot;promise-avatar-example&quot;;
+    document.body.append(img);
+
+    setTimeout(() =&gt; img.remove(), 3000); // (*)
+  });</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The code works; see comments about the details. However,
+                    there’s a potential problem in it, a typical error for those
+                    who begin to use promises.
+                  </p>
+                  <p>
+                    Look at the line <code>(*)</code>: how can we do something
+                    <em>after</em> the avatar has finished showing and gets
+                    removed? For instance, we’d like to show a form for editing
+                    that user or something else. As of now, there’s no way.
+                  </p>
+                  <p>
+                    To make the chain extendable, we need to return a promise
+                    that resolves when the avatar finishes showing.
+                  </p>
+                  <p>Like this:</p>
+                  <div
+                    id="16z7auwfh4"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":12,"end":12},{"start":4,"end":4}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>fetch('/article/promise-chaining/user.json')
+  .then(response =&gt; response.json())
+  .then(user =&gt; fetch(`https://api.github.com/users/${user.name}`))
+  .then(response =&gt; response.json())
+  .then(githubUser =&gt; new Promise(function(resolve, reject) { // (*)
+    let img = document.createElement('img');
+    img.src = githubUser.avatar_url;
+    img.className = &quot;promise-avatar-example&quot;;
+    document.body.append(img);
+
+    setTimeout(() =&gt; {
+      img.remove();
+      resolve(githubUser); // (**)
+    }, 3000);
+  }))
+  // triggers after 3 seconds
+  .then(githubUser =&gt; alert(`Finished showing ${githubUser.name}`));</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    That is, the <code>.then</code> handler in line
+                    <code>(*)</code> now returns <code>new Promise</code>, that
+                    becomes settled only after the call of
+                    <code>resolve(githubUser)</code> in <code>setTimeout</code>
+                    <code>(**)</code>. The next <code>.then</code> in the chain
+                    will wait for that.
+                  </p>
+                  <p>
+                    As a good practice, an asynchronous action should always
+                    return a promise. That makes it possible to plan actions
+                    after it; even if we don’t plan to extend the chain now, we
+                    may need it later.
+                  </p>
+                  <p>Finally, we can split the code into reusable functions:</p>
+                  <div id="5efeqhma85" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promise-chaining.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function loadJson(url) {
+  return fetch(url)
+    .then(response =&gt; response.json());
+}
+
+function loadGithubUser(name) {
+  return fetch(`https://api.github.com/users/${name}`)
+    .then(response =&gt; response.json());
+}
+
+function showAvatar(githubUser) {
+  return new Promise(function(resolve, reject) {
+    let img = document.createElement('img');
+    img.src = githubUser.avatar_url;
+    img.className = &quot;promise-avatar-example&quot;;
+    document.body.append(img);
+
+    setTimeout(() =&gt; {
+      img.remove();
+      resolve(githubUser);
+    }, 3000);
+  });
+}
+
+// Use them:
+loadJson('/article/promise-chaining/user.json')
+  .then(user =&gt; loadGithubUser(user.name))
+  .then(showAvatar)
+  .then(githubUser =&gt; alert(`Finished showing ${githubUser.name}`));
+  // ...</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="promise-chaining.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    If a <code>.then</code> (or <code>catch/finally</code>,
+                    doesn’t matter) handler returns a promise, the rest of the
+                    chain waits until it settles. When it does, its result (or
+                    error) is passed further.
+                  </p>
+                  <p>Here’s a full picture:</p>
+                  <figure>
+                    <div class="image" style="width: 659px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 53.110773899848255%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/promise-chaining/promise-handler-variants.svg"
+                        width="659"
+                        height="350"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/promise-chaining/promise-handler-variants.svg"
+                          alt=""
+                          width="659"
+                          height="350"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="promise-chaining.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="promise-chaining.html#promise-then-versus-catch"
+                          name="promise-then-versus-catch"
+                          >Promise: then versus catch</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/then-vs-catch.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note"></div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Are these code fragments equal? In other words, do
+                          they behave the same way in any circumstances, for any
+                          handler functions?
+                        </p>
+                        <div
+                          id="4m0dh1w64c"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>promise.then(f1).catch(f2);</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>Versus:</p>
+                        <div
+                          id="bqtk46gxe5"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>promise.then(f1, f2);</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              The short answer is:
+                              <strong>no, they are not equal</strong>:
+                            </p>
+                            <p>
+                              The difference is that if an error happens in
+                              <code>f1</code>, then it is handled by
+                              <code>.catch</code> here:
+                            </p>
+                            <div
+                              id="q4p8t36knx"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="promise-chaining.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="promise-chaining.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>promise
+  .then(f1)
+  .catch(f2);</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>…But not here:</p>
+                            <div
+                              id="408rfqboet"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="promise-chaining.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="promise-chaining.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>promise
+  .then(f1, f2);</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              That’s because an error is passed down the chain,
+                              and in the second code piece there’s no chain
+                              below <code>f1</code>.
+                            </p>
+                            <p>
+                              In other words, <code>.then</code> passes
+                              results/errors to the next
+                              <code>.then/catch</code>. So in the first example,
+                              there’s a <code>catch</code> below, and in the
+                              second one there isn’t, so the error is unhandled.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="promise-basics.html"
+                data-tooltip="Promise"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="promise-error-handling.html"
+                data-tooltip="Error handling with promises"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fpromise-chaining"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fpromise-chaining"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="promise-chaining.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/promise-chaining",
+                    identifier: "\/promise-chaining",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="async.html"
+                        >Promises, async/await</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   promise-chaining.html#returning-promises"
+                        >Returning promises</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   promise-chaining.html#example-loadscript"
+                        >Example: loadScript</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   promise-chaining.html#bigger-example-fetch"
+                        >Bigger example: fetch</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   promise-chaining.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   promise-chaining.html#tasks"
+                        >Tasks (1)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   promise-chaining.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fpromise-chaining"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fpromise-chaining"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/11-async/03-promise-chaining"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

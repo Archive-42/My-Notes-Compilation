@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Object references and copying</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="object-copy.html"
+    />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Object references and copying" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Object references and copying" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="object.html" />
+    <link rel="next" href="garbage-collection.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Object references and copying" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/object-copy"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="object-copy.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/object-copy"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/object-copy"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/object-copy"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/object-copy"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/object-copy"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=object-copy"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/object-copy"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span>简体中文</span></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a>
+                        the content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fobject-copy"
+                  rel="nofollow"
+                ></a
+                >2Fobject-copy"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/object-copy">
+                  عربي
+                </option>
+                <option value="https://javascript.info/object-copy" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/object-copy">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/object-copy">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/object-copy">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/object-copy">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/object-copy">
+                  한국어
+                </option>
+                <option value=object-copy">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/">Türkçe</option>
+                <option value="https://zh.javascript.info/object-copy">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="30"
+          max="92"
+          data-tooltip="Lesson 30 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="object-basics.html"
+                        ><span>Objects: the basics</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Objects: the basics",
+                            "item": "https://javascript.info/object-basics"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 12th March 2021"
+                  >
+                    <div class="updated-at__content">12th March 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">
+                  Object references and copying
+                </h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Object references and copying" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    One of the fundamental differences of objects versus
+                    primitives is that objects are stored and copied “by
+                    reference”, whereas primitive values: strings, numbers,
+                    booleans, etc – are always copied “as a whole value”.
+                  </p>
+                  <p>
+                    That’s easy to understand if we look a bit under the hood of
+                    what happens when we copy a value.
+                  </p>
+                  <p>Let’s start with a primitive, such as a string.</p>
+                  <p>
+                    Here we put a copy of <code>message</code> into
+                    <code>phrase</code>:
+                  </p>
+                  <div id="x8cs4uvp3p" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let message = &quot;Hello!&quot;;
+let phrase = message;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As a result we have two independent variables, each one
+                    storing the string <code>&quot;Hello!&quot;</code>.
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 359px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 39.83286908077994%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/object-copy/variable-copy-value.svg"
+                        width="359"
+                        height="143"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/object-copy/variable-copy-value.svg"
+                          alt=""
+                          width="359"
+                          height="143"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>Quite an obvious result, right?</p>
+                  <p>Objects are not like that.</p>
+                  <p>
+                    <strong
+                      >A variable assigned to an object stores not the object
+                      itself, but its “address in memory” – in other words “a
+                      reference” to it.</strong
+                    >
+                  </p>
+                  <p>Let’s look at an example of such a variable:</p>
+                  <div id="lzl01zjkua" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>And here’s how it’s actually stored in memory:</p>
+                  <figure>
+                    <div class="image" style="width: 370px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 67.29729729729729%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/object-copy/variable-contains-reference.svg"
+                        width="370"
+                        height="249"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/object-copy/variable-contains-reference.svg"
+                          alt=""
+                          width="370"
+                          height="249"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    The object is stored somewhere in memory (at the right of
+                    the picture), while the <code>user</code> variable (at the
+                    left) has a “reference” to it.
+                  </p>
+                  <p>
+                    We may think of an object variable, such as
+                    <code>user</code>, as like a sheet of paper with the address
+                    of the object on it.
+                  </p>
+                  <p>
+                    When we perform actions with the object, e.g. take a
+                    property <code>user.name</code>, the JavaScript engine looks
+                    at what’s at that address and performs the operation on the
+                    actual object.
+                  </p>
+                  <p>Now here’s why it’s important.</p>
+                  <p>
+                    <strong
+                      >When an object variable is copied, the reference is
+                      copied, but the object itself is not duplicated.</strong
+                    >
+                  </p>
+                  <p>For instance:</p>
+                  <div id="axrk0y8hcb" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = { name: &quot;John&quot; };
+
+let admin = user; // copy the reference</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now we have two variables, each storing a reference to the
+                    same object:
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 599px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 43.40567612687813%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/object-copy/variable-copy-reference.svg"
+                        width="599"
+                        height="260"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/object-copy/variable-copy-reference.svg"
+                          alt=""
+                          width="599"
+                          height="260"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    As you can see, there’s still one object, but now with two
+                    variables that reference it.
+                  </p>
+                  <p>
+                    We can use either variable to access the object and modify
+                    its contents:
+                  </p>
+                  <div
+                    id="phbgjrctv5"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":6,"cols":[{"start":6,"end":15}]},{"start":4,"end":4}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = { name: 'John' };
+
+let admin = user;
+
+admin.name = 'Pete'; // changed by the &quot;admin&quot; reference
+
+alert(user.name); // 'Pete', changes are seen from the &quot;user&quot; reference</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    It’s as if we had a cabinet with two keys and used one of
+                    them (<code>admin</code>) to get into it and make changes.
+                    Then, if we later use another key (<code>user</code>), we
+                    are still opening the same cabinet and can access the
+                    changed contents.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="comparison-by-reference"
+                      href="object-copy.html#comparison-by-reference"
+                      >Comparison by reference</a
+                    >
+                  </h2>
+                  <p>Two objects are equal only if they are the same object.</p>
+                  <p>
+                    For instance, here <code>a</code> and
+                    <code>b</code> reference the same object, thus they are
+                    equal:
+                  </p>
+                  <div id="1b6td7bz5i" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let a = {};
+let b = a; // copy the reference
+
+alert( a == b ); // true, both variables reference the same object
+alert( a === b ); // true</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    And here two independent objects are not equal, even though
+                    they look alike (both are empty):
+                  </p>
+                  <div id="d90du4lsnj" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let a = {};
+let b = {}; // two independent objects
+
+alert( a == b ); // false</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    For comparisons like <code>obj1 &gt; obj2</code> or for a
+                    comparison against a primitive <code>obj == 5</code>,
+                    objects are converted to primitives. We’ll study how object
+                    conversions work very soon, but to tell the truth, such
+                    comparisons are needed very rarely – usually they appear as
+                    a result of a programming mistake.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="cloning-and-merging-object-assign"
+                      href="object-copy.html#cloning-and-merging-object-assign"
+                      >Cloning and merging, Object.assign</a
+                    >
+                  </h2>
+                  <p>
+                    So, copying an object variable creates one more reference to
+                    the same object.
+                  </p>
+                  <p>
+                    But what if we need to duplicate an object? Create an
+                    independent copy, a clone?
+                  </p>
+                  <p>
+                    That’s also doable, but a little bit more difficult, because
+                    there’s no built-in method for that in JavaScript. But there
+                    is rarely a need – copying by reference is good most of the
+                    time.
+                  </p>
+                  <p>
+                    But if we really want that, then we need to create a new
+                    object and replicate the structure of the existing one by
+                    iterating over its properties and copying them on the
+                    primitive level.
+                  </p>
+                  <p>Like this:</p>
+                  <div
+                    id="3qs59wv32n"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":5,"end":10}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  age: 30
+};
+
+let clone = {}; // the new empty object
+
+// let's copy all user properties into it
+for (let key in user) {
+  clone[key] = user[key];
+}
+
+// now clone is a fully independent object with the same content
+clone.name = &quot;Pete&quot;; // changed the data in it
+
+alert( user.name ); // still John in the original object</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Also we can use the method
+                    <a
+                      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign"
+                      >Object.assign</a
+                    >
+                    for that.
+                  </p>
+                  <p>The syntax is:</p>
+                  <div id="cfs9rgvy6l" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>Object.assign(dest, [src1, src2, src3...])</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>
+                      The first argument <code>dest</code> is a target object.
+                    </li>
+                    <li>
+                      Further arguments <code>src1, ..., srcN</code> (can be as
+                      many as needed) are source objects.
+                    </li>
+                    <li>
+                      It copies the properties of all source objects
+                      <code>src1, ..., srcN</code> into the target
+                      <code>dest</code>. In other words, properties of all
+                      arguments starting from the second are copied into the
+                      first object.
+                    </li>
+                    <li>The call returns <code>dest</code>.</li>
+                  </ul>
+                  <p>
+                    For instance, we can use it to merge several objects into
+                    one:
+                  </p>
+                  <div
+                    id="zg7l0t953x"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":5,"end":6}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = { name: &quot;John&quot; };
+
+let permissions1 = { canView: true };
+let permissions2 = { canEdit: true };
+
+// copies all properties from permissions1 and permissions2 into user
+Object.assign(user, permissions1, permissions2);
+
+// now user = { name: &quot;John&quot;, canView: true, canEdit: true }</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    If the copied property name already exists, it gets
+                    overwritten:
+                  </p>
+                  <div id="bna2grmgeh" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = { name: &quot;John&quot; };
+
+Object.assign(user, { name: &quot;Pete&quot; });
+
+alert(user.name); // now user = { name: &quot;Pete&quot; }</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    We also can use <code>Object.assign</code> to replace
+                    <code>for..in</code> loop for simple cloning:
+                  </p>
+                  <div
+                    id="zfh09e14bk"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":5,"end":5}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  age: 30
+};
+
+let clone = Object.assign({}, user);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    It copies all properties of <code>user</code> into the empty
+                    object and returns it.
+                  </p>
+                  <p>
+                    There are also other methods of cloning an object, e.g.
+                    using the
+                    <a href="rest-parameters-spread.html">spread syntax</a>
+                    <code>clone = {...user}</code>, covered later in the
+                    tutorial.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="nested-cloning"
+                      href="object-copy.html#nested-cloning"
+                      >Nested cloning</a
+                    >
+                  </h2>
+                  <p>
+                    Until now we assumed that all properties of
+                    <code>user</code> are primitive. But properties can be
+                    references to other objects. What to do with them?
+                  </p>
+                  <p>Like this:</p>
+                  <div id="s21yb7m5es" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  sizes: {
+    height: 182,
+    width: 50
+  }
+};
+
+alert( user.sizes.height ); // 182</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now it’s not enough to copy
+                    <code>clone.sizes = user.sizes</code>, because the
+                    <code>user.sizes</code> is an object, it will be copied by
+                    reference. So <code>clone</code> and <code>user</code> will
+                    share the same sizes:
+                  </p>
+                  <p>Like this:</p>
+                  <div id="ka4js49bx1" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-copy.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  sizes: {
+    height: 182,
+    width: 50
+  }
+};
+
+let clone = Object.assign({}, user);
+
+alert( user.sizes === clone.sizes ); // true, same object
+
+// user and clone share sizes
+user.sizes.width++;       // change a property from one place
+alert(clone.sizes.width); // 51, see the result from the other one</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    To fix that, we should use a cloning loop that examines each
+                    value of <code>user[key]</code> and, if it’s an object, then
+                    replicate its structure as well. That is called a “deep
+                    cloning”.
+                  </p>
+                  <p>
+                    We can use recursion to implement it. Or, to not reinvent
+                    the wheel, take an existing implementation, for instance
+                    <a href="https://lodash.com/docs#cloneDeep"
+                      >_.cloneDeep(obj)</a
+                    >
+                    from the JavaScript library
+                    <a href="https://lodash.com">lodash</a>.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Const objects can be modified</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        An important side effect of storing objects as
+                        references is that an object declared as
+                        <code>const</code> <em>can</em> be modified.
+                      </p>
+                      <p>For instance:</p>
+                      <div
+                        id="rxoo5h5rgn"
+                        data-trusted="1"
+                        class="code-example"
+                        data-highlight='[{"start":4,"end":4}]'
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="object-copy.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="object-copy.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>const user = {
+  name: &quot;John&quot;
+};
+
+user.name = &quot;Pete&quot;; // (*)
+
+alert(user.name); // Pete</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        It might seem that the line <code>(*)</code> would cause
+                        an error, but it does not. The value of
+                        <code>user</code> is constant, it must always reference
+                        the same object, but properties of that object are free
+                        to change.
+                      </p>
+                      <p>
+                        In other words, the <code>const user</code> gives an
+                        error only if we try to set <code>user=...</code> as a
+                        whole.
+                      </p>
+                      <p>
+                        That said, if we really need to make constant object
+                        properties, it’s also possible, but using totally
+                        different methods. We’ll mention that in the chapter
+                        <a href="property-descriptors.html"
+                          >Property flags and descriptors</a
+                        >.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="object-copy.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    Objects are assigned and copied by reference. In other
+                    words, a variable stores not the “object value”, but a
+                    “reference” (address in memory) for the value. So copying
+                    such a variable or passing it as a function argument copies
+                    that reference, not the object itself.
+                  </p>
+                  <p>
+                    All operations via copied references (like adding/removing
+                    properties) are performed on the same single object.
+                  </p>
+                  <p>
+                    To make a “real copy” (a clone) we can use
+                    <code>Object.assign</code> for the so-called “shallow copy”
+                    (nested objects are copied by reference) or a “deep cloning”
+                    function, such as
+                    <a href="https://lodash.com/docs#cloneDeep"
+                      >_.cloneDeep(obj)</a
+                    >.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="object.html"
+                data-tooltip="Objects"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="garbage-collection.html"
+                data-tooltip="Garbage collection"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fobject-copy"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fobject-copy"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="object-copy.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/object-copy",
+                    identifier: "\/object-copy",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="object-basics.html"
+                        >Objects: the basics</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   object-copy.html#comparison-by-reference"
+                        >Comparison by reference</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   object-copy.html#cloning-and-merging-object-assign"
+                        >Cloning and merging, Object.assign</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   object-copy.html#nested-cloning"
+                        >Nested cloning</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="object-copy.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="object-copy.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fobject-copy"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fobject-copy"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/04-object-basics/02-object-copy"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Drag'n'Drop with mouse events</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="mouse-drag-and-drop.html"
+    />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Drag'n'Drop with mouse events" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Drag'n'Drop with mouse events" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link
+      rel="prev"
+      href="mousemove-mouseover-mouseout-mouseenter-mouseleave.html"
+    />
+    <link rel="next" href="pointer-events.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Drag'n'Drop with mouse events" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="mouse-drag-and-drop.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/mouse-drag-and-drop"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/mouse-drag-and-drop"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/mouse-drag-and-drop"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/mouse-drag-and-drop"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/mouse-drag-and-drop"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=mouse-drag-and-drop"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/mouse-drag-and-drop"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/mouse-drag-and-drop"</a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fmouse-drag-and-drop"
+                  rel="nofollow"
+                ></a
+                >2Fmouse-drag-and-drop"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/">عربي</option>
+                <option
+                  value="https://javascript.info/mouse-drag-and-drop"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/mouse-drag-and-drop">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/mouse-drag-and-drop">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/mouse-drag-and-drop">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/mouse-drag-and-drop">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/mouse-drag-and-drop">
+                  한국어
+                </option>
+                <option value=mouse-drag-and-drop">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/mouse-drag-and-drop">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/mouse-drag-and-drop">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="19"
+          max="32"
+          data-tooltip="Lesson 19 of 32"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="ui.html"
+                        ><span>Browser: Document, Events, Interfaces</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="event-details.html"
+                        ><span>UI Events</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Browser: Document, Events, Interfaces",
+                            "item": "https://javascript.info/ui"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "UI Events",
+                            "item": "https://javascript.info/event-details"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 25th March 2021"
+                  >
+                    <div class="updated-at__content">25th March 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">
+                  Drag'n'Drop with mouse events
+                </h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Drag'n'Drop with mouse events" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Drag’n’Drop is a great interface solution. Taking something
+                    and dragging and dropping it is a clear and simple way to do
+                    many things, from copying and moving documents (as in file
+                    managers) to ordering (dropping items into a cart).
+                  </p>
+                  <p>
+                    In the modern HTML standard there’s a
+                    <a
+                      href="https://html.spec.whatwg.org/multipage/interaction.html#dnd"
+                      >section about Drag and Drop</a
+                    >
+                    with special events such as <code>dragstart</code>,
+                    <code>dragend</code>, and so on.
+                  </p>
+                  <p>
+                    These events allow us to support special kinds of
+                    drag’n’drop, such as handling dragging a file from OS
+                    file-manager and dropping it into the browser window. Then
+                    JavaScript can access the contents of such files.
+                  </p>
+                  <p>
+                    But native Drag Events also have limitations. For instance,
+                    we can’t prevent dragging from a certain area. Also we can’t
+                    make the dragging “horizontal” or “vertical” only. And there
+                    are many other drag’n’drop tasks that can’t be done using
+                    them. Also, mobile device support for such events is very
+                    weak.
+                  </p>
+                  <p>
+                    So here we’ll see how to implement Drag’n’Drop using mouse
+                    events.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="drag-n-drop-algorithm"
+                      href="mouse-drag-and-drop.html#drag-n-drop-algorithm"
+                      >Drag’n’Drop algorithm</a
+                    >
+                  </h2>
+                  <p>The basic Drag’n’Drop algorithm looks like this:</p>
+                  <ol>
+                    <li>
+                      On <code>mousedown</code> – prepare the element for
+                      moving, if needed (maybe create a clone of it, add a class
+                      to it or whatever).
+                    </li>
+                    <li>
+                      Then on <code>mousemove</code> move it by changing
+                      <code>left/top</code> with <code>position:absolute</code>.
+                    </li>
+                    <li>
+                      On <code>mouseup</code> – perform all actions related to
+                      finishing the drag’n’drop.
+                    </li>
+                  </ol>
+                  <p>
+                    These are the basics. Later we’ll see how to other features,
+                    such as highlighting current underlying elements while we
+                    drag over them.
+                  </p>
+                  <p>Here’s the implementation of dragging a ball:</p>
+                  <div id="zx20563vfl" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>ball.onmousedown = function(event) {
+  // (1) prepare to moving: make absolute and on top by z-index
+  ball.style.position = 'absolute';
+  ball.style.zIndex = 1000;
+
+  // move it out of any current parents directly into body
+  // to make it positioned relative to the body
+  document.body.append(ball);
+
+  // centers the ball at (pageX, pageY) coordinates
+  function moveAt(pageX, pageY) {
+    ball.style.left = pageX - ball.offsetWidth / 2 + 'px';
+    ball.style.top = pageY - ball.offsetHeight / 2 + 'px';
+  }
+
+  // move our absolutely positioned ball under the pointer
+  moveAt(event.pageX, event.pageY);
+
+  function onMouseMove(event) {
+    moveAt(event.pageX, event.pageY);
+  }
+
+  // (2) move the ball on mousemove
+  document.addEventListener('mousemove', onMouseMove);
+
+  // (3) drop the ball, remove unneeded handlers
+  ball.onmouseup = function() {
+    document.removeEventListener('mousemove', onMouseMove);
+    ball.onmouseup = null;
+  };
+
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    If we run the code, we can notice something strange. On the
+                    beginning of the drag’n’drop, the ball “forks”: we start
+                    dragging its “clone”.
+                  </p>
+                  <p>Here’s an example in action:</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar"></div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 230px"
+                      src="https://en.js.cx/article/mouse-drag-and-drop/ball/"
+                    ></iframe>
+                  </div>
+                  <p>
+                    Try to drag’n’drop with the mouse and you’ll see such
+                    behavior.
+                  </p>
+                  <p>
+                    That’s because the browser has its own drag’n’drop support
+                    for images and some other elements. It runs automatically
+                    and conflicts with ours.
+                  </p>
+                  <p>To disable it:</p>
+                  <div id="qxujsu1uuz" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>ball.ondragstart = function() {
+  return false;
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Now everything will be all right.</p>
+                  <p>In action:</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar"></div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 230px"
+                      src="https://en.js.cx/article/mouse-drag-and-drop/ball2/"
+                    ></iframe>
+                  </div>
+                  <p>
+                    Another important aspect – we track
+                    <code>mousemove</code> on <code>document</code>, not on
+                    <code>ball</code>. From the first sight it may seem that the
+                    mouse is always over the ball, and we can put
+                    <code>mousemove</code> on it.
+                  </p>
+                  <p>
+                    But as we remember, <code>mousemove</code> triggers often,
+                    but not for every pixel. So after swift move the pointer can
+                    jump from the ball somewhere in the middle of document (or
+                    even outside of the window).
+                  </p>
+                  <p>
+                    So we should listen on <code>document</code> to catch it.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="correct-positioning"
+                      href="mouse-drag-and-drop.html#correct-positioning"
+                      >Correct positioning</a
+                    >
+                  </h2>
+                  <p>
+                    In the examples above the ball is always moved so, that it’s
+                    center is under the pointer:
+                  </p>
+                  <div id="jw4d4vep2f" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>ball.style.left = pageX - ball.offsetWidth / 2 + 'px';
+ball.style.top = pageY - ball.offsetHeight / 2 + 'px';</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Not bad, but there’s a side-effect. To initiate the
+                    drag’n’drop, we can <code>mousedown</code> anywhere on the
+                    ball. But if “take” it from its edge, then the ball suddenly
+                    “jumps” to become centered under the mouse pointer.
+                  </p>
+                  <p>
+                    It would be better if we keep the initial shift of the
+                    element relative to the pointer.
+                  </p>
+                  <p>
+                    For instance, if we start dragging by the edge of the ball,
+                    then the pointer should remain over the edge while dragging.
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 149px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 89.26174496644296%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/mouse-drag-and-drop/ball_shift.svg"
+                        width="149"
+                        height="133"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/mouse-drag-and-drop/ball_shift.svg"
+                          alt=""
+                          width="149"
+                          height="133"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>Let’s update our algorithm:</p>
+                  <ol>
+                    <li>
+                      <p>
+                        When a visitor presses the button
+                        (<code>mousedown</code>) – remember the distance from
+                        the pointer to the left-upper corner of the ball in
+                        variables <code>shiftX/shiftY</code>. We’ll keep that
+                        distance while dragging.
+                      </p>
+                      <p>
+                        To get these shifts we can substract the coordinates:
+                      </p>
+                      <div
+                        id="au8fpsp5qf"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>// onmousedown
+let shiftX = event.clientX - ball.getBoundingClientRect().left;
+let shiftY = event.clientY - ball.getBoundingClientRect().top;</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        Then while dragging we position the ball on the same
+                        shift relative to the pointer, like this:
+                      </p>
+                      <div
+                        id="06ubr3hs3t"
+                        data-trusted="1"
+                        class="code-example"
+                        data-highlight='[{"start":3,"cols":[{"start":31,"end":37}]},{"start":2,"cols":[{"start":32,"end":38}]}]'
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>// onmousemove
+// ball has position:absolute
+ball.style.left = event.pageX - shiftX + 'px';
+ball.style.top = event.pageY - shiftY + 'px';</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ol>
+                  <p>The final code with better positioning:</p>
+                  <div
+                    id="gffbqxf9oj"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":15,"cols":[{"start":29,"end":35}]},{"start":14,"cols":[{"start":30,"end":36}]},{"start":2,"end":3}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>ball.onmousedown = function(event) {
+
+  let shiftX = event.clientX - ball.getBoundingClientRect().left;
+  let shiftY = event.clientY - ball.getBoundingClientRect().top;
+
+  ball.style.position = 'absolute';
+  ball.style.zIndex = 1000;
+  document.body.append(ball);
+
+  moveAt(event.pageX, event.pageY);
+
+  // moves the ball at (pageX, pageY) coordinates
+  // taking initial shifts into account
+  function moveAt(pageX, pageY) {
+    ball.style.left = pageX - shiftX + 'px';
+    ball.style.top = pageY - shiftY + 'px';
+  }
+
+  function onMouseMove(event) {
+    moveAt(event.pageX, event.pageY);
+  }
+
+  // move the ball on mousemove
+  document.addEventListener('mousemove', onMouseMove);
+
+  // drop the ball, remove unneeded handlers
+  ball.onmouseup = function() {
+    document.removeEventListener('mousemove', onMouseMove);
+    ball.onmouseup = null;
+  };
+
+};
+
+ball.ondragstart = function() {
+  return false;
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>In action (inside <code>&lt;iframe&gt;</code>):</p>
+                  <div class="code-result">
+                    <div class="code-result__toolbar toolbar"></div>
+                    <iframe
+                      class="code-result__iframe"
+                      data-trusted="1"
+                      style="height: 230px"
+                      src="https://en.js.cx/article/mouse-drag-and-drop/ball3/"
+                    ></iframe>
+                  </div>
+                  <p>
+                    The difference is especially noticeable if we drag the ball
+                    by its right-bottom corner. In the previous example the ball
+                    “jumps” under the pointer. Now it fluently follows the
+                    pointer from the current position.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="potential-drop-targets-droppables"
+                      href="mouse-drag-and-drop.html#potential-drop-targets-droppables"
+                      >Potential drop targets (droppables)</a
+                    >
+                  </h2>
+                  <p>
+                    In previous examples the ball could be dropped just
+                    “anywhere” to stay. In real-life we usually take one element
+                    and drop it onto another. For instance, a “file” into a
+                    “folder” or something else.
+                  </p>
+                  <p>
+                    Speaking abstract, we take a “draggable” element and drop it
+                    onto “droppable” element.
+                  </p>
+                  <p>We need to know:</p>
+                  <ul>
+                    <li>
+                      where the element was dropped at the end of Drag’n’Drop –
+                      to do the corresponding action,
+                    </li>
+                    <li>
+                      and, preferably, know the droppable we’re dragging over,
+                      to highlight it.
+                    </li>
+                  </ul>
+                  <p>
+                    The solution is kind-of interesting and just a little bit
+                    tricky, so let’s cover it here.
+                  </p>
+                  <p>
+                    What may be the first idea? Probably to set
+                    <code>mouseover/mouseup</code> handlers on potential
+                    droppables?
+                  </p>
+                  <p>But that doesn’t work.</p>
+                  <p>
+                    The problem is that, while we’re dragging, the draggable
+                    element is always above other elements. And mouse events
+                    only happen on the top element, not on those below it.
+                  </p>
+                  <p>
+                    For instance, below are two
+                    <code>&lt;div&gt;</code> elements, red one on top of the
+                    blue one (fully covers). There’s no way to catch an event on
+                    the blue one, because the red is on top:
+                  </p>
+                  <div
+                    id="t1y5fswzsm"
+                    data-trusted="1"
+                    class="code-example"
+                    data-demo-height="60"
+                    data-autorun="true"
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="mouse-drag-and-drop.html#"
+                            title="show"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="mouse-drag-and-drop.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-markup"
+                        ><code>&lt;style&gt;
+  div {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+  }
+&lt;/style&gt;
+&lt;div style=&quot;background:blue&quot; onmouseover=&quot;alert('never works')&quot;&gt;&lt;/div&gt;
+&lt;div style=&quot;background:red&quot; onmouseover=&quot;alert('over red!')&quot;&gt;&lt;/div&gt;</code></pre>
+                      </div>
+                    </div>
+                    <div class="code-result code-example__result">
+                      <iframe
+                        class="code-result__iframe"
+                        name="test-t1y5fswzsm"
+                        style="height: 60px"
+                        src="about:blank"
+                      ></iframe>
+                    </div>
+                  </div>
+                  <p>
+                    The same with a draggable element. The ball is always on top
+                    over other elements, so events happen on it. Whatever
+                    handlers we set on lower elements, they won’t work.
+                  </p>
+                  <p>
+                    That’s why the initial idea to put handlers on potential
+                    droppables doesn’t work in practice. They won’t run.
+                  </p>
+                  <p>So, what to do?</p>
+                  <p>
+                    There’s a method called
+                    <code>document.elementFromPoint(clientX, clientY)</code>. It
+                    returns the most nested element on given window-relative
+                    coordinates (or <code>null</code> if given coordinates are
+                    out of the window).
+                  </p>
+                  <p>
+                    We can use it in any of our mouse event handlers to detect
+                    the potential droppable under the pointer, like this:
+                  </p>
+                  <div id="s6ml75uapv" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// in a mouse event handler
+ball.hidden = true; // (*) hide the element that we drag
+
+let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+// elemBelow is the element below the ball, may be droppable
+
+ball.hidden = false;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Please note: we need to hide the ball before the call
+                    <code>(*)</code>. Otherwise we’ll usually have a ball on
+                    these coordinates, as it’s the top element under the
+                    pointer: <code>elemBelow=ball</code>. So we hide it and
+                    immediately show again.
+                  </p>
+                  <p>
+                    We can use that code to check what element we’re “flying
+                    over” at any time. And handle the drop when it happens.
+                  </p>
+                  <p>
+                    An extended code of <code>onMouseMove</code> to find
+                    “droppable” elements:
+                  </p>
+                  <div id="frt1o77vqm" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// potential droppable that we're flying over right now
+let currentDroppable = null;
+
+function onMouseMove(event) {
+  moveAt(event.pageX, event.pageY);
+
+  ball.hidden = true;
+  let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+  ball.hidden = false;
+
+  // mousemove events may trigger out of the window (when the ball is dragged off-screen)
+  // if clientX/clientY are out of the window, then elementFromPoint returns null
+  if (!elemBelow) return;
+
+  // potential droppables are labeled with the class &quot;droppable&quot; (can be other logic)
+  let droppableBelow = elemBelow.closest('.droppable');
+
+  if (currentDroppable != droppableBelow) {
+    // we're flying in or out...
+    // note: both values can be null
+    //   currentDroppable=null if we were not over a droppable before this event (e.g over an empty space)
+    //   droppableBelow=null if we're not over a droppable now, during this event
+
+    if (currentDroppable) {
+      // the logic to process &quot;flying out&quot; of the droppable (remove highlight)
+      leaveDroppable(currentDroppable);
+    }
+    currentDroppable = droppableBelow;
+    if (currentDroppable) {
+      // the logic to process &quot;flying in&quot; of the droppable
+      enterDroppable(currentDroppable);
+    }
+  }
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    In the example below when the ball is dragged over the
+                    soccer goal, the goal is highlighted.
+                  </p>
+                  <div class="code-tabs code-tabs_result_on">
+                    <div class="code-tabs__tools">
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_left
+                          "
+                          title="&amp;larr;"
+                          data-code-tabs-left="data-code-tabs-left"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__switches-wrap">
+                        <div
+                          class="code-tabs__switches"
+                          data-code-tabs-switches="data-code-tabs-switches"
+                        >
+                          <div class="code-tabs__switches-items">
+                            <div
+                              class="
+                                code-tabs__switch code-tabs__switch_current
+                              "
+                            >
+                              Result
+                            </div>
+                            <div class="code-tabs__switch">style.css</div>
+                            <div class="code-tabs__switch">index.html</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="code-tabs__scroll-wrap">
+                        <button
+                          class="
+                            code-tabs__scroll-button
+                            code-tabs__scroll-button_right
+                          "
+                          title="&amp;rarr;"
+                          data-code-tabs-right="data-code-tabs-right"
+                        ></button>
+                      </div>
+                      <div class="code-tabs__buttons">
+                        <a
+                          class="code-tabs__button code-tabs__button_external"
+                          target="_blank"
+                          title="open in a new window"
+                          href="article/mouse-drag-and-drop/ball4/index.html"
+                        ></a
+                        ><a
+                          class="code-tabs__button code-tabs__button_edit"
+                          target="_blank"
+                          title="edit in the sandbox"
+                          href="https://plnkr.co/edit/vsRwWmKx1C6jIVue?p=preview"
+                        ></a>
+                      </div>
+                    </div>
+                    <div
+                      class="code-tabs__content"
+                      data-code-tabs-content="data-code-tabs-content"
+                      style="height: 250px"
+                    >
+                      <div
+                        class="code-tabs__section code-tabs__section_current"
+                      >
+                        <iframe
+                          class="code-tabs__result"
+                          src="article/mouse-drag-and-drop/ball4/index.html"
+                        ></iframe>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre class="language-css line-numbers"><code>#gate {
+  cursor: pointer;
+  margin-bottom: 100px;
+  width: 83px;
+  height: 46px;
+}
+
+#ball {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}</code></pre>
+                      </div>
+                      <div class="code-tabs__section">
+                        <pre
+                          class="language-markup line-numbers"
+                        ><code>&lt;!doctype html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;p&gt;Drag the ball.&lt;/p&gt;
+
+  &lt;img src=&quot;https://en.js.cx/clipart/soccer-gate.svg&quot; id=&quot;gate&quot; class=&quot;droppable&quot;&gt;
+
+  &lt;img src=&quot;https://en.js.cx/clipart/ball.svg&quot; id=&quot;ball&quot;&gt;
+
+  &lt;script&gt;
+    let currentDroppable = null;
+
+    ball.onmousedown = function(event) {
+
+      let shiftX = event.clientX - ball.getBoundingClientRect().left;
+      let shiftY = event.clientY - ball.getBoundingClientRect().top;
+
+      ball.style.position = 'absolute';
+      ball.style.zIndex = 1000;
+      document.body.append(ball);
+
+      moveAt(event.pageX, event.pageY);
+
+      function moveAt(pageX, pageY) {
+        ball.style.left = pageX - shiftX + 'px';
+        ball.style.top = pageY - shiftY + 'px';
+      }
+
+      function onMouseMove(event) {
+        moveAt(event.pageX, event.pageY);
+
+        ball.hidden = true;
+        let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+        ball.hidden = false;
+
+        if (!elemBelow) return;
+
+        let droppableBelow = elemBelow.closest('.droppable');
+        if (currentDroppable != droppableBelow) {
+          if (currentDroppable) { // null when we were not over a droppable before this event
+            leaveDroppable(currentDroppable);
+          }
+          currentDroppable = droppableBelow;
+          if (currentDroppable) { // null if we're not coming over a droppable now
+            // (maybe just left the droppable)
+            enterDroppable(currentDroppable);
+          }
+        }
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+
+      ball.onmouseup = function() {
+        document.removeEventListener('mousemove', onMouseMove);
+        ball.onmouseup = null;
+      };
+
+    };
+
+    function enterDroppable(elem) {
+      elem.style.background = 'pink';
+    }
+
+    function leaveDroppable(elem) {
+      elem.style.background = '';
+    }
+
+    ball.ondragstart = function() {
+      return false;
+    };
+  &lt;/script&gt;
+
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Now we have the current “drop target”, that we’re flying
+                    over, in the variable <code>currentDroppable</code> during
+                    the whole process and can use it to highlight or any other
+                    stuff.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="mouse-drag-and-drop.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>We considered a basic Drag’n’Drop algorithm.</p>
+                  <p>The key components:</p>
+                  <ol>
+                    <li>
+                      Events flow: <code>ball.mousedown</code> →
+                      <code>document.mousemove</code> →
+                      <code>ball.mouseup</code> (don’t forget to cancel native
+                      <code>ondragstart</code>).
+                    </li>
+                    <li>
+                      At the drag start – remember the initial shift of the
+                      pointer relative to the element:
+                      <code>shiftX/shiftY</code> and keep it during the
+                      dragging.
+                    </li>
+                    <li>
+                      Detect droppable elements under the pointer using
+                      <code>document.elementFromPoint</code>.
+                    </li>
+                  </ol>
+                  <p>We can lay a lot on this foundation.</p>
+                  <ul>
+                    <li>
+                      On <code>mouseup</code> we can intellectually finalize the
+                      drop: change data, move elements around.
+                    </li>
+                    <li>We can highlight the elements we’re flying over.</li>
+                    <li>
+                      We can limit dragging by a certain area or direction.
+                    </li>
+                    <li>
+                      We can use event delegation for <code>mousedown/up</code>.
+                      A large-area event handler that checks
+                      <code>event.target</code> can manage Drag’n’Drop for
+                      hundreds of elements.
+                    </li>
+                    <li>And so on.</li>
+                  </ul>
+                  <p>
+                    There are frameworks that build architecture over it:
+                    <code>DragZone</code>, <code>Droppable</code>,
+                    <code>Draggable</code> and other classes. Most of them do
+                    the similar stuff to what’s described above, so it should be
+                    easy to understand them now. Or roll your own, as you can
+                    see that that’s easy enough to do, sometimes easier than
+                    adapting a third-party solution.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="mouse-drag-and-drop.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="mouse-drag-and-drop.html#slider"
+                          name="slider"
+                          >Slider</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/slider.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>Create a slider:</p>
+                        <div class="code-result">
+                          <div class="code-result__toolbar toolbar"></div>
+                          <iframe
+                            class="code-result__iframe"
+                            data-trusted="1"
+                            style="height: 60px"
+                            src="https://en.js.cx/task/slider/solution/"
+                          ></iframe>
+                        </div>
+                        <p>Drag the blue thumb with the mouse and move it.</p>
+                        <p>Important details:</p>
+                        <ul>
+                          <li>
+                            When the mouse button is pressed, during the
+                            dragging the mouse may go over or below the slider.
+                            The slider will still work (convenient for the
+                            user).
+                          </li>
+                          <li>
+                            If the mouse moves very fast to the left or to the
+                            right, the thumb should stop exactly at the edge.
+                          </li>
+                        </ul>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/p7Ag21yFCKk3iLFe?p=preview"
+                            target="_blank"
+                            data-plunk-id="p7Ag21yFCKk3iLFe"
+                            >Open a sandbox for the task.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              As we can see from HTML/CSS, the slider is a
+                              <code>&lt;div&gt;</code> with a colored
+                              background, that contains a runner – another
+                              <code>&lt;div&gt;</code> with
+                              <code>position:relative</code>.
+                            </p>
+                            <p>
+                              To position the runner we use
+                              <code>position:relative</code>, to provide the
+                              coordinates relative to its parent, here it’s more
+                              convenient here than
+                              <code>position:absolute</code>.
+                            </p>
+                            <p>
+                              Then we implement horizontal-only Drag’n’Drop with
+                              limitation by width.
+                            </p>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/zYSBv9zIaLpa3rQr?p=preview"
+                                target="_blank"
+                                data-plunk-id="zYSBv9zIaLpa3rQr"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="mouse-drag-and-drop.html#drag-superheroes-around-the-field"
+                          name="drag-superheroes-around-the-field"
+                          >Drag superheroes around the field</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/drag-heroes.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          This task can help you to check understanding of
+                          several aspects of Drag’n’Drop and DOM.
+                        </p>
+                        <p>
+                          Make all elements with class <code>draggable</code> –
+                          draggable. Like a ball in the chapter.
+                        </p>
+                        <p>Requirements:</p>
+                        <ul>
+                          <li>
+                            Use event delegation to track drag start: a single
+                            event handler on <code>document</code> for
+                            <code>mousedown</code>.
+                          </li>
+                          <li>
+                            If elements are dragged to top/bottom window edges –
+                            the page scrolls up/down to allow further dragging.
+                          </li>
+                          <li>
+                            There is no horizontal scroll (this makes the task a
+                            bit simpler, adding it is easy).
+                          </li>
+                          <li>
+                            Draggable elements or their parts should never leave
+                            the window, even after swift mouse moves.
+                          </li>
+                        </ul>
+                        <p>
+                          The demo is too big to fit it here, so here’s the
+                          link.
+                        </p>
+                        <p>
+                          <a
+                            href="https://en.js.cx/task/drag-heroes/solution/"
+                            target="blank"
+                            >Demo in new window</a
+                          >
+                        </p>
+                        <p>
+                          <a
+                            href="https://plnkr.co/edit/lAng5DJhG41lE78n?p=preview"
+                            target="_blank"
+                            data-plunk-id="lAng5DJhG41lE78n"
+                            >Open a sandbox for the task.</a
+                          >
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              To drag the element we can use
+                              <code>position:fixed</code>, it makes coordinates
+                              easier to manage. At the end we should switch it
+                              back to <code>position:absolute</code> to lay the
+                              element into the document.
+                            </p>
+                            <p>
+                              When coordinates are at window top/bottom, we use
+                              <code>window.scrollTo</code> to scroll it.
+                            </p>
+                            <p>More details in the code, in comments.</p>
+                            <p>
+                              <a
+                                href="https://plnkr.co/edit/KxqImMT4P0ySjN97?p=preview"
+                                target="_blank"
+                                data-plunk-id="KxqImMT4P0ySjN97"
+                                >Open the solution in a sandbox.</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="mousemove-mouseover-mouseout-mouseenter-mouseleave.html"
+                data-tooltip="Moving the mouse: mouseover/out, mouseenter/leave"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="pointer-events.html"
+                data-tooltip="Pointer events"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmouse-drag-and-drop"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fmouse-drag-and-drop"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="mouse-drag-and-drop.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/mouse-drag-and-drop",
+                    identifier: "\/mouse-drag-and-drop",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="event-details.html"
+                        >UI Events</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   mouse-drag-and-drop.html#drag-n-drop-algorithm"
+                        >Drag’n’Drop algorithm</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   mouse-drag-and-drop.html#correct-positioning"
+                        >Correct positioning</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   mouse-drag-and-drop.html#potential-drop-targets-droppables"
+                        >Potential drop targets (droppables)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   mouse-drag-and-drop.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   mouse-drag-and-drop.html#tasks"
+                        >Tasks (2)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   mouse-drag-and-drop.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fmouse-drag-and-drop"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fmouse-drag-and-drop"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/2-ui/3-event-details/4-mouse-drag-and-drop"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

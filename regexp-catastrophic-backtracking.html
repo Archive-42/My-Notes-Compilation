@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Catastrophic backtracking</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="regexp-catastrophic-backtracking.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Catastrophic backtracking" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Catastrophic backtracking" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="regexp-lookahead-lookbehind.html" />
+    <link rel="next" href="regexp-sticky.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+ 
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Catastrophic backtracking" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/regexp-catastrophic-backtracking"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="regexp-catastrophic-backtracking.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/regexp-catastrophic-backtracking"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/regexp-catastrophic-backtracking"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=regexp-catastrophic-backtracking"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/regexp-catastrophic-backtracking"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/regexp-catastrophic-backtracking"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fregexp-catastrophic-backtracking"
+                  rel="nofollow"
+                ></a
+                >2Fregexp-catastrophic-backtracking"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option
+                  value="https://ar.javascript.info/regexp-catastrophic-backtracking"
+                >
+                  عربي
+                </option>
+                <option
+                  value="https://javascript.info/regexp-catastrophic-backtracking"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/">Español</option>
+                <option value="https://fr.javascript.info/">Français</option>
+                <option value="https://it.javascript.info/">Italiano</option>
+                <option
+                  value="https://ja.javascript.info/regexp-catastrophic-backtracking"
+                >
+                  日本語
+                </option>
+                <option
+                  value="https://ko.javascript.info/regexp-catastrophic-backtracking"
+                >
+                  한국어
+                </option>
+                <option
+                  value=regexp-catastrophic-backtracking"
+         regexp-catastrophic-backtracking"
+       regexp-catastrophic-backtracking"
+   
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="15"
+          max="17"
+          data-tooltip="Lesson 15 of 17"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a
+                        class="breadcrumbs__link"
+                        href="regular-expressions.html"
+                        ><span>Regular expressions</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Regular expressions",
+                            "item": "https://javascript.info/regular-expressions"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 15th May 2021"
+                  >
+                    <div class="updated-at__content">15th May 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Catastrophic backtracking</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Catastrophic backtracking" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    Some regular expressions are looking simple, but can execute
+                    a veeeeeery long time, and even “hang” the JavaScript
+                    engine.
+                  </p>
+                  <p>
+                    Sooner or later most developers occasionally face such
+                    behavior. The typical symptom – a regular expression works
+                    fine sometimes, but for certain strings it “hangs”,
+                    consuming 100% of CPU.
+                  </p>
+                  <p>
+                    In such case a web-browser suggests to kill the script and
+                    reload the page. Not a good thing for sure.
+                  </p>
+                  <p>
+                    For server-side JavaScript such a regexp may hang the server
+                    process, that’s even worse. So we definitely should take a
+                    look at it.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="example"
+                      href="regexp-catastrophic-backtracking.html#example"
+                      >Example</a
+                    >
+                  </h2>
+                  <p>
+                    Let’s say we have a string, and we’d like to check if it
+                    consists of words <code class="pattern">\w+</code> with an
+                    optional space <code class="pattern">\s?</code> after each.
+                  </p>
+                  <p>
+                    An obvious way to construct a regexp would be to take a word
+                    followed by an optional space
+                    <code class="pattern">\w+\s?</code> and then repeat it with
+                    <code>*</code>.
+                  </p>
+                  <p>
+                    That leads us to the regexp
+                    <code class="pattern">^(\w+\s?)*$</code>, it specifies zero
+                    or more such words, that start at the beginning
+                    <code class="pattern">^</code> and finish at the end
+                    <code class="pattern">$</code> of the line.
+                  </p>
+                  <p>In action:</p>
+                  <div id="jsvtas8lub" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let regexp = /^(\w+\s?)*$/;
+
+alert( regexp.test(&quot;A good string&quot;) ); // true
+alert( regexp.test(&quot;Bad characters: $@#&quot;) ); // false</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The regexp seems to work. The result is correct. Although,
+                    on certain strings it takes a lot of time. So long that
+                    JavaScript engine “hangs” with 100% CPU consumption.
+                  </p>
+                  <p>
+                    If you run the example below, you probably won’t see
+                    anything, as JavaScript will just “hang”. A web-browser will
+                    stop reacting on events, the UI will stop working (most
+                    browsers allow only scrolling). After some time it will
+                    suggest to reload the page. So be careful with this:
+                  </p>
+                  <div id="w58lrtiv93" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let regexp = /^(\w+\s?)*$/;
+let str = &quot;An input string that takes a long time or even makes this regexp hang!&quot;;
+
+// will take a very long time
+alert( regexp.test(str) );</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    To be fair, let’s note that some regular expression engines
+                    can handle such a search effectively, for example V8 engine
+                    version starting from 8.8 can do that (so Google Chrome 88
+                    doesn’t hang here), while Firefox browser does hang.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="simplified-example"
+                      href="regexp-catastrophic-backtracking.html#simplified-example"
+                      >Simplified example</a
+                    >
+                  </h2>
+                  <p>
+                    What’s the matter? Why does the regular expression hang?
+                  </p>
+                  <p>
+                    To understand that, let’s simplify the example: remove
+                    spaces <code class="pattern">\s?</code>. Then it becomes
+                    <code class="pattern">^(\w+)*$</code>.
+                  </p>
+                  <p>
+                    And, to make things more obvious, let’s replace
+                    <code class="pattern">\w</code> with
+                    <code class="pattern">\d</code>. The resulting regular
+                    expression still hangs, for instance:
+                  </p>
+                  <div id="eaatz8tz2h" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let regexp = /^(\d+)*$/;
+
+let str = &quot;012345678901234567890123456789z&quot;;
+
+// will take a very long time (careful!)
+alert( regexp.test(str) );</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>So what’s wrong with the regexp?</p>
+                  <p>
+                    First, one may notice that the regexp
+                    <code class="pattern">(\d+)*</code> is a little bit strange.
+                    The quantifier <code class="pattern">*</code> looks
+                    extraneous. If we want a number, we can use
+                    <code class="pattern">\d+</code>.
+                  </p>
+                  <p>
+                    Indeed, the regexp is artificial; we got it by simplifying
+                    the previous example. But the reason why it is slow is the
+                    same. So let’s understand it, and then the previous example
+                    will become obvious.
+                  </p>
+                  <p>
+                    What happens during the search of
+                    <code class="pattern">^(\d+)*$</code> in the line
+                    <code class="subject">123456789z</code> (shortened a bit for
+                    clarity, please note a non-digit character
+                    <code class="subject">z</code> at the end, it’s important),
+                    why does it take so long?
+                  </p>
+                  <p>Here’s what the regexp engine does:</p>
+                  <ol>
+                    <li>
+                      <p>
+                        First, the regexp engine tries to find the content of
+                        the parentheses: the number
+                        <code class="pattern">\d+</code>. The plus
+                        <code class="pattern">+</code> is greedy by default, so
+                        it consumes all digits:
+                      </p>
+                      <div
+                        id="yqdsewpmk4"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-none"
+                            ><code>\d+.......
+(123456789)z</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        After all digits are consumed,
+                        <code class="pattern">\d+</code> is considered found (as
+                        <code class="match">123456789</code>).
+                      </p>
+                      <p>
+                        Then the star quantifier
+                        <code class="pattern">(\d+)*</code> applies. But there
+                        are no more digits in the text, so the star doesn’t give
+                        anything.
+                      </p>
+                      <p>
+                        The next character in the pattern is the string end
+                        <code class="pattern">$</code>. But in the text we have
+                        <code class="subject">z</code> instead, so there’s no
+                        match:
+                      </p>
+                      <div
+                        id="5gug2rkhaj"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-none"
+                            ><code>           X
+\d+........$
+(123456789)z</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        As there’s no match, the greedy quantifier
+                        <code class="pattern">+</code> decreases the count of
+                        repetitions, backtracks one character back.
+                      </p>
+                      <p>
+                        Now <code class="pattern">\d+</code> takes all digits
+                        except the last one (<code class="match">12345678</code
+                        >):
+                      </p>
+                      <div
+                        id="90hvfrygg5"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-none"
+                            ><code>\d+.......
+(12345678)9z</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        Then the engine tries to continue the search from the
+                        next position (right after
+                        <code class="match">12345678</code>).
+                      </p>
+                      <p>
+                        The star <code class="pattern">(\d+)*</code> can be
+                        applied – it gives one more match of
+                        <code class="pattern">\d+</code>, the number
+                        <code class="match">9</code>:
+                      </p>
+                      <div
+                        id="sy0bo1ku8q"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-none"
+                            ><code>\d+.......\d+
+(12345678)(9)z</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        The engine tries to match
+                        <code class="pattern">$</code> again, but fails, because
+                        it meets <code class="subject">z</code> instead:
+                      </p>
+                      <div
+                        id="kjda6j4fm5"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-none"
+                            ><code>             X
+\d+.......\d+
+(12345678)(9)z</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        There’s no match, so the engine will continue
+                        backtracking, decreasing the number of repetitions.
+                        Backtracking generally works like this: the last greedy
+                        quantifier decreases the number of repetitions until it
+                        reaches the minimum. Then the previous greedy quantifier
+                        decreases, and so on.
+                      </p>
+                      <p>
+                        All possible combinations are attempted. Here are their
+                        examples.
+                      </p>
+                      <p>
+                        The first number <code class="pattern">\d+</code> has 7
+                        digits, and then a number of 2 digits:
+                      </p>
+                      <div
+                        id="7ko4upd90q"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-none"
+                            ><code>             X
+\d+......\d+
+(1234567)(89)z</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        The first number has 7 digits, and then two numbers of 1
+                        digit each:
+                      </p>
+                      <div
+                        id="dyt4iutidb"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-none"
+                            ><code>               X
+\d+......\d+\d+
+(1234567)(8)(9)z</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        The first number has 6 digits, and then a number of 3
+                        digits:
+                      </p>
+                      <div
+                        id="piwvkud3s9"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-none"
+                            ><code>             X
+\d+.......\d+
+(123456)(789)z</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>The first number has 6 digits, and then 2 numbers:</p>
+                      <div
+                        id="b3toh92p85"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-none"
+                            ><code>               X
+\d+.....\d+ \d+
+(123456)(78)(9)z</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>…And so on.</p>
+                    </li>
+                  </ol>
+                  <p>
+                    There are many ways to split a sequence of digits
+                    <code>123456789</code> into numbers. To be precise, there
+                    are <code>2<sup>n</sup>-1</code>, where <code>n</code> is
+                    the length of the sequence.
+                  </p>
+                  <ul>
+                    <li>
+                      For <code>123456789</code> we have <code>n=9</code>, that
+                      gives 511 combinations.
+                    </li>
+                    <li>
+                      For a longer sequence with <code>n=20</code> there are
+                      about one million (1048575) combinations.
+                    </li>
+                    <li>
+                      For <code>n=30</code> – a thousand times more (1073741823
+                      combinations).
+                    </li>
+                  </ul>
+                  <p>
+                    Trying each of them is exactly the reason why the search
+                    takes so long.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="back-to-words-and-strings"
+                      href="regexp-catastrophic-backtracking.html#back-to-words-and-strings"
+                      >Back to words and strings</a
+                    >
+                  </h2>
+                  <p>
+                    The similar thing happens in our first example, when we look
+                    for words by pattern
+                    <code class="pattern">^(\w+\s?)*$</code> in the string
+                    <code class="subject">An input that hangs!</code>.
+                  </p>
+                  <p>
+                    The reason is that a word can be represented as one
+                    <code class="pattern">\w+</code> or many:
+                  </p>
+                  <div id="t4qp3kq6q2" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre class="line-numbers language-none"><code>(input)
+(inpu)(t)
+(inp)(u)(t)
+(in)(p)(ut)
+...</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    For a human, it’s obvious that there may be no match,
+                    because the string ends with an exclamation sign
+                    <code>!</code>, but the regular expression expects a wordly
+                    character <code class="pattern">\w</code> or a space
+                    <code class="pattern">\s</code> at the end. But the engine
+                    doesn’t know that.
+                  </p>
+                  <p>
+                    It tries all combinations of how the regexp
+                    <code class="pattern">(\w+\s?)*</code> can “consume” the
+                    string, including variants with spaces
+                    <code class="pattern">(\w+\s)*</code> and without them
+                    <code class="pattern">(\w+)*</code> (because spaces
+                    <code class="pattern">\s?</code> are optional). As there are
+                    many such combinations (we’ve seen it with digits), the
+                    search takes a lot of time.
+                  </p>
+                  <p>What to do?</p>
+                  <p>Should we turn on the lazy mode?</p>
+                  <p>
+                    Unfortunately, that won’t help: if we replace
+                    <code class="pattern">\w+</code> with
+                    <code class="pattern">\w+?</code>, the regexp will still
+                    hang. The order of combinations will change, but not their
+                    total count.
+                  </p>
+                  <p>
+                    Some regular expression engines have tricky tests and finite
+                    automations that allow to avoid going through all
+                    combinations or make it much faster, but most engines don’t,
+                    and it doesn’t always help.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="how-to-fix"
+                      href="regexp-catastrophic-backtracking.html#how-to-fix"
+                      >How to fix?</a
+                    >
+                  </h2>
+                  <p>There are two main approaches to fixing the problem.</p>
+                  <p>
+                    The first is to lower the number of possible combinations.
+                  </p>
+                  <p>
+                    Let’s make the space non-optional by rewriting the regular
+                    expression as <code class="pattern">^(\w+\s)*\w*$</code> –
+                    we’ll look for any number of words followed by a space
+                    <code class="pattern">(\w+\s)*</code>, and then (optionally)
+                    a final word <code class="pattern">\w*</code>.
+                  </p>
+                  <p>
+                    This regexp is equivalent to the previous one (matches the
+                    same) and works well:
+                  </p>
+                  <div id="4dpj931ksw" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let regexp = /^(\w+\s)*\w*$/;
+let str = &quot;An input string that takes a long time or even makes this regex hang!&quot;;
+
+alert( regexp.test(str) ); // false</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Why did the problem disappear?</p>
+                  <p>That’s because now the space is mandatory.</p>
+                  <p>
+                    The previous regexp, if we omit the space, becomes
+                    <code class="pattern">(\w+)*</code>, leading to many
+                    combinations of <code>\w+</code> within a single word
+                  </p>
+                  <p>
+                    So <code class="subject">input</code> could be matched as
+                    two repetitions of <code class="pattern">\w+</code>, like
+                    this:
+                  </p>
+                  <div id="1ywe7jwx55" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre class="line-numbers language-none"><code>\w+  \w+
+(inp)(ut)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The new pattern is different:
+                    <code class="pattern">(\w+\s)*</code> specifies repetitions
+                    of words followed by a space! The
+                    <code class="subject">input</code> string can’t be matched
+                    as two repetitions of <code class="pattern">\w+\s</code>,
+                    because the space is mandatory.
+                  </p>
+                  <p>
+                    The time needed to try a lot of (actually most of)
+                    combinations is now saved.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="preventing-backtracking"
+                      href="regexp-catastrophic-backtracking.html#preventing-backtracking"
+                      >Preventing backtracking</a
+                    >
+                  </h2>
+                  <p>
+                    It’s not always convenient to rewrite a regexp though. In
+                    the example above it was easy, but it’s not always obvious
+                    how to do it.
+                  </p>
+                  <p>
+                    Besides, a rewritten regexp is usually more complex, and
+                    that’s not good. Regexps are complex enough without extra
+                    efforts.
+                  </p>
+                  <p>
+                    Luckily, there’s an alternative approach. We can forbid
+                    backtracking for the quantifier.
+                  </p>
+                  <p>
+                    The root of the problem is that the regexp engine tries many
+                    combinations that are obviously wrong for a human.
+                  </p>
+                  <p>
+                    E.g. in the regexp <code class="pattern">(\d+)*$</code> it’s
+                    obvious for a human, that
+                    <code class="pattern">+</code> shouldn’t backtrack. If we
+                    replace one <code class="pattern">\d+</code> with two
+                    separate <code class="pattern">\d+\d+</code>, nothing
+                    changes:
+                  </p>
+                  <div id="n1eeap73da" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-none"
+                        ><code>\d+........
+(123456789)!
+
+\d+...\d+....
+(1234)(56789)!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    And in the original example
+                    <code class="pattern">^(\w+\s?)*$</code> we may want to
+                    forbid backtracking in <code class="pattern">\w+</code>.
+                    That is: <code class="pattern">\w+</code> should match a
+                    whole word, with the maximal possible length. There’s no
+                    need to lower the repetitions count in
+                    <code class="pattern">\w+</code> or to split it into two
+                    words <code class="pattern">\w+\w+</code> and so on.
+                  </p>
+                  <p>
+                    Modern regular expression engines support possessive
+                    quantifiers for that. Regular quantifiers become possessive
+                    if we add <code class="pattern">+</code> after them. That
+                    is, we use <code class="pattern">\d++</code> instead of
+                    <code class="pattern">\d+</code> to stop
+                    <code class="pattern">+</code> from backtracking.
+                  </p>
+                  <p>
+                    Possessive quantifiers are in fact simpler than “regular”
+                    ones. They just match as many as they can, without any
+                    backtracking. The search process without backtracking is
+                    simpler.
+                  </p>
+                  <p>
+                    There are also so-called “atomic capturing groups” – a way
+                    to disable backtracking inside parentheses.
+                  </p>
+                  <p>
+                    …But the bad news is that, unfortunately, in JavaScript they
+                    are not supported.
+                  </p>
+                  <p>
+                    We can emulate them though using a “lookahead transform”.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="lookahead-to-the-rescue"
+                      href="regexp-catastrophic-backtracking.html#lookahead-to-the-rescue"
+                      >Lookahead to the rescue!</a
+                    >
+                  </h3>
+                  <p>
+                    So we’ve come to real advanced topics. We’d like a
+                    quantifier, such as <code class="pattern">+</code> not to
+                    backtrack, because sometimes backtracking makes no sense.
+                  </p>
+                  <p>
+                    The pattern to take as many repetitions of
+                    <code class="pattern">\w</code> as possible without
+                    backtracking is: <code class="pattern">(?=(\w+))\1</code>.
+                    Of course, we could take another pattern instead of
+                    <code class="pattern">\w</code>.
+                  </p>
+                  <p>
+                    That may seem odd, but it’s actually a very simple
+                    transform.
+                  </p>
+                  <p>Let’s decipher it:</p>
+                  <ul>
+                    <li>
+                      Lookahead <code class="pattern">?=</code> looks forward
+                      for the longest word
+                      <code class="pattern">\w+</code> starting at the current
+                      position.
+                    </li>
+                    <li>
+                      The contents of parentheses with
+                      <code class="pattern">?=...</code> isn’t memorized by the
+                      engine, so wrap <code class="pattern">\w+</code> into
+                      parentheses. Then the engine will memorize their contents
+                    </li>
+                    <li>
+                      …And allow us to reference it in the pattern as
+                      <code class="pattern">\1</code>.
+                    </li>
+                  </ul>
+                  <p>
+                    That is: we look ahead – and if there’s a word
+                    <code class="pattern">\w+</code>, then match it as
+                    <code class="pattern">\1</code>.
+                  </p>
+                  <p>
+                    Why? That’s because the lookahead finds a word
+                    <code class="pattern">\w+</code> as a whole and we capture
+                    it into the pattern with <code class="pattern">\1</code>. So
+                    we essentially implemented a possessive plus
+                    <code class="pattern">+</code> quantifier. It captures only
+                    the whole word <code class="pattern">\w+</code>, not a part
+                    of it.
+                  </p>
+                  <p>
+                    For instance, in the word
+                    <code class="subject">JavaScript</code> it may not only
+                    match <code class="match">Java</code>, but leave out
+                    <code class="match">Script</code> to match the rest of the
+                    pattern.
+                  </p>
+                  <p>Here’s the comparison of two patterns:</p>
+                  <div id="klvm2npvjw" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>alert( &quot;JavaScript&quot;.match(/\w+Script/)); // JavaScript
+alert( &quot;JavaScript&quot;.match(/(?=(\w+))\1Script/)); // null</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ol>
+                    <li>
+                      In the first variant
+                      <code class="pattern">\w+</code> first captures the whole
+                      word <code class="subject">JavaScript</code> but then
+                      <code class="pattern">+</code> backtracks character by
+                      character, to try to match the rest of the pattern, until
+                      it finally succeeds (when
+                      <code class="pattern">\w+</code> matches
+                      <code class="match">Java</code>).
+                    </li>
+                    <li>
+                      In the second variant
+                      <code class="pattern">(?=(\w+))</code> looks ahead and
+                      finds the word <code class="subject">JavaScript</code>,
+                      that is included into the pattern as a whole by
+                      <code class="pattern">\1</code>, so there remains no way
+                      to find <code class="subject">Script</code> after it.
+                    </li>
+                  </ol>
+                  <p>
+                    We can put a more complex regular expression into
+                    <code class="pattern">(?=(\w+))\1</code> instead of
+                    <code class="pattern">\w</code>, when we need to forbid
+                    backtracking for <code class="pattern">+</code> after it.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Please note:</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        There’s more about the relation between possessive
+                        quantifiers and lookahead in articles
+                        <a
+                          href="http://instanceof.me/post/52245507631/regex-emulate-atomic-grouping-with-lookahead"
+                          >Regex: Emulate Atomic Grouping (and Possessive
+                          Quantifiers) with LookAhead</a
+                        >
+                        and
+                        <a
+                          href="http://blog.stevenlevithan.com/archives/mimic-atomic-groups"
+                          >Mimicking Atomic Groups</a
+                        >.
+                      </p>
+                    </div>
+                  </div>
+                  <p>
+                    Let’s rewrite the first example using lookahead to prevent
+                    backtracking:
+                  </p>
+                  <div id="x2ww5v89x2" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let regexp = /^((?=(\w+))\2\s?)*$/;
+
+alert( regexp.test(&quot;A good string&quot;) ); // true
+
+let str = &quot;An input string that takes a long time or even makes this regex hang!&quot;;
+
+alert( regexp.test(str) ); // false, works and fast!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here <code class="pattern">\2</code> is used instead of
+                    <code class="pattern">\1</code>, because there are
+                    additional outer parentheses. To avoid messing up with the
+                    numbers, we can give the parentheses a name, e.g.
+                    <code class="pattern">(?&lt;word&gt;\w+)</code>.
+                  </p>
+                  <div id="kfi83bq4ei" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="regexp-catastrophic-backtracking.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// parentheses are named ?&lt;word&gt;, referenced as \k&lt;word&gt;
+let regexp = /^((?=(?&lt;word&gt;\w+))\k&lt;word&gt;\s?)*$/;
+
+let str = &quot;An input string that takes a long time or even makes this regex hang!&quot;;
+
+alert( regexp.test(str) ); // false
+
+alert( regexp.test(&quot;A correct string&quot;) ); // true</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The problem described in this article is called
+                    “catastrophic backtracking”.
+                  </p>
+                  <p>We covered two ways how to solve it:</p>
+                  <ul>
+                    <li>
+                      Rewrite the regexp to lower the possible combinations
+                      count.
+                    </li>
+                    <li>Prevent backtracking.</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="regexp-lookahead-lookbehind.html"
+                data-tooltip="Lookahead and lookbehind"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="regexp-sticky.html"
+                data-tooltip='Sticky flag "y", searching at position'
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a
+                    href="regexp-catastrophic-backtracking.html#comments"
+                    name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/regexp-catastrophic-backtracking",
+                    identifier: "\/regexp-catastrophic-backtracking",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="regular-expressions.html"
+                        >Regular expressions</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   regexp-catastrophic-backtracking.html#example"
+                        >Example</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-catastrophic-backtracking.html#simplified-example"
+                        >Simplified example</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-catastrophic-backtracking.html#back-to-words-and-strings"
+                        >Back to words and strings</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-catastrophic-backtracking.html#how-to-fix"
+                        >How to fix?</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   regexp-catastrophic-backtracking.html#preventing-backtracking"
+                        >Preventing backtracking</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   regexp-catastrophic-backtracking.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fregexp-catastrophic-backtracking"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/9-regular-expressions/15-regexp-catastrophic-backtracking"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

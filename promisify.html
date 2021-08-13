@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Promisification</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="promisify.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Promisification" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Promisification" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="promise-api.html" />
+    <link rel="next" href="microtask-queue.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+ 
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Promisification" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/promisify"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a class="supported-langs__link" href="promisify.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/promisify"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/promisify"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/promisify"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/promisify"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/promisify"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=promisify"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/promisify"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/promisify"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fpromisify"
+                  rel="nofollow"
+                ></a
+                >2Fpromisify"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/promisify">
+                  عربي
+                </option>
+                <option value="https://javascript.info/promisify" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/promisify">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/promisify">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/promisify">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/promisify">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/promisify">
+                  한국어
+                </option>
+                <option value=promisify">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/promisify">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/promisify">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="80"
+          max="92"
+          data-tooltip="Lesson 80 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="async.html"
+                        ><span>Promises, async/await</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Promises, async/await",
+                            "item": "https://javascript.info/async"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 16th November 2020"
+                  >
+                    <div class="updated-at__content">16th November 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Promisification</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Promisification" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    “Promisification” is a long word for a simple
+                    transformation. It’s the conversion of a function that
+                    accepts a callback into a function that returns a promise.
+                  </p>
+                  <p>
+                    Such transformations are often required in real-life, as
+                    many functions and libraries are callback-based. But
+                    promises are more convenient, so it makes sense to promisify
+                    them.
+                  </p>
+                  <p>For better understanding, let’s see an example.</p>
+                  <p>
+                    For instance, we have
+                    <code>loadScript(src, callback)</code> from the chapter
+                    <a href="callbacks.html">Introduction: callbacks</a>.
+                  </p>
+                  <div id="p3g1mbjqub" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="promisify.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="promisify.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function loadScript(src, callback) {
+  let script = document.createElement('script');
+  script.src = src;
+
+  script.onload = () =&gt; callback(null, script);
+  script.onerror = () =&gt; callback(new Error(`Script load error for ${src}`));
+
+  document.head.append(script);
+}
+
+// usage:
+// loadScript('path/script.js', (err, script) =&gt; {...})</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The function loads a script with the given <code>src</code>,
+                    and then calls <code>callback(err)</code> in case of an
+                    error, or <code>callback(null, script)</code> in case of
+                    successful loading. That’s a widespread agreement for using
+                    callbacks, we saw it before.
+                  </p>
+                  <p>Let’s promisify it.</p>
+                  <p>
+                    We’ll make a new function
+                    <code>loadScriptPromise(src)</code>, that does the same
+                    (loads the script), but returns a promise instead of using
+                    callbacks.
+                  </p>
+                  <p>
+                    In other words, we pass it only <code>src</code> (no
+                    <code>callback</code>) and get a promise in return, that
+                    resolves with <code>script</code> when the load is
+                    successful, and rejects with the error otherwise.
+                  </p>
+                  <p>Here it is:</p>
+                  <div id="kwccknmwpw" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let loadScriptPromise = function(src) {
+  return new Promise((resolve, reject) =&gt; {
+    loadScript(src, (err, script) =&gt; {
+      if (err) reject(err);
+      else resolve(script);
+    });
+  });
+};
+
+// usage:
+// loadScriptPromise('path/script.js').then(...)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As we can see, the new function is a wrapper around the
+                    original <code>loadScript</code> function. It calls it
+                    providing its own callback that translates to promise
+                    <code>resolve/reject</code>.
+                  </p>
+                  <p>
+                    Now <code>loadScriptPromise</code> fits well in
+                    promise-based code. If we like promises more than callbacks
+                    (and soon we’ll see more reasons for that), then we will use
+                    it instead.
+                  </p>
+                  <p>
+                    In practice we may need to promisify more than one function,
+                    so it makes sense to use a helper.
+                  </p>
+                  <p>
+                    We’ll call it <code>promisify(f)</code>: it accepts a
+                    to-promisify function <code>f</code> and returns a wrapper
+                    function.
+                  </p>
+                  <div id="0ucckwl34k" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function promisify(f) {
+  return function (...args) { // return a wrapper-function (*)
+    return new Promise((resolve, reject) =&gt; {
+      function callback(err, result) { // our custom callback for f (**)
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+
+      args.push(callback); // append our custom callback to the end of f arguments
+
+      f.call(this, ...args); // call the original function
+    });
+  };
+}
+
+// usage:
+let loadScriptPromise = promisify(loadScript);
+loadScriptPromise(...).then(...);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The code may look a bit complex, but it’s essentially the
+                    same that we wrote above, while promisifying
+                    <code>loadScript</code> function.
+                  </p>
+                  <p>
+                    A call to <code>promisify(f)</code> returns a wrapper around
+                    <code>f</code> <code>(*)</code>. That wrapper returns a
+                    promise and forwards the call to the original
+                    <code>f</code>, tracking the result in the custom callback
+                    <code>(**)</code>.
+                  </p>
+                  <p>
+                    Here, <code>promisify</code> assumes that the original
+                    function expects a callback with exactly two arguments
+                    <code>(err, result)</code>. That’s what we encounter most
+                    often. Then our custom callback is in exactly the right
+                    format, and <code>promisify</code> works great for such a
+                    case.
+                  </p>
+                  <p>
+                    But what if the original <code>f</code> expects a callback
+                    with more arguments
+                    <code>callback(err, res1, res2, ...)</code>?
+                  </p>
+                  <p>
+                    We can improve our helper. Let’s make a more advanced
+                    version of <code>promisify</code>.
+                  </p>
+                  <ul>
+                    <li>
+                      When called as <code>promisify(f)</code> it should work
+                      similar to the version above.
+                    </li>
+                    <li>
+                      When called as <code>promisify(f, true)</code>, it should
+                      return the promise that resolves with the array of
+                      callback results. That’s exactly for callbacks with many
+                      arguments.
+                    </li>
+                  </ul>
+                  <div
+                    id="98j0ffv10u"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":9,"cols":[{"start":10,"end":51}]},{"start":4,"cols":[{"start":15,"end":39}]}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// promisify(f, true) to get array of results
+function promisify(f, manyArgs = false) {
+  return function (...args) {
+    return new Promise((resolve, reject) =&gt; {
+      function callback(err, ...results) { // our custom callback for f
+        if (err) {
+          reject(err);
+        } else {
+          // resolve with all callback results if manyArgs is specified
+          resolve(manyArgs ? results : results[0]);
+        }
+      }
+
+      args.push(callback);
+
+      f.call(this, ...args);
+    });
+  };
+}
+
+// usage:
+f = promisify(f, true);
+f(...).then(arrayOfResults =&gt; ..., err =&gt; ...);</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As you can see it’s essentially the same as above, but
+                    <code>resolve</code> is called with only one or all
+                    arguments depending on whether <code>manyArgs</code> is
+                    truthy.
+                  </p>
+                  <p>
+                    For more exotic callback formats, like those without
+                    <code>err</code> at all: <code>callback(result)</code>, we
+                    can promisify such functions manually without using the
+                    helper.
+                  </p>
+                  <p>
+                    There are also modules with a bit more flexible
+                    promisification functions, e.g.
+                    <a href="https://github.com/digitaldesignlabs/es6-promisify"
+                      >es6-promisify</a
+                    >. In Node.js, there’s a built-in
+                    <code>util.promisify</code> function for that.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Please note:</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Promisification is a great approach, especially when you
+                        use <code>async/await</code> (see the next chapter), but
+                        not a total replacement for callbacks.
+                      </p>
+                      <p>
+                        Remember, a promise may have only one result, but a
+                        callback may technically be called many times.
+                      </p>
+                      <p>
+                        So promisification is only meant for functions that call
+                        the callback once. Further calls will be ignored.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="promise-api.html"
+                data-tooltip="Promise API"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="microtask-queue.html"
+                data-tooltip="Microtasks"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fpromisify"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fpromisify"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="promisify.html#comments" name="comments">Comments</a>
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/promisify",
+                    identifier: "\/promisify",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="async.html"
+                        >Promises, async/await</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="promisify.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fpromisify"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fpromisify"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/11-async/06-promisify"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

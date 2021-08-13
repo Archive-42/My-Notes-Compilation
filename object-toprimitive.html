@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Object to primitive conversion</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      <link
+      rel="canonical"
+      href="object-toprimitive.html"
+    />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Object to primitive conversion" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Object to primitive conversion" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="symbol.html" />
+    <link rel="next" href="data-types.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Object to primitive conversion" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/object-toprimitive"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span>عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="object-toprimitive.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span>English</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/object-toprimitive"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span>Español</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/object-toprimitive"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span>Français</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/object-toprimitive"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span>Italiano</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/object-toprimitive"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span>日本語</span></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/object-toprimitive"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span>한국어</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=object-toprimitive"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span>Русский</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/object-toprimitive"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span>Türkçe</span></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/object-toprimitive"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span>简体中文</span></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a>
+                        the content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Fobject-toprimitive"
+                  rel="nofollow"
+                ></a
+                >2Fobject-toprimitive"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/object-toprimitive">
+                  عربي
+                </option>
+                <option
+                  value="https://javascript.info/object-toprimitive"
+                  selected
+                >
+                  English
+                </option>
+                <option value="https://es.javascript.info/object-toprimitive">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/object-toprimitive">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/object-toprimitive">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/object-toprimitive">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/object-toprimitive">
+                  한국어
+                </option>
+                <option value=object-toprimitive">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/object-toprimitive">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/object-toprimitive">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="36"
+          max="92"
+          data-tooltip="Lesson 36 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="object-basics.html"
+                        ><span>Objects: the basics</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Objects: the basics",
+                            "item": "https://javascript.info/object-basics"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 20th June 2021"
+                  >
+                    <div class="updated-at__content">20th June 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">
+                  Object to primitive conversion
+                </h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta
+                  itemprop="name"
+                  content="Object to primitive conversion"
+                />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>
+                    What happens when objects are added
+                    <code>obj1 + obj2</code>, subtracted
+                    <code>obj1 - obj2</code> or printed using
+                    <code>alert(obj)</code>?
+                  </p>
+                  <p>
+                    JavaScript doesn’t exactly allow to customize how operators
+                    work on objects. Unlike some other programming languages,
+                    such as Ruby or C++, we can’t implement a special object
+                    method to handle an addition (or other operators).
+                  </p>
+                  <p>
+                    In case of such operations, objects are auto-converted to
+                    primitives, and then the operation is carried out over these
+                    primitives and results in a primitive value.
+                  </p>
+                  <p>
+                    That’s an important limitation, as the result of
+                    <code>obj1 + obj2</code> can’t be another object!
+                  </p>
+                  <p>
+                    E.g. we can’t make objects representing vectors or matrices
+                    (or achievements or whatever), add them and expect a
+                    “summed” object as the result. Such architectural feats are
+                    automatically “off the board”.
+                  </p>
+                  <p>
+                    So, because we can’t do much here, there’s no maths with
+                    objects in real projects. When it happens, it’s usually
+                    because of a coding mistake.
+                  </p>
+                  <p>
+                    In this chapter we’ll cover how an object converts to
+                    primitive and how to customize it.
+                  </p>
+                  <p>We have two purposes:</p>
+                  <ol>
+                    <li>
+                      It will allow us to understand what’s going on in case of
+                      coding mistakes, when such an operation happened
+                      accidentally.
+                    </li>
+                    <li>
+                      There are exceptions, where such operations are possible
+                      and look good. E.g. subtracting or comparing dates (<code
+                        >Date</code
+                      >
+                      objects). We’ll come across them later.
+                    </li>
+                  </ol>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="conversion-rules"
+                      href="object-toprimitive.html#conversion-rules"
+                      >Conversion rules</a
+                    >
+                  </h2>
+                  <p>
+                    In the chapter
+                    <a href="type-conversions.html">Type Conversions</a> we’ve
+                    seen the rules for numeric, string and boolean conversions
+                    of primitives. But we left a gap for objects. Now, as we
+                    know about methods and symbols it becomes possible to fill
+                    it.
+                  </p>
+                  <ol>
+                    <li>
+                      All objects are <code>true</code> in a boolean context.
+                      There are only numeric and string conversions.
+                    </li>
+                    <li>
+                      The numeric conversion happens when we subtract objects or
+                      apply mathematical functions. For instance,
+                      <code>Date</code> objects (to be covered in the chapter
+                      <a href="date.html">Date and time</a>) can be subtracted,
+                      and the result of <code>date1 - date2</code> is the time
+                      difference between two dates.
+                    </li>
+                    <li>
+                      As for the string conversion – it usually happens when we
+                      output an object like <code>alert(obj)</code> and in
+                      similar contexts.
+                    </li>
+                  </ol>
+                  <p>
+                    We can fine-tune string and numeric conversion, using
+                    special object methods.
+                  </p>
+                  <p>
+                    There are three variants of type conversion, that happen in
+                    various situations.
+                  </p>
+                  <p>
+                    They’re called “hints”, as described in the
+                    <a href="https://tc39.github.io/ecma262/#sec-toprimitive"
+                      >specification</a
+                    >:
+                  </p>
+                  <dl>
+                    <dt><code>&quot;string&quot;</code></dt>
+                    <dd>
+                      <p>
+                        For an object-to-string conversion, when we’re doing an
+                        operation on an object that expects a string, like
+                        <code>alert</code>:
+                      </p>
+                      <div
+                        id="z7uu9jz9fi"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>// output
+alert(obj);
+
+// using object as a property key
+anotherObj[obj] = 123;</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </dd>
+                    <dt><code>&quot;number&quot;</code></dt>
+                    <dd>
+                      <p>
+                        For an object-to-number conversion, like when we’re
+                        doing maths:
+                      </p>
+                      <div
+                        id="p25mt2aplu"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>// explicit conversion
+let num = Number(obj);
+
+// maths (except binary plus)
+let n = +obj; // unary plus
+let delta = date1 - date2;
+
+// less/greater comparison
+let greater = user1 &gt; user2;</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </dd>
+                    <dt><code>&quot;default&quot;</code></dt>
+                    <dd>
+                      <p>
+                        Occurs in rare cases when the operator is “not sure”
+                        what type to expect.
+                      </p>
+                      <p>
+                        For instance, binary plus <code>+</code> can work both
+                        with strings (concatenates them) and numbers (adds
+                        them), so both strings and numbers would do. So if a
+                        binary plus gets an object as an argument, it uses the
+                        <code>&quot;default&quot;</code> hint to convert it.
+                      </p>
+                      <p>
+                        Also, if an object is compared using
+                        <code>==</code> with a string, number or a symbol, it’s
+                        also unclear which conversion should be done, so the
+                        <code>&quot;default&quot;</code> hint is used.
+                      </p>
+                      <div
+                        id="ghtkgbc610"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>// binary plus uses the &quot;default&quot; hint
+let total = obj1 + obj2;
+
+// obj == number uses the &quot;default&quot; hint
+if (user == 1) { ... };</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        The greater and less comparison operators, such as
+                        <code>&lt;</code> <code>&gt;</code>, can work with both
+                        strings and numbers too. Still, they use the
+                        <code>&quot;number&quot;</code> hint, not
+                        <code>&quot;default&quot;</code>. That’s for historical
+                        reasons.
+                      </p>
+                      <p>
+                        In practice though, we don’t need to remember these
+                        peculiar details, because all built-in objects except
+                        for one case (<code>Date</code> object, we’ll learn it
+                        later) implement
+                        <code>&quot;default&quot;</code> conversion the same way
+                        as <code>&quot;number&quot;</code>. And we can do the
+                        same.
+                      </p>
+                    </dd>
+                  </dl>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >No <code>&quot;boolean&quot;</code> hint</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Please note – there are only three hints. It’s that
+                        simple.
+                      </p>
+                      <p>
+                        There is no “boolean” hint (all objects are
+                        <code>true</code> in boolean context) or anything else.
+                        And if we treat <code>&quot;default&quot;</code> and
+                        <code>&quot;number&quot;</code> the same, like most
+                        built-ins do, then there are only two conversions.
+                      </p>
+                    </div>
+                  </div>
+                  <p>
+                    <strong
+                      >To do the conversion, JavaScript tries to find and call
+                      three object methods:</strong
+                    >
+                  </p>
+                  <ol>
+                    <li>
+                      Call <code>obj[Symbol.toPrimitive](hint)</code> – the
+                      method with the symbolic key
+                      <code>Symbol.toPrimitive</code> (system symbol), if such
+                      method exists,
+                    </li>
+                    <li>
+                      Otherwise if hint is <code>&quot;string&quot;</code>
+                      <ul>
+                        <li>
+                          try <code>obj.toString()</code> and
+                          <code>obj.valueOf()</code>, whatever exists.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      Otherwise if hint is <code>&quot;number&quot;</code> or
+                      <code>&quot;default&quot;</code>
+                      <ul>
+                        <li>
+                          try <code>obj.valueOf()</code> and
+                          <code>obj.toString()</code>, whatever exists.
+                        </li>
+                      </ul>
+                    </li>
+                  </ol>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="symbol-toprimitive"
+                      href="object-toprimitive.html#symbol-toprimitive"
+                      >Symbol.toPrimitive</a
+                    >
+                  </h2>
+                  <p>
+                    Let’s start from the first method. There’s a built-in symbol
+                    named <code>Symbol.toPrimitive</code> that should be used to
+                    name the conversion method, like this:
+                  </p>
+                  <div id="4oj74o490f" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>obj[Symbol.toPrimitive] = function(hint) {
+  // here goes the code to convert this object to a primitive
+  // it must return a primitive value
+  // hint = one of &quot;string&quot;, &quot;number&quot;, &quot;default&quot;
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    If the method <code>Symbol.toPrimitive</code> exists, it’s
+                    used for all hints, and no more methods are needed.
+                  </p>
+                  <p>
+                    For instance, here <code>user</code> object implements it:
+                  </p>
+                  <div id="w73omptzvg" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-toprimitive.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-toprimitive.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  money: 1000,
+
+  [Symbol.toPrimitive](hint) {
+    alert(`hint: ${hint}`);
+    return hint == &quot;string&quot; ? `{name: &quot;${this.name}&quot;}` : this.money;
+  }
+};
+
+// conversions demo:
+alert(user); // hint: string -&gt; {name: &quot;John&quot;}
+alert(+user); // hint: number -&gt; 1000
+alert(user + 500); // hint: default -&gt; 1500</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As we can see from the code, <code>user</code> becomes a
+                    self-descriptive string or a money amount depending on the
+                    conversion. The single method
+                    <code>user[Symbol.toPrimitive]</code> handles all conversion
+                    cases.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="tostring-valueof"
+                      href="object-toprimitive.html#tostring-valueof"
+                      >toString/valueOf</a
+                    >
+                  </h2>
+                  <p>
+                    If there’s no <code>Symbol.toPrimitive</code> then
+                    JavaScript tries to find methods <code>toString</code> and
+                    <code>valueOf</code>:
+                  </p>
+                  <ul>
+                    <li>
+                      For the “string” hint: <code>toString</code>, and if it
+                      doesn’t exist, then <code>valueOf</code> (so
+                      <code>toString</code> has the priority for string
+                      conversions).
+                    </li>
+                    <li>
+                      For other hints: <code>valueOf</code>, and if it doesn’t
+                      exist, then <code>toString</code> (so
+                      <code>valueOf</code> has the priority for maths).
+                    </li>
+                  </ul>
+                  <p>
+                    Methods <code>toString</code> and <code>valueOf</code> come
+                    from ancient times. They are not symbols (symbols did not
+                    exist that long ago), but rather “regular” string-named
+                    methods. They provide an alternative “old-style” way to
+                    implement the conversion.
+                  </p>
+                  <p>
+                    These methods must return a primitive value. If
+                    <code>toString</code> or <code>valueOf</code> returns an
+                    object, then it’s ignored (same as if there were no method).
+                  </p>
+                  <p>
+                    By default, a plain object has following
+                    <code>toString</code> and <code>valueOf</code> methods:
+                  </p>
+                  <ul>
+                    <li>
+                      The <code>toString</code> method returns a string
+                      <code>&quot;[object Object]&quot;</code>.
+                    </li>
+                    <li>
+                      The <code>valueOf</code> method returns the object itself.
+                    </li>
+                  </ul>
+                  <p>Here’s the demo:</p>
+                  <div id="fe0jy9oqf4" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-toprimitive.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-toprimitive.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {name: &quot;John&quot;};
+
+alert(user); // [object Object]
+alert(user.valueOf() === user); // true</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    So if we try to use an object as a string, like in an
+                    <code>alert</code> or so, then by default we see
+                    <code>[object Object]</code>.
+                  </p>
+                  <p>
+                    The default <code>valueOf</code> is mentioned here only for
+                    the sake of completeness, to avoid any confusion. As you can
+                    see, it returns the object itself, and so is ignored. Don’t
+                    ask me why, that’s for historical reasons. So we can assume
+                    it doesn’t exist.
+                  </p>
+                  <p>
+                    Let’s implement these methods to customize the conversion.
+                  </p>
+                  <p>
+                    For instance, here <code>user</code> does the same as above
+                    using a combination of <code>toString</code> and
+                    <code>valueOf</code> instead of
+                    <code>Symbol.toPrimitive</code>:
+                  </p>
+                  <div id="j91l8rlbb" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-toprimitive.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-toprimitive.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  money: 1000,
+
+  // for hint=&quot;string&quot;
+  toString() {
+    return `{name: &quot;${this.name}&quot;}`;
+  },
+
+  // for hint=&quot;number&quot; or &quot;default&quot;
+  valueOf() {
+    return this.money;
+  }
+
+};
+
+alert(user); // toString -&gt; {name: &quot;John&quot;}
+alert(+user); // valueOf -&gt; 1000
+alert(user + 500); // valueOf -&gt; 1500</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    As we can see, the behavior is the same as the previous
+                    example with <code>Symbol.toPrimitive</code>.
+                  </p>
+                  <p>
+                    Often we want a single “catch-all” place to handle all
+                    primitive conversions. In this case, we can implement
+                    <code>toString</code> only, like this:
+                  </p>
+                  <div id="vpm8xsg9jn" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-toprimitive.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-toprimitive.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+
+  toString() {
+    return this.name;
+  }
+};
+
+alert(user); // toString -&gt; John
+alert(user + 500); // toString -&gt; John500</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    In the absence of <code>Symbol.toPrimitive</code> and
+                    <code>valueOf</code>, <code>toString</code> will handle all
+                    primitive conversions.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="a-conversion-can-return-any-primitive-type"
+                      href="object-toprimitive.html#a-conversion-can-return-any-primitive-type"
+                      >A conversion can return any primitive type</a
+                    >
+                  </h3>
+                  <p>
+                    The important thing to know about all primitive-conversion
+                    methods is that they do not necessarily return the “hinted”
+                    primitive.
+                  </p>
+                  <p>
+                    There is no control whether <code>toString</code> returns
+                    exactly a string, or whether
+                    <code>Symbol.toPrimitive</code> method returns a number for
+                    a hint <code>&quot;number&quot;</code>.
+                  </p>
+                  <p>
+                    The only mandatory thing: these methods must return a
+                    primitive, not an object.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Historical notes</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        For historical reasons, if <code>toString</code> or
+                        <code>valueOf</code> returns an object, there’s no
+                        error, but such value is ignored (like if the method
+                        didn’t exist). That’s because in ancient times there was
+                        no good “error” concept in JavaScript.
+                      </p>
+                      <p>
+                        In contrast, <code>Symbol.toPrimitive</code>
+                        <em>must</em> return a primitive, otherwise there will
+                        be an error.
+                      </p>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="further-conversions"
+                      href="object-toprimitive.html#further-conversions"
+                      >Further conversions</a
+                    >
+                  </h2>
+                  <p>
+                    As we know already, many operators and functions perform
+                    type conversions, e.g. multiplication
+                    <code>*</code> converts operands to numbers.
+                  </p>
+                  <p>
+                    If we pass an object as an argument, then there are two
+                    stages:
+                  </p>
+                  <ol>
+                    <li>
+                      The object is converted to a primitive (using the rules
+                      described above).
+                    </li>
+                    <li>
+                      If the resulting primitive isn’t of the right type, it’s
+                      converted.
+                    </li>
+                  </ol>
+                  <p>For instance:</p>
+                  <div id="7yrc10cqox" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-toprimitive.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-toprimitive.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let obj = {
+  // toString handles all conversions in the absence of other methods
+  toString() {
+    return &quot;2&quot;;
+  }
+};
+
+alert(obj * 2); // 4, object converted to primitive &quot;2&quot;, then multiplication made it a number</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ol>
+                    <li>
+                      The multiplication <code>obj * 2</code> first converts the
+                      object to primitive (that’s a string
+                      <code>&quot;2&quot;</code>).
+                    </li>
+                    <li>
+                      Then <code>&quot;2&quot; * 2</code> becomes
+                      <code>2 * 2</code> (the string is converted to number).
+                    </li>
+                  </ol>
+                  <p>
+                    Binary plus will concatenate strings in the same situation,
+                    as it gladly accepts a string:
+                  </p>
+                  <div id="wpocvr3ore" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-toprimitive.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="object-toprimitive.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let obj = {
+  toString() {
+    return &quot;2&quot;;
+  }
+};
+
+alert(obj + 2); // 22 (&quot;2&quot; + 2), conversion to primitive returned a string =&gt; concatenation</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="object-toprimitive.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>
+                    The object-to-primitive conversion is called automatically
+                    by many built-in functions and operators that expect a
+                    primitive as a value.
+                  </p>
+                  <p>There are 3 types (hints) of it:</p>
+                  <ul>
+                    <li>
+                      <code>&quot;string&quot;</code> (for
+                      <code>alert</code> and other operations that need a
+                      string)
+                    </li>
+                    <li><code>&quot;number&quot;</code> (for maths)</li>
+                    <li><code>&quot;default&quot;</code> (few operators)</li>
+                  </ul>
+                  <p>
+                    The specification describes explicitly which operator uses
+                    which hint. There are very few operators that “don’t know
+                    what to expect” and use the
+                    <code>&quot;default&quot;</code> hint. Usually for built-in
+                    objects <code>&quot;default&quot;</code> hint is handled the
+                    same way as <code>&quot;number&quot;</code>, so in practice
+                    the last two are often merged together.
+                  </p>
+                  <p>The conversion algorithm is:</p>
+                  <ol>
+                    <li>
+                      Call <code>obj[Symbol.toPrimitive](hint)</code> if the
+                      method exists,
+                    </li>
+                    <li>
+                      Otherwise if hint is <code>&quot;string&quot;</code>
+                      <ul>
+                        <li>
+                          try <code>obj.toString()</code> and
+                          <code>obj.valueOf()</code>, whatever exists.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      Otherwise if hint is <code>&quot;number&quot;</code> or
+                      <code>&quot;default&quot;</code>
+                      <ul>
+                        <li>
+                          try <code>obj.valueOf()</code> and
+                          <code>obj.toString()</code>, whatever exists.
+                        </li>
+                      </ul>
+                    </li>
+                  </ol>
+                  <p>
+                    In practice, it’s often enough to implement only
+                    <code>obj.toString()</code> as a “catch-all” method for
+                    string conversions that should return a “human-readable”
+                    representation of an object, for logging or debugging
+                    purposes.
+                  </p>
+                  <p>
+                    As for math operations, JavaScript doesn’t provide a way to
+                    “override” them using methods, so real life projects rarely
+                    use them on objects.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="symbol.html"
+                data-tooltip="Symbol type"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="data-types.html"
+                data-tooltip="Data types"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fobject-toprimitive"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Fobject-toprimitive"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="object-toprimitive.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/object-toprimitive",
+                    identifier: "\/object-toprimitive",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="object-basics.html"
+                        >Objects: the basics</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   object-toprimitive.html#conversion-rules"
+                        >Conversion rules</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   object-toprimitive.html#symbol-toprimitive"
+                        >Symbol.toPrimitive</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   object-toprimitive.html#tostring-valueof"
+                        >toString/valueOf</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   object-toprimitive.html#further-conversions"
+                        >Further conversions</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   object-toprimitive.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   object-toprimitive.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Fobject-toprimitive"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Fobject-toprimitive"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/04-object-basics/09-object-toprimitive"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

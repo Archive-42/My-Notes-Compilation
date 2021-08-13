@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Reference Type</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="reference-type.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Reference Type" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Reference Type" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="currying-partials.html" />
+    <link rel="next" href="bigint.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+ 
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <meta property="og:title" content="Reference Type" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/reference-type"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a
+                            class="supported-langs__link"
+                            href="reference-type.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/reference-type"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/reference-type"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/reference-type"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/reference-type"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/reference-type"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/reference-type"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Freference-type"
+                  rel="nofollow"
+                ></a
+                >2Freference-type"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/reference-type">
+                  عربي
+                </option>
+                <option value="https://javascript.info/reference-type" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/reference-type">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/reference-type">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/reference-type">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/reference-type">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/reference-type">
+                  한국어
+                </option>
+                <option value=">Русский</option>
+                <option value="https://tr.javascript.info/">Türkçe</option>
+                <option value="https://zh.javascript.info/reference-type">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="91"
+          max="92"
+          data-tooltip="Lesson 91 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a class="breadcrumbs__link" href="js-misc.html"
+                        ><span>Miscellaneous</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Miscellaneous",
+                            "item": "https://javascript.info/js-misc"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 30th April 2021"
+                  >
+                    <div class="updated-at__content">30th April 2021</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Reference Type</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Reference Type" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <div class="important important_warn">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >In-depth language feature</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        This article covers an advanced topic, to understand
+                        certain edge-cases better.
+                      </p>
+                      <p>
+                        It’s not important. Many experienced developers live
+                        fine without knowing it. Read on if you want to know how
+                        things work under the hood.
+                      </p>
+                    </div>
+                  </div>
+                  <p>
+                    A dynamically evaluated method call can lose
+                    <code>this</code>.
+                  </p>
+                  <p>For instance:</p>
+                  <div
+                    id="8dpr7uju8y"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":9,"end":9}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="reference-type.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="reference-type.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  hi() { alert(this.name); },
+  bye() { alert(&quot;Bye&quot;); }
+};
+
+user.hi(); // works
+
+// now let's call user.hi or user.bye depending on the name
+(user.name == &quot;John&quot; ? user.hi : user.bye)(); // Error!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    On the last line there is a conditional operator that
+                    chooses either <code>user.hi</code> or
+                    <code>user.bye</code>. In this case the result is
+                    <code>user.hi</code>.
+                  </p>
+                  <p>
+                    Then the method is immediately called with parentheses
+                    <code>()</code>. But it doesn’t work correctly!
+                  </p>
+                  <p>
+                    As you can see, the call results in an error, because the
+                    value of <code>&quot;this&quot;</code> inside the call
+                    becomes <code>undefined</code>.
+                  </p>
+                  <p>This works (object dot method):</p>
+                  <div id="61umwp11ol" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>user.hi();</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>This doesn’t (evaluated method):</p>
+                  <div id="te6wqnlqum" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>(user.name == &quot;John&quot; ? user.hi : user.bye)(); // Error!</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Why? If we want to understand why it happens, let’s get
+                    under the hood of how <code>obj.method()</code> call works.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="reference-type-explained"
+                      href="reference-type.html#reference-type-explained"
+                      >Reference type explained</a
+                    >
+                  </h2>
+                  <p>
+                    Looking closely, we may notice two operations in
+                    <code>obj.method()</code> statement:
+                  </p>
+                  <ol>
+                    <li>
+                      First, the dot <code>'.'</code> retrieves the property
+                      <code>obj.method</code>.
+                    </li>
+                    <li>Then parentheses <code>()</code> execute it.</li>
+                  </ol>
+                  <p>
+                    So, how does the information about <code>this</code> get
+                    passed from the first part to the second one?
+                  </p>
+                  <p>
+                    If we put these operations on separate lines, then
+                    <code>this</code> will be lost for sure:
+                  </p>
+                  <div
+                    id="q9dhxjt469"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":5,"end":7}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="reference-type.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="reference-type.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let user = {
+  name: &quot;John&quot;,
+  hi() { alert(this.name); }
+}
+
+// split getting and calling the method in two lines
+let hi = user.hi;
+hi(); // Error, because this is undefined</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here <code>hi = user.hi</code> puts the function into the
+                    variable, and then on the last line it is completely
+                    standalone, and so there’s no <code>this</code>.
+                  </p>
+                  <p>
+                    <strong
+                      >To make <code>user.hi()</code> calls work, JavaScript
+                      uses a trick – the dot <code>'.'</code> returns not a
+                      function, but a value of the special
+                      <a
+                        href="https://tc39.github.io/ecma262/#sec-reference-specification-type"
+                        >Reference Type</a
+                      >.</strong
+                    >
+                  </p>
+                  <p>
+                    The Reference Type is a “specification type”. We can’t
+                    explicitly use it, but it is used internally by the
+                    language.
+                  </p>
+                  <p>
+                    The value of Reference Type is a three-value combination
+                    <code>(base, name, strict)</code>, where:
+                  </p>
+                  <ul>
+                    <li><code>base</code> is the object.</li>
+                    <li><code>name</code> is the property name.</li>
+                    <li>
+                      <code>strict</code> is true if <code>use strict</code> is
+                      in effect.
+                    </li>
+                  </ul>
+                  <p>
+                    The result of a property access <code>user.hi</code> is not
+                    a function, but a value of Reference Type. For
+                    <code>user.hi</code> in strict mode it is:
+                  </p>
+                  <div id="8dto8x1b39" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>// Reference Type value
+(user, &quot;hi&quot;, true)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    When parentheses <code>()</code> are called on the Reference
+                    Type, they receive the full information about the object and
+                    its method, and can set the right <code>this</code> (<code
+                      >=user</code
+                    >
+                    in this case).
+                  </p>
+                  <p>
+                    Reference type is a special “intermediary” internal type,
+                    with the purpose to pass information from dot
+                    <code>.</code> to calling parentheses <code>()</code>.
+                  </p>
+                  <p>
+                    Any other operation like assignment
+                    <code>hi = user.hi</code> discards the reference type as a
+                    whole, takes the value of <code>user.hi</code> (a function)
+                    and passes it on. So any further operation “loses”
+                    <code>this</code>.
+                  </p>
+                  <p>
+                    So, as the result, the value of <code>this</code> is only
+                    passed the right way if the function is called directly
+                    using a dot <code>obj.method()</code> or square brackets
+                    <code>obj['method']()</code> syntax (they do the same here).
+                    There are various ways to solve this problem such as
+                    <a href="bind.html#solution-2-bind">func.bind()</a>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="reference-type.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>Reference Type is an internal type of the language.</p>
+                  <p>
+                    Reading a property, such as with dot <code>.</code> in
+                    <code>obj.method()</code> returns not exactly the property
+                    value, but a special “reference type” value that stores both
+                    the property value and the object it was taken from.
+                  </p>
+                  <p>
+                    That’s for the subsequent method call <code>()</code> to get
+                    the object and set <code>this</code> to it.
+                  </p>
+                  <p>
+                    For all other operations, the reference type automatically
+                    becomes the property value (a function in our case).
+                  </p>
+                  <p>
+                    The whole mechanics is hidden from our eyes. It only matters
+                    in subtle cases, such as when a method is obtained
+                    dynamically from the object, using an expression.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="reference-type.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="reference-type.html#syntax-check"
+                          name="syntax-check"
+                          >Syntax check</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/check-syntax.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 2</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>What is the result of this code?</p>
+                        <div
+                          id="kjev8hse7u"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let user = {
+  name: &quot;John&quot;,
+  go: function() { alert(this.name) }
+}
+
+(user.go)()</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>P.S. There’s a pitfall :)</p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p><strong>Error</strong>!</p>
+                            <p>Try it:</p>
+                            <div
+                              id="ogcg12m1en"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="reference-type.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="reference-type.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let user = {
+  name: &quot;John&quot;,
+  go: function() { alert(this.name) }
+}
+
+(user.go)() // error!</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              The error message in most browsers does not give
+                              us much of a clue about what went wrong.
+                            </p>
+                            <p>
+                              <strong
+                                >The error appears because a semicolon is
+                                missing after <code>user = {...}</code>.</strong
+                              >
+                            </p>
+                            <p>
+                              JavaScript does not auto-insert a semicolon before
+                              a bracket <code>(user.go)()</code>, so it reads
+                              the code like:
+                            </p>
+                            <div
+                              id="gxhgk2fptr"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let user = { go:... }(user.go)()</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              Then we can also see that such a joint expression
+                              is syntactically a call of the object
+                              <code>{ go: ... }</code> as a function with the
+                              argument <code>(user.go)</code>. And that also
+                              happens on the same line with
+                              <code>let user</code>, so the
+                              <code>user</code> object has not yet even been
+                              defined, hence the error.
+                            </p>
+                            <p>If we insert the semicolon, all is fine:</p>
+                            <div
+                              id="bgv8eivg77"
+                              data-trusted="1"
+                              class="code-example"
+                              data-highlight='[{"start":3,"cols":[{"start":1,"end":2}]}]'
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="reference-type.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="reference-type.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>let user = {
+  name: &quot;John&quot;,
+  go: function() { alert(this.name) }
+};
+
+(user.go)() // John</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              Please note that parentheses around
+                              <code>(user.go)</code> do nothing here. Usually
+                              they setup the order of operations, but here the
+                              dot <code>.</code> works first anyway, so there’s
+                              no effect. Only the semicolon thing matters.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="reference-type.html#explain-the-value-of-this"
+                          name="explain-the-value-of-this"
+                          >Explain the value of &quot;this&quot;</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/why-this.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 3</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          In the code below we intend to call
+                          <code>obj.go()</code> method 4 times in a row.
+                        </p>
+                        <p>
+                          But calls <code>(1)</code> and <code>(2)</code> works
+                          differently from <code>(3)</code> and
+                          <code>(4)</code>. Why?
+                        </p>
+                        <div
+                          id="x6k0v9gp7b"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="toolbar codebox__toolbar">
+                              <div class="toolbar__tool">
+                                <a
+                                  href="reference-type.html#"
+                                  title="run"
+                                  data-action="run"
+                                  class="toolbar__button toolbar__button_run"
+                                ></a>
+                              </div>
+                              <div class="toolbar__tool">
+                                <a
+                                  href="reference-type.html#"
+                                  title="open in sandbox"
+                                  target="_blank"
+                                  data-action="edit"
+                                  class="toolbar__button toolbar__button_edit"
+                                ></a>
+                              </div>
+                            </div>
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let obj, method;
+
+obj = {
+  go: function() { alert(this); }
+};
+
+obj.go();               // (1) [object Object]
+
+(obj.go)();             // (2) [object Object]
+
+(method = obj.go)();    // (3) undefined
+
+(obj.go || obj.stop)(); // (4) undefined</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>Here’s the explanations.</p>
+                            <ol>
+                              <li>
+                                <p>That’s a regular object method call.</p>
+                              </li>
+                              <li>
+                                <p>
+                                  The same, parentheses do not change the order
+                                  of operations here, the dot is first anyway.
+                                </p>
+                              </li>
+                              <li>
+                                <p>
+                                  Here we have a more complex call
+                                  <code>(expression)()</code>. The call works as
+                                  if it were split into two lines:
+                                </p>
+                                <div
+                                  id="zu8e82heh7"
+                                  data-trusted="1"
+                                  class="code-example"
+                                >
+                                  <div class="codebox code-example__codebox">
+                                    <div class="codebox__code" data-code="1">
+                                      <pre
+                                        class="line-numbers language-javascript"
+                                      ><code>f = obj.go; // calculate the expression
+f();        // call what we have</code></pre>
+                                    </div>
+                                  </div>
+                                </div>
+                                <p>
+                                  Here <code>f()</code> is executed as a
+                                  function, without <code>this</code>.
+                                </p>
+                              </li>
+                              <li>
+                                <p>
+                                  The similar thing as <code>(3)</code>, to the
+                                  left of the parentheses <code>()</code> we
+                                  have an expression.
+                                </p>
+                              </li>
+                            </ol>
+                            <p>
+                              To explain the behavior of <code>(3)</code> and
+                              <code>(4)</code> we need to recall that property
+                              accessors (dot or square brackets) return a value
+                              of the Reference Type.
+                            </p>
+                            <p>
+                              Any operation on it except a method call (like
+                              assignment <code>=</code> or <code>||</code>)
+                              turns it into an ordinary value, which does not
+                              carry the information allowing to set
+                              <code>this</code>.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="currying-partials.html"
+                data-tooltip="Currying"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="bigint.html"
+                data-tooltip="BigInt"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Freference-type"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Freference-type"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="reference-type.html#comments" name="comments"
+                    >Comments</a
+                  >
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/reference-type",
+                    identifier: "\/reference-type",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="js-misc.html"
+                        >Miscellaneous</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   reference-type.html#reference-type-explained"
+                        >Reference type explained</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   reference-type.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="reference-type.html#tasks"
+                        >Tasks (2)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   reference-type.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Freference-type"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Freference-type"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/99-js-misc/04-reference-type"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

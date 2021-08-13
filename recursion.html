@@ -1,0 +1,3465 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      window.currentUser = null;
+    </script>
+    <script>
+      window.rateUsdToNative = 1;
+    </script>
+    <title itemprop="name">Recursion and stack</title>
+    <link href="pack/styles.93b05845f313a968119b.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1.0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script>
+      if (window.devicePixelRatio > 1)
+        document.cookie =
+          "pixelRatio=" +
+          window.devicePixelRatio +
+          ";path=/;expires=Tue, 19 Jan 2038 03:14:07 GMT";
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:bold,italic,bolditalic"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+
+    <link rel="canonical" href="recursion.html" />
+    <meta name="msapplication-TileColor" content="#222A2C" />
+    <meta name="msapplication-TileImage" content="/img/favicon/tileicon.png" />
+    <link rel="icon" href="img/favicon/favicon.png" />
+    <meta
+      itemprop="image"
+      content="https://javascript.info/img/site_preview_en_512x512.png"
+    />
+    <meta property="og:title" content="Recursion and stack" />
+    <meta
+      property="og:image"
+      content="https://javascript.info/img/site_preview_en_1200x630.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="fb:admins" content="100001562528165" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Recursion and stack" />
+    <meta name="twitter:site" content="@iliakan" />
+    <meta name="twitter:creator" content="@iliakan" />
+
+    <link rel="prev" href="advanced-functions.html" />
+    <link rel="next" href="rest-parameters-spread.html" />
+    <script>
+      window.GA_ID = "UA-2056213-15";
+    </script>
+    <script>
+      window.YANDEX_METRIKA_ID = 32184394;
+    </script>
+ 
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script>
+      ga("send", "pageview");
+    </script>
+    <script>
+      (window.metrika = { reachGoal: function () {} }),
+        (window.yandex_metrika_callbacks = [
+          function () {
+            try {
+              (window.metrika = new Ya.Metrika({
+                id: YANDEX_METRIKA_ID,
+                webvisor: !0,
+                clickmap: !0,
+                params: { user: window.currentUser && window.currentUser.id },
+              })),
+                metrika.trackLinks({ delay: 150 }),
+                window.addEventListener("error", function (r) {
+                  window.metrika.reachGoal("JSERROR", {
+                    src:
+                      (r.filename || r.errorUrl) +
+                      ": " +
+                      (r.lineno || r.errorLine),
+                    stack: r.stack || (r.error && r.error.stack),
+                    message: r.message,
+                  });
+                });
+            } catch (r) {}
+          },
+        ]);
+    </script>
+    <script src="https://mc.yandex.ru/metrika/watch.js" async></script>
+    <script>
+      window.RECAPTCHA_ID = "6LfmLAEVAAAAAJMykMnf7aY8nkyTRmYi2ynx51R1";
+    </script>
+    <script src="pack/init.810c8da2b4eed830d2da.js"></script>
+    <script src="pack/head.282ce219a840c583fa6d.js" defer></script>
+    <style>
+      .function-execution-context-list {
+        margin: 0;
+        padding: 0;
+        overflow: auto;
+      }
+
+      .function-execution-context {
+        border: 1px solid black;
+        font-family: "DejaVu Sans Mono", "Lucida Console", "Menlo", "Monaco",
+          monospace;
+        padding: 4px 6px;
+        margin: 0 4px;
+      }
+
+      .function-execution-context-call {
+        color: gray;
+      }
+
+      .function-execution-context-call::before {
+        content: " call: ";
+      }
+
+      .function-execution-context-list li:first-child {
+        font-weight: bold;
+      }
+    </style>
+    <meta property="og:title" content="Recursion and stack" />
+    <meta property="og:type" content="article" />
+    <script src="pack/tutorial.dd771765a083d97231c4.js" defer></script>
+    <script src="pack/footer.ce9ac5e9c03240648299.js" defer></script>
+  </head>
+  <body class="no-icons">
+
+    <script>
+          window.lang = "en";
+        </script>
+        <script>
+          {
+            let t = navigator.languages || [];
+            t = t.map((t) => t.toLowerCase());
+            let o,
+              a,
+              n = [];
+            for (let o of window.langs)
+              for (let a of t)
+                if (a === o.code || a.startsWith(o.code + "-")) {
+                  n.push(o);
+                  break;
+                }
+            if ("en" === lang) {
+              let t = n.find((t) => "en" != t.code);
+              t &&
+                "ru" != t.code &&
+                ((o = `\n            According to your browser language headers, you know ${t.name}. Please help to <a href="https://github.com/javascript-tutorial/${t.code}.javascript.info#readme">translate the tutorial</a> into your language!\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial"));
+            } else if ("ru" != lang) {
+              n.find((t) => "en" == t.code) &&
+                ((o = `\n            According to your browser headers, you know English. Please help to <a href="https://github.com/javascript-tutorial/${lang}.javascript.info#readme">translate the tutorial</a>.\n            Thank you!\n          `),
+                (a = "notify-translate-tutorial-local"));
+            }
+            if (o) {
+              let t = `<div class="notification notification_top notification_info sitetoolbar__notification" style="display:none" id="${a}">\n          <div class="notification__content">${o}</div>\n          <button class="notification__close" title="Close"></button>\n        </div>`;
+              document.write(t), showTopNotification();
+            }
+          }
+        </script>
+        <div class="sitetoolbar__content">
+          <div class="sitetoolbar__lang-switcher">
+            <button class="sitetoolbar__dropdown-button" data-dropdown-toggler>
+              EN
+            </button>
+            <div class="sitetoolbar__dropdown-wrap">
+              <div class="sitetoolbar__dropdown-body">
+                <div class="sitetoolbar__lang-switcher-body">
+                  <div class="supported-langs supported-langs_toolbar">
+                    <div class="supported-langs__container">
+                      <ul class="supported-langs__list" style="height: 200px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ar.javascript.info/recursion"
+                            ><span class="supported-langs__brief">AR</span
+                            ><span >عربي</span></a
+                          >
+                        </li>
+                        <li
+                          class="
+                            supported-langs__item supported-langs__item_current
+                          "
+                        >
+                          <a class="supported-langs__link" href="recursion.html"
+                            ><span class="supported-langs__brief">EN</span
+                            ><span 
+                              >English</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://es.javascript.info/recursion"
+                            ><span class="supported-langs__brief">ES</span
+                            ><span 
+                              >Español</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://fr.javascript.info/recursion"
+                            ><span class="supported-langs__brief">FR</span
+                            ><span 
+                              >Français</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://it.javascript.info/recursion"
+                            ><span class="supported-langs__brief">IT</span
+                            ><span 
+                              >Italiano</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ja.javascript.info/recursion"
+                            ><span class="supported-langs__brief">JA</span
+                            ><span 
+                              >日本語</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                      <ul class="supported-langs__list" style="height: 128px">
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://ko.javascript.info/recursion"
+                            ><span class="supported-langs__brief">KO</span
+                            ><span 
+                              >한국어</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href=recursion"
+                            ><span class="supported-langs__brief">RU</span
+                            ><span 
+                              >Русский</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://tr.javascript.info/recursion"
+                            ><span class="supported-langs__brief">TR</span
+                            ><span 
+                              >Türkçe</span
+                            ></a
+                          >
+                        </li>
+                        <li class="supported-langs__item">
+                          <a
+                            class="supported-langs__link"
+                            href="https://zh.javascript.info/recursion"
+                            ><span class="supported-langs__brief">ZH</span
+                            ><span 
+                              >简体中文</span
+                            ></a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="supported-langs__text">
+                      <p>
+                        We want to make this open-source project available for
+                        people all around the world.
+                      </p>
+                      <p>
+                        <a href="translate.html">Help to translate</a> the
+                        content of this tutorial to your language!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sitetoolbar__logo-wrap">
+            <a
+              class="sitetoolbar__link sitetoolbar__link_logo"
+              href="index.html"
+              ><img
+                class="sitetoolbar__logo sitetoolbar__logo_normal"
+                src="img/sitetoolbar__logo_en.svg"
+                width="200"
+                alt=""
+                role="presentation"
+              /><img
+                class="sitetoolbar__logo sitetoolbar__logo_small"
+                src="img/sitetoolbar__logo_small_en.svg"
+                width="70"
+                alt=""
+                role="presentation"
+              />
+              <script>
+                Array.prototype.forEach.call(
+                  document.querySelectorAll("img.sitetoolbar__logo"),
+                  function (e) {
+                    let t = document.createElement("object");
+                    (t.type = "image/svg+xml"),
+                      (t.className = e.className),
+                      (t.style.cssText = "left:0;top:0;position:absolute"),
+                      (t.onload = function () {
+                        (t.onload = null), (e.style.visibility = "hidden");
+                      }),
+                      (t.data = e.src),
+                      e.parentNode.insertBefore(t, e);
+                  }
+                );
+              </script></a
+            >
+
+
+              <form
+                class="sitetoolbar__search"
+                method="GET"
+                action="https://javascript.info/search"
+              >
+                <button
+                  class="sitetoolbar__search-toggle"
+                  type="button"
+                ></button>
+                <div class="sitetoolbar__search-input">
+                  <div class="text-input">
+                    <input
+                      class="text-input__control"
+                      name="query"
+                      placeholder="Search on Javascript.info"
+                      required="required"
+                      type="text"
+                    />
+                  </div>
+                  <button class="sitetoolbar__find" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tablet-menu">
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <form
+                class="tablet-menu-search"
+                action="https://javascript.info/search/"
+              >
+                <input
+                  class="tablet-menu-search__input"
+                  type="search"
+                  name="query"
+                  placeholder="Search in the tutorial"
+                  required="required"
+                /><button
+                  class="tablet-menu-search__button"
+                  type="submit"
+                  name="type"
+                  value="articles"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <div class="share-icons">
+                <span class="share-icons__title">Share</span
+                >2Frecursion"
+                  rel="nofollow"
+                ></a
+                >2Frecursion"
+                  rel="nofollow"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="tablet-menu__line">
+            <div class="tablet-menu__content">
+              <select
+                class="
+                  tablet-menu__nav
+                  input-select input-select input-select_small
+                "
+                onchange="if(this.value) window.location.href=this.value"
+              >
+                <option value="https://ar.javascript.info/recursion">
+                  عربي
+                </option>
+                <option value="https://javascript.info/recursion" selected>
+                  English
+                </option>
+                <option value="https://es.javascript.info/recursion">
+                  Español
+                </option>
+                <option value="https://fr.javascript.info/recursion">
+                  Français
+                </option>
+                <option value="https://it.javascript.info/recursion">
+                  Italiano
+                </option>
+                <option value="https://ja.javascript.info/recursion">
+                  日本語
+                </option>
+                <option value="https://ko.javascript.info/recursion">
+                  한국어
+                </option>
+                <option value=recursion">
+                  Русский
+                </option>
+                <option value="https://tr.javascript.info/recursion">
+                  Türkçe
+                </option>
+                <option value="https://zh.javascript.info/recursion">
+                  简体中文
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <progress
+          class="tutorial-progress"
+          data-sticky
+          value="49"
+          max="92"
+          data-tooltip="Lesson 49 of 92"
+        ></progress>
+      </div>
+      <div class="page page_sidebar_on page_inner_padding">
+        <script>
+          if (localStorage.noSidebar) {
+            document.querySelector(".page").classList.remove("page_sidebar_on");
+            let e = document.querySelector(".page-wrapper");
+            e && e.classList.remove("page-wrapper_sidebar_on");
+          }
+          setTimeout(function () {
+            document
+              .querySelector(".page")
+              .classList.add("page_sidebar-animation-on");
+          });
+        </script>
+        <div class="page__inner">
+          <main class="main main_width-limit">
+            <header class="main__header">
+              <div class="main__header-inner">
+                <div class="main__header-group">
+                  <ol class="breadcrumbs">
+                    <li class="breadcrumbs__item breadcrumbs__item_home">
+                      <a class="breadcrumbs__link" href="index.html"
+                        ><span class="breadcrumbs__hidden-text"
+                          >Tutorial</span
+                        ></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-1">
+                      <a class="breadcrumbs__link" href="js.html"
+                        ><span>The JavaScript language</span></a
+                      >
+                    </li>
+                    <li class="breadcrumbs__item" id="breadcrumb-2">
+                      <a
+                        class="breadcrumbs__link"
+                        href="advanced-functions.html"
+                        ><span>Advanced working with functions</span></a
+                      >
+                    </li>
+                    <script type="application/ld+json">
+                      {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                          {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Tutorial",
+                            "item": "https://javascript.info/"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "The JavaScript language",
+                            "item": "https://javascript.info/js"
+                          },
+                          {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": "Advanced working with functions",
+                            "item": "https://javascript.info/advanced-functions"
+                          }
+                        ]
+                      }
+                    </script>
+                  </ol>
+                  <div
+                    class="updated-at"
+                    data-tooltip="Last updated at 11th November 2020"
+                  >
+                    <div class="updated-at__content">11th November 2020</div>
+                  </div>
+                </div>
+                <h1 class="main__header-title">Recursion and stack</h1>
+              </div>
+            </header>
+            <div class="content">
+              <article
+                class="formatted"
+                itemscope
+                itemtype="http://schema.org/TechArticle"
+              >
+                <meta itemprop="name" content="Recursion and stack" />
+                <div
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  <meta itemprop="email" content="iliakan@gmail.com" /><meta
+                    itemprop="name"
+                    content="Ilya Kantor"
+                  />
+                </div>
+                <div itemprop="articleBody">
+                  <p>Let’s return to functions and study them more in-depth.</p>
+                  <p>Our first topic will be <em>recursion</em>.</p>
+                  <p>
+                    If you are not new to programming, then it is probably
+                    familiar and you could skip this chapter.
+                  </p>
+                  <p>
+                    Recursion is a programming pattern that is useful in
+                    situations when a task can be naturally split into several
+                    tasks of the same kind, but simpler. Or when a task can be
+                    simplified into an easy action plus a simpler variant of the
+                    same task. Or, as we’ll see soon, to deal with certain data
+                    structures.
+                  </p>
+                  <p>
+                    When a function solves a task, in the process it can call
+                    many other functions. A partial case of this is when a
+                    function calls <em>itself</em>. That’s called
+                    <em>recursion</em>.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="two-ways-of-thinking"
+                      href="recursion.html#two-ways-of-thinking"
+                      >Two ways of thinking</a
+                    >
+                  </h2>
+                  <p>
+                    For something simple to start with – let’s write a function
+                    <code>pow(x, n)</code> that raises <code>x</code> to a
+                    natural power of <code>n</code>. In other words, multiplies
+                    <code>x</code> by itself <code>n</code> times.
+                  </p>
+                  <div id="1565vt2fc7" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>pow(2, 2) = 4
+pow(2, 3) = 8
+pow(2, 4) = 16</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>There are two ways to implement it.</p>
+                  <ol>
+                    <li>
+                      <p>Iterative thinking: the <code>for</code> loop:</p>
+                      <div
+                        id="yzd5nuqofc"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="recursion.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="recursion.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>function pow(x, n) {
+  let result = 1;
+
+  // multiply result by x n times in the loop
+  for (let i = 0; i &lt; n; i++) {
+    result *= x;
+  }
+
+  return result;
+}
+
+alert( pow(2, 3) ); // 8</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <p>
+                        Recursive thinking: simplify the task and call self:
+                      </p>
+                      <div
+                        id="83nzal41jn"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="recursion.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="recursion.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>function pow(x, n) {
+  if (n == 1) {
+    return x;
+  } else {
+    return x * pow(x, n - 1);
+  }
+}
+
+alert( pow(2, 3) ); // 8</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ol>
+                  <p>
+                    Please note how the recursive variant is fundamentally
+                    different.
+                  </p>
+                  <p>
+                    When <code>pow(x, n)</code> is called, the execution splits
+                    into two branches:
+                  </p>
+                  <div id="1h9h0k2ntj" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>              if n==1  = x
+             /
+pow(x, n) =
+             \
+              else     = x * pow(x, n - 1)</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <ol>
+                    <li>
+                      If <code>n == 1</code>, then everything is trivial. It is
+                      called <em>the base</em> of recursion, because it
+                      immediately produces the obvious result:
+                      <code>pow(x, 1)</code> equals <code>x</code>.
+                    </li>
+                    <li>
+                      Otherwise, we can represent <code>pow(x, n)</code> as
+                      <code>x * pow(x, n - 1)</code>. In maths, one would write
+                      <code>x<sup>n</sup> = x * x<sup>n-1</sup></code
+                      >. This is called <em>a recursive step</em>: we transform
+                      the task into a simpler action (multiplication by
+                      <code>x</code>) and a simpler call of the same task (<code
+                        >pow</code
+                      >
+                      with lower <code>n</code>). Next steps simplify it further
+                      and further until <code>n</code> reaches <code>1</code>.
+                    </li>
+                  </ol>
+                  <p>
+                    We can also say that <code>pow</code>
+                    <em>recursively calls itself</em> till <code>n == 1</code>.
+                  </p>
+                  <figure>
+                    <div class="image" style="width: 502px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 44.820717131474105%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/recursion/recursion-pow.svg"
+                        width="502"
+                        height="225"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/recursion/recursion-pow.svg"
+                          alt=""
+                          width="502"
+                          height="225"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    For example, to calculate <code>pow(2, 4)</code> the
+                    recursive variant does these steps:
+                  </p>
+                  <ol>
+                    <li><code>pow(2, 4) = 2 * pow(2, 3)</code></li>
+                    <li><code>pow(2, 3) = 2 * pow(2, 2)</code></li>
+                    <li><code>pow(2, 2) = 2 * pow(2, 1)</code></li>
+                    <li><code>pow(2, 1) = 2</code></li>
+                  </ol>
+                  <p>
+                    So, the recursion reduces a function call to a simpler one,
+                    and then – to even more simpler, and so on, until the result
+                    becomes obvious.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type"
+                        >Recursion is usually shorter</span
+                      >
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        A recursive solution is usually shorter than an
+                        iterative one.
+                      </p>
+                      <p>
+                        Here we can rewrite the same using the conditional
+                        operator <code>?</code> instead of <code>if</code> to
+                        make <code>pow(x, n)</code> more terse and still very
+                        readable:
+                      </p>
+                      <div
+                        id="u1obhux7gl"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="toolbar codebox__toolbar">
+                            <div class="toolbar__tool">
+                              <a
+                                href="recursion.html#"
+                                title="run"
+                                data-action="run"
+                                class="toolbar__button toolbar__button_run"
+                              ></a>
+                            </div>
+                            <div class="toolbar__tool">
+                              <a
+                                href="recursion.html#"
+                                title="open in sandbox"
+                                target="_blank"
+                                data-action="edit"
+                                class="toolbar__button toolbar__button_edit"
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>function pow(x, n) {
+  return (n == 1) ? x : (x * pow(x, n - 1));
+}</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The maximal number of nested calls (including the first one)
+                    is called <em>recursion depth</em>. In our case, it will be
+                    exactly <code>n</code>.
+                  </p>
+                  <p>
+                    The maximal recursion depth is limited by JavaScript engine.
+                    We can rely on it being 10000, some engines allow more, but
+                    100000 is probably out of limit for the majority of them.
+                    There are automatic optimizations that help alleviate this
+                    (“tail calls optimizations”), but they are not yet supported
+                    everywhere and work only in simple cases.
+                  </p>
+                  <p>
+                    That limits the application of recursion, but it still
+                    remains very wide. There are many tasks where recursive way
+                    of thinking gives simpler code, easier to maintain.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="the-execution-context-and-stack"
+                      href="recursion.html#the-execution-context-and-stack"
+                      >The execution context and stack</a
+                    >
+                  </h2>
+                  <p>
+                    Now let’s examine how recursive calls work. For that we’ll
+                    look under the hood of functions.
+                  </p>
+                  <p>
+                    The information about the process of execution of a running
+                    function is stored in its <em>execution context</em>.
+                  </p>
+                  <p>
+                    The
+                    <a
+                      href="https://tc39.github.io/ecma262/#sec-execution-contexts"
+                      >execution context</a
+                    >
+                    is an internal data structure that contains details about
+                    the execution of a function: where the control flow is now,
+                    the current variables, the value of <code>this</code> (we
+                    don’t use it here) and few other internal details.
+                  </p>
+                  <p>
+                    One function call has exactly one execution context
+                    associated with it.
+                  </p>
+                  <p>
+                    When a function makes a nested call, the following happens:
+                  </p>
+                  <ul>
+                    <li>The current function is paused.</li>
+                    <li>
+                      The execution context associated with it is remembered in
+                      a special data structure called
+                      <em>execution context stack</em>.
+                    </li>
+                    <li>The nested call executes.</li>
+                    <li>
+                      After it ends, the old execution context is retrieved from
+                      the stack, and the outer function is resumed from where it
+                      stopped.
+                    </li>
+                  </ul>
+                  <p>
+                    Let’s see what happens during the
+                    <code>pow(2, 3)</code> call.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="pow-2-3"
+                      href="recursion.html#pow-2-3"
+                      >pow(2, 3)</a
+                    >
+                  </h3>
+                  <p>
+                    In the beginning of the call <code>pow(2, 3)</code> the
+                    execution context will store variables:
+                    <code>x = 2, n = 3</code>, the execution flow is at line
+                    <code>1</code> of the function.
+                  </p>
+                  <p>We can sketch it as:</p>
+                  <ul class="function-execution-context-list">
+                    <li>
+                      <span class="function-execution-context"
+                        >Context: { x: 2, n: 3, at line 1 }</span
+                      >
+                      <span class="function-execution-context-call"
+                        >pow(2, 3)</span
+                      >
+                    </li>
+                  </ul>
+                  <p>
+                    That’s when the function starts to execute. The condition
+                    <code>n == 1</code> is falsy, so the flow continues into the
+                    second branch of <code>if</code>:
+                  </p>
+                  <div
+                    id="ncia370vmw"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":4,"end":4}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="recursion.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="recursion.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function pow(x, n) {
+  if (n == 1) {
+    return x;
+  } else {
+    return x * pow(x, n - 1);
+  }
+}
+
+alert( pow(2, 3) );</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The variables are same, but the line changes, so the context
+                    is now:
+                  </p>
+                  <ul class="function-execution-context-list">
+                    <li>
+                      <span class="function-execution-context"
+                        >Context: { x: 2, n: 3, at line 5 }</span
+                      >
+                      <span class="function-execution-context-call"
+                        >pow(2, 3)</span
+                      >
+                    </li>
+                  </ul>
+                  <p>
+                    To calculate <code>x * pow(x, n - 1)</code>, we need to make
+                    a subcall of <code>pow</code> with new arguments
+                    <code>pow(2, 2)</code>.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="pow-2-2"
+                      href="recursion.html#pow-2-2"
+                      >pow(2, 2)</a
+                    >
+                  </h3>
+                  <p>
+                    To do a nested call, JavaScript remembers the current
+                    execution context in the <em>execution context stack</em>.
+                  </p>
+                  <p>
+                    Here we call the same function <code>pow</code>, but it
+                    absolutely doesn’t matter. The process is the same for all
+                    functions:
+                  </p>
+                  <ol>
+                    <li>
+                      The current context is “remembered” on top of the stack.
+                    </li>
+                    <li>The new context is created for the subcall.</li>
+                    <li>
+                      When the subcall is finished – the previous context is
+                      popped from the stack, and its execution continues.
+                    </li>
+                  </ol>
+                  <p>
+                    Here’s the context stack when we entered the subcall
+                    <code>pow(2, 2)</code>:
+                  </p>
+                  <ul class="function-execution-context-list">
+                    <li>
+                      <span class="function-execution-context"
+                        >Context: { x: 2, n: 2, at line 1 }</span
+                      >
+                      <span class="function-execution-context-call"
+                        >pow(2, 2)</span
+                      >
+                    </li>
+                    <li>
+                      <span class="function-execution-context"
+                        >Context: { x: 2, n: 3, at line 5 }</span
+                      >
+                      <span class="function-execution-context-call"
+                        >pow(2, 3)</span
+                      >
+                    </li>
+                  </ul>
+                  <p>
+                    The new current execution context is on top (and bold), and
+                    previous remembered contexts are below.
+                  </p>
+                  <p>
+                    When we finish the subcall – it is easy to resume the
+                    previous context, because it keeps both variables and the
+                    exact place of the code where it stopped.
+                  </p>
+                  <div class="important important_smart">
+                    <div class="important__header">
+                      <span class="important__type">Please note:</span>
+                    </div>
+                    <div class="important__content">
+                      <p>
+                        Here in the picture we use the word “line”, as in our
+                        example there’s only one subcall in line, but generally
+                        a single line of code may contain multiple subcalls,
+                        like <code>pow(…) + pow(…) + somethingElse(…)</code>.
+                      </p>
+                      <p>
+                        So it would be more precise to say that the execution
+                        resumes “immediately after the subcall”.
+                      </p>
+                    </div>
+                  </div>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="pow-2-1"
+                      href="recursion.html#pow-2-1"
+                      >pow(2, 1)</a
+                    >
+                  </h3>
+                  <p>
+                    The process repeats: a new subcall is made at line
+                    <code>5</code>, now with arguments <code>x=2</code>,
+                    <code>n=1</code>.
+                  </p>
+                  <p>
+                    A new execution context is created, the previous one is
+                    pushed on top of the stack:
+                  </p>
+                  <ul class="function-execution-context-list">
+                    <li>
+                      <span class="function-execution-context"
+                        >Context: { x: 2, n: 1, at line 1 }</span
+                      >
+                      <span class="function-execution-context-call"
+                        >pow(2, 1)</span
+                      >
+                    </li>
+                    <li>
+                      <span class="function-execution-context"
+                        >Context: { x: 2, n: 2, at line 5 }</span
+                      >
+                      <span class="function-execution-context-call"
+                        >pow(2, 2)</span
+                      >
+                    </li>
+                    <li>
+                      <span class="function-execution-context"
+                        >Context: { x: 2, n: 3, at line 5 }</span
+                      >
+                      <span class="function-execution-context-call"
+                        >pow(2, 3)</span
+                      >
+                    </li>
+                  </ul>
+                  <p>
+                    There are 2 old contexts now and 1 currently running for
+                    <code>pow(2, 1)</code>.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="the-exit"
+                      href="recursion.html#the-exit"
+                      >The exit</a
+                    >
+                  </h3>
+                  <p>
+                    During the execution of <code>pow(2, 1)</code>, unlike
+                    before, the condition <code>n == 1</code> is truthy, so the
+                    first branch of <code>if</code> works:
+                  </p>
+                  <div
+                    id="rlytnjkuqb"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":2,"end":2}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function pow(x, n) {
+  if (n == 1) {
+    return x;
+  } else {
+    return x * pow(x, n - 1);
+  }
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    There are no more nested calls, so the function finishes,
+                    returning <code>2</code>.
+                  </p>
+                  <p>
+                    As the function finishes, its execution context is not
+                    needed anymore, so it’s removed from the memory. The
+                    previous one is restored off the top of the stack:
+                  </p>
+                  <ul class="function-execution-context-list">
+                    <li>
+                      <span class="function-execution-context"
+                        >Context: { x: 2, n: 2, at line 5 }</span
+                      >
+                      <span class="function-execution-context-call"
+                        >pow(2, 2)</span
+                      >
+                    </li>
+                    <li>
+                      <span class="function-execution-context"
+                        >Context: { x: 2, n: 3, at line 5 }</span
+                      >
+                      <span class="function-execution-context-call"
+                        >pow(2, 3)</span
+                      >
+                    </li>
+                  </ul>
+                  <p>
+                    The execution of <code>pow(2, 2)</code> is resumed. It has
+                    the result of the subcall <code>pow(2, 1)</code>, so it also
+                    can finish the evaluation of <code>x * pow(x, n - 1)</code>,
+                    returning <code>4</code>.
+                  </p>
+                  <p>Then the previous context is restored:</p>
+                  <ul class="function-execution-context-list">
+                    <li>
+                      <span class="function-execution-context"
+                        >Context: { x: 2, n: 3, at line 5 }</span
+                      >
+                      <span class="function-execution-context-call"
+                        >pow(2, 3)</span
+                      >
+                    </li>
+                  </ul>
+                  <p>
+                    When it finishes, we have a result of
+                    <code>pow(2, 3) = 8</code>.
+                  </p>
+                  <p>
+                    The recursion depth in this case was: <strong>3</strong>.
+                  </p>
+                  <p>
+                    As we can see from the illustrations above, recursion depth
+                    equals the maximal number of context in the stack.
+                  </p>
+                  <p>
+                    Note the memory requirements. Contexts take memory. In our
+                    case, raising to the power of <code>n</code> actually
+                    requires the memory for <code>n</code> contexts, for all
+                    lower values of <code>n</code>.
+                  </p>
+                  <p>A loop-based algorithm is more memory-saving:</p>
+                  <div id="l8sfb0x1ih" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>function pow(x, n) {
+  let result = 1;
+
+  for (let i = 0; i &lt; n; i++) {
+    result *= x;
+  }
+
+  return result;
+}</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The iterative <code>pow</code> uses a single context
+                    changing <code>i</code> and <code>result</code> in the
+                    process. Its memory requirements are small, fixed and do not
+                    depend on <code>n</code>.
+                  </p>
+                  <p>
+                    <strong
+                      >Any recursion can be rewritten as a loop. The loop
+                      variant usually can be made more effective.</strong
+                    >
+                  </p>
+                  <p>
+                    …But sometimes the rewrite is non-trivial, especially when
+                    function uses different recursive subcalls depending on
+                    conditions and merges their results or when the branching is
+                    more intricate. And the optimization may be unneeded and
+                    totally not worth the efforts.
+                  </p>
+                  <p>
+                    Recursion can give a shorter code, easier to understand and
+                    support. Optimizations are not required in every place,
+                    mostly we need a good code, that’s why it’s used.
+                  </p>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="recursive-traversals"
+                      href="recursion.html#recursive-traversals"
+                      >Recursive traversals</a
+                    >
+                  </h2>
+                  <p>
+                    Another great application of the recursion is a recursive
+                    traversal.
+                  </p>
+                  <p>
+                    Imagine, we have a company. The staff structure can be
+                    presented as an object:
+                  </p>
+                  <div id="1d979p5l9s" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let company = {
+  sales: [{
+    name: 'John',
+    salary: 1000
+  }, {
+    name: 'Alice',
+    salary: 1600
+  }],
+
+  development: {
+    sites: [{
+      name: 'Peter',
+      salary: 2000
+    }, {
+      name: 'Alex',
+      salary: 1800
+    }],
+
+    internals: [{
+      name: 'Jack',
+      salary: 1300
+    }]
+  }
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>In other words, a company has departments.</p>
+                  <ul>
+                    <li>
+                      <p>
+                        A department may have an array of staff. For instance,
+                        <code>sales</code> department has 2 employees: John and
+                        Alice.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Or a department may split into subdepartments, like
+                        <code>development</code> has two branches:
+                        <code>sites</code> and <code>internals</code>. Each of
+                        them has their own staff.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        It is also possible that when a subdepartment grows, it
+                        divides into subsubdepartments (or teams).
+                      </p>
+                      <p>
+                        For instance, the <code>sites</code> department in the
+                        future may be split into teams for
+                        <code>siteA</code> and <code>siteB</code>. And they,
+                        potentially, can split even more. That’s not on the
+                        picture, just something to have in mind.
+                      </p>
+                    </li>
+                  </ul>
+                  <p>
+                    Now let’s say we want a function to get the sum of all
+                    salaries. How can we do that?
+                  </p>
+                  <p>
+                    An iterative approach is not easy, because the structure is
+                    not simple. The first idea may be to make a
+                    <code>for</code> loop over <code>company</code> with nested
+                    subloop over 1st level departments. But then we need more
+                    nested subloops to iterate over the staff in 2nd level
+                    departments like <code>sites</code>… And then another
+                    subloop inside those for 3rd level departments that might
+                    appear in the future? If we put 3-4 nested subloops in the
+                    code to traverse a single object, it becomes rather ugly.
+                  </p>
+                  <p>Let’s try recursion.</p>
+                  <p>
+                    As we can see, when our function gets a department to sum,
+                    there are two possible cases:
+                  </p>
+                  <ol>
+                    <li>
+                      Either it’s a “simple” department with an
+                      <em>array</em> of people – then we can sum the salaries in
+                      a simple loop.
+                    </li>
+                    <li>
+                      Or it’s <em>an object</em> with
+                      <code>N</code> subdepartments – then we can make
+                      <code>N</code> recursive calls to get the sum for each of
+                      the subdeps and combine the results.
+                    </li>
+                  </ol>
+                  <p>
+                    The 1st case is the base of recursion, the trivial case,
+                    when we get an array.
+                  </p>
+                  <p>
+                    The 2nd case when we get an object is the recursive step. A
+                    complex task is split into subtasks for smaller departments.
+                    They may in turn split again, but sooner or later the split
+                    will finish at (1).
+                  </p>
+                  <p>
+                    The algorithm is probably even easier to read from the code:
+                  </p>
+                  <div
+                    id="x2fye9u0cz"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":9,"end":19}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="toolbar codebox__toolbar">
+                        <div class="toolbar__tool">
+                          <a
+                            href="recursion.html#"
+                            title="run"
+                            data-action="run"
+                            class="toolbar__button toolbar__button_run"
+                          ></a>
+                        </div>
+                        <div class="toolbar__tool">
+                          <a
+                            href="recursion.html#"
+                            title="open in sandbox"
+                            target="_blank"
+                            data-action="edit"
+                            class="toolbar__button toolbar__button_edit"
+                          ></a>
+                        </div>
+                      </div>
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let company = { // the same object, compressed for brevity
+  sales: [{name: 'John', salary: 1000}, {name: 'Alice', salary: 1600 }],
+  development: {
+    sites: [{name: 'Peter', salary: 2000}, {name: 'Alex', salary: 1800 }],
+    internals: [{name: 'Jack', salary: 1300}]
+  }
+};
+
+// The function to do the job
+function sumSalaries(department) {
+  if (Array.isArray(department)) { // case (1)
+    return department.reduce((prev, current) =&gt; prev + current.salary, 0); // sum the array
+  } else { // case (2)
+    let sum = 0;
+    for (let subdep of Object.values(department)) {
+      sum += sumSalaries(subdep); // recursively call for subdepartments, sum the results
+    }
+    return sum;
+  }
+}
+
+alert(sumSalaries(company)); // 7700</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    The code is short and easy to understand (hopefully?).
+                    That’s the power of recursion. It also works for any level
+                    of subdepartment nesting.
+                  </p>
+                  <p>Here’s the diagram of calls:</p>
+                  <figure>
+                    <div class="image" style="width: 293px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 149.1467576791809%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/recursion/recursive-salaries.svg"
+                        width="293"
+                        height="437"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/recursion/recursive-salaries.svg"
+                          alt=""
+                          width="293"
+                          height="437"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    We can easily see the principle: for an object
+                    <code>{...}</code> subcalls are made, while arrays
+                    <code>[...]</code> are the “leaves” of the recursion tree,
+                    they give immediate result.
+                  </p>
+                  <p>
+                    Note that the code uses smart features that we’ve covered
+                    before:
+                  </p>
+                  <ul>
+                    <li>
+                      Method <code>arr.reduce</code> explained in the chapter
+                      <a href="array-methods.html">Array methods</a> to get the
+                      sum of the array.
+                    </li>
+                    <li>
+                      Loop <code>for(val of Object.values(obj))</code> to
+                      iterate over object values:
+                      <code>Object.values</code> returns an array of them.
+                    </li>
+                  </ul>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="recursive-structures"
+                      href="recursion.html#recursive-structures"
+                      >Recursive structures</a
+                    >
+                  </h2>
+                  <p>
+                    A recursive (recursively-defined) data structure is a
+                    structure that replicates itself in parts.
+                  </p>
+                  <p>
+                    We’ve just seen it in the example of a company structure
+                    above.
+                  </p>
+                  <p>A company <em>department</em> is:</p>
+                  <ul>
+                    <li>Either an array of people.</li>
+                    <li>Or an object with <em>departments</em>.</li>
+                  </ul>
+                  <p>
+                    For web-developers there are much better-known examples:
+                    HTML and XML documents.
+                  </p>
+                  <p>
+                    In the HTML document, an <em>HTML-tag</em> may contain a
+                    list of:
+                  </p>
+                  <ul>
+                    <li>Text pieces.</li>
+                    <li>HTML-comments.</li>
+                    <li>
+                      Other <em>HTML-tags</em> (that in turn may contain text
+                      pieces/comments or other tags etc).
+                    </li>
+                  </ul>
+                  <p>That’s once again a recursive definition.</p>
+                  <p>
+                    For better understanding, we’ll cover one more recursive
+                    structure named “Linked list” that might be a better
+                    alternative for arrays in some cases.
+                  </p>
+                  <h3>
+                    <a
+                      class="main__anchor"
+                      name="linked-list"
+                      href="recursion.html#linked-list"
+                      >Linked list</a
+                    >
+                  </h3>
+                  <p>Imagine, we want to store an ordered list of objects.</p>
+                  <p>The natural choice would be an array:</p>
+                  <div id="ztr8w9pe15" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let arr = [obj1, obj2, obj3];</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    …But there’s a problem with arrays. The “delete element” and
+                    “insert element” operations are expensive. For instance,
+                    <code>arr.unshift(obj)</code> operation has to renumber all
+                    elements to make room for a new <code>obj</code>, and if the
+                    array is big, it takes time. Same with
+                    <code>arr.shift()</code>.
+                  </p>
+                  <p>
+                    The only structural modifications that do not require
+                    mass-renumbering are those that operate with the end of
+                    array: <code>arr.push/pop</code>. So an array can be quite
+                    slow for big queues, when we have to work with the
+                    beginning.
+                  </p>
+                  <p>
+                    Alternatively, if we really need fast insertion/deletion, we
+                    can choose another data structure called a
+                    <a href="https://en.wikipedia.org/wiki/Linked_list"
+                      >linked list</a
+                    >.
+                  </p>
+                  <p>
+                    The <em>linked list element</em> is recursively defined as
+                    an object with:
+                  </p>
+                  <ul>
+                    <li><code>value</code>.</li>
+                    <li>
+                      <code>next</code> property referencing the next
+                      <em>linked list element</em> or <code>null</code> if
+                      that’s the end.
+                    </li>
+                  </ul>
+                  <p>For instance:</p>
+                  <div id="ikk1d1e0cy" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let list = {
+  value: 1,
+  next: {
+    value: 2,
+    next: {
+      value: 3,
+      next: {
+        value: 4,
+        next: null
+      }
+    }
+  }
+};</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Graphical representation of the list:</p>
+                  <figure>
+                    <div class="image" style="width: 652px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 11.809815950920246%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/recursion/linked-list.svg"
+                        width="652"
+                        height="77"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/recursion/linked-list.svg"
+                          alt=""
+                          width="652"
+                          height="77"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>An alternative code for creation:</p>
+                  <div id="mxo52qwi9r" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let list = { value: 1 };
+list.next = { value: 2 };
+list.next.next = { value: 3 };
+list.next.next.next = { value: 4 };
+list.next.next.next.next = null;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>
+                    Here we can even more clearly see that there are multiple
+                    objects, each one has the <code>value</code> and
+                    <code>next</code> pointing to the neighbour. The
+                    <code>list</code> variable is the first object in the chain,
+                    so following <code>next</code> pointers from it we can reach
+                    any element.
+                  </p>
+                  <p>
+                    The list can be easily split into multiple parts and later
+                    joined back:
+                  </p>
+                  <div id="e3la7o5yyk" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let secondList = list.next.next;
+list.next.next = null;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <figure>
+                    <div class="image" style="width: 410px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 36.58536585365854%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/recursion/linked-list-split.svg"
+                        width="410"
+                        height="150"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/recursion/linked-list-split.svg"
+                          alt=""
+                          width="410"
+                          height="150"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>To join:</p>
+                  <div id="qlfal9eujy" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>list.next.next = secondList;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <p>And surely we can insert or remove items in any place.</p>
+                  <p>
+                    For instance, to prepend a new value, we need to update the
+                    head of the list:
+                  </p>
+                  <div
+                    id="cb3zf32toz"
+                    data-trusted="1"
+                    class="code-example"
+                    data-highlight='[{"start":5,"end":6}]'
+                  >
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>let list = { value: 1 };
+list.next = { value: 2 };
+list.next.next = { value: 3 };
+list.next.next.next = { value: 4 };
+
+// prepend the new value to the list
+list = { value: &quot;new item&quot;, next: list };</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <figure>
+                    <div class="image" style="width: 816px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 13.23529411764706%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/recursion/linked-list-0.svg"
+                        width="816"
+                        height="108"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/recursion/linked-list-0.svg"
+                          alt=""
+                          width="816"
+                          height="108"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    To remove a value from the middle, change
+                    <code>next</code> of the previous one:
+                  </p>
+                  <div id="opqjt45dlb" data-trusted="1" class="code-example">
+                    <div class="codebox code-example__codebox">
+                      <div class="codebox__code" data-code="1">
+                        <pre
+                          class="line-numbers language-javascript"
+                        ><code>list.next = list.next.next;</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                  <figure>
+                    <div class="image" style="width: 670px">
+                      <div
+                        class="image__ratio"
+                        style="padding-top: 21.343283582089555%"
+                      ></div>
+                      <object
+                        type="image/svg+xml"
+                        data="article/recursion/linked-list-remove-1.svg"
+                        width="670"
+                        height="143"
+                        class="image__image"
+                      >
+                        <img
+                          src="article/recursion/linked-list-remove-1.svg"
+                          alt=""
+                          width="670"
+                          height="143"
+                        />
+                      </object>
+                    </div>
+                  </figure>
+                  <p>
+                    We made <code>list.next</code> jump over <code>1</code> to
+                    value <code>2</code>. The value <code>1</code> is now
+                    excluded from the chain. If it’s not stored anywhere else,
+                    it will be automatically removed from the memory.
+                  </p>
+                  <p>
+                    Unlike arrays, there’s no mass-renumbering, we can easily
+                    rearrange elements.
+                  </p>
+                  <p>
+                    Naturally, lists are not always better than arrays.
+                    Otherwise everyone would use only lists.
+                  </p>
+                  <p>
+                    The main drawback is that we can’t easily access an element
+                    by its number. In an array that’s easy:
+                    <code>arr[n]</code> is a direct reference. But in the list
+                    we need to start from the first item and go
+                    <code>next</code> <code>N</code> times to get the Nth
+                    element.
+                  </p>
+                  <p>
+                    …But we don’t always need such operations. For instance,
+                    when we need a queue or even a
+                    <a href="https://en.wikipedia.org/wiki/Double-ended_queue"
+                      >deque</a
+                    >
+                    – the ordered structure that must allow very fast
+                    adding/removing elements from both ends, but access to its
+                    middle is not needed.
+                  </p>
+                  <p>Lists can be enhanced:</p>
+                  <ul>
+                    <li>
+                      We can add property <code>prev</code> in addition to
+                      <code>next</code> to reference the previous element, to
+                      move back easily.
+                    </li>
+                    <li>
+                      We can also add a variable named
+                      <code>tail</code> referencing the last element of the list
+                      (and update it when adding/removing elements from the
+                      end).
+                    </li>
+                    <li>
+                      …The data structure may vary according to our needs.
+                    </li>
+                  </ul>
+                  <h2>
+                    <a
+                      class="main__anchor"
+                      name="summary"
+                      href="recursion.html#summary"
+                      >Summary</a
+                    >
+                  </h2>
+                  <p>Terms:</p>
+                  <ul>
+                    <li>
+                      <p>
+                        <em>Recursion</em> is a programming term that means
+                        calling a function from itself. Recursive functions can
+                        be used to solve tasks in elegant ways.
+                      </p>
+                      <p>
+                        When a function calls itself, that’s called a
+                        <em>recursion step</em>. The <em>basis</em> of recursion
+                        is function arguments that make the task so simple that
+                        the function does not make further calls.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        A
+                        <a
+                          href="https://en.wikipedia.org/wiki/Recursive_data_type"
+                          >recursively-defined</a
+                        >
+                        data structure is a data structure that can be defined
+                        using itself.
+                      </p>
+                      <p>
+                        For instance, the linked list can be defined as a data
+                        structure consisting of an object referencing a list (or
+                        null).
+                      </p>
+                      <div
+                        id="qhb1j1614j"
+                        data-trusted="1"
+                        class="code-example"
+                      >
+                        <div class="codebox code-example__codebox">
+                          <div class="codebox__code" data-code="1">
+                            <pre
+                              class="line-numbers language-javascript"
+                            ><code>list = { value, next -&gt; list }</code></pre>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        Trees like HTML elements tree or the department tree
+                        from this chapter are also naturally recursive: they
+                        branch and every branch can have other branches.
+                      </p>
+                      <p>
+                        Recursive functions can be used to walk them as we’ve
+                        seen in the <code>sumSalary</code> example.
+                      </p>
+                    </li>
+                  </ul>
+                  <p>
+                    Any recursive function can be rewritten into an iterative
+                    one. And that’s sometimes required to optimize stuff. But
+                    for many tasks a recursive solution is fast enough and
+                    easier to write and support.
+                  </p>
+                </div>
+              </article>
+              <div class="tasks formatted">
+                <h2 class="tasks__title" id="tasks">
+                  <a
+                    class="
+                      tasks__title-anchor
+                      main__anchor main__anchor main__anchor_noicon
+                    "
+                    href="recursion.html#tasks"
+                    >Tasks</a
+                  >
+                </h2>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="recursion.html#sum-all-numbers-till-the-given-one"
+                          name="sum-all-numbers-till-the-given-one"
+                          >Sum all numbers till the given one</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/sum-to.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Write a function <code>sumTo(n)</code> that calculates
+                          the sum of numbers <code>1 + 2 + ... + n</code>.
+                        </p>
+                        <p>For instance:</p>
+                        <div
+                          id="njvgi3fl1q"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>sumTo(1) = 1
+sumTo(2) = 2 + 1 = 3
+sumTo(3) = 3 + 2 + 1 = 6
+sumTo(4) = 4 + 3 + 2 + 1 = 10
+...
+sumTo(100) = 100 + 99 + ... + 2 + 1 = 5050</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>Make 3 solution variants:</p>
+                        <ol>
+                          <li>Using a for loop.</li>
+                          <li>
+                            Using a recursion, cause
+                            <code>sumTo(n) = n + sumTo(n-1)</code> for
+                            <code>n &gt; 1</code>.
+                          </li>
+                          <li>
+                            Using the
+                            <a
+                              href="https://en.wikipedia.org/wiki/Arithmetic_progression"
+                              >arithmetic progression</a
+                            >
+                            formula.
+                          </li>
+                        </ol>
+                        <p>An example of the result:</p>
+                        <div
+                          id="kkwhazjpr6"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function sumTo(n) { /*... your code ... */ }
+
+alert( sumTo(100) ); // 5050</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          P.S. Which solution variant is the fastest? The
+                          slowest? Why?
+                        </p>
+                        <p>
+                          P.P.S. Can we use recursion to count
+                          <code>sumTo(100000)</code>?
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>The solution using a loop:</p>
+                            <div
+                              id="ljed5nq7cu"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function sumTo(n) {
+  let sum = 0;
+  for (let i = 1; i &lt;= n; i++) {
+    sum += i;
+  }
+  return sum;
+}
+
+alert( sumTo(100) );</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>The solution using recursion:</p>
+                            <div
+                              id="ymhkmhzl2c"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function sumTo(n) {
+  if (n == 1) return 1;
+  return n + sumTo(n - 1);
+}
+
+alert( sumTo(100) );</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              The solution using the formula:
+                              <code>sumTo(n) = n*(n+1)/2</code>:
+                            </p>
+                            <div
+                              id="e7nyiuwz8e"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function sumTo(n) {
+  return n * (n + 1) / 2;
+}
+
+alert( sumTo(100) );</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              P.S. Naturally, the formula is the fastest
+                              solution. It uses only 3 operations for any number
+                              <code>n</code>. The math helps!
+                            </p>
+                            <p>
+                              The loop variant is the second in terms of speed.
+                              In both the recursive and the loop variant we sum
+                              the same numbers. But the recursion involves
+                              nested calls and execution stack management. That
+                              also takes resources, so it’s slower.
+                            </p>
+                            <p>
+                              P.P.S. Some engines support the “tail call”
+                              optimization: if a recursive call is the very last
+                              one in the function (like in
+                              <code>sumTo</code> above), then the outer function
+                              will not need to resume the execution, so the
+                              engine doesn’t need to remember its execution
+                              context. That removes the burden on memory, so
+                              counting <code>sumTo(100000)</code> becomes
+                              possible. But if the JavaScript engine does not
+                              support tail call optimization (most of them
+                              don’t), there will be an error: maximum stack size
+                              exceeded, because there’s usually a limitation on
+                              the total stack size.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="recursion.html#calculate-factorial"
+                          name="calculate-factorial"
+                          >Calculate factorial</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/factorial.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 4</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          The
+                          <a href="https://en.wikipedia.org/wiki/Factorial"
+                            >factorial</a
+                          >
+                          of a natural number is a number multiplied by
+                          <code>&quot;number minus one&quot;</code>, then by
+                          <code>&quot;number minus two&quot;</code>, and so on
+                          till <code>1</code>. The factorial of
+                          <code>n</code> is denoted as <code>n!</code>
+                        </p>
+                        <p>We can write a definition of factorial like this:</p>
+                        <div
+                          id="y263ehfmnl"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>n! = n * (n - 1) * (n - 2) * ...*1</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          Values of factorials for different <code>n</code>:
+                        </p>
+                        <div
+                          id="30gy98qooo"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>1! = 1
+2! = 2 * 1 = 2
+3! = 3 * 2 * 1 = 6
+4! = 4 * 3 * 2 * 1 = 24
+5! = 5 * 4 * 3 * 2 * 1 = 120</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          The task is to write a function
+                          <code>factorial(n)</code> that calculates
+                          <code>n!</code> using recursive calls.
+                        </p>
+                        <div
+                          id="1ejuvne1fi"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>alert( factorial(5) ); // 120</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          P.S. Hint: <code>n!</code> can be written as
+                          <code>n * (n-1)!</code> For instance:
+                          <code>3! = 3*2! = 3*2*1! = 6</code>
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              By definition, a factorial <code>n!</code> can be
+                              written as <code>n * (n-1)!</code>.
+                            </p>
+                            <p>
+                              In other words, the result of
+                              <code>factorial(n)</code> can be calculated as
+                              <code>n</code> multiplied by the result of
+                              <code>factorial(n-1)</code>. And the call for
+                              <code>n-1</code> can recursively descend lower,
+                              and lower, till <code>1</code>.
+                            </p>
+                            <div
+                              id="au65zkm8zy"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function factorial(n) {
+  return (n != 1) ? n * factorial(n - 1) : 1;
+}
+
+alert( factorial(5) ); // 120</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              The basis of recursion is the value
+                              <code>1</code>. We can also make
+                              <code>0</code> the basis here, doesn’t matter
+                              much, but gives one more recursive step:
+                            </p>
+                            <div
+                              id="10obgnjvf6"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function factorial(n) {
+  return n ? n * factorial(n - 1) : 1;
+}
+
+alert( factorial(5) ); // 120</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="recursion.html#fibonacci-numbers"
+                          name="fibonacci-numbers"
+                          >Fibonacci numbers</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/fibonacci-numbers.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          The sequence of
+                          <a
+                            href="https://en.wikipedia.org/wiki/Fibonacci_number"
+                            >Fibonacci numbers</a
+                          >
+                          has the formula
+                          <code
+                            >F<sub>n</sub> = F<sub>n-1</sub> + F<sub
+                              >n-2</sub
+                            ></code
+                          >. In other words, the next number is a sum of the two
+                          preceding ones.
+                        </p>
+                        <p>
+                          First two numbers are <code>1</code>, then
+                          <code>2(1+1)</code>, then <code>3(1+2)</code>,
+                          <code>5(2+3)</code> and so on:
+                          <code>1, 1, 2, 3, 5, 8, 13, 21...</code>.
+                        </p>
+                        <p>
+                          Fibonacci numbers are related to the
+                          <a href="https://en.wikipedia.org/wiki/Golden_ratio"
+                            >Golden ratio</a
+                          >
+                          and many natural phenomena around us.
+                        </p>
+                        <p>
+                          Write a function <code>fib(n)</code> that returns the
+                          <code>n-th</code> Fibonacci number.
+                        </p>
+                        <p>An example of work:</p>
+                        <div
+                          id="scwml9aq6z"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>function fib(n) { /* your code */ }
+
+alert(fib(3)); // 2
+alert(fib(7)); // 13
+alert(fib(77)); // 5527939700884757</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          P.S. The function should be fast. The call to
+                          <code>fib(77)</code> should take no more than a
+                          fraction of a second.
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__answer-content">
+                          <div class="formatted">
+                            <p>
+                              The first solution we could try here is the
+                              recursive one.
+                            </p>
+                            <p>
+                              Fibonacci numbers are recursive by definition:
+                            </p>
+                            <div
+                              id="6rk2ew3m27"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function fib(n) {
+  return n &lt;= 1 ? n : fib(n - 1) + fib(n - 2);
+}
+
+alert( fib(3) ); // 2
+alert( fib(7) ); // 13
+// fib(77); // will be extremely slow!</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              …But for big values of <code>n</code> it’s very
+                              slow. For instance, <code>fib(77)</code> may hang
+                              up the engine for some time eating all CPU
+                              resources.
+                            </p>
+                            <p>
+                              That’s because the function makes too many
+                              subcalls. The same values are re-evaluated again
+                              and again.
+                            </p>
+                            <p>
+                              For instance, let’s see a piece of calculations
+                              for <code>fib(5)</code>:
+                            </p>
+                            <div
+                              id="4d8ftbb07d"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>...
+fib(5) = fib(4) + fib(3)
+fib(4) = fib(3) + fib(2)
+...</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              Here we can see that the value of
+                              <code>fib(3)</code> is needed for both
+                              <code>fib(5)</code> and <code>fib(4)</code>. So
+                              <code>fib(3)</code> will be called and evaluated
+                              two times completely independently.
+                            </p>
+                            <p>Here’s the full recursion tree:</p>
+                            <figure>
+                              <div class="image" style="width: 640px">
+                                <div
+                                  class="image__ratio"
+                                  style="padding-top: 35.15625%"
+                                ></div>
+                                <object
+                                  type="image/svg+xml"
+                                  data="task/fibonacci-numbers/fibonacci-recursion-tree.svg"
+                                  width="640"
+                                  height="225"
+                                  class="image__image"
+                                >
+                                  <img
+                                    src="task/fibonacci-numbers/fibonacci-recursion-tree.svg"
+                                    alt=""
+                                    width="640"
+                                    height="225"
+                                  />
+                                </object>
+                              </div>
+                            </figure>
+                            <p>
+                              We can clearly notice that <code>fib(3)</code> is
+                              evaluated two times and <code>fib(2)</code> is
+                              evaluated three times. The total amount of
+                              computations grows much faster than
+                              <code>n</code>, making it enormous even for
+                              <code>n=77</code>.
+                            </p>
+                            <p>
+                              We can optimize that by remembering
+                              already-evaluated values: if a value of say
+                              <code>fib(3)</code> is calculated once, then we
+                              can just reuse it in future computations.
+                            </p>
+                            <p>
+                              Another variant would be to give up recursion and
+                              use a totally different loop-based algorithm.
+                            </p>
+                            <p>
+                              Instead of going from <code>n</code> down to lower
+                              values, we can make a loop that starts from
+                              <code>1</code> and <code>2</code>, then gets
+                              <code>fib(3)</code> as their sum, then
+                              <code>fib(4)</code> as the sum of two previous
+                              values, then <code>fib(5)</code> and goes up and
+                              up, till it gets to the needed value. On each step
+                              we only need to remember two previous values.
+                            </p>
+                            <p>
+                              Here are the steps of the new algorithm in
+                              details.
+                            </p>
+                            <p>The start:</p>
+                            <div
+                              id="h3dhs0z093"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>// a = fib(1), b = fib(2), these values are by definition 1
+let a = 1, b = 1;
+
+// get c = fib(3) as their sum
+let c = a + b;
+
+/* we now have fib(1), fib(2), fib(3)
+a  b  c
+1, 1, 2
+*/</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              Now we want to get
+                              <code>fib(4) = fib(2) + fib(3)</code>.
+                            </p>
+                            <p>
+                              Let’s shift the variables: <code>a,b</code> will
+                              get <code>fib(2),fib(3)</code>, and
+                              <code>c</code> will get their sum:
+                            </p>
+                            <div
+                              id="qy3uloucvt"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>a = b; // now a = fib(2)
+b = c; // now b = fib(3)
+c = a + b; // c = fib(4)
+
+/* now we have the sequence:
+   a  b  c
+1, 1, 2, 3
+*/</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>The next step gives another sequence number:</p>
+                            <div
+                              id="71rjq5jhmw"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>a = b; // now a = fib(3)
+b = c; // now b = fib(4)
+c = a + b; // c = fib(5)
+
+/* now the sequence is (one more number):
+      a  b  c
+1, 1, 2, 3, 5
+*/</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              …And so on until we get the needed value. That’s
+                              much faster than recursion and involves no
+                              duplicate computations.
+                            </p>
+                            <p>The full code:</p>
+                            <div
+                              id="ry791vdrcn"
+                              data-trusted="1"
+                              class="code-example"
+                            >
+                              <div class="codebox code-example__codebox">
+                                <div class="toolbar codebox__toolbar">
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="run"
+                                      data-action="run"
+                                      class="
+                                        toolbar__button toolbar__button_run
+                                      "
+                                    ></a>
+                                  </div>
+                                  <div class="toolbar__tool">
+                                    <a
+                                      href="recursion.html#"
+                                      title="open in sandbox"
+                                      target="_blank"
+                                      data-action="edit"
+                                      class="
+                                        toolbar__button toolbar__button_edit
+                                      "
+                                    ></a>
+                                  </div>
+                                </div>
+                                <div class="codebox__code" data-code="1">
+                                  <pre
+                                    class="line-numbers language-javascript"
+                                  ><code>function fib(n) {
+  let a = 1;
+  let b = 1;
+  for (let i = 3; i &lt;= n; i++) {
+    let c = a + b;
+    a = b;
+    b = c;
+  }
+  return b;
+}
+
+alert( fib(3) ); // 2
+alert( fib(7) ); // 13
+alert( fib(77) ); // 5527939700884757</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                            <p>
+                              The loop starts with <code>i=3</code>, because the
+                              first and the second sequence values are
+                              hard-coded into variables <code>a=1</code>,
+                              <code>b=1</code>.
+                            </p>
+                            <p>
+                              The approach is called
+                              <a
+                                href="https://en.wikipedia.org/wiki/Dynamic_programming"
+                                >dynamic programming bottom-up</a
+                              >.
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="recursion.html#output-a-single-linked-list"
+                          name="output-a-single-linked-list"
+                          >Output a single-linked list</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/output-single-linked-list.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Let’s say we have a single-linked list (as described
+                          in the chapter
+                          <a href="recursion.html">Recursion and stack</a>):
+                        </p>
+                        <div
+                          id="l2ilf5qjb5"
+                          data-trusted="1"
+                          class="code-example"
+                        >
+                          <div class="codebox code-example__codebox">
+                            <div class="codebox__code" data-code="1">
+                              <pre
+                                class="line-numbers language-javascript"
+                              ><code>let list = {
+  value: 1,
+  next: {
+    value: 2,
+    next: {
+      value: 3,
+      next: {
+        value: 4,
+        next: null
+      }
+    }
+  }
+};</code></pre>
+                            </div>
+                          </div>
+                        </div>
+                        <p>
+                          Write a function <code>printList(list)</code> that
+                          outputs list items one-by-one.
+                        </p>
+                        <p>
+                          Make two variants of the solution: using a loop and
+                          using recursion.
+                        </p>
+                        <p>What’s better: with recursion or without it?</p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__step task__step_open">
+                          <button
+                            class="task__step-show"
+                            type="button"
+                            onclick="showStep(this)"
+                          >
+                            Loop-based solution
+                          </button>
+                          <div class="task__answer-content">
+                            <h4 class="task__step-title">
+                              Loop-based solution
+                            </h4>
+                            <div class="formatted">
+                              <p>The loop-based variant of the solution:</p>
+                              <div
+                                id="bs2torv7u2"
+                                data-trusted="1"
+                                class="code-example"
+                              >
+                                <div class="codebox code-example__codebox">
+                                  <div class="toolbar codebox__toolbar">
+                                    <div class="toolbar__tool">
+                                      <a
+                                        href="recursion.html#"
+                                        title="run"
+                                        data-action="run"
+                                        class="
+                                          toolbar__button toolbar__button_run
+                                        "
+                                      ></a>
+                                    </div>
+                                    <div class="toolbar__tool">
+                                      <a
+                                        href="recursion.html#"
+                                        title="open in sandbox"
+                                        target="_blank"
+                                        data-action="edit"
+                                        class="
+                                          toolbar__button toolbar__button_edit
+                                        "
+                                      ></a>
+                                    </div>
+                                  </div>
+                                  <div class="codebox__code" data-code="1">
+                                    <pre
+                                      class="line-numbers language-javascript"
+                                    ><code>let list = {
+  value: 1,
+  next: {
+    value: 2,
+    next: {
+      value: 3,
+      next: {
+        value: 4,
+        next: null
+      }
+    }
+  }
+};
+
+function printList(list) {
+  let tmp = list;
+
+  while (tmp) {
+    alert(tmp.value);
+    tmp = tmp.next;
+  }
+
+}
+
+printList(list);</code></pre>
+                                  </div>
+                                </div>
+                              </div>
+                              <p>
+                                Please note that we use a temporary variable
+                                <code>tmp</code> to walk over the list.
+                                Technically, we could use a function parameter
+                                <code>list</code> instead:
+                              </p>
+                              <div
+                                id="xixygdh2dn"
+                                data-trusted="1"
+                                class="code-example"
+                                data-highlight='[{"start":2,"cols":[{"start":8,"end":12}]}]'
+                              >
+                                <div class="codebox code-example__codebox">
+                                  <div class="codebox__code" data-code="1">
+                                    <pre
+                                      class="line-numbers language-javascript"
+                                    ><code>function printList(list) {
+
+  while(list) {
+    alert(list.value);
+    list = list.next;
+  }
+
+}</code></pre>
+                                  </div>
+                                </div>
+                              </div>
+                              <p>
+                                …But that would be unwise. In the future we may
+                                need to extend a function, do something else
+                                with the list. If we change <code>list</code>,
+                                then we lose such ability.
+                              </p>
+                              <p>
+                                Talking about good variable names,
+                                <code>list</code> here is the list itself. The
+                                first element of it. And it should remain like
+                                that. That’s clear and reliable.
+                              </p>
+                              <p>
+                                From the other side, the role of
+                                <code>tmp</code> is exclusively a list
+                                traversal, like <code>i</code> in the
+                                <code>for</code> loop.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="task__step task__step_open">
+                          <button
+                            class="task__step-show"
+                            type="button"
+                            onclick="showStep(this)"
+                          >
+                            Recursive solution
+                          </button>
+                          <div class="task__answer-content">
+                            <h4 class="task__step-title">Recursive solution</h4>
+                            <div class="formatted">
+                              <p>
+                                The recursive variant of
+                                <code>printList(list)</code> follows a simple
+                                logic: to output a list we should output the
+                                current element <code>list</code>, then do the
+                                same for <code>list.next</code>:
+                              </p>
+                              <div
+                                id="5b7dlwynlt"
+                                data-trusted="1"
+                                class="code-example"
+                              >
+                                <div class="codebox code-example__codebox">
+                                  <div class="toolbar codebox__toolbar">
+                                    <div class="toolbar__tool">
+                                      <a
+                                        href="recursion.html#"
+                                        title="run"
+                                        data-action="run"
+                                        class="
+                                          toolbar__button toolbar__button_run
+                                        "
+                                      ></a>
+                                    </div>
+                                    <div class="toolbar__tool">
+                                      <a
+                                        href="recursion.html#"
+                                        title="open in sandbox"
+                                        target="_blank"
+                                        data-action="edit"
+                                        class="
+                                          toolbar__button toolbar__button_edit
+                                        "
+                                      ></a>
+                                    </div>
+                                  </div>
+                                  <div class="codebox__code" data-code="1">
+                                    <pre
+                                      class="line-numbers language-javascript"
+                                    ><code>let list = {
+  value: 1,
+  next: {
+    value: 2,
+    next: {
+      value: 3,
+      next: {
+        value: 4,
+        next: null
+      }
+    }
+  }
+};
+
+function printList(list) {
+
+  alert(list.value); // output the current item
+
+  if (list.next) {
+    printList(list.next); // do the same for the rest of the list
+  }
+
+}
+
+printList(list);</code></pre>
+                                  </div>
+                                </div>
+                              </div>
+                              <p>Now what’s better?</p>
+                              <p>
+                                Technically, the loop is more effective. These
+                                two variants do the same, but the loop does not
+                                spend resources for nested function calls.
+                              </p>
+                              <p>
+                                From the other side, the recursive variant is
+                                shorter and sometimes easier to understand.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="task tasks__task">
+                  <div class="task__header">
+                    <div class="task__title-wrap">
+                      <h3 class="task__title">
+                        <a
+                          class="main__anchor"
+                          href="recursion.html#output-a-single-linked-list-in-the-reverse-order"
+                          name="output-a-single-linked-list-in-the-reverse-order"
+                          >Output a single-linked list in the reverse order</a
+                        >
+                      </h3>
+                      <a
+                        class="task__open-link"
+                        href="task/output-single-linked-list-reverse.html"
+                        target="_blank"
+                      ></a>
+                    </div>
+                    <div class="task__header-note">
+                      <span
+                        class="task__importance"
+                        title="How important is the task, from 1 to 5"
+                        >importance: 5</span
+                      >
+                    </div>
+                    <div class="task__content">
+                      <div class="task__formatted">
+                        <p>
+                          Output a single-linked list from the previous task
+                          <a href="task/output-single-linked-list.html"
+                            >Output a single-linked list</a
+                          >
+                          in the reverse order.
+                        </p>
+                        <p>
+                          Make two solutions: using a loop and using a
+                          recursion.
+                        </p>
+                      </div>
+                      <button class="task__solution" type="button">
+                        solution
+                      </button>
+                      <div class="task__answer">
+                        <div class="task__step task__step_open">
+                          <button
+                            class="task__step-show"
+                            type="button"
+                            onclick="showStep(this)"
+                          >
+                            Using a recursion
+                          </button>
+                          <div class="task__answer-content">
+                            <h4 class="task__step-title">Using a recursion</h4>
+                            <div class="formatted">
+                              <p>
+                                The recursive logic is a little bit tricky here.
+                              </p>
+                              <p>
+                                We need to first output the rest of the list and
+                                <em>then</em> output the current one:
+                              </p>
+                              <div
+                                id="6kgntn53bq"
+                                data-trusted="1"
+                                class="code-example"
+                              >
+                                <div class="codebox code-example__codebox">
+                                  <div class="toolbar codebox__toolbar">
+                                    <div class="toolbar__tool">
+                                      <a
+                                        href="recursion.html#"
+                                        title="run"
+                                        data-action="run"
+                                        class="
+                                          toolbar__button toolbar__button_run
+                                        "
+                                      ></a>
+                                    </div>
+                                    <div class="toolbar__tool">
+                                      <a
+                                        href="recursion.html#"
+                                        title="open in sandbox"
+                                        target="_blank"
+                                        data-action="edit"
+                                        class="
+                                          toolbar__button toolbar__button_edit
+                                        "
+                                      ></a>
+                                    </div>
+                                  </div>
+                                  <div class="codebox__code" data-code="1">
+                                    <pre
+                                      class="line-numbers language-javascript"
+                                    ><code>let list = {
+  value: 1,
+  next: {
+    value: 2,
+    next: {
+      value: 3,
+      next: {
+        value: 4,
+        next: null
+      }
+    }
+  }
+};
+
+function printReverseList(list) {
+
+  if (list.next) {
+    printReverseList(list.next);
+  }
+
+  alert(list.value);
+}
+
+printReverseList(list);</code></pre>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="task__step task__step_open">
+                          <button
+                            class="task__step-show"
+                            type="button"
+                            onclick="showStep(this)"
+                          >
+                            Using a loop
+                          </button>
+                          <div class="task__answer-content">
+                            <h4 class="task__step-title">Using a loop</h4>
+                            <div class="formatted">
+                              <p>
+                                The loop variant is also a little bit more
+                                complicated then the direct output.
+                              </p>
+                              <p>
+                                There is no way to get the last value in our
+                                <code>list</code>. We also can’t “go back”.
+                              </p>
+                              <p>
+                                So what we can do is to first go through the
+                                items in the direct order and remember them in
+                                an array, and then output what we remembered in
+                                the reverse order:
+                              </p>
+                              <div
+                                id="8ofexem8h4"
+                                data-trusted="1"
+                                class="code-example"
+                              >
+                                <div class="codebox code-example__codebox">
+                                  <div class="toolbar codebox__toolbar">
+                                    <div class="toolbar__tool">
+                                      <a
+                                        href="recursion.html#"
+                                        title="run"
+                                        data-action="run"
+                                        class="
+                                          toolbar__button toolbar__button_run
+                                        "
+                                      ></a>
+                                    </div>
+                                    <div class="toolbar__tool">
+                                      <a
+                                        href="recursion.html#"
+                                        title="open in sandbox"
+                                        target="_blank"
+                                        data-action="edit"
+                                        class="
+                                          toolbar__button toolbar__button_edit
+                                        "
+                                      ></a>
+                                    </div>
+                                  </div>
+                                  <div class="codebox__code" data-code="1">
+                                    <pre
+                                      class="line-numbers language-javascript"
+                                    ><code>let list = {
+  value: 1,
+  next: {
+    value: 2,
+    next: {
+      value: 3,
+      next: {
+        value: 4,
+        next: null
+      }
+    }
+  }
+};
+
+function printReverseList(list) {
+  let arr = [];
+  let tmp = list;
+
+  while (tmp) {
+    arr.push(tmp.value);
+    tmp = tmp.next;
+  }
+
+  for (let i = arr.length - 1; i &gt;= 0; i--) {
+    alert( arr[i] );
+  }
+}
+
+printReverseList(list);</code></pre>
+                                  </div>
+                                </div>
+                              </div>
+                              <p>
+                                Please note that the recursive solution actually
+                                does exactly the same: it follows the list,
+                                remembers the items in the chain of nested calls
+                                (in the execution context stack), and then
+                                outputs them.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          class="close-button task__answer-close"
+                          type="button"
+                          title="close"
+                        ></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="page__nav-wrap">
+              <a
+                class="page__nav page__nav_prev"
+                href="advanced-functions.html"
+                data-tooltip="Advanced working with functions"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate"
+                  >Previous lesson</span
+                ></a
+              ><a
+                class="page__nav page__nav_next"
+                href="rest-parameters-spread.html"
+                data-tooltip="Rest parameters and spread syntax"
+                ><span class="page__nav-text"
+                  ><span class="page__nav-text-shortcut"></span></span
+                ><span class="page__nav-text-alternate">Next lesson</span></a
+              >
+            </div>
+            <div class="article-tablet-foot tablet-only">
+              <div class="article-tablet-foot__layout">
+                <div class="share-icons">
+                  <span class="share-icons__title">Share</span
+                  ><a
+                    class="share share_tw"
+                    href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Frecursion"
+                    rel="nofollow"
+                  ></a
+                  ><a
+                    class="share share_fb"
+                    href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Burl%5D=https%3A%2F%2Fjavascript.info%2Frecursion"
+                    rel="nofollow"
+                  ></a>
+                </div>
+                <div class="article-tablet-foot__map">
+                  <a
+                    class="map"
+                    href="tutorial/map.html"
+                    data-action="tutorial-map"
+                    ><span class="map__text">Tutorial map</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            
+                  <a href="recursion.html#comments" name="comments">Comments</a>
+                </h2>
+                <div class="comments__read-before">
+                  <span class="comments__read-before-link"
+                    >read this before commenting…</span
+                  >
+                  <div class="comments__read-before-popup">
+                    <div class="comments__read-before-popup-i">
+                      <ul>
+                        <li>
+                          If you have suggestions what to improve - please
+                          <a
+                            href="https://github.com/javascript-tutorial/en.javascript.info/issues/new"
+                            >submit a GitHub issue</a
+                          >
+                          or a pull request instead of commenting.
+                        </li>
+                        <li>
+                          If you can't understand something in the article –
+                          please elaborate.
+                        </li>
+                        <li>
+                          To insert few words of code, use the
+                          <code>&lt;code&gt;</code> tag, for several lines –
+                          wrap them in <code>&lt;pre&gt;</code> tag, for more
+                          than 10 lines – use a sandbox (<a
+                            href="https://plnkr.co/edit/?p=preview"
+                            >plnkr</a
+                          >, <a href="https://jsbin.com">jsbin</a>,
+                          <a href="http://codepen.io">codepen</a>…)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="disqus_thread"></div>
+              <script>
+                var disqus_config = function () {
+                  if (!this.page) this.page = {};
+                  Object.assign(this.page, {
+                    url: "https:\/\/javascript.info\/recursion",
+                    identifier: "\/recursion",
+                  });
+                };
+              </script>
+              <script>
+                var disqus_shortname = "javascriptinfo";
+              </script>
+              <script>
+                var disqus_enabled = true;
+              </script>
+            </div>
+          </main>
+        </div>
+
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="advanced-functions.html"
+                        >Advanced working with functions</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+                <h4 class="sidebar__section-title">Lesson navigation</h4>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                   recursion.html#two-ways-of-thinking"
+                        >Two ways of thinking</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   recursion.html#the-execution-context-and-stack"
+                        >The execution context and stack</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   recursion.html#recursive-traversals"
+                        >Recursive traversals</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                   recursion.html#recursive-structures"
+                        >Recursive structures</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="recursion.html
+                  </ul>
+                </nav>
+                <nav class="sidebar__navigation">
+                  <ul class="sidebar__navigation-links">
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="recursion.html#tasks"
+                        >Tasks (5)</a
+                      >
+                    </li>
+                    <li class="sidebar__navigation-link">
+                      <a class="sidebar__link" href="recursion.html#comments"
+                        >Comments</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+           <a
+                  class="share share_tw sidebar__share"
+                  href="https://twitter.com/share?url=https%3A%2F%2Fjavascript.info%2Frecursion"
+                  rel="nofollow"
+                ></a
+                ><a
+                  class="share share_fb sidebar__share"
+                  href="https://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]=https%3A%2F%2Fjavascript.info%2Frecursion"
+                  rel="nofollow"
+                ></a>
+                <a
+                  class="sidebar__link"
+                  href="https://github.com/javascript-tutorial/en.javascript.info/blob/master/1-js/06-advanced-functions/01-recursion"
+                  rel="nofollow"
+                  >Edit on GitHub</a
+                >
+              </div>
+              <div class="sidebar__section" id="sponsorBar">
+                <div class="sidebar__section-title" id="sponsorBarTitle"></div>
+                <div id="sponsorBarContent"></div>
+                <script>
+                  window.initSponsorBar();
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-footer">
+      <ul class="page-footer__list">
+        <li class="page-footer__item page-footer__item_copy">
+          ©&nbsp;2007—2021&nbsp; Ilya Kantor
+        </li>
+        <li class="page-footer__item page-footer__item_about">
+          <a class="page-footer__link" href="about.html">about the project</a>
+        </li>
+        <li class="page-footer__item page-footer__item_contact">
+          <a class="page-footer__link" href="about.html#contact-us"
+            >contact us</a
+          >
+        </li>
+        <li class="page-footer__item page-footer__item_terms">
+          <a class="page-footer__link" href="terms.html">terms of usage</a>
+        </li>
+        <li class="page-footer__item page-footer__item_privacy">
+          <a class="page-footer__link" href="privacy.html">privacy policy</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
