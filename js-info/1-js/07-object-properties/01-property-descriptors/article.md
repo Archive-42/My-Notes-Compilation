@@ -1,4 +1,3 @@
-
 # Property flags and descriptors
 
 As we know, objects can store properties.
@@ -19,9 +18,10 @@ We didn't see them yet, because generally they do not show up. When we create a 
 
 First, let's see how to get those flags.
 
-The method [Object.getOwnPropertyDescriptor](mdn:js/Object/getOwnPropertyDescriptor) allows to query the *full* information about a property.
+The method [Object.getOwnPropertyDescriptor](mdn:js/Object/getOwnPropertyDescriptor) allows to query the _full_ information about a property.
 
 The syntax is:
+
 ```js
 let descriptor = Object.getOwnPropertyDescriptor(obj, propertyName);
 ```
@@ -38,12 +38,12 @@ For instance:
 
 ```js run
 let user = {
-  name: "John"
+  name: "John",
 };
 
-let descriptor = Object.getOwnPropertyDescriptor(user, 'name');
+let descriptor = Object.getOwnPropertyDescriptor(user, "name");
 
-alert( JSON.stringify(descriptor, null, 2 ) );
+alert(JSON.stringify(descriptor, null, 2));
 /* property descriptor:
 {
   "value": "John",
@@ -59,7 +59,7 @@ To change the flags, we can use [Object.defineProperty](mdn:js/Object/defineProp
 The syntax is:
 
 ```js
-Object.defineProperty(obj, propertyName, descriptor)
+Object.defineProperty(obj, propertyName, descriptor);
 ```
 
 `obj`, `propertyName`
@@ -155,7 +155,7 @@ let user = {
   name: "John",
   toString() {
     return this.name;
-  }
+  },
 };
 
 // By default, both our properties are listed:
@@ -199,9 +199,9 @@ A non-configurable property can't be deleted, its attributes can't be modified.
 For instance, `Math.PI` is non-writable, non-enumerable and non-configurable:
 
 ```js run
-let descriptor = Object.getOwnPropertyDescriptor(Math, 'PI');
+let descriptor = Object.getOwnPropertyDescriptor(Math, "PI");
 
-alert( JSON.stringify(descriptor, null, 2 ) );
+alert(JSON.stringify(descriptor, null, 2));
 /*
 {
   "value": 3.141592653589793,
@@ -211,6 +211,7 @@ alert( JSON.stringify(descriptor, null, 2 ) );
 }
 */
 ```
+
 So, a programmer is unable to change the value of `Math.PI` or overwrite it.
 
 ```js run
@@ -236,11 +237,11 @@ Here `user.name` is non-configurable, but we can still change it (as it's writab
 
 ```js run
 let user = {
-  name: "John"
+  name: "John",
 };
 
 Object.defineProperty(user, "name", {
-  configurable: false
+  configurable: false,
 });
 
 user.name = "Pete"; // works fine
@@ -251,12 +252,12 @@ And here we make `user.name` a "forever sealed" constant, just like the built-in
 
 ```js run
 let user = {
-  name: "John"
+  name: "John",
 };
 
 Object.defineProperty(user, "name", {
   writable: false,
-  configurable: false
+  configurable: false,
 });
 
 // won't be able to change user.name or its flags
@@ -281,7 +282,7 @@ The syntax is:
 ```js
 Object.defineProperties(obj, {
   prop1: descriptor1,
-  prop2: descriptor2
+  prop2: descriptor2,
   // ...
 });
 ```
@@ -312,19 +313,19 @@ Normally when we clone an object, we use an assignment to copy properties, like 
 
 ```js
 for (let key in user) {
-  clone[key] = user[key]
+  clone[key] = user[key];
 }
 ```
 
 ...But that does not copy flags. So if we want a "better" clone then `Object.defineProperties` is preferred.
 
-Another difference is that `for..in` ignores symbolic properties, but `Object.getOwnPropertyDescriptors` returns *all* property descriptors including symbolic ones.
+Another difference is that `for..in` ignores symbolic properties, but `Object.getOwnPropertyDescriptors` returns _all_ property descriptors including symbolic ones.
 
 ## Sealing an object globally
 
 Property descriptors work at the level of individual properties.
 
-There are also methods that limit access to the *whole* object:
+There are also methods that limit access to the _whole_ object:
 
 [Object.preventExtensions(obj)](mdn:js/Object/preventExtensions)
 : Forbids the addition of new properties to the object.

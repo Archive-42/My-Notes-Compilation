@@ -4,7 +4,7 @@ In programming, we often want to take something and extend it.
 
 For instance, we have a `user` object with its properties and methods, and want to make `admin` and `guest` as slightly modified variants of it. We'd like to reuse what we have in `user`, not copy/reimplement its methods, just build a new object on top of it.
 
-*Prototypal inheritance* is a language feature that helps in that.
+_Prototypal inheritance_ is a language feature that helps in that.
 
 ## [[Prototype]]
 
@@ -131,18 +131,18 @@ There are only two limitations:
 
 Also it may be obvious, but still: there can be only one `[[Prototype]]`. An object may not inherit from two others.
 
-
-```smart header="`__proto__` is a historical getter/setter for `[[Prototype]]`"
+```smart header="`**proto**`is a historical getter/setter for`[[Prototype]]`"
 It's a common mistake of novice developers not to know the difference between these two.
 
-Please note that `__proto__` is *not the same* as the internal `[[Prototype]]` property. It's a getter/setter for `[[Prototype]]`. Later we'll see situations where it matters, for now let's just keep it in mind, as we build our understanding of JavaScript language.
+Please note that `__proto__` is _not the same_ as the internal `[[Prototype]]` property. It's a getter/setter for `[[Prototype]]`. Later we'll see situations where it matters, for now let's just keep it in mind, as we build our understanding of JavaScript language.
 
 The `__proto__` property is a bit outdated. It exists for historical reasons, modern JavaScript suggests that we should use `Object.getPrototypeOf/Object.setPrototypeOf` functions instead that get/set the prototype. We'll also cover these functions later.
 
 By the specification, `__proto__` must only be supported by browsers. In fact though, all environments including server-side support `__proto__`, so we're quite safe using it.
 
 As the `__proto__` notation is a bit more intuitively obvious, we use it in the examples.
-```
+
+````
 
 ## Writing doesn't use prototype
 
@@ -156,7 +156,7 @@ In the example below, we assign its own `walk` method to `rabbit`:
 let animal = {
   eats: true,
   walk() {
-    /* this method won't be used by rabbit */  
+    /* this method won't be used by rabbit */
   }
 };
 
@@ -171,7 +171,7 @@ rabbit.walk = function() {
 */!*
 
 rabbit.walk(); // Rabbit! Bounce-bounce!
-```
+````
 
 From now on, `rabbit.walk()` call finds the method immediately in the object and executes it, without using the prototype:
 
@@ -192,12 +192,12 @@ let user = {
 
   get fullName() {
     return `${this.name} ${this.surname}`;
-  }
+  },
 };
 
 let admin = {
   __proto__: user,
-  isAdmin: true
+  isAdmin: true,
 };
 
 alert(admin.fullName); // John Smith (*)
@@ -237,12 +237,12 @@ let animal = {
   },
   sleep() {
     this.isSleeping = true;
-  }
+  },
 };
 
 let rabbit = {
   name: "White Rabbit",
-  __proto__: animal
+  __proto__: animal,
 };
 
 // modifies rabbit.isSleeping
@@ -293,15 +293,15 @@ So we can filter out inherited properties (or do something else with them):
 
 ```js run
 let animal = {
-  eats: true
+  eats: true,
 };
 
 let rabbit = {
   jumps: true,
-  __proto__: animal
+  __proto__: animal,
 };
 
-for(let prop in rabbit) {
+for (let prop in rabbit) {
   let isOwn = rabbit.hasOwnProperty(prop);
 
   if (isOwn) {

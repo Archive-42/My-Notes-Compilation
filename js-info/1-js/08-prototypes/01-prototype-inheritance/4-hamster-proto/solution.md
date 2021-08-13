@@ -6,7 +6,7 @@ Let's look carefully at what's going on in the call `speedy.eat("apple")`.
 
 3. Then it follows the prototype chain and finds `stomach` in `hamster`.
 
-4. Then it calls `push` on it, adding the food into *the stomach of the prototype*.
+4. Then it calls `push` on it, adding the food into _the stomach of the prototype_.
 
 So all hamsters share a single stomach!
 

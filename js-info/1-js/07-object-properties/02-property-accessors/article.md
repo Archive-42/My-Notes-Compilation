@@ -1,11 +1,10 @@
-
 # Property getters and setters
 
 There are two kinds of object properties.
 
-The first kind is *data properties*. We already know how to work with them. All properties that we've been using until now were data properties.
+The first kind is _data properties_. We already know how to work with them. All properties that we've been using until now were data properties.
 
-The second type of properties is something new. It's *accessor properties*. They are essentially functions that execute on getting and setting a value, but look like regular properties to an external code.
+The second type of properties is something new. It's _accessor properties_. They are essentially functions that execute on getting and setting a value, but look like regular properties to an external code.
 
 ## Getters and setters
 
@@ -30,7 +29,7 @@ For instance, we have a `user` object with `name` and `surname`:
 ```js
 let user = {
   name: "John",
-  surname: "Smith"
+  surname: "Smith",
 };
 ```
 
@@ -53,7 +52,7 @@ alert(user.fullName); // John Smith
 */!*
 ```
 
-From the outside, an accessor property looks like a regular one. That's the idea of accessor properties. We don't *call* `user.fullName` as a function, we *read* it normally: the getter runs behind the scenes.
+From the outside, an accessor property looks like a regular one. That's the idea of accessor properties. We don't _call_ `user.fullName` as a function, we _read_ it normally: the getter runs behind the scenes.
 
 As of now, `fullName` has only a getter. If we attempt to assign `user.fullName=`, there will be an error:
 
@@ -169,7 +168,7 @@ let user = {
       return;
     }
     this._name = value;
-  }
+  },
 };
 
 user.name = "Pete";
@@ -181,7 +180,6 @@ user.name = ""; // Name is too short...
 So, the name is stored in `_name` property, and the access is done via getter and setter.
 
 Technically, external code is able to access the name directly by using `user._name`. But there is a widely known convention that properties starting with an underscore `"_"` are internal and should not be touched from outside the object.
-
 
 ## Using for compatibility
 
@@ -197,7 +195,7 @@ function User(name, age) {
 
 let john = new User("John", 25);
 
-alert( john.age ); // 25
+alert(john.age); // 25
 ```
 
 ...But sooner or later, things may change. Instead of `age` we may decide to store `birthday`, because it's more precise and convenient:

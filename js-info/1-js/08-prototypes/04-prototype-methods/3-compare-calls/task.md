@@ -10,7 +10,7 @@ Let's create a new `rabbit` object:
 function Rabbit(name) {
   this.name = name;
 }
-Rabbit.prototype.sayHi = function() {
+Rabbit.prototype.sayHi = function () {
   alert(this.name);
 };
 

@@ -1,4 +1,3 @@
-
 The method can take all enumerable keys using `Object.keys` and output their list.
 
 To make `toString` non-enumerable, let's define it using a property descriptor. The syntax of `Object.create` allows us to provide an object with property descriptors as the second argument.
@@ -20,7 +19,7 @@ dictionary.__proto__ = "test";
 // apple and __proto__ is in the loop
 for(let key in dictionary) {
   alert(key); // "apple", then "__proto__"
-}  
+}
 
 // comma-separated list of properties by toString
 alert(dictionary); // "apple,__proto__"

@@ -40,11 +40,11 @@ That's the resulting picture:
 
 On the picture, `"prototype"` is a horizontal arrow, meaning a regular property, and `[[Prototype]]` is vertical, meaning the inheritance of `rabbit` from `animal`.
 
-```smart header="`F.prototype` only used at `new F` time"
-`F.prototype` property is only used when `new F` is called, it assigns `[[Prototype]]` of the new object.
+```smart header="`F.prototype`only used at`new F`time"`F.prototype`property is only used when`new F`is called, it assigns`[[Prototype]]` of the new object.
 
 If, after the creation, `F.prototype` property changes (`F.prototype = <another object>`), then new objects created by `new F` will have another object as `[[Prototype]]`, but already existing objects keep the old one.
-```
+
+````
 
 ## Default F.prototype, constructor property
 
@@ -60,7 +60,7 @@ function Rabbit() {}
 /* default prototype
 Rabbit.prototype = { constructor: Rabbit };
 */
-```
+````
 
 ![](function-prototype-constructor.svg)
 
@@ -71,10 +71,10 @@ function Rabbit() {}
 // by default:
 // Rabbit.prototype = { constructor: Rabbit }
 
-alert( Rabbit.prototype.constructor == Rabbit ); // true
+alert(Rabbit.prototype.constructor == Rabbit); // true
 ```
 
-Naturally, if we do nothing, the `constructor` property is available to all rabbits through  `[[Prototype]]`:
+Naturally, if we do nothing, the `constructor` property is available to all rabbits through `[[Prototype]]`:
 
 ```js run
 function Rabbit() {}
@@ -136,7 +136,7 @@ function Rabbit() {}
 
 // Not overwrite Rabbit.prototype totally
 // just add to it
-Rabbit.prototype.jumps = true
+Rabbit.prototype.jumps = true;
 // the default Rabbit.prototype.constructor is preserved
 ```
 
@@ -153,7 +153,6 @@ Rabbit.prototype = {
 // now constructor is also correct, because we added it
 ```
 
-
 ## Summary
 
 In this chapter we briefly described the way of setting a `[[Prototype]]` for objects created via a constructor function. Later we'll see more advanced programming patterns that rely on it.
@@ -162,13 +161,14 @@ Everything is quite simple, just a few notes to make things clear:
 
 - The `F.prototype` property (don't mistake it for `[[Prototype]]`) sets `[[Prototype]]` of new objects when `new F()` is called.
 - The value of `F.prototype` should be either an object or `null`: other values won't work.
--  The `"prototype"` property only has such a special effect when set on a constructor function, and invoked with `new`.
+- The `"prototype"` property only has such a special effect when set on a constructor function, and invoked with `new`.
 
 On regular objects the `prototype` is nothing special:
+
 ```js
 let user = {
   name: "John",
-  prototype: "Bla-bla" // no magic at all
+  prototype: "Bla-bla", // no magic at all
 };
 ```
 

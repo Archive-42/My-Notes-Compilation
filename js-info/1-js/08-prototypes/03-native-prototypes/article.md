@@ -10,7 +10,7 @@ Let's say we output an empty object:
 
 ```js run
 let obj = {};
-alert( obj ); // "[object Object]" ?
+alert(obj); // "[object Object]" ?
 ```
 
 Where's the code that generates the string `"[object Object]"`? That's a built-in `toString` method, but where is it? The `obj` is empty!
@@ -62,27 +62,25 @@ Let's check the prototypes manually:
 let arr = [1, 2, 3];
 
 // it inherits from Array.prototype?
-alert( arr.__proto__ === Array.prototype ); // true
+alert(arr.__proto__ === Array.prototype); // true
 
 // then from Object.prototype?
-alert( arr.__proto__.__proto__ === Object.prototype ); // true
+alert(arr.__proto__.__proto__ === Object.prototype); // true
 
 // and null on the top.
-alert( arr.__proto__.__proto__.__proto__ ); // null
+alert(arr.__proto__.__proto__.__proto__); // null
 ```
 
 Some methods in prototypes may overlap, for instance, `Array.prototype` has its own `toString` that lists comma-delimited elements:
 
 ```js run
-let arr = [1, 2, 3]
+let arr = [1, 2, 3];
 alert(arr); // 1,2,3 <-- the result of Array.prototype.toString
 ```
 
 As we've seen before, `Object.prototype` has `toString` as well, but `Array.prototype` is closer in the chain, so the array variant is used.
 
-
 ![](native-prototypes-array-tostring.svg)
-
 
 In-browser tools like Chrome developer console also show inheritance (`console.dir` may need to be used for built-in objects):
 
@@ -105,9 +103,9 @@ As we remember, they are not objects. But if we try to access their properties, 
 
 These objects are created invisibly to us and most engines optimize them out, but the specification describes it exactly this way. Methods of these objects also reside in prototypes, available as `String.prototype`, `Number.prototype` and `Boolean.prototype`.
 
-```warn header="Values `null` and `undefined` have no object wrappers"
-Special values `null` and `undefined` stand apart. They have no object wrappers, so methods and properties are not available for them. And there are no corresponding prototypes either.
-```
+```warn header="Values `null`and`undefined`have no object wrappers" Special values`null`and`undefined` stand apart. They have no object wrappers, so methods and properties are not available for them. And there are no corresponding prototypes either.
+
+````
 
 ## Changing native prototypes [#native-prototype-change]
 
@@ -119,7 +117,7 @@ String.prototype.show = function() {
 };
 
 "BOOM!".show(); // BOOM!
-```
+````
 
 During the process of development, we may have ideas for new built-in methods we'd like to have, and we may be tempted to add them to native prototypes. But that is generally a bad idea.
 
@@ -138,10 +136,11 @@ We may then implement it manually and populate the built-in prototype with it.
 For instance:
 
 ```js run
-if (!String.prototype.repeat) { // if there's no such method
+if (!String.prototype.repeat) {
+  // if there's no such method
   // add it to the prototype
 
-  String.prototype.repeat = function(n) {
+  String.prototype.repeat = function (n) {
     // repeat the string n times
 
     // actually, the code should be a little bit more complex than that
@@ -151,9 +150,8 @@ if (!String.prototype.repeat) { // if there's no such method
   };
 }
 
-alert( "La".repeat(3) ); // LaLaLa
+alert("La".repeat(3)); // LaLaLa
 ```
-
 
 ## Borrowing from prototypes
 
@@ -192,7 +190,7 @@ Borrowing methods is flexible, it allows to mix functionalities from different o
 ## Summary
 
 - All built-in objects follow the same pattern:
-    - The methods are stored in the prototype (`Array.prototype`, `Object.prototype`, `Date.prototype`, etc.)
-    - The object itself stores only the data (array items, object properties, the date)
+  - The methods are stored in the prototype (`Array.prototype`, `Object.prototype`, `Date.prototype`, etc.)
+  - The object itself stores only the data (array items, object properties, the date)
 - Primitives also store methods in prototypes of wrapper objects: `Number.prototype`, `String.prototype` and `Boolean.prototype`. Only `undefined` and `null` do not have wrapper objects
 - Built-in prototypes can be modified or populated with new methods. But it's not recommended to change them. The only allowable case is probably when we add-in a new standard, but it's not yet supported by the JavaScript engine

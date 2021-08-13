@@ -10,22 +10,22 @@ Which values are shown in the process?
 
 ```js
 let animal = {
-  jumps: null
+  jumps: null,
 };
 let rabbit = {
   __proto__: animal,
-  jumps: true
+  jumps: true,
 };
 
-alert( rabbit.jumps ); // ? (1)
+alert(rabbit.jumps); // ? (1)
 
 delete rabbit.jumps;
 
-alert( rabbit.jumps ); // ? (2)
+alert(rabbit.jumps); // ? (2)
 
 delete animal.jumps;
 
-alert( rabbit.jumps ); // ? (3)
+alert(rabbit.jumps); // ? (3)
 ```
 
 There should be 3 answers.
