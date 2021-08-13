@@ -1,125 +1,372 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>article</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-</head>
-<body>
-<p>libs:</p>
-<ul>
-<li>d3</li>
-<li>domtree</li>
-</ul>
-<hr />
-<h1 id="dom-tree">DOM tree</h1>
-<p>The backbone of an HTML document is tags.</p>
-<p>According to the Document Object Model (DOM), every HTML tag is an object. Nested tags are “children” of the enclosing one. The text inside a tag is an object as well.</p>
-<p>All these objects are accessible using JavaScript, and we can use them to modify the page.</p>
-<p>For example, <code>document.body</code> is the object representing the <code>&lt;body&gt;</code> tag.</p>
-<p>Running this code will make the <code>&lt;body&gt;</code> red for 3 seconds:</p>
-<p>```js run document.body.style.background = “red”; // make the background red</p>
-<p>setTimeout(() =&gt; (document.body.style.background = ""), 3000); // return back ```</p>
-<p>Here we used <code>style.background</code> to change the background color of <code>document.body</code>, but there are many other properties, such as:</p>
-<ul>
-<li><code>innerHTML</code> – HTML contents of the node.</li>
-<li><code>offsetWidth</code> – the node width (in pixels)</li>
-<li>…and so on.</li>
-</ul>
-<p>Soon we’ll learn more ways to manipulate the DOM, but first we need to know about its structure.</p>
-<h2 id="an-example-of-the-dom">An example of the DOM</h2>
-<p>Let’s start with the following simple document:</p>
-<p><code>html run no-beautify &lt;!DOCTYPE html&gt; &lt;html&gt;   &lt;head&gt;     &lt;title&gt;About elk&lt;/title&gt;   &lt;/head&gt;   &lt;body&gt;     The truth about elk.   &lt;/body&gt; &lt;/html&gt;</code></p>
-<p>The DOM represents HTML as a tree structure of tags. Here’s how it looks:</p>
-<div class="domtree">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>article</title>
+    <style type="text/css">
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      span.underline {
+        text-decoration: underline;
+      }
+      div.column {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <p>libs:</p>
+    <ul>
+      <li>d3</li>
+      <li>domtree</li>
+    </ul>
+    <hr />
+    <h1 id="dom-tree">DOM tree</h1>
+    <p>The backbone of an HTML document is tags.</p>
+    <p>
+      According to the Document Object Model (DOM), every HTML tag is an object.
+      Nested tags are “children” of the enclosing one. The text inside a tag is
+      an object as well.
+    </p>
+    <p>
+      All these objects are accessible using JavaScript, and we can use them to
+      modify the page.
+    </p>
+    <p>
+      For example, <code>document.body</code> is the object representing the
+      <code>&lt;body&gt;</code> tag.
+    </p>
+    <p>
+      Running this code will make the <code>&lt;body&gt;</code> red for 3
+      seconds:
+    </p>
+    <p>
+      ```js run document.body.style.background = “red”; // make the background
+      red
+    </p>
+    <p>
+      setTimeout(() =&gt; (document.body.style.background = ""), 3000); //
+      return back ```
+    </p>
+    <p>
+      Here we used <code>style.background</code> to change the background color
+      of <code>document.body</code>, but there are many other properties, such
+      as:
+    </p>
+    <ul>
+      <li><code>innerHTML</code> – HTML contents of the node.</li>
+      <li><code>offsetWidth</code> – the node width (in pixels)</li>
+      <li>…and so on.</li>
+    </ul>
+    <p>
+      Soon we’ll learn more ways to manipulate the DOM, but first we need to
+      know about its structure.
+    </p>
+    <h2 id="an-example-of-the-dom">An example of the DOM</h2>
+    <p>Let’s start with the following simple document:</p>
+    <p>
+      <code
+        >html run no-beautify &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt;
+        &lt;title&gt;About elk&lt;/title&gt; &lt;/head&gt; &lt;body&gt; The
+        truth about elk. &lt;/body&gt; &lt;/html&gt;</code
+      >
+    </p>
+    <p>
+      The DOM represents HTML as a tree structure of tags. Here’s how it looks:
+    </p>
+    <div class="domtree"></div>
+    <script>
+      let node1 = {
+        name: "HTML",
+        nodeType: 1,
+        children: [
+          {
+            name: "HEAD",
+            nodeType: 1,
+            children: [
+              { name: "#text", nodeType: 3, content: "\n  " },
+              {
+                name: "TITLE",
+                nodeType: 1,
+                children: [
+                  { name: "#text", nodeType: 3, content: "About elk" },
+                ],
+              },
+              { name: "#text", nodeType: 3, content: "\n" },
+            ],
+          },
+          { name: "#text", nodeType: 3, content: "\n" },
+          {
+            name: "BODY",
+            nodeType: 1,
+            children: [
+              {
+                name: "#text",
+                nodeType: 3,
+                content: "\n  The truth about elk.\n\n\n",
+              },
+            ],
+          },
+        ],
+      };
 
-</div>
-<script>
-let node1 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  "},{"name":"TITLE","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"About elk"}]},{"name":"#text","nodeType":3,"content":"\n"}]},{"name":"#text","nodeType":3,"content":"\n"},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"\n  The truth about elk.\n\n\n"}]}]}
+      drawHtmlTree(node1, "div.domtree", 690, 320);
+    </script>
+    <pre
+      class="online"
+    ><code>On the picture above, you can click on element nodes and their children will open/collapse.</code></pre>
+    <p>Every tree node is an object.</p>
+    <p>
+      Tags are <em>element nodes</em> (or just elements) and form the tree
+      structure: <code>&lt;html&gt;</code> is at the root, then
+      <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> are its children,
+      etc.
+    </p>
+    <p>
+      The text inside elements forms <em>text nodes</em>, labelled as
+      <code>#text</code>. A text node contains only a string. It may not have
+      children and is always a leaf of the tree.
+    </p>
+    <p>
+      For instance, the <code>&lt;title&gt;</code> tag has the text
+      <code>"About elk"</code>.
+    </p>
+    <p>Please note the special characters in text nodes:</p>
+    <ul>
+      <li>
+        a newline: <code>↵</code> (in JavaScript known as <code>\n</code>)
+      </li>
+      <li>a space: <code>␣</code></li>
+    </ul>
+    <p>
+      Spaces and newlines are totally valid characters, like letters and digits.
+      They form text nodes and become a part of the DOM. So, for instance, in
+      the example above the <code>&lt;head&gt;</code> tag contains some spaces
+      before <code>&lt;title&gt;</code>, and that text becomes a
+      <code>#text</code> node (it contains a newline and some spaces only).
+    </p>
+    <p>There are only two top-level exclusions:</p>
+    <ol type="1">
+      <li>
+        Spaces and newlines before <code>&lt;head&gt;</code> are ignored for
+        historical reasons.
+      </li>
+      <li>
+        If we put something after <code>&lt;/body&gt;</code>, then that is
+        automatically moved inside the <code>body</code>, at the end, as the
+        HTML spec requires that all content must be inside
+        <code>&lt;body&gt;</code>. So there can’t be any spaces after
+        <code>&lt;/body&gt;</code>.
+      </li>
+    </ol>
+    <p>
+      In other cases everything’s straightforward – if there are spaces (just
+      like any character) in the document, then they become text nodes in the
+      DOM, and if we remove them, then there won’t be any.
+    </p>
+    <p>Here are no space-only text nodes:</p>
+    <p>
+      <code
+        >html no-beautify &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt;
+        &lt;title&gt;About elk&lt;/title&gt; &lt;/head&gt; &lt;body&gt; The
+        truth about elk. &lt;/body&gt; &lt;/html&gt;</code
+      >
+    </p>
+    <div class="domtree"></div>
+    <script>
+      let node2 = {
+        name: "HTML",
+        nodeType: 1,
+        children: [
+          {
+            name: "HEAD",
+            nodeType: 1,
+            children: [
+              {
+                name: "TITLE",
+                nodeType: 1,
+                children: [
+                  { name: "#text", nodeType: 3, content: "About elk" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "BODY",
+            nodeType: 1,
+            children: [
+              { name: "#text", nodeType: 3, content: "The truth about elk." },
+            ],
+          },
+        ],
+      };
 
-drawHtmlTree(node1, 'div.domtree', 690, 320);
-</script>
-<pre class="online"><code>On the picture above, you can click on element nodes and their children will open/collapse.</code></pre>
-<p>Every tree node is an object.</p>
-<p>Tags are <em>element nodes</em> (or just elements) and form the tree structure: <code>&lt;html&gt;</code> is at the root, then <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> are its children, etc.</p>
-<p>The text inside elements forms <em>text nodes</em>, labelled as <code>#text</code>. A text node contains only a string. It may not have children and is always a leaf of the tree.</p>
-<p>For instance, the <code>&lt;title&gt;</code> tag has the text <code>"About elk"</code>.</p>
-<p>Please note the special characters in text nodes:</p>
-<ul>
-<li>a newline: <code>↵</code> (in JavaScript known as <code>\n</code>)</li>
-<li>a space: <code>␣</code></li>
-</ul>
-<p>Spaces and newlines are totally valid characters, like letters and digits. They form text nodes and become a part of the DOM. So, for instance, in the example above the <code>&lt;head&gt;</code> tag contains some spaces before <code>&lt;title&gt;</code>, and that text becomes a <code>#text</code> node (it contains a newline and some spaces only).</p>
-<p>There are only two top-level exclusions:</p>
-<ol type="1">
-<li>Spaces and newlines before <code>&lt;head&gt;</code> are ignored for historical reasons.</li>
-<li>If we put something after <code>&lt;/body&gt;</code>, then that is automatically moved inside the <code>body</code>, at the end, as the HTML spec requires that all content must be inside <code>&lt;body&gt;</code>. So there can’t be any spaces after <code>&lt;/body&gt;</code>.</li>
-</ol>
-<p>In other cases everything’s straightforward – if there are spaces (just like any character) in the document, then they become text nodes in the DOM, and if we remove them, then there won’t be any.</p>
-<p>Here are no space-only text nodes:</p>
-<p><code>html no-beautify &lt;!DOCTYPE html&gt; &lt;html&gt;   &lt;head&gt;     &lt;title&gt;About elk&lt;/title&gt;   &lt;/head&gt;   &lt;body&gt;     The truth about elk.   &lt;/body&gt; &lt;/html&gt;</code></p>
-<div class="domtree">
+      drawHtmlTree(node2, "div.domtree", 690, 210);
+    </script>
+    <p>
+      ```smart header=“Spaces at string start/end and space-only text nodes are
+      usually hidden in tools” Browser tools (to be covered soon) that work with
+      DOM usually do not show spaces at the start/end of the text and empty text
+      nodes (line-breaks) between tags.
+    </p>
+    <p>Developer tools save screen space this way.</p>
+    <p>
+      On further DOM pictures we’ll sometimes omit them when they are
+      irrelevant. Such spaces usually do not affect how the document is
+      displayed. ```
+    </p>
+    <h2 id="autocorrection">Autocorrection</h2>
+    <p>
+      If the browser encounters malformed HTML, it automatically corrects it
+      when making the DOM.
+    </p>
+    <p>
+      For instance, the top tag is always <code>&lt;html&gt;</code>. Even if it
+      doesn’t exist in the document, it will exist in the DOM, because the
+      browser will create it. The same goes for <code>&lt;body&gt;</code>.
+    </p>
+    <p>
+      As an example, if the HTML file is the single word <code>"Hello"</code>,
+      the browser will wrap it into <code>&lt;html&gt;</code> and
+      <code>&lt;body&gt;</code>, and add the required <code>&lt;head&gt;</code>,
+      and the DOM will be:
+    </p>
+    <div class="domtree"></div>
+    <script>
+      let node3 = {
+        name: "HTML",
+        nodeType: 1,
+        children: [
+          { name: "HEAD", nodeType: 1, children: [] },
+          {
+            name: "BODY",
+            nodeType: 1,
+            children: [{ name: "#text", nodeType: 3, content: "Hello" }],
+          },
+        ],
+      };
 
-</div>
-<script>
-let node2 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[{"name":"TITLE","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"About elk"}]}]},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"The truth about elk."}]}]}
+      drawHtmlTree(node3, "div.domtree", 690, 150);
+    </script>
+    <p>
+      While generating the DOM, browsers automatically process errors in the
+      document, close tags and so on.
+    </p>
+    <p>A document with unclosed tags:</p>
+    <p>
+      <code
+        >html no-beautify &lt;p&gt; Hello &lt;li&gt;Mom&lt;/li&gt;
+        &lt;li&gt;and&lt;/li&gt; &lt;li&gt;Dad&lt;/li&gt; &lt;/p&gt;</code
+      >
+    </p>
+    <p>
+      …will become a normal DOM as the browser reads tags and restores the
+      missing parts:
+    </p>
+    <div class="domtree"></div>
+    <script>
+      let node4 = {
+        name: "HTML",
+        nodeType: 1,
+        children: [
+          { name: "HEAD", nodeType: 1, children: [] },
+          {
+            name: "BODY",
+            nodeType: 1,
+            children: [
+              {
+                name: "P",
+                nodeType: 1,
+                children: [{ name: "#text", nodeType: 3, content: "Hello" }],
+              },
+              {
+                name: "LI",
+                nodeType: 1,
+                children: [{ name: "#text", nodeType: 3, content: "Mom" }],
+              },
+              {
+                name: "LI",
+                nodeType: 1,
+                children: [{ name: "#text", nodeType: 3, content: "and" }],
+              },
+              {
+                name: "LI",
+                nodeType: 1,
+                children: [{ name: "#text", nodeType: 3, content: "Dad" }],
+              },
+            ],
+          },
+        ],
+      };
 
-drawHtmlTree(node2, 'div.domtree', 690, 210);
-</script>
-<p>```smart header=“Spaces at string start/end and space-only text nodes are usually hidden in tools” Browser tools (to be covered soon) that work with DOM usually do not show spaces at the start/end of the text and empty text nodes (line-breaks) between tags.</p>
-<p>Developer tools save screen space this way.</p>
-<p>On further DOM pictures we’ll sometimes omit them when they are irrelevant. Such spaces usually do not affect how the document is displayed. ```</p>
-<h2 id="autocorrection">Autocorrection</h2>
-<p>If the browser encounters malformed HTML, it automatically corrects it when making the DOM.</p>
-<p>For instance, the top tag is always <code>&lt;html&gt;</code>. Even if it doesn’t exist in the document, it will exist in the DOM, because the browser will create it. The same goes for <code>&lt;body&gt;</code>.</p>
-<p>As an example, if the HTML file is the single word <code>"Hello"</code>, the browser will wrap it into <code>&lt;html&gt;</code> and <code>&lt;body&gt;</code>, and add the required <code>&lt;head&gt;</code>, and the DOM will be:</p>
-<div class="domtree">
+      drawHtmlTree(node4, "div.domtree", 690, 360);
+    </script>
+    ```<code>warn header="Tables always have</code>
+    <tbody>
+      <code
+        >" An interesting "special case" is tables. By DOM specification they
+        must have</code
+      >
+    </tbody>
 
-</div>
-<script>
-let node3 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[]},{"name":"BODY","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"Hello"}]}]}
+    <tbody>
+      <code>tag, but HTML text may omit it. Then the browser creates</code>
+    </tbody>
 
-drawHtmlTree(node3, 'div.domtree', 690, 150);
-</script>
-<p>While generating the DOM, browsers automatically process errors in the document, close tags and so on.</p>
-<p>A document with unclosed tags:</p>
-<p><code>html no-beautify &lt;p&gt;   Hello   &lt;li&gt;Mom&lt;/li&gt;   &lt;li&gt;and&lt;/li&gt;   &lt;li&gt;Dad&lt;/li&gt; &lt;/p&gt;</code></p>
-<p>…will become a normal DOM as the browser reads tags and restores the missing parts:</p>
-<div class="domtree">
+    <tbody>
+      <p>` in the DOM automatically.</p>
+      <p>For the HTML:</p>
+      <p>
+        <code
+          >html no-beautify &lt;table id="table"&gt; &lt;tr&gt;
+          &lt;td&gt;1&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;</code
+        >
+      </p>
+      <p>DOM-structure will be:</p>
+      <div class="domtree"></div>
+      <script>
+        let node5 = {
+          name: "TABLE",
+          nodeType: 1,
+          children: [
+            {
+              name: "TBODY",
+              nodeType: 1,
+              children: [
+                {
+                  name: "TR",
+                  nodeType: 1,
+                  children: [
+                    {
+                      name: "TD",
+                      nodeType: 1,
+                      children: [{ name: "#text", nodeType: 3, content: "1" }],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
 
-</div>
-<script>
-let node4 = {"name":"HTML","nodeType":1,"children":[{"name":"HEAD","nodeType":1,"children":[]},{"name":"BODY","nodeType":1,"children":[{"name":"P","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"Hello"}]},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"Mom"}]},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"and"}]},{"name":"LI","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"Dad"}]}]}]}
-
-drawHtmlTree(node4, 'div.domtree', 690, 360);
-</script>
-```<code>warn header="Tables always have</code>
-<tbody>
-<code>" An interesting "special case" is tables. By DOM specification they must have</code>
-<tbody>
-<code>tag, but HTML text may omit it. Then the browser creates</code>
-<tbody>
-<p>` in the DOM automatically.</p>
-<p>For the HTML:</p>
-<p><code>html no-beautify &lt;table id="table"&gt;   &lt;tr&gt;     &lt;td&gt;1&lt;/td&gt;   &lt;/tr&gt; &lt;/table&gt;</code></p>
-<p>DOM-structure will be:</p>
-<div class="domtree">
-
-</div>
-<script>
-let node5 = {"name":"TABLE","nodeType":1,"children":[{"name":"TBODY","nodeType":1,"children":[{"name":"TR","nodeType":1,"children":[{"name":"TD","nodeType":1,"children":[{"name":"#text","nodeType":3,"content":"1"}]}]}]}]};
-
-drawHtmlTree(node5,  'div.domtree', 600, 200);
-</script>
-<p>You see? The <code>&lt;tbody&gt;</code> appeared out of nowhere. We should keep this in mind while working with tables to avoid surprises.</p>
-<pre><code>
+        drawHtmlTree(node5, "div.domtree", 600, 200);
+      </script>
+      <p>
+        You see? The <code>&lt;tbody&gt;</code> appeared out of nowhere. We
+        should keep this in mind while working with tables to avoid surprises.
+      </p>
+      <pre><code>
 ## Other node types
 
 There are some other node types besides elements and text nodes.
@@ -237,5 +484,6 @@ We can use developer tools to inspect DOM and modify it manually.
 Here we covered the basics, the most used and important actions to start with. There&#39;s an extensive documentation about Chrome Developer Tools at &lt;https://developers.google.com/web/tools/chrome-devtools&gt;. The best way to learn the tools is to click here and there, read menus: most options are obvious. Later, when you know them in general, read the docs and pick up the rest.
 
 DOM nodes have properties and methods that allow us to travel between them, modify them, move around the page, and more. We&#39;ll get down to them in the next chapters.</code></pre>
-</body>
+    </tbody>
+  </body>
 </html>

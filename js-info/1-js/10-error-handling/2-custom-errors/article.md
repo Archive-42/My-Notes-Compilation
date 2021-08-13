@@ -13,6 +13,7 @@ As the application grows, our own errors naturally form a hierarchy. For instanc
 As an example, let's consider a function `readUser(json)` that should read JSON with user data.
 
 Here's an example of how a valid `json` may look:
+
 ```js
 let json = `{ "name": "John", "age": 30 }`;
 ```

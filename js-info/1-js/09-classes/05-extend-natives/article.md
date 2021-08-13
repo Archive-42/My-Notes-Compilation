@@ -1,4 +1,3 @@
-
 # Extending built-in classes
 
 Built-in classes like Array, Map and others are extendable also.
@@ -16,7 +15,7 @@ class PowerArray extends Array {
 let arr = new PowerArray(1, 2, 5, 10, 50);
 alert(arr.isEmpty()); // false
 
-let filteredArr = arr.filter(item => item >= 10);
+let filteredArr = arr.filter((item) => item >= 10);
 alert(filteredArr); // 10, 50
 alert(filteredArr.isEmpty()); // false
 ```
@@ -24,8 +23,9 @@ alert(filteredArr.isEmpty()); // false
 Please note a very interesting thing. Built-in methods like `filter`, `map` and others -- return new objects of exactly the inherited type `PowerArray`. Their internal implementation uses the object's `constructor` property for that.
 
 In the example above,
+
 ```js
-arr.constructor === PowerArray
+arr.constructor === PowerArray;
 ```
 
 When `arr.filter()` is called, it internally creates the new array of results using exactly `arr.constructor`, not basic `Array`. That's actually very cool, because we can keep using `PowerArray` methods further on the result.

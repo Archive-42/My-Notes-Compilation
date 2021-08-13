@@ -46,7 +46,7 @@ Also, we can put `export` separately.
 
 Here we first declare, and then export:
 
-```js  
+```js
 // 📁 say.js
 function sayHi(user) {
   alert(`Hello, ${user}!`);
@@ -63,7 +63,7 @@ export {sayHi, sayBye}; // a list of exported variables
 
 ...Or, technically we could put `export` above functions as well.
 
-## Import *
+## Import \*
 
 Usually, we put a list of what to import in curly braces `import {...}`, like this:
 
@@ -95,20 +95,23 @@ Well, there are few reasons.
 
 1. Modern build tools ([webpack](http://webpack.github.io) and others) bundle modules together and optimize them to speedup loading and remove unused stuff.
 
-    Let's say, we added a 3rd-party library `say.js` to our project with many functions:
-    ```js
-    // 📁 say.js
-    export function sayHi() { ... }
-    export function sayBye() { ... }
-    export function becomeSilent() { ... }
-    ```
+   Let's say, we added a 3rd-party library `say.js` to our project with many functions:
 
-    Now if we only use one of `say.js` functions in our project:
-    ```js
-    // 📁 main.js
-    import {sayHi} from './say.js';
-    ```
-    ...Then the optimizer will see that and remove the other functions from the bundled code, thus making the build smaller. That is called "tree-shaking".
+   ```js
+   // 📁 say.js
+   export function sayHi() { ... }
+   export function sayBye() { ... }
+   export function becomeSilent() { ... }
+   ```
+
+   Now if we only use one of `say.js` functions in our project:
+
+   ```js
+   // 📁 main.js
+   import { sayHi } from "./say.js";
+   ```
+
+   ...Then the optimizer will see that and remove the other functions from the bundled code, thus making the build smaller. That is called "tree-shaking".
 
 2. Explicitly listing what to import gives shorter names: `sayHi()` instead of `say.sayHi()`.
 3. Explicit list of imports gives better overview of the code structure: what is used and where. It makes code support and refactoring easier.
@@ -188,10 +191,10 @@ new User('John');
 
 Imports without curly braces look nicer. A common mistake when starting to use modules is to forget curly braces at all. So, remember, `import` needs curly braces for named exports and doesn't need them for the default one.
 
-| Named export | Default export |
-|--------------|----------------|
+| Named export              | Default export                    |
+| ------------------------- | --------------------------------- |
 | `export class User {...}` | `export default class User {...}` |
-| `import {User} from ...` | `import User from ...`|
+| `import {User} from ...`  | `import User from ...`            |
 
 Technically, we may have both default and named exports in a single module, but in practice people usually don't mix them. A module has either named exports or the default one.
 
@@ -206,14 +209,15 @@ export default class { // no class name
 ```
 
 ```js
-export default function(user) { // no function name
+export default function (user) {
+  // no function name
   alert(`Hello, ${user}!`);
 }
 ```
 
 ```js
 // export a single value, without making a variable
-export default ['Jan', 'Feb', 'Mar','Apr', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+export default ["Jan", "Feb", "Mar", "Apr", "Aug", "Sep", "Oct", "Nov", "Dec"];
 ```
 
 Not giving a name is fine, because there is only one `export default` per file, so `import` without curly braces knows what to import.
@@ -224,7 +228,7 @@ Without `default`, such an export would give an error:
 export class { // Error! (non-default export needs a name)
   constructor() {}
 }
-```     
+```
 
 ### The "default" name
 
@@ -238,7 +242,7 @@ function sayHi(user) {
 }
 
 // same as if we added "export default" before the function
-export {sayHi as default};
+export { sayHi as default };
 ```
 
 Or, another situation, let's say a module `user.js` exports one main "default" thing, and a few named ones (rarely the case, but it happens):
@@ -269,10 +273,10 @@ And, finally, if importing everything `*` as an object, then the `default` prope
 
 ```js
 // 📁 main.js
-import * as user from './user.js';
+import * as user from "./user.js";
 
 let User = user.default; // the default export
-new User('John');
+new User("John");
 ```
 
 ### A word against default exports
@@ -282,15 +286,15 @@ Named exports are explicit. They exactly name what they import, so we have that 
 Named exports force us to use exactly the right name to import:
 
 ```js
-import {User} from './user.js';
+import { User } from "./user.js";
 // import {MyUser} won't work, the name must be {User}
 ```
 
 ...While for a default export, we always choose the name when importing:
 
 ```js
-import User from './user.js'; // works
-import MyUser from './user.js'; // works too
+import User from "./user.js"; // works
+import MyUser from "./user.js"; // works too
 // could be import Anything... and it'll still work
 ```
 
@@ -314,9 +318,9 @@ That also makes re-export (see below) a little bit easier.
 "Re-export" syntax `export ... from ...` allows to import things and immediately export them (possibly under another name), like this:
 
 ```js
-export {sayHi} from './say.js'; // re-export sayHi
+export { sayHi } from "./say.js"; // re-export sayHi
 
-export {default as User} from './user.js'; // re-export default
+export { default as User } from "./user.js"; // re-export default
 ```
 
 Why would that be needed? Let's see a practical use case.
@@ -324,9 +328,10 @@ Why would that be needed? Let's see a practical use case.
 Imagine, we're writing a "package": a folder with a lot of modules, with some of the functionality exported outside (tools like NPM allow us to publish and distribute such packages, but we don't have to use them), and many modules are just "helpers", for internal use in other package modules.
 
 The file structure could be like this:
+
 ```
 auth/
-    index.js  
+    index.js
     user.js
     helpers.js
     tests/
@@ -344,7 +349,7 @@ In other words, a person who would like to use our package, should import only f
 Like this:
 
 ```js
-import {login, logout} from 'auth/index.js'
+import { login, logout } from "auth/index.js";
 ```
 
 The "main file", `auth/index.js` exports all the functionality that we'd like to provide in our package.
@@ -372,7 +377,7 @@ The syntax `export ... from ...` is just a shorter notation for such import-expo
 
 ```js
 // 📁 auth/index.js
-// re-export login/logout 
+// re-export login/logout
 export {login, logout} from './helpers.js';
 
 // re-export the default export as User
@@ -380,7 +385,7 @@ export {default as User} from './user.js';
 ...
 ```
 
-The notable difference of `export ... from` compared to `import/export` is that re-exported modules aren't available in the current file. So inside the above example of `auth/index.js` we can't use re-exported `login/logout` functions. 
+The notable difference of `export ... from` compared to `import/export` is that re-exported modules aren't available in the current file. So inside the above example of `auth/index.js` we can't use re-exported `login/logout` functions.
 
 ### Re-exporting the default export
 
@@ -399,15 +404,16 @@ We can come across two problems with it:
 
 1. `export User from './user.js'` won't work. That would lead to a syntax error.
 
-    To re-export the default export, we have to write `export {default as User}`, as in the example above.    
+   To re-export the default export, we have to write `export {default as User}`, as in the example above.
 
 2. `export * from './user.js'` re-exports only named exports, but ignores the default one.
 
-    If we'd like to re-export both named and the default export, then two statements are needed:
-    ```js
-    export * from './user.js'; // to re-export named exports
-    export {default} from './user.js'; // to re-export the default export
-    ```
+   If we'd like to re-export both named and the default export, then two statements are needed:
+
+   ```js
+   export * from "./user.js"; // to re-export named exports
+   export { default } from "./user.js"; // to re-export the default export
+   ```
 
 Such oddities of re-exporting a default export are one of the reasons why some developers don't like default exports and prefer named ones.
 
@@ -430,7 +436,7 @@ Import:
 
 - Importing named exports:
   - `import {x [as y], ...} from "module"`
-- Importing the default export:  
+- Importing the default export:
   - `import x from "module"`
   - `import {default as x} from "module"`
 - Import all:
@@ -441,12 +447,13 @@ Import:
 We can put `import/export` statements at the top or at the bottom of a script, that doesn't matter.
 
 So, technically this code is fine:
+
 ```js
 sayHi();
 
 // ...
 
-import {sayHi} from './say.js'; // import at the end of the file
+import { sayHi } from "./say.js"; // import at the end of the file
 ```
 
 In practice imports are usually at the start of the file, but that's only for more convenience.
@@ -454,9 +461,10 @@ In practice imports are usually at the start of the file, but that's only for mo
 **Please note that import/export statements don't work if inside `{...}`.**
 
 A conditional import, like this, won't work:
+
 ```js
 if (something) {
-  import {sayHi} from "./say.js"; // Error: import must be at top level
+  import { sayHi } from "./say.js"; // Error: import must be at top level
 }
 ```
 

@@ -10,7 +10,7 @@ There's a concept that can help here, called "mixins".
 
 As defined in Wikipedia, a [mixin](https://en.wikipedia.org/wiki/Mixin) is a class containing methods that can be used by other classes without a need to inherit from it.
 
-In other words, a *mixin* provides methods that implement a certain behavior, but we do not use it alone, we use it to add the behavior to other classes.
+In other words, a _mixin_ provides methods that implement a certain behavior, but we do not use it alone, we use it to add the behavior to other classes.
 
 ## A mixin example
 
@@ -126,7 +126,7 @@ let eventMixin = {
   /**
    * Subscribe to event, usage:
    *  menu.on('select', function(item) { ... }
-  */
+   */
   on(eventName, handler) {
     if (!this._eventHandlers) this._eventHandlers = {};
     if (!this._eventHandlers[eventName]) {
@@ -159,11 +159,12 @@ let eventMixin = {
     }
 
     // call the handlers
-    this._eventHandlers[eventName].forEach(handler => handler.apply(this, args));
-  }
+    this._eventHandlers[eventName].forEach((handler) =>
+      handler.apply(this, args)
+    );
+  },
 };
 ```
-
 
 - `.on(eventName, handler)` -- assigns function `handler` to run when the event with that name occurs. Technically, there's an `_eventHandlers` property that stores an array of handlers for each event name, and it just adds it to the list.
 - `.off(eventName, handler)` -- removes the function from the handlers list.
@@ -199,7 +200,7 @@ And `eventMixin` mixin makes it easy to add such behavior to as many classes as 
 
 ## Summary
 
-*Mixin* -- is a generic object-oriented programming term: a class that contains methods for other classes.
+_Mixin_ -- is a generic object-oriented programming term: a class that contains methods for other classes.
 
 Some other languages allow multiple inheritance. JavaScript does not support multiple inheritance, but mixins can be implemented by copying methods into prototype.
 

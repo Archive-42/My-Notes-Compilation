@@ -1,5 +1,6 @@
 libs:
-  - lodash
+
+- lodash
 
 ---
 
@@ -42,7 +43,7 @@ As you can see, the implementation is straightforward: it's just two wrappers.
 - When it is called like `curriedSum(1)`, the argument is saved in the Lexical Environment, and a new wrapper is returned `function(b)`.
 - Then this wrapper is called with `2` as an argument, and it passes the call to the original `sum`.
 
-More advanced implementations of currying, such as [_.curry](https://lodash.com/docs#curry) from lodash library, return a wrapper that allows a function to be called both normally and partially:
+More advanced implementations of currying, such as [\_.curry](https://lodash.com/docs#curry) from lodash library, return a wrapper that allows a function to be called both normally and partially:
 
 ```js run
 function sum(a, b) {
@@ -51,8 +52,8 @@ function sum(a, b) {
 
 let curriedSum = _.curry(sum); // using _.curry from lodash library
 
-alert( curriedSum(1, 2) ); // 3, still callable normally
-alert( curriedSum(1)(2) ); // 3, called partially
+alert(curriedSum(1, 2)); // 3, still callable normally
+alert(curriedSum(1)(2)); // 3, called partially
 ```
 
 ## Currying? What for?
@@ -106,6 +107,7 @@ debugNow("message"); // [HH:mm] DEBUG message
 ```
 
 So:
+
 1. We didn't lose anything after currying: `log` is still callable normally.
 2. We can easily generate partial functions such as for today's logs.
 
@@ -117,17 +119,15 @@ It's pretty short:
 
 ```js
 function curry(func) {
-
   return function curried(...args) {
     if (args.length >= func.length) {
       return func.apply(this, args);
     } else {
-      return function(...args2) {
+      return function (...args2) {
         return curried.apply(this, args.concat(args2));
-      }
+      };
     }
   };
-
 }
 ```
 
@@ -140,9 +140,9 @@ function sum(a, b, c) {
 
 let curriedSum = curry(sum);
 
-alert( curriedSum(1, 2, 3) ); // 6, still callable normally
-alert( curriedSum(1)(2,3) ); // 6, currying of 1st arg
-alert( curriedSum(1)(2)(3) ); // 6, full currying
+alert(curriedSum(1, 2, 3)); // 6, still callable normally
+alert(curriedSum(1)(2, 3)); // 6, currying of 1st arg
+alert(curriedSum(1)(2)(3)); // 6, full currying
 ```
 
 The new `curry` may look complicated, but it's actually easy to understand.
@@ -152,20 +152,22 @@ The result of `curry(func)` call is the wrapper `curried` that looks like this:
 ```js
 // func is the function to transform
 function curried(...args) {
-  if (args.length >= func.length) { // (1)
+  if (args.length >= func.length) {
+    // (1)
     return func.apply(this, args);
   } else {
-    return function(...args2) { // (2)
+    return function (...args2) {
+      // (2)
       return curried.apply(this, args.concat(args2));
-    }
+    };
   }
-};
+}
 ```
 
 When we run it, there are two `if` execution branches:
 
-1. If passed `args` count is the same or more than the original function has in its definition (`func.length`) , then just pass the call to it using `func.apply`. 
-2. Otherwise, get a partial: we don't call `func` just yet. Instead, another wrapper is returned, that will re-apply `curried` providing previous arguments together with the new ones. 
+1. If passed `args` count is the same or more than the original function has in its definition (`func.length`) , then just pass the call to it using `func.apply`.
+2. Otherwise, get a partial: we don't call `func` just yet. Instead, another wrapper is returned, that will re-apply `curried` providing previous arguments together with the new ones.
 
 Then, if we call it, again, we'll get either a new partial (if not enough arguments) or, finally, the result.
 
@@ -183,6 +185,6 @@ But most implementations of currying in JavaScript are advanced, as described: t
 
 ## Summary
 
-*Currying* is a transform that makes `f(a,b,c)` callable as `f(a)(b)(c)`. JavaScript implementations usually both keep the function callable normally and return the partial if the arguments count is not enough.
+_Currying_ is a transform that makes `f(a,b,c)` callable as `f(a)(b)(c)`. JavaScript implementations usually both keep the function callable normally and return the partial if the arguments count is not enough.
 
-Currying allows us to easily get partials. As we've seen in the logging example, after currying the three argument universal function `log(date, importance, message)` gives us partials when called with one argument (like `log(date)`) or two arguments (like `log(date, importance)`).  
+Currying allows us to easily get partials. As we've seen in the logging example, after currying the three argument universal function `log(date, importance, message)` gives us partials when called with one argument (like `log(date)`) or two arguments (like `log(date, importance)`).

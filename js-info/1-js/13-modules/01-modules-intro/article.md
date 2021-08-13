@@ -1,4 +1,3 @@
-
 # Modules, introduction
 
 As our application grows bigger, we want to split it into multiple files, so called "modules". A module may contain a class or a library of functions for a specific purpose.
@@ -39,10 +38,10 @@ export function sayHi(user) {
 
 ```js
 // 📁 main.js
-import {sayHi} from './sayHi.js';
+import { sayHi } from "./sayHi.js";
 
 alert(sayHi); // function...
-sayHi('John'); // Hello, John!
+sayHi("John"); // Hello, John!
 ```
 
 The `import` directive loads the module by path `./sayHi.js` relative to the current file, and assigns exported function `sayHi` to the corresponding variable.
@@ -114,9 +113,9 @@ Here are two scripts on the same page, both `type="module"`. They don't see each
 ```
 
 ```smart
-In the browser, we can make a variable window-level global by explicitly assigning it to a `window` property, e.g. `window.user = "John"`. 
+In the browser, we can make a variable window-level global by explicitly assigning it to a `window` property, e.g. `window.user = "John"`.
 
-Then all scripts will see it, both with `type="module"` and without it. 
+Then all scripts will see it, both with `type="module"` and without it.
 
 That said, making such global variables is frowned upon. Please try to avoid them.
 ```
@@ -125,7 +124,7 @@ That said, making such global variables is frowned upon. Please try to avoid the
 
 If the same module is imported into multiple other modules, its code is executed only once, upon the first import. Then its exports are given to all further importers.
 
-The one-time evaluation has important consequences, that we should be aware of. 
+The one-time evaluation has important consequences, that we should be aware of.
 
 Let's see a couple of examples.
 
@@ -157,7 +156,7 @@ Let's say, a module exports an object:
 ```js
 // 📁 admin.js
 export let admin = {
-  name: "John"
+  name: "John",
 };
 ```
 
@@ -184,11 +183,12 @@ As you can see, when `1.js` changes the `name` property in the imported `admin`,
 
 That's exactly because the module is executed only once. Exports are generated, and then they are shared between importers, so if something changes the `admin` object, other modules will see that.
 
-**Such behavior is actually very convenient, because it allows us to *configure* modules.**
+**Such behavior is actually very convenient, because it allows us to _configure_ modules.**
 
 In other words, a module can provide a generic functionality that needs a setup. E.g. authentication needs credentials. Then it can export a configuration object expecting the outer code to assign to it.
 
 Here's the classical pattern:
+
 1. A module exports some means of configuration, e.g. a configuration object.
 2. On the first import we initialize it, write to its properties. The top-level application script may do that.
 3. Further imports use the module.
@@ -197,7 +197,7 @@ For instance, the `admin.js` module may provide certain functionality (e.g. auth
 
 ```js
 // 📁 admin.js
-export let config = { };
+export let config = {};
 
 export function sayHi() {
   alert(`Ready to serve, ${config.user}!`);
@@ -210,21 +210,20 @@ Then in `init.js`, the first script of our app, we import `config` from it and s
 
 ```js
 // 📁 init.js
-import {config} from './admin.js';
+import { config } from "./admin.js";
 config.user = "Pete";
 ```
 
-...Now the module `admin.js` is configured. 
+...Now the module `admin.js` is configured.
 
 Further importers can call it, and it correctly shows the current user:
 
 ```js
 // 📁 another.js
-import {sayHi} from './admin.js';
+import { sayHi } from "./admin.js";
 
 sayHi(); // Ready to serve, *!*Pete*/!*!
 ```
-
 
 ### import.meta
 
@@ -265,9 +264,10 @@ You may want skip this section for now if you're reading for the first time, or 
 
 ### Module scripts are deferred
 
-Module scripts are *always* deferred, same effect as `defer` attribute (described in the chapter [](info:script-async-defer)), for both external and inline scripts.
+Module scripts are _always_ deferred, same effect as `defer` attribute (described in the chapter [](info:script-async-defer)), for both external and inline scripts.
 
 In other words:
+
 - downloading external module scripts `<script type="module" src="...">` doesn't block HTML processing, they load in parallel with other resources.
 - module scripts wait until the HTML document is fully ready (even if they are tiny and load faster than HTML), and then run.
 - relative order of scripts is maintained: scripts that go first in the document, execute first.
@@ -278,19 +278,19 @@ For instance:
 
 ```html run
 <script type="module">
-*!*
-  alert(typeof button); // object: the script can 'see' the button below
-*/!*
-  // as modules are deferred, the script runs after the whole page is loaded
+  *!*
+    alert(typeof button); // object: the script can 'see' the button below
+  */!*
+    // as modules are deferred, the script runs after the whole page is loaded
 </script>
 
 Compare to regular script below:
 
 <script>
-*!*
-  alert(typeof button); // button is undefined, the script can't see elements below
-*/!*
-  // regular scripts run immediately, before the rest of the page is processed
+  *!*
+    alert(typeof button); // button is undefined, the script can't see elements below
+  */!*
+    // regular scripts run immediately, before the rest of the page is processed
 </script>
 
 <button id="button">Button</button>
@@ -329,28 +329,31 @@ That's good for functionality that doesn't depend on anything, like counters, ad
 External scripts that have `type="module"` are different in two aspects:
 
 1. External scripts with the same `src` run only once:
-    ```html
-    <!-- the script my.js is fetched and executed only once -->
-    <script type="module" src="my.js"></script>
-    <script type="module" src="my.js"></script>
-    ```
+
+   ```html
+   <!-- the script my.js is fetched and executed only once -->
+   <script type="module" src="my.js"></script>
+   <script type="module" src="my.js"></script>
+   ```
 
 2. External scripts that are fetched from another origin (e.g. another site) require [CORS](mdn:Web/HTTP/CORS) headers, as described in the chapter <info:fetch-crossorigin>. In other words, if a module script is fetched from another origin, the remote server must supply a header `Access-Control-Allow-Origin` allowing the fetch.
-    ```html
-    <!-- another-site.com must supply Access-Control-Allow-Origin -->
-    <!-- otherwise, the script won't execute -->
-    <script type="module" src="*!*http://another-site.com/their.js*/!*"></script>
-    ```
 
-    That ensures better security by default.
+   ```html
+   <!-- another-site.com must supply Access-Control-Allow-Origin -->
+   <!-- otherwise, the script won't execute -->
+   <script type="module" src="*!*http://another-site.com/their.js*/!*"></script>
+   ```
+
+   That ensures better security by default.
 
 ### No "bare" modules allowed
 
 In the browser, `import` must get either a relative or absolute URL. Modules without any path are called "bare" modules. Such modules are not allowed in `import`.
 
 For instance, this `import` is invalid:
+
 ```js
-import {sayHi} from 'sayHi'; // Error, "bare" module
+import { sayHi } from "sayHi"; // Error, "bare" module
 // the module must have a path, e.g. './sayHi.js' or wherever the module is
 ```
 
@@ -366,8 +369,10 @@ Old browsers do not understand `type="module"`. Scripts of an unknown type are j
 </script>
 
 <script nomodule>
-  alert("Modern browsers know both type=module and nomodule, so skip this")
-  alert("Old browsers ignore script with unknown type=module, but execute this.");
+  alert("Modern browsers know both type=module and nomodule, so skip this");
+  alert(
+    "Old browsers ignore script with unknown type=module, but execute this."
+  );
 </script>
 ```
 
@@ -383,11 +388,11 @@ Build tools do the following:
 2. Analyze its dependencies: imports and then imports of imports etc.
 3. Build a single file with all modules (or multiple files, that's tunable), replacing native `import` calls with bundler functions, so that it works. "Special" module types like HTML/CSS modules are also supported.
 4. In the process, other transformations and optimizations may be applied:
-    - Unreachable code removed.
-    - Unused exports removed ("tree-shaking").
-    - Development-specific statements like `console` and `debugger` removed.
-    - Modern, bleeding-edge JavaScript syntax may be transformed to older one with similar functionality using [Babel](https://babeljs.io/).
-    - The resulting file is minified (spaces removed, variables replaced with shorter names, etc).
+   - Unreachable code removed.
+   - Unused exports removed ("tree-shaking").
+   - Development-specific statements like `console` and `debugger` removed.
+   - Modern, bleeding-edge JavaScript syntax may be transformed to older one with similar functionality using [Babel](https://babeljs.io/).
+   - The resulting file is minified (spaces removed, variables replaced with shorter names, etc).
 
 If we use bundle tools, then as scripts are bundled together into a single file (or few files), `import/export` statements inside those scripts are replaced by special bundler functions. So the resulting "bundled" script does not contain any `import/export`, it doesn't require `type="module"`, and we can put it into a regular script:
 
@@ -403,10 +408,10 @@ That said, native modules are also usable. So we won't be using Webpack here: yo
 To summarize, the core concepts are:
 
 1. A module is a file. To make `import/export` work, browsers need `<script type="module">`. Modules have several differences:
-    - Deferred by default.
-    - Async works on inline scripts.
-    - To load external scripts from another origin (domain/protocol/port), CORS headers are needed.
-    - Duplicate external scripts are ignored.
+   - Deferred by default.
+   - Async works on inline scripts.
+   - To load external scripts from another origin (domain/protocol/port), CORS headers are needed.
+   - Duplicate external scripts are ignored.
 2. Modules have their own, local top-level scope and interchange functionality via `import/export`.
 3. Modules always `use strict`.
 4. Module code is executed only once. Exports are created once and shared between importers.

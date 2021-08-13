@@ -1,11 +1,10 @@
-
 # Call async from non-async
 
 We have a "regular" function called `f`. How can you call the `async` function `wait()` and use its result inside of `f`?
 
 ```js
 async function wait() {
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   return 10;
 }

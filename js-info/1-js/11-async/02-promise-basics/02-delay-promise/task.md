@@ -1,4 +1,3 @@
-
 # Delay with a promise
 
 The built-in function `setTimeout` uses callbacks. Create a promise-based alternative.
@@ -10,5 +9,5 @@ function delay(ms) {
   // your code
 }
 
-delay(3000).then(() => alert('runs after 3 seconds'));
+delay(3000).then(() => alert("runs after 3 seconds"));
 ```

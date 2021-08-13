@@ -6,14 +6,13 @@ importance: 2
 
 What is the result of this code?
 
-
 ```js no-beautify
 let user = {
   name: "John",
-  go: function() { alert(this.name) }
-}
-
-(user.go)()
+  go: function () {
+    alert(this.name);
+  },
+}(user.go)();
 ```
 
 P.S. There's a pitfall :)

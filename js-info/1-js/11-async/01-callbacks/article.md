@@ -1,5 +1,3 @@
-
-
 # Introduction: callbacks
 
 ```warn header="We use browser methods in examples here"
@@ -10,7 +8,7 @@ If you're not familiar with these methods, and their usage in the examples is co
 Although, we'll try to make things clear anyway. There won't be anything really complex browser-wise.
 ```
 
-Many functions are provided by JavaScript host environments that allow you to schedule *asynchronous* actions. In other words, actions that we initiate now, but they finish later.
+Many functions are provided by JavaScript host environments that allow you to schedule _asynchronous_ actions. In other words, actions that we initiate now, but they finish later.
 
 For instance, one such function is the `setTimeout` function.
 
@@ -22,7 +20,7 @@ Take a look at the function `loadScript(src)`, that loads a script with the give
 function loadScript(src) {
   // creates a <script> tag and append it to the page
   // this causes the script with given src to start loading and run when complete
-  let script = document.createElement('script');
+  let script = document.createElement("script");
   script.src = src;
   document.head.append(script);
 }
@@ -34,7 +32,7 @@ We can use this function like this:
 
 ```js
 // load and execute the script at the given path
-loadScript('/my/script.js');
+loadScript("/my/script.js");
 ```
 
 The script is executed "asynchronously", as it starts loading now, but runs later, when the function has already finished.
@@ -42,7 +40,7 @@ The script is executed "asynchronously", as it starts loading now, but runs late
 If there's any code below `loadScript(…)`, it doesn't wait until the script loading finishes.
 
 ```js
-loadScript('/my/script.js');
+loadScript("/my/script.js");
 // the code below loadScript
 // doesn't wait for the script loading to finish
 // ...
@@ -176,8 +174,9 @@ function loadScript(src, callback) {
 It calls `callback(null, script)` for successful load and `callback(error)` otherwise.
 
 The usage:
+
 ```js
-loadScript('/my/script.js', function(error, script) {
+loadScript("/my/script.js", function (error, script) {
   if (error) {
     // handle error
   } else {
@@ -189,6 +188,7 @@ loadScript('/my/script.js', function(error, script) {
 Once again, the recipe that we used for `loadScript` is actually quite common. It's called the "error-first callback" style.
 
 The convention is:
+
 1. The first argument of the `callback` is reserved for an error if it occurs. Then `callback(err)` is called.
 2. The second argument (and the next ones if needed) are for the successful result. Then `callback(null, result1, result2…)` is called.
 
@@ -229,6 +229,7 @@ loadScript('1.js', function(error, script) {
 ```
 
 In the code above:
+
 1. We load `1.js`, then if there's no error.
 2. We load `2.js`, then if there's no error.
 3. We load `3.js`, then if there's no error -- do something else `(*)`.
@@ -270,14 +271,14 @@ So this way of coding isn't very good.
 We can try to alleviate the problem by making every action a standalone function, like this:
 
 ```js
-loadScript('1.js', step1);
+loadScript("1.js", step1);
 
 function step1(error, script) {
   if (error) {
     handleError(error);
   } else {
     // ...
-    loadScript('2.js', step2);
+    loadScript("2.js", step2);
   }
 }
 
@@ -286,7 +287,7 @@ function step2(error, script) {
     handleError(error);
   } else {
     // ...
-    loadScript('3.js', step3);
+    loadScript("3.js", step3);
   }
 }
 

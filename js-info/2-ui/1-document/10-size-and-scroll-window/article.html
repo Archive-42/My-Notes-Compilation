@@ -1,34 +1,85 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>article</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-</head>
-<body>
-<h1 id="window-sizes-and-scrolling">Window sizes and scrolling</h1>
-<p>How do we find the width and height of the browser window? How do we get the full width and height of the document, including the scrolled out part? How do we scroll the page using JavaScript?</p>
-<p>For this type of information, we can use the root document element <code>document.documentElement</code>, that corresponds to the <code>&lt;html&gt;</code> tag. But there are additional methods and peculiarities to consider.</p>
-<h2 id="widthheight-of-the-window">Width/height of the window</h2>
-<p>To get window width and height, we can use the <code>clientWidth/clientHeight</code> of <code>document.documentElement</code>:</p>
-<p><img src="document-client-width-height.svg" /></p>
-<pre class="online"><code>For instance, this button shows the height of your window:
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>article</title>
+    <style type="text/css">
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      span.underline {
+        text-decoration: underline;
+      }
+      div.column {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="window-sizes-and-scrolling">Window sizes and scrolling</h1>
+    <p>
+      How do we find the width and height of the browser window? How do we get
+      the full width and height of the document, including the scrolled out
+      part? How do we scroll the page using JavaScript?
+    </p>
+    <p>
+      For this type of information, we can use the root document element
+      <code>document.documentElement</code>, that corresponds to the
+      <code>&lt;html&gt;</code> tag. But there are additional methods and
+      peculiarities to consider.
+    </p>
+    <h2 id="widthheight-of-the-window">Width/height of the window</h2>
+    <p>
+      To get window width and height, we can use the
+      <code>clientWidth/clientHeight</code> of
+      <code>document.documentElement</code>:
+    </p>
+    <p><img src="document-client-width-height.svg" /></p>
+    <pre
+      class="online"
+    ><code>For instance, this button shows the height of your window:
 
 &lt;button onclick=&quot;alert(document.documentElement.clientHeight)&quot;&gt;alert(document.documentElement.clientHeight)&lt;/button&gt;</code></pre>
-<p>```<code>warn header="Not</code>window.innerWidth/innerHeight<code>" Browsers also support properties like</code>window.innerWidth/innerHeight`. They look like what we want, so why not to use them instead?</p>
-<p>If there exists a scrollbar, and it occupies some space, <code>clientWidth/clientHeight</code> provide the width/height without it (subtract it). In other words, they return the width/height of the visible part of the document, available for the content.</p>
-<p><code>window.innerWidth/innerHeight</code> includes the scrollbar.</p>
-<p>If there’s a scrollbar, and it occupies some space, then these two lines show different values:</p>
-<p><code>js run alert(window.innerWidth); // full window width alert(document.documentElement.clientWidth); // window width minus the scrollbar</code></p>
-<p>In most cases, we need the <em>available</em> window width in order to draw or position something within scrollbars (if there are any), so we should use <code>documentElement.clientHeight/clientWidth</code>.</p>
-<pre><code>
+    <p>
+      ```<code>warn header="Not</code>window.innerWidth/innerHeight<code
+        >" Browsers also support properties like</code
+      >window.innerWidth/innerHeight`. They look like what we want, so why not
+      to use them instead?
+    </p>
+    <p>
+      If there exists a scrollbar, and it occupies some space,
+      <code>clientWidth/clientHeight</code> provide the width/height without it
+      (subtract it). In other words, they return the width/height of the visible
+      part of the document, available for the content.
+    </p>
+    <p><code>window.innerWidth/innerHeight</code> includes the scrollbar.</p>
+    <p>
+      If there’s a scrollbar, and it occupies some space, then these two lines
+      show different values:
+    </p>
+    <p>
+      <code
+        >js run alert(window.innerWidth); // full window width
+        alert(document.documentElement.clientWidth); // window width minus the
+        scrollbar</code
+      >
+    </p>
+    <p>
+      In most cases, we need the <em>available</em> window width in order to
+      draw or position something within scrollbars (if there are any), so we
+      should use <code>documentElement.clientHeight/clientWidth</code>.
+    </p>
+    <pre><code>
 ```warn header=&quot;`DOCTYPE` is important&quot;
 Please note: top-level geometry properties may work a little bit differently when there&#39;s no `&lt;!DOCTYPE HTML&gt;` in HTML. Odd things are possible.
 
@@ -171,5 +222,5 @@ Scrolling:
     - `window.scrollTo(pageX,pageY)` -- absolute coordinates,
     - `window.scrollBy(x,y)` -- scroll relative the current place,
     - `elem.scrollIntoView(top)` -- scroll to make `elem` visible (align with the top/bottom of the window).</code></pre>
-</body>
+  </body>
 </html>

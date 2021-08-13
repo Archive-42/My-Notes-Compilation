@@ -12,15 +12,16 @@ But calls `(1)` and `(2)` works differently from `(3)` and `(4)`. Why?
 let obj, method;
 
 obj = {
-  go: function() { alert(this); }
+  go: function () {
+    alert(this);
+  },
 };
 
-obj.go();               // (1) [object Object]
+obj.go(); // (1) [object Object]
 
-(obj.go)();             // (2) [object Object]
+obj.go(); // (2) [object Object]
 
-(method = obj.go)();    // (3) undefined
+(method = obj.go)(); // (3) undefined
 
 (obj.go || obj.stop)(); // (4) undefined
 ```
-

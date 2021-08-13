@@ -1,4 +1,3 @@
-
 # Async iteration and generators
 
 Asynchronous iteration allow us to iterate over data that comes asynchronously, on-demand. Like, for instance, when we download something chunk-by-chunk over a network. And asynchronous generators make it even more convenient.
@@ -7,19 +6,20 @@ Let's see a simple example first, to grasp the syntax, and then review a real-li
 
 ## Recall iterables
 
-Let's recall the topic about iterables. 
+Let's recall the topic about iterables.
 
 The idea is that we have an object, such as `range` here:
+
 ```js
 let range = {
   from: 1,
-  to: 5
+  to: 5,
 };
 ```
 
 ...And we'd like to use `for..of` loop on it, such as `for(value of range)`, to get values from `1` to `5`.
 
-In other words, we want to add an *iteration ability* to the object.
+In other words, we want to add an _iteration ability_ to the object.
 
 That can be implemented using a special method with the name `Symbol.iterator`:
 
@@ -63,7 +63,7 @@ If anything is unclear, please visit the chapter [](info:iterable), it gives all
 
 ## Async iterables
 
-Asynchronous iteration is needed when values come asynchronously: after `setTimeout` or another kind of delay. 
+Asynchronous iteration is needed when values come asynchronously: after `setTimeout` or another kind of delay.
 
 The most common case is that the object needs to make a network request to deliver the next value, we'll see a real-life example of it a bit later.
 
@@ -71,9 +71,9 @@ To make an object iterable asynchronously:
 
 1. Use `Symbol.asyncIterator` instead of `Symbol.iterator`.
 2. The `next()` method should return a promise (to be fulfilled with the next value).
-    - The `async` keyword handles it, we can simply make `async next()`.
+   - The `async` keyword handles it, we can simply make `async next()`.
 3. To iterate over such an object, we should use a `for await (let item of iterable)` loop.
-    - Note the `await` word.
+   - Note the `await` word.
 
 As a starting example, let's make an iterable `range` object, similar like the one before, but now it will return values asynchronously, one per second.
 
@@ -130,24 +130,26 @@ As we can see, the structure is similar to regular iterators:
 
 Here's a small table with the differences:
 
-|       | Iterators | Async iterators |
-|-------|-----------|-----------------|
+|                                   | Iterators         | Async iterators        |
+| --------------------------------- | ----------------- | ---------------------- |
 | Object method to provide iterator | `Symbol.iterator` | `Symbol.asyncIterator` |
-| `next()` return value is              | any value         | `Promise`  |
-| to loop, use                          | `for..of`         | `for await..of` |
+| `next()` return value is          | any value         | `Promise`              |
+| to loop, use                      | `for..of`         | `for await..of`        |
 
 ````warn header="The spread syntax `...` doesn't work asynchronously"
 Features that require regular, synchronous iterators, don't work with asynchronous ones.
 
 For instance, a spread syntax won't work:
+
 ```js
-alert( [...range] ); // Error, no Symbol.iterator
+alert([...range]); // Error, no Symbol.iterator
 ```
 
 That's natural, as it expects to find `Symbol.iterator`, not `Symbol.asyncIterator`.
 
 It's also the case for `for..of`: the syntax without `await` needs `Symbol.iterator`.
-````
+
+`````
 
 ## Recall generators
 
@@ -208,7 +210,7 @@ Please see the chapter [](info:generators) if you'd like more details.
 
 In regular generators we can't use `await`. All values must come synchronously, as required by the `for..of` construct.
 
-What if we'd like to generate values asynchronously? From network requests, for instance. 
+What if we'd like to generate values asynchronously? From network requests, for instance.
 
 Let's switch to asynchronous generators to make it possible.
 
@@ -258,7 +260,7 @@ In a regular generator we'd use `result = generator.next()` to get values. In an
 result = await generator.next(); // result = {value: ..., done: true/false}
 ```
 That's why async generators work with `for await...of`.
-````
+`````
 
 ### Async iterable range
 
@@ -279,7 +281,7 @@ let range = {
 */!*
     for(let value = this.from; value <= this.to; value++) {
 
-      // make a pause between values, wait for something  
+      // make a pause between values, wait for something
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       yield value;
@@ -310,7 +312,7 @@ So far we've seen basic examples, to gain understanding. Now let's review a real
 
 There are many online services that deliver paginated data. For instance, when we need a list of users, a request returns a pre-defined count (e.g. 100 users) - "one page", and provides a URL to the next page.
 
-This pattern is very common. It's not about users, but just about anything. 
+This pattern is very common. It's not about users, but just about anything.
 
 For instance, GitHub allows us to retrieve commits in the same, paginated fashion:
 
@@ -337,19 +339,21 @@ async function* fetchCommits(repo) {
   let url = `https://api.github.com/repos/${repo}/commits`;
 
   while (url) {
-    const response = await fetch(url, { // (1)
-      headers: {'User-Agent': 'Our script'}, // github needs any user-agent header
+    const response = await fetch(url, {
+      // (1)
+      headers: { "User-Agent": "Our script" }, // github needs any user-agent header
     });
 
     const body = await response.json(); // (2) response is JSON (array of commits)
 
     // (3) the URL of the next page is in the headers, extract it
-    let nextPage = response.headers.get('Link').match(/<(.*?)>; rel="next"/);
+    let nextPage = response.headers.get("Link").match(/<(.*?)>; rel="next"/);
     nextPage = nextPage?.[1];
 
     url = nextPage;
 
-    for(let commit of body) { // (4) yield commits one by one, until the page ends
+    for (let commit of body) {
+      // (4) yield commits one by one, until the page ends
       yield commit;
     }
   }
@@ -360,35 +364,36 @@ More explanations about how it works:
 
 1. We use the browser [fetch](info:fetch) method to download the commits.
 
-    - The initial URL is `https://api.github.com/repos/<repo>/commits`, and the next page will be in the `Link` header of the response.
-    - The `fetch` method allows us to supply authorization and other headers if needed -- here GitHub requires `User-Agent`.
+   - The initial URL is `https://api.github.com/repos/<repo>/commits`, and the next page will be in the `Link` header of the response.
+   - The `fetch` method allows us to supply authorization and other headers if needed -- here GitHub requires `User-Agent`.
+
 2. The commits are returned in JSON format.
 3. We should get the next page URL from the `Link` header of the response. It has a special format, so we use a regular expression for that (we will learn this feature in [Regular expressions](info:regular-expressions)).
-    - The next page URL may look like `https://api.github.com/repositories/93253246/commits?page=2`. It's generated by GitHub itself.
+   - The next page URL may look like `https://api.github.com/repositories/93253246/commits?page=2`. It's generated by GitHub itself.
 4. Then we yield the received commits one by one, and when they finish, the next `while(url)` iteration will trigger, making one more request.
 
 An example of use (shows commit authors in console):
 
 ```js run
 (async () => {
-
   let count = 0;
 
-  for await (const commit of fetchCommits('javascript-tutorial/en.javascript.info')) {
-
+  for await (const commit of fetchCommits(
+    "javascript-tutorial/en.javascript.info"
+  )) {
     console.log(commit.author.login);
 
-    if (++count == 100) { // let's stop at 100 commits
+    if (++count == 100) {
+      // let's stop at 100 commits
       break;
     }
   }
-
 })();
 
-// Note: If you are running this in an external sandbox, you'll need to paste here the function fetchCommits described above 
+// Note: If you are running this in an external sandbox, you'll need to paste here the function fetchCommits described above
 ```
 
-That's just what we wanted. 
+That's just what we wanted.
 
 The internal mechanics of paginated requests is invisible from the outside. For us it's just an async generator that returns commits.
 
@@ -400,17 +405,17 @@ When we expect the data to come asynchronously, with delays, their async counter
 
 Syntax differences between async and regular iterators:
 
-|       | Iterable | Async Iterable |
-|-------|-----------|-----------------|
-| Method to provide iterator | `Symbol.iterator` | `Symbol.asyncIterator` |
-| `next()` return value is          | `{value:…, done: true/false}`         | `Promise` that resolves to `{value:…, done: true/false}`  |
+|                            | Iterable                      | Async Iterable                                           |
+| -------------------------- | ----------------------------- | -------------------------------------------------------- |
+| Method to provide iterator | `Symbol.iterator`             | `Symbol.asyncIterator`                                   |
+| `next()` return value is   | `{value:…, done: true/false}` | `Promise` that resolves to `{value:…, done: true/false}` |
 
 Syntax differences between async and regular generators:
 
-|       | Generators | Async generators |
-|-------|-----------|-----------------|
-| Declaration | `function*` | `async function*` |
-| `next()` return value is          | `{value:…, done: true/false}`         | `Promise` that resolves to `{value:…, done: true/false}`  |
+|                          | Generators                    | Async generators                                         |
+| ------------------------ | ----------------------------- | -------------------------------------------------------- |
+| Declaration              | `function*`                   | `async function*`                                        |
+| `next()` return value is | `{value:…, done: true/false}` | `Promise` that resolves to `{value:…, done: true/false}` |
 
 In web-development we often meet streams of data, when it flows chunk-by-chunk. For instance, downloading or uploading a big file.
 

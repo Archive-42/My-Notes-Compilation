@@ -1,4 +1,3 @@
-
 # Accessing array[-1]
 
 In some programming languages, we can access array elements using negative indexes, counted from the end.
@@ -26,8 +25,8 @@ array = new Proxy(array, {
   /* your code */
 });
 
-alert( array[-1] ); // 3
-alert( array[-2] ); // 2
+alert(array[-1]); // 3
+alert(array[-2]); // 2
 
 // Other array functionality should be kept "as is"
 ```

@@ -9,7 +9,7 @@ Proxies are used in many libraries and some browser frameworks. We'll see many p
 The syntax:
 
 ```js
-let proxy = new Proxy(target, handler)
+let proxy = new Proxy(target, handler);
 ```
 
 - `target` -- is an object to wrap, can be anything, including functions.
@@ -28,7 +28,7 @@ alert(target.test); // 5, the property appeared in target!
 
 alert(proxy.test); // 5, we can read it from proxy too (2)
 
-for(let key in proxy) alert(key); // test, iteration works (3)
+for (let key in proxy) alert(key); // test, iteration works (3)
 ```
 
 As there are no traps, all operations on `proxy` are forwarded to `target`.
@@ -53,21 +53,21 @@ Proxy traps intercept invocations of these methods. They are listed in the [Prox
 
 For every internal method, there's a trap in this table: the name of the method that we can add to the `handler` parameter of `new Proxy` to intercept the operation:
 
-| Internal Method | Handler Method | Triggers when... |
-|-----------------|----------------|-------------|
-| `[[Get]]` | `get` | reading a property |
-| `[[Set]]` | `set` | writing to a property |
-| `[[HasProperty]]` | `has` | `in` operator |
-| `[[Delete]]` | `deleteProperty` | `delete` operator |
-| `[[Call]]` | `apply` | function call |
-| `[[Construct]]` | `construct` | `new` operator |
-| `[[GetPrototypeOf]]` | `getPrototypeOf` | [Object.getPrototypeOf](mdn:/JavaScript/Reference/Global_Objects/Object/getPrototypeOf) |
-| `[[SetPrototypeOf]]` | `setPrototypeOf` | [Object.setPrototypeOf](mdn:/JavaScript/Reference/Global_Objects/Object/setPrototypeOf) |
-| `[[IsExtensible]]` | `isExtensible` | [Object.isExtensible](mdn:/JavaScript/Reference/Global_Objects/Object/isExtensible) |
-| `[[PreventExtensions]]` | `preventExtensions` | [Object.preventExtensions](mdn:/JavaScript/Reference/Global_Objects/Object/preventExtensions) |
-| `[[DefineOwnProperty]]` | `defineProperty` | [Object.defineProperty](mdn:/JavaScript/Reference/Global_Objects/Object/defineProperty), [Object.defineProperties](mdn:/JavaScript/Reference/Global_Objects/Object/defineProperties) |
-| `[[GetOwnProperty]]` | `getOwnPropertyDescriptor` | [Object.getOwnPropertyDescriptor](mdn:/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor), `for..in`, `Object.keys/values/entries` |
-| `[[OwnPropertyKeys]]` | `ownKeys` | [Object.getOwnPropertyNames](mdn:/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames), [Object.getOwnPropertySymbols](mdn:/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols), `for..in`, `Object.keys/values/entries` |
+| Internal Method         | Handler Method             | Triggers when...                                                                                                                                                                                                                                  |
+| ----------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `[[Get]]`               | `get`                      | reading a property                                                                                                                                                                                                                                |
+| `[[Set]]`               | `set`                      | writing to a property                                                                                                                                                                                                                             |
+| `[[HasProperty]]`       | `has`                      | `in` operator                                                                                                                                                                                                                                     |
+| `[[Delete]]`            | `deleteProperty`           | `delete` operator                                                                                                                                                                                                                                 |
+| `[[Call]]`              | `apply`                    | function call                                                                                                                                                                                                                                     |
+| `[[Construct]]`         | `construct`                | `new` operator                                                                                                                                                                                                                                    |
+| `[[GetPrototypeOf]]`    | `getPrototypeOf`           | [Object.getPrototypeOf](mdn:/JavaScript/Reference/Global_Objects/Object/getPrototypeOf)                                                                                                                                                           |
+| `[[SetPrototypeOf]]`    | `setPrototypeOf`           | [Object.setPrototypeOf](mdn:/JavaScript/Reference/Global_Objects/Object/setPrototypeOf)                                                                                                                                                           |
+| `[[IsExtensible]]`      | `isExtensible`             | [Object.isExtensible](mdn:/JavaScript/Reference/Global_Objects/Object/isExtensible)                                                                                                                                                               |
+| `[[PreventExtensions]]` | `preventExtensions`        | [Object.preventExtensions](mdn:/JavaScript/Reference/Global_Objects/Object/preventExtensions)                                                                                                                                                     |
+| `[[DefineOwnProperty]]` | `defineProperty`           | [Object.defineProperty](mdn:/JavaScript/Reference/Global_Objects/Object/defineProperty), [Object.defineProperties](mdn:/JavaScript/Reference/Global_Objects/Object/defineProperties)                                                              |
+| `[[GetOwnProperty]]`    | `getOwnPropertyDescriptor` | [Object.getOwnPropertyDescriptor](mdn:/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor), `for..in`, `Object.keys/values/entries`                                                                                              |
+| `[[OwnPropertyKeys]]`   | `ownKeys`                  | [Object.getOwnPropertyNames](mdn:/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames), [Object.getOwnPropertySymbols](mdn:/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols), `for..in`, `Object.keys/values/entries` |
 
 ```warn header="Invariants"
 JavaScript enforces some invariants -- conditions that must be fulfilled by internal methods and traps.
@@ -132,12 +132,12 @@ Imagine we have a dictionary, with phrases and their translations:
 
 ```js run
 let dictionary = {
-  'Hello': 'Hola',
-  'Bye': 'Adiós'
+  Hello: "Hola",
+  Bye: "Adiós",
 };
 
-alert( dictionary['Hello'] ); // Hola
-alert( dictionary['Welcome'] ); // undefined
+alert(dictionary["Hello"]); // Hola
+alert(dictionary["Welcome"]); // undefined
 ```
 
 Right now, if there's no phrase, reading from `dictionary` returns `undefined`. But in practice, leaving a phrase untranslated is usually better than `undefined`. So let's make it return an untranslated phrase in that case instead of `undefined`.
@@ -237,7 +237,8 @@ As said above, there are invariants to be held.
 For `set`, it must return `true` for a successful write.
 
 If we forget to do it or return any falsy value, the operation triggers `TypeError`.
-```
+
+````
 
 ## Iteration with "ownKeys" and "getOwnPropertyDescriptor"
 
@@ -274,7 +275,7 @@ for(let key in user) alert(key); // name, then: age
 // same effect on these methods:
 alert( Object.keys(user) ); // name,age
 alert( Object.values(user) ); // John,30
-```
+````
 
 So far, it works.
 
@@ -301,24 +302,25 @@ For `Object.keys` to return a property, we need it to either exist in the object
 Here's an example of that:
 
 ```js run
-let user = { };
+let user = {};
 
 user = new Proxy(user, {
-  ownKeys(target) { // called once to get a list of properties
-    return ['a', 'b', 'c'];
+  ownKeys(target) {
+    // called once to get a list of properties
+    return ["a", "b", "c"];
   },
 
-  getOwnPropertyDescriptor(target, prop) { // called for every property
+  getOwnPropertyDescriptor(target, prop) {
+    // called for every property
     return {
       enumerable: true,
-      configurable: true
+      configurable: true,
       /* ...other flags, probable "value:..." */
     };
-  }
-
+  },
 });
 
-alert( Object.keys(user) ); // a, b, c
+alert(Object.keys(user)); // a, b, c
 ```
 
 Let's note once again: we only need to intercept `[[GetOwnProperty]]` if the property is absent in the object.
@@ -332,7 +334,7 @@ Technically that's possible though:
 ```js run
 let user = {
   name: "John",
-  _password: "secret"
+  _password: "secret",
 };
 
 alert(user._password); // secret
@@ -341,6 +343,7 @@ alert(user._password); // secret
 Let's use proxies to prevent any access to properties starting with `_`.
 
 We'll need the traps:
+
 - `get` to throw an error when reading such property,
 - `set` to throw an error when writing,
 - `deleteProperty` to throw an error when deleting,
@@ -432,10 +435,9 @@ user = {
   checkPassword(value) {
     // object method must be able to read _password
     return value === this._password;
-  }
-}
+  },
+};
 ```
-
 
 A call to `user.checkPassword()` gets proxied `user` as `this` (the object before dot becomes `this`), so when it tries to access `this._password`, the `get` trap activates (it triggers on any property read) and throws an error.
 
@@ -462,7 +464,7 @@ We have a range object:
 ```js
 let range = {
   start: 1,
-  end: 10
+  end: 10,
 };
 ```
 
@@ -518,7 +520,8 @@ Here's the previous, function-based implementation:
 ```js run
 function delay(f, ms) {
   // return a wrapper that passes the call to f after the timeout
-  return function() { // (*)
+  return function () {
+    // (*)
     setTimeout(() => f.apply(this, arguments), ms);
   };
 }
@@ -601,20 +604,20 @@ The `Reflect` object makes that somewhat possible. Its methods are minimal wrapp
 
 Here are examples of operations and `Reflect` calls that do the same:
 
-| Operation |  `Reflect` call | Internal method |
-|-----------------|----------------|-------------|
-| `obj[prop]` | `Reflect.get(obj, prop)` | `[[Get]]` |
-| `obj[prop] = value` | `Reflect.set(obj, prop, value)` | `[[Set]]` |
-| `delete obj[prop]` | `Reflect.deleteProperty(obj, prop)` | `[[Delete]]` |
-| `new F(value)` | `Reflect.construct(F, value)` | `[[Construct]]` |
-| ... | ... | ... |
+| Operation           | `Reflect` call                      | Internal method |
+| ------------------- | ----------------------------------- | --------------- |
+| `obj[prop]`         | `Reflect.get(obj, prop)`            | `[[Get]]`       |
+| `obj[prop] = value` | `Reflect.set(obj, prop, value)`     | `[[Set]]`       |
+| `delete obj[prop]`  | `Reflect.deleteProperty(obj, prop)` | `[[Delete]]`    |
+| `new F(value)`      | `Reflect.construct(F, value)`       | `[[Construct]]` |
+| ...                 | ...                                 | ...             |
 
 For example:
 
 ```js run
 let user = {};
 
-Reflect.set(user, 'name', 'John');
+Reflect.set(user, "name", "John");
 
 alert(user.name); // John
 ```
@@ -730,7 +733,7 @@ The problem is actually in the proxy, in the line `(*)`.
 2. The prototype is `userProxy`.
 3. When reading `name` property from the proxy, its `get` trap triggers and returns it from the original object as `target[prop]` in the line `(*)`.
 
-    A call to `target[prop]`, when `prop` is a getter, runs its code in the context `this=target`. So the result is `this._name` from the original object `target`, that is: from `user`.
+   A call to `target[prop]`, when `prop` is a getter, runs its code in the context `this=target`. So the result is `this._name` from the original object `target`, that is: from `user`.
 
 To fix such situations, we need `receiver`, the third argument of `get` trap. It keeps the correct `this` to be passed to a getter. In our case that's `admin`.
 
@@ -776,7 +779,6 @@ get(target, prop, receiver) {
   return Reflect.get(*!*...arguments*/!*);
 }
 ```
-
 
 `Reflect` calls are named exactly the same way as traps and accept the same arguments. They were specifically designed this way.
 
@@ -832,11 +834,11 @@ Now it works fine, because `get` trap binds function properties, such as `map.se
 
 Unlike the previous example, the value of `this` inside `proxy.set(...)` will be not `proxy`, but the original `map`. So when the internal implementation of `set` tries to access `this.[[MapData]]` internal slot, it succeeds.
 
-```smart header="`Array` has no internal slots"
-A notable exception: built-in `Array` doesn't use internal slots. That's for historical reasons, as it appeared so long ago.
+```smart header="`Array`has no internal slots" A notable exception: built-in`Array` doesn't use internal slots. That's for historical reasons, as it appeared so long ago.
 
 So there's no such problem when proxying an array.
-```
+
+````
 
 ### Private fields
 
@@ -860,7 +862,7 @@ user = new Proxy(user, {});
 *!*
 alert(user.getName()); // Error
 */!*
-```
+````
 
 The reason is that private fields are implemented using internal slots. JavaScript does not use `[[Get]]/[[Set]]` when accessing them.
 
@@ -882,8 +884,8 @@ let user = new User();
 user = new Proxy(user, {
   get(target, prop, receiver) {
     let value = Reflect.get(...arguments);
-    return typeof value == 'function' ? value.bind(target) : value;
-  }
+    return typeof value == "function" ? value.bind(target) : value;
+  },
 });
 
 alert(user.getName()); // Guest
@@ -920,13 +922,13 @@ alert(allUsers.has(user)); // false
 
 As we can see, after proxying we can't find `user` in the set `allUsers`, because the proxy is a different object.
 
-```warn header="Proxies can't intercept a strict equality test `===`"
-Proxies can intercept many operators, such as `new` (with `construct`), `in` (with `has`), `delete` (with `deleteProperty`) and so on.
+```warn header="Proxies can't intercept a strict equality test `===`" Proxies can intercept many operators, such as `new`(with`construct`), `in`(with`has`), `delete`(with`deleteProperty`) and so on.
 
 But there's no way to intercept a strict equality test for objects. An object is strictly equal to itself only, and no other value.
 
 So all operations and built-in classes that compare objects for equality will differentiate between the object and the proxy. No transparent replacement here.
-```
+
+````
 
 ## Revocable proxies
 
@@ -940,7 +942,7 @@ The syntax is:
 
 ```js
 let {proxy, revoke} = Proxy.revocable(target, handler)
-```
+````
 
 The call returns an object with the `proxy` and `revoke` function to disable it.
 
@@ -948,10 +950,10 @@ Here's an example:
 
 ```js run
 let object = {
-  data: "Valuable data"
+  data: "Valuable data",
 };
 
-let {proxy, revoke} = Proxy.revocable(object, {});
+let { proxy, revoke } = Proxy.revocable(object, {});
 
 // pass the proxy somewhere instead of object...
 alert(proxy.data); // Valuable data
@@ -963,7 +965,7 @@ revoke();
 alert(proxy.data); // Error
 ```
 
-A call to `revoke()` removes all internal references to the target object from the proxy, so they are no longer connected. 
+A call to `revoke()` removes all internal references to the target object from the proxy, so they are no longer connected.
 
 Initially, `revoke` is separate from `proxy`, so that we can pass `proxy` around while leaving `revoke` in the current scope.
 
@@ -1015,6 +1017,7 @@ let proxy = new Proxy(target, {
 ...Then we should use `proxy` everywhere instead of `target`. A proxy doesn't have its own properties or methods. It traps an operation if the trap is provided, otherwise forwards it to `target` object.
 
 We can trap:
+
 - Reading (`get`), writing (`set`), deleting (`deleteProperty`) a property (even a non-existing one).
 - Calling a function (`apply` trap).
 - The `new` operator (`construct` trap).

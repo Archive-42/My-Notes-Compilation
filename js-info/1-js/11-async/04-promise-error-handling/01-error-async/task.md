@@ -3,7 +3,7 @@
 What do you think? Will the `.catch` trigger? Explain your answer.
 
 ```js
-new Promise(function(resolve, reject) {
+new Promise(function (resolve, reject) {
   setTimeout(() => {
     throw new Error("Whoops!");
   }, 1000);

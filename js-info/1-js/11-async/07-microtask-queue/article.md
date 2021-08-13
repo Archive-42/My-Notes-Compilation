@@ -1,9 +1,8 @@
-
 # Microtasks
 
 Promise handlers `.then`/`.catch`/`.finally` are always asynchronous.
 
-Even when a Promise is immediately resolved, the code on the lines *below* `.then`/`.catch`/`.finally` will still execute before these handlers.
+Even when a Promise is immediately resolved, the code on the lines _below_ `.then`/`.catch`/`.finally` will still execute before these handlers.
 
 Here's a demo:
 
@@ -78,7 +77,7 @@ But if we forget to add `.catch`, then, after the microtask queue is empty, the 
 let promise = Promise.reject(new Error("Promise Failed!"));
 
 // Promise Failed!
-window.addEventListener('unhandledrejection', event => alert(event.reason));
+window.addEventListener("unhandledrejection", (event) => alert(event.reason));
 ```
 
 What if we handle the error later? Like this:

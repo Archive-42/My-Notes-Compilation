@@ -1,4 +1,3 @@
-
 # Pseudo-random generator
 
 There are many areas where we need random data.
@@ -16,6 +15,7 @@ next = previous * 16807 % 2147483647
 ```
 
 If we use `1` as the seed, the values will be:
+
 1. `16807`
 2. `282475249`
 3. `1622650073`

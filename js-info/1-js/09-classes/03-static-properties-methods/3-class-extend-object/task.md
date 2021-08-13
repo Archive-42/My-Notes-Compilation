@@ -38,5 +38,5 @@ class Rabbit extends Object {
 
 let rabbit = new Rabbit("Rab");
 
-alert( rabbit.hasOwnProperty('name') ); // Error
+alert(rabbit.hasOwnProperty("name")); // Error
 ```

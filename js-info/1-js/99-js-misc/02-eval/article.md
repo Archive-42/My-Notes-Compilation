@@ -20,13 +20,14 @@ A string of code may be long, contain line breaks, function declarations, variab
 The result of `eval` is the result of the last statement.
 
 For example:
+
 ```js run
-let value = eval('1+1');
+let value = eval("1+1");
 alert(value); // 2
 ```
 
 ```js run
-let value = eval('let i = 0; ++i');
+let value = eval("let i = 0; ++i");
 alert(value); // 1
 ```
 
@@ -91,14 +92,14 @@ This way the code is executed in the global scope:
 let x = 1;
 {
   let x = 5;
-  window.eval('alert(x)'); // 1 (global variable)
+  window.eval("alert(x)"); // 1 (global variable)
 }
 ```
 
 **If eval'ed code needs local variables, change `eval` to `new Function` and pass them as arguments:**
 
 ```js run
-let f = new Function('a', 'alert(a)');
+let f = new Function("a", "alert(a)");
 
 f(5); // 5
 ```
@@ -108,6 +109,7 @@ The `new Function` construct is explained in the chapter <info:new-function>. It
 ## Summary
 
 A call to `eval(code)` runs the string of code and returns the result of the last statement.
+
 - Rarely used in modern JavaScript, as there's usually no need.
 - Can access outer local variables. That's considered bad practice.
 - Instead, to `eval` the code in the global scope, use `window.eval(code)`.

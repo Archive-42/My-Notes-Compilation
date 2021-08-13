@@ -1,7 +1,6 @@
-
 # Static properties and methods
 
-We can also assign a method to the class function itself, not to its `"prototype"`. Such methods are called *static*.
+We can also assign a method to the class function itself, not to its `"prototype"`. Such methods are called _static_.
 
 In a class, they are prepended by `static` keyword, like this:
 
@@ -20,9 +19,9 @@ User.staticMethod(); // true
 That actually does the same as assigning it as a property directly:
 
 ```js run
-class User { }
+class User {}
 
-User.staticMethod = function() {
+User.staticMethod = function () {
   alert(this === User);
 };
 
@@ -102,7 +101,7 @@ Static methods are also used in database-related classes to search/save/remove e
 ```js
 // assuming Article is a special class for managing articles
 // static method to remove the article:
-Article.remove({id: 12345});
+Article.remove({ id: 12345 });
 ```
 
 ## Static properties
@@ -116,7 +115,7 @@ class Article {
   static publisher = "Ilya Kantor";
 }
 
-alert( Article.publisher ); // Ilya Kantor
+alert(Article.publisher); // Ilya Kantor
 ```
 
 That is the same as a direct assignment to `Article`:

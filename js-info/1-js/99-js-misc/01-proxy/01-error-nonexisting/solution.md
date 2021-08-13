@@ -1,7 +1,6 @@
-
 ```js run
 let user = {
-  name: "John"
+  name: "John",
 };
 
 function wrap(target) {
@@ -10,9 +9,9 @@ function wrap(target) {
       if (prop in target) {
         return Reflect.get(target, prop, receiver);
       } else {
-        throw new ReferenceError(`Property doesn't exist: "${prop}"`)
+        throw new ReferenceError(`Property doesn't exist: "${prop}"`);
       }
-    }
+    },
   });
 }
 

@@ -1,4 +1,3 @@
-
 # Observable
 
 Create a function `makeObservable(target)` that "makes the object observable" by returning a proxy.

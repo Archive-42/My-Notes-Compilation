@@ -58,7 +58,7 @@ export function bye() {
 ...Then dynamic import can be like this:
 
 ```js
-let {hi, bye} = await import('./say.js');
+let { hi, bye } = await import("./say.js");
 
 hi();
 bye();
@@ -68,7 +68,7 @@ Or, if `say.js` has the default export:
 
 ```js
 // 📁 say.js
-export default function() {
+export default function () {
   alert("Module loaded (export default)!");
 }
 ```
@@ -76,7 +76,7 @@ export default function() {
 ...Then, in order to access it, we can use `default` property of the module object:
 
 ```js
-let obj = await import('./say.js');
+let obj = await import("./say.js");
 let say = obj.default;
 // or, in one line: let {default: say} = await import('./say.js');
 

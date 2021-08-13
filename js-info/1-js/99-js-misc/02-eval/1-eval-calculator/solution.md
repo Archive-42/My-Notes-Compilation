@@ -1,9 +1,9 @@
 Let's use `eval` to calculate the maths expression:
 
 ```js demo run
-let expr = prompt("Type an arithmetic expression?", '2*3+2');
+let expr = prompt("Type an arithmetic expression?", "2*3+2");
 
-alert( eval(expr) );
+alert(eval(expr));
 ```
 
 The user can input any text or code though.

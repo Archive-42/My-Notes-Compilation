@@ -33,8 +33,8 @@ In our case, for `class Rabbit extends Object` it means:
 ```js run
 class Rabbit extends Object {}
 
-alert( Rabbit.prototype.__proto__ === Object.prototype ); // (1) true
-alert( Rabbit.__proto__ === Object ); // (2) true
+alert(Rabbit.prototype.__proto__ === Object.prototype); // (1) true
+alert(Rabbit.__proto__ === Object); // (2) true
 ```
 
 So `Rabbit` now provides access to static methods of `Object` via `Rabbit`, like this:
@@ -75,7 +75,7 @@ Here's the picture:
 
 So, to put it short, there are two differences:
 
-| class Rabbit | class Rabbit extends Object  |
-|--------------|------------------------------|
-| --             | needs to call `super()` in constructor |
-| `Rabbit.__proto__ === Function.prototype` | `Rabbit.__proto__ === Object` |
+| class Rabbit                              | class Rabbit extends Object            |
+| ----------------------------------------- | -------------------------------------- |
+| --                                        | needs to call `super()` in constructor |
+| `Rabbit.__proto__ === Function.prototype` | `Rabbit.__proto__ === Object`          |

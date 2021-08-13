@@ -1,4 +1,3 @@
-
 # Error handling with promises
 
 Promise chains are great at error handling. When a promise rejects, the control jumps to the closest rejection handler. That's very convenient in practice.
@@ -107,14 +106,12 @@ In the example below the `.catch` successfully handles the error:
 ```js run
 // the execution: catch -> then
 new Promise((resolve, reject) => {
-
   throw new Error("Whoops!");
-
-}).catch(function(error) {
-
-  alert("The error is handled, continue normally");
-
-}).then(() => alert("Next successful handler runs"));
+})
+  .catch(function (error) {
+    alert("The error is handled, continue normally");
+  })
+  .then(() => alert("Next successful handler runs"));
 ```
 
 Here the `.catch` block finishes normally. So the next successful `.then` handler is called.
@@ -156,12 +153,11 @@ The execution jumps from the first `.catch` `(*)` to the next one `(**)` down th
 What happens when an error is not handled? For instance, we forgot to append `.catch` to the end of the chain, like here:
 
 ```js untrusted run refresh
-new Promise(function() {
+new Promise(function () {
   noSuchFunction(); // Error here (no such function)
-})
-  .then(() => {
-    // successful promise handlers, one or more
-  }); // without .catch at the end!
+}).then(() => {
+  // successful promise handlers, one or more
+}); // without .catch at the end!
 ```
 
 In case of an error, the promise becomes rejected, and the execution should jump to the closest rejection handler. But there is none. So the error gets "stuck". There's no code to handle it.

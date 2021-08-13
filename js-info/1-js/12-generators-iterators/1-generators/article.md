@@ -43,6 +43,7 @@ The function code execution hasn't started yet:
 The main method of a generator is `next()`. When called, it runs the execution until the nearest `yield <value>` statement (`value` can be omitted, then it's `undefined`). Then the function execution pauses, and the yielded `value` is returned to the outer code.
 
 The result of `next()` is always an object with two properties:
+
 - `value`: the yielded value.
 - `done`: `true` if the function code has finished, otherwise `false`.
 
@@ -92,11 +93,12 @@ Now the generator is done. We should see it from `done:true` and process `value:
 
 New calls to `generator.next()` don't make sense any more. If we do them, they return the same object: `{done: true}`.
 
-```smart header="`function* f(…)` or `function *f(…)`?"
+```smart header="`function* f(…)`or`function *f(…)`?"
 Both syntaxes are correct.
 
 But usually the first syntax is preferred, as the star `*` denotes that it's a generator function, it describes the kind, not the name, so it should stick with the `function` keyword.
-```
+
+````
 
 ## Generators are iterable
 
@@ -116,7 +118,7 @@ let generator = generateSequence();
 for(let value of generator) {
   alert(value); // 1, then 2
 }
-```
+````
 
 Looks a lot nicer than calling `.next().value`, right?
 
@@ -183,9 +185,9 @@ let range = {
         } else {
           return { done: true };
         }
-      }
+      },
     };
-  }
+  },
 };
 
 // iteration over range returns numbers from range.from to range.to
@@ -201,17 +203,19 @@ let range = {
   from: 1,
   to: 5,
 
-  *[Symbol.iterator]() { // a shorthand for [Symbol.iterator]: function*()
-    for(let value = this.from; value <= this.to; value++) {
+  *[Symbol.iterator]() {
+    // a shorthand for [Symbol.iterator]: function*()
+    for (let value = this.from; value <= this.to; value++) {
       yield value;
     }
-  }
+  },
 };
 
-alert( [...range] ); // 1,2,3,4,5
+alert([...range]); // 1,2,3,4,5
 ```
 
 That works, because `range[Symbol.iterator]()` now returns a generator, and generator methods are exactly what `for..of` expects:
+
 - it has a `.next()` method
 - that returns values in the form `{value: ..., done: true/false}`
 
@@ -238,6 +242,7 @@ function* generateSequence(start, end) {
 ```
 
 Now we'd like to reuse it to generate a more complex sequence:
+
 - first, digits `0..9` (with character codes 48..57),
 - followed by uppercase alphabet letters `A..Z` (character codes 65..90)
 - followed by lowercase alphabet letters `a..z` (character codes 97..122)
@@ -279,7 +284,7 @@ for(let code of generatePasswordCodes()) {
 alert(str); // 0..9A..Za..z
 ```
 
-The `yield*` directive *delegates* the execution to another generator. This term means that `yield* gen` iterates over the generator `gen` and transparently forwards its yields outside. As if the values were yielded by the outer generator.
+The `yield*` directive _delegates_ the execution to another generator. This term means that `yield* gen` iterates over the generator `gen` and transparently forwards its yields outside. As if the values were yielded by the outer generator.
 
 The result is the same as if we inlined the code from nested generators:
 
@@ -338,7 +343,7 @@ let generator = gen();
 
 let question = generator.next().value; // <-- yield returns the value
 
-generator.next(4); // --> pass the result into the generator  
+generator.next(4); // --> pass the result into the generator
 ```
 
 ![](genYield2.svg)
@@ -366,18 +371,18 @@ function* gen() {
 
   alert(ask1); // 4
 
-  let ask2 = yield "3 * 3 = ?"
+  let ask2 = yield "3 * 3 = ?";
 
   alert(ask2); // 9
 }
 
 let generator = gen();
 
-alert( generator.next().value ); // "2 + 2 = ?"
+alert(generator.next().value); // "2 + 2 = ?"
 
-alert( generator.next(4).value ); // "3 * 3 = ?"
+alert(generator.next(4).value); // "3 * 3 = ?"
 
-alert( generator.next(9).done ); // true
+alert(generator.next(9).done); // true
 ```
 
 The execution picture:
@@ -461,9 +466,9 @@ function* gen() {
 
 const g = gen();
 
-g.next();        // { value: 1, done: false }
-g.return('foo'); // { value: "foo", done: true }
-g.next();        // { value: undefined, done: true }
+g.next(); // { value: 1, done: false }
+g.return("foo"); // { value: "foo", done: true }
+g.next(); // { value: undefined, done: true }
 ```
 
 If we again use `generator.return()` in a completed generator, it will return that value again ([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/return)).

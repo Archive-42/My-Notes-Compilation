@@ -64,17 +64,17 @@ So we should use `Number()` to convert a bigint to a number.
 Comparisons, such as `<`, `>` work with bigints and numbers just fine:
 
 ```js run
-alert( 2n > 1n ); // true
+alert(2n > 1n); // true
 
-alert( 2n > 1 ); // true
+alert(2n > 1); // true
 ```
 
 Please note though, as numbers and bigints belong to different types, they can be equal `==`, but not strictly equal `===`:
 
 ```js run
-alert( 1 == 1n ); // true
+alert(1 == 1n); // true
 
-alert( 1 === 1n ); // false
+alert(1 === 1n); // false
 ```
 
 ## Boolean operations
@@ -92,9 +92,9 @@ if (0n) {
 Boolean operators, such as `||`, `&&` and others also work with bigints similar to numbers:
 
 ```js run
-alert( 1n || 2 ); // 1 (1n is considered truthy)
+alert(1n || 2); // 1 (1n is considered truthy)
 
-alert( 0n || 2 ); // 2 (0n is considered falsy)
+alert(0n || 2); // 2 (0n is considered falsy)
 ```
 
 ## Polyfills
@@ -111,12 +111,12 @@ Although, the other way around is proposed by the developers of [JSBI](https://g
 
 This library implements big numbers using its own methods. We can use them instead of native bigints:
 
-| Operation | native `BigInt` | JSBI |
-|-----------|-----------------|------|
-| Creation from Number | `a = BigInt(789)` | `a = JSBI.BigInt(789)` |
-| Addition | `c = a + b` | `c = JSBI.add(a, b)` |
-| Subtraction	| `c = a - b` | `c = JSBI.subtract(a, b)` |
-| ... | ... | ... |
+| Operation            | native `BigInt`   | JSBI                      |
+| -------------------- | ----------------- | ------------------------- |
+| Creation from Number | `a = BigInt(789)` | `a = JSBI.BigInt(789)`    |
+| Addition             | `c = a + b`       | `c = JSBI.add(a, b)`      |
+| Subtraction          | `c = a - b`       | `c = JSBI.subtract(a, b)` |
+| ...                  | ...               | ...                       |
 
 ...And then use the polyfill (Babel plugin) to convert JSBI calls to native bigints for those browsers that support them.
 
